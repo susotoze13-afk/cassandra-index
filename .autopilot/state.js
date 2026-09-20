@@ -1,7 +1,7 @@
 window.STATE =
 {
   "slug": "cassandra-index",
-  "dir": "2026-09-20-cassandra-index--wip",
+  "dir": "2026-09-20-cassandra-index",
   "title": "Cassandra Index — публичный индекс конфликтного риска",
   "mode": "full",
   "depth": "normal",
@@ -11,8 +11,8 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T19:03:16+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-09-20T19:03:47+03:00",
+  "finishedAt": "2026-09-20T19:03:47+03:00",
   "stages": [
     {
       "id": "preflight",
@@ -48,19 +48,23 @@ window.STATE =
     },
     {
       "id": "build",
-      "status": "active",
+      "status": "done",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "9 из 9; слепая приёмка нашла дрифт file:// — ремонтные таски 10–11"
+      "note": "12 из 12 тасков готово (9 + 3 ремонта приёмки)",
+      "finishedAt": "2026-09-20T19:03:47+03:00"
     },
     {
       "id": "review",
-      "status": "active",
+      "status": "done",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–09; 10–11 на ревью"
+      "note": "проверены таски 01–12, блокирующих находок нет",
+      "finishedAt": "2026-09-20T19:03:47+03:00"
     },
     {
       "id": "final",
-      "status": "pending"
+      "status": "done",
+      "finishedAt": "2026-09-20T19:03:47+03:00",
+      "note": "слепая приёмка: 13 требований подтверждено, 2 дрифта закрыты ремонтом (file://, навигация 360px)"
     }
   ],
   "requirements": {
@@ -564,7 +568,7 @@ window.STATE =
         "failed": 0
       },
       "finishedAt": "2026-09-20T18:54:30+03:00",
-      "commit": null
+      "commit": "c7515c7"
     },
     {
       "id": "12",
@@ -590,7 +594,7 @@ window.STATE =
         "passed": 91,
         "failed": 0
       },
-      "commit": null,
+      "commit": "02a9e3a",
       "note": "триаж concerns фазы 8: молчаливый пропуск форм хуже громкой ошибки"
     }
   ],
