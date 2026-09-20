@@ -8,12 +8,24 @@
 
 ## Команды
 
-- Тесты: `node --test` (без аргументов) — 87 passed / 0 fail, подтверждено оркестратором.
+- Тесты: `node --test` (без аргументов) — 91 passed / 0 fail, подтверждено оркестратором.
   Форма `node --test tests/` падает на Windows/Node 24; один файл: `node --test tests/<имя>.test.js`.
 - Сборка бандла: `node build.js` — пересобирает `js/bundle.js` и `js/bundle-privacy.js`
   после ЛЮБОЙ правки исходников `js/**` (см. подводные камни). Бандлы коммитятся.
 - Сайт — статика: открыть `index.html` (работает с `file://`, подключены бандлы) или
   любой статический сервер (`python -m http.server`).
+
+## Публикация
+
+- Выкат — GitHub Actions: workflow `.github/workflows/deploy.yml` запускается при
+  каждом push в `master` и публикует сайт на GitHub Pages. Публикуется только
+  `index.html`, `privacy.html`, `css/`, `js/`, `data/` — всё остальное
+  (`.autopilot/`, `tests/`, `design/`, `docs/`, `*.md`, `build.js`) наружу не уходит.
+- Обновление недели: новый каталог `data/<дата>/` + дата в `CI_WEEKS`
+  (`data/latest.js`) → `node build.js` → `node --test` зелёный → commit → push.
+  Actions выкатывает сам, ручных шагов на хостинге нет.
+- Публичный URL вида `https://<аккаунт>.github.io/cassandra-index/` — дописать
+  после первого выката (создание репозитория и первый push — отдельный шаг).
 
 ## Структура
 

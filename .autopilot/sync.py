@@ -30,11 +30,6 @@ import sys
 import urllib.error
 import urllib.request
 
-try:  # консоль Windows по умолчанию cp1252 — русский ответ обязан печататься всегда
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except (AttributeError, OSError):
-    pass
-
 A = os.path.dirname(os.path.abspath(__file__))          # .autopilot этого прогона
 STATE = os.path.join(A, "state.js")
 PAGE = os.path.join(A, "dashboard.html")
@@ -93,12 +88,6 @@ def http_ok(port, path="/dashboard.html"):
 
 def cmdline(pid):
     try:
-        if os.name == "nt":  # Git Bash ps не видит нативные процессы Windows
-            out = subprocess.run(
-                ["powershell.exe", "-NoProfile", "-Command",
-                 "(Get-CimInstance Win32_Process -Filter 'ProcessId=%d').CommandLine" % pid],
-                capture_output=True, text=True, timeout=15).stdout
-            return out.strip()
         return subprocess.run(["ps", "-p", str(pid), "-o", "command="],
                               capture_output=True, text=True, timeout=5).stdout.strip()
     except (OSError, subprocess.SubprocessError):
@@ -107,8 +96,7 @@ def cmdline(pid):
 
 def is_ours(cmd):
     """Наш ли это процесс. Узкая проверка намеренно: широкая уже убивала чужое."""
-    # CIM перестраивает командную строку с кавычками вокруг путей с пробелами
-    return "-m http.server" in cmd and ("--directory " + A) in cmd.replace('"', '')
+    return "-m http.server" in cmd and "--directory " + A in cmd
 
 
 def recorded():
@@ -145,16 +133,8 @@ def serve(state):
 
     # Осиротевшие серверы этого же каталога: их никто не убьёт, кроме нас, и
     # только их — по полному --directory, никогда по «все http.server, кроме...».
-    if os.name == "nt":  # см. cmdline: ps в Git Bash процессы Windows не видит
-        listing = subprocess.run(
-            ["powershell.exe", "-NoProfile", "-Command",
-             "Get-CimInstance Win32_Process -Filter \"Name like 'python%'\" | "
-             "ForEach-Object { \"$($_.ProcessId) $($_.CommandLine)\" }"],
-            capture_output=True, text=True, timeout=30).stdout
-    else:
-        listing = subprocess.run(["ps", "-Ao", "pid=,command="], capture_output=True,
-                                 text=True).stdout
-    for line in listing.splitlines():
+    for line in subprocess.run(["ps", "-Ao", "pid=,command="], capture_output=True,
+                               text=True).stdout.splitlines():
         num, _, cmd = line.strip().partition(" ")
         if is_ours(cmd) and num.isdigit():
             try:
