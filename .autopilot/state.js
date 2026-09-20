@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T15:40:27+03:00",
+  "updatedAt": "2026-09-20T15:50:00+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -65,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 86,
-    "done": 58,
-    "inTicket": 28,
+    "done": 59,
+    "inTicket": 27,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -320,11 +320,25 @@ window.STATE =
         "design/",
         "tests/pen.test.js"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
       "startedAt": "2026-09-20T15:25:00+03:00",
+      "finishedAt": "2026-09-20T15:48:00+03:00",
+      "tests": {
+        "passed": 6,
+        "failed": 0
+      },
+      "commit": null,
+      "files": [
+        "design/cassandra-index.pen",
+        "tests/pen.test.js"
+      ],
+      "concerns": [
+        "ревью manifest+spec — clean; craft-находки неблокирующие (см. concerns)",
+        "тренд в макете нарисован столбцами — линия с точками формат .pen не поддерживает (оговорка исполнителя)"
+      ],
       "note": "добавлен пользователем посреди прогона; бумажность (манифест G01, spec, тикет) оформлена ранее"
     },
     {
@@ -346,10 +360,11 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
-      "handoffs": 0
+      "handoffs": 0,
+      "startedAt": "2026-09-20T15:42:00+03:00"
     },
     {
       "id": "06",
@@ -467,7 +482,10 @@ window.STATE =
     "js/sections/trend.js:10,19 — Reinvention: signedDelta/arrowOf дублируют formatDelta/deltaArrow из hero.js (minor, из ревью таска 04)",
     "js/i18n.js:84 — trend.summary зашито «за 12 недель» при счёте total по фактической длине списка (minor, из ревью таска 04)",
     "js/sections/trend.js:73 — DOM-хелпер el() — вторая копия после drivers.js:58 (minor, из ревью таска 04)",
-    "ВНЕ ТАСКОВ: правка в js/sections/drivers.js:128-135 (скрытие «Все источники» при свёрнутом аккордеоне) появилась в дереве отдельно от исполнителей — предположительно рука пользователя; закоммичена отдельным коммитом"
+    "ВНЕ ТАСКОВ: правка в js/sections/drivers.js:128-135 (скрытие «Все источники» при свёрнутом аккордеоне) появилась в дереве отдельно от исполнителей — предположительно рука пользователя; закоммичена отдельным коммитом",
+    "design/cassandra-index.pen:563-778 — шесть строк регионов и hero-экраны скопированы литерально, reusable-компоненты формата не использованы (minor, из ревью таска 09)",
+    "design/cassandra-index.pen:2 — version \"2.6\" как в образце, схема расширения 0.6.71 объявляет 2.17 — проверить открытие макета в pen.dev на приёмке (из ревью таска 09)",
+    "tests/pen.test.js:42 — тест палитры проверяет объявление hex в variables, не ссылки fill/stroke нод (minor, из ревью таска 09)"
   ],
   "reviewers": {
     "manifestSpec": "agent-15",
