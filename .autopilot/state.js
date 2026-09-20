@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T16:20:00+03:00",
+  "updatedAt": "2026-09-20T20:13:26+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -50,13 +50,13 @@ window.STATE =
       "id": "build",
       "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "7 из 9 тасков готово"
+      "note": "8 из 9 тасков готово"
     },
     {
       "id": "review",
       "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–06, 09"
+      "note": "проверены таски 01–07, 09"
     },
     {
       "id": "final",
@@ -65,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 87,
-    "done": 73,
-    "inTicket": 14,
+    "done": 81,
+    "inTicket": 6,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -461,10 +461,17 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
-      "handoffs": 0
+      "handoffs": 0,
+      "startedAt": "2026-09-20T16:25:00+03:00",
+      "tests": {
+        "passed": 67,
+        "failed": 0
+      },
+      "finishedAt": "2026-09-20T20:13:26+03:00",
+      "commit": null
     },
     {
       "id": "08",
@@ -487,15 +494,16 @@ window.STATE =
         "privacy.html",
         "index.html"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
-      "handoffs": 0
+      "handoffs": 0,
+      "startedAt": "2026-09-20T20:13:26+03:00"
     }
   ],
   "singlePass": null,
   "tests": {
-    "passed": 50,
+    "passed": 67,
     "failed": 0
   },
   "debt": {
@@ -535,11 +543,17 @@ window.STATE =
     "js/sections/states.js:45 — renderBadge лезет во внутренности чужой секции (.hero .meta), при рефакторе hero молча перестанет рендериться (minor, из ревью таска 06)",
     "js/sections/states.js:85,112 — крит-панель и unavailable собираются через innerHTML с интерполяцией, вне конвенции createElement остальных секций (minor, из ревью таска 06)",
     "js/i18n.js:55 — ключ state.historical объявлен, но кодом не читается (мёртвый ключ, minor, из ревью таска 06)",
-    "js/demo.js:103 — баннер/панель демо не синхронизируются со сменой языка (renderApp), надпись остаётся на старом языке (minor, из ревью таска 06)"
+    "js/demo.js:103 — баннер/панель демо не синхронизируются со сменой языка (renderApp), надпись остаётся на старом языке (minor, из ревью таска 06)",
+    "js/i18n.js:197 — EN-лейбл навигации «History & sources» против дословной цитаты R16 «Sources & history»; спека (Решения п.11) сама называет раздел «История и источники» — расхождение цитат бриф/спека, триаж на приёмке (minor, из ревью таска 07)",
+    "js/sections/methodology.js — блок «Открытые вопросы» (25 вопросов §19+v1.3) выведен в публичный UI, хотя R85 просил «документально»; внутренние вопросы (провайдер IP, GDPR) теперь публичны — на усмотрение пользователя, триаж на приёмке (minor, из ревью таска 07)",
+    "js/sections/history.js:179 — третья копия маппинга класса дельты (delta--rise/fall/same) при готовых DELTA_CLASS hero.js:48 и regions.js:46 — собрать в общий маппинг (minor, из ревью таска 07)",
+    "js/sections/methodology.js:22-29 — диапазоны порогов зашиты в ANCHOR_KEYS вместо вывода из risk.SCALE — смена порогов молча разойдётся с таблицей (minor, из ревью таска 07)",
+    "js/sections/history.js:101-126 — пересборка appState по неделе и ведение URL ?week= внутри секции; владелец — app.js (interfaces.md) — перенести оркестрацию в app.js (minor, из ревью таска 07)",
+    "tests/history.test.js:54-66 — тест DEMO_REVIEWS проверяет тип/длину строк, не отличает переставленные RU/EN от контента — усилить ассерт (minor, из ревью таска 07)"
   ],
   "reviewers": {
-    "manifestSpec": "agent-15",
-    "craft": "agent-16"
+    "manifestSpec": "agent-25",
+    "craft": "agent-26"
   },
   "blind": null
 }

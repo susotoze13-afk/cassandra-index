@@ -8,6 +8,8 @@ import { render as driversRender } from './sections/drivers.js';
 import { render as trendRender } from './sections/trend.js';
 import { render as regionsRender } from './sections/regions.js';
 import { render as statesRender } from './sections/states.js';
+import { render as historyRender } from './sections/history.js';
+import { render as methodologyRender } from './sections/methodology.js';
 
 export const SECTIONS = [
   'hero',
@@ -27,6 +29,8 @@ registerSection('drivers', driversRender);
 registerSection('trend', trendRender);
 registerSection('regions', regionsRender);
 registerSection('states', statesRender);
+registerSection('history', historyRender);
+registerSection('methodology', methodologyRender);
 
 export function registerSection(name, renderFn) {
   if (!SECTIONS.includes(name)) return false;

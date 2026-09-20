@@ -168,3 +168,18 @@ tests/*.test.js     — node --test
   (+`unavailable-retry`), `demo-link`, `demo-panel`, `demo-banner`; i18n-ключи
   `state.historical`, `history.banner`, `critical.*`, `unavailable.*`, `demo.*`
 - Крит-панель использует #F85149 — допустимо по §14.5 (крит-режим)
+
+## Из таска 07 — история, методология, футер
+
+- `js/sections/history.js` — `render(appState)`, регистрация `'history'`; чистые швы:
+  `nextPublication(from?)` → Date (ближайший вторник 12:00 UTC),
+  `publicationLabel(lang, Date)` → `'вторник, 09:05'` (Intl, h23),
+  `methodologyNote(lang, viewedVersion, currentVersion)` → '' | строка с обеими версиями,
+  `DEMO_REVIEWS [{week, wrong, right, uncertain:{ru,en}}]`, `reviewFor(week)` → entry|null;
+  также наполняет `[data-role="footer-next"]`
+- `js/sections/methodology.js` — `render(appState)`, регистрация `'methodology'`;
+  наполняет `[data-section="methodology"]`
+- Смена недели — `pushState ?week=` + renderAll из обработчика select + `popstate`
+- data-role в index.html: `footer-next`; i18n-ключи `history.*`, `method.*`, `footer.next`
+- Оговорка: все демо-снапшоты имеют methodology "1.0" (data/ вне зоны таска) — строка
+  о смене версии реализована и покрыта тестом, но в демо-данных не проявляется
