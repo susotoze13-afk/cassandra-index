@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T11:50:00+03:00",
+  "updatedAt": "2026-09-20T15:21:38+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -50,13 +50,13 @@ window.STATE =
       "id": "build",
       "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "1 из 8 тасков готово"
+      "note": "3 из 8 тасков готово"
     },
     {
       "id": "review",
       "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверен таск 01"
+      "note": "проверены таски 01–03"
     },
     {
       "id": "final",
@@ -65,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 85,
-    "done": 10,
-    "inTicket": 75,
+    "done": 52,
+    "inTicket": 33,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -182,14 +182,34 @@ window.STATE =
         "js/sections/hero.js",
         "js/app.js"
       ],
-      "status": "repair",
+      "status": "done",
       "startedAt": "2026-09-20T11:50:00+03:00",
       "retries": 0,
       "repairs": 1,
       "repairFindings": [
         "Красный прогон: hero.test.js импортирует несуществующие экспорты и тестирует несуществующую модель heroModel; EN-заголовок и EN-приписка не дословно против PRD; панель выбора не переводится при первом построении; дефолт языка 'en' вместо 'ru'; CTA без «→»"
       ],
-      "handoffs": 0
+      "handoffs": 0,
+      "finishedAt": "2026-09-20T12:19:00+03:00",
+      "tests": {
+        "passed": 27,
+        "failed": 0
+      },
+      "commit": "a5bd9a6",
+      "files": [
+        "index.html",
+        "css/styles.css",
+        "js/sections/hero.js",
+        "js/render.js",
+        "js/app.js",
+        "js/i18n.js",
+        "tests/hero.test.js",
+        "tests/i18n.test.js"
+      ],
+      "concerns": [
+        "панель строится один раз; при закрытой панели смену языка перекрывает applyI18n из renderApp",
+        "долготный маппинг Geolocation — демо-семантика, задокументирована в коде и тесте"
+      ]
     },
     {
       "id": "03",
@@ -216,10 +236,32 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
-      "repairs": 0,
-      "handoffs": 0
+      "repairs": 1,
+      "repairFindings": [
+        "Ревью (manifest/spec): R29 partial — карточка драйвера без краткого лейбла (spec История 11, прототип h3); дозапрос: чистый шов driverLabel + поле label{ru,en} в схеме, 7 недель данных и h3.driver-label; переревью — addressed"
+      ],
+      "handoffs": 0,
+      "startedAt": "2026-09-20T12:20:00+03:00",
+      "finishedAt": "2026-09-20T15:21:38+03:00",
+      "tests": {
+        "passed": 34,
+        "failed": 0
+      },
+      "commit": null,
+      "files": [
+        "js/sections/drivers.js",
+        "tests/drivers.test.js",
+        "index.html",
+        "css/styles.css",
+        "js/i18n.js",
+        "js/render.js",
+        "data/2026-08-02..2026-09-13/drivers.js (7 недель)"
+      ],
+      "concerns": [
+        "перерванный исполнитель сессии 12:20 доделан свежим контекстом (agent-14); счётчик шагов предшественника неизвестен"
+      ]
     },
     {
       "id": "04",
@@ -357,7 +399,7 @@ window.STATE =
   ],
   "singlePass": null,
   "tests": {
-    "passed": 23,
+    "passed": 34,
     "failed": 0
   },
   "debt": {
@@ -374,10 +416,19 @@ window.STATE =
     "resolved": 13,
     "details": "6 missing (причина снижения уверенности §8.1; относительный вклад драйвера §4.3; фразы «на пороге/на грани» §15; шкала «безопасно→война» §4.2.5; читаемость share-карточки в превью; числовые цели CWV §13) — дописаны в Истории 4, 11, 17, 21, 23, 25; 3 half-covered (состав карточки драйвера; вид индикатора состояний §7; evidence chain §8.2) — раскрыты в Историях 11, 17; 4 сверх брифа: A01 (с родителем R52/R55, История 28), node --test (Решение п.12, не история), .js вместо .json (задокументировано в Решении п.2 как отступление от R63), справочник 6 регионов (Решение п.6)"
   },
-  "concerns": [],
+  "concerns": [
+    "js/sections/hero.js:197-202 — валидация id в app.js дублирует гарантию справочника (minor, из ревью таска 02)",
+    "js/sections/hero.js:41-45 — состояние панели в модульных let, при повторном импорте модуля может протечь (minor, из ревью таска 02)",
+    "index.html:30-32 — комментарий привязан к жёсткой неделе 2026-09-13, упрётся при обновлении data/ (minor, из ревью таска 02)",
+    "js/sections/drivers.js:52 — LEVEL_TONE маппит medium на --state-danger, минуя --state-tense (minor, из ревью таска 03)",
+    "js/i18n.js:55-77 — лексика уровней продублирована в drivers.contribution.*/confidence.* и drivers.measures.level.* (minor, из ревью таска 03)",
+    "js/i18n.js:53 — ключ sources.count из таска 01 остался без потребителей (minor, из ревью таска 03)",
+    "js/sections/drivers.js:97,102 — confidenceInfo вычисляется дважды на карточку (minor, из ревью таска 03)",
+    "js/sections/drivers.js:112-125 — второй переключатель drivers.sources.hideAll сверх R33; ревью не заблокировало, триаж на приёмке (из ревью таска 03)"
+  ],
   "reviewers": {
-    "manifestSpec": "agent-3",
-    "craft": "agent-4"
+    "manifestSpec": "agent-15",
+    "craft": "agent-16"
   },
   "blind": null
 }

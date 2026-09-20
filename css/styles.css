@@ -88,6 +88,11 @@ a,
   min-width: 44px;
 }
 
+/* hidden — всегда скрывает, даже если у класса задан display (аккордеоны §4.3) */
+[hidden] {
+  display: none !important;
+}
+
 /* Хедер: sticky, blur(8px), фон --overlay-header, ≤64px десктоп / ≤88px мобильный */
 .site-header {
   position: sticky;
@@ -489,6 +494,248 @@ main {
 
 .section-body {
   color: var(--text-secondary);
+}
+
+/* ---------- Драйверы: «Что изменилось» (§4.3) ---------- */
+
+.drivers-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.driver-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.driver-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.driver-overline {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 12px 0 4px;
+}
+
+.driver-card > .driver-overline:first-of-type {
+  margin-top: 0;
+}
+
+.driver-observation {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.driver-why {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.driver-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.driver-chip-label {
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.driver-chip-value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.driver-meta-sep {
+  color: var(--text-muted);
+}
+
+.driver-confidence-note {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Кнопка аккордеона: цвет --accent, chevron 90° при раскрытии (§4.3.1) */
+.src-toggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 8px;
+  margin-left: -8px;
+  cursor: pointer;
+}
+
+.src-toggle::before {
+  content: '›';
+  font-size: 18px;
+  line-height: 1;
+  transition: transform .15s ease;
+}
+
+.src-toggle.is-open::before {
+  transform: rotate(90deg);
+}
+
+.src-toggle:hover {
+  text-decoration: underline;
+}
+
+.driver-sources {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.driver-source-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 44px;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.driver-source-title {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.driver-source-link:hover .driver-source-title {
+  text-decoration: underline;
+}
+
+.driver-source-meta {
+  display: flex;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.driver-sources-more {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.driver-sources-more:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Дополнительные измерения риска (§4.5, R41) ---------- */
+
+.measures {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 20px;
+}
+
+.measures-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.measure {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.measure-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  padding: 14px 20px;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.measure-head::after {
+  content: '›';
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform .15s ease;
+}
+
+.measure-head.is-open::after {
+  transform: rotate(90deg);
+}
+
+.measure-name {
+  font-weight: 600;
+}
+
+.measure-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.measure-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--measure-tone, var(--text-muted));
+}
+
+.measure-body {
+  padding: 0 20px 16px;
+}
+
+.measure-line {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.measure-calibration {
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .site-footer {

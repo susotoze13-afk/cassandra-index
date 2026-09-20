@@ -4,6 +4,7 @@
 
 import { t } from './i18n.js';
 import { render as heroRender } from './sections/hero.js';
+import { render as driversRender } from './sections/drivers.js';
 
 export const SECTIONS = [
   'hero',
@@ -19,6 +20,7 @@ const registry = new Map();
 
 // Секция hero — первая; остальные регистрируют свои таски.
 registerSection('hero', heroRender);
+registerSection('drivers', driversRender);
 
 export function registerSection(name, renderFn) {
   if (!SECTIONS.includes(name)) return false;

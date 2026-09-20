@@ -98,3 +98,18 @@ tests/*.test.js     — node --test
 - data-role в hero: `global-index`, `status`, `delta(-value)`, `meta-published`, `meta-through`, `region-card/city/name/change/stats/index/status/delta/unavailable/note`, `region-cta`, `region-picker`, `a11y-live`
 - `render.applyI18n` покрывает `[data-i18n-placeholder]`; новые ключи i18n: `nav.label`, `lang.label`, `statusLower.*`, `region.note`, `region.cta`, `region.panel.*`, `a11y.*`
 - Тесты: 27 (`node --test`), в т.ч. `tests/hero.test.js` против чистых швов
+
+## Из таска 03 — драйверы и дополнительные измерения
+
+- `js/sections/drivers.js` — `render(appState)`, регистрация `'drivers'`; чистые швы:
+  `driverLabel(lang,drv)` → короткий локализованный лейбл (фолбэк RU, '' при отсутствии),
+  `sourcesLabel(lang,n)` → `'N источников'/'N sources'`, `visibleSources(sources,showAll)`
+  → `{shown,remaining}`, `resolveMeasures(snapshot)` → `{direct,nuclear}`,
+  `levelLabel(lang,kind,level)` (kind: `'contribution'|'confidence'`),
+  `confidenceInfo(lang,drv)` → `{word,note}` — общий компонент уверенности для таска 05
+- Схема драйвера: `{observation{ru,en}, why{ru,en}, contribution, confidence,
+  confidenceNote{ru,en}?, sources[{title{ru,en},url,domain,date}]}`; опционально
+  `snapshot.measures {direct,nuclear}` (демо-данные поля не отдают — код читает с дефолтами)
+- i18n-ключи `drivers.*`, `sources.word` (';'-формы для plural); скрытие аккордеона
+  через `[hidden]` с `!important` (`.driver-sources{display:flex}` иначе перебивает)
+- Тесты: 33 (`node --test`), в т.ч. `tests/drivers.test.js` против чистых швов

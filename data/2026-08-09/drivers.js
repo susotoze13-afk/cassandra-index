@@ -3,6 +3,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-08-09"] = window.CI_DATA.snapshots["2026-08-09"] || {};
   s.drivers = [
   {
+    "label": {
+      "ru": "Военная активность выросла",
+      "en": "Military activity increased"
+    },
     "observation": {
       "ru": "Спутниковые снимки фиксируют переброску дополнительных сил в приграничных округах двух государств.",
       "en": "Satellite imagery shows additional troop movements in the border districts of two states."
@@ -44,6 +48,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     ]
   },
   {
+    "label": {
+      "ru": "Интенсивность столкновений выросла",
+      "en": "Clash intensity increased"
+    },
     "observation": {
       "ru": "Число боестолкновений вдоль линии соприкосновения за неделю выросло по данным независимого мониторинга.",
       "en": "Independent monitoring recorded more clashes along the line of contact this week."
@@ -80,6 +88,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     ]
   },
   {
+    "label": {
+      "ru": "Оборонные расходы растут",
+      "en": "Defence spending is rising"
+    },
     "observation": {
       "ru": "Несколько государств объявили об увеличении оборонных бюджетов на следующий финансовый год.",
       "en": "Several states announced higher defence budgets for the next fiscal year."
