@@ -113,3 +113,17 @@ tests/*.test.js     — node --test
 - i18n-ключи `drivers.*`, `sources.word` (';'-формы для plural); скрытие аккордеона
   через `[hidden]` с `!important` (`.driver-sources{display:flex}` иначе перебивает)
 - Тесты: 33 (`node --test`), в т.ч. `tests/drivers.test.js` против чистых швов
+
+## Из таска 04 — тренд за 12 недель
+
+- `js/sections/trend.js` — `render(appState)`, регистрация `'trend'`; чистые швы:
+  `signedDelta(n)` → `'+6'|'-3'|'0'`, `arrowOf(Δ)` → `'↑'|'↓'|'→'`,
+  `directionOf(Δ)` → `'up'|'down'|'flat'`, `pointAriaLabel(lang,{date,value})` → `'72 из 100, 13 сентября 2026'`,
+  `tooltipDate(lang,{date,value})` → `'13 сентября 2026' | '13 Sep, 2026'` (длинный формат, как в aria-label),
+  `summaryText(lang,points12)` → `'За неделю индекс изменился на +1 пункт; за 12 недель — на +16 пунктов.'`,
+  `clampX(left,w,containerW)`
+- DOM: `[data-section="trend"]` → `.trend-caption/.trend-summary/.trend-chart`; точки SVG
+  `circle.trend-point(tabindex=0, role=button, aria-label)`, `.trend-tooltip[aria-hidden=true]`,
+  tap-автоскрытие 3500 мс; i18n-ключи `trend.*`
+- Компромисс: hit-circle точек r=20 SVG-единиц (~14px на 320px) — 12 точек на ширину экрана
+  физически не дают 44px каждая

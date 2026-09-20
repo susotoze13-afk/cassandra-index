@@ -750,6 +750,113 @@ main {
   font-size: 14px;
 }
 
+/* ---------- Тренд за 12 недель (§4.4, История 13) ---------- */
+
+.trend-caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.trend-caption-item {
+  color: var(--text);
+}
+
+.trend-caption-label {
+  color: var(--text-secondary);
+}
+
+.trend-direction {
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.trend-summary {
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.trend-chart {
+  position: relative;
+}
+
+.trend-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Ось 30/60/90 — mono 10px muted */
+.trend-grid-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+
+/* Точки: базовый радиус 5, последняя крупнее с обводкой --surface;
+   рост на hover/фокус/tap — через CSS-свойство r (prefers-reduced-motion
+   гасит переход глобальным медиа-запросом) */
+.trend-point {
+  fill: var(--accent);
+  r: 5;
+  cursor: pointer;
+  transition: r .15s ease;
+}
+
+.trend-point--last {
+  r: 7;
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.trend-point:hover,
+.trend-point:focus-visible,
+.trend-point.is-active {
+  r: 8;
+}
+
+.trend-point--last:hover,
+.trend-point--last:focus-visible,
+.trend-point--last.is-active {
+  r: 9;
+}
+
+/* Прозрачная зона касания вокруг точки */
+.trend-hit {
+  fill: transparent;
+}
+
+/* Tooltip: «N / 100» mono 15/600 доминирует; дата mono 11 muted.
+   aria-hidden — те же данные дублируются в aria-label точек (§19.25). */
+.trend-tooltip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.trend-tooltip-value {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trend-tooltip-date {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
 @media (max-width: 640px) {
   .header-inner {
     height: 88px;

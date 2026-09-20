@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T15:21:38+03:00",
+  "updatedAt": "2026-09-20T15:40:27+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -44,19 +44,19 @@ window.STATE =
       "status": "done",
       "startedAt": "2026-09-20T11:06:31+03:00",
       "finishedAt": "2026-09-20T11:18:30+03:00",
-      "note": "8 тасков, ярус T2 — цепочка, параллельных волн нет"
+      "note": "8 тасков, ярус T2 — цепочка, параллельных волн нет; +таск 09 (дополнение пользователя, волна 3)"
     },
     {
       "id": "build",
       "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "3 из 8 тасков готово"
+      "note": "4 из 9 тасков готово"
     },
     {
       "id": "review",
       "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–03"
+      "note": "проверены таски 01–04"
     },
     {
       "id": "final",
@@ -64,9 +64,9 @@ window.STATE =
     }
   ],
   "requirements": {
-    "total": 85,
-    "done": 52,
-    "inTicket": 33,
+    "total": 86,
+    "done": 58,
+    "inTicket": 28,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -249,7 +249,7 @@ window.STATE =
         "passed": 34,
         "failed": 0
       },
-      "commit": null,
+      "commit": "25d4d2a",
       "files": [
         "js/sections/drivers.js",
         "tests/drivers.test.js",
@@ -283,10 +283,49 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "pending",
+      "status": "done",
+      "retries": 0,
+      "repairs": 1,
+      "repairFindings": [
+        "Ревью (manifest/spec): R36 partial — дата в tooltip точки коротким форматом вопреки цитате манифеста («локальный формат») и aria-label; дозапрос: чистый шов tooltipDate с длинным форматом + тест; переревью — addressed"
+      ],
+      "handoffs": 0,
+      "startedAt": "2026-09-20T15:25:00+03:00",
+      "finishedAt": "2026-09-20T15:40:27+03:00",
+      "tests": {
+        "passed": 47,
+        "failed": 0
+      },
+      "commit": null,
+      "files": [
+        "js/sections/trend.js",
+        "tests/trend.test.js",
+        "js/render.js",
+        "js/i18n.js",
+        "css/styles.css"
+      ],
+      "concerns": [
+        "тач-мишень точек графика r=20 SVG-единиц (~14px на 320px) — до 44px не дотягивает, компромисс плотного графика (12 точек на ширину экрана)"
+      ]
+    },
+    {
+      "id": "09",
+      "title": "Дизайн-макет в pen.dev (дополнение пользователя 2026-09-20)",
+      "requirements": [
+        "G01"
+      ],
+      "blockedBy": [],
+      "wave": 3,
+      "zone": [
+        "design/",
+        "tests/pen.test.js"
+      ],
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
-      "handoffs": 0
+      "handoffs": 0,
+      "startedAt": "2026-09-20T15:25:00+03:00",
+      "note": "добавлен пользователем посреди прогона; бумажность (манифест G01, spec, тикет) оформлена ранее"
     },
     {
       "id": "05",
@@ -399,7 +438,7 @@ window.STATE =
   ],
   "singlePass": null,
   "tests": {
-    "passed": 34,
+    "passed": 47,
     "failed": 0
   },
   "debt": {
@@ -424,7 +463,11 @@ window.STATE =
     "js/i18n.js:55-77 — лексика уровней продублирована в drivers.contribution.*/confidence.* и drivers.measures.level.* (minor, из ревью таска 03)",
     "js/i18n.js:53 — ключ sources.count из таска 01 остался без потребителей (minor, из ревью таска 03)",
     "js/sections/drivers.js:97,102 — confidenceInfo вычисляется дважды на карточку (minor, из ревью таска 03)",
-    "js/sections/drivers.js:112-125 — второй переключатель drivers.sources.hideAll сверх R33; ревью не заблокировало, триаж на приёмке (из ревью таска 03)"
+    "js/sections/drivers.js:112-125 — второй переключатель drivers.sources.hideAll сверх R33; ревью не заблокировало, триаж на приёмке (из ревью таска 03)",
+    "js/sections/trend.js:10,19 — Reinvention: signedDelta/arrowOf дублируют formatDelta/deltaArrow из hero.js (minor, из ревью таска 04)",
+    "js/i18n.js:84 — trend.summary зашито «за 12 недель» при счёте total по фактической длине списка (minor, из ревью таска 04)",
+    "js/sections/trend.js:73 — DOM-хелпер el() — вторая копия после drivers.js:58 (minor, из ревью таска 04)",
+    "ВНЕ ТАСКОВ: правка в js/sections/drivers.js:128-135 (скрытие «Все источники» при свёрнутом аккордеоне) появилась в дереве отдельно от исполнителей — предположительно рука пользователя; закоммичена отдельным коммитом"
   ],
   "reviewers": {
     "manifestSpec": "agent-15",
