@@ -27,6 +27,24 @@ const DEFAULT_IMPORT_RE = /^([A-Za-z_$][\w$]*)$/;
 const EXPORT_DECL_RE = /^export\s+(async\s+function|function|class|const|let|var)\s+([A-Za-z_$][\w$]*)/;
 const EXPORT_LIST_RE = /^export\s*\{([^}]+)\};?$/;
 
+// Есть ли запятая на нулевой глубине (вне скобок/строк) — признак нескольких деклараторов.
+function hasTopLevelComma(src) {
+  let depth = 0;
+  let quote = null;
+  for (let i = 0; i < src.length; i += 1) {
+    const ch = src[i];
+    if (quote) {
+      if (ch === quote && src[i - 1] !== '\\') quote = null;
+      continue;
+    }
+    if (ch === '"' || ch === "'" || ch === '`') { quote = ch; continue; }
+    if (ch === '(' || ch === '[' || ch === '{') depth += 1;
+    else if (ch === ')' || ch === ']' || ch === '}') depth -= 1;
+    else if (ch === ',' && depth === 0) return true;
+  }
+  return false;
+}
+
 // Читает модуль и возвращает { code, imports: [{spec, names|star|default}], exports: [names] }.
 function parseModule(file) {
   const src = fs.readFileSync(path.join(__dirname, file), 'utf8');
@@ -36,11 +54,18 @@ function parseModule(file) {
   for (const line of src.split('\n')) {
     let m = line.match(IMPORT_RE);
     if (m) {
-      imports.push({ spec: m[2], clause: m[1].trim() });
+      imports.push({ spec: m[2], clause: m[1].trim(), line: line.trim() });
       continue;
+    }
+    if (/^\s*import\b/.test(line)) {
+      throw new Error(`${file}: неподдержанная форма import: ${line.trim()}`);
     }
     m = line.match(EXPORT_DECL_RE);
     if (m) {
+      if ((m[1] === 'const' || m[1] === 'let' || m[1] === 'var')
+          && hasTopLevelComma(line.slice(m[0].length))) {
+        throw new Error(`${file}: неподдержанная форма export (несколько деклараторов): ${line.trim()}`);
+      }
       exports.push(m[2]);
       out.push(line.replace(/^export\s+/, ''));
       continue;
@@ -55,7 +80,7 @@ function parseModule(file) {
       }
       continue; // список не копируем в тело — экспортируем через exports.* в конце
     }
-    if (/^export\s/.test(line)) {
+    if (/^\s*export\b/.test(line)) {
       throw new Error(`${file}: неподдержанная форма export: ${line.trim()}`);
     }
     out.push(line);
@@ -72,24 +97,71 @@ function resolveSpec(owner, spec) {
   return abs;
 }
 
+// Разбор import-клаузлы → { kind, imported: [...], local: [...] }.
+// imported — имена в модуле-источнике (до as), local — имена в этом модуле.
+function parseClause(owner, clause) {
+  let m = clause.match(NAMED_IMPORT_RE);
+  if (m) {
+    const imported = [];
+    const local = [];
+    for (const s of m[1].split(',').map((x) => x.trim()).filter(Boolean)) {
+      const mm = s.match(/^([A-Za-z_$][\w$]*)\s+as\s+([A-Za-z_$][\w$]*)$/);
+      imported.push(mm ? mm[1] : s);
+      local.push(mm ? mm[2] : s);
+    }
+    return { kind: 'named', imported, local };
+  }
+  m = clause.match(STAR_IMPORT_RE);
+  if (m) return { kind: 'star', imported: [], local: [m[1]] };
+  m = clause.match(DEFAULT_IMPORT_RE);
+  if (m) return { kind: 'default', imported: ['default'], local: [m[1]] };
+  throw new Error(`${owner}: неподдержанная форма import: ${clause}`);
+}
+
 // Разбор import-клаузлы → строки кода внутри фабрики модуля.
 function importLines(owner, { spec, clause }) {
   const key = resolveSpec(owner, spec);
   const req = `__ci_require(${JSON.stringify(key)})`;
-  let m = clause.match(NAMED_IMPORT_RE);
-  if (m) {
-    const names = m[1].split(',').map((s) => s.trim()).filter(Boolean)
+  const parsed = parseClause(owner, clause);
+  if (parsed.kind === 'named') {
+    const bindings = clause.match(NAMED_IMPORT_RE)[1].split(',').map((s) => s.trim()).filter(Boolean)
       .map((s) => {
         const mm = s.match(/^([A-Za-z_$][\w$]*)\s+as\s+([A-Za-z_$][\w$]*)$/);
         return mm ? `${mm[1]}: ${mm[2]}` : s;
       });
-    return [`const { ${names.join(', ')} } = ${req};`];
+    return [`const { ${bindings.join(', ')} } = ${req};`];
   }
-  m = clause.match(STAR_IMPORT_RE);
-  if (m) return [`const ${m[1]} = ${req};`];
-  m = clause.match(DEFAULT_IMPORT_RE);
-  if (m) return [`const ${m[1]} = ${req}.default;`];
-  throw new Error(`${owner}: неподдержанная форма import: ${clause}`);
+  if (parsed.kind === 'star') return [`const ${clause.match(STAR_IMPORT_RE)[1]} = ${req};`];
+  return [`const ${parsed.local[0]} = ${req}.default;`];
+}
+
+// Проверяет каждый импорт графа: именованные имена и default существуют в экспортах источника.
+function validateImports(modules) {
+  const exportSets = new Map();
+  for (const file of modules) {
+    exportSets.set(file, new Set(
+      parseModule(file).exports.map((e) => (typeof e === 'string' ? e : e.exported)),
+    ));
+  }
+  for (const file of modules) {
+    for (const imp of parseModule(file).imports) {
+      const key = resolveSpec(file, imp.spec);
+      const available = exportSets.get(key);
+      const parsed = parseClause(file, imp.clause);
+      if (parsed.kind === 'star') continue;
+      if (parsed.kind === 'default') {
+        if (!available.has('default')) {
+          throw new Error(`${file}: ${imp.line} — у модуля '${key}' нет default-экспорта`);
+        }
+        continue;
+      }
+      for (const name of parsed.imported) {
+        if (!available.has(name)) {
+          throw new Error(`${file}: ${imp.line} — '${key}' не экспортирует '${name}'`);
+        }
+      }
+    }
+  }
 }
 
 // Топологическая сортировка (DFS post-order); цикл — ошибка.
@@ -114,6 +186,7 @@ function topoSort(entries) {
 
 function buildBundle(outFile, entries) {
   const modules = topoSort(entries);
+  validateImports(modules);
   const parts = [];
   parts.push(`// ${outFile} — СГЕНЕРИРОВАН build.js, не править вручную.`);
   parts.push(`// Исходники: ${modules.join(', ')}. Пересборка: node build.js`);
@@ -149,6 +222,10 @@ function buildBundle(outFile, entries) {
   parts.push('})();');
   parts.push('');
   const out = parts.join('\n');
+  const leftover = out.split('\n').find((l) => /^\s*(?:import|export)\s/.test(l));
+  if (leftover) {
+    throw new Error(`${outFile}: в бандле осталась необработанная строка: ${leftover.trim()}`);
+  }
   const dest = path.join(__dirname, outFile);
   fs.writeFileSync(dest, out);
   console.log(`${outFile}: ${modules.length} модулей, ${out.length} байт`);

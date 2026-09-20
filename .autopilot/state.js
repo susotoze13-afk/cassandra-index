@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T18:54:30+03:00",
+  "updatedAt": "2026-09-20T19:03:16+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -565,11 +565,38 @@ window.STATE =
       },
       "finishedAt": "2026-09-20T18:54:30+03:00",
       "commit": null
+    },
+    {
+      "id": "12",
+      "title": "build.js: громкие ошибки на неподдержанных формах",
+      "requirements": [
+        "R63"
+      ],
+      "blockedBy": [
+        "10"
+      ],
+      "wave": 11,
+      "zone": [
+        "build.js",
+        "tests/"
+      ],
+      "status": "done",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "startedAt": "2026-09-20T19:03:16+03:00",
+      "finishedAt": "2026-09-20T19:03:16+03:00",
+      "tests": {
+        "passed": 91,
+        "failed": 0
+      },
+      "commit": null,
+      "note": "триаж concerns фазы 8: молчаливый пропуск форм хуже громкой ошибки"
     }
   ],
   "singlePass": null,
   "tests": {
-    "passed": 87,
+    "passed": 91,
     "failed": 0
   },
   "debt": {
@@ -625,7 +652,9 @@ window.STATE =
     "js/share.js drawCard — вёрстка карточки (позиции/кегли) без теста, покрыт только cardLayout; canvas в node недоступен — непокрытый шов R80 «читаема в превью» (minor, из ревью таска 08)",
     "tests/methodology.test.js:7-22 — тест фиксирует диапазоны и их стыковку, но не связку «подпись якоря ↔ диапазон»: перемешанный порядок ANCHOR_KEYS против risk.SCALE пройдёт (minor, из ревью таска 11)",
     "js/share.js:190,206 — parseWeekParam(location.search) без try/catch, как было в удалённом resolveWeekParam: вне браузера buildCard/shareSnapshot бросают ReferenceError — сделать обёртку или зафиксировать браузер-only (minor, из ревью таска 11)",
-    "build.js:23-61 — парсер молча пропускает side-effect-импорт, множественный export const и default без источника: ошибка уйдёт в рантайм браузера, а не на сборке — добавить громкие ошибки (таск 12)"
+    "build.js:23-61 — парсер молча пропускает side-effect-импорт, множественный export const и default без источника: ошибка уйдёт в рантайм браузера, а не на сборке — добавить громкие ошибки (таск 12)",
+    "build.js:31-47 — hasTopLevelComma не понимает regex-литералы (export const RE = /a,b/ ложно роняет сборку) — учесть при ближайшем касании build.js (minor, из ревью таска 12)",
+    "build.js:103-131 — importLines повторно разбирает клаузу вместо использования результата parseClause — двойной разбор строки (minor, из ревью таска 12)"
   ],
   "reviewers": {
     "manifestSpec": "agent-25",
