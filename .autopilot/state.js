@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T18:19:10+03:00",
+  "updatedAt": "2026-09-20T18:54:30+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -535,7 +535,7 @@ window.STATE =
         "failed": 0
       },
       "finishedAt": "2026-09-20T18:19:10+03:00",
-      "commit": null
+      "commit": "f02364b"
     },
     {
       "id": "10",
@@ -553,12 +553,18 @@ window.STATE =
         "index.html",
         "privacy.html"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
       "note": "дрифт G4: ES-модули заблокированы на file://; доказательство — headless Chrome",
-      "startedAt": "2026-09-20T18:19:10+03:00"
+      "startedAt": "2026-09-20T18:19:10+03:00",
+      "tests": {
+        "passed": 87,
+        "failed": 0
+      },
+      "finishedAt": "2026-09-20T18:54:30+03:00",
+      "commit": null
     }
   ],
   "singlePass": null,
@@ -618,7 +624,8 @@ window.STATE =
     "tests/privacy.test.js:34-43 — проверки privacy.html на наличие подстрок; страница-заглушка пройдёт — проверять смысловое содержимое (minor, из ревью таска 08)",
     "js/share.js drawCard — вёрстка карточки (позиции/кегли) без теста, покрыт только cardLayout; canvas в node недоступен — непокрытый шов R80 «читаема в превью» (minor, из ревью таска 08)",
     "tests/methodology.test.js:7-22 — тест фиксирует диапазоны и их стыковку, но не связку «подпись якоря ↔ диапазон»: перемешанный порядок ANCHOR_KEYS против risk.SCALE пройдёт (minor, из ревью таска 11)",
-    "js/share.js:190,206 — parseWeekParam(location.search) без try/catch, как было в удалённом resolveWeekParam: вне браузера buildCard/shareSnapshot бросают ReferenceError — сделать обёртку или зафиксировать браузер-only (minor, из ревью таска 11)"
+    "js/share.js:190,206 — parseWeekParam(location.search) без try/catch, как было в удалённом resolveWeekParam: вне браузера buildCard/shareSnapshot бросают ReferenceError — сделать обёртку или зафиксировать браузер-only (minor, из ревью таска 11)",
+    "build.js:23-61 — парсер молча пропускает side-effect-импорт, множественный export const и default без источника: ошибка уйдёт в рантайм браузера, а не на сборке — добавить громкие ошибки (таск 12)"
   ],
   "reviewers": {
     "manifestSpec": "agent-25",
@@ -632,7 +639,8 @@ window.STATE =
       "file:// не работает: Chrome блокирует ES-модули по CORS — живой только статичный RU-hero (требование спеки «работает по двойному клику») → таск 10",
       "на 360px .site-nav — внутренний горизонтальный скролл (378>328), «Методология»/«История» обрезаны до свайпа (рефлоу) → таск 11"
     ],
-    "confirmed": "все 13 проверенных требований брифа реализованы: разделы, регион по часовому поясу без записи при первом визите, RU/EN, выбор региона, тренд, драйверы, история недель и ?week=, share-карточка, приватность, палитра, дизайн-макет"
+    "confirmed": "все 13 проверенных требований брифа реализованы: разделы, регион по часовому поясу без записи при первом визите, RU/EN, выбор региона, тренд, драйверы, история недель и ?week=, share-карточка, приватность, палитра, дизайн-макет",
+    "driftResolved": "оба дрифта закрыты ремонтом: file:// — bundle (таск 10, перепроверено ревьюером), навигация 360px — таск 11"
   },
   "final": {
     "id": "final",

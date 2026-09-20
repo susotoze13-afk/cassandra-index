@@ -54,10 +54,12 @@
     </section>
   </main>
 
-  <!-- Локализация теми же словарями, что и на главной (§11.3); ES-модули — как на index.html. -->
-  <script type="module">
-    import { t } from './js/i18n.js';
-    import { resolveLang } from './js/ui.js';
+  <!-- Локализация теми же словарями, что и на главной (§11.3); ES-модули на file://
+       блокирует Chrome — classic script, собранный build.js (node build.js). -->
+  <script src="js/bundle-privacy.js"></script>
+  <script>
+    const { t } = window.CI['js/i18n.js'];
+    const { resolveLang } = window.CI['js/ui.js'];
     function apply(lang) {
       document.documentElement.lang = lang;
       document.title = `${t(lang, 'privacy.title')} — Cassandra Index`;

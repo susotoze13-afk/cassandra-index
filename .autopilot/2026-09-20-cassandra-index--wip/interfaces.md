@@ -211,3 +211,11 @@ tests/*.test.js     — node --test
 - `methodology.js` — export `thresholdRanges()` → 6 диапазонов из risk.SCALE
 - Мёртвые i18n-ключи sources.count/state.historical удалены; навигация на 360/320
   переносится без горизонтального скролла (header выше, пункты все видны)
+
+## Из таска 10 — запуск с file:// (ремонт приёмки)
+
+- `build.js` (node, stdlib) → собирает `js/bundle.js` (classic script, namespace
+  `window.CI['<путь>']`, топологический порядок, 16 модулей от app.js+share.js) и
+  `js/bundle-privacy.js` (i18n+ui+risk, 3 модуля — полный бандл запускал бы app.init
+  и портил title); после правки исходников js/: `node build.js` (артефакты коммитятся)
+- `index.html`/`privacy.html` грузят bundle, не ES-модули; http-режим тоже работает

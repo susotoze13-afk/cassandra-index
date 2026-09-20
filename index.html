@@ -152,8 +152,8 @@
   <!-- Данные: JS-файлы через script src (file:// блокирует fetch).
        latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
   <script src="data/latest.js"></script>
-  <script type="module" src="js/app.js"></script>
-  <!-- Share-карточка (История 21): модуль сам биндит кнопку [data-role="share-btn"]. -->
-  <script type="module" src="js/share.js"></script>
+  <!-- ES-модули Chrome блокирует по CORS на file:// — подключаем classic script,
+       собранный build.js из js/** (пересборка: node build.js). Тесты — против исходников. -->
+  <script src="js/bundle.js" defer></script>
 </body>
 </html>
