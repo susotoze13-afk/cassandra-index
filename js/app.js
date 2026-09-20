@@ -3,6 +3,7 @@
 
 import * as data from './data.js';
 import * as region from './region.js';
+import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
 
 const LANG_KEY = 'cassandra.lang';
@@ -14,7 +15,8 @@ export function resolveLang() {
   } catch {
     /* хранилище недоступно — остаёмся на дефолте */
   }
-  const nav = typeof navigator !== 'undefined' ? navigator.language || '' : '';
+  const nav = typeof navigator !== 'undefined' && navigator.language ? navigator.language : '';
+  if (!nav) return 'ru'; // §11.1: язык браузера не определён — дефолт 'ru'
   return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
 }
 
@@ -63,6 +65,9 @@ export function buildState() {
 export function renderApp(state) {
   if (typeof document !== 'undefined') {
     document.documentElement.lang = state.lang;
+    document.title = t(state.lang, 'app.title');
+    document.querySelector('meta[name="description"]')
+      ?.setAttribute('content', t(state.lang, 'app.description'));
     applyI18n(document, state.lang);
     document.querySelectorAll('.lang-btn').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang));
@@ -71,15 +76,36 @@ export function renderApp(state) {
   return renderAll(state);
 }
 
+// aria-live: объявления скринридеру о смене региона/языка (R71).
+function announce(lang, key, vars) {
+  const live = document.querySelector('[data-role="a11y-live"]');
+  if (live) live.textContent = t(lang, key, vars);
+}
+
 export function init() {
   const state = buildState();
-  // Минимальная обвязка переключателя языка (R67–R69; полный UI — таск 02).
   if (typeof document !== 'undefined') {
     document.querySelectorAll('.lang-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
         saveLang(lang);
+        announce(lang, 'a11y.lang.changed');
         renderApp({ ...buildState(), lang });
+      });
+    });
+    // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
+    document.addEventListener('ci:regionchange', (e) => {
+      const { id, persist } = e.detail ?? {};
+      if (!id || !region.get(id)) return;
+      region.choose(id, { persist: !!persist });
+      const next = buildState();
+      renderApp(next);
+      const reg = region.get(id);
+      const rdata = next.snapshot?.regions?.[id];
+      announce(next.lang, 'a11y.region.changed', {
+        city: reg.city[next.lang],
+        region: reg.name[next.lang],
+        index: rdata ? rdata.index : '—',
       });
     });
   }

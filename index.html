@@ -6,20 +6,33 @@
   <title>Cassandra Index — индекс конфликтного риска</title>
   <meta name="description" content="Еженедельная оценка уровня и направления глобального конфликтного риска на основе открытых данных.">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Временно здесь: компоновка hero под малые экраны (критерий 02: первый вьюпорт
+       360×640 без скролла). Мигрировать в css/styles.css при ближайшей правке стилей. -->
+  <style>
+    @media (max-width: 640px) {
+      .hero { padding: 16px 0 24px; }
+      .hero h1 { font-size: clamp(24px, 6.5vw, 32px); margin-bottom: 8px; }
+      .hero .subtitle { margin-bottom: 12px; font-size: 15px; line-height: 1.45; }
+      .hero .meta { margin-bottom: 16px; font-size: 13px; }
+      .hero-numbers { gap: 12px; }
+      .global-index, .region-card { padding: 14px 16px; }
+      .global-index .big { font-size: 56px; }
+    }
+  </style>
 </head>
 <body>
 
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#overview">Cassandra Index</a>
-      <nav class="site-nav" aria-label="Основная навигация">
+      <nav class="site-nav" aria-label="Основная навигация" data-i18n-aria="nav.label">
         <a href="#overview" data-i18n="nav.overview">Обзор</a>
         <a href="#regions" data-i18n="nav.regions">Регионы</a>
         <a href="#trend" data-i18n="nav.trend">Тренд</a>
         <a href="#methodology" data-i18n="nav.method">Методология</a>
         <a href="#sources" data-i18n="nav.sources">История и источники</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Язык / Language">
+      <div class="lang-switch" role="group" aria-label="Язык / Language" data-i18n-aria="lang.label">
         <button type="button" class="lang-btn" data-lang="ru" aria-pressed="true" data-i18n="nav.lang.ru">RU</button>
         <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="nav.lang.en">EN</button>
       </div>
@@ -35,8 +48,8 @@
       <p class="subtitle" data-i18n="hero.subtitle">Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.</p>
 
       <div class="meta">
-        <span class="meta-item"><strong data-i18n="meta.published">Последняя публикация</strong>: 13 сентября 2026</span>
-        <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: 6 сентября 2026</span>
+        <span class="meta-item"><strong data-i18n="meta.published">Последняя публикация</strong>: <span data-role="meta-published">13 сентября 2026</span></span>
+        <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: <span data-role="meta-through">6 сентября 2026</span></span>
       </div>
 
       <div class="hero-numbers">
@@ -45,7 +58,7 @@
           <div class="index-caption"><span data-i18n="hero.index.of">из 100</span></div>
           <div class="status-line">
             <span class="status" data-role="global-status">Очень опасно</span>
-            <span class="delta delta--rise" data-role="global-delta">↑ +6 <span data-i18n="hero.week.change">за неделю</span></span>
+            <span class="delta delta--rise" data-role="global-delta"><span data-role="global-delta-value">↑ +6</span> <span data-i18n="hero.week.change">за неделю</span></span>
           </div>
         </div>
 
@@ -54,15 +67,29 @@
           <div class="region-line">
             <span class="region-city" data-role="region-city">Амстердам</span>
             <span class="region-name">· <span data-role="region-name">Европа</span></span>
-            <button type="button" class="link-btn" data-role="region-change" data-i18n="region.change">изменить</button>
+            <button type="button" class="link-btn" data-role="region-change" data-i18n="region.change"
+                    aria-expanded="false" aria-controls="region-picker">изменить</button>
           </div>
           <div class="region-stats" data-role="region-stats">
-            <span class="region-index">74</span>
-            <span class="status">Очень опасно</span>
-            <span class="delta delta--rise">↑ +5</span>
+            <span class="region-index" data-role="region-index">74</span>
+            <span class="index-caption"><span data-i18n="hero.index.of">из 100</span></span>
+            <span class="status" data-role="region-status">очень опасно</span>
+            <span class="delta delta--rise" data-role="region-delta"><span data-role="region-delta-value">↑ +5</span> <span data-i18n="hero.week.change">за неделю</span></span>
           </div>
+          <p class="region-unavailable" data-role="region-unavailable" hidden></p>
+          <p class="region-note" data-role="region-note" data-i18n="region.note" hidden>Это контекстный региональный риск, а не прогноз атаки на этот город.</p>
         </div>
+
+        <!-- Нераспознанный часовой пояс: нейтральный hero + CTA вместо карточки региона. -->
+        <button type="button" class="cta-btn" data-role="region-cta" data-i18n="region.cta"
+                aria-expanded="false" aria-controls="region-picker" hidden>Узнать риск для моего региона →</button>
       </div>
+
+      <!-- Inline-панель выбора региона (наполняет js/sections/hero.js). -->
+      <div id="region-picker" data-role="region-picker" hidden></div>
+
+      <!-- Скрытый aria-live: объявления скринридеру о смене региона/языка. -->
+      <p class="sr-only" data-role="a11y-live" aria-live="polite"></p>
     </section>
 
     <!-- Ниже — контейнеры секций; разметку наполняет render.js (таск 02). -->

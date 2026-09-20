@@ -4,7 +4,7 @@ import { t, plural, date } from '../js/i18n.js';
 
 test('t: строки из словаря RU и EN', () => {
   assert.equal(t('ru', 'hero.title'), 'Насколько близко мир подошёл к глобальному военному конфликту?');
-  assert.equal(t('en', 'hero.title'), 'How close has the world come to a global military conflict?');
+  assert.equal(t('en', 'hero.title'), 'How close is the world to a global military conflict?');
   assert.equal(t('ru', 'nav.overview'), 'Обзор');
   assert.equal(t('en', 'nav.overview'), 'Overview');
 });

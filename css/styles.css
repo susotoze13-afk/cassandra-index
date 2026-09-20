@@ -248,7 +248,7 @@ main {
 .region-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--state-very);
+  border-left: 4px solid var(--region-tone, var(--state-very));
   border-radius: 12px;
   padding: 20px 24px;
   min-width: 260px;
@@ -298,6 +298,181 @@ main {
 .region-index {
   font-size: 28px;
   font-weight: 700;
+}
+
+/* Скрытый aria-live и подписи под строкой региона */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.region-note,
+.region-unavailable {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  max-width: 420px;
+}
+
+.region-unavailable {
+  color: var(--text-secondary);
+}
+
+/* CTA при нераспознанном часовом поясе: primary-кнопка акцентного цвета */
+.cta-btn {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: var(--accent-line);
+}
+
+/* Inline-панель выбора региона */
+.region-picker {
+  margin-top: 16px;
+}
+
+.picker {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 640px;
+}
+
+.picker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--accent-line);
+}
+
+.chip[aria-pressed="true"] {
+  color: var(--text);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.picker-input {
+  width: 100%;
+  min-height: 44px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font: inherit;
+  padding: 10px 12px;
+}
+
+.picker-input::placeholder {
+  color: var(--text-muted);
+}
+
+.picker-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.picker-list li > button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: var(--text);
+  font: inherit;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.picker-list li.is-active > button,
+.picker-list li > button:hover {
+  background: var(--accent-soft);
+}
+
+.picker-empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.picker-remember,
+.picker-geo,
+.picker-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.picker-remember[aria-checked="true"] {
+  color: var(--text);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.picker-cancel {
+  margin-left: auto;
+}
+
+.picker-cancel:hover,
+.picker-geo:hover {
+  color: var(--text);
+  border-color: var(--accent-line);
+}
+
+.picker-hint {
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 /* Нижефолдовые секции: не рендерим до появления в вьюпорте */

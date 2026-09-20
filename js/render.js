@@ -3,6 +3,7 @@
 // зарегистрированные. appState: { lang, region, detected, week, snapshot, dataState }.
 
 import { t } from './i18n.js';
+import { render as heroRender } from './sections/hero.js';
 
 export const SECTIONS = [
   'hero',
@@ -15,6 +16,9 @@ export const SECTIONS = [
 ];
 
 const registry = new Map();
+
+// Секция hero — первая; остальные регистрируют свои таски.
+registerSection('hero', heroRender);
 
 export function registerSection(name, renderFn) {
   if (!SECTIONS.includes(name)) return false;
@@ -49,5 +53,8 @@ export function applyI18n(root, lang) {
   });
   root.querySelectorAll('[data-i18n-aria]').forEach((el) => {
     el.setAttribute('aria-label', t(lang, el.getAttribute('data-i18n-aria')));
+  });
+  root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    el.setAttribute('placeholder', t(lang, el.getAttribute('data-i18n-placeholder')));
   });
 }

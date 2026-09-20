@@ -77,8 +77,24 @@ tests/*.test.js     — node --test
 - `data.latest()` → `'YYYY-MM-DD'` · `data.week(date?)` → snapshot | `{dataState:'unavailable',unavailable,errors[]}` · `data.listWeeks()` · `data.validate(snap)` → `{ok,errors[]}`
 - События на document: `ci:datastate` {state,date,errors}, `ci:ready` {appState}
 - `appState = {lang,region,detected,week,snapshot,dataState,unavailable,errors}`
-- `render.registerSection(name,fn)` · `render.renderAll(appState)` · `render.applyI18n(root,lang)`
-- Схема снапшота: `{published,through,methodology,dataState,global{index,delta},regions{slug{index,delta,status,confidence,drivers[]}},trend[12×{date,value}],drivers[3],sources[]}`
+- `render.SECTIONS = ['hero','regions','trend','drivers','states','history','methodology']` — `render.registerSection(name,fn)` · `render.renderAll(appState)` · `render.applyI18n(root,lang)`
+- Схема снапшота: `{published,through,methodology,dataState,global{index,delta},regions{slug{index,delta,status,confidence,drivers[]}},trend[12×{date,value}],drivers[3],sources[]}` — validate требует ровно 3 драйвера
 - Тесты: `node --test` (bare — `node --test tests/` падает на Windows/Node 24), один файл: `node --test tests/<file>.test.js`
 - `data/latest.js` грузит снапшоты через `document.write` (единственный способ без fetch на file://); новая неделя = каталог `data/<дата>/` + дата в `CI_WEEKS`
 - `js/render.js`/`js/app.js` — скелеты: dispatch без зарегистрированных секций, hero — дефолтная RU-разметка HTML
+
+## Из таска 02 — первый экран (hero)
+
+- `js/sections/hero.js` — зарегистрирован как `'hero'`; чистые `formatDelta(n)` → `'+6'|'-3'|'0'`, `deltaArrow(n)` → `'↑'|'↓'|'→'`, `refineRegionFromCoords(lat,lon)` → regionId|null
+- Событие document `ci:regionchange` {id, persist} — app.js делает `region.choose(id,{persist})` + `renderAll`
+- `render.applyI18n` теперь обрабатывает `[data-i18n-placeholder]`
+- Новые i18n-ключи: `statusLower.*`, `region.{note,cta,panel.*}`, `a11y.{region.changed,lang.changed}`, `nav.label`, `lang.label`
+
+
+## Из таска 02 — hero, первый экран, регион, язык
+
+- `js/sections/hero.js` — `render(appState)`, регистрируется как `'hero'` через `render.registerSection`; чистые швы `formatDelta(n)`, `deltaArrow(n)`, `refineRegionFromCoords(lat,lon) → regionId|null`
+- Событие document `ci:regionchange` `{id, persist}` — hero→app: region.choose + перерисовка + aria-live
+- data-role в hero: `global-index`, `status`, `delta(-value)`, `meta-published`, `meta-through`, `region-card/city/name/change/stats/index/status/delta/unavailable/note`, `region-cta`, `region-picker`, `a11y-live`
+- `render.applyI18n` покрывает `[data-i18n-placeholder]`; новые ключи i18n: `nav.label`, `lang.label`, `statusLower.*`, `region.note`, `region.cta`, `region.panel.*`, `a11y.*`
+- Тесты: 27 (`node --test`), в т.ч. `tests/hero.test.js` против чистых швов

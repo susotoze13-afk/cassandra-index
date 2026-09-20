@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T11:18:30+03:00",
+  "updatedAt": "2026-09-20T11:50:00+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -43,17 +43,20 @@ window.STATE =
       "id": "plan",
       "status": "done",
       "startedAt": "2026-09-20T11:06:31+03:00",
-      "note": "8 тасков, ярус T2 — цепочка, параллельных волн нет",
-      "finishedAt": "2026-09-20T11:18:30+03:00"
+      "finishedAt": "2026-09-20T11:18:30+03:00",
+      "note": "8 тасков, ярус T2 — цепочка, параллельных волн нет"
     },
     {
       "id": "build",
       "status": "active",
-      "startedAt": "2026-09-20T11:18:30+03:00"
+      "startedAt": "2026-09-20T11:18:30+03:00",
+      "note": "1 из 8 тасков готово"
     },
     {
       "id": "review",
-      "status": "pending"
+      "status": "active",
+      "startedAt": "2026-09-20T11:35:00+03:00",
+      "note": "проверен таск 01"
     },
     {
       "id": "final",
@@ -62,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 85,
-    "done": 0,
-    "inTicket": 85,
+    "done": 10,
+    "inTicket": 75,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -100,14 +103,34 @@ window.STATE =
         "data/",
         "tests/"
       ],
-      "status": "repair",
+      "status": "done",
       "startedAt": "2026-09-20T11:20:00+03:00",
       "retries": 0,
       "repairs": 1,
       "repairFindings": [
         "EN-полная дата Sep 13, 2026 вместо контракта 13 Sep, 2026 (spec R68) — унаследовал бы все таски; validate принимает drivers != 3; aria-label бренда перекрывает имя продукта; мёртвые имена в SECTIONS; тест-only ключ test.greet в продакшен-словаре"
       ],
-      "handoffs": 0
+      "handoffs": 0,
+      "files": [
+        "index.html",
+        "css/styles.css",
+        "data/latest.js",
+        "data/2026-08-02..2026-09-13/",
+        "js/data.js",
+        "js/i18n.js",
+        "js/risk.js",
+        "js/region.js",
+        "js/render.js",
+        "js/app.js",
+        "tests/"
+      ],
+      "tests": {
+        "passed": 23,
+        "failed": 0
+      },
+      "commit": "5518d4b",
+      "finishedAt": "2026-09-20T11:50:00+03:00",
+      "concerns": []
     },
     {
       "id": "02",
@@ -159,9 +182,13 @@ window.STATE =
         "js/sections/hero.js",
         "js/app.js"
       ],
-      "status": "pending",
+      "status": "repair",
+      "startedAt": "2026-09-20T11:50:00+03:00",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1,
+      "repairFindings": [
+        "Красный прогон: hero.test.js импортирует несуществующие экспорты и тестирует несуществующую модель heroModel; EN-заголовок и EN-приписка не дословно против PRD; панель выбора не переводится при первом построении; дефолт языка 'en' вместо 'ru'; CTA без «→»"
+      ],
       "handoffs": 0
     },
     {
@@ -329,7 +356,10 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": null,
+  "tests": {
+    "passed": 23,
+    "failed": 0
+  },
   "debt": {
     "placeholders": [],
     "assumptions": [],
@@ -346,8 +376,8 @@ window.STATE =
   },
   "concerns": [],
   "reviewers": {
-    "manifestSpec": null,
-    "craft": null
+    "manifestSpec": "agent-3",
+    "craft": "agent-4"
   },
   "blind": null
 }
