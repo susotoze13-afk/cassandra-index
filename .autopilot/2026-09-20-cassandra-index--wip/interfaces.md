@@ -154,3 +154,17 @@ tests/*.test.js     — node --test
   править было нельзя); классы те же, стили общие
 - Региональный уровень данных не отдаёт confidenceNote — подхватится без правки, если пайплайн
   добавит поле
+
+## Из таска 06 — крит-режим, состояния данных, fallback, демо-панель
+
+- `js/sections/states.js` — `render(appState)`, регистрация `'states'`; чистые швы:
+  `criticalModeOn(snapshot)` → bool (глобальный индекс ≥81), `badgeTone(dataState)` → класс-модификатор,
+  `isHistorical(week, latest)` → bool, `historyBannerText(lang, snapshot)` → строка с датами
+- `js/demo.js` — `DEMO_MODES=['critical','delayed','insufficient','unavailable']`,
+  `CRITICAL_DEMO_INDEX=85`, `applyDemo(appState, mode)` → новый appState (вход не мутирует;
+  null/'off' — без изменений), `demoModeLabel(lang, mode)`, `initDemo(getLang)`;
+  событие document `ci:demo {mode|null}` — app.js держит режим в памяти сессии (A01)
+- data-role в index.html: `history-banner`, `critical-panel`, `unavailable-overlay`
+  (+`unavailable-retry`), `demo-link`, `demo-panel`, `demo-banner`; i18n-ключи
+  `state.historical`, `history.banner`, `critical.*`, `unavailable.*`, `demo.*`
+- Крит-панель использует #F85149 — допустимо по §14.5 (крит-режим)

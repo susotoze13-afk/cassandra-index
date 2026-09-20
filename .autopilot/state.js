@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T16:05:00+03:00",
+  "updatedAt": "2026-09-20T16:20:00+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -50,13 +50,13 @@ window.STATE =
       "id": "build",
       "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "6 из 9 тасков готово"
+      "note": "7 из 9 тасков готово"
     },
     {
       "id": "review",
       "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–05, 09"
+      "note": "проверены таски 01–06, 09"
     },
     {
       "id": "final",
@@ -64,9 +64,9 @@ window.STATE =
     }
   ],
   "requirements": {
-    "total": 86,
-    "done": 64,
-    "inTicket": 22,
+    "total": 87,
+    "done": 73,
+    "inTicket": 14,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -373,7 +373,7 @@ window.STATE =
         "passed": 50,
         "failed": 0
       },
-      "commit": null,
+      "commit": "47963db",
       "files": [
         "js/sections/regions.js",
         "tests/regions.test.js",
@@ -411,10 +411,31 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
-      "handoffs": 0
+      "handoffs": 0,
+      "startedAt": "2026-09-20T16:08:00+03:00",
+      "finishedAt": "2026-09-20T16:20:00+03:00",
+      "tests": {
+        "passed": 60,
+        "failed": 0
+      },
+      "commit": null,
+      "files": [
+        "js/sections/states.js",
+        "js/demo.js",
+        "tests/states.test.js",
+        "tests/demo.test.js",
+        "js/app.js",
+        "js/render.js",
+        "js/i18n.js",
+        "index.html",
+        "css/styles.css"
+      ],
+      "concerns": [
+        "браузерный smoke-тест не выполнен (Aside недоступен на Windows) — DOM-сборка проверена вручную + node-импортами"
+      ]
     },
     {
       "id": "07",
@@ -510,7 +531,11 @@ window.STATE =
     "js/sections/regions.js:62 — стрелка через сравнение deltaTone(...) === '--text-secondary' вместо deltaArrow(value) (minor, из ревью таска 05)",
     "css/styles.css:199-206 — правка .hero-numbers (flex→grid) вне зоны таска 05 в диффе таска; причина не зафиксирована, вероятен reflow-фикс (minor, из ревью таска 05)",
     "tests/regions.test.js — не покрыта ветка tie-break rankedRegions (равные |Δ|, рост выше снижения) (minor, из ревью таска 05)",
-    "ВНЕ ТАСКОВ: METHODOLOGY.md переписан пользователем (v0.5, второй раунд правок по внешнему ревью) — коммитится отдельно"
+    "ВНЕ ТАСКОВ: METHODOLOGY.md переписан пользователем (v0.5, второй раунд правок по внешнему ревью) — коммитится отдельно",
+    "js/sections/states.js:45 — renderBadge лезет во внутренности чужой секции (.hero .meta), при рефакторе hero молча перестанет рендериться (minor, из ревью таска 06)",
+    "js/sections/states.js:85,112 — крит-панель и unavailable собираются через innerHTML с интерполяцией, вне конвенции createElement остальных секций (minor, из ревью таска 06)",
+    "js/i18n.js:55 — ключ state.historical объявлен, но кодом не читается (мёртвый ключ, minor, из ревью таска 06)",
+    "js/demo.js:103 — баннер/панель демо не синхронизируются со сменой языка (renderApp), надпись остаётся на старом языке (minor, из ревью таска 06)"
   ],
   "reviewers": {
     "manifestSpec": "agent-15",

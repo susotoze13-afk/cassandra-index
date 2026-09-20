@@ -756,6 +756,176 @@ main {
   font-size: 14px;
 }
 
+/* ---------- Состояния данных, крит-режим, «Model unavailable» (§6, §7, R52–R56) ---------- */
+
+/* Бейдж состояния данных рядом с датами: текст + тон рамки (значение не только цветом). */
+.data-state-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.data-state-badge--published { border-color: var(--state-calm); color: var(--state-calm); }
+.data-state-badge--updating { border-color: var(--state-tense); color: var(--state-tense); }
+.data-state-badge--delayed { border-color: var(--state-danger); color: var(--state-danger); }
+.data-state-badge--insufficient { border-color: var(--state-very); color: var(--state-very); }
+.data-state-badge--unavailable { border-color: var(--state-critical); color: var(--state-critical); }
+
+/* Баннер архивного снапшота: устаревшее значение не выглядит текущим (§7). */
+.history-banner {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--state-danger);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 720px;
+}
+
+/* Критический режим (§6.2–6.4): спокойная плашка — никаких сирен, мигания
+   и тревожных анимаций; красный допустим только здесь и при недоступности (§14.5). */
+.critical-panel {
+  max-width: 1120px;
+  margin: 0 auto 8px;
+  padding: 24px;
+  border: 1px solid var(--state-critical);
+  border-left: 4px solid var(--state-critical);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.critical-panel h2 { font-size: clamp(20px, 2.5vw, 26px); margin: 0 0 12px; }
+.critical-panel h3 { font-size: 16px; margin: 20px 0 8px; }
+.critical-panel p, .critical-panel li {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.critical-disclaimer {
+  font-size: 16px;
+  color: var(--text-primary, #E6EDF3);
+}
+
+.critical-panel ul { margin: 0; padding-left: 22px; }
+
+/* «Model unavailable»: понятный экран с кнопкой повтора поверх содержимого (R63.1). */
+.unavailable-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--overlay-backdrop);
+}
+
+/* display:flex выше перебивает UA-стиль [hidden] — возвращаем скрытие явно. */
+.unavailable-overlay[hidden] {
+  display: none;
+}
+
+.unavailable-card {
+  max-width: 480px;
+  padding: 32px;
+  border: 1px solid var(--state-critical);
+  border-radius: 12px;
+  background: var(--surface);
+  text-align: center;
+}
+
+.unavailable-card h2 { margin: 0 0 12px; font-size: 22px; }
+.unavailable-card p { color: var(--text-secondary); margin: 0 0 20px; }
+
+.retry-btn {
+  min-height: 44px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ---------- Демо-панель A01 (История 28): только сессия, помечена «демо» ---------- */
+
+.demo-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.demo-panel { margin-top: 16px; }
+
+.demo-hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  max-width: 480px;
+}
+
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.demo-btn {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.demo-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.demo-btn--off[aria-pressed="true"] {
+  border-color: var(--text-muted);
+  color: var(--text-muted);
+}
+
+.demo-close {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Баннер «демо»: активная подмена видна всегда, в продакшен-поток не вмешивается. */
+.demo-banner {
+  margin: 16px 0 0;
+  padding: 10px 16px;
+  border: 1px dashed var(--state-danger);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 480px;
+}
+
 /* ---------- Регионы: «Что это значит для моего региона?» (§4.6, §5.1, История 15) ---------- */
 
 /* Семантический ranked-список (ol/li), не карта — карта не может быть

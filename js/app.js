@@ -5,6 +5,7 @@ import * as data from './data.js';
 import * as region from './region.js';
 import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
+import { applyDemo, initDemo } from './demo.js';
 
 const LANG_KEY = 'cassandra.lang';
 
@@ -41,6 +42,14 @@ export function resolveWeek() {
 // appState — единый контракт между app и render:
 // { lang, region (id|null), detected (id|null), week (YYYY-MM-DD|null),
 //   snapshot, dataState, unavailable:boolean, errors:string[] }
+// Демо-подмена (A01): режим держится в памяти сессии и применяется к копии
+// состояния через applyDemo — на данные файлов и продакшен-поток не влияет.
+let demoMode = null;
+
+function currentState() {
+  return applyDemo(buildState(), demoMode);
+}
+
 export function buildState() {
   const lang = resolveLang();
   const tz = typeof Intl !== 'undefined'
@@ -90,15 +99,21 @@ export function init() {
         const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
         saveLang(lang);
         announce(lang, 'a11y.lang.changed');
-        renderApp({ ...buildState(), lang });
+        renderApp({ ...currentState(), lang });
       });
     });
+    // Демо-панель A01: ci:demo меняет только сессионный режим подмены.
+    document.addEventListener('ci:demo', (e) => {
+      demoMode = e.detail?.mode ?? null;
+      renderApp(currentState());
+    });
+    initDemo(() => resolveLang());
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
       const { id, persist } = e.detail ?? {};
       if (!id || !region.get(id)) return;
       region.choose(id, { persist: !!persist });
-      const next = buildState();
+      const next = currentState();
       renderApp(next);
       const reg = region.get(id);
       const rdata = next.snapshot?.regions?.[id];

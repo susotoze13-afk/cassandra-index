@@ -52,6 +52,9 @@
         <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: <span data-role="meta-through">6 сентября 2026</span></span>
       </div>
 
+      <!-- Состояния данных (таск 06): баннер архивного снапшота — с датами просматриваемых данных. -->
+      <p class="history-banner" data-role="history-banner" hidden></p>
+
       <div class="hero-numbers">
         <div class="global-index">
           <div class="big" data-role="global-index">72</div>
@@ -92,6 +95,9 @@
       <p class="sr-only" data-role="a11y-live" aria-live="polite"></p>
     </section>
 
+    <!-- Критический режим (§6): спокойная плашка от данных (≥81) — наполняет states.js. -->
+    <div data-role="critical-panel" hidden></div>
+
     <!-- Ниже — контейнеры секций; разметку наполняет render.js (таск 02). -->
     <section id="regions" class="section" aria-labelledby="regions-title">
       <h2 id="regions-title" data-i18n="regions.title">Что это значит для моего региона?</h2>
@@ -121,7 +127,13 @@
 
   <footer class="site-footer">
     <p class="disclaimer" data-i18n="footer.disclaimer">Оценка риска на основе открытых данных. Не официальный прогноз.</p>
+    <button type="button" class="demo-link" data-role="demo-link" data-i18n="demo.link">Демо-состояния</button>
+    <div data-role="demo-panel" hidden></div>
+    <p class="demo-banner" data-role="demo-banner" hidden></p>
   </footer>
+
+  <!-- «Model unavailable»: понятный экран с кнопкой повтора поверх содержимого (не белый экран). -->
+  <div class="unavailable-overlay" data-role="unavailable-overlay" hidden></div>
 
   <!-- Данные: JS-файлы через script src (file:// блокирует fetch).
        latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
