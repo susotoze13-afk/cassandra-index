@@ -22,8 +22,10 @@ const SCREENS = [
   { name: 'Mobile — Hero', width: 360, height: 640 },
 ];
 
-test('документ: валидный JSON формата .pen version 2.6', () => {
-  assert.equal(doc.version, '2.6');
+// Версия — как Document.version в pen-schema.md установленного расширения
+// (приложение pen.dev пересохраняет файл на неё).
+test('документ: валидный JSON формата .pen version 2.17', () => {
+  assert.equal(doc.version, '2.17');
   assert.ok(Array.isArray(doc.children));
 });
 

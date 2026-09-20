@@ -1,36 +1,15 @@
 {
-  "version": "2.6",
-  "variables": {
-    "bg": { "type": "color", "value": "#0A0E12" },
-    "surface": { "type": "color", "value": "#121820" },
-    "surface-2": { "type": "color", "value": "#1A2028" },
-    "border": { "type": "color", "value": "#232B36" },
-    "border-soft": { "type": "color", "value": "#1A2028" },
-    "text": { "type": "color", "value": "#E6EDF3" },
-    "text-secondary": { "type": "color", "value": "#8B949E" },
-    "text-muted": { "type": "color", "value": "#6B7280" },
-    "text-on-accent": { "type": "color", "value": "#0A0E12" },
-    "accent": { "type": "color", "value": "#58A6FF" },
-    "accent-soft": { "type": "color", "value": "#58A6FF24" },
-    "accent-line": { "type": "color", "value": "#58A6FF73" },
-    "state-calm": { "type": "color", "value": "#3FB950" },
-    "state-tense": { "type": "color", "value": "#A8B06B" },
-    "state-danger": { "type": "color", "value": "#D29922" },
-    "state-very": { "type": "color", "value": "#D17F52" },
-    "state-critical": { "type": "color", "value": "#F85149" },
-    "state-extreme": { "type": "color", "value": "#A83A3A" },
-    "overlay-header": { "type": "color", "value": "#0A0E12D9" }
-  },
+  "version": "2.17",
   "children": [
     {
       "type": "frame",
       "id": "scr-hero-desktop",
-      "name": "Desktop — Hero",
       "x": 0,
       "y": 0,
+      "name": "Desktop — Hero",
+      "clip": true,
       "width": 1440,
       "height": 900,
-      "clip": true,
       "fill": "$bg",
       "layout": "vertical",
       "children": [
@@ -40,20 +19,23 @@
           "name": "Header",
           "width": "fill_container",
           "height": 64,
-          "padding": [0, 64],
+          "fill": "$overlay-header",
+          "padding": [
+            0,
+            64
+          ],
           "justifyContent": "space_between",
           "alignItems": "center",
-          "fill": "$overlay-header",
           "children": [
             {
               "type": "text",
               "id": "hero-brand",
               "name": "Brand",
+              "fill": "$text",
               "content": "Cassandra Index",
               "fontFamily": "Inter",
               "fontSize": 16,
-              "fontWeight": "600",
-              "fill": "$text"
+              "fontWeight": "600"
             },
             {
               "type": "frame",
@@ -62,10 +44,42 @@
               "gap": 32,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "nav-overview", "content": "Обзор", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-secondary" },
-                { "type": "text", "id": "nav-regions", "content": "Регионы", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-secondary" },
-                { "type": "text", "id": "nav-trend", "content": "Тренд", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-secondary" },
-                { "type": "text", "id": "nav-method", "content": "Методология", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-secondary" }
+                {
+                  "type": "text",
+                  "id": "nav-overview",
+                  "fill": "$text-secondary",
+                  "content": "Обзор",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "nav-regions",
+                  "fill": "$text-secondary",
+                  "content": "Регионы",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "nav-trend",
+                  "fill": "$text-secondary",
+                  "content": "Тренд",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "nav-method",
+                  "fill": "$text-secondary",
+                  "content": "Методология",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
               ]
             },
             {
@@ -75,8 +89,24 @@
               "gap": 8,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "lang-ru", "content": "RU", "fontFamily": "Inter", "fontSize": 13, "fontWeight": "600", "fill": "$accent" },
-                { "type": "text", "id": "lang-en", "content": "EN", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-muted" }
+                {
+                  "type": "text",
+                  "id": "lang-ru",
+                  "fill": "$accent",
+                  "content": "RU",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "lang-en",
+                  "fill": "$text-muted",
+                  "content": "EN",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
               ]
             }
           ]
@@ -87,34 +117,38 @@
           "name": "Hero body",
           "width": "fill_container",
           "height": "fill_container",
-          "padding": [56, 64],
-          "gap": 32,
           "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            56,
+            64
+          ],
           "children": [
             {
               "type": "text",
               "id": "hero-title",
               "name": "Title",
-              "content": "Насколько близко мир подошёл к глобальному военному конфликту?",
-              "fontFamily": "Inter",
-              "fontSize": 40,
-              "fontWeight": "600",
-              "lineHeight": 1.15,
+              "fill": "$text",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "fill": "$text"
+              "content": "Насколько близко мир подошёл к глобальному военному конфликту?",
+              "lineHeight": 1.15,
+              "fontFamily": "Inter",
+              "fontSize": 40,
+              "fontWeight": "600"
             },
             {
               "type": "text",
               "id": "hero-subtitle",
               "name": "Subtitle",
-              "content": "Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.",
-              "fontFamily": "Inter",
-              "fontSize": 16,
-              "lineHeight": 1.5,
+              "fill": "$text-secondary",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "fill": "$text-secondary"
+              "content": "Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.",
+              "lineHeight": 1.5,
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
             },
             {
               "type": "frame",
@@ -127,55 +161,50 @@
                   "type": "text",
                   "id": "hero-index-value",
                   "name": "Index value",
+                  "fill": "$text",
                   "content": "72",
+                  "lineHeight": 1,
                   "fontFamily": "Inter",
                   "fontSize": 168,
-                  "fontWeight": "600",
-                  "lineHeight": 1,
-                  "fill": "$text"
+                  "fontWeight": "600"
                 },
                 {
                   "type": "frame",
                   "id": "hero-index-meta",
                   "name": "Index meta",
-                  "gap": 10,
                   "layout": "vertical",
+                  "gap": 10,
                   "children": [
-                    { "type": "text", "id": "hero-index-of", "content": "из 100", "fontFamily": "Inter", "fontSize": 18, "fill": "$text-muted" },
-                    { "type": "text", "id": "hero-status", "content": "Очень опасно", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$state-very" }
+                    {
+                      "type": "text",
+                      "id": "hero-index-of",
+                      "fill": "$text-muted",
+                      "content": "из 100",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hero-status",
+                      "fill": "$state-very",
+                      "content": "Очень опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    }
                   ]
                 }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "hero-delta",
-              "name": "Weekly change",
-              "content": "↑ +6 за неделю",
-              "fontFamily": "Inter",
-              "fontSize": 18,
-              "fontWeight": "600",
-              "fill": "$state-very"
-            },
-            {
-              "type": "frame",
-              "id": "hero-dates",
-              "name": "Dates",
-              "width": "fill_container",
-              "justifyContent": "space_between",
-              "children": [
-                { "type": "text", "id": "date-published", "content": "Последняя публикация: 13 сентября 2026", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                { "type": "text", "id": "date-through", "content": "Данные по: 6 сентября 2026", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" }
               ]
             },
             {
               "type": "frame",
               "id": "hero-region-card",
               "name": "Region card",
-              "width": 560,
               "clip": true,
-              "cornerRadius": 12,
+              "width": 560,
               "fill": "$surface",
+              "cornerRadius": 12,
               "children": [
                 {
                   "type": "frame",
@@ -190,9 +219,9 @@
                   "id": "region-card-body",
                   "name": "Card body",
                   "width": "fill_container",
-                  "padding": 24,
-                  "gap": 12,
                   "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
                   "children": [
                     {
                       "type": "frame",
@@ -201,8 +230,25 @@
                       "gap": 16,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "region-yours", "content": "ВАШ РЕГИОН", "fontFamily": "Inter", "fontSize": 12, "fontWeight": "600", "letterSpacing": 1, "fill": "$text-muted" },
-                        { "type": "text", "id": "region-city", "content": "Амстердам", "fontFamily": "Inter", "fontSize": 20, "fontWeight": "600", "fill": "$text" }
+                        {
+                          "type": "text",
+                          "id": "region-yours",
+                          "fill": "$text-muted",
+                          "content": "ВАШ РЕГИОН",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "600",
+                          "letterSpacing": 1
+                        },
+                        {
+                          "type": "text",
+                          "id": "region-city",
+                          "fill": "$text",
+                          "content": "Амстердам",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        }
                       ]
                     },
                     {
@@ -212,8 +258,24 @@
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "region-name", "content": "Европа · 74", "fontFamily": "Inter", "fontSize": 15, "fill": "$text-secondary" },
-                        { "type": "text", "id": "region-change", "content": "изменить", "fontFamily": "Inter", "fontSize": 14, "underline": true, "fill": "$accent" }
+                        {
+                          "type": "text",
+                          "id": "region-name",
+                          "fill": "$text-secondary",
+                          "content": "Европа · 74",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "region-change",
+                          "fill": "$accent",
+                          "content": "изменить",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
                       ]
                     },
                     {
@@ -223,24 +285,86 @@
                       "gap": 20,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "region-index", "content": "74", "fontFamily": "Inter", "fontSize": 32, "fontWeight": "600", "fill": "$text" },
-                        { "type": "text", "id": "region-status", "content": "очень опасно", "fontFamily": "Inter", "fontSize": 15, "fill": "$state-very" },
-                        { "type": "text", "id": "region-delta", "content": "↑ +5 за неделю", "fontFamily": "Inter", "fontSize": 15, "fontWeight": "600", "fill": "$state-very" }
+                        {
+                          "type": "text",
+                          "id": "region-index",
+                          "fill": "$text",
+                          "content": "74",
+                          "fontFamily": "Inter",
+                          "fontSize": 32,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "region-status",
+                          "fill": "$state-very",
+                          "content": "очень опасно",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "region-delta",
+                          "fill": "$state-very",
+                          "content": "↑ +5 за неделю",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
                       ]
                     },
                     {
                       "type": "text",
                       "id": "region-note",
                       "name": "Region note",
-                      "content": "Это контекстный региональный риск, а не прогноз атаки на этот город.",
-                      "fontFamily": "Inter",
-                      "fontSize": 13,
-                      "lineHeight": 1.5,
+                      "fill": "$text-muted",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "fill": "$text-muted"
+                      "content": "Это контекстный региональный риск, а не прогноз атаки на этот город.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "hero-delta",
+              "name": "Weekly change",
+              "fill": "$state-very",
+              "content": "↑ +6 за неделю",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "hero-dates",
+              "name": "Dates",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "date-published",
+                  "fill": "$text-muted",
+                  "content": "Последняя публикация: 13 сентября 2026",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "date-through",
+                  "fill": "$text-muted",
+                  "content": "Данные по: 6 сентября 2026",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -251,33 +375,33 @@
     {
       "type": "frame",
       "id": "scr-sections-desktop",
-      "name": "Desktop — Sections",
       "x": 1560,
       "y": 0,
-      "width": 1440,
+      "name": "Desktop — Sections",
       "clip": true,
+      "width": 1440,
       "fill": "$bg",
       "layout": "vertical",
-      "padding": [64, 64],
       "gap": 72,
+      "padding": 64,
       "children": [
         {
           "type": "frame",
           "id": "sec-drivers",
           "name": "Section: Что изменилось",
           "width": "fill_container",
-          "gap": 24,
           "layout": "vertical",
+          "gap": 24,
           "children": [
             {
               "type": "text",
               "id": "drivers-title",
               "name": "Section title",
+              "fill": "$text",
               "content": "Что изменилось",
               "fontFamily": "Inter",
               "fontSize": 28,
-              "fontWeight": "600",
-              "fill": "$text"
+              "fontWeight": "600"
             },
             {
               "type": "frame",
@@ -285,37 +409,92 @@
               "name": "Driver cards",
               "width": "fill_container",
               "gap": 24,
-              "alignItems": "start",
               "children": [
                 {
                   "type": "frame",
                   "id": "driver-card-1",
                   "name": "Driver card 1",
                   "width": "fill_container",
-                  "padding": 24,
-                  "gap": 12,
-                  "layout": "vertical",
-                  "cornerRadius": 12,
                   "fill": "$surface",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
                   "children": [
-                    { "type": "text", "id": "d1-label", "content": "Военная активность выросла", "fontFamily": "Inter", "fontSize": 16, "fontWeight": "600", "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text" },
-                    { "type": "text", "id": "d1-obs", "content": "Спутниковые снимки фиксируют переброску дополнительных сил в приграничных округах двух государств.", "fontFamily": "Inter", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text-secondary" },
-                    { "type": "text", "id": "d1-contribution", "content": "Вклад — высокий", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
-                    { "type": "text", "id": "d1-confidence", "content": "Уверенность — высокая", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
+                    {
+                      "type": "text",
+                      "id": "d1-label",
+                      "fill": "$text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Военная активность выросла",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d1-obs",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Спутниковые снимки фиксируют переброску дополнительных сил в приграничных округах двух государств.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d1-contribution",
+                      "fill": "$text-secondary",
+                      "content": "Вклад — высокий",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d1-confidence",
+                      "fill": "$text-secondary",
+                      "content": "Уверенность — высокая",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
                     {
                       "type": "frame",
                       "id": "d1-sources-btn",
                       "name": "Sources button",
-                      "padding": [10, 16],
-                      "gap": 8,
-                      "alignItems": "center",
-                      "cornerRadius": 8,
                       "fill": "$accent-soft",
+                      "cornerRadius": 8,
                       "stroke": "$accent-line",
                       "strokeWidth": 1,
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "d1-sources-label", "content": "3 источника", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$accent" },
-                        { "type": "icon", "id": "d1-chevron", "library": "lucide", "icon": "chevron-down", "width": 16, "height": 16, "fill": "$accent" }
+                        {
+                          "type": "text",
+                          "id": "d1-sources-label",
+                          "fill": "$accent",
+                          "content": "3 источника",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "d1-chevron",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        }
                       ]
                     }
                   ]
@@ -325,31 +504,98 @@
                   "id": "driver-card-2",
                   "name": "Driver card 2",
                   "width": "fill_container",
-                  "padding": 24,
-                  "gap": 12,
-                  "layout": "vertical",
-                  "cornerRadius": 12,
                   "fill": "$surface",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
                   "children": [
-                    { "type": "text", "id": "d2-label", "content": "Интенсивность столкновений выросла", "fontFamily": "Inter", "fontSize": 16, "fontWeight": "600", "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text" },
-                    { "type": "text", "id": "d2-obs", "content": "Число боестолкновений вдоль линии соприкосновения за неделю выросло по данным независимого мониторинга.", "fontFamily": "Inter", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text-secondary" },
-                    { "type": "text", "id": "d2-contribution", "content": "Вклад — высокий", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
-                    { "type": "text", "id": "d2-confidence", "content": "Уверенность — средняя", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
-                    { "type": "text", "id": "d2-confidence-note", "content": "Независимые источники дают противоречивые показания по интенсивности.", "fontFamily": "Inter", "fontSize": 13, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text-muted" },
+                    {
+                      "type": "text",
+                      "id": "d2-label",
+                      "fill": "$text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Интенсивность столкновений выросла",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d2-obs",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Число боестолкновений вдоль линии соприкосновения за неделю выросло по данным независимого мониторинга.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d2-contribution",
+                      "fill": "$text-secondary",
+                      "content": "Вклад — высокий",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d2-confidence",
+                      "fill": "$text-secondary",
+                      "content": "Уверенность — средняя",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d2-confidence-note",
+                      "fill": "$text-muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Независимые источники дают противоречивые показания по интенсивности.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
                     {
                       "type": "frame",
                       "id": "d2-sources-btn",
                       "name": "Sources button",
-                      "padding": [10, 16],
-                      "gap": 8,
-                      "alignItems": "center",
-                      "cornerRadius": 8,
                       "fill": "$accent-soft",
+                      "cornerRadius": 8,
                       "stroke": "$accent-line",
                       "strokeWidth": 1,
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "d2-sources-label", "content": "2 источника", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$accent" },
-                        { "type": "icon", "id": "d2-chevron", "library": "lucide", "icon": "chevron-down", "width": 16, "height": 16, "fill": "$accent" }
+                        {
+                          "type": "text",
+                          "id": "d2-sources-label",
+                          "fill": "$accent",
+                          "content": "2 источника",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "d2-chevron",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        }
                       ]
                     }
                   ]
@@ -359,30 +605,86 @@
                   "id": "driver-card-3",
                   "name": "Driver card 3",
                   "width": "fill_container",
-                  "padding": 24,
-                  "gap": 12,
-                  "layout": "vertical",
-                  "cornerRadius": 12,
                   "fill": "$surface",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 24,
                   "children": [
-                    { "type": "text", "id": "d3-label", "content": "Оборонные расходы растут", "fontFamily": "Inter", "fontSize": 16, "fontWeight": "600", "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text" },
-                    { "type": "text", "id": "d3-obs", "content": "Несколько государств объявили об увеличении оборонных бюджетов на следующий финансовый год.", "fontFamily": "Inter", "fontSize": 14, "lineHeight": 1.5, "textGrowth": "fixed-width", "width": "fill_container", "fill": "$text-secondary" },
-                    { "type": "text", "id": "d3-contribution", "content": "Вклад — средний", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
-                    { "type": "text", "id": "d3-confidence", "content": "Уверенность — высокая", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
+                    {
+                      "type": "text",
+                      "id": "d3-label",
+                      "fill": "$text",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Оборонные расходы растут",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d3-obs",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Несколько государств объявили об увеличении оборонных бюджетов на следующий финансовый год.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d3-contribution",
+                      "fill": "$text-secondary",
+                      "content": "Вклад — средний",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d3-confidence",
+                      "fill": "$text-secondary",
+                      "content": "Уверенность — высокая",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
                     {
                       "type": "frame",
                       "id": "d3-sources-btn",
                       "name": "Sources button",
-                      "padding": [10, 16],
-                      "gap": 8,
-                      "alignItems": "center",
-                      "cornerRadius": 8,
                       "fill": "$accent-soft",
+                      "cornerRadius": 8,
                       "stroke": "$accent-line",
                       "strokeWidth": 1,
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "d3-sources-label", "content": "2 источника", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$accent" },
-                        { "type": "icon", "id": "d3-chevron", "library": "lucide", "icon": "chevron-down", "width": 16, "height": 16, "fill": "$accent" }
+                        {
+                          "type": "text",
+                          "id": "d3-sources-label",
+                          "fill": "$accent",
+                          "content": "2 источника",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "d3-chevron",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        }
                       ]
                     }
                   ]
@@ -396,18 +698,18 @@
           "id": "sec-measures",
           "name": "Section: Дополнительные измерения",
           "width": "fill_container",
-          "gap": 16,
           "layout": "vertical",
+          "gap": 16,
           "children": [
             {
               "type": "text",
               "id": "measures-title",
               "name": "Section title",
+              "fill": "$text",
               "content": "Дополнительные измерения риска",
               "fontFamily": "Inter",
               "fontSize": 20,
-              "fontWeight": "600",
-              "fill": "$text"
+              "fontWeight": "600"
             },
             {
               "type": "frame",
@@ -416,9 +718,33 @@
               "gap": 12,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "measure-direct-name", "content": "Прямое военное столкновение", "fontFamily": "Inter", "fontSize": 15, "fill": "$text" },
-                { "type": "text", "id": "measure-direct-dash", "content": "—", "fontFamily": "Inter", "fontSize": 15, "fill": "$text-muted" },
-                { "type": "text", "id": "measure-direct-level", "content": "Высокий", "fontFamily": "Inter", "fontSize": 15, "fontWeight": "600", "fill": "$state-danger" }
+                {
+                  "type": "text",
+                  "id": "measure-direct-name",
+                  "fill": "$text",
+                  "content": "Прямое военное столкновение",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "measure-direct-dash",
+                  "fill": "$text-muted",
+                  "content": "—",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "measure-direct-level",
+                  "fill": "$state-danger",
+                  "content": "Высокий",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                }
               ]
             },
             {
@@ -428,9 +754,33 @@
               "gap": 12,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "measure-nuclear-name", "content": "Риск применения ядерного оружия", "fontFamily": "Inter", "fontSize": 15, "fill": "$text" },
-                { "type": "text", "id": "measure-nuclear-dash", "content": "—", "fontFamily": "Inter", "fontSize": 15, "fill": "$text-muted" },
-                { "type": "text", "id": "measure-nuclear-level", "content": "Низкий", "fontFamily": "Inter", "fontSize": 15, "fontWeight": "600", "fill": "$state-calm" }
+                {
+                  "type": "text",
+                  "id": "measure-nuclear-name",
+                  "fill": "$text",
+                  "content": "Риск применения ядерного оружия",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "measure-nuclear-dash",
+                  "fill": "$text-muted",
+                  "content": "—",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "measure-nuclear-level",
+                  "fill": "$state-calm",
+                  "content": "Низкий",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                }
               ]
             }
           ]
@@ -440,18 +790,18 @@
           "id": "sec-trend",
           "name": "Section: Тренд за 12 недель",
           "width": "fill_container",
-          "gap": 20,
           "layout": "vertical",
+          "gap": 20,
           "children": [
             {
               "type": "text",
               "id": "trend-title",
               "name": "Section title",
+              "fill": "$text",
               "content": "Тренд за 12 недель",
               "fontFamily": "Inter",
               "fontSize": 20,
-              "fontWeight": "600",
-              "fill": "$text"
+              "fontWeight": "600"
             },
             {
               "type": "frame",
@@ -466,13 +816,37 @@
                   "id": "trend-y-axis",
                   "name": "Y axis",
                   "height": 200,
+                  "layout": "vertical",
                   "justifyContent": "space_between",
                   "alignItems": "end",
-                  "layout": "vertical",
                   "children": [
-                    { "type": "text", "id": "y-90", "content": "90", "fontFamily": "Inter", "fontSize": 12, "fill": "$text-muted" },
-                    { "type": "text", "id": "y-60", "content": "60", "fontFamily": "Inter", "fontSize": 12, "fill": "$text-muted" },
-                    { "type": "text", "id": "y-30", "content": "30", "fontFamily": "Inter", "fontSize": 12, "fill": "$text-muted" }
+                    {
+                      "type": "text",
+                      "id": "y-90",
+                      "fill": "$text-muted",
+                      "content": "90",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "y-60",
+                      "fill": "$text-muted",
+                      "content": "60",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "y-30",
+                      "fill": "$text-muted",
+                      "content": "30",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -484,18 +858,90 @@
                   "gap": 10,
                   "alignItems": "end",
                   "children": [
-                    { "type": "rectangle", "id": "bar-1", "width": "fill_container", "height": 112, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-2", "width": "fill_container", "height": 116, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-3", "width": "fill_container", "height": 118, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-4", "width": "fill_container", "height": 118, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-5", "width": "fill_container", "height": 124, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-6", "width": "fill_container", "height": 128, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-7", "width": "fill_container", "height": 130, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-8", "width": "fill_container", "height": 132, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-9", "width": "fill_container", "height": 134, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-10", "width": "fill_container", "height": 138, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-11", "width": "fill_container", "height": 142, "fill": "$accent" },
-                    { "type": "rectangle", "id": "bar-12", "width": "fill_container", "height": 144, "fill": "$accent" }
+                    {
+                      "type": "rectangle",
+                      "id": "bar-1",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 112
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-2",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 116
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-3",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 118
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-4",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 118
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-5",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 124
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-6",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 128
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-7",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 130
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-8",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 132
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-9",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 134
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-10",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 138
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-11",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 142
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "bar-12",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 144
+                    }
                   ]
                 }
               ]
@@ -504,14 +950,25 @@
               "type": "frame",
               "id": "trend-tooltip",
               "name": "Tooltip",
-              "padding": [8, 12],
-              "alignItems": "center",
-              "cornerRadius": 8,
               "fill": "$surface-2",
+              "cornerRadius": 8,
               "stroke": "$border",
               "strokeWidth": 1,
+              "padding": [
+                8,
+                12
+              ],
+              "alignItems": "center",
               "children": [
-                { "type": "text", "id": "tooltip-text", "content": "13.09 — 72 · неделю назад — 71", "fontFamily": "Inter", "fontSize": 13, "fill": "$text" }
+                {
+                  "type": "text",
+                  "id": "tooltip-text",
+                  "fill": "$text",
+                  "content": "13.09 — 72 · неделю назад — 71",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
               ]
             },
             {
@@ -521,9 +978,33 @@
               "gap": 16,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "trend-current", "content": "Сейчас — 72", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$text" },
-                { "type": "text", "id": "trend-week-ago", "content": "неделю назад — 71", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-secondary" },
-                { "type": "text", "id": "trend-range", "content": "12 недель: 56 → 72", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" }
+                {
+                  "type": "text",
+                  "id": "trend-current",
+                  "fill": "$text",
+                  "content": "Сейчас — 72",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "trend-week-ago",
+                  "fill": "$text-secondary",
+                  "content": "неделю назад — 71",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "trend-range",
+                  "fill": "$text-muted",
+                  "content": "12 недель: 56 → 72",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
               ]
             }
           ]
@@ -533,25 +1014,25 @@
     {
       "type": "frame",
       "id": "scr-regions-desktop",
-      "name": "Desktop — Regions",
       "x": 0,
       "y": 1100,
-      "width": 1440,
+      "name": "Desktop — Regions",
       "clip": true,
+      "width": 1440,
       "fill": "$bg",
       "layout": "vertical",
-      "padding": [64, 64],
       "gap": 40,
+      "padding": 64,
       "children": [
         {
           "type": "text",
           "id": "regions-title",
           "name": "Section title",
+          "fill": "$text",
           "content": "Где риск изменился сильнее всего",
           "fontFamily": "Inter",
           "fontSize": 28,
-          "fontWeight": "600",
-          "fill": "$text"
+          "fontWeight": "600"
         },
         {
           "type": "frame",
@@ -565,11 +1046,17 @@
               "id": "region-row-1",
               "name": "Row: Ближний Восток",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -578,8 +1065,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-1-rank", "content": "1", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-1-title", "content": "Ближний Восток", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-1-rank",
+                      "fill": "$text-muted",
+                      "content": "1",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-1-title",
+                      "fill": "$text",
+                      "content": "Ближний Восток",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -589,9 +1092,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-1-index", "content": "88", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-1-delta", "content": "↑ +9", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-very" },
-                    { "type": "text", "id": "row-1-status", "content": "критически опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-critical" }
+                    {
+                      "type": "text",
+                      "id": "row-1-index",
+                      "fill": "$text",
+                      "content": "88",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-1-delta",
+                      "fill": "$state-very",
+                      "content": "↑ +9",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-1-status",
+                      "fill": "$state-critical",
+                      "content": "критически опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -601,11 +1128,17 @@
               "id": "region-row-2",
               "name": "Row: Европа",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -614,8 +1147,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-2-rank", "content": "2", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-2-title", "content": "Европа", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-2-rank",
+                      "fill": "$text-muted",
+                      "content": "2",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-2-title",
+                      "fill": "$text",
+                      "content": "Европа",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -625,9 +1174,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-2-index", "content": "74", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-2-delta", "content": "↑ +5", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-very" },
-                    { "type": "text", "id": "row-2-status", "content": "очень опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-very" }
+                    {
+                      "type": "text",
+                      "id": "row-2-index",
+                      "fill": "$text",
+                      "content": "74",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-2-delta",
+                      "fill": "$state-very",
+                      "content": "↑ +5",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-2-status",
+                      "fill": "$state-very",
+                      "content": "очень опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -637,11 +1210,17 @@
               "id": "region-row-3",
               "name": "Row: Южная Азия",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -650,8 +1229,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-3-rank", "content": "3", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-3-title", "content": "Южная Азия", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-3-rank",
+                      "fill": "$text-muted",
+                      "content": "3",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-3-title",
+                      "fill": "$text",
+                      "content": "Южная Азия",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -661,9 +1256,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-3-index", "content": "63", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-3-delta", "content": "↑ +4", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-very" },
-                    { "type": "text", "id": "row-3-status", "content": "очень опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-very" }
+                    {
+                      "type": "text",
+                      "id": "row-3-index",
+                      "fill": "$text",
+                      "content": "63",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-3-delta",
+                      "fill": "$state-very",
+                      "content": "↑ +4",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-3-status",
+                      "fill": "$state-very",
+                      "content": "очень опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -673,11 +1292,17 @@
               "id": "region-row-4",
               "name": "Row: Восточная Азия",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -686,8 +1311,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-4-rank", "content": "4", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-4-title", "content": "Восточная Азия", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-4-rank",
+                      "fill": "$text-muted",
+                      "content": "4",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-4-title",
+                      "fill": "$text",
+                      "content": "Восточная Азия",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -697,9 +1338,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-4-index", "content": "55", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-4-delta", "content": "↑ +2", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-very" },
-                    { "type": "text", "id": "row-4-status", "content": "опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-danger" }
+                    {
+                      "type": "text",
+                      "id": "row-4-index",
+                      "fill": "$text",
+                      "content": "55",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-4-delta",
+                      "fill": "$state-very",
+                      "content": "↑ +2",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-4-status",
+                      "fill": "$state-danger",
+                      "content": "опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -709,11 +1374,17 @@
               "id": "region-row-5",
               "name": "Row: Африка",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -722,8 +1393,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-5-rank", "content": "5", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-5-title", "content": "Африка", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-5-rank",
+                      "fill": "$text-muted",
+                      "content": "5",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-5-title",
+                      "fill": "$text",
+                      "content": "Африка",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -733,9 +1420,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-5-index", "content": "48", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-5-delta", "content": "↑ +1", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-very" },
-                    { "type": "text", "id": "row-5-status", "content": "опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-danger" }
+                    {
+                      "type": "text",
+                      "id": "row-5-index",
+                      "fill": "$text",
+                      "content": "48",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-5-delta",
+                      "fill": "$state-very",
+                      "content": "↑ +1",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-5-status",
+                      "fill": "$state-danger",
+                      "content": "опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -745,11 +1456,17 @@
               "id": "region-row-6",
               "name": "Row: Северная Америка",
               "width": "fill_container",
-              "padding": [16, 0],
+              "stroke": "$border-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                16,
+                0
+              ],
               "justifyContent": "space_between",
               "alignItems": "center",
-              "stroke": "$border-soft",
-              "strokeWidth": { "top": 1 },
               "children": [
                 {
                   "type": "frame",
@@ -758,8 +1475,24 @@
                   "gap": 12,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-6-rank", "content": "6", "fontFamily": "Inter", "fontSize": 14, "fill": "$text-muted" },
-                    { "type": "text", "id": "row-6-title", "content": "Северная Америка", "fontFamily": "Inter", "fontSize": 16, "fill": "$text" }
+                    {
+                      "type": "text",
+                      "id": "row-6-rank",
+                      "fill": "$text-muted",
+                      "content": "6",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-6-title",
+                      "fill": "$text",
+                      "content": "Северная Америка",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
                   ]
                 },
                 {
@@ -769,9 +1502,33 @@
                   "gap": 24,
                   "alignItems": "center",
                   "children": [
-                    { "type": "text", "id": "row-6-index", "content": "41", "fontFamily": "Inter", "fontSize": 18, "fontWeight": "600", "fill": "$text" },
-                    { "type": "text", "id": "row-6-delta", "content": "↓ −1", "fontFamily": "Inter", "fontSize": 14, "fontWeight": "600", "fill": "$state-calm" },
-                    { "type": "text", "id": "row-6-status", "content": "опасно", "fontFamily": "Inter", "fontSize": 14, "fill": "$state-danger" }
+                    {
+                      "type": "text",
+                      "id": "row-6-index",
+                      "fill": "$text",
+                      "content": "41",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-6-delta",
+                      "fill": "$state-calm",
+                      "content": "↓ −1",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "row-6-status",
+                      "fill": "$state-danger",
+                      "content": "опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
                   ]
                 }
               ]
@@ -783,7 +1540,12 @@
           "id": "regions-footer",
           "name": "Footer",
           "width": "fill_container",
-          "padding": [24, 0, 0, 0],
+          "padding": [
+            24,
+            0,
+            0,
+            0
+          ],
           "justifyContent": "space_between",
           "alignItems": "center",
           "children": [
@@ -791,12 +1553,13 @@
               "type": "text",
               "id": "footer-disclaimer",
               "name": "Disclaimer",
+              "fill": "$text-muted",
+              "textGrowth": "fixed-width",
+              "width": 640,
               "content": "Оценка риска на основе открытых данных. Не официальный прогноз.",
               "fontFamily": "Inter",
               "fontSize": 13,
-              "textGrowth": "fixed-width",
-              "width": 640,
-              "fill": "$text-muted"
+              "fontWeight": "normal"
             },
             {
               "type": "frame",
@@ -805,9 +1568,33 @@
               "gap": 24,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "footer-privacy", "content": "Приватность", "fontFamily": "Inter", "fontSize": 14, "underline": true, "fill": "$accent" },
-                { "type": "text", "id": "footer-lang-ru", "content": "RU", "fontFamily": "Inter", "fontSize": 13, "fontWeight": "600", "fill": "$accent" },
-                { "type": "text", "id": "footer-lang-en", "content": "EN", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-muted" }
+                {
+                  "type": "text",
+                  "id": "footer-privacy",
+                  "fill": "$accent",
+                  "content": "Приватность",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "footer-lang-ru",
+                  "fill": "$accent",
+                  "content": "RU",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "footer-lang-en",
+                  "fill": "$text-muted",
+                  "content": "EN",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
               ]
             }
           ]
@@ -817,12 +1604,12 @@
     {
       "type": "frame",
       "id": "scr-hero-mobile",
-      "name": "Mobile — Hero",
       "x": 1560,
       "y": 1100,
+      "name": "Mobile — Hero",
+      "clip": true,
       "width": 360,
       "height": 640,
-      "clip": true,
       "fill": "$bg",
       "layout": "vertical",
       "children": [
@@ -832,12 +1619,23 @@
           "name": "Header",
           "width": "fill_container",
           "height": 64,
-          "padding": [0, 16],
+          "fill": "$overlay-header",
+          "padding": [
+            0,
+            16
+          ],
           "justifyContent": "space_between",
           "alignItems": "center",
-          "fill": "$overlay-header",
           "children": [
-            { "type": "text", "id": "m-brand", "content": "Cassandra Index", "fontFamily": "Inter", "fontSize": 15, "fontWeight": "600", "fill": "$text" },
+            {
+              "type": "text",
+              "id": "m-brand",
+              "fill": "$text",
+              "content": "Cassandra Index",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            },
             {
               "type": "frame",
               "id": "m-lang",
@@ -845,8 +1643,24 @@
               "gap": 6,
               "alignItems": "center",
               "children": [
-                { "type": "text", "id": "m-lang-ru", "content": "RU", "fontFamily": "Inter", "fontSize": 13, "fontWeight": "600", "fill": "$accent" },
-                { "type": "text", "id": "m-lang-en", "content": "EN", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-muted" }
+                {
+                  "type": "text",
+                  "id": "m-lang-ru",
+                  "fill": "$accent",
+                  "content": "RU",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "m-lang-en",
+                  "fill": "$text-muted",
+                  "content": "EN",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
               ]
             }
           ]
@@ -857,22 +1671,25 @@
           "name": "Hero body",
           "width": "fill_container",
           "height": "fill_container",
-          "padding": [20, 16],
-          "gap": 14,
           "layout": "vertical",
+          "gap": 14,
+          "padding": [
+            20,
+            16
+          ],
           "children": [
             {
               "type": "text",
               "id": "m-title",
               "name": "Title",
-              "content": "Насколько близко мир подошёл к глобальному военному конфликту?",
-              "fontFamily": "Inter",
-              "fontSize": 21,
-              "fontWeight": "600",
-              "lineHeight": 1.2,
+              "fill": "$text",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "fill": "$text"
+              "content": "Насколько близко мир подошёл к глобальному военному конфликту?",
+              "lineHeight": 1.2,
+              "fontFamily": "Inter",
+              "fontSize": 21,
+              "fontWeight": "600"
             },
             {
               "type": "frame",
@@ -881,16 +1698,41 @@
               "gap": 12,
               "alignItems": "end",
               "children": [
-                { "type": "text", "id": "m-index-value", "content": "72", "fontFamily": "Inter", "fontSize": 64, "fontWeight": "600", "lineHeight": 1, "fill": "$text" },
+                {
+                  "type": "text",
+                  "id": "m-index-value",
+                  "fill": "$text",
+                  "content": "72",
+                  "lineHeight": 1,
+                  "fontFamily": "Inter",
+                  "fontSize": 64,
+                  "fontWeight": "600"
+                },
                 {
                   "type": "frame",
                   "id": "m-index-meta",
                   "name": "Index meta",
-                  "gap": 6,
                   "layout": "vertical",
+                  "gap": 6,
                   "children": [
-                    { "type": "text", "id": "m-index-of", "content": "из 100", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-muted" },
-                    { "type": "text", "id": "m-status", "content": "Очень опасно", "fontFamily": "Inter", "fontSize": 13, "fontWeight": "600", "fill": "$state-very" }
+                    {
+                      "type": "text",
+                      "id": "m-index-of",
+                      "fill": "$text-muted",
+                      "content": "из 100",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "m-status",
+                      "fill": "$state-very",
+                      "content": "Очень опасно",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
                   ]
                 }
               ]
@@ -899,31 +1741,47 @@
               "type": "text",
               "id": "m-delta",
               "name": "Weekly change",
+              "fill": "$state-very",
               "content": "↑ +6 за неделю",
               "fontFamily": "Inter",
               "fontSize": 14,
-              "fontWeight": "600",
-              "fill": "$state-very"
+              "fontWeight": "600"
             },
             {
               "type": "frame",
               "id": "m-dates",
               "name": "Dates",
-              "gap": 4,
               "layout": "vertical",
+              "gap": 4,
               "children": [
-                { "type": "text", "id": "m-date-published", "content": "Последняя публикация: 13 сентября 2026", "fontFamily": "Inter", "fontSize": 12, "fill": "$text-muted" },
-                { "type": "text", "id": "m-date-through", "content": "Данные по: 6 сентября 2026", "fontFamily": "Inter", "fontSize": 12, "fill": "$text-muted" }
+                {
+                  "type": "text",
+                  "id": "m-date-published",
+                  "fill": "$text-muted",
+                  "content": "Последняя публикация: 13 сентября 2026",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "m-date-through",
+                  "fill": "$text-muted",
+                  "content": "Данные по: 6 сентября 2026",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
               ]
             },
             {
               "type": "frame",
               "id": "m-region-card",
               "name": "Region card",
-              "width": "fill_container",
               "clip": true,
-              "cornerRadius": 10,
+              "width": "fill_container",
               "fill": "$surface",
+              "cornerRadius": 10,
               "children": [
                 {
                   "type": "frame",
@@ -938,9 +1796,9 @@
                   "id": "m-region-body",
                   "name": "Card body",
                   "width": "fill_container",
-                  "padding": 14,
-                  "gap": 8,
                   "layout": "vertical",
+                  "gap": 8,
+                  "padding": 14,
                   "children": [
                     {
                       "type": "frame",
@@ -949,8 +1807,25 @@
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "m-region-yours", "content": "ВАШ РЕГИОН", "fontFamily": "Inter", "fontSize": 10, "fontWeight": "600", "letterSpacing": 1, "fill": "$text-muted" },
-                        { "type": "text", "id": "m-region-city", "content": "Амстердам", "fontFamily": "Inter", "fontSize": 16, "fontWeight": "600", "fill": "$text" }
+                        {
+                          "type": "text",
+                          "id": "m-region-yours",
+                          "fill": "$text-muted",
+                          "content": "ВАШ РЕГИОН",
+                          "fontFamily": "Inter",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 1
+                        },
+                        {
+                          "type": "text",
+                          "id": "m-region-city",
+                          "fill": "$text",
+                          "content": "Амстердам",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "600"
+                        }
                       ]
                     },
                     {
@@ -960,8 +1835,24 @@
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "m-region-name", "content": "Европа · 74", "fontFamily": "Inter", "fontSize": 13, "fill": "$text-secondary" },
-                        { "type": "text", "id": "m-region-change", "content": "изменить", "fontFamily": "Inter", "fontSize": 13, "underline": true, "fill": "$accent" }
+                        {
+                          "type": "text",
+                          "id": "m-region-name",
+                          "fill": "$text-secondary",
+                          "content": "Европа · 74",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "m-region-change",
+                          "fill": "$accent",
+                          "content": "изменить",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
                       ]
                     },
                     {
@@ -971,8 +1862,24 @@
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
-                        { "type": "text", "id": "m-region-status", "content": "очень опасно", "fontFamily": "Inter", "fontSize": 13, "fill": "$state-very" },
-                        { "type": "text", "id": "m-region-delta", "content": "↑ +5 за неделю", "fontFamily": "Inter", "fontSize": 13, "fontWeight": "600", "fill": "$state-very" }
+                        {
+                          "type": "text",
+                          "id": "m-region-status",
+                          "fill": "$state-very",
+                          "content": "очень опасно",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "m-region-delta",
+                          "fill": "$state-very",
+                          "content": "↑ +5 за неделю",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
                       ]
                     }
                   ]
@@ -983,5 +1890,84 @@
         }
       ]
     }
-  ]
+  ],
+  "variables": {
+    "bg": {
+      "type": "color",
+      "value": "#0A0E12"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#121820"
+    },
+    "surface-2": {
+      "type": "color",
+      "value": "#1A2028"
+    },
+    "border": {
+      "type": "color",
+      "value": "#232B36"
+    },
+    "border-soft": {
+      "type": "color",
+      "value": "#1A2028"
+    },
+    "text": {
+      "type": "color",
+      "value": "#E6EDF3"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#8B949E"
+    },
+    "text-muted": {
+      "type": "color",
+      "value": "#6B7280"
+    },
+    "text-on-accent": {
+      "type": "color",
+      "value": "#0A0E12"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#58A6FF"
+    },
+    "accent-soft": {
+      "type": "color",
+      "value": "#58A6FF24"
+    },
+    "accent-line": {
+      "type": "color",
+      "value": "#58A6FF73"
+    },
+    "state-calm": {
+      "type": "color",
+      "value": "#3FB950"
+    },
+    "state-tense": {
+      "type": "color",
+      "value": "#A8B06B"
+    },
+    "state-danger": {
+      "type": "color",
+      "value": "#D29922"
+    },
+    "state-very": {
+      "type": "color",
+      "value": "#D17F52"
+    },
+    "state-critical": {
+      "type": "color",
+      "value": "#F85149"
+    },
+    "state-extreme": {
+      "type": "color",
+      "value": "#A83A3A"
+    },
+    "overlay-header": {
+      "type": "color",
+      "value": "#0A0E12D9"
+    }
+  },
+  "fileToken": "7c10f7a6-b00f-47d9-8ac6-f2350a6be9d4"
 }
