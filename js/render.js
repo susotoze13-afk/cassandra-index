@@ -1,0 +1,53 @@
+// render.js — вся DOM-разметка всех секций. Скелет dispatch: таск 02 регистрирует
+// рендереры секций через registerSection(); renderAll проходит по SECTIONS и вызывает
+// зарегистрированные. appState: { lang, region, detected, week, snapshot, dataState }.
+
+import { t } from './i18n.js';
+
+export const SECTIONS = [
+  'hero',
+  'regions',
+  'trend',
+  'drivers',
+  'states',
+  'history',
+  'methodology',
+];
+
+const registry = new Map();
+
+export function registerSection(name, renderFn) {
+  if (!SECTIONS.includes(name)) return false;
+  registry.set(name, renderFn);
+  return true;
+}
+
+// renderSection(name, appState) → true если секция отрендерена, false если рендерер
+// ещё не зарегистрирован (скелет; таск 02 наполняет).
+export function renderSection(name, appState) {
+  const fn = registry.get(name);
+  if (typeof fn !== 'function') return false;
+  fn(appState);
+  return true;
+}
+
+export function renderAll(appState) {
+  const rendered = [];
+  for (const name of SECTIONS) {
+    if (renderSection(name, appState)) rendered.push(name);
+  }
+  return rendered;
+}
+
+// applyI18n(root, lang) — проставляет текст по [data-i18n] из словаря (§11.3:
+// жёстких строк вне словаря нет; дефолтная RU-разметка в HTML заменяется здесь).
+export function applyI18n(root, lang) {
+  if (!root?.querySelectorAll) return;
+  root.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(lang, key);
+  });
+  root.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+    el.setAttribute('aria-label', t(lang, el.getAttribute('data-i18n-aria')));
+  });
+}

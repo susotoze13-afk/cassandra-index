@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cassandra Index — индекс конфликтного риска</title>
+  <meta name="description" content="Еженедельная оценка уровня и направления глобального конфликтного риска на основе открытых данных.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#overview">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a href="#overview" data-i18n="nav.overview">Обзор</a>
+        <a href="#regions" data-i18n="nav.regions">Регионы</a>
+        <a href="#trend" data-i18n="nav.trend">Тренд</a>
+        <a href="#methodology" data-i18n="nav.method">Методология</a>
+        <a href="#sources" data-i18n="nav.sources">История и источники</a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Язык / Language">
+        <button type="button" class="lang-btn" data-lang="ru" aria-pressed="true" data-i18n="nav.lang.ru">RU</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="nav.lang.en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Дефолтная RU-разметка hero — в исходном HTML (Решение п.3: первый экран без ожидания JS).
+         Данные последнего снапшота (2026-09-13: global 72, ↑+6) — та же неделя, что в data/.
+         JS заменяет значениями снапшота и переключает язык. -->
+    <section id="overview" class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" data-i18n="hero.title">Насколько близко мир подошёл к глобальному военному конфликту?</h1>
+      <p class="subtitle" data-i18n="hero.subtitle">Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.</p>
+
+      <div class="meta">
+        <span class="meta-item"><strong data-i18n="meta.published">Последняя публикация</strong>: 13 сентября 2026</span>
+        <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: 6 сентября 2026</span>
+      </div>
+
+      <div class="hero-numbers">
+        <div class="global-index">
+          <div class="big" data-role="global-index">72</div>
+          <div class="index-caption"><span data-i18n="hero.index.of">из 100</span></div>
+          <div class="status-line">
+            <span class="status" data-role="global-status">Очень опасно</span>
+            <span class="delta delta--rise" data-role="global-delta">↑ +6 <span data-i18n="hero.week.change">за неделю</span></span>
+          </div>
+        </div>
+
+        <div class="region-card" data-role="region-card">
+          <div class="region-overline" data-i18n="region.yours">ВАШ РЕГИОН</div>
+          <div class="region-line">
+            <span class="region-city" data-role="region-city">Амстердам</span>
+            <span class="region-name">· <span data-role="region-name">Европа</span></span>
+            <button type="button" class="link-btn" data-role="region-change" data-i18n="region.change">изменить</button>
+          </div>
+          <div class="region-stats" data-role="region-stats">
+            <span class="region-index">74</span>
+            <span class="status">Очень опасно</span>
+            <span class="delta delta--rise">↑ +5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ниже — контейнеры секций; разметку наполняет render.js (таск 02). -->
+    <section id="regions" class="section" aria-labelledby="regions-title">
+      <h2 id="regions-title" data-i18n="nav.regions">Регионы</h2>
+      <div class="section-body" data-section="regions"></div>
+    </section>
+
+    <section id="trend" class="section" aria-labelledby="trend-title">
+      <h2 id="trend-title" data-i18n="nav.trend">Тренд</h2>
+      <div class="section-body" data-section="trend"></div>
+    </section>
+
+    <section id="methodology" class="section" aria-labelledby="methodology-title">
+      <h2 id="methodology-title" data-i18n="nav.method">Методология</h2>
+      <div class="section-body" data-section="methodology"></div>
+    </section>
+
+    <section id="sources" class="section" aria-labelledby="sources-title">
+      <h2 id="sources-title" data-i18n="nav.sources">История и источники</h2>
+      <div class="section-body" data-section="history"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer" data-i18n="footer.disclaimer">Оценка риска на основе открытых данных. Не официальный прогноз.</p>
+  </footer>
+
+  <!-- Данные: JS-файлы через script src (file:// блокирует fetch).
+       latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
+  <script src="data/latest.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

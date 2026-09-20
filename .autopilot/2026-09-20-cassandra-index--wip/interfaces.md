@@ -1,0 +1,84 @@
+# Интерфейсы и правила проекта
+
+Копируется из спецификации (раздел «Границы и швы», Решения по реализации) + правила,
+которые сабагент не может вывести сам. Первое, что читает исполнитель таска.
+
+## Правила проекта (нормативны)
+
+- **Стек**: чистый HTML/CSS/ES-модули. Ноль зависимостей, ноль сборки, ноль библиотек
+  (включая визуализацию — графика инлайн-SVG, генерируется из данных). Node ≥ 18.
+- **Тесты**: `node --test tests/` — только чистые модули без DOM (`i18n`, `risk`,
+  `region.search/detect`, `data.validate`). Никаких тест-фреймворков.
+- **Запуск**: сайт обязан работать с `file://` (двойной клик по `index.html`) и с любого
+  статического хостинга. Поэтому данные — JS-файлы через `<script src>`, **не fetch**:
+  снапшоты кладут данные в `window.CI_DATA` (Решение п.2, отступление от буквы R63
+  с `*.json` — задокументировано в спецификации).
+- **Не трогать**: `cassandra-index-prototype.html` (референс, только чтение),
+  `PRD_Casandra_Index.md`, `METHODOLOGY.md`, всё в `.autopilot/`.
+- **Лексика**: в primary UI нет слов из Avoid-списка §11.5 и фраз «на пороге», «на грани»
+  (§15). Метафора часов нигде (§79 запрет). Технические термины — только в методологии.
+- **i18n**: ни одной «жёсткой» пользовательской строки вне словаря. Ключи `data-i18n`,
+  плюрализация RU правилом 1/2–4/5+, даты через `Intl.DateTimeFormat`.
+- **Доступность и производительность — сквозные критерии каждого UI-таска**:
+  видимый фокус (#58A6FF, 2px, offset 2–3px), контраст ≥4.5:1, touch ≥44px,
+  reflow 320px без горизонтального скролла, prefers-reduced-motion, значения не только
+  цветом; нижефолдовые секции — content-visibility, первый экран читается без JS-ожидания.
+- **Missing dependency → `BLOCKED`**, а не самостоятельная установка пакетов.
+  (На этом проекте зависимостей нет в принципе — любой импорт из npm/CDN — ошибка.)
+
+## Структура (зоны владения)
+
+```
+index.html          — единственная страница, якорные разделы; hero-разметка RU в исходном HTML
+privacy.html        — политика приватности (отдельная страница)
+css/styles.css      — все токены §14.4 и стили
+js/data.js          — загрузка снапшотов через script-теги, latest(), week(), listWeeks(), validate()
+js/i18n.js          — словари RU/EN, t(), plural(), date()
+js/risk.js          — status(index), tone(statusId), deltaTone(change) по §10
+js/region.js        — справочник 6 регионов + ~30 городов, detect(tz), current(), choose(), search()
+js/render.js        — renderAll(appState), dispatch по секциям
+js/app.js           — init(): оркестрация, data-state, URL ?week=, демо-подмена
+js/sections/*.js    — по одному модулю на секцию (hero, drivers, trend, regions, states, history, methodology)
+js/share.js         — canvas 1200×630 → PNG → download / Web Share API
+js/demo.js          — панель «Демо-состояния» (A01, только сессия)
+data/<YYYY-MM-DD>/  — global.js, regions.js, region-<slug>.js, trend.js, drivers.js, sources.js
+data/latest.js      — указатель на текущую неделю
+tests/*.test.js     — node --test
+```
+
+## Границы, решённые в спецификации
+
+| Модуль | Владеет | Выставляет | Прячет |
+|---|---|---|---|
+| `data` | снапшоты, указатель latest, схема | `latest()`, `week(date?)`, `listWeeks()`, `validate(snapshot)` | загрузку script-тегов, дефолты при битых файлах |
+| `i18n` | словари RU/EN, плюрализация, форматы | `t(lang,key,vars)`, `plural(lang,n,forms)`, `date(lang,iso,short?)` | правила склонения, Intl-настройки |
+| `risk` | шкала §10, тона палитры | `status(index)`, `tone(statusId)`, `deltaTone(change)` | пороги, границы диапазонов |
+| `region` | справочник регионов/городов, детект, хранение | `detect(tz)`, `current()`, `choose(id,{persist})`, `search(q)` | маппинг tz→регион, ключи localStorage |
+| `render` | вся DOM-разметка всех секций | `renderAll(appState)`, `renderSection(name,appState)` | aria-атрибуты, svg-геометрию, состояния контролов |
+| `app` | оркестрация, data-state, URL `?week=` | `init()` | связывание событий, демо-подмену |
+
+Швы для тестов (тестируем только здесь): `i18n`, `risk`, `region.search/detect`,
+`data.validate` — чистые функции без DOM.
+
+## Контракт данных (снапшот)
+
+`window.CI_DATA = { snapshots: { "<YYYY-MM-DD>": {...} }, latest: "<YYYY-MM-DD>" }`.
+Поля снапшота: даты публикации/покрытия, версия методологии, глобальный индекс и Δ,
+регионы (индекс, Δ, статус, драйверы, уверенность, источники), 12-недельный тренд,
+состояние данных (Published/Updating/Delayed/Insufficient data/Model unavailable).
+Демо-данные — согласно PRD «в прототипе — demo-данные»: ≥6 недель истории,
+глобальный индекс последней недели — 72 (↑+6), рекомендованные 2–5 источников на драйвер.
+
+## Из таска 01 — каркас, демо-данные, чистые модули
+
+- `risk.status(index 0..100)` → `'calm'|'tense'|'danger'|'very'|'critical'|'extreme'`|null; `risk.tone(id)` → токен `'--state-*'`; `risk.deltaTone(Δ)` → `'--state-very'|'--state-calm'|'--text-secondary'`
+- `i18n.t(lang,key,vars)` · `i18n.plural(lang,n,[one,few,many])` · `i18n.date(lang,iso,short?)` → `13 сентября 2026` / `13 Sep, 2026` / `13.09` / `Sep 13`
+- `region.REGIONS` · `region.CITIES` · `region.get(id)` · `region.detect(tz)` (неизвестный IANA-пояс → null) · `region.current()` · `region.choose(id,{persist})` · `region.search(q)` → `[{name,region,regionName}]`
+- `data.latest()` → `'YYYY-MM-DD'` · `data.week(date?)` → snapshot | `{dataState:'unavailable',unavailable,errors[]}` · `data.listWeeks()` · `data.validate(snap)` → `{ok,errors[]}`
+- События на document: `ci:datastate` {state,date,errors}, `ci:ready` {appState}
+- `appState = {lang,region,detected,week,snapshot,dataState,unavailable,errors}`
+- `render.registerSection(name,fn)` · `render.renderAll(appState)` · `render.applyI18n(root,lang)`
+- Схема снапшота: `{published,through,methodology,dataState,global{index,delta},regions{slug{index,delta,status,confidence,drivers[]}},trend[12×{date,value}],drivers[3],sources[]}`
+- Тесты: `node --test` (bare — `node --test tests/` падает на Windows/Node 24), один файл: `node --test tests/<file>.test.js`
+- `data/latest.js` грузит снапшоты через `document.write` (единственный способ без fetch на file://); новая неделя = каталог `data/<дата>/` + дата в `CI_WEEKS`
+- `js/render.js`/`js/app.js` — скелеты: dispatch без зарегистрированных секций, hero — дефолтная RU-разметка HTML

@@ -1,0 +1,361 @@
+/* Cassandra Index — нормативные токены §14.4 (PRD) + базовые стили каркаса. */
+
+:root {
+  /* Поверхности (Qwen-графит) */
+  --bg: #0A0E12;
+  --surface: #121820;
+  --surface-2: #1A2028;
+  --border: #232B36;
+  --border-soft: #1A2028;
+
+  /* Текст */
+  --text: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted: #6B7280;
+  --text-on-accent: #0A0E12;
+
+  /* Нейтральный акцент (UI, не семантика) */
+  --accent: #58A6FF;
+  --accent-soft: rgba(88, 166, 255, .14);
+  --accent-line: rgba(88, 166, 255, .45);
+
+  /* Состояния §10 */
+  --state-calm: #3FB950;
+  --state-tense: #A8B06B;
+  --state-danger: #D29922;
+  --state-very: #D17F52;
+  --state-critical: #F85149;
+  --state-extreme: #A83A3A;
+
+  /* Оверлеи */
+  --overlay-header: rgba(10, 14, 18, .85);
+  --overlay-backdrop: rgba(10, 14, 18, .85);
+
+  /* Фокус */
+  --focus: #58A6FF;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  /* reflow 320px: горизонтального скролла нет при любой ширине вьюпорта */
+  overflow-x: hidden;
+}
+
+h1,
+h2 {
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Видимый фокус (WCAG 2.2 AA): #58A6FF, 2px, offset 2–3px */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* touch-цели ≥ 44px */
+button,
+a,
+.lang-btn,
+.link-btn {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Хедер: sticky, blur(8px), фон --overlay-header, ≤64px десктоп / ≤88px мобильный */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--overlay-header);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  color: var(--text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.site-nav a {
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  text-decoration: none;
+}
+
+.lang-switch {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lang-btn[aria-pressed="true"] {
+  color: var(--text);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+/* Hero — первый экран читается без JS-ожидания */
+.hero {
+  padding: 32px 0 40px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 58px);
+  max-width: 900px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  max-width: 720px;
+  margin: 0 0 16px;
+}
+
+.meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.meta strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.hero-numbers {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.global-index {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+
+.big {
+  font-size: clamp(64px, 10vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+
+.index-caption {
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.status-line {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.status {
+  font-weight: 600;
+}
+
+/* Значения не только цветом: знак и текстовая метка рядом с тоном */
+.delta--rise {
+  color: var(--state-very);
+  font-weight: 600;
+}
+
+.delta--fall {
+  color: var(--state-calm);
+  font-weight: 600;
+}
+
+.delta--same {
+  color: var(--text-secondary);
+}
+
+/* Персональная строка региона: вторичная карточка с левой цветной полосой */
+.region-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--state-very);
+  border-radius: 12px;
+  padding: 20px 24px;
+  min-width: 260px;
+}
+
+.region-overline {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: .08em;
+  margin-bottom: 6px;
+}
+
+.region-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.region-city {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.region-name {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  padding: 0 4px;
+  text-decoration: underline;
+}
+
+.region-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.region-index {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Нижефолдовые секции: не рендерим до появления в вьюпорте */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.section h2 {
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+.section-body {
+  color: var(--text-secondary);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 20px 40px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.disclaimer {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    height: 88px;
+    flex-wrap: wrap;
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  .site-nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  main {
+    padding: 16px 16px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
