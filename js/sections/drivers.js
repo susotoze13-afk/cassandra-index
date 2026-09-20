@@ -128,7 +128,9 @@ function buildDriverCard(lang, drv, index) {
     const { shown, remaining } = visibleSources(sources, state.showAll);
     list.innerHTML = '';
     for (const src of shown) list.append(buildSourceItem(lang, src));
-    moreBtn.hidden = state.showAll || remaining === 0;
+    // Кнопка «все источники» живёт под раскрытым списком: при свёрнутом
+    // аккордеоне не показываем (иначе — висящая кнопка без списка).
+    moreBtn.hidden = !state.expanded || (!state.showAll && remaining === 0);
     moreBtn.textContent = state.showAll
       ? t(lang, 'drivers.sources.hideAll')
       : t(lang, 'drivers.sources.showAll');
