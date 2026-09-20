@@ -88,6 +88,13 @@
                 aria-expanded="false" aria-controls="region-picker" hidden>Узнать риск для моего региона →</button>
       </div>
 
+      <!-- История 27: дисклеймер §17 дословно рядом с данными, без модалки.
+           История 21: кнопка «Поделиться» → карточка 1200×630 (js/share.js). -->
+      <div class="hero-legal">
+        <p class="hero-disclaimer" data-i18n="disclaimer.full">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+        <button type="button" class="share-btn" data-role="share-btn" data-i18n="share.button">Поделиться</button>
+      </div>
+
       <!-- Inline-панель выбора региона (наполняет js/sections/hero.js). -->
       <div id="region-picker" data-role="region-picker" hidden></div>
 
@@ -126,9 +133,14 @@
   </main>
 
   <footer class="site-footer">
-    <p class="disclaimer" data-i18n="footer.disclaimer">Оценка риска на основе открытых данных. Не официальный прогноз.</p>
+    <!-- §17 дословно (История 27) + краткое раскрытие IP-обработки под будущий бэкенд. -->
+    <p class="disclaimer" data-i18n="disclaimer.full">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <p class="footer-ip" data-i18n="footer.ip">регион определяется приблизительно по IP для отображения регионального контекста; адрес не сохраняется и не передаётся третьим лицам</p>
     <!-- «Следующая публикация» (R62.1) наполняет js/sections/history.js. -->
     <p class="footer-next" data-role="footer-next"></p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки" data-i18n-aria="footer.nav">
+      <a href="privacy.html" data-i18n="footer.privacy">Приватность</a>
+    </nav>
     <button type="button" class="demo-link" data-role="demo-link" data-i18n="demo.link">Демо-состояния</button>
     <div data-role="demo-panel" hidden></div>
     <p class="demo-banner" data-role="demo-banner" hidden></p>
@@ -141,5 +153,7 @@
        latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
   <script src="data/latest.js"></script>
   <script type="module" src="js/app.js"></script>
+  <!-- Share-карточка (История 21): модуль сам биндит кнопку [data-role="share-btn"]. -->
+  <script type="module" src="js/share.js"></script>
 </body>
 </html>

@@ -183,3 +183,18 @@ tests/*.test.js     — node --test
 - data-role в index.html: `footer-next`; i18n-ключи `history.*`, `method.*`, `footer.next`
 - Оговорка: все демо-снапшоты имеют methodology "1.0" (data/ вне зоны таска) — строка
   о смене версии реализована и покрыта тестом, но в демо-данных не проявляется
+
+## Из таска 08 — share-карточка и privacy.html
+
+- `js/share.js` — чистые швы: `cardLayout(lang, snapshot, regionId)` → `[{kind:'brand'|'index'|'delta'|'region'|'date'|'disclaimer', text, status?, tone?}]`|null,
+  `cardColors()`, `shareFileName(week)`, `drawCard(ctx, items, colors)`;
+  DOM/файловые: `buildCard()` → `Promise<Blob|null>`, `shareSnapshot()`, `initShare()`
+  (самобиндинг делегированием на `[data-role=share-btn]`); canvas `CARD_W×CARD_H = 1200×630`
+- `privacy.html` — отдельная локализованная страница политики; работает с `file://`;
+  цель localStorage-ключей `cassandra.region`/`cassandra.lang`
+- i18n-ключи: `share.*` (brand/button/region/announce), `disclaimer.full`, `footer.ip`,
+  `footer.privacy`, `footer.nav`, `privacy.*`
+- index.html: кнопка `[data-role=share-btn]` + дисклеймер §17 в hero, футер — §17 дословно,
+  IP-раскрытие, ссылка «Приватность»
+- Оговорка: `share.announce` берёт язык из localStorage в момент клика, а не из appState —
+  при штатном переключении языка совпадают

@@ -1364,3 +1364,101 @@ main {
   color: var(--text-secondary);
   font-size: 14px;
 }
+
+/* ---------- Share-карточка и правовые тексты (Истории 21, 27; R80–R83) ---------- */
+
+/* Дисклеймер §17 рядом с данными + кнопка «Поделиться» — компактный ряд,
+   не сдвигает global/region на первом вьюпорте (добавлен ниже hero-numbers). */
+.hero-legal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  max-width: 720px;
+}
+
+.hero-disclaimer {
+  flex: 1 1 300px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.share-btn {
+  padding: 10px 22px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: var(--accent-soft);
+}
+
+.footer-ip {
+  margin: 8px 0 0;
+  max-width: 720px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.footer-nav {
+  margin-top: 12px;
+}
+
+.footer-nav a {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* ---------- privacy.html: политика приватности (История 27, R49) ---------- */
+
+.privacy-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.privacy-back {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.privacy-page main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.privacy-page h1 {
+  font-size: clamp(24px, 4vw, 32px);
+  margin: 0 0 24px;
+}
+
+.privacy-page h2 {
+  font-size: 18px;
+  margin: 28px 0 8px;
+}
+
+.privacy-page p,
+.privacy-page li {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.privacy-page ul {
+  margin: 8px 0;
+  padding-left: 22px;
+}

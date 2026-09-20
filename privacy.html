@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cassandra Index — политика приватности</title>
+  <meta name="description" content="Какие данные хранит Cassandra Index в вашем браузере и как определяется регион.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="privacy-page">
+
+  <header class="privacy-top">
+    <a class="privacy-back" href="index.html" data-i18n="privacy.back">← На главную</a>
+    <div class="lang-switch" role="group" aria-label="Язык / Language" data-i18n-aria="lang.label">
+      <button type="button" class="lang-btn" data-lang="ru" aria-pressed="true" data-i18n="nav.lang.ru">RU</button>
+      <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="nav.lang.en">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 data-i18n="privacy.title">Политика приватности</h1>
+
+    <section aria-labelledby="privacy-storage">
+      <h2 id="privacy-storage" data-i18n="privacy.storage.h">Что сайт хранит в вашем браузере</h2>
+      <ul>
+        <li data-i18n="privacy.storage.lang">cassandra.lang — выбранный язык интерфейса. Записывается, только когда вы сами переключаете язык.</li>
+        <li data-i18n="privacy.storage.region">cassandra.region — выбранный вами регион. Записывается, только если вы включили переключатель «Запомнить» в панели выбора региона; без него выбор живёт только до закрытия вкладки.</li>
+        <li data-i18n="privacy.storage.first">Первый визит ничего не сохраняет: до вашего явного действия localStorage остаётся пустым.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="privacy-region">
+      <h2 id="privacy-region" data-i18n="privacy.region.h">Как определяется регион</h2>
+      <p data-i18n="privacy.region.static">Текущая сборка сайта полностью статическая и работает без бэкенда: регион определяется приблизительно по часовому поясу вашего браузера. Часовой пояс не сохраняется и никуда не передаётся.</p>
+      <p data-i18n="privacy.region.future">В будущей версии с сервером регион будет определяться приблизительно по IP для отображения регионального контекста; адрес не сохраняется и не передаётся третьим лицам.</p>
+    </section>
+
+    <section aria-labelledby="privacy-geo">
+      <h2 id="privacy-geo" data-i18n="privacy.geo.h">Точная геолокация</h2>
+      <p data-i18n="privacy.geo.text">Координаты запрашиваются, только если вы нажимаете «Уточнить точнее»; автоматического запроса GPS нет. Координаты используются только на вашем устройстве, чтобы уточнить регион, и никуда не отправляются.</p>
+    </section>
+
+    <section aria-labelledby="privacy-not">
+      <h2 id="privacy-not" data-i18n="privacy.not.h">Чего сайт не делает</h2>
+      <ul>
+        <li data-i18n="privacy.not.cookies">Не использует файлы cookie, счётчики аналитики, рекламные идентификаторы и сторонние виджеты.</li>
+        <li data-i18n="privacy.not.third">Не передаёт данные третьим лицам: в статической сборке данные вообще никуда не отправляются — сайт можно открыть с локального диска, не подключаясь к сети.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="privacy-delete">
+      <h2 id="privacy-delete" data-i18n="privacy.delete.h">Как удалить сохранённое</h2>
+      <p data-i18n="privacy.delete.text">Очистка данных сайта в настройках браузера (или удаление ключей cassandra.lang и cassandra.region из localStorage) стирает сохранённые значения. Других данных о вас у сайта нет.</p>
+    </section>
+  </main>
+
+  <!-- Локализация теми же словарями, что и на главной (§11.3); ES-модули — как на index.html. -->
+  <script type="module">
+    import { t } from './js/i18n.js';
+
+    function resolveLang() {
+      try {
+        const saved = localStorage.getItem('cassandra.lang');
+        if (saved === 'ru' || saved === 'en') return saved;
+      } catch { /* хранилище недоступно — дефолт */ }
+      const nav = navigator.language ? navigator.language : '';
+      return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+    }
+
+    function apply(lang) {
+      document.documentElement.lang = lang;
+      document.title = `${t(lang, 'privacy.title')} — Cassandra Index`;
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = t(lang, el.getAttribute('data-i18n'));
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+        el.setAttribute('aria-label', t(lang, el.getAttribute('data-i18n-aria')));
+      });
+      document.querySelectorAll('.lang-btn').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
+        try { localStorage.setItem('cassandra.lang', lang); } catch { /* см. resolveLang */ }
+        apply(lang);
+      });
+    });
+
+    apply(resolveLang());
+  </script>
+</body>
+</html>

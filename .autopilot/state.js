@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T20:13:26+03:00",
+  "updatedAt": "2026-09-20T17:37:45+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -48,15 +48,17 @@ window.STATE =
     },
     {
       "id": "build",
-      "status": "active",
+      "status": "done",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "8 из 9 тасков готово"
+      "note": "9 из 9 тасков готово",
+      "finishedAt": "2026-09-20T17:37:45+03:00"
     },
     {
       "id": "review",
-      "status": "active",
+      "status": "done",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–07, 09"
+      "note": "проверены таски 01–09, блокирующих находок нет",
+      "finishedAt": "2026-09-20T17:37:45+03:00"
     },
     {
       "id": "final",
@@ -65,8 +67,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 87,
-    "done": 81,
-    "inTicket": 6,
+    "done": 87,
+    "inTicket": 0,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -471,7 +473,7 @@ window.STATE =
         "failed": 0
       },
       "finishedAt": "2026-09-20T20:13:26+03:00",
-      "commit": null
+      "commit": "8a8210f"
     },
     {
       "id": "08",
@@ -494,16 +496,22 @@ window.STATE =
         "privacy.html",
         "index.html"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
-      "startedAt": "2026-09-20T20:13:26+03:00"
+      "startedAt": "2026-09-20T20:13:26+03:00",
+      "tests": {
+        "passed": 80,
+        "failed": 0
+      },
+      "finishedAt": "2026-09-20T17:37:45+03:00",
+      "commit": null
     }
   ],
   "singlePass": null,
   "tests": {
-    "passed": 67,
+    "passed": 80,
     "failed": 0
   },
   "debt": {
@@ -549,11 +557,22 @@ window.STATE =
     "js/sections/history.js:179 — третья копия маппинга класса дельты (delta--rise/fall/same) при готовых DELTA_CLASS hero.js:48 и regions.js:46 — собрать в общий маппинг (minor, из ревью таска 07)",
     "js/sections/methodology.js:22-29 — диапазоны порогов зашиты в ANCHOR_KEYS вместо вывода из risk.SCALE — смена порогов молча разойдётся с таблицей (minor, из ревью таска 07)",
     "js/sections/history.js:101-126 — пересборка appState по неделе и ведение URL ?week= внутри секции; владелец — app.js (interfaces.md) — перенести оркестрацию в app.js (minor, из ревью таска 07)",
-    "tests/history.test.js:54-66 — тест DEMO_REVIEWS проверяет тип/длину строк, не отличает переставленные RU/EN от контента — усилить ассерт (minor, из ревью таска 07)"
+    "tests/history.test.js:54-66 — тест DEMO_REVIEWS проверяет тип/длину строк, не отличает переставленные RU/EN от контента — усилить ассерт (minor, из ревью таска 07)",
+    "index.html:91-97 — hero-legal (полный дисклеймер §17 в первом вьюпорте) может вытеснить карточку региона за пределы 640px на 360×640 (R45/R04) — проверить в браузере на приёмке G4 (minor, из ревью таска 08)",
+    "js/share.js:162-169, privacy.html:61-68 — третья/четвёртая копии резолва языка (localStorage+navigator), хотя app.js экспортирует resolveLang — собрать в одном месте (minor, из ревью таска 08)",
+    "js/share.js:180-186 — resolveWeekParam сам парсит ?week=, дублируя владельца (app.js) — переиспользовать (minor, из ревью таска 08)",
+    "js/share.js:244-253 — гард двойного биндинга на dataset кнопки, listener на document: при пересоздании кнопки initShare повесит второй слушатель — гард на уровне модуля (minor, из ревью таска 08)",
+    "tests/privacy.test.js:18-24 — EN-проверки §17/footer.ip слабые (length/includes), дословность EN не закреплена, в отличие от RU — усилить (minor, из ревью таска 08)",
+    "tests/privacy.test.js:34-43 — проверки privacy.html на наличие подстрок; страница-заглушка пройдёт — проверять смысловое содержимое (minor, из ревью таска 08)",
+    "js/share.js drawCard — вёрстка карточки (позиции/кегли) без теста, покрыт только cardLayout; canvas в node недоступен — непокрытый шов R80 «читаема в превью» (minor, из ревью таска 08)"
   ],
   "reviewers": {
     "manifestSpec": "agent-25",
     "craft": "agent-26"
   },
-  "blind": null
+  "blind": null,
+  "final": {
+    "id": "final",
+    "status": "pending"
+  }
 }
