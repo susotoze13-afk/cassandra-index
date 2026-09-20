@@ -61,6 +61,11 @@ test('DEMO_REVIEWS: каждая запись имеет все три част�
       assert.ok(r[part].ru.length > 10, `${r.week}.${part}.ru`);
       assert.equal(typeof r[part]?.en, 'string');
       assert.ok(r[part].en.length > 10, `${r.week}.${part}.en`);
+      // RU и EN — разные непустые тексты: переставленные/продублированные
+      // копии одного языка не проходят.
+      assert.notEqual(r[part].ru.trim(), '', `${r.week}.${part}.ru пуст`);
+      assert.notEqual(r[part].en.trim(), '', `${r.week}.${part}.en пуст`);
+      assert.notEqual(r[part].ru, r[part].en, `${r.week}.${part}: ru и en совпадают`);
     }
   }
 });

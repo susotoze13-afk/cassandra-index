@@ -4,6 +4,7 @@
 // Чистые швы (sourcesLabel, visibleSources, resolveMeasures) — без DOM, тестируются.
 
 import { t, date, plural } from '../i18n.js';
+import { el } from '../ui.js';
 
 const LEVELS = ['high', 'medium', 'low'];
 
@@ -61,14 +62,7 @@ const LEVEL_TONE = {
   low: '--state-calm',
 };
 
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
-
-function buildSourceItem(lang, src) {
+export function buildSourceItem(lang, src) {
   const li = el('li', 'driver-source');
   const a = el('a', 'driver-source-link');
   a.href = src.url;
@@ -83,39 +77,10 @@ function buildSourceItem(lang, src) {
   return li;
 }
 
-function buildDriverCard(lang, drv, index) {
-  const card = el('article', 'driver-card');
-  card.dataset.driver = String(index);
-
-  // Карточка начинается с краткого лейбла (§4.3), затем цепочка Наблюдение → …
-  card.append(el('h3', 'driver-label', driverLabel(lang, drv)));
-
-  card.append(el('p', 'driver-overline', t(lang, 'drivers.observation')));
-  card.append(el('p', 'driver-observation', drv.observation?.[lang] ?? ''));
-
-  card.append(el('p', 'driver-overline', t(lang, 'drivers.why')));
-  card.append(el('p', 'driver-why', drv.why?.[lang] ?? ''));
-
-  // Вклад · Уверенность — словами, род согласован (§11.2); значения не только цветом.
-  const metaLine = el('p', 'driver-meta');
-  const contribution = el('span', 'driver-chip');
-  contribution.append(el('span', 'driver-chip-label', `${t(lang, 'drivers.contribution.label')}:`));
-  contribution.append(el('span', 'driver-chip-value', levelLabel(lang, 'contribution', drv.contribution)));
-  const confidence = el('span', 'driver-chip');
-  confidence.append(el('span', 'driver-chip-label', `${t(lang, 'drivers.confidence.label')}:`));
-  confidence.append(el('span', 'driver-chip-value', confidenceInfo(lang, drv).word));
-  metaLine.append(contribution, el('span', 'driver-meta-sep', '·'), confidence);
-  card.append(metaLine);
-
-  // Причина сниженной уверенности — строкой из данных (общий компонент confidenceInfo).
-  const conf = confidenceInfo(lang, drv);
-  if (conf.note) {
-    card.append(el('p', 'driver-confidence-note', conf.note));
-  }
-
-  // Аккордеон источников (§4.3.1): кнопка --accent, chevron 90°, aria-expanded/aria-controls.
-  const sources = Array.isArray(drv.sources) ? drv.sources : [];
-  const listId = `driver-${index}-sources`;
+// Аккордеон источников (§4.3.1) — единый builder для драйверов и регионов.
+// Возвращает узлы, чтобы вызывающий сам решил, куда их вставить: карточка
+// драйвера добавляет в корень, блок региона — в обёртку .region-driver-sources.
+export function buildSourcesAccordion(lang, sources, listId) {
   const list = el('ul', 'driver-sources');
   list.id = listId;
   const moreBtn = el('button', 'driver-sources-more', t(lang, 'drivers.sources.showAll'));
@@ -159,7 +124,43 @@ function buildDriverCard(lang, drv, index) {
   });
 
   paint();
-  card.append(toggle, list, moreBtn);
+  return { toggle, list, moreBtn };
+}
+
+function buildDriverCard(lang, drv, index) {
+  const card = el('article', 'driver-card');
+  card.dataset.driver = String(index);
+
+  // Карточка начинается с краткого лейбла (§4.3), затем цепочка Наблюдение → …
+  card.append(el('h3', 'driver-label', driverLabel(lang, drv)));
+
+  card.append(el('p', 'driver-overline', t(lang, 'drivers.observation')));
+  card.append(el('p', 'driver-observation', drv.observation?.[lang] ?? ''));
+
+  card.append(el('p', 'driver-overline', t(lang, 'drivers.why')));
+  card.append(el('p', 'driver-why', drv.why?.[lang] ?? ''));
+
+  // Вклад · Уверенность — словами, род согласован (§11.2); значения не только цветом.
+  const metaLine = el('p', 'driver-meta');
+  const contribution = el('span', 'driver-chip');
+  contribution.append(el('span', 'driver-chip-label', `${t(lang, 'drivers.contribution.label')}:`));
+  contribution.append(el('span', 'driver-chip-value', levelLabel(lang, 'contribution', drv.contribution)));
+  const confidence = el('span', 'driver-chip');
+  confidence.append(el('span', 'driver-chip-label', `${t(lang, 'drivers.confidence.label')}:`));
+  confidence.append(el('span', 'driver-chip-value', confidenceInfo(lang, drv).word));
+  metaLine.append(contribution, el('span', 'driver-meta-sep', '·'), confidence);
+  card.append(metaLine);
+
+  // Причина сниженной уверенности — строкой из данных (общий компонент confidenceInfo).
+  const conf = confidenceInfo(lang, drv);
+  if (conf.note) {
+    card.append(el('p', 'driver-confidence-note', conf.note));
+  }
+
+  // Аккордеон источников (§4.3.1): кнопка --accent, chevron 90°, aria-expanded/aria-controls.
+  const sources = Array.isArray(drv.sources) ? drv.sources : [];
+  const acc = buildSourcesAccordion(lang, sources, `driver-${index}-sources`);
+  card.append(acc.toggle, acc.list, acc.moreBtn);
   return card;
 }
 

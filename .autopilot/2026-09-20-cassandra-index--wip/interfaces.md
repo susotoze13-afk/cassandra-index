@@ -198,3 +198,16 @@ tests/*.test.js     — node --test
   IP-раскрытие, ссылка «Приватность»
 - Оговорка: `share.announce` берёт язык из localStorage в момент клика, а не из appState —
   при штатном переключении языка совпадают
+
+## Из таска 11 — консолидация хелперов (ремонт приёмки)
+
+- `js/ui.js` — общие хелперы: `el(tag,className,text)`, `deltaClass(change)` →
+  `'delta--rise|delta--fall|delta--same'`|null (из risk.deltaTone), `resolveLang()`,
+  `parseWeekParam(search)` → `'YYYY-MM-DD'`|null, `LANG_KEY`; app.js re-export resolveLang
+- Смена недели — событие document `ci:weekchange` {week} (history.js → app.js;
+  app ведёт pushState/popstate и пересборку appState); share.js и history.js не трогают URL
+- `drivers.js` — export `buildSourceItem(lang,src)`, `buildSourcesAccordion(lang,sources,listId)`
+  → {toggle,list,moreBtn}; regions.js переиспользует (вторая копия удалена)
+- `methodology.js` — export `thresholdRanges()` → 6 диапазонов из risk.SCALE
+- Мёртвые i18n-ключи sources.count/state.historical удалены; навигация на 360/320
+  переносится без горизонтального скролла (header выше, пункты все видны)

@@ -3,14 +3,16 @@
 // Семантический ol/li — не карта: карта не может быть единственным источником
 // значения. Клик/фокус раскрывает карточку: статус, Δ, драйверы, уверенность
 // (с причиной при сниженной), источники — тот же аккордеон-шаблон, что в таске 03
-// (переиспользуются чистые швы sourcesLabel/visibleSources/confidenceInfo из drivers.js).
+// (переиспользуются чистые швы confidenceInfo/levelLabel и общий аккордеон
+// источников buildSourcesAccordion из drivers.js — таск 11).
 // Чистые швы (rankedRegions, statusLabel) — без DOM, тестируются.
 
-import { t, date } from '../i18n.js';
+import { t } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
+import { el, deltaClass } from '../ui.js';
 import { formatDelta, deltaArrow } from './hero.js';
-import { sourcesLabel, visibleSources, confidenceInfo, levelLabel, driverLabel } from './drivers.js';
+import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } from './drivers.js';
 
 // Ranked-лист: все регионы снапшота по убыванию |Δ|; при равенстве |Δ| рост выше
 // снижения, дальше — порядок справочника. Битые записи пропускаем.
@@ -42,91 +44,23 @@ export function statusLabel(lang, index, lower = true) {
 
 // ---------- DOM ----------
 
-const DELTA_CLASS = {
-  '--state-very': 'delta--rise',
-  '--state-calm': 'delta--fall',
-  '--text-secondary': 'delta--same',
-};
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
-
 function deltaSpan(lang, value, extraClass = '') {
   const span = el('span', `delta ${extraClass}`.trim());
-  const cls = DELTA_CLASS[risk.deltaTone(value)];
+  const cls = deltaClass(value);
   if (cls) span.classList.add(cls);
-  const sign = risk.deltaTone(value) === '--text-secondary' ? '→' : deltaArrow(value);
-  span.textContent = `${sign} ${formatDelta(value)}`;
+  span.textContent = `${deltaArrow(value)} ${formatDelta(value)}`;
   span.setAttribute('aria-label', `${t(lang, 'hero.week.change')}: ${formatDelta(value)}`);
   return span;
 }
 
-// Источники драйвера — аккордеон-шаблон таска 03 (§4.3.1): та же разметка и классы.
-function buildSourcesAccordion(lang, drv, uid) {
+// Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
+// регион оборачивает узлы в .region-driver-sources.
+function wrapSourcesAccordion(lang, drv, uid) {
   const sources = Array.isArray(drv?.sources) ? drv.sources : [];
   const wrap = el('div', 'region-driver-sources');
   if (!sources.length) return wrap;
-
-  const listId = `region-src-${uid}`;
-  const list = el('ul', 'driver-sources');
-  list.id = listId;
-  const moreBtn = el('button', 'driver-sources-more', t(lang, 'drivers.sources.showAll'));
-  moreBtn.type = 'button';
-  moreBtn.hidden = true;
-
-  const state = { expanded: false, showAll: false };
-
-  const paint = () => {
-    const { shown, remaining } = visibleSources(sources, state.showAll);
-    list.innerHTML = '';
-    for (const src of shown) {
-      const li = el('li', 'driver-source');
-      const a = el('a', 'driver-source-link');
-      a.href = src.url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.append(el('span', 'driver-source-title', src.title?.[lang] ?? src.title?.ru ?? ''));
-      const meta = el('span', 'driver-source-meta');
-      meta.append(el('span', 'driver-source-domain', src.domain ?? ''));
-      meta.append(el('span', 'driver-source-date', date(lang, src.date, true)));
-      a.append(meta);
-      li.append(a);
-      list.append(li);
-    }
-    moreBtn.hidden = !state.expanded || (!state.showAll && remaining === 0);
-    moreBtn.textContent = state.showAll
-      ? t(lang, 'drivers.sources.hideAll')
-      : t(lang, 'drivers.sources.showAll');
-    list.hidden = !state.expanded;
-    toggle.setAttribute('aria-expanded', String(state.expanded));
-    toggle.querySelector('[data-role="src-count"]').textContent = state.expanded
-      ? `${sourcesLabel(lang, sources.length)} — ${t(lang, 'drivers.sources.hide')}`
-      : sourcesLabel(lang, sources.length);
-    toggle.classList.toggle('is-open', state.expanded);
-  };
-
-  const toggle = el('button', 'src-toggle');
-  toggle.type = 'button';
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-controls', listId);
-  const label = el('span', 'src-toggle-label', '');
-  label.dataset.role = 'src-count';
-  toggle.append(label);
-  toggle.addEventListener('click', () => {
-    state.expanded = !state.expanded;
-    paint();
-  });
-  moreBtn.addEventListener('click', () => {
-    state.showAll = !state.showAll;
-    paint();
-  });
-
-  paint();
-  wrap.append(toggle, list, moreBtn);
+  const acc = buildSourcesAccordion(lang, sources, `region-src-${uid}`);
+  wrap.append(acc.toggle, acc.list, acc.moreBtn);
   return wrap;
 }
 
@@ -151,7 +85,7 @@ function buildDriverBlock(lang, drv, uid) {
   block.append(meta);
   if (conf.note) block.append(el('p', 'driver-confidence-note', conf.note));
 
-  block.append(buildSourcesAccordion(lang, drv, uid));
+  block.append(wrapSourcesAccordion(lang, drv, uid));
   return block;
 }
 

@@ -8,6 +8,7 @@ import * as risk from './risk.js';
 import * as region from './region.js';
 import * as data from './data.js';
 import { formatDelta, deltaArrow } from './sections/hero.js';
+import { resolveLang, parseWeekParam } from './ui.js';
 
 export const CARD_W = 1200;
 export const CARD_H = 630;
@@ -159,15 +160,6 @@ export function drawCard(ctx, items, colors = COLORS) {
 
 // ---------- DOM-часть: генерация, скачивание, Web Share API ----------
 
-function currentLang() {
-  try {
-    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('cassandra.lang') : null;
-    if (saved === 'ru' || saved === 'en') return saved;
-  } catch { /* хранилище недоступно — дефолт */ }
-  const nav = typeof navigator !== 'undefined' && navigator.language ? navigator.language : '';
-  return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
-}
-
 function currentRegion() {
   try {
     const tz = typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : null;
@@ -175,14 +167,6 @@ function currentRegion() {
   } catch {
     return region.current();
   }
-}
-
-function resolveWeekParam() {
-  try {
-    const q = new URLSearchParams(location.search).get('week');
-    if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) return q;
-  } catch { /* вне браузера */ }
-  return null;
 }
 
 function announce(lang) {
@@ -203,8 +187,8 @@ function download(blob, filename) {
 
 // buildCard() → Promise<Blob> — canvas 1200×630 → PNG-блоб текущего снапшота.
 export function buildCard() {
-  const lang = currentLang();
-  const snapshot = data.week(resolveWeekParam() ?? undefined);
+  const lang = resolveLang();
+  const snapshot = data.week(parseWeekParam(location.search) ?? undefined);
   const items = cardLayout(lang, snapshot, currentRegion());
   if (!items) return Promise.resolve(null);
   const canvas = document.createElement('canvas');
@@ -219,7 +203,7 @@ export function buildCard() {
 
 // shareSnapshot() — Web Share API с файловой шарой, где есть; иначе скачивание PNG.
 export async function shareSnapshot() {
-  const week = resolveWeekParam() ?? data.latest();
+  const week = parseWeekParam(location.search) ?? data.latest();
   const filename = shareFileName(week);
   const blob = await buildCard();
   if (!blob) return false;
@@ -227,8 +211,8 @@ export async function shareSnapshot() {
   const nav = typeof navigator !== 'undefined' ? navigator : null;
   if (nav?.canShare?.({ files: [file] }) && nav.share) {
     try {
-      await nav.share({ files: [file], title: t(currentLang(), 'share.brand') });
-      announce(currentLang());
+      await nav.share({ files: [file], title: t(resolveLang(), 'share.brand') });
+      announce(resolveLang());
       return true;
     } catch (err) {
       if (err && err.name === 'AbortError') return true; // пользователь отменил — не ошибка
@@ -236,20 +220,22 @@ export async function shareSnapshot() {
     }
   }
   download(blob, filename);
-  announce(currentLang());
+  announce(resolveLang());
   return true;
 }
 
-// initShare() — биндит кнопку «Поделиться» (делегирование: кнопку пересоздаёт i18n-перерисовка).
+// initShare() — биндит кнопку «Поделиться» (делегирование: кнопку пересоздаёт
+// i18n-перерисовка, поэтому слушатель — на document). Гард на уровне модуля:
+// повторный вызов и пересоздание кнопки второй слушатель не вешают.
+let shareBound = false;
+
 export function initShare() {
-  if (typeof document === 'undefined') return;
-  if (document.querySelector('[data-role="share-btn"]') && !document.querySelector('[data-role="share-btn"]').dataset.bound) {
-    document.querySelector('[data-role="share-btn"]').dataset.bound = '1';
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest?.('[data-role="share-btn"]');
-      if (btn) shareSnapshot();
-    });
-  }
+  if (typeof document === 'undefined' || shareBound) return;
+  shareBound = true;
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest?.('[data-role="share-btn"]');
+    if (btn) shareSnapshot();
+  });
 }
 
 if (typeof document !== 'undefined') {

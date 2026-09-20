@@ -5,6 +5,7 @@
 // clampX) — без DOM, тестируются; aria-label точек вместо aria-live (§19.25).
 
 import { t, date, plural } from '../i18n.js';
+import { el } from '../ui.js';
 
 // Δ со знаком: '+6' | '-3' | '0' (подпись и summary).
 export function signedDelta(n) {
@@ -73,13 +74,6 @@ const TAP_HIDE_MS = 3500;
 function svgEl(tag, attrs = {}) {
   const node = document.createElementNS(NS, tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
-  return node;
-}
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
   return node;
 }
 

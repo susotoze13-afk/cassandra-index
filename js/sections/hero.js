@@ -5,6 +5,7 @@
 import { t, date } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
+import { deltaClass } from '../ui.js';
 
 // Δ со знаком: +6 / -3 / 0 (значения не только цветом — §12).
 // Не-число (null/NaN) → '0': изменение неизвестно, показываем нейтральное значение.
@@ -44,12 +45,6 @@ export function refineRegionFromCoords(lat, lon) {
   return null;
 }
 
-const DELTA_CLASS = {
-  '--state-very': 'delta--rise',
-  '--state-calm': 'delta--fall',
-  '--text-secondary': 'delta--same',
-};
-
 // Состояние модуля: город из автокомплита живёт в сессии модуля (сигнатуры region.js не трогаем).
 let chosenCity = null;      // { name: {ru,en}, region: id } — после выбора города в поиске
 let panel = null;           // построенный DOM панели (переживает перерендеры)
@@ -63,7 +58,7 @@ function setDelta(el, value) {
   const val = el.querySelector('[data-role$="-delta-value"]') ?? el;
   val.textContent = `${deltaArrow(value)} ${formatDelta(value)}`;
   el.classList.remove('delta--rise', 'delta--fall', 'delta--same');
-  const cls = DELTA_CLASS[risk.deltaTone(value)];
+  const cls = deltaClass(value);
   if (cls) el.classList.add(cls);
 }
 

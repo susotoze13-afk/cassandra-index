@@ -1181,7 +1181,8 @@ main {
 
 @media (max-width: 640px) {
   .header-inner {
-    height: 88px;
+    height: auto; /* иначе фикс базы (64px) не даст вырасти под двухстрочный nav */
+    min-height: 88px;
     flex-wrap: wrap;
     padding: 8px 16px;
     gap: 8px;
@@ -1190,6 +1191,14 @@ main {
   .site-nav {
     order: 3;
     flex-basis: 100%;
+    /* reflow: все пункты переносятся строкой и видны без горизонтального скролла */
+    flex-wrap: wrap;
+    overflow-x: visible;
+    row-gap: 0;
+  }
+
+  .site-nav a {
+    padding: 8px 10px;
   }
 
   main {

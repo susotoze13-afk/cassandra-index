@@ -12,7 +12,10 @@ import * as data from '../data.js';
 import { isHistorical, historyBannerText } from './states.js';
 import { signedDelta, arrowOf } from './trend.js';
 import { statusLabel } from './regions.js';
-import { renderAll } from '../render.js'; // цикл модулей: вызов только из обработчиков
+import { deltaClass } from '../ui.js';
+
+// Смена недели — оркестрация в app.js (владелец состояния и URL ?week=):
+// секция только инициирует событие ci:weekchange {week}.
 
 const LOCALES = { ru: 'ru-RU', en: 'en-US' };
 
@@ -87,42 +90,10 @@ export function reviewFor(week) {
 
 // ---------- DOM ----------
 
-let popstateBound = false;
-let lastState = null;
-
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[c]));
-}
-
-// Пересборка состояния с новой неделей и полный перерендер. renderAll берётся
-// из render.js (цикл модулей допустим: вызов отложенный, из обработчика).
-function rerender(week, appState) {
-  const snapshot = data.week(week);
-  renderAll({
-    ...appState,
-    week: snapshot.date ?? week,
-    snapshot,
-    dataState: snapshot.dataState,
-    unavailable: !!snapshot.unavailable,
-    errors: snapshot.errors ?? [],
-  });
-}
-
-function navigateToWeek(week, appState) {
-  try {
-    const url = new URL(location.href);
-    if (week === data.latest()) {
-      url.searchParams.delete('week');
-    } else {
-      url.searchParams.set('week', week);
-    }
-    history.pushState(null, '', url);
-  } catch {
-    /* вне браузера — только перерендер */
-  }
-  rerender(week, appState);
 }
 
 function sourceItem(lang, s) {
@@ -176,7 +147,7 @@ export function render(appState) {
       <span class="meta-item"><strong>${t(lang, 'meta.through')}</strong>: ${date(lang, snapshot?.through)}</span>
       ${typeof index === 'number' ? `<span class="meta-item"><strong>${t(lang, 'history.index')}</strong>: ${index} ${t(lang, 'hero.index.of')}
         · ${escapeHtml(statusLabel(lang, index))}
-        · <span class="delta delta--${delta > 0 ? 'rise' : delta < 0 ? 'fall' : 'same'}">${arrowOf(delta)} ${signedDelta(delta)}</span>
+        · <span class="delta ${deltaClass(delta) ?? ''}">${arrowOf(delta)} ${signedDelta(delta)}</span>
         ${t(lang, 'hero.week.change')}</span>` : ''}
       <span class="meta-item"><strong>${t(lang, 'history.methodology')}</strong>: ${escapeHtml(snapshot?.methodology ?? '—')}</span>
     </div>
@@ -208,20 +179,7 @@ export function render(appState) {
     </div>` : ''}`;
 
   host.querySelector('[data-role="history-select"]')
-    ?.addEventListener('change', (e) => navigateToWeek(e.target.value, appState));
-
-  // Кнопки «назад/вперёд» браузера после pushState: перечитываем ?week= из URL.
-  lastState = appState;
-  if (!popstateBound && typeof window !== 'undefined') {
-    popstateBound = true;
-    window.addEventListener('popstate', () => {
-      try {
-        const q = new URLSearchParams(location.search).get('week');
-        const target = q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? q : data.latest();
-        rerender(target, lastState ?? {});
-      } catch {
-        /* вне браузера */
-      }
+    ?.addEventListener('change', (e) => {
+      document.dispatchEvent(new CustomEvent('ci:weekchange', { detail: { week: e.target.value } }));
     });
-  }
 }

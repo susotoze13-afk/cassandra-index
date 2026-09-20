@@ -6,20 +6,9 @@ import * as region from './region.js';
 import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
 import { applyDemo, initDemo } from './demo.js';
+import { LANG_KEY, resolveLang, parseWeekParam } from './ui.js';
 
-const LANG_KEY = 'cassandra.lang';
-
-export function resolveLang() {
-  try {
-    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(LANG_KEY) : null;
-    if (saved === 'ru' || saved === 'en') return saved;
-  } catch {
-    /* хранилище недоступно — остаёмся на дефолте */
-  }
-  const nav = typeof navigator !== 'undefined' && navigator.language ? navigator.language : '';
-  if (!nav) return 'ru'; // §11.1: язык браузера не определён — дефолт 'ru'
-  return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
-}
+export { resolveLang };
 
 export function saveLang(lang) {
   try {
@@ -31,8 +20,7 @@ export function saveLang(lang) {
 
 export function resolveWeek() {
   try {
-    const q = new URLSearchParams(location.search).get('week');
-    if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) return q;
+    return parseWeekParam(location.search);
   } catch {
     /* вне браузера */
   }
@@ -91,6 +79,21 @@ function announce(lang, key, vars) {
   if (live) live.textContent = t(lang, key, vars);
 }
 
+// URL ?week=: текущая неделя — без параметра, архивная — с ним (§8.6).
+function navigateToWeek(week) {
+  try {
+    const url = new URL(location.href);
+    if (week === data.latest()) {
+      url.searchParams.delete('week');
+    } else {
+      url.searchParams.set('week', week);
+    }
+    history.pushState(null, '', url);
+  } catch {
+    /* вне браузера — состояние пересоберётся без URL */
+  }
+}
+
 export function init() {
   const state = buildState();
   if (typeof document !== 'undefined') {
@@ -123,6 +126,18 @@ export function init() {
         index: rdata ? rdata.index : '—',
       });
     });
+    // Смена недели из секции истории: владелец состояния и URL — app.js.
+    // pushState ?week= (latest — без параметра), затем полный перерендер.
+    document.addEventListener('ci:weekchange', (e) => {
+      const week = e.detail?.week;
+      if (!week || !data.listWeeks().includes(week)) return;
+      navigateToWeek(week);
+      renderApp(currentState());
+    });
+    // Кнопки «назад/вперёд» после pushState: неделя уже в URL — пересобираем состояние.
+    if (typeof window !== 'undefined') {
+      window.addEventListener('popstate', () => renderApp(currentState()));
+    }
   }
   renderApp(state);
   // «Model unavailable» / битый снапшот: состояние уже в данных (R63.1);

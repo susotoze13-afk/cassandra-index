@@ -10,8 +10,8 @@ test('t: строки из словаря RU и EN', () => {
 });
 
 test('t: подстановка переменных {var}', () => {
-  assert.equal(t('ru', 'sources.count', { n: 2 }), '2 источников');
-  assert.equal(t('en', 'sources.count', { n: 5 }), '5 sources');
+  assert.equal(t('ru', 'trend.now', { value: 72 }), 'Сейчас: 72 из 100');
+  assert.equal(t('en', 'trend.now', { value: 72 }), 'Now: 72 of 100');
 });
 
 test('t: неизвестный ключ возвращается как есть, неизвестный язык → fallback ru', () => {

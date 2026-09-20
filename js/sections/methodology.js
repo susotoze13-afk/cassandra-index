@@ -8,6 +8,7 @@
 // внутренние скоринги остаются в закрытой части методологии).
 
 import { t } from '../i18n.js';
+import * as risk from '../risk.js';
 
 // Пункты списков и якоря порогов — из ключей словаря (§11.3: жёстких строк нет).
 const LIST_KEYS = {
@@ -19,14 +20,27 @@ const LIST_KEYS = {
   fpfn: ['method.fpfn.1', 'method.fpfn.2', 'method.fpfn.3'],
 };
 
+// Якоря порогов — ключи словаря в порядке risk.SCALE; сами диапазоны выводятся
+// из risk.SCALE (таск 11: пороги живут только в risk.js — risk.SCALE и таблица
+// не могут разойтись). Порядок ключей обязан совпадать с порядком SCALE.
 const ANCHOR_KEYS = [
-  ['method.anchor.routine', '0–20'],
-  ['method.anchor.proxy', '21–40'],
-  ['method.anchor.local', '41–60'],
-  ['method.anchor.conv', '61–80'],
-  ['method.anchor.full', '81–96'],
-  ['method.anchor.extreme', '97–100'],
+  'method.anchor.routine',
+  'method.anchor.proxy',
+  'method.anchor.local',
+  'method.anchor.conv',
+  'method.anchor.full',
+  'method.anchor.extreme',
 ];
+
+// Диапазоны шкалы из risk.SCALE: каждый следующий начинается с max+1 предыдущего.
+export function thresholdRanges() {
+  let start = 0;
+  return risk.SCALE.map((step) => {
+    const range = `${start}–${step.max}`;
+    start = step.max + 1;
+    return range;
+  });
+}
 
 const OPEN_QUESTION_COUNT = 25;
 
@@ -41,8 +55,9 @@ export function render(appState) {
   const lang = appState.lang;
   const version = appState.snapshot?.methodology;
 
-  const anchors = ANCHOR_KEYS.map(([key, range]) =>
-    `<tr><td>${t(lang, key)}</td><td>${range}</td></tr>`).join('');
+  const ranges = thresholdRanges();
+  const anchors = ANCHOR_KEYS.map((key, i) =>
+    `<tr><td>${t(lang, key)}</td><td>${ranges[i]}</td></tr>`).join('');
   const openQuestions = Array.from({ length: OPEN_QUESTION_COUNT }, (_, i) =>
     `<li>${t(lang, `method.open.${i + 1}`)}</li>`).join('');
 

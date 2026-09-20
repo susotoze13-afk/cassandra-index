@@ -57,16 +57,7 @@
   <!-- Локализация теми же словарями, что и на главной (§11.3); ES-модули — как на index.html. -->
   <script type="module">
     import { t } from './js/i18n.js';
-
-    function resolveLang() {
-      try {
-        const saved = localStorage.getItem('cassandra.lang');
-        if (saved === 'ru' || saved === 'en') return saved;
-      } catch { /* хранилище недоступно — дефолт */ }
-      const nav = navigator.language ? navigator.language : '';
-      return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
-    }
-
+    import { resolveLang } from './js/ui.js';
     function apply(lang) {
       document.documentElement.lang = lang;
       document.title = `${t(lang, 'privacy.title')} — Cassandra Index`;

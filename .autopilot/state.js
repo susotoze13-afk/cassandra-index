@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T17:37:45+03:00",
+  "updatedAt": "2026-09-20T18:19:10+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -48,17 +48,15 @@ window.STATE =
     },
     {
       "id": "build",
-      "status": "done",
+      "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "9 из 9 тасков готово",
-      "finishedAt": "2026-09-20T17:37:45+03:00"
+      "note": "9 из 9; слепая приёмка нашла дрифт file:// — ремонтные таски 10–11"
     },
     {
       "id": "review",
-      "status": "done",
+      "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–09, блокирующих находок нет",
-      "finishedAt": "2026-09-20T17:37:45+03:00"
+      "note": "проверены таски 01–09; 10–11 на ревью"
     },
     {
       "id": "final",
@@ -507,11 +505,65 @@ window.STATE =
       },
       "finishedAt": "2026-09-20T17:37:45+03:00",
       "commit": null
+    },
+    {
+      "id": "11",
+      "title": "Консолидация дублей, усиление тестов, навигация на 360px",
+      "requirements": [
+        "R04",
+        "R16",
+        "R45",
+        "R49",
+        "R80"
+      ],
+      "blockedBy": [],
+      "wave": 9,
+      "zone": [
+        "js/** (кроме bundle таска 10)",
+        "css/styles.css",
+        "privacy.html",
+        "tests/"
+      ],
+      "status": "done",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "startedAt": "2026-09-20T17:54:18+03:00",
+      "note": "триаж concerns фазы 8: дубли хелперов повторились в 5+ тасках → fix now",
+      "tests": {
+        "passed": 87,
+        "failed": 0
+      },
+      "finishedAt": "2026-09-20T18:19:10+03:00",
+      "commit": null
+    },
+    {
+      "id": "10",
+      "title": "Сайт реально работает с file://",
+      "requirements": [
+        "R63"
+      ],
+      "blockedBy": [
+        "11"
+      ],
+      "wave": 10,
+      "zone": [
+        "build.js",
+        "js/bundle.js",
+        "index.html",
+        "privacy.html"
+      ],
+      "status": "in-progress",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "note": "дрифт G4: ES-модули заблокированы на file://; доказательство — headless Chrome",
+      "startedAt": "2026-09-20T18:19:10+03:00"
     }
   ],
   "singlePass": null,
   "tests": {
-    "passed": 80,
+    "passed": 87,
     "failed": 0
   },
   "debt": {
@@ -564,13 +616,24 @@ window.STATE =
     "js/share.js:244-253 — гард двойного биндинга на dataset кнопки, listener на document: при пересоздании кнопки initShare повесит второй слушатель — гард на уровне модуля (minor, из ревью таска 08)",
     "tests/privacy.test.js:18-24 — EN-проверки §17/footer.ip слабые (length/includes), дословность EN не закреплена, в отличие от RU — усилить (minor, из ревью таска 08)",
     "tests/privacy.test.js:34-43 — проверки privacy.html на наличие подстрок; страница-заглушка пройдёт — проверять смысловое содержимое (minor, из ревью таска 08)",
-    "js/share.js drawCard — вёрстка карточки (позиции/кегли) без теста, покрыт только cardLayout; canvas в node недоступен — непокрытый шов R80 «читаема в превью» (minor, из ревью таска 08)"
+    "js/share.js drawCard — вёрстка карточки (позиции/кегли) без теста, покрыт только cardLayout; canvas в node недоступен — непокрытый шов R80 «читаема в превью» (minor, из ревью таска 08)",
+    "tests/methodology.test.js:7-22 — тест фиксирует диапазоны и их стыковку, но не связку «подпись якоря ↔ диапазон»: перемешанный порядок ANCHOR_KEYS против risk.SCALE пройдёт (minor, из ревью таска 11)",
+    "js/share.js:190,206 — parseWeekParam(location.search) без try/catch, как было в удалённом resolveWeekParam: вне браузера buildCard/shareSnapshot бросают ReferenceError — сделать обёртку или зафиксировать браузер-only (minor, из ревью таска 11)"
   ],
   "reviewers": {
     "manifestSpec": "agent-25",
     "craft": "agent-26"
   },
-  "blind": null,
+  "blind": {
+    "checkedAt": "2026-09-20T17:54:18+03:00",
+    "checker": "agent-28",
+    "verdict": "проект работает полноценно по http, 80/80 тестов; найдено 2 расхождения",
+    "drift": [
+      "file:// не работает: Chrome блокирует ES-модули по CORS — живой только статичный RU-hero (требование спеки «работает по двойному клику») → таск 10",
+      "на 360px .site-nav — внутренний горизонтальный скролл (378>328), «Методология»/«История» обрезаны до свайпа (рефлоу) → таск 11"
+    ],
+    "confirmed": "все 13 проверенных требований брифа реализованы: разделы, регион по часовому поясу без записи при первом визите, RU/EN, выбор региона, тренд, драйверы, история недель и ?week=, share-карточка, приватность, палитра, дизайн-макет"
+  },
   "final": {
     "id": "final",
     "status": "pending"
