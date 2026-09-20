@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-20T09:16:44+03:00",
-  "updatedAt": "2026-09-20T15:50:00+03:00",
+  "updatedAt": "2026-09-20T16:05:00+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -50,13 +50,13 @@ window.STATE =
       "id": "build",
       "status": "active",
       "startedAt": "2026-09-20T11:18:30+03:00",
-      "note": "4 из 9 тасков готово"
+      "note": "6 из 9 тасков готово"
     },
     {
       "id": "review",
       "status": "active",
       "startedAt": "2026-09-20T11:35:00+03:00",
-      "note": "проверены таски 01–04"
+      "note": "проверены таски 01–05, 09"
     },
     {
       "id": "final",
@@ -65,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 86,
-    "done": 59,
-    "inTicket": 27,
+    "done": 64,
+    "inTicket": 22,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -296,7 +296,7 @@ window.STATE =
         "passed": 47,
         "failed": 0
       },
-      "commit": null,
+      "commit": "673b12b",
       "files": [
         "js/sections/trend.js",
         "tests/trend.test.js",
@@ -322,7 +322,10 @@ window.STATE =
       ],
       "status": "done",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1,
+      "repairFindings": [
+        "Внешняя причина: пользователь открыл design/cassandra-index.pen в приложении pen.dev, документ пересохранён как version 2.17 — тест ожидал 2.6, прогон красный; дозапрос: ожидание привязано к pen-schema.md расширения 0.6.71; инварианты пересохранения проверены — не пострадали"
+      ],
       "handoffs": 0,
       "startedAt": "2026-09-20T15:25:00+03:00",
       "finishedAt": "2026-09-20T15:48:00+03:00",
@@ -330,14 +333,14 @@ window.STATE =
         "passed": 6,
         "failed": 0
       },
-      "commit": null,
+      "commit": "cdd3993",
       "files": [
         "design/cassandra-index.pen",
         "tests/pen.test.js"
       ],
       "concerns": [
-        "ревью manifest+spec — clean; craft-находки неблокирующие (см. concerns)",
-        "тренд в макете нарисован столбцами — линия с точками формат .pen не поддерживает (оговорка исполнителя)"
+        "тренд в макете нарисован столбцами — линия с точками формат .pen не поддерживает (оговорка исполнителя)",
+        "макет подтверждённо открывается в pen.dev (пользователь пересохранил) — concern про версию закрыт ремонтом"
       ],
       "note": "добавлен пользователем посреди прогона; бумажность (манифест G01, spec, тикет) оформлена ранее"
     },
@@ -360,11 +363,29 @@ window.STATE =
         "index.html",
         "js/render.js"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
-      "startedAt": "2026-09-20T15:42:00+03:00"
+      "startedAt": "2026-09-20T15:42:00+03:00",
+      "finishedAt": "2026-09-20T16:05:00+03:00",
+      "tests": {
+        "passed": 50,
+        "failed": 0
+      },
+      "commit": null,
+      "files": [
+        "js/sections/regions.js",
+        "tests/regions.test.js",
+        "js/render.js",
+        "index.html",
+        "js/i18n.js",
+        "css/styles.css"
+      ],
+      "concerns": [
+        "региональный уровень данных не отдаёт confidenceNote — подхватится без правки, если пайплайн добавит поле",
+        "разметка accordion-источников продублирована из drivers.js (export buildSourceItem править было нельзя) — копии начали дрейфовать, собрать в общий builder при ближайшем таске, касающемся drivers.js"
+      ]
     },
     {
       "id": "06",
@@ -453,7 +474,7 @@ window.STATE =
   ],
   "singlePass": null,
   "tests": {
-    "passed": 47,
+    "passed": 50,
     "failed": 0
   },
   "debt": {
@@ -484,8 +505,12 @@ window.STATE =
     "js/sections/trend.js:73 — DOM-хелпер el() — вторая копия после drivers.js:58 (minor, из ревью таска 04)",
     "ВНЕ ТАСКОВ: правка в js/sections/drivers.js:128-135 (скрытие «Все источники» при свёрнутом аккордеоне) появилась в дереве отдельно от исполнителей — предположительно рука пользователя; закоммичена отдельным коммитом",
     "design/cassandra-index.pen:563-778 — шесть строк регионов и hero-экраны скопированы литерально, reusable-компоненты формата не использованы (minor, из ревью таска 09)",
-    "design/cassandra-index.pen:2 — version \"2.6\" как в образце, схема расширения 0.6.71 объявляет 2.17 — проверить открытие макета в pen.dev на приёмке (из ревью таска 09)",
-    "tests/pen.test.js:42 — тест палитры проверяет объявление hex в variables, не ссылки fill/stroke нод (minor, из ревью таска 09)"
+    "tests/pen.test.js:42 — тест палитры проверяет объявление hex в variables, не ссылки fill/stroke нод (minor, из ревью таска 09)",
+    "js/sections/regions.js:69-131 — вторая копия аккордеона источников, копии разошлись по moreBtn.hidden; собрать в общий builder при ближайшем таске, касающемся drivers.js (minor, из ревью таска 05)",
+    "js/sections/regions.js:62 — стрелка через сравнение deltaTone(...) === '--text-secondary' вместо deltaArrow(value) (minor, из ревью таска 05)",
+    "css/styles.css:199-206 — правка .hero-numbers (flex→grid) вне зоны таска 05 в диффе таска; причина не зафиксирована, вероятен reflow-фикс (minor, из ревью таска 05)",
+    "tests/regions.test.js — не покрыта ветка tie-break rankedRegions (равные |Δ|, рост выше снижения) (minor, из ревью таска 05)",
+    "ВНЕ ТАСКОВ: METHODOLOGY.md переписан пользователем (v0.5, второй раунд правок по внешнему ревью) — коммитится отдельно"
   ],
   "reviewers": {
     "manifestSpec": "agent-15",

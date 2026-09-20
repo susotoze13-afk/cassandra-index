@@ -6,6 +6,7 @@ import { t } from './i18n.js';
 import { render as heroRender } from './sections/hero.js';
 import { render as driversRender } from './sections/drivers.js';
 import { render as trendRender } from './sections/trend.js';
+import { render as regionsRender } from './sections/regions.js';
 
 export const SECTIONS = [
   'hero',
@@ -23,6 +24,7 @@ const registry = new Map();
 registerSection('hero', heroRender);
 registerSection('drivers', driversRender);
 registerSection('trend', trendRender);
+registerSection('regions', regionsRender);
 
 export function registerSection(name, renderFn) {
   if (!SECTIONS.includes(name)) return false;

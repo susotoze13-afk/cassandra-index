@@ -197,9 +197,9 @@ main {
 }
 
 .hero-numbers {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(260px, 1fr);
   gap: 24px;
-  flex-wrap: wrap;
   align-items: stretch;
 }
 
@@ -257,6 +257,12 @@ main {
   border-radius: 12px;
   padding: 20px 24px;
   min-width: 260px;
+}
+
+@media (max-width: 680px) {
+  .hero-numbers {
+    grid-template-columns: 1fr;
+  }
 }
 
 .region-overline {
@@ -748,6 +754,152 @@ main {
 .disclaimer {
   color: var(--text-muted);
   font-size: 14px;
+}
+
+/* ---------- Регионы: «Что это значит для моего региона?» (§4.6, §5.1, История 15) ---------- */
+
+/* Семантический ranked-список (ol/li), не карта — карта не может быть
+   единственным источником значения (§4.6 «Accessible alternative»). */
+.regions-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.region-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Личный регион: акцентная полоса — вторичный сигнал; основная пометка —
+   текстовый бейдж «ваш регион» в строке (значения не только цветом, §12). */
+.region-row.is-personal {
+  border-left: 4px solid var(--accent);
+}
+
+.region-row-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.region-rank {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  width: 2ch;
+  flex-shrink: 0;
+}
+
+.region-name {
+  font-weight: 600;
+  flex: 1;
+}
+
+.region-yours {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+/* chevron 90° при раскрытии — тот же приём, что .src-toggle (§4.3.1) */
+.region-row-head::after {
+  content: '›';
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform .15s ease;
+}
+
+.region-row-head.is-open::after {
+  transform: rotate(90deg);
+}
+
+.region-row-head:hover {
+  background: var(--accent-soft);
+}
+
+.region-detail {
+  padding: 16px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.region-detail-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.region-detail-index {
+  color: var(--text-muted);
+}
+
+.region-detail-week {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.region-detail-subtitle {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.region-driver {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.region-driver-label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.region-driver-observation {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.region-driver-sources {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.region-detail .region-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
 /* ---------- Тренд за 12 недель (§4.4, История 13) ---------- */
