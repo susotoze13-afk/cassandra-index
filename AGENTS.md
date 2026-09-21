@@ -44,7 +44,7 @@ js/share.js               карточка 1200×630 canvas → PNG → download
 js/demo.js                панель демо-состояний (режим живёт только в сессии)
 data/<YYYY-MM-DD>/        global.js, regions.js, region-<slug>.js, trend.js, drivers.js, sources.js
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка всех снапшотов
-tests/*.test.js           14 файлов, node --test
+tests/*.test.js           18 файлов, node --test
 design/cassandra-index.pen    макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
 
@@ -107,6 +107,9 @@ design/cassandra-index.pen    макет pen.dev (текстовый JSON), чи
   и покрыта тестом, но на демо-данных не проявляется.
 - `js/share.js`: `share.announce` берёт язык из localStorage на момент клика, а не из appState.
 - Тренд: 12 точек на ширину экрана физически не дают hit-target 44px каждая (r=20 SVG).
+- Workflow не включает Pages сам: в НОВОМ репозитории нужен одноразовый шаг
+  (`gh api repos/<владелец>/<repo>/pages -X POST -f build_type=workflow` или настройки
+  репозитория → Pages → GitHub Actions), иначе выкат молча не публикуется.
 
 ## Как здесь работает Autopilot
 
