@@ -123,6 +123,16 @@ export function marginOf(index, target) {
   return Math.min(index - target[0], target[1] - index);
 }
 
+// Попадание select-якорей в кластеры: минимальный запас по ним и флаг полного
+// попадания. Единственное определение «попадания в окно» — используется и в
+// selectK, и в итоговом выводе CLI (одна логика, не две).
+function selectWindow(anchors) {
+  const sel = anchors.filter((a) => a.role === 'select');
+  const minMargin = Math.min(...sel.map((a) => marginOf(a.index, a.target)));
+  const allHit = sel.every((a) => marginOf(a.index, a.target) >= 0);
+  return { minMargin, allHit };
+}
+
 // --- Выбор k (rolling-origin): только role 'select' ---
 // Кандидаты — k, где все select-якоря попали; из них — с максимумом
 // минимального запаса (максиминная робастность), при равенстве — меньший k.
@@ -131,9 +141,7 @@ export function marginOf(index, target) {
 export function selectK(evaluation) {
   let best = null;
   for (const row of evaluation) {
-    const sel = row.anchors.filter((a) => a.role === 'select');
-    const minMargin = Math.min(...sel.map((a) => marginOf(a.index, a.target)));
-    const allHit = sel.every((a) => marginOf(a.index, a.target) >= 0);
+    const { minMargin, allHit } = selectWindow(row.anchors);
     const cand = { k: row.k, minMargin, allHit };
     if (
       !best ||
@@ -225,9 +233,7 @@ function main() {
   lines.push('');
   lines.push('Прогон сетки (индексы; знак ✓ = все select-якоря в кластерах):');
   for (const row of evaluation) {
-    const sel = row.anchors.filter((a) => a.role === 'select');
-    const minMargin = Math.min(...sel.map((a) => marginOf(a.index, a.target)));
-    const allHit = sel.every((a) => marginOf(a.index, a.target) >= 0);
+    const { minMargin, allHit } = selectWindow(row.anchors);
     const parts = row.anchors.map((a) => `${a.id}:${a.index}`).join(' ');
     const mark = allHit ? `✓ min-запас ${minMargin.toFixed(1)}` : `min-запас ${minMargin.toFixed(1)}`;
     const star = Math.abs(row.k - chosen.k) < 1e-9 ? '  <== ВЫБРАНО' : '';

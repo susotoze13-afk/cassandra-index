@@ -40,6 +40,23 @@ test('selectK: ни одно k без промахов → ближайшее к
   assert.equal(r.allHit, false);
 });
 
+test('selectK: равный minMargin у разных k → выбирается меньший k', () => {
+  // Оба k дают одинаковый минимальный запас по select-якорям: tie-break
+  // обязан уходить к меньшему k (максиминная робастность при равенстве).
+  const mk = (k) => ({
+    k,
+    anchors: [
+      { id: 'routine', index: 10, target: [0, 20], role: 'select' }, // min(10, 10) = 10
+      { id: 'crimea', index: 50, target: [41, 60], role: 'select' }, // min(9, 10) = 9
+    ],
+  });
+  const evaluation = [mk(2.5), mk(2.0)];
+  const r = selectK(evaluation);
+  assert.equal(r.k, 2.0);
+  assert.equal(r.minMargin, 9);
+  assert.equal(r.allHit, true);
+});
+
 test('buildDrivers: маппинг criteria → drivers по §4.2 (знаменатель — все критерии драйвера)', () => {
   const input = {
     week: '2026-09-13',

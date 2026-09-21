@@ -18,7 +18,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 
 import { PARAMS } from './params.js';
-import { aggregateDrivers, validate, stateOf } from './engine.js';
+import { aggregateDrivers, validate, regionalIndex, CRITERIA } from './engine.js';
 import { buildDrivers } from './calibrate.js';
 import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
 
@@ -73,9 +73,12 @@ export function renderRegions(week, regions) {
 
 // region-*.js: пересчитываются только index/delta/status; confidence и
 // narrative-поля (drivers) сохраняются из уже опубликованного файла.
+function mergedRegion(prev, index, delta, status) {
+  return { index, delta, status, confidence: prev.confidence, drivers: prev.drivers };
+}
+
 export function renderRegionFile(week, id, prev, index, delta, status) {
-  const merged = { index, delta, status, confidence: prev.confidence, drivers: prev.drivers };
-  return header(week) + `  s.regions[${JSON.stringify(id)}] = ${j(merged)};\n` + FOOTER;
+  return header(week) + `  s.regions[${JSON.stringify(id)}] = ${j(mergedRegion(prev, index, delta, status))};\n` + FOOTER;
 }
 
 export function renderTrend(week, trend) {
@@ -112,15 +115,17 @@ export function runWeek(week, state) {
   };
   const g = aggregateDrivers(drivers, PARAMS, ctx);
 
+  // Слепые регионы (nReg = 0 → I_region = I_global, background, §7) — через
+  // engine.regionalIndex, даже в этом вырожденном случае; в res.regions —
+  // проекция в форму снапшота {index, delta, status}.
   const regions = {};
   for (const id of REGION_IDS) {
-    const prevIndex = state.prevRegions[id];
-    const r = {
-      index: g.index,
-      delta: typeof prevIndex === 'number' ? g.index - prevIndex : g.delta,
-      status: stateOf(g.index, PARAMS),
-    };
-    regions[id] = r;
+    const r = regionalIndex(
+      { index: g.index, internal: g.internal, delta: g.delta },
+      { nReg: 0, prevIndex: state.prevRegions[id] },
+      PARAMS,
+    );
+    regions[id] = { index: r.index, delta: r.delta, status: r.state };
   }
 
   // Персистентность Structural Break Override (§5.4): 2 недели.
@@ -149,16 +154,37 @@ export function runWeek(week, state) {
     sbReason,
     coverage: {
       criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
-      totalCriteria: 45,
+      totalCriteria: Object.keys(CRITERIA).length,
       drivers: drivers.filter((d) => typeof d.score === 'number').length,
     },
   };
 }
 
 // --- Запись числовых файлов недели ---
+// Самопроверка ДО записи: снапшот собирается в памяти (числа из расчёта,
+// защищённые поля — из уже опубликованных файлов) и гоняется через контракт
+// validate из js/data.js; при провале диск не трогаем.
 function writeWeek(res, state) {
   const week = res.week;
   const snap = loadSnapshotPart(week, 'global') || {};
+
+  const full = { ...snap, global: { index: res.global.index, delta: res.global.delta } };
+  full.trend = res.trend;
+  full.regions = {};
+  for (const id of REGION_IDS) {
+    const prev = loadSnapshotPart(week, `region-${id}`);
+    full.regions[id] = mergedRegion(
+      prev && prev.regions ? prev.regions[id] : {},
+      res.regions[id].index, res.regions[id].delta, res.regions[id].status,
+    );
+  }
+  for (const f of ['drivers', 'sources']) {
+    const p = loadSnapshotPart(week, f);
+    if (p) Object.assign(full, { [f]: p[f] });
+  }
+  const v = validateSnapshot(full);
+  if (!v.ok) return { ok: false, errors: v.errors };
+
   const files = {
     'global.js': renderGlobal(week, snap, res.global.index, res.global.delta),
     'regions.js': renderRegions(week, res.regions),
@@ -173,23 +199,7 @@ function writeWeek(res, state) {
   for (const [file, content] of Object.entries(files)) {
     writeFileSync(path.join(ROOT, 'data', week, file), content, 'utf8');
   }
-
-  // Самопроверка записи: собрать снапшот обратно и прогнать контракт validate.
-  const full = { ...snap, global: { index: res.global.index, delta: res.global.delta } };
-  const trendPart = loadSnapshotPart(week, 'trend');
-  const regionsPart = loadSnapshotPart(week, 'regions');
-  full.trend = trendPart ? trendPart.trend : [];
-  full.regions = regionsPart ? regionsPart.regions : {};
-  for (const id of REGION_IDS) {
-    const p = loadSnapshotPart(week, `region-${id}`);
-    if (p && p.regions && p.regions[id]) full.regions[id] = p.regions[id];
-  }
-  for (const f of ['drivers', 'sources']) {
-    const p = loadSnapshotPart(week, f);
-    if (p) Object.assign(full, { [f]: p[f] });
-  }
-  const v = validateSnapshot(full);
-  return v.ok ? { ok: true } : { ok: false, errors: v.errors };
+  return { ok: true };
 }
 
 // --- Печать ---

@@ -161,6 +161,9 @@ test('aggregateD9: Д9.6b — пониженный порог, достаточ�
 });
 
 test('aggregateD9: ациклическая одиночная подгруппа без подтверждений → corr 0', () => {
+  // Одиночная Д9.6b: ветка «signaling.length >= 3» для неё недостижима
+  // (others === 0 ⇒ signaling.length === 1) — из кода убрана, поведение
+  // зафиксировано здесь: corr = 0.
   const subs = allNull();
   subs[6] = SUB('D9.6b', 1, { acyclic: true });
   const r = aggregateD9(subs, PARAMS);
@@ -318,7 +321,7 @@ test('aggregateDrivers: q-сжатие при плохом покрытии — 
 
 test('aggregateDrivers: первая неделя ряда (нет prev) — без инерции, delta = null', () => {
   const r = aggregateDrivers(driversA(), PARAMS, {});
-  assert.equal(r.index, 73); // round(73.10585786…)
+  assert.equal(r.index, 73); // round(72.61…) — при k=1.95 curve(0.5) = 72.61149813…
   assert.equal(r.delta, null);
   assert.equal(r.state, 'very');
 });

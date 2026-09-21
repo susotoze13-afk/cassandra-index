@@ -11,8 +11,8 @@ import { PARAMS } from './params.js';
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
-// Округление только при публикации (§5.4).
-function round1(x) {
+// Округление только при публикации (§5.4) — до целых, половины вверх.
+function roundHalfUp(x) {
   return Math.round(x);
 }
 
@@ -50,13 +50,14 @@ export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = 
 // --- §4.2: драйвер Д8 — сила деэскалации d₈ ---
 // criteria: массив {value: 0..1, covered: bool} (все критерии Д8 деэскалационные,
 // включая Д8.4 из независимого счётчика интенсивности).
-// d₈ = clamp(E₈/N₈_cov, 0, 1); null при покрытии ниже порога или N₈_cov = 0.
+// d₈ = clamp(E₈/N₈_cov, 0, 1); null при покрытии ниже порога (N₈_cov = 0
+// тогда же: 0 покрытых из N ≥ 1 всегда ниже положительного порога).
 export function d8Strength(criteria, coverageThreshold = PARAMS.coverageThreshold) {
   const list = Array.isArray(criteria) ? criteria : [];
   const total = list.length;
   if (total === 0) return null;
   const covered = list.filter((c) => c && c.covered === true);
-  if (covered.length / total < coverageThreshold || covered.length === 0) return null;
+  if (covered.length / total < coverageThreshold) return null;
   const mean = covered.reduce((acc, c) => acc + (Number(c.value) || 0), 0) / covered.length;
   return clamp(mean, 0, 1);
 }
@@ -97,7 +98,9 @@ export function aggregateD9(subgroups, params) {
     }
     const others = signaling.filter((o) => o.id !== s.id).length;
     if (s.id === 'D9.6b') {
-      corr[s.id] = others >= 1 ? 1 : signaling.length >= 3 ? 1 : 0;
+      // Пониженный порог (§4.3.2): достаточно 1 другой сигналящей подгруппы.
+      // Одиночная Д9.6b (others === 0 → signaling.length === 1) → 0.
+      corr[s.id] = others >= 1 ? 1 : 0;
       continue;
     }
     if (s.acyclic) {
@@ -249,7 +252,7 @@ export function aggregateDrivers(drivers, params, context) {
       })
     : tilde;
 
-  const index = round1(internal);
+  const index = roundHalfUp(internal);
   const prevPublished = typeof ctx.prevPublished === 'number' ? ctx.prevPublished : null;
   return {
     index,
@@ -275,7 +278,7 @@ export function regionalIndex(global, region, params) {
   const g = global || {};
   const r = region || {};
   const gInternal = typeof g.internal === 'number' ? g.internal : g.index;
-  const gIndex = typeof g.index === 'number' ? g.index : round1(gInternal);
+  const gIndex = typeof g.index === 'number' ? g.index : roundHalfUp(gInternal);
   const nReg = typeof r.nReg === 'number' ? r.nReg : 0;
   if (nReg <= 0) {
     const prevIndex = typeof r.prevIndex === 'number' ? r.prevIndex : null;
@@ -307,7 +310,7 @@ export function regionalIndex(global, region, params) {
       mirrored = true;
     }
   }
-  const index = round1(internal);
+  const index = roundHalfUp(internal);
   const prevIndex = typeof r.prevIndex === 'number' ? r.prevIndex : null;
   return {
     index,
