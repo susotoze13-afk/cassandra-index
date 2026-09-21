@@ -40,8 +40,18 @@ window.STATE =
     { "id": "02", "title": "Публикация: репозиторий, push, проверка живого URL",
       "requirements": ["R01", "R03i"],
       "blockedBy": ["01"], "wave": 2, "zone": ["git remote / GitHub"],
-      "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0,
-      "note": "действие наружу — только после подтверждения пользователя" }
+      "status": "in-progress", "startedAt": "2026-09-20T22:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0,
+      "note": "пользователь подтвердил публикацию 2026-09-20" },
+    { "id": "03", "title": "Правки по крафт-ревью: contents: read + счётчики тестов",
+      "requirements": [],
+      "blockedBy": ["01"], "wave": 2, "zone": [".github/workflows/", "AGENTS.md"],
+      "status": "done", "startedAt": "2026-09-20T22:38:00+03:00", "finishedAt": "2026-09-20T22:45:00+03:00",
+      "retries": 0, "repairs": 0, "handoffs": 0,
+      "files": [".github/workflows/deploy.yml", "AGENTS.md"],
+      "tests": { "passed": 91, "failed": 0 },
+      "commit": "31fe7e2",
+      "concerns": [],
+      "note": "закрывает замечания крафт-ревью из concerns" }
   ],
   "singlePass": null,
   "tests": null,
@@ -54,8 +64,7 @@ window.STATE =
     "detail": "независимая сверка brief↔spec: не покрытого нет, наполовину нет; всё сверх брифа — привязанные допущения (R02i–R05i)"
   },
   "concerns": [
-    "craft · AGENTS.md:94 — раздел «Тесты» говорит «80 тестов», фактически 91; привести к одному числу (триаж в фазе 8)",
-    "craft · .github/workflows/deploy.yml:7 — в permissions нет contents: read, checkout полагается на дефолтные права токена; добавить явно до выката (триаж в фазе 8)"
+    "craft · AGENTS.md:47 — в разделе «Структура» tests/*.test.js назван «14 файлов», фактически 18; мелкая правка памяти, закрыть в фазе 9 при финальном проходе AGENTS.md"
   ],
   "reviewers": { "manifestSpec": "agent-36", "craft": "agent-37" },
   "blind": null

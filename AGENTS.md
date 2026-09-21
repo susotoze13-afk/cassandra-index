@@ -24,8 +24,8 @@
 - Обновление недели: новый каталог `data/<дата>/` + дата в `CI_WEEKS`
   (`data/latest.js`) → `node build.js` → `node --test` зелёный → commit → push.
   Actions выкатывает сам, ручных шагов на хостинге нет.
-- Публичный URL вида `https://<аккаунт>.github.io/cassandra-index/` — дописать
-  после первого выката (создание репозитория и первый push — отдельный шаг).
+- Публичный URL: `https://susotoze13-afk.github.io/cassandra-index/` (первый
+  выкат подтверждён 2026-09-20; репозиторий `susotoze13-afk/cassandra-index`, public).
 
 ## Структура
 
