@@ -24,8 +24,8 @@ window.STATE =
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 9, "done": 3, "inTicket": 6, "inSpec": 0,
-    "placeholder": 0, "deferred": 0, "dropped": 0
+    "total": 9, "done": 6, "inTicket": 1, "inSpec": 0,
+    "placeholder": 0, "deferred": 2, "dropped": 0
   },
   "tickets": [
     { "id": "01", "title": "Расчётное ядро пайплайна", "requirements": ["R01", "R04i", "R07i"],
@@ -38,13 +38,23 @@ window.STATE =
       "concerns": ["engine.js:201 — q для null-драйверов берёт c по умолчанию medium (0.7), зафиксировать при калибровке", "имя round1 против Math.round; мёртвая ветка Д9.6b; дефолты engine дублируют params (аккуратно при смене k); тест 30%-лимита только неравенствами; причина override нестрого; d8Strength избыточная проверка"] },
     { "id": "02", "title": "Входные сигналы трёх недель", "requirements": ["R02", "R05i"],
       "blockedBy": ["01"], "wave": 2, "zone": ["calc/input/"],
-      "status": "in-progress", "startedAt": "2026-09-21T08:33:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0 },
+      "status": "done", "startedAt": "2026-09-21T08:33:00+03:00", "finishedAt": "2026-09-21T09:10:00+03:00",
+      "retries": 0, "repairs": 0, "handoffs": 0,
+      "files": ["calc/input/2026-08-30.json", "calc/input/2026-09-06.json", "calc/input/2026-09-13.json"],
+      "tests": { "passed": 147, "failed": 0 },
+      "commit": "a28292c",
+      "concerns": ["D01: наблюдения трёх снапшотов идентичны без дат — недельная динамика только через инерцию/покрытие", "даты источников вне окна through (системное отставание демо-данных)", "Д9 medium при пустом Д9 занижает 1−q — правило зафиксировать"] },
     { "id": "03", "title": "Якорные сценарии и калибровка", "requirements": ["R03", "R06i", "R09i"],
       "blockedBy": ["01"], "wave": 2, "zone": ["calc/input/anchors/", "calc/calibrate.js", "docs/calibration-journal.md"],
-      "status": "in-progress", "startedAt": "2026-09-21T08:33:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0 },
+      "status": "done", "startedAt": "2026-09-21T08:33:00+03:00", "finishedAt": "2026-09-21T09:10:00+03:00",
+      "retries": 0, "repairs": 0, "handoffs": 0,
+      "files": ["calc/input/anchors/", "calc/calibrate.js", "docs/calibration-journal.md", "calc/params.js", "calc/engine.js", "tests/calibrate.test.js", "tests/calc-engine.test.js"],
+      "tests": { "passed": 150, "failed": 0 },
+      "commit": "276f360",
+      "concerns": ["журнал: I_agg proxy-sanctions 0.132 не бьётся с индексом 32 (≈0.163) — попадания сохраняются", "verify Карибского-1962 нарушает строгую хронологию rolling-origin (намеренно, защита от подгонки)", "журнал marginOf считает index−lo, не min двусторонний; «без лимита ~99.9» не сходится с прогоном", "tie-break ветка selectK без теста; main() дублирует логику попадания", "cuban-1962: D5.1–D5.3 = 1 при отсутствии киберсферы — трактовать D5 как инфо-измерение эпохи", "buildDrivers живёт в calibrate.js — таск 04 переиспользует, не дублирует"] },
     { "id": "04", "title": "Пересчёт трёх недель в data/ и выкатная обвязка", "requirements": ["R02", "R01"],
       "blockedBy": ["01", "02", "03"], "wave": 3, "zone": ["calc/calc.js", "data/2026-08-30/", "data/2026-09-06/", "data/2026-09-13/"],
-      "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0 }
+      "status": "in-progress", "startedAt": "2026-09-21T09:16:32+03:00", "retries": 0, "repairs": 0, "handoffs": 0 }
   ],
   "singlePass": null,
   "tests": null,

@@ -40,15 +40,15 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-08-30",
-    "value": 69
+    "value": 60
   },
   {
     "date": "2026-09-06",
-    "value": 71
+    "value": 58
   },
   {
     "date": "2026-09-13",
-    "value": 72
+    "value": 57
   }
 ];
 })();

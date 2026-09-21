@@ -44,11 +44,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-08-30",
-    "value": 65
+    "value": 60
   },
   {
     "date": "2026-09-06",
-    "value": 66
+    "value": 58
   }
 ];
 })();

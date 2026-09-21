@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
   s.global = {
-  "index": 63,
-  "delta": 2
+  "index": 60,
+  "delta": -1
 };
   s.published = "2026-08-30";
   s.through = "2026-08-23";
