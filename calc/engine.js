@@ -3,6 +3,11 @@
 // региональная модель отклонения (§7). Чистые функции, ноль зависимостей.
 // Округление — только на выходе (Math.round, половины вверх); внутренние
 // float-значения сохраняются для инерции следующей недели (§5.4).
+// Численные значения по умолчанию берутся из calc/params.js (§10.1) —
+// params.js — единственный источник чисел; engine только подставляет их,
+// когда вызывающий не передал params явно.
+
+import { PARAMS } from './params.js';
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
@@ -25,7 +30,7 @@ export function stateOf(index, params) {
 // Возвращает sᵢ ∈ [0,1] или null (доля покрытых критериев < coverageThreshold
 // или ни один критерий не покрыт). Непокрытый критерий исключается из
 // нормировки, а не засчитывается как ноль.
-export function driverScore(criteria, alpha = 0.5, coverageThreshold = 0.5) {
+export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = PARAMS.coverageThreshold) {
   const list = Array.isArray(criteria) ? criteria : [];
   const total = list.length;
   if (total === 0) return null;
@@ -46,7 +51,7 @@ export function driverScore(criteria, alpha = 0.5, coverageThreshold = 0.5) {
 // criteria: массив {value: 0..1, covered: bool} (все критерии Д8 деэскалационные,
 // включая Д8.4 из независимого счётчика интенсивности).
 // d₈ = clamp(E₈/N₈_cov, 0, 1); null при покрытии ниже порога или N₈_cov = 0.
-export function d8Strength(criteria, coverageThreshold = 0.5) {
+export function d8Strength(criteria, coverageThreshold = PARAMS.coverageThreshold) {
   const list = Array.isArray(criteria) ? criteria : [];
   const total = list.length;
   if (total === 0) return null;
@@ -113,11 +118,11 @@ export function aggregateD9(subgroups, params) {
 // tilde — Ĩ после q-сжатия; prev — внутреннее значение прошлой недели.
 export function applyInertia(tilde, prev, opts) {
   const o = opts || {};
-  const betaUp = o.betaUp != null ? o.betaUp : 0.9;
-  const betaDown = o.betaDown != null ? o.betaDown : 0.5;
+  const betaUp = o.betaUp != null ? o.betaUp : PARAMS.betaUp;
+  const betaDown = o.betaDown != null ? o.betaDown : PARAMS.betaDown;
   if (tilde > prev) return betaUp * tilde + (1 - betaUp) * prev;
   if (o.overrideActive) {
-    const sb = o.structuralBreak || { beta: 0.8, prev: 0.2 };
+    const sb = o.structuralBreak || PARAMS.structuralBreak;
     return sb.beta * tilde + sb.prev * prev;
   }
   return betaDown * tilde + (1 - betaDown) * prev;
@@ -131,7 +136,7 @@ export function applyInertia(tilde, prev, opts) {
 export function detectStructuralBreak(drivers, params) {
   const p = params || {};
   const d8 = (Array.isArray(drivers) ? drivers : []).find((d) => d && d.id === 'D8');
-  const maxConf = p.confidence ? p.confidence.high : 1.0;
+  const maxConf = p.confidence ? p.confidence.high : PARAMS.confidence.high;
   const active = !!d8 && d8.breakValue === 1 && (p.confidence || {})[d8.confidence] === maxConf;
   return {
     active,
@@ -151,7 +156,7 @@ export function aggregateDrivers(drivers, params, context) {
   const p = params || {};
   const ctx = context || {};
   const w = p.weights || {};
-  const confMap = p.confidence || { high: 1, medium: 0.7, low: 0.4 };
+  const confMap = p.confidence || PARAMS.confidence;
   const byId = {};
   for (const d of Array.isArray(drivers) ? drivers : []) if (d && d.id) byId[d.id] = d;
   const confOf = (d) => confMap[d.confidence] != null ? confMap[d.confidence] : confMap.medium;
@@ -184,13 +189,13 @@ export function aggregateDrivers(drivers, params, context) {
   const U_raw = d9 ? wp.D9 * d9.score : 0;
   // U_abs применяется только при ≥ 2 сигналящих подгруппах Д9 (v0.7).
   const nSub = d9 && d9.signalingSubgroups != null ? d9.signalingSubgroups : 0;
-  const U_abs = nSub >= 2 ? p.U_abs : 0;
-  const rho = p.rho != null ? p.rho : 0.25;
+  const U_abs = nSub >= 2 ? (p.U_abs != null ? p.U_abs : PARAMS.U_abs) : 0;
+  const rho = p.rho != null ? p.rho : PARAMS.rho;
   const U = Math.min(U_raw, (rho / (1 - rho)) * S + U_abs);
 
   // Шаг 4: сырой скор; d₈ = null → член равен 0.
   const d8 = covered('D8');
-  const lambda = p.lambda != null ? p.lambda : 0.6;
+  const lambda = p.lambda != null ? p.lambda : PARAMS.lambda;
   const I_agg = Math.max(0, S + U - lambda * (w.D8 || 0) * (d8 ? d8.score : 0));
 
   // Шаг 5: глобальный коэффициент покрытия q по всем 9 драйверам.
@@ -205,14 +210,14 @@ export function aggregateDrivers(drivers, params, context) {
   const q = qDen > 0 ? qNum / qDen : 0;
 
   // Шаг 6: насыщающая кривая (§5.2).
-  const k = p.k != null ? p.k : 2;
+  const k = p.k != null ? p.k : PARAMS.k;
   const curve = (x) => 100 * (1 - Math.exp(-k * x)) / (1 - Math.exp(-k));
   let I_new = curve(I_agg);
 
   // §4.3.4: лимит прироста 30 % — вклад Д9 в недельный прирост (до инерции).
   const I_new0 = curve(Math.max(0, I_agg - U));
   const prevRef = typeof ctx.prevInternal === 'number' ? ctx.prevInternal : I_new0;
-  const growthLimit = (p.d9GrowthLimit != null ? p.d9GrowthLimit : 0.3) * (100 - prevRef);
+  const growthLimit = (p.d9GrowthLimit != null ? p.d9GrowthLimit : PARAMS.d9GrowthLimit) * (100 - prevRef);
   if (I_new - I_new0 > growthLimit) {
     // Закрытая форма: ищем I_agg', где curve равна I_new0 + limit, вычитаем без-Д9 базу.
     const target = I_new0 + growthLimit;
@@ -283,19 +288,19 @@ export function regionalIndex(global, region, params) {
       mirrored: false,
     };
   }
-  const gamma = p.gamma != null ? p.gamma : 0.5;
+  const gamma = p.gamma != null ? p.gamma : PARAMS.gamma;
   const e_r = gamma * (r.eStruct || 0) + (1 - gamma) * (r.eDyn || 0);
-  const n0 = p.n0 != null ? p.n0 : 5;
+  const n0 = p.n0 != null ? p.n0 : PARAMS.n0;
   const m = nReg / (nReg + n0);
-  const clampR = p.regionClamp != null ? p.regionClamp : 40;
+  const clampR = p.regionClamp != null ? p.regionClamp : PARAMS.regionClamp;
   const deltaRegion = clamp((r.iWith != null ? r.iWith : gInternal) - (r.iWithout != null ? r.iWithout : gInternal), -clampR, clampR);
   let internal = gInternal + e_r * m * deltaRegion;
   // Зеркалирование глобального шока, взвешенное по структурной экспозиции (§7).
   const gDelta = typeof g.delta === 'number' ? g.delta : 0;
-  const threshold = p.regionShockDelta != null ? p.regionShockDelta : 15;
+  const threshold = p.regionShockDelta != null ? p.regionShockDelta : PARAMS.regionShockDelta;
   let mirrored = false;
   if (gDelta >= threshold && !r.hasDeescSignals) {
-    const kappa = p.kappa != null ? p.kappa : 0.85;
+    const kappa = p.kappa != null ? p.kappa : PARAMS.kappa;
     const floor = kappa * (r.eStruct || 0) * gInternal;
     if (internal < floor) {
       internal = floor;

@@ -225,13 +225,13 @@ function driversA(over = {}) {
   return drivers;
 }
 
-test('aggregateDrivers: базовый прогон §5 шаги 1–8 — I_agg = 0.5, индекс 72, Δ +12', () => {
+test('aggregateDrivers: базовый прогон §5 шаги 1–8 — I_agg = 0.5, индекс 71, Δ +11', () => {
   const r = aggregateDrivers(driversA(), PARAMS, { prevInternal: 60, prevPublished: 60 });
   assert.equal(r.parts.I_agg, 0.5);
-  assert.equal(r.index, 72);
+  assert.equal(r.index, 71);
   assert.equal(r.state, 'very');
-  assert.equal(r.delta, 12);
-  assert.ok(Math.abs(r.internal - 71.79527207670044) < 1e-9); // 0.9·73.10585786… + 6
+  assert.equal(r.delta, 11);
+  assert.ok(Math.abs(r.internal - 71.35034831347014) < 1e-9); // 0.9·72.61149813… + 6
   assert.equal(r.q, 1);
 });
 
@@ -501,7 +501,7 @@ test('params: веса Д1–Д8 по 0.1175, Д9 0.06, сумма ровно 1'
   assert.equal(PARAMS.kappa, 0.85);
   assert.equal(PARAMS.betaUp, 0.9);
   assert.equal(PARAMS.betaDown, 0.5);
-  assert.equal(PARAMS.k, 2.0);
+  assert.equal(PARAMS.k, 1.95); // откалибровано на якорях §9 (docs/calibration-journal.md)
 });
 
 test('params: list() возвращает глубокую копию — мутация не трогает PARAMS', () => {
@@ -509,7 +509,7 @@ test('params: list() возвращает глубокую копию — мут
   snapshot.weights.D1 = 0.9;
   snapshot.k = 9;
   assert.equal(PARAMS.weights.D1, 0.1175);
-  assert.equal(PARAMS.k, 2.0);
+  assert.equal(PARAMS.k, 1.95); // откалибровано на якорях §9 (docs/calibration-journal.md)
 });
 
 // --- Валидация входного файла недели (контракт для тасок 02/03) ---

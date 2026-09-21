@@ -24,19 +24,24 @@ window.STATE =
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 9, "done": 0, "inTicket": 9, "inSpec": 0,
+    "total": 9, "done": 3, "inTicket": 6, "inSpec": 0,
     "placeholder": 0, "deferred": 0, "dropped": 0
   },
   "tickets": [
     { "id": "01", "title": "Расчётное ядро пайплайна", "requirements": ["R01", "R04i", "R07i"],
       "blockedBy": [], "wave": 1, "zone": ["calc/engine.js", "calc/params.js", "tests/calc-engine.test.js"],
-      "status": "in-progress", "startedAt": "2026-09-21T08:07:06+03:00", "retries": 0, "repairs": 0, "handoffs": 0 },
+      "status": "done", "startedAt": "2026-09-21T08:07:06+03:00", "finishedAt": "2026-09-21T08:32:15+03:00",
+      "retries": 0, "repairs": 0, "handoffs": 0,
+      "files": ["calc/engine.js", "calc/params.js", "tests/calc-engine.test.js"],
+      "tests": { "passed": 147, "failed": 0 },
+      "commit": "fac8e03",
+      "concerns": ["engine.js:201 — q для null-драйверов берёт c по умолчанию medium (0.7), зафиксировать при калибровке", "имя round1 против Math.round; мёртвая ветка Д9.6b; дефолты engine дублируют params (аккуратно при смене k); тест 30%-лимита только неравенствами; причина override нестрого; d8Strength избыточная проверка"] },
     { "id": "02", "title": "Входные сигналы трёх недель", "requirements": ["R02", "R05i"],
       "blockedBy": ["01"], "wave": 2, "zone": ["calc/input/"],
-      "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0 },
+      "status": "in-progress", "startedAt": "2026-09-21T08:33:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0 },
     { "id": "03", "title": "Якорные сценарии и калибровка", "requirements": ["R03", "R06i", "R09i"],
       "blockedBy": ["01"], "wave": 2, "zone": ["calc/input/anchors/", "calc/calibrate.js", "docs/calibration-journal.md"],
-      "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0 },
+      "status": "in-progress", "startedAt": "2026-09-21T08:33:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0 },
     { "id": "04", "title": "Пересчёт трёх недель в data/ и выкатная обвязка", "requirements": ["R02", "R01"],
       "blockedBy": ["01", "02", "03"], "wave": 3, "zone": ["calc/calc.js", "data/2026-08-30/", "data/2026-09-06/", "data/2026-09-13/"],
       "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0 }
@@ -46,7 +51,11 @@ window.STATE =
   "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
   "additions": [],
   "coverage": { "missing": 0, "half": 0, "extra": 9, "disposition": "все extras — R##.n-углубления или R##i-подразумеваемые из манифеста; перезапись значений 3 недель — суть R02 (пересчёт), зафиксировано в spec Решение 5/8" },
-  "concerns": [],
-  "reviewers": { "manifestSpec": null, "craft": null },
+  "concerns": [
+    "spec-ревью таса 01: снапшот параметров во входном файле — путь на params.js, не инлайн-копия; при смене params старые входы пересчитаются новыми числами — оговорка обязана попасть в журнал калибровки (таск 03)",
+    "spec-ревью таса 01: дефолт c=0.7 для null-драйверов в знаменателе q — зафиксировать в журнале калибровки",
+    "craft таса 01 (не блокируют): round1; мёртвая ветка Д9.6b; дефолты engine дублируют params.js — при смене k в таске 03 синхронизировать; тест лимита 30 % только неравенствами; причина override нестрогая; d8Strength избыточная проверка"
+  ],
+  "reviewers": { "manifestSpec": "agent-44", "craft": "agent-45" },
   "blind": null
 }
