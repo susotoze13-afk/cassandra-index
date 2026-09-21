@@ -1,7 +1,7 @@
 window.STATE =
 {
   "slug": "index-3weeks-calibration",
-  "dir": "2026-09-21-index-3weeks-calibration--wip",
+  "dir": "2026-09-21-index-3weeks-calibration",
   "title": "Расчёт индекса за 3 недели + калибровка",
   "mode": "full",
   "depth": "normal",
@@ -11,20 +11,20 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-09-21T07:56:24+03:00",
-  "updatedAt": "2026-09-21T07:58:30+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-09-21T09:40:41+03:00",
+  "finishedAt": "2026-09-21T09:40:41+03:00",
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-09-21T07:56:24+03:00", "finishedAt": "2026-09-21T07:58:30+03:00" },
     { "id": "manifest",  "status": "done", "startedAt": "2026-09-21T07:58:30+03:00", "finishedAt": "2026-09-21T08:05:00+03:00" },
     { "id": "briefing",  "status": "skipped", "note": "полный автомат — самобрифинг, решения A1–A5 в manifest.md" },
     { "id": "spec",      "status": "done", "startedAt": "2026-09-21T08:05:00+03:00", "finishedAt": "2026-09-21T08:20:00+03:00" },
     { "id": "plan",      "status": "done", "startedAt": "2026-09-21T08:20:00+03:00", "finishedAt": "2026-09-21T08:35:00+03:00", "note": "ярус T2 — 4 таска в 3 волны: 1 (01), 2 (02, 03 параллельно), 3 (04)" },
-    { "id": "build",     "status": "active", "startedAt": "2026-09-21T08:35:00+03:00" },
-    { "id": "review",    "status": "pending" },
-    { "id": "final",     "status": "pending" }
+    { "id": "build",     "status": "done", "startedAt": "2026-09-21T08:35:00+03:00", "finishedAt": "2026-09-21T09:31:18+03:00", "note": "4 из 4 тасок готовы, 0 ремонтов, 0 передач" },
+    { "id": "review",    "status": "done", "startedAt": "2026-09-21T08:32:15+03:00", "finishedAt": "2026-09-21T09:31:18+03:00", "note": "4 из 4 тасок на ревью; 0 блокирующих находок, находки ушли в concerns; одно блокирующее снято доказательством D01" },
+    { "id": "final",     "status": "done", "startedAt": "2026-09-21T09:35:00+03:00", "finishedAt": "2026-09-21T09:40:41+03:00", "note": "слепая приёмка: калибровка — реализовано; по расчёту расхождение (58/56/54 против 60/58/57) — ложное срабатывание ручного просчёта без shell; живой прогон calc.js подтвердил 60/58/57, дрейфа нет" }
   ],
   "requirements": {
-    "total": 9, "done": 6, "inTicket": 1, "inSpec": 0,
+    "total": 9, "done": 7, "inTicket": 0, "inSpec": 0,
     "placeholder": 0, "deferred": 2, "dropped": 0
   },
   "tickets": [
@@ -54,7 +54,12 @@ window.STATE =
       "concerns": ["журнал: I_agg proxy-sanctions 0.132 не бьётся с индексом 32 (≈0.163) — попадания сохраняются", "verify Карибского-1962 нарушает строгую хронологию rolling-origin (намеренно, защита от подгонки)", "журнал marginOf считает index−lo, не min двусторонний; «без лимита ~99.9» не сходится с прогоном", "tie-break ветка selectK без теста; main() дублирует логику попадания", "cuban-1962: D5.1–D5.3 = 1 при отсутствии киберсферы — трактовать D5 как инфо-измерение эпохи", "buildDrivers живёт в calibrate.js — таск 04 переиспользует, не дублирует"] },
     { "id": "04", "title": "Пересчёт трёх недель в data/ и выкатная обвязка", "requirements": ["R02", "R01"],
       "blockedBy": ["01", "02", "03"], "wave": 3, "zone": ["calc/calc.js", "data/2026-08-30/", "data/2026-09-06/", "data/2026-09-13/"],
-      "status": "in-progress", "startedAt": "2026-09-21T09:16:32+03:00", "retries": 0, "repairs": 0, "handoffs": 0 }
+      "status": "done", "startedAt": "2026-09-21T09:16:32+03:00", "finishedAt": "2026-09-21T09:31:18+03:00",
+      "retries": 0, "repairs": 0, "handoffs": 0,
+      "files": ["calc/calc.js", "data/2026-08-30/", "data/2026-09-06/", "data/2026-09-13/"],
+      "tests": { "passed": 150, "failed": 0 },
+      "commit": "d0306ec",
+      "concerns": ["инерция стартовала от 61 (global.js 08-23), а не 67 из брифа — 67 ручной артефакт trend; trend-точка 08-23 осталась 67/62 в разных файлах (унаследованное противоречие демо-данных)", "регионы: narrative-поля противоречат новым числам (неизбежно — narrative не трогали)", "craft: regionalIndex engine не вызван (воспроизведена ветка слепого региона); self-check после записи на диск; totalCriteria захардкожен"] }
   ],
   "singlePass": null,
   "tests": null,
@@ -67,5 +72,5 @@ window.STATE =
     "craft таса 01 (не блокируют): round1; мёртвая ветка Д9.6b; дефолты engine дублируют params.js — при смене k в таске 03 синхронизировать; тест лимита 30 % только неравенствами; причина override нестрогая; d8Strength избыточная проверка"
   ],
   "reviewers": { "manifestSpec": "agent-44", "craft": "agent-45" },
-  "blind": null
+  "blind": { "runAt": "2026-09-21T09:40:00+03:00", "verdict": "калибровка — реализовано; расчёт — заявленное расхождение расследовано и снято", "drift": 0, "resolution": "проверяющий (read-only, без shell) ручным просчётом получил 58/56/54 и q≈0.3367; фактический прогон node calc/calc.js даёт q=0.168 и 60/58/57, совпадающие с data/ (подтверждено тремя независимыми запусками и ручной сверкой ревьюера таса 04); ручная арифметика проверяющего не воспроизводит движок — манифест подтверждён" }
 }
