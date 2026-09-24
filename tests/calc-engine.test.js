@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, readdirSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   driverScore,
   d8Strength,
@@ -7,6 +10,9 @@ import {
   aggregateDrivers,
   applyInertia,
   detectStructuralBreak,
+  detectFlashTriggers,
+  normalizeCriterion,
+  independenceWarnings,
   regionalIndex,
   stateOf,
   validate,
@@ -215,6 +221,50 @@ test('aggregateD9: ни одна подгруппа не покрыта → null
 // (прежний тест «покрытие подгрупп ниже 50 %» удалён: порог 50 % к подгруппам
 // Д9 не применяется, см. решение в engine.js — заменён тестом выше)
 
+// --- §7.3: severity — нормировка счётных критериев Σsev/CAP ---
+
+test('normalizeCriterion: events [0.5, 2.0] → Σsev/CAP = 2.5/5 = 0.5', () => {
+  assert.equal(normalizeCriterion({ events: [0.5, 2.0] }, PARAMS), 0.5);
+});
+
+test('normalizeCriterion: events [2, 2, 2] → min(1, 6/5) = 1.0 (потолок CAP)', () => {
+  assert.equal(normalizeCriterion({ events: [2, 2, 2] }, PARAMS), 1);
+});
+
+test('normalizeCriterion: каждый из четырёх severity-весов нормируется на CAP', () => {
+  assert.equal(normalizeCriterion({ events: [0.2] }, PARAMS), 0.2 / 5);
+  assert.equal(normalizeCriterion({ events: [0.5] }, PARAMS), 0.5 / 5);
+  assert.equal(normalizeCriterion({ events: [1.0] }, PARAMS), 1.0 / 5);
+  assert.equal(normalizeCriterion({ events: [2.0] }, PARAMS), 2.0 / 5);
+});
+
+test('normalizeCriterion: готовое value проходит как есть (старые входы)', () => {
+  assert.equal(normalizeCriterion({ value: 0.4 }, PARAMS), 0.4);
+});
+
+// --- R16–R19: детектор Flash-триггеров ---
+
+test('detectFlashTriggers: Д1.4 с событием severity 2.0 → true', () => {
+  const criteria = { 'D1.4': { covered: true, events: [2.0] } };
+  assert.equal(detectFlashTriggers(criteria, PARAMS), true);
+});
+
+test('detectFlashTriggers: Д1.4 без события 2.0 → false', () => {
+  const criteria = { 'D1.4': { covered: true, events: [1.0] } };
+  assert.equal(detectFlashTriggers(criteria, PARAMS), false);
+  assert.equal(detectFlashTriggers({ 'D1.4': { covered: true, value: 1 } }, PARAMS), false);
+});
+
+test('detectFlashTriggers: Д7.3 = 1 (бинарный критерий, событий нет) → true', () => {
+  assert.equal(detectFlashTriggers({ 'D7.3': { covered: true, value: 1 } }, PARAMS), true);
+  assert.equal(detectFlashTriggers({ 'D7.3': { covered: true, value: 0.67 } }, PARAMS), false);
+});
+
+test('detectFlashTriggers: пустой вход и непокрытые критерии → false', () => {
+  assert.equal(detectFlashTriggers({}, PARAMS), false);
+  assert.equal(detectFlashTriggers({ 'D1.4': null, 'D7.3': null }, PARAMS), false);
+});
+
 // --- §5: глобальная агрегация, §5.4: инерция и Structural Break Override ---
 
 // Драйверы D1..D7 со скором 0.5 (high), D8 с d₈ = 0 (high), D9 со скором 0.5
@@ -246,6 +296,19 @@ test('aggregateDrivers: Д8 вычитается через λ·w₈, но ег�
   assert.ok(Math.abs(r.parts.I_agg - 0.4295) < 1e-12);
   assert.ok(Math.abs(r.parts.S - (0.8225 / 0.8645) * 0.5) < 1e-12);
   assert.ok(Math.abs(r.parts.U - (0.042 / 0.8645) * 0.5) < 1e-12);
+});
+
+test('aggregateDrivers: патч 7.1 — S, U и I_agg не зависят от уверенности Д8 (w′ по §5 шаг 2 считается без Д8)', () => {
+  // w′ = wᵢ·cᵢ / Σ_{Д1..Д7,Д9} wⱼ·cⱼ — знаменатель не содержит Д8, поэтому
+  // смена уверенности Д8 (high → low) не двигает S/U/I_agg.
+  const high = aggregateDrivers(driversA({ D8: { score: 0.6, confidence: 'high' } }), PARAMS,
+    { prevInternal: 60, prevPublished: 60 });
+  const low = aggregateDrivers(driversA({ D8: { score: 0.6, confidence: 'low' } }), PARAMS,
+    { prevInternal: 60, prevPublished: 60 });
+  assert.equal(high.parts.S, low.parts.S);
+  assert.equal(high.parts.U, low.parts.U);
+  assert.equal(high.parts.I_agg, low.parts.I_agg);
+  assert.ok(Math.abs(high.parts.I_agg - (0.5 - 0.6 * 0.1175 * 0.6)) < 1e-12);
 });
 
 test('aggregateDrivers: d₈ = null (Д8 слепой) → член деэскалации 0', () => {
@@ -507,6 +570,27 @@ test('params: веса Д1–Д8 по 0.1175, Д9 0.06, сумма ровно 1'
   assert.equal(PARAMS.k, 1.95); // откалибровано на якорях §9 (docs/calibration-journal.md)
 });
 
+test('params: поля v0.7 — capCount, severityValues, dataCoverage, clusters, flashTriggers, qualityThresholds, ipConfidenceLadder', () => {
+  assert.equal(PARAMS.capCount, 5); // CAP нормировки severity (§7.3)
+  assert.deepEqual(PARAMS.severityValues, [0.2, 0.5, 1.0, 2.0]);
+  assert.deepEqual(PARAMS.dataCoverage, { insufficient: 0.4, reduced: 0.2, d1d2Required: true });
+  assert.deepEqual(PARAMS.clusters, [
+    'A-mainstream', 'B-state-media', 'C-registries',
+    'D-satellite-osint', 'E-field-osint', 'F-financial',
+  ]);
+  assert.deepEqual(PARAMS.flashTriggers, { criteria: ['D1.4', 'D2.4'], severity: 2.0, d7Value: 1 });
+  assert.deepEqual(PARAMS.qualityThresholds, { high: 0.8, medium: 0.6 });
+  assert.deepEqual(PARAMS.ipConfidenceLadder, { city: 80, region: 90, floor: 50 });
+  // list() отдаёт все новые поля (глубокая копия)
+  const snapshot = list();
+  assert.deepEqual(snapshot.severityValues, PARAMS.severityValues);
+  assert.deepEqual(snapshot.dataCoverage, PARAMS.dataCoverage);
+  assert.deepEqual(snapshot.clusters, PARAMS.clusters);
+  assert.deepEqual(snapshot.flashTriggers, PARAMS.flashTriggers);
+  assert.deepEqual(snapshot.qualityThresholds, PARAMS.qualityThresholds);
+  assert.deepEqual(snapshot.ipConfidenceLadder, PARAMS.ipConfidenceLadder);
+});
+
 test('params: list() возвращает глубокую копию — мутация не трогает PARAMS', () => {
   const snapshot = list();
   snapshot.weights.D1 = 0.9;
@@ -524,11 +608,11 @@ function validInput() {
     criteria: {
       'D1.1': {
         value: 0.4, covered: true,
-        sources: [{ url: 'https://example.org/a', date: '2026-09-10', cluster: 'satellite-osint' }],
+        sources: [{ url: 'https://example.org/a', date: '2026-09-10', cluster: 'D-satellite-osint' }],
         regions: ['europe'],
       },
       'D1.2': null,
-      'D9.6b': { value: 0.67, covered: true, acyclic: true, sources: [{ url: 'https://example.org/b', date: '2026-09-11', cluster: 'field-osint' }] },
+      'D9.6b': { value: 0.67, covered: true, acyclic: true, sources: [{ url: 'https://example.org/b', date: '2026-09-11', cluster: 'E-field-osint' }] },
     },
     driverConfidence: { D1: { level: 'high' }, D9: { level: 'medium', reason: 'косвенные сигналы' } },
   };
@@ -607,4 +691,107 @@ test('validate: driverConfidence — неизвестный драйвер, би
   assert.ok(errors.some((e) => e.startsWith('driverConfidence.D10:')));
   assert.ok(errors.some((e) => e.startsWith('driverConfidence.D2.level:')));
   assert.ok(errors.some((e) => e.startsWith('driverConfidence.D9.level:')));
+});
+
+// --- v0.7: схема источников, whitelist кластеров A–F, severity/events, flash_origin ---
+
+test('validate: кластер вне whitelist A–F → ошибка с путём (включая старые имена)', () => {
+  for (const cluster of ['x', 'satellite-osint', 'mainstream-pool', 'registries', 'reference-encyclopedia']) {
+    const input = validInput();
+    input.criteria['D1.1'].sources = [{ url: 'https://a.org', date: '2026-09-10', cluster }];
+    assert.ok(validate(input).some((e) => e.startsWith('criteria.D1.1.sources[0].cluster:')), cluster);
+  }
+});
+
+test('validate: опциональные type/state_affiliated источника — допустимые значения и типы', () => {
+  const base = () => validInput();
+  for (const type of ['primary', 'secondary', 'OSINT']) {
+    const input = base();
+    input.criteria['D1.1'].sources[0].type = type;
+    assert.deepEqual(validate(input), [], type);
+  }
+  const bad = base();
+  bad.criteria['D1.1'].sources[0].type = 'blog';
+  assert.ok(validate(bad).some((e) => e.startsWith('criteria.D1.1.sources[0].type:')));
+  const badFlag = base();
+  badFlag.criteria['D1.1'].sources[0].state_affiliated = 'yes';
+  assert.ok(validate(badFlag).some((e) => e.startsWith('criteria.D1.1.sources[0].state_affiliated:')));
+});
+
+test('validate: flash_origin — только boolean', () => {
+  const ok = validInput();
+  ok.criteria['D1.1'].flash_origin = true;
+  assert.deepEqual(validate(ok), []);
+  const bad = validInput();
+  bad.criteria['D1.1'].flash_origin = 'yes';
+  assert.ok(validate(bad).some((e) => e.startsWith('criteria.D1.1.flash_origin:')));
+});
+
+test('validate: счётный критерий — либо value, либо events, не оба и не ни одного', () => {
+  const withEvents = () => {
+    const input = validInput();
+    delete input.criteria['D1.1'].value;
+    input.criteria['D1.1'].events = [0.5, 2.0];
+    return input;
+  };
+  assert.deepEqual(validate(withEvents()), []); // только events — валидно
+  const both = withEvents();
+  both.criteria['D1.1'].value = 0.5;
+  assert.ok(validate(both).some((e) => e.startsWith('criteria.D1.1:') && e.includes('value')));
+  const neither = validInput();
+  delete neither.criteria['D1.1'].value;
+  assert.ok(validate(neither).some((e) => e.startsWith('criteria.D1.1.value:')));
+});
+
+test('validate: events — только severityValues, длина ≤ capCount·2', () => {
+  for (const events of [[0.3], ['2.0'], [0.2, 3.0]]) {
+    const input = validInput();
+    delete input.criteria['D1.1'].value;
+    input.criteria['D1.1'].events = events;
+    assert.ok(validate(input).some((e) => e.startsWith('criteria.D1.1.events:')), JSON.stringify(events));
+  }
+  const tooLong = validInput();
+  delete tooLong.criteria['D1.1'].value;
+  tooLong.criteria['D1.1'].events = Array(11).fill(0.2); // capCount 5 → максимум 10
+  assert.ok(validate(tooLong).some((e) => e.startsWith('criteria.D1.1.events:')));
+  const borderline = validInput();
+  delete borderline.criteria['D1.1'].value;
+  borderline.criteria['D1.1'].events = Array(10).fill(0.2);
+  assert.deepEqual(validate(borderline), []);
+});
+
+// --- R21–R23: правило независимости источников (предупреждения) ---
+
+test('independenceWarnings: два источника одного кластера → предупреждение, разные кластеры → нет', () => {
+  const input = validInput();
+  input.criteria['D1.1'].sources = [
+    { url: 'https://a.org', date: '2026-09-10', cluster: 'A-mainstream' },
+    { url: 'https://b.org', date: '2026-09-10', cluster: 'A-mainstream' },
+  ];
+  const warnings = independenceWarnings(input, PARAMS);
+  assert.equal(warnings.length, 1);
+  assert.ok(warnings[0].includes('criteria.D1.1'));
+  const mixed = validInput();
+  mixed.criteria['D1.1'].sources = [
+    { url: 'https://a.org', date: '2026-09-10', cluster: 'A-mainstream' },
+    { url: 'https://b.org', date: '2026-09-10', cluster: 'D-satellite-osint' },
+  ];
+  assert.deepEqual(independenceWarnings(mixed, PARAMS), []);
+});
+
+// --- Обратная совместимость: все существующие входы валидны (числа не меняются) ---
+
+const INPUT_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'calc', 'input');
+
+test('validate: все входы недель и якорей calc/input/**/*.json валидны', () => {
+  const files = [
+    ...readdirSync(INPUT_DIR).filter((f) => f.endsWith('.json')),
+    ...readdirSync(path.join(INPUT_DIR, 'anchors')).filter((f) => f.endsWith('.json')),
+  ];
+  assert.equal(files.length, 9); // 3 недели + 6 якорей
+  for (const f of files) {
+    const dir = f.includes('-') && /^\d{4}/.test(f) ? INPUT_DIR : path.join(INPUT_DIR, 'anchors');
+    const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));
+    assert.deepEqual(validate(input, PARAMS), [], f);
+  }
 });

@@ -6,6 +6,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { selectK, buildDrivers } from '../calc/calibrate.js';
+import { PARAMS } from '../calc/params.js';
 
 test('selectK: max минимального запаса среди k с полным попаданием ранних якорей; verify игнорируется', () => {
   // Запас (margin) якоря = min(index − lo, hi − index); промах → k не кандидат.
@@ -89,4 +90,29 @@ test('buildDrivers: маппинг criteria → drivers по §4.2 (знамен
   assert.ok(Math.abs(byId.D9.score - 0.33 * 0.5) < 1e-12);
   assert.equal(byId.D9.signalingSubgroups, 1);
   assert.equal(byId.D9.confidence, 'medium'); // D9 high запрещён (§4.3.1)
+});
+
+test('buildDrivers: счётный критерий со events нормируется Σsev/CAP (§7.3)', () => {
+  // D1.1: events [0.5, 2.0] → 0.5 — тот же скор, что у value 0.5. Покрыто 3 из 6:
+  // mean(esc) = (0.5 + 1 + 1)/3 = 5/6.
+  const mk = (d11) => ({
+    week: '2026-09-13',
+    criteria: {
+      'D1.1': d11,
+      'D1.2': { value: 1, covered: true, sources: [{ url: 'https://a.org', date: '2026-09-10', cluster: 'A-mainstream' }] },
+      'D1.3': { value: 1, covered: true, sources: [{ url: 'https://a.org', date: '2026-09-10', cluster: 'A-mainstream' }] },
+    },
+  });
+  const src = [{ url: 'https://a.org', date: '2026-09-10', cluster: 'A-mainstream' }];
+  const withEvents = buildDrivers(mk({ covered: true, events: [0.5, 2.0], sources: src }));
+  const withValue = buildDrivers(mk({ covered: true, value: 0.5, sources: src }));
+  const e1 = withEvents.find((d) => d.id === 'D1');
+  const v1 = withValue.find((d) => d.id === 'D1');
+  assert.equal(e1.score, 5 / 6);
+  assert.equal(e1.score, v1.score);
+  // events [2,2,2] → min(1, 6/5) = 1: скор равен прогону с value 1
+  const capped = buildDrivers(mk({ covered: true, events: [2, 2, 2], sources: src }));
+  const plain = buildDrivers(mk({ covered: true, value: 1, sources: src }));
+  assert.equal(capped.find((d) => d.id === 'D1').score, plain.find((d) => d.id === 'D1').score);
+  assert.equal(PARAMS.capCount, 5);
 });

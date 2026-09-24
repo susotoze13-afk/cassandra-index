@@ -36,6 +36,27 @@ export const PARAMS = {
   coverageThreshold: 0.5, // порог покрытия критериев драйвера (§4.2)
   d9GrowthLimit: 0.3, // лимит недельного прироста индекса от Д9 (§4.3.4)
   confidence: { high: 1.0, medium: 0.7, low: 0.4 }, // шкала cᵢ (§5.1)
+  // --- Поля v0.7 (breaking-параметры — фиксируются только версионированием §10) ---
+  capCount: 5,        // CAP — нормировка счётных критериев Σsev/CAP (§7.3); breaking
+  severityValues: [0.2, 0.5, 1.0, 2.0], // допустимые веса событий (§7.3); breaking
+  // Пороги покрытия для классификации публикации (R11–R15): nullWeight > 0.4
+  // или null Д1/Д2 → insufficient; 0.2–0.4 → reduced; < 0.2 → полная.
+  dataCoverage: { insufficient: 0.4, reduced: 0.2, d1d2Required: true }, // breaking
+  // Whitelist кластеров происхождения источников A–F (R21–R23); breaking
+  clusters: [
+    'A-mainstream', 'B-state-media', 'C-registries',
+    'D-satellite-osint', 'E-field-osint', 'F-financial',
+  ],
+  // Flash-триггеры (R16–R19): событие severity 2.0 по Д1.4/Д2.4 или Д7.3 = 1;
+  // breaking
+  flashTriggers: { criteria: ['D1.4', 'D2.4'], severity: 2.0, d7Value: 1 },
+  // Пороги бейджа качества данных (R59): q ≥ 0.8 высокое, 0.6–0.8 среднее,
+  // < 0.6 низкое; breaking
+  qualityThresholds: { high: 0.8, medium: 0.6 },
+  // Лестница IP-точности, % (R38, R48): cityConf ≥ 80 → город, ≥ 50 → админцентр,
+  // < 50 → без города; regionConf ≥ 90 → регион, иначе только страна; любая ось
+  // < floor → глобальный вид; breaking
+  ipConfidenceLadder: { city: 80, region: 90, floor: 50 },
   // Пороги состояний §9 (применяются к опубликованному значению).
   states: [
     { min: 0, max: 20, id: 'calm' },

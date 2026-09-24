@@ -17,6 +17,7 @@ import {
   d8Strength,
   aggregateD9,
   aggregateDrivers,
+  normalizeCriterion,
   validate,
 } from './engine.js';
 
@@ -44,7 +45,7 @@ export function buildDrivers(input, params = PARAMS) {
     const id = `D${i}`;
     const criteria = entriesOf(id).map(({ entry, meta }) => ({
       dir: meta.dir,
-      value: entry ? entry.value : 0,
+      value: entry ? normalizeCriterion(entry, p) : 0,
       covered: !!entry && entry.covered === true,
     }));
     drivers.push({
@@ -58,7 +59,7 @@ export function buildDrivers(input, params = PARAMS) {
     id: 'D8',
     score: d8Strength(
       d8Entries.map(({ entry }) => ({
-        value: entry ? entry.value : 0,
+        value: entry ? normalizeCriterion(entry, p) : 0,
         covered: !!entry && entry.covered === true,
       })),
       p.coverageThreshold,
@@ -71,7 +72,7 @@ export function buildDrivers(input, params = PARAMS) {
   const d9 = aggregateD9(
     entriesOf('D9').map(({ id, entry }) => ({
       id,
-      score: entry && entry.covered === true ? entry.value : null,
+      score: entry && entry.covered === true ? normalizeCriterion(entry, p) : null,
       acyclic: !!entry && entry.acyclic === true,
       rejected: !!entry && entry.rejected === true,
     })),

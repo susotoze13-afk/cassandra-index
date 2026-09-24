@@ -117,6 +117,39 @@ export function aggregateD9(subgroups, params) {
   return { score: clamp(s9, 0, 1), signaling: nSignaling, corr };
 }
 
+// --- §7.3: нормировка счётного критерия ---
+// entry: {value} (старые входы) или {events: [sev…]}, sev ∈ params.severityValues.
+// value = min(1, Σsev/CAP); CAP — params.capCount. Чистая нормировка: вход
+// считается уже провалидированным (validate режет события вне severityValues).
+export function normalizeCriterion(entry, params) {
+  const p = params || {};
+  const cap = p.capCount != null ? p.capCount : PARAMS.capCount;
+  if (entry && Array.isArray(entry.events)) {
+    const total = entry.events.reduce((acc, sev) => acc + (Number(sev) || 0), 0);
+    return Math.min(1, total / cap);
+  }
+  const v = Number(entry && entry.value);
+  return Number.isFinite(v) ? v : 0;
+}
+
+// --- R16–R19: детектор Flash-триггеров ---
+// criteria: объект входа {id: entry|null}. Триггер — событие severity 2.0
+// (params.flashTriggers.severity) по Д1.4/Д2.4 (params.flashTriggers.criteria)
+// или value = 1 по Д7.3 (бинарный критерий, событий не несёт). Возвращает bool;
+// снапшот не меняется — запись в журнал делает вызывающий (calc-cli, таск 02).
+export function detectFlashTriggers(criteria, params) {
+  const p = params || {};
+  const ft = p.flashTriggers || PARAMS.flashTriggers;
+  const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
+  for (const id of ft.criteria) {
+    const entry = map[id];
+    if (!entry || entry.covered !== true || !Array.isArray(entry.events)) continue;
+    if (entry.events.includes(ft.severity)) return true;
+  }
+  const d7 = map['D7.3'];
+  return !!d7 && d7.covered === true && d7.value === ft.d7Value;
+}
+
 // --- §5.4: асимметричная инерция и Structural Break Override ---
 // tilde — Ĩ после q-сжатия; prev — внутреннее значение прошлой недели.
 export function applyInertia(tilde, prev, opts) {
@@ -377,23 +410,36 @@ export const CRITERIA = {
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const CONFIDENCE_LEVELS = ['high', 'medium', 'low'];
 const DRIVER_IDS = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9'];
+const SOURCE_TYPES = ['primary', 'secondary', 'OSINT'];
 
-// Форма входного файла (interfaces.md, схему фиксирует таск 01):
+// Форма входного файла (схему фиксирует таск 01, v0.7):
 // {
 //   week: 'YYYY-MM-DD',                  // дата окна (понедельник)
 //   params?: 'calc/params.js',           // ссылка на снапшот параметров
 //   criteria: { 'D1.1': null | {        // null = непокрыт
 //     value: 0..1,                       // нормированный сигнал (бинарная 0/1,
-//                                        // порядковая 0/0.33/0.67/1, счётная Σsev/CAP)
+//                                        // порядковая 0/0.33/0.67/1) — обязателен
+//                                        // для не-счётных шкал
+//     events?: number[],                 // счётная шкала (§7.3): вместо value,
+//                                        // sev ∈ params.severityValues, длина
+//                                        // ≤ capCount·2; вклад = min(1, Σsev/CAP)
 //     covered: true,
-//     sources: [{ url, date, cluster }], // cluster — кластер происхождения
+//     sources: [{ url, date,             // обязательные поля источника
+//       cluster,                         // id из params.clusters (whitelist A–F)
+//       type?: 'primary'|'secondary'|'OSINT',
+//       state_affiliated?: bool }],      // опциональные поля источника
 //     regions?: string[],                // региональная атрибуция (§4.1.9)
 //     acyclic?: bool,                    // ациклический подкритерий Д9 (§4.3.3)
 //     rejected?: bool,                   // отклонён по независимости источников
+//     flash_origin?: bool,               // наблюдение — источник Flash-алерта
 //   } },
 //   driverConfidence?: { D1: { level: 'high'|'medium'|'low', reason?: string } }
 // }
-export function validate(input) {
+export function validate(input, params) {
+  const p = params || PARAMS;
+  const clusters = Array.isArray(p.clusters) ? p.clusters : [];
+  const severityValues = Array.isArray(p.severityValues) ? p.severityValues : [];
+  const eventsMax = (typeof p.capCount === 'number' ? p.capCount : 0) * 2;
   const errors = [];
   const err = (path, msg) => errors.push(`${path}: ${msg}`);
   if (input === null || typeof input !== 'object' || Array.isArray(input)) {
@@ -423,7 +469,31 @@ export function validate(input) {
         err(path, 'непокрытый критерий должен быть null, не объектом');
         continue;
       }
-      if (typeof entry.value !== 'number' || !Number.isFinite(entry.value) || entry.value < 0 || entry.value > 1) {
+      if (CRITERIA[id].scale === 'count') {
+        // §7.3: счётный критерий — либо value, либо events (ровно одно).
+        const hasValue = entry.value != null;
+        const hasEvents = entry.events != null;
+        if (hasValue && hasEvents) {
+          err(path, 'счётный критерий: либо value, либо events, не оба');
+        } else if (!hasValue && !hasEvents) {
+          err(`${path}.value`, 'счётный критерий требует value или events (§7.3)');
+        }
+        if (hasValue && (typeof entry.value !== 'number' || !Number.isFinite(entry.value) || entry.value < 0 || entry.value > 1)) {
+          err(`${path}.value`, 'ожидается нормированное число 0..1');
+        }
+        if (hasEvents) {
+          if (!Array.isArray(entry.events) || entry.events.length === 0) {
+            err(`${path}.events`, 'ожидается непустой массив severity-весов');
+          } else {
+            if (entry.events.length > eventsMax) {
+              err(`${path}.events`, `не более ${eventsMax} событий (capCount·2)`);
+            }
+            if (entry.events.some((sev) => typeof sev !== 'number' || !severityValues.includes(sev))) {
+              err(`${path}.events`, `допустимые веса: ${severityValues.join('/')} (§7.3)`);
+            }
+          }
+        }
+      } else if (typeof entry.value !== 'number' || !Number.isFinite(entry.value) || entry.value < 0 || entry.value > 1) {
         err(`${path}.value`, 'ожидается нормированное число 0..1');
       }
       if (!Array.isArray(entry.sources) || entry.sources.length === 0) {
@@ -437,13 +507,23 @@ export function validate(input) {
           }
           if (typeof s.url !== 'string' || s.url.length === 0) err(`${sp}.url`, 'ожидается непустая строка');
           if (typeof s.date !== 'string' || !DATE_RE.test(s.date)) err(`${sp}.date`, 'ожидается дата YYYY-MM-DD');
-          if (typeof s.cluster !== 'string' || s.cluster.length === 0) err(`${sp}.cluster`, 'ожидается кластер происхождения');
+          if (typeof s.cluster !== 'string' || s.cluster.length === 0) {
+            err(`${sp}.cluster`, 'ожидается кластер происхождения');
+          } else if (clusters.length > 0 && !clusters.includes(s.cluster)) {
+            err(`${sp}.cluster`, `кластер вне whitelist A–F: ${s.cluster}`);
+          }
+          if (s.type != null && !SOURCE_TYPES.includes(s.type)) {
+            err(`${sp}.type`, `ожидается один из ${SOURCE_TYPES.join('/')}`);
+          }
+          if (s.state_affiliated != null && typeof s.state_affiliated !== 'boolean') {
+            err(`${sp}.state_affiliated`, 'ожидается boolean');
+          }
         });
       }
       if (entry.regions != null && (!Array.isArray(entry.regions) || entry.regions.some((r) => typeof r !== 'string' || r.length === 0))) {
         err(`${path}.regions`, 'ожидается массив непустых строк регионов');
       }
-      for (const flag of ['acyclic', 'rejected']) {
+      for (const flag of ['acyclic', 'rejected', 'flash_origin']) {
         if (entry[flag] != null && typeof entry[flag] !== 'boolean') err(`${path}.${flag}`, 'ожидается boolean');
       }
     }
@@ -473,4 +553,31 @@ export function validate(input) {
     }
   }
   return errors;
+}
+
+// --- R21–R23: предупреждения о независимости источников ---
+// Два источника считаются независимыми только из разных кластеров (бриф;
+// правило — в governance). Не ошибка пайплайна: аналитик сам помечает
+// критерий rejected, движок обнуляет его короборацию (§4.3.2). Возвращает
+// строки-предупреждения с путями; [] = конфликтов кластеров нет.
+export function independenceWarnings(input, params) {
+  const p = params || PARAMS;
+  const whitelist = Array.isArray(p.clusters) ? p.clusters : [];
+  const criteria = (input && input.criteria && typeof input.criteria === 'object') ? input.criteria : {};
+  const warnings = [];
+  for (const [id, entry] of Object.entries(criteria)) {
+    if (!entry || entry.covered !== true || !Array.isArray(entry.sources)) continue;
+    const byCluster = {};
+    for (const s of entry.sources) {
+      const c = s && s.cluster;
+      if (typeof c !== 'string' || !whitelist.includes(c)) continue;
+      byCluster[c] = (byCluster[c] || 0) + 1;
+    }
+    for (const [c, n] of Object.entries(byCluster)) {
+      if (n >= 2) {
+        warnings.push(`criteria.${id}.sources: ${n} источников из кластера ${c} — не считаются независимыми (§4.3.2)`);
+      }
+    }
+  }
+  return warnings;
 }

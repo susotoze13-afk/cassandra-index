@@ -6,16 +6,16 @@
       "value": 0.2,
       "covered": true,
       "sources": [
-        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-09-03", "cluster": "satellite-osint" },
-        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-09-02", "cluster": "mainstream-pool" }
+        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-09-03", "cluster": "D-satellite-osint" },
+        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-09-02", "cluster": "A-mainstream" }
       ]
     },
     "D1.2": {
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-09-05", "cluster": "mainstream-pool" },
-        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-09-03", "cluster": "satellite-osint" }
+        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-09-05", "cluster": "A-mainstream" },
+        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-09-03", "cluster": "D-satellite-osint" }
       ]
     },
     "D1.3": null,
@@ -23,8 +23,8 @@
       "value": 0.2,
       "covered": true,
       "sources": [
-        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-09-04", "cluster": "mainstream-pool" },
-        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-09-05", "cluster": "mainstream-pool" }
+        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-09-04", "cluster": "A-mainstream" },
+        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-09-05", "cluster": "A-mainstream" }
       ]
     },
     "D1.5": null,
@@ -40,7 +40,7 @@
       "value": 0.1,
       "covered": true,
       "sources": [
-        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-09-05", "cluster": "mainstream-pool" }
+        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-09-05", "cluster": "A-mainstream" }
       ]
     },
     "D3.4": null,
@@ -50,8 +50,8 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.sipri.org/media/press-release/budgets", "date": "2026-09-01", "cluster": "registries" },
-        { "url": "https://www.crisisgroup.org/crisiswatch/air-defence", "date": "2026-09-04", "cluster": "mainstream-pool" }
+        { "url": "https://www.sipri.org/media/press-release/budgets", "date": "2026-09-01", "cluster": "C-registries" },
+        { "url": "https://www.crisisgroup.org/crisiswatch/air-defence", "date": "2026-09-04", "cluster": "A-mainstream" }
       ]
     },
     "D4.3": null,
