@@ -409,7 +409,7 @@ const DICTS = {
     'demo.close': 'Закрыть',
     'demo.banner': 'Демо-состояние: {mode}',
     'data.retry': 'Повторить',
-    'sources.word': 'источник;источника;источников',
+    'sources.word': '{n} {n, plural, one{источник} few{источника} many{источников} other{источников}}',
     'drivers.title': 'Что изменилось',
     'drivers.observation': 'Наблюдение',
     'drivers.why': 'Почему это важно',
@@ -440,7 +440,7 @@ const DICTS = {
     'trend.direction.up': 'растёт',
     'trend.direction.down': 'снижается',
     'trend.direction.flat': 'без изменений',
-    'trend.points': 'пункт;пункта;пунктов',
+    'trend.points': '{n, plural, one{пункт} few{пункта} many{пунктов} other{пунктов}}',
     'trend.summary': 'За неделю индекс изменился на {week} {weekWord}; за 12 недель — на {total} {totalWord}.',
     'trend.point.aria': '{value} из 100, {date}',
     'trend.chart.label': 'График индекса за 12 недель',
@@ -618,7 +618,7 @@ const DICTS = {
     'demo.close': 'Close',
     'demo.banner': 'Demo state: {mode}',
     'data.retry': 'Retry',
-    'sources.word': 'source;sources',
+    'sources.word': '{n} {n, plural, one{source} other{sources}}',
     'drivers.title': 'What changed',
     'drivers.observation': 'Observation',
     'drivers.why': 'Why it matters',
@@ -649,7 +649,7 @@ const DICTS = {
     'trend.direction.up': 'rising',
     'trend.direction.down': 'falling',
     'trend.direction.flat': 'unchanged',
-    'trend.points': 'point;points',
+    'trend.points': '{n, plural, one{point} other{points}}',
     'trend.summary': 'Over the week the index changed by {week} {weekWord}; over 12 weeks — by {total} {totalWord}.',
     'trend.point.aria': '{value} of 100, {date}',
     'trend.chart.label': '12-week index chart',
@@ -758,29 +758,109 @@ const LANGS = ['ru', 'en'];
 
 const LOCALES = { ru: 'ru-RU', en: 'en-US' };
 
-function t(lang, key, vars) {
-  const dict = DICTS[lang] ?? DICTS.ru;
-  let s = dict[key] ?? DICTS.ru[key] ?? key;
-  if (vars) {
-    for (const k of Object.keys(vars)) {
-      s = s.replaceAll(`{${k}}`, String(vars[k]));
-    }
+// --- ICU MessageFormat (собственное подмножество, R62 / решение A3): ---
+// интерполяция `{var}`, plural `{n, plural, one{…} few{…} many{…} other{…}}`,
+// select `{x, select, …}`. CLDR-правила RU (one/few/many, дробные → other) и EN (one/other).
+function pluralCategory(lang, n) {
+  const v = Math.abs(Number(n));
+  if (!Number.isFinite(v)) return 'other';
+  if (lang === 'ru') {
+    if (!Number.isInteger(v)) return 'other';
+    const m10 = v % 10;
+    const m100 = v % 100;
+    if (m10 === 1 && m100 !== 11) return 'one';
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'few';
+    return 'many';
   }
-  return s;
+  return v === 1 ? 'one' : 'other';
 }
 
-// RU: правило 1 / 2–4 / 5+ (§11.2, закрывает открытый вопрос §19.24).
-// forms = ['источник', 'источника', 'источников']; EN: forms = ['source', 'sources'].
-function plural(lang, n, forms) {
-  n = Math.abs(Number(n));
-  if (lang === 'ru') {
-    const m10 = n % 10;
-    const m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
+// Индекс парной `{}`: вложенные фигурные скобки учитываются.
+function findClose(s, open) {
+  let depth = 0;
+  for (let i = open; i < s.length; i++) {
+    if (s[i] === '{') depth++;
+    else if (s[i] === '}') {
+      depth--;
+      if (depth === 0) return i;
+    }
   }
-  return n === 1 ? forms[0] : forms[1];
+  return -1;
+}
+
+// Тело plural/select: последовательность `ключ{сообщение}`; сообщения рендерятся рекурсивно.
+function parseOptions(body, vars, lang) {
+  const opts = {};
+  let i = 0;
+  while (i < body.length) {
+    while (i < body.length && /\s/.test(body[i])) i++;
+    const m = /^[^\s{,]+/.exec(body.slice(i));
+    if (!m) break;
+    const key = m[0];
+    i += key.length;
+    while (i < body.length && /\s/.test(body[i])) i++;
+    if (body[i] !== '{') break;
+    const close = findClose(body, i);
+    if (close === -1) break;
+    opts[key] = renderMessage(body.slice(i + 1, close), vars, lang);
+    i = close + 1;
+  }
+  return opts;
+}
+
+// Один блок `{…}`: `{var}` → интерполяция; `{n, plural, …}` / `{x, select, …}`.
+function evalBlock(inner, vars, lang) {
+  const ci1 = inner.indexOf(',');
+  if (ci1 === -1) {
+    const name = inner.trim();
+    return vars && vars[name] !== undefined ? String(vars[name]) : `{${name}}`;
+  }
+  const name = inner.slice(0, ci1).trim();
+  const rest = inner.slice(ci1 + 1);
+  const ci2 = rest.indexOf(',');
+  const type = (ci2 === -1 ? rest : rest.slice(0, ci2)).trim();
+  const body = ci2 === -1 ? '' : rest.slice(ci2 + 1);
+  const opts = parseOptions(body, vars, lang);
+  if (type === 'plural') {
+    const cat = pluralCategory(lang, vars?.[name]);
+    return opts[cat] ?? opts.other ?? '';
+  }
+  if (type === 'select') {
+    const value = vars?.[name];
+    return opts[String(value)] ?? opts.other ?? '';
+  }
+  return `{${inner}}`;
+}
+
+function renderMessage(s, vars, lang) {
+  let out = '';
+  let i = 0;
+  while (i < s.length) {
+    if (s[i] === '{') {
+      const close = findClose(s, i);
+      if (close === -1) return out + s.slice(i);
+      out += evalBlock(s.slice(i + 1, close), vars, lang);
+      i = close + 1;
+    } else {
+      out += s[i];
+      i++;
+    }
+  }
+  return out;
+}
+
+function t(lang, key, vars) {
+  const dict = DICTS[lang] ?? DICTS.ru;
+  const s = dict[key] ?? DICTS.ru[key] ?? key;
+  return s.includes('{') ? renderMessage(s, vars, lang) : s;
+}
+
+// Обратная совместимость: тонкая обёртка поверх CLDR-категорий (интерфейс §швы).
+// RU: forms = [one, few, many/other]; EN: forms = [one, other].
+function plural(lang, n, forms) {
+  const cat = pluralCategory(lang, n);
+  if (lang === 'ru') return forms[cat === 'one' ? 0 : cat === 'few' ? 1 : 2];
+  return cat === 'one' ? forms[0] : forms[1];
 }
 
 // «13 сентября 2026» / «13 Sep, 2026»; короткие «13.09» / «Sep 13» (§11.2).
@@ -1255,7 +1335,7 @@ exports["render"] = render;
 return exports;
 }]);
 factories.push(["js/sections/drivers.js", function (exports) {
-const { t, date, plural } = __ci_require("js/i18n.js");
+const { t, date } = __ci_require("js/i18n.js");
 const { el } = __ci_require("js/ui.js");
 // Секция «Что изменилось» (регистрируется как 'drivers'): три драйвера недели
 // по цепочке Наблюдение → Почему это важно → Уверенность → Источники (§4.3)
@@ -1265,11 +1345,10 @@ const { el } = __ci_require("js/ui.js");
 
 const LEVELS = ['high', 'medium', 'low'];
 
-// Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, склонение §11.2).
-// Формы — из словаря (sources.word), чтобы склонения жили в одном месте.
+// Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, ICU-plural §11.2).
+// Склонения живут в словаре (sources.word) — целиком ICU-строка, без конкатенации.
 function sourcesLabel(lang, n) {
-  const forms = t(lang, 'sources.word').split(';');
-  return `${n} ${plural(lang, n, forms)}`;
+  return t(lang, 'sources.word', { n });
 }
 
 // >5 источников: первые 5 + «Показать все источники» (§4.3.1).
@@ -1487,7 +1566,7 @@ exports["render"] = render;
 return exports;
 }]);
 factories.push(["js/sections/trend.js", function (exports) {
-const { t, date, plural } = __ci_require("js/i18n.js");
+const { t, date } = __ci_require("js/i18n.js");
 const { el } = __ci_require("js/ui.js");
 // Секция «Тренд» (регистрируется как 'trend'): интерактивный график индекса
 // за 12 недель, целиком инлайн-SVG из данных снапшота (Решение п.8, История 13).
@@ -1528,7 +1607,7 @@ function tooltipDate(lang, point) {
   return date(lang, point?.date);
 }
 
-// Короткий нарративный summary: Δ за неделю и за всё окно, слово «пункт» со склонением.
+// Короткий нарративный summary: Δ за неделю и за всё окно, слово «пункт» со склонением (ICU).
 function summaryText(lang, points) {
   const list = Array.isArray(points) ? points : [];
   if (list.length < 2) return '';
@@ -1536,12 +1615,11 @@ function summaryText(lang, points) {
   const prev = list[list.length - 2].value;
   const week = cur - prev;
   const total = cur - list[0].value;
-  const forms = t(lang, 'trend.points').split(';');
   return t(lang, 'trend.summary', {
     week: signedDelta(week),
-    weekWord: plural(lang, Math.abs(week), forms),
+    weekWord: t(lang, 'trend.points', { n: Math.abs(week) }),
     total: signedDelta(total),
-    totalWord: plural(lang, Math.abs(total), forms),
+    totalWord: t(lang, 'trend.points', { n: Math.abs(total) }),
   });
 }
 

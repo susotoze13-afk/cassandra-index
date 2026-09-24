@@ -3,16 +3,15 @@
 // + дополнительные измерения риска без процентов (R41, §4.5).
 // Чистые швы (sourcesLabel, visibleSources, resolveMeasures) — без DOM, тестируются.
 
-import { t, date, plural } from '../i18n.js';
+import { t, date } from '../i18n.js';
 import { el } from '../ui.js';
 
 const LEVELS = ['high', 'medium', 'low'];
 
-// Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, склонение §11.2).
-// Формы — из словаря (sources.word), чтобы склонения жили в одном месте.
+// Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, ICU-plural §11.2).
+// Склонения живут в словаре (sources.word) — целиком ICU-строка, без конкатенации.
 export function sourcesLabel(lang, n) {
-  const forms = t(lang, 'sources.word').split(';');
-  return `${n} ${plural(lang, n, forms)}`;
+  return t(lang, 'sources.word', { n });
 }
 
 // >5 источников: первые 5 + «Показать все источники» (§4.3.1).

@@ -4,7 +4,7 @@
 // Чистые швы (signedDelta, arrowOf, directionOf, pointAriaLabel, summaryText,
 // clampX) — без DOM, тестируются; aria-label точек вместо aria-live (§19.25).
 
-import { t, date, plural } from '../i18n.js';
+import { t, date } from '../i18n.js';
 import { el } from '../ui.js';
 
 // Δ со знаком: '+6' | '-3' | '0' (подпись и summary).
@@ -39,7 +39,7 @@ export function tooltipDate(lang, point) {
   return date(lang, point?.date);
 }
 
-// Короткий нарративный summary: Δ за неделю и за всё окно, слово «пункт» со склонением.
+// Короткий нарративный summary: Δ за неделю и за всё окно, слово «пункт» со склонением (ICU).
 export function summaryText(lang, points) {
   const list = Array.isArray(points) ? points : [];
   if (list.length < 2) return '';
@@ -47,12 +47,11 @@ export function summaryText(lang, points) {
   const prev = list[list.length - 2].value;
   const week = cur - prev;
   const total = cur - list[0].value;
-  const forms = t(lang, 'trend.points').split(';');
   return t(lang, 'trend.summary', {
     week: signedDelta(week),
-    weekWord: plural(lang, Math.abs(week), forms),
+    weekWord: t(lang, 'trend.points', { n: Math.abs(week) }),
     total: signedDelta(total),
-    totalWord: plural(lang, Math.abs(total), forms),
+    totalWord: t(lang, 'trend.points', { n: Math.abs(total) }),
   });
 }
 
