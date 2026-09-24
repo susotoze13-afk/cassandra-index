@@ -124,7 +124,11 @@ const DICTS = {
     'trend.chart.label': 'График индекса за 12 недель',
     'footer.next': 'Следующая публикация: {when}',
     'disclaimer.full': 'Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.',
-    'footer.ip': 'регион определяется приблизительно по IP для отображения регионального контекста; адрес не сохраняется и не передаётся третьим лицам',
+    'footer.ip': 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам',
+    'region.toast.text': 'Мы можем определить ваш регион приблизительно по часовому поясу браузера, чтобы показать региональный контекст. IP-адрес не используется и не сохраняется.',
+    'region.toast.change': 'Изменить',
+    'region.toast.accept': 'Согласен',
+    'region.toast.dismiss': 'Закрыть',
     'footer.privacy': 'Приватность',
     'share.brand': 'CASSANDRA INDEX',
     'share.button': 'Поделиться',
@@ -136,17 +140,29 @@ const DICTS = {
     'privacy.storage.h': 'Что сайт хранит в вашем браузере',
     'privacy.storage.lang': 'cassandra.lang — выбранный язык интерфейса. Записывается, только когда вы сами переключаете язык.',
     'privacy.storage.region': 'cassandra.region — выбранный вами регион. Записывается, только если вы включили переключатель «Запомнить» в панели выбора региона; без него выбор живёт только до закрытия вкладки.',
-    'privacy.storage.first': 'Первый визит ничего не сохраняет: до вашего явного действия localStorage остаётся пустым.',
+    'privacy.storage.consent': 'cassandra.region.consent — ваш ответ на вопрос об автоматическом определении региона: статус (granted/denied), время ответа и, при отказе, срок повторного запроса (denied_until, 30 дней). Записывается, только когда вы отвечаете на уведомление на главной странице.',
+    'privacy.storage.first': 'До согласия ничего не сохраняется: до вашего явного действия localStorage остаётся пустым, регион не определяется, показывается только глобальный индекс.',
     'privacy.region.h': 'Как определяется регион',
-    'privacy.region.static': 'Текущая сборка сайта полностью статическая и работает без бэкенда: регион определяется приблизительно по часовому поясу вашего браузера. Часовой пояс не сохраняется и никуда не передаётся.',
-    'privacy.region.future': 'В будущей версии с сервером регион будет определяться приблизительно по IP для отображения регионального контекста; адрес не сохраняется и не передаётся третьим лицам.',
+    'privacy.region.static': 'Сайт полностью статический и работает без бэкенда. Регион определяется приблизительно по часовому поясу вашего браузера — и только после вашего согласия: до согласия регион не определяется и не сохраняется. Часовой пояс не сохраняется и никуда не передаётся.',
+    'privacy.region.future': 'В будущей версии с сервером (edge-слой) определение будет происходить на сервере: сырой IP-адрес не будет попадать в инфраструктуру сайта, в приложение уйдёт только код региона. Для юрисдикций вне EU/UK и России — opt-out (автоопределение с возможностью отключить), для EU/UK и России сохраняется opt-in.',
+    'privacy.consent.h': 'Согласие на определение региона (region_consent)',
+    'privacy.consent.text': 'При первом визите показывается неблокирующее уведомление с кнопками «Изменить» (открывает выбор региона вручную), «Согласен» и «Закрыть». «Согласен» разрешает определение по часовому поясу и запоминает ответ с меткой времени; «Закрыть» фиксирует отказ — повторный запрос возможен не раньше чем через 30 дней. Ответ не привязан к IP-адресу и не покидает ваш браузер.',
+    'privacy.edge.h': 'Модель «edge/браузер» и сырой IP',
+    'privacy.edge.text': 'Сырой IP-адрес никогда не попадает в инфраструктуру сайта. В статической сборке определение выполняется в браузере (часовой пояс) и только после согласия; больше сайт ничего не узнаёт о вашем местоположении. При появлении бэкенда геолокация выполняется на edge-сервере, в приложение уходит только код региона; сырой IP не логируется (хэш с солью, хранение 24 часа — протокол в docs/governance.md).',
+    'privacy.laws.h': 'Применимое право',
+    'privacy.ccpa.h': 'CCPA (Калифорния)',
+    'privacy.ccpa.text': 'IP-адрес и идентификаторы устройства относятся к персональной информации. Сайт уведомляет о сборе при первом визите (toast согласия), предоставляет право на отказ («Закрыть» фиксирует отказ на 30 дней), а раскрытие о передаче третьим лицам — пустое: сайт ничего не передаёт.',
+    'privacy.gdpr.h': 'GDPR (EU/UK)',
+    'privacy.gdpr.text': 'Определение региона после согласия опирается на законный интерес — ст. 6(1)(f) GDPR с учётом Recital 30: обработка минимальна (производный код региона, без сырого IP), без передачи третьим лицам, с возможностью отказа в любой момент и удалением записи согласия в настройках браузера.',
+    'privacy.fz.h': '152-ФЗ (Россия)',
+    'privacy.fz.text': 'С 2026 года IP-адреса, cookie-идентификаторы и геоданные относятся к персональным данным; их хранение подлежит локализации на территории РФ. Геолокация на зарубежном edge-сервере может нарушать требование локализации — перед запуском edge-слоя обязательна юридическая экспертиза (открытый вопрос зафиксирован в docs/governance.md).',
     'privacy.geo.h': 'Точная геолокация',
     'privacy.geo.text': 'Координаты запрашиваются, только если вы нажимаете «Уточнить точнее»; автоматического запроса GPS нет. Координаты используются только на вашем устройстве, чтобы уточнить регион, и никуда не отправляются.',
     'privacy.not.h': 'Чего сайт не делает',
     'privacy.not.cookies': 'Не использует файлы cookie, счётчики аналитики, рекламные идентификаторы и сторонние виджеты.',
     'privacy.not.third': 'Не передаёт данные третьим лицам: в статической сборке данные вообще никуда не отправляются — сайт можно открыть с локального диска, не подключаясь к сети.',
     'privacy.delete.h': 'Как удалить сохранённое',
-    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.lang и cassandra.region из localStorage) стирает сохранённые значения. Других данных о вас у сайта нет.',
+    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.lang, cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.',
     'history.week.label': 'Неделя',
     'history.week.current': 'текущая',
     'history.index': 'Глобальный индекс',
@@ -405,7 +421,11 @@ const DICTS = {
     'method.open.25': 'Trend tooltip accessibility: is a text description of each point enough, or is a separate live region needed for screen readers?',
     'footer.next': 'Next publication: {when}',
     'disclaimer.full': 'Cassandra Index is an experimental risk assessment based on open data. It is not an official forecast of any government or international organisation. The assessment may be wrong.',
-    'footer.ip': 'the region is determined approximately from your IP address to show regional context; the address is not stored and is not shared with third parties',
+    'footer.ip': 'your region is determined approximately from your browser’s time zone — only after you consent; your IP address is not used, stored, or shared with third parties',
+    'region.toast.text': 'We can determine your region approximately from your browser’s time zone to show regional context. Your IP address is not used or stored.',
+    'region.toast.change': 'Change',
+    'region.toast.accept': 'Agree',
+    'region.toast.dismiss': 'Dismiss',
     'footer.privacy': 'Privacy',
     'share.brand': 'CASSANDRA INDEX',
     'share.button': 'Share',
@@ -417,17 +437,29 @@ const DICTS = {
     'privacy.storage.h': 'What the site stores in your browser',
     'privacy.storage.lang': 'cassandra.lang — the interface language you selected. It is written only when you switch the language yourself.',
     'privacy.storage.region': 'cassandra.region — the region you selected. It is written only if you turn on the “Remember” toggle in the region picker; without it, your choice lives only until the tab is closed.',
-    'privacy.storage.first': 'The first visit saves nothing: localStorage stays empty until you take an explicit action.',
+    'privacy.storage.consent': 'cassandra.region.consent — your answer to automatic region detection: status (granted/denied), the time of the answer and, on refusal, when the site may ask again (denied_until, 30 days). It is written only when you respond to the notice on the main page.',
+    'privacy.storage.first': 'Nothing is stored before consent: until you take an explicit action, localStorage stays empty, the region is not determined, and only the global index is shown.',
     'privacy.region.h': 'How your region is determined',
-    'privacy.region.static': 'The current build of the site is fully static and runs without a backend: the region is determined approximately from your browser’s time zone. The time zone is not stored and is not sent anywhere.',
-    'privacy.region.future': 'In a future version with a server, the region will be determined approximately from your IP address to show regional context; the address will not be stored and will not be shared with third parties.',
+    'privacy.region.static': 'The site is fully static and runs without a backend. Your region is determined approximately from your browser’s time zone — and only after you consent: before consent, the region is neither determined nor stored. The time zone is not stored and is not sent anywhere.',
+    'privacy.region.future': 'In a future version with a server (the edge layer), detection will happen on the server: the raw IP address will never enter the site’s infrastructure, and only the region code will reach the application. Outside the EU/UK and Russia this will be opt-out (automatic detection that you can turn off); the EU/UK and Russia keep opt-in.',
+    'privacy.consent.h': 'Consent for region detection (region_consent)',
+    'privacy.consent.text': 'On your first visit a non-blocking notice appears with “Change” (opens the manual region picker), “Agree” and “Dismiss”. “Agree” enables time-zone detection and records your answer with a timestamp; “Dismiss” records a refusal — the site will not ask again for 30 days. The answer is never tied to your IP address and never leaves your browser.',
+    'privacy.edge.h': 'The “edge/browser” model and your raw IP',
+    'privacy.edge.text': 'A raw IP address never enters the site’s infrastructure. In the static build, detection happens in the browser (time zone) and only after consent; the site learns nothing else about your location. When a backend appears, geolocation will run on an edge server and only the region code will reach the application; raw IPs are not logged (salted hash, 24-hour retention — the protocol is in docs/governance.md).',
+    'privacy.laws.h': 'Applicable law',
+    'privacy.ccpa.h': 'CCPA (California)',
+    'privacy.ccpa.text': 'IP addresses and device identifiers are personal information. The site gives notice at collection (the consent toast) and the right to opt out (“Dismiss” records a refusal for 30 days); its disclosure of data shared with third parties is empty — the site shares nothing.',
+    'privacy.gdpr.h': 'GDPR (EU/UK)',
+    'privacy.gdpr.text': 'Post-consent region detection relies on legitimate interest — Art. 6(1)(f) GDPR with Recital 30 in view: processing is minimal (a derived region code, no raw IP), there is no sharing with third parties, you can refuse at any time, and the consent record can be deleted in your browser settings.',
+    'privacy.fz.h': '152-FZ (Russia)',
+    'privacy.fz.text': 'From 2026, IP addresses, cookie identifiers and geolocation data are personal data, and their storage is subject to localisation within the Russian Federation. Geolocation on a foreign edge server may violate the localisation requirement — a legal review is mandatory before the edge layer launches (the open question is recorded in docs/governance.md).',
     'privacy.geo.h': 'Precise geolocation',
     'privacy.geo.text': 'Coordinates are requested only when you click “Refine”; there is no automatic GPS request. Coordinates are used only on your device to refine the region and are never sent anywhere.',
     'privacy.not.h': 'What the site does not do',
     'privacy.not.cookies': 'It does not use cookies, analytics counters, advertising identifiers, or third-party widgets.',
     'privacy.not.third': 'It does not share data with third parties: in the static build, no data is sent anywhere at all — you can open the site from a local disk without any network connection.',
     'privacy.delete.h': 'How to delete saved data',
-    'privacy.delete.text': 'Clearing the site data in your browser settings (or removing the cassandra.lang and cassandra.region keys from localStorage) erases the saved values. The site holds no other data about you.',
+    'privacy.delete.text': 'Clearing the site data in your browser settings (or removing the cassandra.lang, cassandra.region and cassandra.region.consent keys from localStorage) erases the saved values. After cassandra.region.consent is removed, the site will ask for consent again on your next visit. The site holds no other data about you.',
     'footer.disclaimer': 'Risk assessment based on open data. Not an official forecast.',
   },
 };
@@ -617,7 +649,8 @@ factories.push(["js/ui.js", function (exports) {
 const risk = __ci_require("js/risk.js");
 // js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
 // el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
-// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=.
+// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=;
+// createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
 // Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
 
 
@@ -666,11 +699,48 @@ function parseWeekParam(search) {
   return q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? q : null;
 }
 
+// Неблокирующий toast: role=status + aria-live polite, фокус не воруется,
+// кнопки-действия с доступными именами (сторона вызывающего кода — монтирование
+// и обработчики). actions: [{ label, onClick, className? }]; dismiss: {label, onClick}.
+// Возвращает корневой элемент (не прикреплён к документу).
+function createToast({ text, actions = [], dismiss = null }) {
+  const node = document.createElement('div');
+  node.className = 'toast';
+  node.setAttribute('role', 'status');
+  node.setAttribute('aria-live', 'polite');
+  const body = document.createElement('p');
+  body.className = 'toast-text';
+  body.textContent = text;
+  node.appendChild(body);
+  const controls = document.createElement('div');
+  controls.className = 'toast-actions';
+  for (const a of actions) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = a.className ?? 'toast-btn';
+    b.textContent = a.label;
+    b.addEventListener('click', a.onClick);
+    controls.appendChild(b);
+  }
+  if (dismiss) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'toast-close';
+    b.setAttribute('aria-label', dismiss.label);
+    b.textContent = '×';
+    b.addEventListener('click', dismiss.onClick);
+    controls.appendChild(b);
+  }
+  node.appendChild(controls);
+  return node;
+}
+
 exports["el"] = el;
 exports["deltaClass"] = deltaClass;
 exports["LANG_KEY"] = LANG_KEY;
 exports["resolveLang"] = resolveLang;
 exports["parseWeekParam"] = parseWeekParam;
+exports["createToast"] = createToast;
 return exports;
 }]);
 for (const [name, factory] of factories) {

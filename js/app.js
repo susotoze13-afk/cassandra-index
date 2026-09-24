@@ -43,7 +43,9 @@ export function buildState() {
   const tz = typeof Intl !== 'undefined'
     ? Intl.DateTimeFormat().resolvedOptions().timeZone
     : null;
-  const detected = region.detect(tz);
+  // tz-детект — только после согласия region_consent (R49–R51, opt-in для всех):
+  // без granted регион не определяется и sessionStorage-детект не пишется.
+  const detected = region.consent.status().status === 'granted' ? region.detect(tz) : null;
   const regionId = region.current() ?? detected;
   const weekKey = resolveWeek();
   const snapshot = data.week(weekKey ?? undefined);
@@ -126,6 +128,8 @@ export function init() {
         index: rdata ? rdata.index : '—',
       });
     });
+    // Согласие region_consent из toast hero: теперь можно детектить — перерендер.
+    document.addEventListener('ci:consent', () => renderApp(currentState()));
     // Смена недели из секции истории: владелец состояния и URL — app.js.
     // pushState ?week= (latest — без параметра), затем полный перерендер.
     document.addEventListener('ci:weekchange', (e) => {

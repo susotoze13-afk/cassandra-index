@@ -5,7 +5,7 @@
 import { t, date } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
-import { deltaClass } from '../ui.js';
+import { createToast, deltaClass } from '../ui.js';
 
 // Δ со знаком: +6 / -3 / 0 (значения не только цветом — §12).
 // Не-число (null/NaN) → '0': изменение неизвестно, показываем нейтральное значение.
@@ -258,6 +258,46 @@ function syncPanel(state) {
   if (!list.hidden && input.value.trim()) renderList();
 }
 
+// ---------- Toast согласия на определение региона (Истории 40–41, R49–R51) ----------
+
+// Один раз за сессию, только когда ответа ещё нет и пользователь не выбрал
+// регион вручную. Неблокирующий: фокус не трогаем, пока пользователь сам не действует.
+let consentToastShown = false;
+
+function maybeShowConsentToast(state) {
+  if (consentToastShown) return;
+  if (region.consent.status().status !== null) return;
+  if (region.current()) return; // ручной выбор сильнее согласия — не мешаем
+  const host = document.querySelector('#overview');
+  if (!host) return;
+  consentToastShown = true;
+  const lang = state.lang;
+  const close = (node) => node.remove();
+  const toast = createToast({
+    text: t(lang, 'region.toast.text'),
+    actions: [
+      {
+        label: t(lang, 'region.toast.change'),
+        onClick: () => { close(toast); openPanel(state, null); },
+      },
+      {
+        label: t(lang, 'region.toast.accept'),
+        className: 'toast-btn toast-btn--primary',
+        onClick: () => {
+          region.consent.grant();
+          close(toast);
+          document.dispatchEvent(new CustomEvent('ci:consent'));
+        },
+      },
+    ],
+    dismiss: {
+      label: t(lang, 'region.toast.dismiss'),
+      onClick: () => { region.consent.dismiss(); close(toast); },
+    },
+  });
+  host.appendChild(toast);
+}
+
 // ---------- Рендер секции ----------
 
 export function render(appState) {
@@ -328,4 +368,5 @@ export function render(appState) {
   }
 
   if (panel && panelOpen) syncPanel(appState);
+  maybeShowConsentToast(appState);
 }

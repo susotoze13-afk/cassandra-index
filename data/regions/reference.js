@@ -1,0 +1,55 @@
+// data/regions/reference.js — загрузчик справочника регионов (window.CI_REGION_REF).
+// Канонический источник — data/regions/reference.json; содержимое обязано
+// совпадать с ним (тест tests/region.test.js). Подключается classic script-
+// тегом из index.html: fetch JSON на file:// невозможен (как data/latest.js).
+window.CI_REGION_REF = {
+  "methodology": "1.0",
+  "owner": "Data Governance Lead",
+  "taxonomy": {
+    "standard": "ISO 3166-2",
+    "cities": "GeoNames",
+    "mapping": "город → регион через GeoNames admin1_code, приведённый к ISO 3166-2"
+  },
+  "cityImport": "Полный импорт городов GeoNames — при подключении edge-слоя; сейчас в справочнике админцентры 6 макрорегионов, формат под импорт готов.",
+  "confidenceLadder": { "city": 80, "region": 90, "floor": 50 },
+  "disputedTerritories": "Город отображается в регионе, определённом ISO 3166-2, с нейтральной формулировкой без политических утверждений. Contested-разметки в публичном интерфейсе нет.",
+  "regions": [
+    {
+      "id": "europe",
+      "name": { "ru": "Европа", "en": "Europe" },
+      "countries": ["AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS", "IE", "IT", "LV", "LI", "LT", "LU", "MT", "MD", "MC", "ME", "NL", "MK", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "UA", "GB", "VA"],
+      "adminCenter": { "city": { "ru": "Амстердам", "en": "Amsterdam" }, "country": "NL", "iso3166_2": "NL-NH", "geonamesId": 2759794 }
+    },
+    {
+      "id": "east-asia",
+      "name": { "ru": "Восточная Азия", "en": "East Asia" },
+      "countries": ["BN", "JP", "CN", "HK", "MO", "TW", "KP", "KR", "SG", "ID", "KH", "LA", "MY", "MN", "MM", "PH", "TH", "TL", "VN"],
+      "adminCenter": { "city": { "ru": "Токио", "en": "Tokyo" }, "country": "JP", "iso3166_2": "JP-13", "geonamesId": 1850147 }
+    },
+    {
+      "id": "middle-east",
+      "name": { "ru": "Ближний Восток", "en": "Middle East" },
+      "countries": ["BH", "IR", "IQ", "IL", "JO", "KW", "LB", "OM", "PS", "QA", "SA", "SY", "TR", "AE", "YE"],
+      "adminCenter": { "city": { "ru": "Бейрут", "en": "Beirut" }, "country": "LB", "iso3166_2": "LB-BA", "geonamesId": 276781 }
+    },
+    {
+      "id": "north-america",
+      "name": { "ru": "Северная Америка", "en": "North America" },
+      "countries": ["CA", "MX", "US"],
+      "adminCenter": { "city": { "ru": "Вашингтон", "en": "Washington" }, "country": "US", "iso3166_2": "US-DC", "geonamesId": 4140963 }
+    },
+    {
+      "id": "south-asia",
+      "name": { "ru": "Южная Азия", "en": "South Asia" },
+      "countries": ["AF", "BD", "BT", "IN", "MV", "NP", "PK", "LK"],
+      "adminCenter": { "city": { "ru": "Нью-Дели", "en": "New Delhi" }, "country": "IN", "iso3166_2": "IN-DL", "geonamesId": 1261481 }
+    },
+    {
+      "id": "africa",
+      "name": { "ru": "Африка", "en": "Africa" },
+      "countries": ["DZ", "AO", "BJ", "BW", "BF", "BI", "CV", "CM", "TD", "KM", "CG", "CD", "CI", "DJ", "EG", "GQ", "ER", "SZ", "ET", "GA", "GM", "GH", "GN", "GW", "KE", "LS", "LR", "LY", "MG", "MW", "ML", "MR", "MU", "MA", "MZ", "NA", "NE", "NG", "RW", "ST", "SN", "SC", "SL", "SO", "ZA", "SS", "SD", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW"],
+      "adminCenter": { "city": { "ru": "Найроби", "en": "Nairobi" }, "country": "KE", "iso3166_2": "KE-30", "geonamesId": 184745 }
+    }
+  ]
+}
+;

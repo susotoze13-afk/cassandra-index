@@ -87,6 +87,109 @@ export const CITIES = [
 const LS_KEY = 'cassandra.region';
 const SS_KEY = 'cassandra.region.session';
 
+// ---------- Версионированный справочник регионов (data/regions/reference.*) ----------
+// Канонический источник — data/regions/reference.json (ISO 3166-2, админцентры,
+// политика спорных территорий, версия методологии). Сайт читает его через
+// data/regions/reference.js (window.CI_REGION_REF) — fetch на file:// невозможен.
+
+// Ссылка на справочник, если загрузчик не подключён (тесты, вне браузера).
+// Значения — зеркало data/regions/reference.json (синхрон проверяется тестом).
+const LADDER_FALLBACK = { city: 80, region: 90, floor: 50 };
+
+export function reference() {
+  const g = typeof globalThis !== 'undefined' ? globalThis : {};
+  return g.CI_REGION_REF ?? g.window?.CI_REGION_REF ?? null;
+}
+
+// Лестница «что показывать по уверенности» (История 37, R38) — детерминированная
+// чистая функция, готовая к edge-слою. Две независимые оси:
+//   город:   cityConf ≥ 80% → город; 50–80% → админцентр; null → города нет;
+//   регион:  regionConf ≥ 90% → атрибуция к региону; 50–90% → только страна;
+//   любая ось < 50% (или регион не определён) → глобальный индекс.
+// conf: {cityConf, regionConf, city, adminCenter, regionId} — доли 0..1.
+// Возвращает {level, place, regionId}: level 'city'|'adminCenter'|'region'|
+// 'country'|'global'; place — показываемый город (null, если level не городской).
+export function representative(conf = {}, ladder) {
+  const ld = ladder ?? reference()?.confidenceLadder ?? LADDER_FALLBACK;
+  const cityConf = conf.cityConf ?? null;
+  const regionConf = conf.regionConf ?? null;
+  const regionId = conf.regionId ?? null;
+  const globalResult = { level: 'global', place: null, regionId: null };
+  if (!regionId) return globalResult;
+  if (regionConf === null || regionConf * 100 < ld.floor) return globalResult;
+  if (cityConf !== null && cityConf * 100 < ld.floor) return globalResult;
+  if (regionConf * 100 < ld.region) {
+    return { level: 'country', place: null, regionId };
+  }
+  if (cityConf === null) return { level: 'region', place: null, regionId };
+  if (cityConf * 100 >= ld.city) {
+    return { level: 'city', place: conf.city ?? null, regionId };
+  }
+  return { level: 'adminCenter', place: conf.adminCenter ?? null, regionId };
+}
+
+// ---------- Согласие на автоматическое определение региона (R49–R51, A4) ----------
+// Opt-in для всех: без granted детект не вызывается и регион не сохраняется.
+// Запись: {v, status:'granted'|'denied', at, deniedUntil} в localStorage;
+// denied действует до denied_until (30 дней тишины), затем запрос повторяется.
+
+export const CONSENT_DENY_DAYS = 30;
+
+export const consent = {
+  KEY: 'cassandra.region.consent',
+
+  // {status:'granted'|'denied'|null, at, deniedUntil} — 'denied' только пока
+  // действует denied_until; истёкший отказ приравнивается к отсутствию ответа.
+  status() {
+    const ls = storage('local');
+    if (!ls) return { status: null, at: null, deniedUntil: null };
+    let raw = null;
+    try {
+      raw = JSON.parse(ls.getItem(this.KEY) ?? 'null');
+    } catch {
+      raw = null;
+    }
+    if (!raw || (raw.status !== 'granted' && raw.status !== 'denied')) {
+      return { status: null, at: null, deniedUntil: null };
+    }
+    if (raw.status === 'denied' && raw.deniedUntil && Date.parse(raw.deniedUntil) > Date.now()) {
+      return { status: 'denied', at: raw.at ?? null, deniedUntil: raw.deniedUntil };
+    }
+    if (raw.status === 'denied') {
+      return { status: null, at: null, deniedUntil: null };
+    }
+    return { status: 'granted', at: raw.at ?? null, deniedUntil: null };
+  },
+
+  // «Согласен» в toast: разрешает tz-детект и сохранение региона.
+  grant() {
+    const ls = storage('local');
+    if (!ls) return false;
+    try {
+      ls.setItem(this.KEY, JSON.stringify({ v: 1, status: 'granted', at: new Date().toISOString(), deniedUntil: null }));
+      return true;
+    } catch {
+      return false;
+    }
+  },
+
+  // «Закрыть» в toast: отказ — повторный запрос не раньше denied_until.
+  dismiss() {
+    const ls = storage('local');
+    if (!ls) return false;
+    const at = new Date();
+    const until = new Date(at.getTime() + CONSENT_DENY_DAYS * 86400_000);
+    try {
+      ls.setItem(this.KEY, JSON.stringify({
+        v: 1, status: 'denied', at: at.toISOString(), deniedUntil: until.toISOString(),
+      }));
+      return true;
+    } catch {
+      return false;
+    }
+  },
+};
+
 export function get(id) {
   return REGIONS.find((r) => r.id === id) ?? null;
 }
@@ -126,7 +229,7 @@ export function current() {
 }
 
 // choose(id, { persist }) — persist=true пишет в localStorage, иначе выбор живёт в сессии.
-// Первый визит ничего не сохраняет (persist по умолчанию false).
+// Автосохранения нет: persist — только явное действие («Запомнить» в пикере).
 export function choose(id, { persist = false } = {}) {
   const r = get(id);
   if (!r) return null;

@@ -135,7 +135,7 @@
   <footer class="site-footer">
     <!-- §17 дословно (История 27) + краткое раскрытие IP-обработки под будущий бэкенд. -->
     <p class="disclaimer" data-i18n="disclaimer.full">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
-    <p class="footer-ip" data-i18n="footer.ip">регион определяется приблизительно по IP для отображения регионального контекста; адрес не сохраняется и не передаётся третьим лицам</p>
+    <p class="footer-ip" data-i18n="footer.ip">регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам</p>
     <!-- «Следующая публикация» (R62.1) наполняет js/sections/history.js. -->
     <p class="footer-next" data-role="footer-next"></p>
     <nav class="footer-nav" aria-label="Сервисные ссылки" data-i18n-aria="footer.nav">
@@ -152,6 +152,10 @@
   <!-- Данные: JS-файлы через script src (file:// блокирует fetch).
        latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
   <script src="data/latest.js"></script>
+  <!-- Справочник регионов (ISO 3166-2, админцентры, лестница уверенности):
+       канонический JSON — data/regions/reference.json; загрузчик кладёт его в
+       window.CI_REGION_REF (fetch на file:// невозможен, как у data/latest.js). -->
+  <script src="data/regions/reference.js"></script>
   <!-- ES-модули Chrome блокирует по CORS на file:// — подключаем classic script,
        собранный build.js из js/** (пересборка: node build.js). Тесты — против исходников. -->
   <script src="js/bundle.js" defer></script>

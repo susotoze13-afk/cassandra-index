@@ -1,6 +1,7 @@
 // js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
 // el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
-// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=.
+// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=;
+// createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
 // Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
 
 import * as risk from './risk.js';
@@ -48,4 +49,40 @@ export function parseWeekParam(search) {
   if (typeof search !== 'string' || !search) return null;
   const q = new URLSearchParams(search).get('week');
   return q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? q : null;
+}
+
+// Неблокирующий toast: role=status + aria-live polite, фокус не воруется,
+// кнопки-действия с доступными именами (сторона вызывающего кода — монтирование
+// и обработчики). actions: [{ label, onClick, className? }]; dismiss: {label, onClick}.
+// Возвращает корневой элемент (не прикреплён к документу).
+export function createToast({ text, actions = [], dismiss = null }) {
+  const node = document.createElement('div');
+  node.className = 'toast';
+  node.setAttribute('role', 'status');
+  node.setAttribute('aria-live', 'polite');
+  const body = document.createElement('p');
+  body.className = 'toast-text';
+  body.textContent = text;
+  node.appendChild(body);
+  const controls = document.createElement('div');
+  controls.className = 'toast-actions';
+  for (const a of actions) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = a.className ?? 'toast-btn';
+    b.textContent = a.label;
+    b.addEventListener('click', a.onClick);
+    controls.appendChild(b);
+  }
+  if (dismiss) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'toast-close';
+    b.setAttribute('aria-label', dismiss.label);
+    b.textContent = '×';
+    b.addEventListener('click', dismiss.onClick);
+    controls.appendChild(b);
+  }
+  node.appendChild(controls);
+  return node;
 }
