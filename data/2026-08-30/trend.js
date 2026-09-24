@@ -48,7 +48,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-08-30",
-    "value": 60
+    "value": null,
+    "methodology": "1.0"
   }
 ];
 })();

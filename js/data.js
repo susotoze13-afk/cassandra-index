@@ -70,13 +70,20 @@ function isLocalized(v) {
 }
 
 function isSource(s) {
+  if (!s || typeof s !== 'object') return false;
+  if (!isLocalized(s.title) || typeof s.url !== 'string' || typeof s.domain !== 'string') {
+    return false;
+  }
+  // Легаси-схема демо-недель: скалярная дата публикации.
+  if (typeof s.date === 'string') return true;
+  // Полная схема ingestion (R55): обязательные поля новой записи.
   return (
-    !!s &&
-    typeof s === 'object' &&
-    isLocalized(s.title) &&
-    typeof s.url === 'string' &&
-    typeof s.domain === 'string' &&
-    typeof s.date === 'string'
+    typeof s.id === 'string' &&
+    typeof s.publication_date === 'string' &&
+    typeof s.accessed_date === 'string' &&
+    ['primary', 'secondary', 'OSINT'].includes(s.source_type) &&
+    typeof s.cluster_id === 'string' &&
+    typeof s.state_affiliated === 'boolean'
   );
 }
 
@@ -98,7 +105,14 @@ export function validate(snapshot) {
   if (!DATA_STATES.includes(snapshot.dataState)) {
     errors.push(`dataState: must be one of ${DATA_STATES.join(', ')}`);
   }
-  if (!snapshot.global || !isIndex(snapshot.global.index) || !isDelta(snapshot.global.delta)) {
+  // global: null допускается только при insufficient/unavailable; неделя
+  // insufficient обязана иметь global:null (публикация запрещена, R11–R13).
+  const nullGlobalAllowed = snapshot.dataState === 'insufficient' || snapshot.dataState === 'unavailable';
+  if (snapshot.global === null || snapshot.global === undefined) {
+    if (!nullGlobalAllowed) {
+      errors.push('global: null allowed only when dataState is insufficient or unavailable');
+    }
+  } else if (!isIndex(snapshot.global.index) || !isDelta(snapshot.global.delta)) {
     errors.push('global: { index: 0..100, delta: number } required');
   }
   if (!snapshot.regions || typeof snapshot.regions !== 'object') {
@@ -115,8 +129,18 @@ export function validate(snapshot) {
     errors.push('trend: exactly 12 weekly points required');
   } else {
     snapshot.trend.forEach((p, i) => {
-      if (!p || !DATE_RE.test(p.date ?? '') || !isIndex(p.value)) {
+      if (!p || !DATE_RE.test(p.date ?? '')) {
         errors.push(`trend[${i}]: { date: YYYY-MM-DD, value: 0..100 } required`);
+        return;
+      }
+      // Точка может нести methodology (версия снапшота недели точки);
+      // value:null — только с methodology: неделя не опубликована.
+      if (p.methodology !== undefined && typeof p.methodology !== 'string') {
+        errors.push(`trend[${i}]: methodology must be a string`);
+      }
+      const nullPoint = p.value === null && typeof p.methodology === 'string' && p.methodology !== '';
+      if (!isIndex(p.value) && !nullPoint) {
+        errors.push(`trend[${i}]: { date: YYYY-MM-DD, value: 0..100 } required (value:null only with methodology)`);
       }
     });
   }
@@ -144,5 +168,67 @@ export function validate(snapshot) {
   if (!Array.isArray(snapshot.sources) || !snapshot.sources.every(isSource)) {
     errors.push('sources: array of { title:{ru,en}, url, domain, date }');
   }
+  validateQuality(snapshot, errors);
   return { ok: errors.length === 0, errors };
+}
+
+// Опциональные поля качества публикации (таск 05): q, nullWeight, confidence,
+// coverage, preview, recalc, incompleteCoverage. Старые снапшоты без них —
+// валидны. Неделя insufficient обязана нести полное описание непубликации.
+const CONFIDENCES = ['full', 'reduced', 'none'];
+
+function isUnitInterval(v) {
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1;
+}
+
+function validateQuality(snapshot, errors) {
+  if (snapshot.q !== undefined && !isUnitInterval(snapshot.q)) {
+    errors.push('q: number 0..1');
+  }
+  if (snapshot.nullWeight !== undefined && !isUnitInterval(snapshot.nullWeight)) {
+    errors.push('nullWeight: number 0..1');
+  }
+  if (snapshot.confidence !== undefined && !CONFIDENCES.includes(snapshot.confidence)) {
+    errors.push(`confidence: must be one of ${CONFIDENCES.join(', ')}`);
+  }
+  if (snapshot.coverage !== undefined) {
+    const c = snapshot.coverage;
+    const ok =
+      !!c && typeof c === 'object' &&
+      Number.isInteger(c.coveredDrivers) && c.coveredDrivers >= 0 &&
+      Number.isInteger(c.totalDrivers) && c.totalDrivers > 0;
+    if (!ok) errors.push('coverage: { coveredDrivers: int >= 0, totalDrivers: int > 0 }');
+  }
+  if (snapshot.preview !== undefined) {
+    const p = snapshot.preview;
+    if (!p || !isIndex(p.index) || !isDelta(p.internal)) {
+      errors.push('preview: { index: 0..100, internal: number }');
+    }
+  }
+  if (snapshot.recalc !== undefined) {
+    const r = snapshot.recalc;
+    const ok =
+      !!r && typeof r === 'object' &&
+      typeof r.at === 'string' && !Number.isNaN(Date.parse(r.at)) &&
+      typeof r.reason === 'string' && r.reason !== '' &&
+      (r.previous === null || isIndex(r.previous)) &&
+      typeof r.methodologyBefore === 'string' && r.methodologyBefore !== '' &&
+      typeof r.methodologyAfter === 'string' && r.methodologyAfter !== '' &&
+      typeof r.approvedBy === 'string' && r.approvedBy !== '';
+    if (!ok) errors.push('recalc: { at: ISO datetime, reason, previous: 0..100|null, methodologyBefore, methodologyAfter, approvedBy }');
+  }
+  if (snapshot.incompleteCoverage !== undefined && typeof snapshot.incompleteCoverage !== 'boolean') {
+    errors.push('incompleteCoverage: boolean');
+  }
+
+  if (snapshot.dataState === 'insufficient') {
+    if (snapshot.global !== null) {
+      errors.push('insufficient: global must be null (publication blocked)');
+    }
+    if (!isUnitInterval(snapshot.q)) errors.push('insufficient: q (0..1) required');
+    if (!isUnitInterval(snapshot.nullWeight)) errors.push('insufficient: nullWeight (0..1) required');
+    if (snapshot.confidence !== 'none') errors.push("insufficient: confidence must be 'none'");
+    if (snapshot.coverage === undefined) errors.push('insufficient: coverage required');
+    if (snapshot.preview === undefined) errors.push('insufficient: preview { index, internal } required');
+  }
 }

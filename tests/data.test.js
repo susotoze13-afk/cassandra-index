@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { validate, latest, week, listWeeks } from '../js/data.js';
+import { loadSnapshotPart } from '../calc/calc.js';
 
 function validSnapshot() {
   return {
@@ -158,4 +159,132 @@ test('week: битый или отсутствующий снапшот → Mode
   globalThis.window = {};
   assert.equal(week().dataState, 'unavailable');
   delete globalThis.window;
+});
+
+// --- insufficient-снапшоты (таск 05): global:null, q/coverage/confidence/preview/recalc ---
+
+function insufficientSnapshot() {
+  const s = validSnapshot();
+  s.dataState = 'insufficient';
+  s.global = null;
+  s.q = 0.1815;
+  s.nullWeight = 0.8185;
+  s.coverage = { coveredDrivers: 1, totalDrivers: 9 };
+  s.confidence = 'none';
+  s.preview = { index: 57, internal: 0.402 };
+  s.recalc = {
+    at: '2026-09-21T12:00:00.000Z',
+    reason: 'Покрытие 5/45 критериев — ниже порога публикации',
+    previous: 57,
+    methodologyBefore: '1.0',
+    methodologyAfter: '1.0',
+    approvedBy: 'Editor-in-Chief',
+  };
+  return s;
+}
+
+test('validate: insufficient-снапшот (global:null + q/nullWeight/coverage/preview/recalc) валиден', () => {
+  const v = validate(insufficientSnapshot());
+  assert.deepEqual(v.errors, []);
+  assert.equal(v.ok, true);
+});
+
+test('validate: global:null при published — ошибка; global при insufficient — ошибка', () => {
+  const publishedNull = validSnapshot();
+  publishedNull.global = null;
+  const v1 = validate(publishedNull);
+  assert.equal(v1.ok, false);
+  assert.ok(v1.errors.some((e) => e.includes('global')));
+
+  const insufficientWithNumber = insufficientSnapshot();
+  insufficientWithNumber.global = { index: 57, delta: -1 };
+  const v2 = validate(insufficientWithNumber);
+  assert.equal(v2.ok, false);
+});
+
+test('validate: insufficient без preview/q/coverage/confidence — ошибка', () => {
+  const noPreview = insufficientSnapshot();
+  delete noPreview.preview;
+  assert.equal(validate(noPreview).ok, false);
+
+  const noQ = insufficientSnapshot();
+  delete noQ.q;
+  assert.equal(validate(noQ).ok, false);
+
+  const wrongConfidence = insufficientSnapshot();
+  wrongConfidence.confidence = 'full';
+  assert.equal(validate(wrongConfidence).ok, false);
+
+  const badCoverage = insufficientSnapshot();
+  badCoverage.coverage = { coveredDrivers: -1, totalDrivers: 9 };
+  assert.equal(validate(badCoverage).ok, false);
+});
+
+test('validate: trend точки с methodology валидны; value:null только с methodology', () => {
+  const withMethodology = validSnapshot();
+  withMethodology.trend = withMethodology.trend.map((p, i) =>
+    i < 6 ? p : { date: p.date, value: p.value, methodology: '1.0' },
+  );
+  assert.equal(validate(withMethodology).ok, true);
+
+  const nullValue = validSnapshot();
+  nullValue.trend = nullValue.trend.map((p, i) =>
+    i < 6 ? p : { date: p.date, value: null, methodology: '1.0' },
+  );
+  assert.equal(validate(nullValue).ok, true);
+
+  const bareNull = validSnapshot();
+  bareNull.trend = bareNull.trend.map((p, i) => (i < 6 ? p : { date: p.date, value: null }));
+  const v = validate(bareNull);
+  assert.equal(v.ok, false);
+  assert.ok(v.errors.some((e) => e.includes('trend')));
+});
+
+test('week: insufficient-снапшот отдаётся как есть, не unavailable', () => {
+  setCiData({ '2026-09-13': insufficientSnapshot() }, '2026-09-13');
+  const w = week();
+  assert.equal(w.dataState, 'insufficient');
+  assert.equal(w.unavailable, undefined);
+  assert.equal(w.global, null);
+  assert.equal(w.preview.index, 57);
+  delete globalThis.window;
+});
+
+// --- Дисковые снапшоты: демо-история валидна прежней формой, пересчитанные недели — insufficient ---
+function loadFullSnapshot(date) {
+  const snap = {};
+  for (const file of ['global', 'regions', 'trend', 'drivers', 'sources']) {
+    const part = loadSnapshotPart(date, file);
+    if (!part) continue;
+    if (file === 'global') {
+      // global.js — скалярные поля снапшота + global; плейсхолдер regions:{}
+      // из песочницы vm не переносим.
+      const { regions, ...scalars } = part;
+      Object.assign(snap, scalars);
+    } else {
+      snap[file] = part[file];
+    }
+  }
+  return snap;
+}
+
+test('диск: демо-неделя 2026-08-23 валидна прежней формой', () => {
+  const v = validate(loadFullSnapshot('2026-08-23'));
+  assert.deepEqual(v.errors, []);
+  assert.equal(v.ok, true);
+});
+
+test('диск: пересчитанная 2026-09-13 — insufficient с global:null и preview', () => {
+  const snap = loadFullSnapshot('2026-09-13');
+  const v = validate(snap);
+  assert.deepEqual(v.errors, []);
+  assert.equal(snap.dataState, 'insufficient');
+  assert.equal(snap.global, null);
+  assert.equal(typeof snap.q, 'number');
+  assert.equal(typeof snap.nullWeight, 'number');
+  assert.equal(snap.confidence, 'none');
+  assert.ok(snap.preview && typeof snap.preview.index === 'number');
+  assert.ok(snap.recalc && typeof snap.recalc.reason === 'string');
+  const recalcPoints = snap.trend.filter((p) => p.date >= '2026-08-30');
+  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => p.value === null && typeof p.methodology === 'string'));
 });
