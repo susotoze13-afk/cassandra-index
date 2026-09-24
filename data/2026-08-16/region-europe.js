@@ -13,8 +13,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
         "en": "More live-fire exercises are being recorded in the region’s eastern districts."
       },
       "why": {
-        "ru": "Регулярные учения повышают плотность сил и вероятность инцидентов на границах.",
-        "en": "Regular drills increase force density and the chance of border incidents."
+        "ru": "Регулярные учения повышают плотность сил и риск инцидентов на границах.",
+        "en": "Regular drills increase force density and the risk of border incidents."
       },
       "contribution": "high",
       "confidence": "high",

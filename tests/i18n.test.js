@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { t, plural, date } from '../js/i18n.js';
 
 test('t: строки из словаря RU и EN', () => {
-  assert.equal(t('ru', 'hero.title'), 'Насколько близко мир подошёл к глобальному военному конфликту?');
-  assert.equal(t('en', 'hero.title'), 'How close is the world to a global military conflict?');
+  assert.equal(t('ru', 'hero.title'), 'Индекс состояния риска глобального военного конфликта');
+  assert.equal(t('en', 'hero.title'), 'The state of global military conflict risk');
   assert.equal(t('ru', 'nav.overview'), 'Обзор');
   assert.equal(t('en', 'nav.overview'), 'Overview');
 });

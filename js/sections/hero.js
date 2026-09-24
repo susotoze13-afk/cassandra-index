@@ -6,6 +6,7 @@ import { t, date } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
 import { createToast, deltaClass } from '../ui.js';
+import { visibleSnapshotOf, needsPreliminaryNote } from './states.js';
 
 // Δ со знаком: +6 / -3 / 0 (значения не только цветом — §12).
 // Не-число (null/NaN) → '0': изменение неизвестно, показываем нейтральное значение.
@@ -305,7 +306,7 @@ export function render(appState) {
   const root = document.querySelector('#overview');
   if (!root) return;
   current = appState;
-  const { lang, snapshot } = appState;
+  const { lang } = appState;
   const $ = (sel) => root.querySelector(sel);
 
   if (!root.dataset.heroBound) {
@@ -313,6 +314,12 @@ export function render(appState) {
     $('[data-role="region-change"]').addEventListener('click', (e) => openPanel(current, e.currentTarget));
     $('[data-role="region-cta"]').addEventListener('click', (e) => openPanel(current, e.currentTarget));
   }
+
+  // R14/R59.1: неделя без публикации (insufficient) — числа и даты hero берутся
+  // из последнего валидного снапшота (баннер «Historical snapshot» — states.js);
+  // качество данных (q) и пометка «Предварительная оценка» — просматриваемой недели.
+  const snapshot = visibleSnapshotOf(appState);
+  const viewed = appState.snapshot;
 
   // Глобальный индекс + статус + Δ + обе даты.
   const g = snapshot?.global;
@@ -328,6 +335,15 @@ export function render(appState) {
     $('[data-role="global-status"]').textContent = t(lang, 'state.unavailable');
     gDelta.hidden = true;
   }
+  // Пометка «Предварительная оценка» (R61) — качество просматриваемой недели,
+  // а не видимого снапшота: insufficient-неделя объясняется рядом с числом.
+  const prelim = $('[data-role="preliminary-note"]');
+  if (prelim) {
+    const show = needsPreliminaryNote(viewed);
+    prelim.hidden = !show;
+    if (show) prelim.textContent = t(lang, 'hero.preliminary');
+  }
+
   if (snapshot?.published) $('[data-role="meta-published"]').textContent = date(lang, snapshot.published);
   if (snapshot?.through) $('[data-role="meta-through"]').textContent = date(lang, snapshot.through);
 

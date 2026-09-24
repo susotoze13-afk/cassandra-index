@@ -41,15 +41,15 @@
 
   <main id="main">
     <!-- Дефолтная RU-разметка hero — в исходном HTML (Решение п.3: первый экран без ожидания JS).
-         Данные последнего снапшота (2026-09-13: global 72, ↑+6) — та же неделя, что в data/.
-         JS заменяет значениями снапшота и переключает язык. -->
+         Последний ВАЛИДНЫЙ снапшот — 2026-08-23 (global 61, ↑+3): недели 08-30…09-13
+         insufficient (global:null), JS показывает их через этот fallback с баннером. -->
     <section id="overview" class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title" data-i18n="hero.title">Насколько близко мир подошёл к глобальному военному конфликту?</h1>
-      <p class="subtitle" data-i18n="hero.subtitle">Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.</p>
+      <h1 id="hero-title" data-i18n="hero.title">Индекс состояния риска глобального военного конфликта</h1>
+      <p class="subtitle" data-i18n="hero.subtitle">Индекс состояния риска по шкале от 0 до 100, рассчитываемый еженедельно по открытым данным: уровень и направление изменения риска.</p>
 
       <div class="meta">
-        <span class="meta-item"><strong data-i18n="meta.published">Последняя публикация</strong>: <span data-role="meta-published">13 сентября 2026</span></span>
-        <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: <span data-role="meta-through">6 сентября 2026</span></span>
+        <span class="meta-item"><strong data-i18n="meta.published">Последняя публикация</strong>: <span data-role="meta-published">23 августа 2026</span></span>
+        <span class="meta-item"><strong data-i18n="meta.through">Данные по</strong>: <span data-role="meta-through">16 августа 2026</span></span>
       </div>
 
       <!-- Состояния данных (таск 06): баннер архивного снапшота — с датами просматриваемых данных. -->
@@ -57,12 +57,14 @@
 
       <div class="hero-numbers">
         <div class="global-index">
-          <div class="big" data-role="global-index">72</div>
+          <div class="big" data-role="global-index">61</div>
           <div class="index-caption"><span data-i18n="hero.index.of">из 100</span></div>
           <div class="status-line">
             <span class="status" data-role="global-status">Очень опасно</span>
-            <span class="delta delta--rise" data-role="global-delta"><span data-role="global-delta-value">↑ +6</span> <span data-i18n="hero.week.change">за неделю</span></span>
+            <span class="delta delta--rise" data-role="global-delta"><span data-role="global-delta-value">↑ +3</span> <span data-i18n="hero.week.change">за неделю</span></span>
           </div>
+          <!-- R61: пометка при q<0.6/incompleteCoverage — текст кладёт js/sections/hero.js. -->
+          <p class="preliminary-note" data-role="preliminary-note" hidden></p>
         </div>
 
         <div class="region-card" data-role="region-card">
@@ -74,10 +76,10 @@
                     aria-expanded="false" aria-controls="region-picker">изменить</button>
           </div>
           <div class="region-stats" data-role="region-stats">
-            <span class="region-index" data-role="region-index">74</span>
+            <span class="region-index" data-role="region-index">68</span>
             <span class="index-caption"><span data-i18n="hero.index.of">из 100</span></span>
             <span class="status" data-role="region-status">очень опасно</span>
-            <span class="delta delta--rise" data-role="region-delta"><span data-role="region-delta-value">↑ +5</span> <span data-i18n="hero.week.change">за неделю</span></span>
+            <span class="delta delta--rise" data-role="region-delta"><span data-role="region-delta-value">↑ +1</span> <span data-i18n="hero.week.change">за неделю</span></span>
           </div>
           <p class="region-unavailable" data-role="region-unavailable" hidden></p>
           <p class="region-note" data-role="region-note" data-i18n="region.note" hidden>Это контекстный региональный риск, а не прогноз атаки на этот город.</p>
@@ -91,6 +93,7 @@
       <!-- История 27: дисклеймер §17 дословно рядом с данными, без модалки.
            История 21: кнопка «Поделиться» → карточка 1200×630 (js/share.js). -->
       <div class="hero-legal">
+        <p class="hero-date-disclaimer" data-i18n="hero.legal.disclaimer">Оценка состояния, а не прогноз даты.</p>
         <p class="hero-disclaimer" data-i18n="disclaimer.full">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
         <button type="button" class="share-btn" data-role="share-btn" data-i18n="share.button">Поделиться</button>
       </div>

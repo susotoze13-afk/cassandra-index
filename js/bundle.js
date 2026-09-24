@@ -1,5 +1,5 @@
 // js/bundle.js — СГЕНЕРИРОВАН build.js, не править вручную.
-// Исходники: js/data.js, js/region.js, js/i18n.js, js/risk.js, js/ui.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/states.js, js/sections/history.js, js/sections/methodology.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
+// Исходники: js/data.js, js/region.js, js/i18n.js, js/risk.js, js/ui.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/sections/methodology.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
 (function () {
 'use strict';
 const modules = {};
@@ -526,6 +526,7 @@ return exports;
 }]);
 factories.push(["js/i18n.js", function (exports) {
 // Словари RU/EN. Ни одной пользовательской строки вне словаря (§11.3).
+// Экспорт — для теста лексики (контент-ревью, PRD §11.5): сканер читает словарь напрямую.
 const DICTS = {
   ru: {
     'app.title': 'Cassandra Index — индекс конфликтного риска',
@@ -542,8 +543,10 @@ const DICTS = {
     'regions.title': 'Что это значит для моего региона?',
     'regions.yours': 'ваш регион',
     'regions.drivers': 'Главные драйверы',
-    'hero.title': 'Насколько близко мир подошёл к глобальному военному конфликту?',
-    'hero.subtitle': 'Это индекс состояния риска от 0 до 100, а не вероятность начала войны и не обратный отсчёт.',
+    'hero.title': 'Индекс состояния риска глобального военного конфликта',
+    'hero.subtitle': 'Индекс состояния риска по шкале от 0 до 100, рассчитываемый еженедельно по открытым данным: уровень и направление изменения риска.',
+    'hero.legal.disclaimer': 'Оценка состояния, а не прогноз даты.',
+    'hero.preliminary': 'Предварительная оценка — неполное покрытие источников',
     'meta.published': 'Последняя публикация',
     'meta.through': 'Данные по',
     'hero.index.of': 'из 100',
@@ -580,6 +583,22 @@ const DICTS = {
     'state.insufficient': 'Недостаточно данных',
     'state.unavailable': 'Model unavailable',
     'history.banner': 'Архивный снапшот: опубликован {published}, данные по {through}. Значения не являются текущими.',
+    'quality.label': 'Качество данных',
+    'quality.level.high': 'Высокое',
+    'quality.level.medium': 'Среднее',
+    'quality.level.low': 'Низкое',
+    'quality.badge': 'Качество данных: {level}',
+    'quality.badge.aria': 'Качество данных: {level}. Подробнее о расчёте.',
+    'quality.modal.title': 'Качество данных',
+    'quality.modal.q': 'Доля веса драйверов с данными (q): {pct}%',
+    'quality.modal.nullWeight': 'Доля без данных: {pct}%',
+    'quality.modal.coverage': 'Драйверов с данными: {covered} из {total}',
+    'quality.modal.explained': 'q — доля веса драйверов, закрытая данными. Чем ниже q, тем сильнее новое значение сжимается к предыдущему опубликованному.',
+    'quality.modal.incomplete': 'Неполное покрытие источников.',
+    'quality.modal.reduced': 'Публикация с пониженной уверенностью из-за неполного покрытия.',
+    'quality.modal.insufficient': 'Неделя не опубликована: покрытие данных ниже порога публикации.',
+    'quality.modal.close': 'Закрыть',
+    'a11y.quality.opened': 'Открыт диалог «Качество данных».',
     'critical.title': 'Очень высокий модельный риск',
     'critical.disclaimer': 'Это модельная оценка на основе последних недельных данных. Она не означает, что официально объявлена чрезвычайная ситуация или что война началась.',
     'critical.official.title': 'Официальная информация',
@@ -626,7 +645,7 @@ const DICTS = {
     'drivers.measures.horizon': 'Горизонт оценки: 12 месяцев.',
     'drivers.measures.direct.def': 'Событие: открытые боевые действия между регулярными вооружёнными силами двух или более государств.',
     'drivers.measures.nuclear.def': 'Событие: применение ядерного оружия в боевой обстановке любой из сторон.',
-    'drivers.measures.calibration': 'Уровни — качественные категории, а не откалиброванные вероятности: сопоставления с частотой таких событий в прошлом пока не выполнено.',
+    'drivers.measures.calibration': 'Уровни — качественные категории: сопоставления с частотой таких событий в прошлом пока не выполнено, численная калибровка не проводилась.',
     'trend.now': 'Сейчас: {value} из 100',
     'trend.weekAgo': 'Неделю назад: {value}',
     'trend.direction.label': 'Направление',
@@ -691,7 +710,7 @@ const DICTS = {
     'method.measures.title': 'Что модель измеряет',
     'method.measures.1': 'Состояние риска глобального конфликта по подтверждённым открытым сигналам — включая косвенные индикаторы подготовки. Значение 0–100 — индекс аномальности относительно базовой линии мирного времени (ориентир — 2010–2019 годы): мера схожести текущей комбинации сигналов с историческими кризисами, а не прогноз будущего.',
     'method.not.title': 'Что модель не измеряет',
-    'method.not.1': 'Вероятность начала войны и дату события — индекс никогда так не интерпретируется.',
+    'method.not.1': 'Начало войны и дату события — индекс никогда так не интерпретируется.',
     'method.not.2': 'Риск удара по конкретному городу: город в интерфейсе — только ярлык вашего региона.',
     'method.not.3': 'Сам факт тайной подготовки: косвенные сигналы — это наблюдения, а не доказательства.',
     'method.gaps.title': 'Пробелы в данных',
@@ -726,7 +745,7 @@ const DICTS = {
     'method.version.note': 'Если изменение методологии влияет на сопоставимость с прошлыми неделями, интерфейс раскрывает это рядом с затронутыми данными; история не пересчитывается молча.',
     'method.open.title': 'Открытые вопросы перед продакшеном',
     'method.open.1': 'Какая статистическая интерпретация лежит в основе индекса 0–100?',
-    'method.open.2': 'Откалиброваны и проверены ли на прошлых данных 12-месячные вероятности событий?',
+    'method.open.2': 'Откалиброваны ли 12-месячные оценки частоты событий и проверены ли на прошлых данных?',
     'method.open.3': 'Какое доказательство обосновывает каждый порог состояния?',
     'method.open.4': 'Какое минимальное покрытие источников необходимо для публикации?',
     'method.open.5': 'Что происходит, если серьёзное событие случилось между недельными публикациями?',
@@ -739,7 +758,7 @@ const DICTS = {
     'method.open.12': 'Соответствие приватности: как обработка IP согласуется с GDPR, 152-ФЗ и CCPA в целевом регионе?',
     'method.open.13': 'Справочник регионов и городов: какая единая таксономия сопоставляет «город ↔ регион» и кто её владелец?',
     'method.open.14': 'Согласие на сохранение региона: показывать уведомление при первом визите или полагаться на политику?',
-    'method.open.15': 'Заголовок-вопрос: как измерить, что формулировка не воспринимается как обратный отсчёт?',
+    'method.open.15': 'Заголовок: как измерить, что утвердительная формулировка не воспринимается как таймер?',
     'method.open.16': 'Мультиязычность: как заголовок ведёт себя в английском и других языках без потери смысла?',
     'method.open.17': 'Источники в драйверах: какой минимальный набор полей у каждого источника (заголовок, домен, дата, URL, тип)?',
     'method.open.18': 'Порядок источников: сортировка по релевантности, дате или типу — кто принимает решение?',
@@ -767,8 +786,10 @@ const DICTS = {
     'regions.title': 'What does this mean for my region?',
     'regions.yours': 'your region',
     'regions.drivers': 'Key drivers',
-    'hero.title': 'How close is the world to a global military conflict?',
-    'hero.subtitle': 'This is a risk state index from 0 to 100, not a probability of war and not a countdown.',
+    'hero.title': 'The state of global military conflict risk',
+    'hero.subtitle': 'A risk state index on a 0–100 scale, calculated weekly from open data: the level and direction of risk.',
+    'hero.legal.disclaimer': 'An assessment of the state, not a forecast of a date.',
+    'hero.preliminary': 'Preliminary assessment — incomplete source coverage',
     'meta.published': 'Last published',
     'meta.through': 'Data through',
     'hero.index.of': 'of 100',
@@ -805,6 +826,22 @@ const DICTS = {
     'state.insufficient': 'Insufficient data',
     'state.unavailable': 'Model unavailable',
     'history.banner': 'Historical snapshot: published {published}, data through {through}. These values are not current.',
+    'quality.label': 'Data quality',
+    'quality.level.high': 'High',
+    'quality.level.medium': 'Medium',
+    'quality.level.low': 'Low',
+    'quality.badge': 'Data quality: {level}',
+    'quality.badge.aria': 'Data quality: {level}. Details on the calculation.',
+    'quality.modal.title': 'Data quality',
+    'quality.modal.q': 'Share of driver weight with data (q): {pct}%',
+    'quality.modal.nullWeight': 'Share without data: {pct}%',
+    'quality.modal.coverage': 'Drivers with data: {covered} of {total}',
+    'quality.modal.explained': 'q is the share of driver weight covered by data. The lower q is, the more the new value is compressed towards the last published one.',
+    'quality.modal.incomplete': 'Incomplete source coverage.',
+    'quality.modal.reduced': 'Published with reduced confidence due to incomplete coverage.',
+    'quality.modal.insufficient': 'This week is not published: data coverage is below the publication threshold.',
+    'quality.modal.close': 'Close',
+    'a11y.quality.opened': 'The “Data quality” dialog is open.',
     'critical.title': 'Very high modelled risk',
     'critical.disclaimer': 'This is a modelled assessment based on the latest weekly data. It does not mean that a state of emergency has been officially declared or that a war has started.',
     'critical.official.title': 'Official information',
@@ -851,7 +888,7 @@ const DICTS = {
     'drivers.measures.horizon': 'Assessment horizon: 12 months.',
     'drivers.measures.direct.def': 'Event: open hostilities between the regular armed forces of two or more states.',
     'drivers.measures.nuclear.def': 'Event: use of nuclear weapons in a combat situation by any party.',
-    'drivers.measures.calibration': 'Levels are qualitative categories, not calibrated probabilities: they have not yet been benchmarked against the historical frequency of such events.',
+    'drivers.measures.calibration': 'Levels are qualitative categories: they have not yet been benchmarked against the historical frequency of such events, and no numerical calibration has been performed.',
     'trend.now': 'Now: {value} of 100',
     'trend.weekAgo': 'A week ago: {value}',
     'trend.direction.label': 'Direction',
@@ -875,7 +912,7 @@ const DICTS = {
     'method.measures.title': 'What the model measures',
     'method.measures.1': 'The state of global conflict risk from confirmed open signals — including shadow preparation indicators. The 0–100 value is an anomaly index relative to a peacetime baseline (reference: 2010–2019): a measure of how similar the current combination of signals is to historical crises, not a forecast of the future.',
     'method.not.title': 'What the model does not measure',
-    'method.not.1': 'The probability of war starting and the date of an event — the index is never interpreted this way.',
+    'method.not.1': 'The outbreak of war and the date of an event — the index is never interpreted this way.',
     'method.not.2': 'The risk of a strike on a specific city: the city in the interface is only a label for your region.',
     'method.not.3': 'The very fact of covert preparation: shadow signals are observations, not proof.',
     'method.gaps.title': 'Gaps in the data',
@@ -910,7 +947,7 @@ const DICTS = {
     'method.version.note': 'If a methodology change affects comparability with past weeks, the interface discloses this next to the affected data; history is never silently recalculated.',
     'method.open.title': 'Open questions before production',
     'method.open.1': 'What statistical interpretation underlies the 0–100 index?',
-    'method.open.2': 'Have the 12-month event probabilities been calibrated and backtested?',
+    'method.open.2': 'Have the 12-month event frequency assessments been calibrated and backtested on past data?',
     'method.open.3': 'What evidence justifies each state threshold?',
     'method.open.4': 'What minimum source coverage is required for publication?',
     'method.open.5': 'What happens if a serious event occurs between weekly releases?',
@@ -923,7 +960,7 @@ const DICTS = {
     'method.open.12': 'Privacy compliance: how does IP processing align with GDPR, 152-FZ and CCPA in the target region?',
     'method.open.13': 'Region and city directory: which unified taxonomy maps “city ↔ region” and who owns it?',
     'method.open.14': 'Consent for saving the region: show a notice on the first visit or rely on the policy?',
-    'method.open.15': 'The headline question: how do we measure that the wording is not perceived as a countdown?',
+    'method.open.15': 'Headline: how do we measure that the assertive wording is not perceived as a timer?',
     'method.open.16': 'Multilingual: how does the headline behave in English and other languages without losing meaning?',
     'method.open.17': 'Sources in drivers: what is the minimum field set per source (title, domain, date, URL, type)?',
     'method.open.18': 'Source ordering: sorted by relevance, date or type — who decides?',
@@ -1110,6 +1147,7 @@ function date(lang, iso, short = false) {
   return `${get('day')} ${get('month')}, ${get('year')}`;
 }
 
+exports["DICTS"] = DICTS;
 exports["LANGS"] = LANGS;
 exports["t"] = t;
 exports["plural"] = plural;
@@ -1258,11 +1296,361 @@ exports["parseWeekParam"] = parseWeekParam;
 exports["createToast"] = createToast;
 return exports;
 }]);
+factories.push(["js/sections/states.js", function (exports) {
+const { t, date } = __ci_require("js/i18n.js");
+const data = __ci_require("js/data.js");
+// Секция «Состояния данных» (js/render.js регистрирует render как 'states'):
+// бейдж состояния рядом с датами, бейдж качества из q + модалка математики (R59–R61),
+// баннер архивного снапшота, критический режим (функция данных, §6), экран
+// «Model unavailable» с кнопкой повтора, выбор видимого снапшота при insufficient (R14).
+// Чистые швы (criticalModeOn, badgeTone, isHistorical, historyBannerText,
+// QUALITY_THRESHOLDS, qualityBadge, needsPreliminaryNote, pickVisibleSnapshot,
+// visibleSnapshotOf) — без DOM, тестируются.
+
+
+// Критический режим: функция данных — global.index ≥81 (История 16, Решение п.10).
+function criticalModeOn(snapshot) {
+  const index = snapshot?.global?.index;
+  return typeof index === 'number' && index >= 81;
+}
+
+// Бейдж состояния данных (§7): тон — класс-модификатор, текст всегда рядом (не только цветом).
+const BADGE_TONES = {
+  published: 'data-state-badge--published',
+  updating: 'data-state-badge--updating',
+  delayed: 'data-state-badge--delayed',
+  insufficient: 'data-state-badge--insufficient',
+  unavailable: 'data-state-badge--unavailable',
+};
+
+function badgeTone(dataState) {
+  return BADGE_TONES[dataState] ?? BADGE_TONES.unavailable;
+}
+
+// Просмотр недели, отличной от latest — архивный снапшот (История 20 / §7).
+function isHistorical(week, latestWeek) {
+  return !!week && !!latestWeek && week !== latestWeek;
+}
+
+// Текст баннера архивного снапшота с датами просматриваемых данных (§7:
+// устаревшее значение никогда не выглядит текущим — даты в тексте баннера).
+function historyBannerText(lang, snapshot) {
+  return t(lang, 'history.banner', {
+    published: date(lang, snapshot.published),
+    through: date(lang, snapshot.through),
+  });
+}
+
+// ---------- Качество данных (R59–R61) ----------
+
+// Пороги бейджа качества — константа рядом с швом (значения совпадают
+// с PARAMS.qualityThresholds {high: 0.8, medium: 0.6}).
+const QUALITY_THRESHOLDS = { high: 0.8, medium: 0.6 };
+
+// qualityBadge(q) → 'high'|'medium'|'low'|null. null — q нет или не число:
+// недели до введения q бейдж не показывают (нет данных о качестве).
+function qualityBadge(q) {
+  if (typeof q !== 'number' || !Number.isFinite(q)) return null;
+  if (q >= QUALITY_THRESHOLDS.high) return 'high';
+  if (q >= QUALITY_THRESHOLDS.medium) return 'medium';
+  return 'low';
+}
+
+// Пометка «Предварительная оценка» (R61): q ниже порога 'medium' или явный
+// флаг incompleteCoverage в снапшоте.
+function needsPreliminaryNote(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') return false;
+  return qualityBadge(snapshot.q) === 'low' || snapshot.incompleteCoverage === true;
+}
+
+// R14/R59.1: insufficient-неделя не публикует число — hero берёт последний
+// валидный снапшот. Чистый шов: идём от конца списка недель, берём первый
+// снапшот с опубликованным глобальным индексом. Недели 'unavailable' пропускаем.
+function pickVisibleSnapshot(weekKeys, getSnapshot) {
+  for (let i = weekKeys.length - 1; i >= 0; i--) {
+    const snapshot = getSnapshot(weekKeys[i]);
+    if (snapshot && !snapshot.unavailable && snapshot.global != null) {
+      return { week: weekKeys[i], snapshot };
+    }
+  }
+  return null;
+}
+
+// Видимый снапшот для appState: своя неделя, если индекс опубликован;
+// иначе — последняя валидная неделя из данных (нет валидной — своя, hero
+// покажет «—», overlay unavailable не включается: insufficient ≠ битый файл).
+function visibleSnapshotOf(state) {
+  const snap = state?.snapshot ?? null;
+  if (!snap || snap.unavailable || snap.global != null) return snap;
+  const found = pickVisibleSnapshot(data.listWeeks(), (w) => data.week(w));
+  return found ? found.snapshot : snap;
+}
+
+// ---------- Бейдж состояния рядом с датами публикации/покрытия ----------
+
+function renderBadge(state) {
+  const meta = document.querySelector('.hero .meta');
+  if (!meta) return;
+  let badge = meta.querySelector('[data-role="data-state-badge"]');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'data-state-badge';
+    badge.dataset.role = 'data-state-badge';
+    meta.appendChild(badge);
+  }
+  const dataState = state.dataState ?? 'unavailable';
+  badge.textContent = t(state.lang, `state.${dataState}`);
+  badge.className = `data-state-badge ${badgeTone(dataState)}`;
+}
+
+// ---------- Баннер архивного снапшота ----------
+
+function renderHistoryBanner(state) {
+  const host = document.querySelector('[data-role="history-banner"]');
+  if (!host) return;
+  // R14/R59.1: неделя без публикации (insufficient, global:null) — баннер
+  // «Historical snapshot» с датами последнего ВАЛИДНОГО снапшота (hero на нём).
+  if (!state.unavailable && state.snapshot?.global == null) {
+    const fallback = pickVisibleSnapshot(data.listWeeks(), (w) => data.week(w));
+    if (fallback) {
+      host.hidden = false;
+      host.textContent = historyBannerText(state.lang, fallback.snapshot);
+      return;
+    }
+  }
+  if (!isHistorical(state.week, data.latest()) || !state.snapshot?.published) {
+    host.hidden = true;
+    host.textContent = '';
+    return;
+  }
+  host.hidden = false;
+  host.textContent = historyBannerText(state.lang, state.snapshot);
+}
+
+// ---------- Качество данных: бейдж (R59) и модалка с математикой (R60) ----------
+
+// Диалог живёт вне продакшен-потока renderAll: открывается по клику на бейдж,
+// закрывается сам (X/Escape/вне карточки); при полном перерендере закрываем.
+let qualityModal = null;    // построенный overlay
+let qualityTrigger = null;  // бейдж — вернуть фокус при закрытии
+let qualityKeydown = null;  // обработчик keydown фокус-ловушки
+let currentState = null;    // последний appState (клик по бейджу — текущий язык/снапшот)
+
+function buildQualityModal(lang, snapshot) {
+  const pct = (v) => String(Math.round(v * 100));
+  const addLine = (parent, key, vars) => {
+    const p = document.createElement('p');
+    p.textContent = t(lang, key, vars);
+    parent.appendChild(p);
+  };
+
+  const overlay = document.createElement('div');
+  overlay.className = 'quality-modal';
+  overlay.dataset.role = 'quality-modal';
+
+  const card = document.createElement('div');
+  card.className = 'quality-modal-card';
+  card.setAttribute('role', 'dialog');
+  card.setAttribute('aria-modal', 'true');
+  card.setAttribute('aria-labelledby', 'quality-modal-title');
+
+  const head = document.createElement('div');
+  head.className = 'quality-modal-head';
+  const title = document.createElement('h2');
+  title.id = 'quality-modal-title';
+  title.textContent = t(lang, 'quality.modal.title');
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'quality-modal-close';
+  close.dataset.role = 'quality-modal-close';
+  close.setAttribute('aria-label', t(lang, 'quality.modal.close'));
+  close.textContent = '×';
+  head.append(title, close);
+
+  const body = document.createElement('div');
+  body.className = 'quality-modal-body';
+  if (qualityBadge(snapshot.q)) addLine(body, 'quality.modal.q', { pct: pct(snapshot.q) });
+  if (typeof snapshot.nullWeight === 'number' && Number.isFinite(snapshot.nullWeight)) {
+    addLine(body, 'quality.modal.nullWeight', { pct: pct(snapshot.nullWeight) });
+  }
+  if (snapshot.coverage && Number.isInteger(snapshot.coverage.coveredDrivers)) {
+    addLine(body, 'quality.modal.coverage', {
+      covered: snapshot.coverage.coveredDrivers,
+      total: snapshot.coverage.totalDrivers,
+    });
+  }
+  addLine(body, 'quality.modal.explained');
+  if (snapshot.incompleteCoverage === true) addLine(body, 'quality.modal.incomplete');
+  if (snapshot.confidence === 'reduced') addLine(body, 'quality.modal.reduced');
+  if (snapshot.dataState === 'insufficient') addLine(body, 'quality.modal.insufficient');
+
+  card.append(head, body);
+  overlay.appendChild(card);
+  return overlay;
+}
+
+function openQualityModal(lang, trigger, snapshot) {
+  closeQualityModal(false);
+  qualityTrigger = trigger;
+  qualityModal = buildQualityModal(lang, snapshot);
+  document.body.appendChild(qualityModal);
+  trigger.setAttribute('aria-expanded', 'true');
+
+  const closeBtn = qualityModal.querySelector('[data-role="quality-modal-close"]');
+  closeBtn.addEventListener('click', () => closeQualityModal(true));
+  qualityModal.addEventListener('click', (e) => {
+    if (e.target === qualityModal) closeQualityModal(true);
+  });
+  qualityKeydown = (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeQualityModal(true);
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    // Фокус-ловушка: Tab циклит внутри карточки диалога.
+    const els = [...qualityModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')]
+      .filter((el) => !el.disabled && el.getClientRects().length > 0);
+    if (!els.length) return;
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+  document.addEventListener('keydown', qualityKeydown);
+
+  const live = document.querySelector('[data-role="a11y-live"]');
+  if (live) live.textContent = t(lang, 'a11y.quality.opened');
+  closeBtn.focus();
+}
+
+function closeQualityModal(refocus) {
+  if (!qualityModal) return;
+  document.removeEventListener('keydown', qualityKeydown);
+  qualityKeydown = null;
+  qualityModal.remove();
+  qualityModal = null;
+  if (qualityTrigger) {
+    qualityTrigger.setAttribute('aria-expanded', 'false');
+    if (refocus) qualityTrigger.focus();
+    qualityTrigger = null;
+  }
+}
+
+function renderQualityBadge(state) {
+  const meta = document.querySelector('.hero .meta');
+  if (!meta) return;
+  let badge = meta.querySelector('[data-role="quality-badge"]');
+  if (!badge) {
+    badge = document.createElement('button');
+    badge.type = 'button';
+    badge.className = 'quality-badge';
+    badge.dataset.role = 'quality-badge';
+    badge.setAttribute('aria-haspopup', 'dialog');
+    badge.setAttribute('aria-expanded', 'false');
+    badge.addEventListener('click', () => openQualityModal(currentState.lang, badge, currentState.snapshot));
+    meta.appendChild(badge);
+  }
+  // Качество — просматриваемой недели: при insufficient-снапшоте герой показывает
+  // последний валидный индекс, но состояние данных недели — своё (R59.1, R26).
+  const level = qualityBadge(state.snapshot?.q);
+  if (!level) {
+    badge.hidden = true;
+    return;
+  }
+  badge.hidden = false;
+  const levelText = t(state.lang, `quality.level.${level}`);
+  badge.textContent = t(state.lang, 'quality.badge', { level: levelText });
+  badge.setAttribute('aria-label', t(state.lang, 'quality.badge.aria', { level: levelText }));
+}
+
+// ---------- Критический режим (§6): спокойная плашка, без §6.4 ----------
+
+function renderCriticalPanel(state) {
+  const host = document.querySelector('[data-role="critical-panel"]');
+  if (!host) return;
+  if (!criticalModeOn(state.snapshot)) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const lang = state.lang;
+  host.hidden = false;
+  host.innerHTML = `
+    <section class="critical-panel" aria-labelledby="critical-title">
+      <h2 id="critical-title">${t(lang, 'critical.title')}</h2>
+      <p class="critical-disclaimer">${t(lang, 'critical.disclaimer')}</p>
+      <h3>${t(lang, 'critical.official.title')}</h3>
+      <p>${t(lang, 'critical.official.text')}</p>
+      <h3>${t(lang, 'critical.actions.title')}</h3>
+      <ul>
+        <li>${t(lang, 'critical.action.1')}</li>
+        <li>${t(lang, 'critical.action.2')}</li>
+        <li>${t(lang, 'critical.action.3')}</li>
+        <li>${t(lang, 'critical.action.4')}</li>
+      </ul>
+    </section>`;
+}
+
+// ---------- «Model unavailable»: понятный экран с кнопкой повтора, не белый экран (R63.1) ----------
+
+function renderUnavailable(state) {
+  const overlay = document.querySelector('[data-role="unavailable-overlay"]');
+  if (!overlay) return;
+  if (!state.unavailable) {
+    overlay.hidden = true;
+    overlay.innerHTML = '';
+    return;
+  }
+  const lang = state.lang;
+  overlay.innerHTML = `
+    <div class="unavailable-card" role="alert">
+      <h2>${t(lang, 'unavailable.title')}</h2>
+      <p>${t(lang, 'unavailable.text')}</p>
+      <button type="button" class="retry-btn" data-role="unavailable-retry">${t(lang, 'data.retry')}</button>
+    </div>`;
+  overlay.hidden = false;
+  overlay.querySelector('[data-role="unavailable-retry"]')
+    .addEventListener('click', () => { location.reload(); });
+  overlay.querySelector('[data-role="unavailable-retry"]').focus();
+}
+
+function render(appState) {
+  if (typeof document === 'undefined') return;
+  currentState = appState;
+  // Полный перерендер (язык/неделя/регион) закрывает открытый диалог качества:
+  // его содержимое собрано под прежний язык/снапшот.
+  closeQualityModal(false);
+  renderBadge(appState);
+  renderQualityBadge(appState);
+  renderHistoryBanner(appState);
+  renderCriticalPanel(appState);
+  renderUnavailable(appState);
+}
+
+exports["criticalModeOn"] = criticalModeOn;
+exports["badgeTone"] = badgeTone;
+exports["isHistorical"] = isHistorical;
+exports["historyBannerText"] = historyBannerText;
+exports["QUALITY_THRESHOLDS"] = QUALITY_THRESHOLDS;
+exports["qualityBadge"] = qualityBadge;
+exports["needsPreliminaryNote"] = needsPreliminaryNote;
+exports["pickVisibleSnapshot"] = pickVisibleSnapshot;
+exports["visibleSnapshotOf"] = visibleSnapshotOf;
+exports["render"] = render;
+return exports;
+}]);
 factories.push(["js/sections/hero.js", function (exports) {
 const { t, date } = __ci_require("js/i18n.js");
 const risk = __ci_require("js/risk.js");
 const region = __ci_require("js/region.js");
 const { createToast, deltaClass } = __ci_require("js/ui.js");
+const { visibleSnapshotOf, needsPreliminaryNote } = __ci_require("js/sections/states.js");
 // Секция hero (js/render.js регистрирует render как 'hero'): глобальный индекс,
 // персональная строка региона, inline-панель выбора региона.
 // Чистые функции (formatDelta, deltaArrow, refineRegionFromCoords) — без DOM, тестируются.
@@ -1566,7 +1954,7 @@ function render(appState) {
   const root = document.querySelector('#overview');
   if (!root) return;
   current = appState;
-  const { lang, snapshot } = appState;
+  const { lang } = appState;
   const $ = (sel) => root.querySelector(sel);
 
   if (!root.dataset.heroBound) {
@@ -1574,6 +1962,12 @@ function render(appState) {
     $('[data-role="region-change"]').addEventListener('click', (e) => openPanel(current, e.currentTarget));
     $('[data-role="region-cta"]').addEventListener('click', (e) => openPanel(current, e.currentTarget));
   }
+
+  // R14/R59.1: неделя без публикации (insufficient) — числа и даты hero берутся
+  // из последнего валидного снапшота (баннер «Historical snapshot» — states.js);
+  // качество данных (q) и пометка «Предварительная оценка» — просматриваемой недели.
+  const snapshot = visibleSnapshotOf(appState);
+  const viewed = appState.snapshot;
 
   // Глобальный индекс + статус + Δ + обе даты.
   const g = snapshot?.global;
@@ -1589,6 +1983,15 @@ function render(appState) {
     $('[data-role="global-status"]').textContent = t(lang, 'state.unavailable');
     gDelta.hidden = true;
   }
+  // Пометка «Предварительная оценка» (R61) — качество просматриваемой недели,
+  // а не видимого снапшота: insufficient-неделя объясняется рядом с числом.
+  const prelim = $('[data-role="preliminary-note"]');
+  if (prelim) {
+    const show = needsPreliminaryNote(viewed);
+    prelim.hidden = !show;
+    if (show) prelim.textContent = t(lang, 'hero.preliminary');
+  }
+
   if (snapshot?.published) $('[data-role="meta-published"]').textContent = date(lang, snapshot.published);
   if (snapshot?.through) $('[data-role="meta-through"]').textContent = date(lang, snapshot.through);
 
@@ -2290,145 +2693,6 @@ function render(appState) {
 
 exports["rankedRegions"] = rankedRegions;
 exports["statusLabel"] = statusLabel;
-exports["render"] = render;
-return exports;
-}]);
-factories.push(["js/sections/states.js", function (exports) {
-const { t, date } = __ci_require("js/i18n.js");
-const data = __ci_require("js/data.js");
-// Секция «Состояния данных» (js/render.js регистрирует render как 'states'):
-// бейдж состояния рядом с датами, баннер архивного снапшота, критический режим
-// (функция данных, §6), экран «Model unavailable» с кнопкой повтора.
-// Чистые швы (criticalModeOn, badgeTone, isHistorical, historyBannerText) — без DOM, тестируются.
-
-
-// Критический режим: функция данных — global.index ≥81 (История 16, Решение п.10).
-function criticalModeOn(snapshot) {
-  const index = snapshot?.global?.index;
-  return typeof index === 'number' && index >= 81;
-}
-
-// Бейдж состояния данных (§7): тон — класс-модификатор, текст всегда рядом (не только цветом).
-const BADGE_TONES = {
-  published: 'data-state-badge--published',
-  updating: 'data-state-badge--updating',
-  delayed: 'data-state-badge--delayed',
-  insufficient: 'data-state-badge--insufficient',
-  unavailable: 'data-state-badge--unavailable',
-};
-
-function badgeTone(dataState) {
-  return BADGE_TONES[dataState] ?? BADGE_TONES.unavailable;
-}
-
-// Просмотр недели, отличной от latest — архивный снапшот (История 20 / §7).
-function isHistorical(week, latestWeek) {
-  return !!week && !!latestWeek && week !== latestWeek;
-}
-
-// Текст баннера архивного снапшота с датами просматриваемых данных (§7:
-// устаревшее значение никогда не выглядит текущим — даты в тексте баннера).
-function historyBannerText(lang, snapshot) {
-  return t(lang, 'history.banner', {
-    published: date(lang, snapshot.published),
-    through: date(lang, snapshot.through),
-  });
-}
-
-// ---------- Бейдж состояния рядом с датами публикации/покрытия ----------
-
-function renderBadge(state) {
-  const meta = document.querySelector('.hero .meta');
-  if (!meta) return;
-  let badge = meta.querySelector('[data-role="data-state-badge"]');
-  if (!badge) {
-    badge = document.createElement('span');
-    badge.className = 'data-state-badge';
-    badge.dataset.role = 'data-state-badge';
-    meta.appendChild(badge);
-  }
-  const dataState = state.dataState ?? 'unavailable';
-  badge.textContent = t(state.lang, `state.${dataState}`);
-  badge.className = `data-state-badge ${badgeTone(dataState)}`;
-}
-
-// ---------- Баннер архивного снапшота ----------
-
-function renderHistoryBanner(state) {
-  const host = document.querySelector('[data-role="history-banner"]');
-  if (!host) return;
-  if (!isHistorical(state.week, data.latest()) || !state.snapshot?.published) {
-    host.hidden = true;
-    host.textContent = '';
-    return;
-  }
-  host.hidden = false;
-  host.textContent = historyBannerText(state.lang, state.snapshot);
-}
-
-// ---------- Критический режим (§6): спокойная плашка, без §6.4 ----------
-
-function renderCriticalPanel(state) {
-  const host = document.querySelector('[data-role="critical-panel"]');
-  if (!host) return;
-  if (!criticalModeOn(state.snapshot)) {
-    host.hidden = true;
-    host.innerHTML = '';
-    return;
-  }
-  const lang = state.lang;
-  host.hidden = false;
-  host.innerHTML = `
-    <section class="critical-panel" aria-labelledby="critical-title">
-      <h2 id="critical-title">${t(lang, 'critical.title')}</h2>
-      <p class="critical-disclaimer">${t(lang, 'critical.disclaimer')}</p>
-      <h3>${t(lang, 'critical.official.title')}</h3>
-      <p>${t(lang, 'critical.official.text')}</p>
-      <h3>${t(lang, 'critical.actions.title')}</h3>
-      <ul>
-        <li>${t(lang, 'critical.action.1')}</li>
-        <li>${t(lang, 'critical.action.2')}</li>
-        <li>${t(lang, 'critical.action.3')}</li>
-        <li>${t(lang, 'critical.action.4')}</li>
-      </ul>
-    </section>`;
-}
-
-// ---------- «Model unavailable»: понятный экран с кнопкой повтора, не белый экран (R63.1) ----------
-
-function renderUnavailable(state) {
-  const overlay = document.querySelector('[data-role="unavailable-overlay"]');
-  if (!overlay) return;
-  if (!state.unavailable) {
-    overlay.hidden = true;
-    overlay.innerHTML = '';
-    return;
-  }
-  const lang = state.lang;
-  overlay.innerHTML = `
-    <div class="unavailable-card" role="alert">
-      <h2>${t(lang, 'unavailable.title')}</h2>
-      <p>${t(lang, 'unavailable.text')}</p>
-      <button type="button" class="retry-btn" data-role="unavailable-retry">${t(lang, 'data.retry')}</button>
-    </div>`;
-  overlay.hidden = false;
-  overlay.querySelector('[data-role="unavailable-retry"]')
-    .addEventListener('click', () => { location.reload(); });
-  overlay.querySelector('[data-role="unavailable-retry"]').focus();
-}
-
-function render(appState) {
-  if (typeof document === 'undefined') return;
-  renderBadge(appState);
-  renderHistoryBanner(appState);
-  renderCriticalPanel(appState);
-  renderUnavailable(appState);
-}
-
-exports["criticalModeOn"] = criticalModeOn;
-exports["badgeTone"] = badgeTone;
-exports["isHistorical"] = isHistorical;
-exports["historyBannerText"] = historyBannerText;
 exports["render"] = render;
 return exports;
 }]);

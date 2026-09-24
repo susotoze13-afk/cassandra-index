@@ -775,6 +775,98 @@ main {
 .data-state-badge--insufficient { border-color: var(--state-very); color: var(--state-very); }
 .data-state-badge--unavailable { border-color: var(--state-critical); color: var(--state-critical); }
 
+/* ---------- Качество данных (R59–R61): бейдж, модалка, пометка ---------- */
+
+/* Бейдж качества — нейтральный (surface/border), не тон состояния: качество
+   данных не равно уровню риска. Клик открывает модалку с математикой (R60). */
+.quality-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px; /* тач-цель §12 */
+  padding: 2px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.quality-badge:hover {
+  border-color: var(--accent-line);
+  color: var(--text);
+}
+
+/* Модалка качества: тот же overlay, что «Model unavailable», карточка — surface. */
+.quality-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--overlay-backdrop);
+}
+
+.quality-modal-card {
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.quality-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.quality-modal-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.quality-modal-close {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.quality-modal-close:hover {
+  border-color: var(--accent-line);
+  color: var(--text);
+}
+
+.quality-modal-body p {
+  margin: 0 0 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Пометка «Предварительная оценка» рядом с числом (R61): значение не цветом —
+   текст всегда виден; цвет — существующий токен предупреждения. */
+.preliminary-note {
+  margin: 8px 0 0;
+  color: var(--state-danger);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 /* Баннер архивного снапшота: устаревшее значение не выглядит текущим (§7). */
 .history-banner {
   margin: 0 0 16px;
@@ -1392,6 +1484,15 @@ main {
   margin: 0;
   color: var(--text-muted);
   font-size: 12px;
+  line-height: 1.5;
+}
+
+/* R10: «Оценка состояния, а не прогноз даты» — отдельной строкой над §17. */
+.hero-date-disclaimer {
+  flex: 1 1 100%;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
   line-height: 1.5;
 }
 
