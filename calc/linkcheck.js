@@ -16,18 +16,21 @@ const REQUEST_HEADERS = {
 };
 
 // 2xx/3xx → 'ok'; 403 → 'blocked' (D01: bot-доступ запрещён — Cloudflare
-// JS-challenge, страница может быть жива, это не битая ссылка); 404/410 и
-// прочее 4xx и 5xx → 'broken'; null (ответ не получен: DNS/таймаут/обрыв) →
-// 'blocked' (D02: недоступность из среды проверки ≠ битая страница).
+// JS-challenge, страница может быть жива, это не битая ссылка); 406 →
+// 'blocked' (D03: интермитентный бот-фильтр, те же URL через минуту отдают
+// 202); 404/410 и прочее 4xx и 5xx → 'broken'; null (ответ не получен:
+// DNS/таймаут/обрыв) → 'blocked' (D02: недоступность из среды проверки ≠
+// битая страница).
 export function classify(status) {
   if (typeof status === 'number' && status >= 200 && status < 400) return 'ok';
-  if (status === 403 || status === null) return 'blocked';
+  if (status === 403 || status === 406 || status === null) return 'blocked';
   return 'broken';
 }
 
-// 429 и 5xx — временные, повторяем; остальные статусы финальны.
+// 429, 406 и 5xx — временные, повторяем (D03: 406 — интермитентный
+// бот-фильтр, тот же URL через минуту отдаёт 202); остальные статусы финальны.
 function isRetryableStatus(status) {
-  return status === 429 || status >= 500;
+  return status === 429 || status === 406 || status >= 500;
 }
 
 function sleep(ms) {
