@@ -1,6 +1,10 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
+  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
+  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
+  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
+  // state_affiliated: true только для dw.com). Тексты не изменены.
   s.regions["europe"] = {
   "index": 60,
   "delta": -8,
@@ -20,22 +24,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "high",
       "sources": [
         {
+          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
           "title": {
-            "ru": "В регионе проходят учения с боевой стрельбой",
-            "en": "Live-fire exercises under way in the region"
+            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
+            "en": "Charing Cross Tube station used for major military exercise"
           },
-          "url": "https://www.bbc.com/news/world-exercises",
           "domain": "bbc.com",
-          "date": "2026-09-01"
+          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
+          "publication_date": "2026-05-24",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         },
         {
+          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
           "title": {
-            "ru": "Масштабные учения объявлены на следующий месяц",
-            "en": "Large-scale drills announced for next month"
+            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
+            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
           },
-          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
           "domain": "dw.com",
-          "date": "2026-09-03"
+          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
+          "publication_date": "2026-07-13",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": true
         }
       ]
     },
@@ -52,22 +66,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "high",
       "sources": [
         {
+          "id": "www-crisisgroup-org-europe-eastern-europe-ukraine",
           "title": {
-            "ru": "Поставки систем ПВО продолжаются третий месяц",
-            "en": "Air-defence deliveries continue for third month"
+            "ru": "CrisisWatch: Украина, июль 2026 года",
+            "en": "CrisisWatch Ukraine July 2026"
           },
-          "url": "https://www.crisisgroup.org/crisiswatch/air-defence",
           "domain": "crisisgroup.org",
-          "date": "2026-09-01"
+          "url": "https://www.crisisgroup.org/europe/eastern-europe/ukraine",
+          "publication_date": "2026-06-26",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         },
         {
+          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
           "title": {
-            "ru": "Спутниковый анализ: новые позиции в приграничье",
-            "en": "Satellite analysis: new positions near the border"
+            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
+            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
           },
-          "url": "https://www.reuters.com/world/satellite-border-analysis",
           "domain": "reuters.com",
-          "date": "2026-09-03"
+          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
+          "publication_date": "2020-06-25",
+          "accessed_date": "2026-08-30",
+          "source_type": "OSINT",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         }
       ]
     }

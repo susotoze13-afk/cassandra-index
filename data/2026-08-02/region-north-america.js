@@ -1,6 +1,10 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-02"] = window.CI_DATA.snapshots["2026-08-02"] || {};
+  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
+  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
+  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
+  // state_affiliated: true только для dw.com). Тексты не изменены.
   s.regions["north-america"] = {
   "index": 43,
   "delta": 0,
@@ -20,22 +24,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "high",
       "sources": [
         {
+          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
           "title": {
-            "ru": "Масштабные учения объявлены на следующий месяц",
-            "en": "Large-scale drills announced for next month"
+            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
+            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
           },
-          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
           "domain": "dw.com",
-          "date": "2026-07-28"
+          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
+          "publication_date": "2026-07-13",
+          "accessed_date": "2026-07-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": true
         },
         {
+          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
           "title": {
-            "ru": "Парламенты утверждают рост оборонных расходов",
-            "en": "Parliaments approve higher defence spending"
+            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
+            "en": "Global military spending rise continues as European and Asian expenditures surge"
           },
-          "url": "https://www.sipri.org/media/press-release/budgets",
           "domain": "sipri.org",
-          "date": "2026-07-30"
+          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "publication_date": "2026-04-27",
+          "accessed_date": "2026-07-26",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         }
       ]
     },
@@ -52,22 +66,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "medium",
       "sources": [
         {
+          "id": "news-un-org-en-story-2026-07-1167860",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по региону",
-            "en": "Security Council emergency session on the region"
+            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
+            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
           },
-          "url": "https://news.un.org/en/story/security-council-session",
           "domain": "un.org",
-          "date": "2026-07-28"
+          "url": "https://news.un.org/en/story/2026/07/1167860",
+          "publication_date": "2026-07-02",
+          "accessed_date": "2026-07-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         },
         {
+          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
           "title": {
-            "ru": "Спутниковый анализ: новые позиции в приграничье",
-            "en": "Satellite analysis: new positions near the border"
+            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
+            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
           },
-          "url": "https://www.reuters.com/world/satellite-border-analysis",
           "domain": "reuters.com",
-          "date": "2026-07-30"
+          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
+          "publication_date": "2020-06-25",
+          "accessed_date": "2026-07-26",
+          "source_type": "OSINT",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         }
       ]
     }

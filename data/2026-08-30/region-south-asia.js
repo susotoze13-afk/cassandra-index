@@ -1,6 +1,10 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
+  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
+  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
+  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
+  // state_affiliated: true только для dw.com). Тексты не изменены.
   s.regions["south-asia"] = {
   "index": 60,
   "delta": 2,
@@ -20,22 +24,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "high",
       "sources": [
         {
+          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
           "title": {
-            "ru": "Мониторинг: число столкновений выросло за неделю",
-            "en": "Monitoring: clash count up over the week"
+            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
+            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
           },
-          "url": "https://apnews.com/article/border-clashes-monitoring",
           "domain": "apnews.com",
-          "date": "2026-08-25"
+          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "publication_date": "2026-02-28",
+          "accessed_date": "2026-08-23",
+          "source_type": "OSINT",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         },
         {
+          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
           "title": {
-            "ru": "Гуманитарные коридоры работают с перебоями",
-            "en": "Humanitarian corridors operating intermittently"
+            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
+            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
           },
-          "url": "https://reliefweb.int/report/corridor-status",
           "domain": "reliefweb.int",
-          "date": "2026-08-27"
+          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
+          "publication_date": "2026-06-15",
+          "accessed_date": "2026-08-23",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         }
       ]
     },
@@ -52,22 +66,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "medium",
       "sources": [
         {
+          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
           "title": {
-            "ru": "Масштабные учения объявлены на следующий месяц",
-            "en": "Large-scale drills announced for next month"
+            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
+            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
           },
-          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
           "domain": "dw.com",
-          "date": "2026-08-25"
+          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
+          "publication_date": "2026-07-13",
+          "accessed_date": "2026-08-23",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": true
         },
         {
+          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
           "title": {
-            "ru": "Спутниковый анализ: новые позиции в приграничье",
-            "en": "Satellite analysis: new positions near the border"
+            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
+            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
           },
-          "url": "https://www.reuters.com/world/satellite-border-analysis",
           "domain": "reuters.com",
-          "date": "2026-08-27"
+          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
+          "publication_date": "2020-06-25",
+          "accessed_date": "2026-08-23",
+          "source_type": "OSINT",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         }
       ]
     }

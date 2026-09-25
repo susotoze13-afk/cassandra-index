@@ -1,6 +1,10 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
+  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
+  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
+  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
+  // state_affiliated: true только для dw.com). Тексты не изменены.
   s.regions["east-asia"] = {
   "index": 60,
   "delta": 8,
@@ -24,22 +28,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       },
       "sources": [
         {
+          "id": "reliefweb-int-report-mauritania-unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
           "title": {
-            "ru": "Инциденты в морской зоне: хроника за неделю",
-            "en": "Maritime incidents: week in review"
+            "ru": "УВКБ ООН: 144 человека, предположительно, погибли или пропали без вести у берегов Западной Африки",
+            "en": "UNHCR deeply saddened as 144 people reportedly dead or missing off West Africa"
           },
-          "url": "https://reliefweb.int/report/maritime-incidents-week",
           "domain": "reliefweb.int",
-          "date": "2026-09-01"
+          "url": "https://reliefweb.int/report/mauritania/unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
+          "publication_date": "2026-07-21",
+          "accessed_date": "2026-08-30",
+          "source_type": "OSINT",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         },
         {
+          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
           "title": {
-            "ru": "Масштабные учения объявлены на следующий месяц",
-            "en": "Large-scale drills announced for next month"
+            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
+            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
           },
-          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
           "domain": "dw.com",
-          "date": "2026-09-03"
+          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
+          "publication_date": "2026-07-13",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": true
         }
       ]
     },
@@ -56,22 +70,32 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "confidence": "high",
       "sources": [
         {
+          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
           "title": {
-            "ru": "В регионе проходят учения с боевой стрельбой",
-            "en": "Live-fire exercises under way in the region"
+            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
+            "en": "Charing Cross Tube station used for major military exercise"
           },
-          "url": "https://www.bbc.com/news/world-exercises",
           "domain": "bbc.com",
-          "date": "2026-09-01"
+          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
+          "publication_date": "2026-05-24",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         },
         {
+          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
           "title": {
-            "ru": "Парламенты утверждают рост оборонных расходов",
-            "en": "Parliaments approve higher defence spending"
+            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
+            "en": "Global military spending rise continues as European and Asian expenditures surge"
           },
-          "url": "https://www.sipri.org/media/press-release/budgets",
           "domain": "sipri.org",
-          "date": "2026-09-03"
+          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "publication_date": "2026-04-27",
+          "accessed_date": "2026-08-30",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         }
       ]
     }
