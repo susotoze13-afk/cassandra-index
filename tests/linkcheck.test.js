@@ -22,7 +22,8 @@ test('classify: 2xx/3xx → ok; 403 → blocked; прочее 4xx/5xx и обр�
   for (const s of [200, 204, 301, 302]) assert.equal(classify(s), 'ok', `status ${s}`);
   assert.equal(classify(403), 'blocked', 'bot-доступ запрещён — не битая ссылка');
   assert.equal(classify(406), 'blocked', 'интермитентный бот-фильтр — не битая ссылка');
-  for (const s of [400, 401, 404, 410, 418, 500, 503]) {
+  assert.equal(classify(401), 'blocked', 'Reuters site-wide bot-защита — не битая ссылка');
+  for (const s of [400, 404, 410, 418, 500, 503]) {
     assert.equal(classify(s), 'broken', `status ${s}`);
   }
   assert.equal(classify(null), 'blocked', 'ответ не получен (DNS/таймаут) — не битая ссылка');

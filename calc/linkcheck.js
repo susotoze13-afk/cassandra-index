@@ -16,14 +16,16 @@ const REQUEST_HEADERS = {
 };
 
 // 2xx/3xx → 'ok'; 403 → 'blocked' (D01: bot-доступ запрещён — Cloudflare
-// JS-challenge, страница может быть жива, это не битая ссылка); 406 →
-// 'blocked' (D03: интермитентный бот-фильтр, те же URL через минуту отдают
-// 202); 404/410 и прочее 4xx и 5xx → 'broken'; null (ответ не получен:
-// DNS/таймаут/обрыв) → 'blocked' (D02: недоступность из среды проверки ≠
-// битая страница).
+// JS-challenge, страница может быть жива, это не битая ссылка); 401 →
+// 'blocked' (Reuters site-wide: проверено 2026-09-25 — 401 на главной странице
+// и на заведомо несуществующем URL даже с браузерным User-Agent → bot-защита,
+// не битая страница); 406 → 'blocked' (D03: интермитентный бот-фильтр, те же
+// URL через минуту отдают 202); 404/410 и прочее 4xx и 5xx → 'broken'; null
+// (ответ не получен: DNS/таймаут/обрыв) → 'blocked' (D02: недоступность из
+// среды проверки ≠ битая страница).
 export function classify(status) {
   if (typeof status === 'number' && status >= 200 && status < 400) return 'ok';
-  if (status === 403 || status === 406 || status === null) return 'blocked';
+  if (status === 401 || status === 403 || status === 406 || status === null) return 'blocked';
   return 'broken';
 }
 

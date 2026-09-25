@@ -788,7 +788,7 @@ test('validate: все входы недель и якорей calc/input/**/*.j
     ...readdirSync(INPUT_DIR).filter((f) => f.endsWith('.json')),
     ...readdirSync(path.join(INPUT_DIR, 'anchors')).filter((f) => f.endsWith('.json')),
   ];
-  assert.equal(files.length, 13); // 3 недели + 10 якорей (6 прежних + 4 новых профилей)
+  assert.equal(files.length, 14); // 4 недели + 10 якорей (6 прежних + 4 новых профилей)
   for (const f of files) {
     const dir = f.includes('-') && /^\d{4}/.test(f) ? INPUT_DIR : path.join(INPUT_DIR, 'anchors');
     const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));

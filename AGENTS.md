@@ -14,9 +14,9 @@
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13) |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20) |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
-| Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 403/406/нет-ответа = заблокирована, не битая |
+| Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
 
 `node calc/calc.js --write` требует сети: перед записью собранный снапшот гоняется
@@ -54,7 +54,7 @@ calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R1
 calc/input/<неделя>.json  входные сигналы недели (45 критериев D1..D9, null = непокрыт,
                           опционально sources по R55)
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
-data/<YYYY-MM-DD>/        снапшоты 08-02…09-13 (7 недель): global/regions/region-*/
+data/<YYYY-MM-DD>/        снапшоты 08-02…09-20 (8 недель): global/regions/region-*/
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
@@ -75,12 +75,12 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал).
 - `calc/calibrate.js` — единственный шов маппинга входа → драйверы: `buildDrivers(input, params)`
   (используют и calibrate, и calc.js; в calc.js не дублируется).
-- `calc/linkcheck.js` — чистый модуль: `classify` (2xx/3xx → ok; 403/406/null → blocked;
+- `calc/linkcheck.js` — чистый модуль: `classify` (2xx/3xx → ok; 401/403/406/null → blocked;
   404/410/прочее → broken), `checkUrl` (fetchImpl прокидывается снаружи — шов тестов,
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
   `checkSources(items: {url, where})` → `{checked, ok, broken, blocked}`; ворота падают
   только по broken, blocked — предупреждение. Проверка последовательная — не долбить сайты.
-- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13'], старт
+- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20'], старт
   от опубликованного PREV_WEEK = '2026-08-23'; переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
@@ -113,7 +113,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
   `nextChainState` из calc.js (синтетические данные) + чистые модули сайта (i18n, risk,
   region, data). CLI — тонкая обвязка.
-- Схема источника R55 (во всех 7 неделях, включая региональные drivers): id,
+- Схема источника R55 (во всех 8 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
@@ -137,7 +137,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - Коммит и push — только оркестратор. Исполнитель-агент, закоммитивший сам, — инцидент;
   правки остаются рабочим деревом.
 - Сеть из среды проверки небезупречна: DNS не резолвит www.bbc.com/www.dw.com (проверять
-  извне, curl --resolve); apnews/crisisgroup/iaea — Cloudflare 403 на bot-запросы
+  извне, curl --resolve); apnews/crisisgroup/iaea — Cloudflare 403 на bot-запросы,
+  reuters.com — site-wide 401 даже на главной (D04, проверено 2026-09-25)
   (classify → blocked, не битые); reliefweb — интермитентный 406 (ретраится, финальный
   → blocked). blocked не роняет ворота и check-sources.
 - `data/latest.js` грузит через `document.write` — единственный способ без fetch на file://,
@@ -147,6 +148,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   старым. bundle руками не править; тесты идут против исходников.
 - Недели 08-02…08-23 в `data/` — непересчитываемая демо-история; calc.js откажется
   считать неделю вне RECALC_WEEKS.
+- Новая неделя требует редакционного сида ДО `--write`: `data/<неделя>/drivers.js`
+  (ровно 3 драйвера по контракту) и `region-*.js` (по 2 драйвера на регион) — иначе
+  ворото `validate` отклонит запись («drivers: exactly 3 required»). Источники сида —
+  verbatim-записи из `input.sources` по id (иначе linkcheck пойдёт проверять лишние URL).
 - Демо-снапшоты 08-30/09-06/09-13 побайтово идентичны по наблюдениям (D01) — driverConfidence
   у всех трёх одинакова, поэтому. trend-хвосты ручных неделей не равны их global.js
   (демо-данные противоречивы: у 08-23 опубликован 61, в trend-хвосте 67).
