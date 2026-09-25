@@ -1,5 +1,7 @@
 // calc.js — запуск расчёта недели: вход calc/input/<неделя>.json → engine →
 // печать результата; с --write обновляет числовые файлы снапшота в data/.
+// Перед записью: ворота ссылок-источников (linkcheck.checkSources, R03) —
+// при любом битом URL запись отклоняется, диск не трогается.
 // CLI — тонкая обвязка: вся математика в engine.js, маппинг входа — в
 // buildDrivers из calibrate.js (шов §4.2–§4.3, не дублируется здесь).
 //
@@ -21,6 +23,7 @@ import { PARAMS } from './params.js';
 import { aggregateDrivers, validate, regionalIndex, CRITERIA, detectFlashTriggers } from './engine.js';
 import { buildDrivers } from './calibrate.js';
 import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
+import { checkSources } from './linkcheck.js';
 import * as audit from './audit.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -128,6 +131,56 @@ export function validateInputSources(sources, params = PARAMS) {
     }
   });
   return errors;
+}
+
+// --- Сбор URL источников собранного снапшота (R03) ---
+// items { url, where } для linkcheck.checkSources: top-level sources,
+// drivers[].sources[] и региональные drivers[].sources[]. where — неделя +
+// путь записи, читаемый в сообщении об ошибке. Дубликаты URL схлопываются
+// (одна проверка на URL, первая where сохраняется).
+export function collectSourceItems(snap, week) {
+  const items = [];
+  const seen = new Set();
+  const push = (list, whereFn) => {
+    if (!Array.isArray(list)) return;
+    list.forEach((s, i) => {
+      if (!s || typeof s.url !== 'string' || s.url === '' || seen.has(s.url)) return;
+      seen.add(s.url);
+      items.push({ url: s.url, where: whereFn(i) });
+    });
+  };
+  const pushDrivers = (list, whereFn) => {
+    if (!Array.isArray(list)) return;
+    list.forEach((d, i) => push(d && d.sources, (k) => whereFn(i, k)));
+  };
+  push(snap.sources, (i) => `${week} sources[${i}]`);
+  pushDrivers(snap.drivers, (i, k) => `${week} drivers[${i}].sources[${k}]`);
+  if (snap.regions && typeof snap.regions === 'object') {
+    for (const [id, r] of Object.entries(snap.regions)) {
+      pushDrivers(r && r.drivers, (i, k) => `${week} regions.${id}.drivers[${i}].sources[${k}]`);
+    }
+  }
+  return items;
+}
+
+// --- Форматирование результата ворот ссылок (R03) ---
+const statusLabel = (status) => (status === null ? 'нет ответа' : `статус ${status}`);
+
+// Перечень битых URL для отказа записи: where, url, статус.
+function formatLinkGateFailure(report) {
+  const lines = [
+    `  ЗАПИСЬ ОТКЛОНЕНА проверкой ссылок: битых ${report.broken.length} из ${report.checked} ` +
+    `(ок ${report.ok}, заблокировано ${report.blocked.length}):`,
+  ];
+  for (const b of report.broken) lines.push(`    [${b.where}] ${b.url} — ${statusLabel(b.status)}`);
+  return lines;
+}
+
+// blocked (403) — предупреждение, публикацию не останавливает (D01).
+function formatLinkBlockedWarning(report) {
+  const lines = [`  предупреждение: ${report.blocked.length} ссылок заблокированы (403, не битые — публикация продолжается):`];
+  for (const b of report.blocked) lines.push(`    [${b.where}] ${b.url}`);
+  return lines;
 }
 
 // --- Детали flash-триггеров для audit-записи (R16–R19) ---
@@ -306,10 +359,12 @@ export function runWeek(week, state) {
 }
 
 // --- Запись числовых файлов недели ---
-// Самопроверка ДО записи: снапшот собирается в памяти (числа из расчёта,
-// защищённые поля — из уже опубликованных файлов) и гоняется через контракт
-// validate из js/data.js; при провале диск не трогаем. После успешной записи —
-// append-записи в audit: recalc (пересчёт) и, при срабатывании, flash.
+// Ворота ссылок (R03) раньше всего: собранный в памяти снапшот (числа из
+// расчёта, защищённые поля — из уже опубликованных файлов) прогоняется через
+// linkcheck.checkSources; при любом broken — отказ без записи. Затем
+// самопроверка контрактом validate из js/data.js; при провале диск не трогаем.
+// После успешной записи — append-записи в audit: recalc (пересчёт) и, при
+// срабатывании, flash.
 const round4 = (x) => Math.round(x * 10000) / 10000;
 const round3 = (x) => Math.round(x * 1000) / 1000;
 
@@ -339,7 +394,7 @@ function recalcDiff(snap, globalOut, meta) {
   return diff;
 }
 
-function writeWeek(res, state) {
+async function writeWeek(res, state) {
   const week = res.week;
   const snap = loadSnapshotPart(week, 'global') || {};
   const cls = res.classification;
@@ -399,8 +454,18 @@ function writeWeek(res, state) {
     const p = loadSnapshotPart(week, 'sources');
     if (p) full.sources = p.sources;
   }
+  // Ворота ссылок (R03): собранный снапшот прогоняется через
+  // linkcheck.checkSources ДО контрактной самопроверки и до любой записи;
+  // любой broken — отказ, диск не тронут. blocked — только предупреждение.
+  const linkItems = collectSourceItems(full, week);
+  process.stdout.write(`${week}: проверка ${linkItems.length} ссылок-источников…\n`);
+  const linkReport = await checkSources(linkItems);
+  if (linkReport.broken.length) {
+    return { ok: false, stage: 'links', report: linkReport };
+  }
+
   const v = validateSnapshot(full);
-  if (!v.ok) return { ok: false, errors: v.errors };
+  if (!v.ok) return { ok: false, stage: 'contract', errors: v.errors };
 
   const files = {
     'global.js': renderGlobal(week, snap, globalOut, meta),
@@ -449,11 +514,11 @@ function writeWeek(res, state) {
       flash: trigger,
     });
   }
-  return { ok: true };
+  return { ok: true, report: linkReport };
 }
 
 // --- Печать ---
-function printWeek(res, writeMode) {
+function printWeek(res, writeMode, writeRejected = false) {
   const lines = [];
   if (res.errors && res.errors.length) {
     lines.push(`=== ${res.week} === ОШИБКА`);
@@ -485,12 +550,12 @@ function printWeek(res, writeMode) {
   const replaced = res.trend.filter((p) => RECALC_SET.has(p.date)).length;
   const last = res.trend[res.trend.length - 1];
   lines.push(`trend: ${res.trend.length} точек, заменено ${replaced}, последняя ${last.date} = ${last.value === null ? 'null (не опубликована)' : last.value}`);
-  lines.push(writeMode ? 'write: записано' : 'write: нет (только печать)');
+  lines.push(writeMode ? (writeRejected ? 'write: ОТКЛОНЕНО (файлы не изменены)' : 'write: записано') : 'write: нет (только печать)');
   return lines;
 }
 
 // --- CLI ---
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   const writeMode = args.includes('--write');
   const weeks = args.filter((a) => !a.startsWith('--'));
@@ -535,14 +600,19 @@ function main() {
     }
     res.prevPublished = state.prevPublished;
     res.prevWeek = state.prevWeek;
+    let writeRejected = false;
     if (writeMode && targets.includes(week)) {
-      const check = writeWeek(res, state);
+      const check = await writeWeek(res, state);
       if (!check.ok) {
         failed = true;
-        out.push(`  ЗАПИСЬ ОТКЛОНЕНА контрактом data.js: ${check.errors.join('; ')}`);
+        writeRejected = true;
+        if (check.stage === 'links') out.push(...formatLinkGateFailure(check.report));
+        else out.push(`  ЗАПИСЬ ОТКЛОНЕНА контрактом data.js: ${check.errors.join('; ')}`);
+      } else if (check.report.blocked.length) {
+        out.push(...formatLinkBlockedWarning(check.report));
       }
     }
-    if (targets.includes(week)) out.push(...printWeek(res, writeMode));
+    if (targets.includes(week)) out.push(...printWeek(res, writeMode, writeRejected));
     // Продвижение цепочки: insufficient-неделя не двигает lastValid —
     // следующая валидная считает инерцию от последнего валидного internal.
     Object.assign(state, nextChainState(state, res));
@@ -552,4 +622,9 @@ function main() {
 }
 
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (invokedDirectly) main();
+if (invokedDirectly) {
+  main().catch((e) => {
+    process.stdout.write(`ошибка: ${e && e.message ? e.message : e}\n`);
+    process.exitCode = 1;
+  });
+}
