@@ -1,0 +1,474 @@
+{
+  "week": "1983-11-07",
+  "params": "calc/params.js",
+  "note": "Модельный профиль для калибровки шкалы §9, не архивная реконструкция. Закодирован по публично известным событиям (открытые обзоры, Wikipedia, опубликованные архивы). Неделя учений НАТО Able Archer 83 (7–11 ноября 1983) на фоне ракетно-ядерного кризиса: размещение «Першингов-2», дело KAL 007, операция RYAN и советская «война-страх». Трактовка Д1: крупномасштабные учения с движением реальных сил и отработкой перехода к ядерному применению — высокая активность без боевых действий (Д1.4 — без ударов). Трактовка Д2: подъём готовности советских ядерных сил (авиация в Польше и ГДР, дежурство штабов) и максимально жёсткая риторика обеих сторон — сигнальная активность высокой интенсивности без зафиксированных приготовлений к применению. Трактовка Д7: конфронтация носит блоковой характер (учения ОВД, FleetEx, Гренада), прямого столкновения держав нет — Д7.3 = 0.",
+  "anchor": {
+    "id": "able-archer-1983",
+    "title": "Able Archer 83",
+    "type": "ядерный сигнальный",
+    "target": [
+      81,
+      96
+    ],
+    "rollingOrigin": "verify"
+  },
+  "criteria": {
+    "D1.1": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Учения без боевых применений: интенсивность высокая, ударов по объектам нет"
+    },
+    "D1.5": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.2": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Советские ядерные силы приведены в повышенную готовность в период учений"
+    },
+    "D2.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.4": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Публичная риторика о недопустимости первого удара и применения ядерного оружия — максимальная сигнальная громкость"
+    },
+    "D2.5": null,
+    "D3.1": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.3": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Дипломатический трек близок к разрыву: выходы из переговорных форматов по ракетам средней дальности"
+    },
+    "D3.4": null,
+    "D3.5": null,
+    "D4.1": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.5": null,
+    "D5.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.2": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Пропагандистская кампания максимальной интенсивности с обеих сторон"
+    },
+    "D5.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.4": null,
+    "D6.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Массовой мобилизации нет: советские меры — гражданская оборона и учения, не призыв"
+    },
+    "D6.4": null,
+    "D7.1": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.2": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Блоковое вовлечение: учения ОВД, морские силы США (FleetEx), операция в Гренаде месяцем ранее"
+    },
+    "D7.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.4": null,
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Операция RYAN: систематический сбор западных источников о признаках готовности к первому удару"
+    },
+    "D9.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.5": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6a": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Усиление контроля над информационным пространством и иностранными корреспондентами"
+    },
+    "D9.6b": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Подготовительные меры вокруг руководства (режимные учения, эвакуационные отработки)"
+    },
+    "D9.7": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Able_Archer_83",
+          "date": "1983-11-07",
+          "cluster": "C-registries"
+        }
+      ]
+    }
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high"
+    },
+    "D2": {
+      "level": "high",
+      "reason": "подъём готовности советских ядерных сил и риторика — высокая сигнальная активность; приготовлений к применению не зафиксировано (см. note файла)"
+    },
+    "D3": {
+      "level": "high"
+    },
+    "D4": {
+      "level": "high"
+    },
+    "D5": {
+      "level": "high"
+    },
+    "D6": {
+      "level": "high",
+      "reason": "мобилизационные меры ограничены гражданской обороной: Д6.3 = 0 (см. note файла)"
+    },
+    "D7": {
+      "level": "high"
+    },
+    "D8": {
+      "level": "high"
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "косвенные сигналы (модельный профиль)"
+    }
+  }
+}

@@ -1,0 +1,517 @@
+{
+  "week": "1973-10-22",
+  "params": "calc/params.js",
+  "note": "Модельный профиль для калибровки шкалы §9, не архивная реконструкция. Закодирован по публично известным событиям (открытые обзоры, Wikipedia). Неделя 22–28 октября 1973: война Судного дня завершается, резолюции СБ ООН 338/339, прекращение огня, супердержавное противостояние (воздушный мост США, советская готовность воздушно-десантных сил, морские силы обеих держав в Средиземном море). Трактовка Д2: подъём ядерной готовности реален (DEFCON 3 для американских стратегических сил, советские меры готовности), но без публичной риторики о применении — Д2.4 = 0.33. Трактовка Д7.3 = 1: прямая военная поддержка союзниками обеих сторон (стратегическая переброска), кризис недели отвечает условиям Flash-триггера по §2.1 — для якорного профиля это ожидаемо. Трактовка Д8: прекращение огня и резолюции СБ ООН — подтверждённые деэскалирующие исходы умеренной глубины (0.33), не всеобъемлющее мирное соглашение.",
+  "anchor": {
+    "id": "yom-kippur-1973",
+    "title": "Война Судного дня 1973",
+    "type": "конвенциональный большой",
+    "target": [
+      61,
+      80
+    ],
+    "rollingOrigin": "select"
+  },
+  "criteria": {
+    "D1.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.5": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.6": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Принятие резолюций СБ ООН и прекращение огня на египетском направлении"
+    },
+    "D2.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.2": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Американские стратегические силы переведены на уровень DEFCON 3, советские силы — в повышенную готовность"
+    },
+    "D2.3": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Несколько низкоинтенсивных событий сигнальной активности: изменения готовности без публичных заявлений"
+    },
+    "D2.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Публичная риторика о применении отсутствует; наращивание готовности фиксируется по косвенным признакам"
+    },
+    "D2.5": null,
+    "D3.1": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Дипломатическая эскалация к моменту недели снята резолюциями СБ ООН: новых разрывов и демаршей нет"
+    },
+    "D3.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.3": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Дипломатический трек деэскалации активен: резолюции СБ ООН, миссии Киссинджера"
+    },
+    "D3.5": null,
+    "D4.1": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Экономические меры ограничены нефтяным инструментом (Д4.4) — торговых и санкционных блокад нет"
+    },
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Нефтяное эмбарго ОПЕК (объявлено 19–21 октября): ценовой шок и перебои снабжения"
+    },
+    "D4.5": null,
+    "D5.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.2": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.4": null,
+    "D6.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Полная мобилизация Израиля (свыше 300 тыс. человек), срочная мобилизация резервов"
+    },
+    "D6.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.1": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Прямая военная поддержка союзниками: стратегический воздушный мост США и советская морская переброска"
+    },
+    "D7.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Прекращение огня и резолюции СБ ООН 338/339 — подтверждённый деэскалирующий исход умеренной глубины"
+    },
+    "D8.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Окна снижения интенсивности: переход от боевых действий к прекращению огня"
+    },
+    "D9.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6a": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6b": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.7": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    }
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high"
+    },
+    "D2": {
+      "level": "high",
+      "reason": "DEFCON 3 и советские меры готовности — высокая сигнальная активность без публичной риторики (см. note файла)"
+    },
+    "D3": {
+      "level": "high"
+    },
+    "D4": {
+      "level": "high"
+    },
+    "D5": {
+      "level": "high"
+    },
+    "D6": {
+      "level": "high"
+    },
+    "D7": {
+      "level": "high",
+      "reason": "прямая военная поддержка союзниками обеих сторон (Д7.3 = 1) — условие Flash-триггера, ожидаемо для якоря (см. note файла)"
+    },
+    "D8": {
+      "level": "high",
+      "reason": "деэскалирующие исходы умеренной глубины — прекращение огня, не мирный договор (см. note файла)"
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "косвенные сигналы (модельный профиль)"
+    }
+  }
+}

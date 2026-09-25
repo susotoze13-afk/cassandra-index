@@ -1,0 +1,470 @@
+{
+  "week": "1999-06-28",
+  "params": "calc/params.js",
+  "note": "Модельный профиль для калибровки шкалы §9, не архивная реконструкция. Закодирован по публично известным событиям (открытые обзоры, Wikipedia). Пик Каргильской войны (конец мая — июнь 1999): ограниченная высокогорная война Индия–Пакистан под ядерным зонтиком (испытания 1998 года). Трактовка Д2: ядерный фон кризиса поднят (обе стороны — ядерные державы), но без подъёма готовности сил и без прямой ядерной риторики — низкая сигнальная активность. Трактовка Д7: конфликт региональный, вовлечение третьих сторон дипломатическое (США, G8), прямой военной поддержки нет — Д7.3 = 0. Трактовка Д8: лахорский дипломатический процесс формально сохраняется, интенсивность конфронтации к концу июня снижается (Д8.4 = 0.33).",
+  "anchor": {
+    "id": "kargil-1999",
+    "title": "Каргил 1999",
+    "type": "конвенциональный региональный",
+    "target": [
+      41,
+      60
+    ],
+    "rollingOrigin": "select"
+  },
+  "criteria": {
+    "D1.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Боевые действия интенсивные, но локальные (высокогорный сектор): без ударов по стратегическим объектам"
+    },
+    "D1.5": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Ядерный фон кризиса: обе стороны провели испытания в 1998 году, доктринные заявления продолжаются"
+    },
+    "D2.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.3": {
+      "value": 0.2,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Единичные низкоинтенсивные сигналы: доктринные заявления и демонстрационные запуски ракет в предкризисный период"
+    },
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.5": null,
+    "D3.1": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.3": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.4": null,
+    "D3.5": null,
+    "D4.1": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.4": {
+      "value": 0.2,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.5": null,
+    "D5.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.2": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.4": null,
+    "D6.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.4": null,
+    "D7.1": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Вовлечение третьих сторон дипломатическое: посреднические контакты США и заявления G8"
+    },
+    "D7.2": {
+      "value": 0.2,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.4": null,
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Лахорский процесс формально сохраняется; развязка через совместное заявление Клинтон–Шариф (4 июля 1999)"
+    },
+    "D8.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "К концу июня интенсивность боевых действий снижается после ключевых операций"
+    },
+    "D9.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6a": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6b": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.7": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    }
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high"
+    },
+    "D2": {
+      "level": "high",
+      "reason": "ядерный фон поднят, сигнальная активность низкая (см. note файла)"
+    },
+    "D3": {
+      "level": "high"
+    },
+    "D4": {
+      "level": "high"
+    },
+    "D5": {
+      "level": "high"
+    },
+    "D6": {
+      "level": "high"
+    },
+    "D7": {
+      "level": "high",
+      "reason": "конфликт региональный, прямого вовлечения третьих сторон нет (см. note файла)"
+    },
+    "D8": {
+      "level": "high"
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "косвенные сигналы (модельный профиль)"
+    }
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "week": "2003-03-24",
+  "params": "calc/params.js",
+  "note": "Модельный профиль для калибровки шкалы §9, не архивная реконструкция. Закодирован по публично известным событиям (открытые обзоры, Wikipedia). Неделя 24 марта 2003: операция «Иракская свобода» в первую неделю — удары «шок и трепет», наземное наступление. Конвенциональная операция без ядерного измерения: Д2 низкий. Дипломатический трек исчерпан (ультиматум 17 марта, вывод инспекторов ООН, отказ Турции от северного фронта). Трактовка Д7.3 = 1: прямая участие вооружённых сил коалиции (США, Великобритания, Австралия). Трактовка Д8 = 0: подтверждённых деэскалирующих исходов на этой неделе нет.",
+  "anchor": {
+    "id": "iraq-2003",
+    "title": "Вторжение в Ирак 2003 (преддверие и начало операции)",
+    "type": "конвенциональный",
+    "target": [
+      61,
+      80
+    ],
+    "rollingOrigin": "select"
+  },
+  "criteria": {
+    "D1.1": {
+      "value": 0.8,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.5": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Ядерное измерение отсутствует: низкий фоновый контекст, без приготовлений сил"
+    },
+    "D2.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.3": {
+      "value": 0.2,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D2.5": null,
+    "D3.1": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Дипломатический трек исчерпан: ультиматум и вывод инспекторов ООН, новых инициатив нет"
+    },
+    "D3.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.3": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Дипломатическая эскалация исчерпана: ультиматум просрочен, новых демаршей нет"
+    },
+    "D3.4": null,
+    "D3.5": null,
+    "D4.1": {
+      "value": 0.4,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Экономические инциденты ограничены: рынок нефти и военные расходы — блокад и санкционных режимов нет"
+    },
+    "D4.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Экономическое измерение ограничено рынком нефти и военными расходами — блокад и санкций против третьих сторон нет"
+    },
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.4": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.5": null,
+    "D5.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Информационное измерение масштабное: встроенные журналисты, психологические операции, управление повесткой"
+    },
+    "D5.2": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D5.4": null,
+    "D6.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D6.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Мобилизация иракской армии (срочная) и мобилизация резервов стран коалиции: бинарный критерий = 1"
+    },
+    "D6.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D7.1": {
+      "value": 0.6,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Развёртывание через регион: базы в Персидском заливе, Иордании и Катаре (инфраструктура подготовлена заранее)"
+    },
+    "D7.2": {
+      "value": 0.2,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Третьи стороны вне коалиции не вовлечены: Турция отказала в развёртывании, Иран — нейтрален"
+    },
+    "D7.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Прямая участие вооружённых сил коалиции: США, Великобритания, Австралия"
+    },
+    "D7.4": null,
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Подтверждённых деэскалирующих исходов на неделе нет"
+    },
+    "D8.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D8.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ],
+      "note": "Сигналы подготовки предшествующих недель (закупки, медицина, резервы) перешли в открытое наблюдение"
+    },
+    "D9.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6a": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.6b": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D9.7": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    }
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high"
+    },
+    "D2": {
+      "level": "high",
+      "reason": "ядерное измерение отсутствует (см. note файла)"
+    },
+    "D3": {
+      "level": "high"
+    },
+    "D4": {
+      "level": "high"
+    },
+    "D5": {
+      "level": "high"
+    },
+    "D6": {
+      "level": "high"
+    },
+    "D7": {
+      "level": "high",
+      "reason": "прямая участие вооружённых сил коалиции (Д7.3 = 1) — условие Flash-триггера, ожидаемо для якоря (см. note файла)"
+    },
+    "D8": {
+      "level": "high",
+      "reason": "деэскалирующих исходов нет (см. note файла)"
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "косвенные сигналы (модельный профиль)"
+    }
+  }
+}

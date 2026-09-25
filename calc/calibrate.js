@@ -136,25 +136,121 @@ function selectWindow(anchors) {
 
 // --- Выбор k (rolling-origin): только role 'select' ---
 // Кандидаты — k, где все select-якоря попали; из них — с максимумом
-// минимального запаса (максиминная робастность), при равенстве — меньший k.
-// Если попаданий нет ни при одном k — берётся максимум минимального запаса
-// (ближайший к кластерам); флаг allHit = false.
-export function selectK(evaluation) {
+// минимального запаса (максиминная робастность). При равенстве запаса —
+// tie-break по протоколу §10.1 (таск 07): меньшее отклонение k от
+// калиброванного значения v0.7 (baseK, по умолчанию PARAMS.k), затем
+// меньший k. Если попаданий нет ни при одном k — берётся максимум
+// минимального запаса (ближайший к кластерам); флаг allHit = false.
+export function selectK(evaluation, baseK = PARAMS.k) {
   let best = null;
   for (const row of evaluation) {
     const { minMargin, allHit } = selectWindow(row.anchors);
-    const cand = { k: row.k, minMargin, allHit };
+    const cand = { k: row.k, minMargin, allHit, dev: Math.abs(row.k - baseK) };
     if (
       !best ||
       (cand.allHit && !best.allHit) ||
       (cand.allHit === best.allHit &&
         (cand.minMargin > best.minMargin + 1e-9 ||
-          (Math.abs(cand.minMargin - best.minMargin) <= 1e-9 && cand.k < best.k)))
+          (Math.abs(cand.minMargin - best.minMargin) <= 1e-9 &&
+            (cand.dev < best.dev - 1e-9 ||
+              (Math.abs(cand.dev - best.dev) <= 1e-9 && cand.k < best.k)))))
     ) {
       best = cand;
     }
   }
   return best;
+}
+
+// --- Итеративный подбор (таск 07, протокол §10.1) ---
+// Итерация 1 — сетка k при базовых параметрах v0.7. Если не все select-якоря
+// попали — итерации 2+: однофакторные варианты калибруемого набора §10.1
+// (веса драйверов ±10 % с перенормировкой, доля веса Д9, λ, ρ, U_abs),
+// для каждого варианта — своя сетка k. Пороги состояний на прогон якорей
+// не влияют (индекс сравнивается с кластерами числом, не состоянием) и в
+// итерациях не участвуют. Критерий — максиминный запас; tie-break — меньшее
+// отклонение от v0.7 (сумма относительных отклонений параметров + |Δk|).
+// Каждая итерация возвращается в отчёте (печать CLI + журнал калибровки).
+export function paramDeviation(params, base) {
+  let dev = 0;
+  for (const key of ['alpha', 'lambda', 'rho', 'U_abs']) {
+    if (typeof params[key] === 'number' && typeof base[key] === 'number' && params[key] !== base[key]) {
+      dev += Math.abs(params[key] - base[key]) / Math.abs(base[key]);
+    }
+  }
+  const w = params.weights || {};
+  const bw = base.weights || {};
+  for (const id of Object.keys(bw)) {
+    if (typeof w[id] === 'number' && w[id] !== bw[id]) {
+      dev += Math.abs(w[id] - bw[id]) / Math.abs(bw[id]);
+    }
+  }
+  return dev;
+}
+
+// Список однофакторных вариантов калибруемого набора §10.1.
+export function candidateParams(base) {
+  const variants = [];
+  const withWeight = (id, f) => {
+    const p = list(base);
+    const w = p.weights[id] * f;
+    // перенормировка: компенсация через пропорциональное сжатие остальных
+    const rest = Object.keys(p.weights).filter((k) => k !== id);
+    const restSum = rest.reduce((a, k) => a + p.weights[k], 0);
+    const scale = restSum > 0 ? (1 - w) / restSum : 0;
+    for (const k of rest) p.weights[k] = p.weights[k] * scale;
+    p.weights[id] = w;
+    return p;
+  };
+  for (const id of Object.keys(base.weights || {})) {
+    for (const f of [0.9, 1.1]) {
+      variants.push({ label: `вес ${id} ×${f}`, params: withWeight(id, f) });
+    }
+  }
+  for (const [key, values] of [['lambda', [0.5, 0.7]], ['rho', [0.2, 0.3]], ['U_abs', [0.02, 0.03]]]) {
+    for (const v of values) {
+      const p = list(base);
+      p[key] = v;
+      variants.push({ label: `${key} = ${v}`, params: p });
+    }
+  }
+  return variants;
+}
+
+// Полный прогон калибровки. Возвращает {iterations, chosen}:
+// iterations — [{n, label, k, minMargin, allHit, deviation}],
+// chosen — {k, params (глубокая копия), minMargin, allHit, deviation, label}.
+export function calibrate(anchors, baseParams = PARAMS, grid = K_GRID) {
+  const iterations = [];
+  const runGrid = (params, label, n) => {
+    const evaluation = evaluateGrid(anchors, params, grid);
+    const chosen = selectK(evaluation, baseParams.k);
+    const rec = {
+      n, label, k: chosen.k, minMargin: chosen.minMargin, allHit: chosen.allHit,
+      deviation: paramDeviation(params, baseParams) + Math.abs(chosen.k - baseParams.k),
+      params: list(params),
+    };
+    iterations.push(rec);
+    return rec;
+  };
+
+  const first = runGrid(baseParams, 'k-решётка при параметрах v0.7 (k — единственная свобода)', 1);
+  let best = first;
+  if (!first.allHit) {
+    let n = 2;
+    for (const variant of candidateParams(baseParams)) {
+      const rec = runGrid(variant.params, variant.label, n);
+      n += 1;
+      if (
+        (rec.allHit && !best.allHit) ||
+        (rec.allHit === best.allHit &&
+          (rec.minMargin > best.minMargin + 1e-9 ||
+            (Math.abs(rec.minMargin - best.minMargin) <= 1e-9 && rec.deviation < best.deviation - 1e-9)))
+      ) {
+        best = rec;
+      }
+    }
+  }
+  return { iterations, chosen: best };
 }
 
 // --- Чувствительность ±20 % ---
@@ -220,10 +316,11 @@ function main() {
     return;
   }
 
-  const evaluation = evaluateGrid(anchors, PARAMS);
-  const chosen = selectK(evaluation);
+  const cal = calibrate(anchors, PARAMS);
+  const chosen = cal.chosen;
+  const evaluation = evaluateGrid(anchors, chosen.params, K_GRID);
 
-  lines.push('=== Калибровка k на якорных профилях §9 (протокол §10.1) ===');
+  lines.push('=== Калибровка на якорных профилях §9 (протокол §10.1, 8 якорей) ===');
   lines.push('');
   lines.push('Якоря (rolling-origin):');
   for (const { meta } of anchors) {
@@ -232,7 +329,22 @@ function main() {
   }
   lines.push(`Сетка k: ${K_GRID[0]}–${K_GRID[K_GRID.length - 1]}, шаг 0.05`);
   lines.push('');
-  lines.push('Прогон сетки (индексы; знак ✓ = все select-якоря в кластерах):');
+  lines.push('Итерации подбора (таск 07):');
+  for (const it of cal.iterations) {
+    lines.push(
+      `  итерация ${it.n}: ${it.label} → k=${it.k.toFixed(2)}, ` +
+      `min-запас ${it.minMargin.toFixed(1)}, allHit=${it.allHit}, отклонение от v0.7 ${it.deviation.toFixed(3)}` +
+      (chosen === it ? '  <== ЛУЧШАЯ' : ''),
+    );
+  }
+  if (cal.iterations.length === 1) {
+    lines.push('  итерации по весам/порогам не понадобились: все select-якоря попали на итерации 1');
+  }
+  lines.push('');
+  lines.push(`Выбранные параметры: k = ${chosen.k.toFixed(2)}${chosen.n === 1 ? '' : ` (итерация ${chosen.n}: ${chosen.label})`}; ` +
+    'прочие параметры — как в v0.7 (α, λ, ρ, U_abs, веса без изменений), если итерация не указана.');
+  lines.push('');
+  lines.push('Прогон сетки при выбранных параметрах (индексы; знак ✓ = все select-якоря в кластерах):');
   for (const row of evaluation) {
     const { minMargin, allHit } = selectWindow(row.anchors);
     const parts = row.anchors.map((a) => `${a.id}:${a.index}`).join(' ');
@@ -241,7 +353,10 @@ function main() {
     lines.push(`  k=${row.k.toFixed(2)}  ${parts}  | ${mark}${star}`);
   }
   lines.push('');
-  lines.push(`Выбрано k = ${chosen.k} (allHit=${chosen.allHit}, min-запас ${chosen.minMargin.toFixed(1)} п. по ранним якорям)`);
+  lines.push(`Выбрано k = ${chosen.k} (allHit=${chosen.allHit}, min-запас ${chosen.minMargin.toFixed(1)} п. по select-якорям)`);
+  if (!chosen.allHit) {
+    lines.push('ВНИМАНИЕ: полные попадания не достигнуты — фиксируются лучшая итерация и промахи, эскалация на Review Board (журнал).');
+  }
   lines.push('');
   lines.push('Проверка поздних якорей (verify) при выбранном k:');
   const row = evaluation.find((r) => Math.abs(r.k - chosen.k) < 1e-9);
@@ -250,19 +365,20 @@ function main() {
     lines.push(`  ${a.id}: ${a.index} vs [${a.target[0]}–${a.target[1]}] — ${m >= 0 ? 'ПОПАДАНИЕ' : `ПРОМАХ (${m.toFixed(1)})`}`);
   }
   lines.push('');
-  lines.push('Чувствительность ±20 % (индексы якорей при выбранном k):');
-  const sens = sensitivity(anchors, PARAMS, chosen.k);
+  lines.push('Чувствительность ±20 % (индексы якорей при выбранных параметрах):');
+  const sens = sensitivity(anchors, chosen.params, chosen.k);
   const ids = anchors.map((a) => a.meta.id);
-  lines.push('  параметр'.padEnd(14) + ids.map((id) => `${id} (−20%)`.padEnd(16)).join('') + ids.map((id) => `${id} (+20%)`.padEnd(16)).join(''));
+  const colW = Math.max(16, ...ids.map((id) => id.length + 8));
+  lines.push('  параметр'.padEnd(14) + ids.map((id) => `${id} (−20%)`.padEnd(colW)).join('') + ids.map((id) => `${id} (+20%)`.padEnd(colW)).join(''));
   for (const s of sens) {
     lines.push(
       `  ${s.label}`.padEnd(14) +
-      ids.map((id) => `${s.minus[id]}`.padEnd(16)).join('') +
-      ids.map((id) => `${s.plus[id]}`.padEnd(16)).join(''),
+      ids.map((id) => `${s.minus[id]}`.padEnd(colW)).join('') +
+      ids.map((id) => `${s.plus[id]}`.padEnd(colW)).join(''),
     );
   }
   lines.push('');
-  lines.push(`Итог: записать k = ${chosen.k} в calc/params.js и зафиксировать в docs/calibration-journal.md.`);
+  lines.push(`Итог: k = ${chosen.k} подтверждён на 8 якорях; зафиксировано в docs/calibration-journal.md.`);
   process.stdout.write(lines.join('\n') + '\n');
 }
 

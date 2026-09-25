@@ -5,8 +5,13 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { selectK, buildDrivers } from '../calc/calibrate.js';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import { selectK, buildDrivers, loadAnchors, calibrate, runAnchor } from '../calc/calibrate.js';
+import { validate } from '../calc/engine.js';
 import { PARAMS } from '../calc/params.js';
+
+const ANCHORS_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'calc', 'input', 'anchors');
 
 test('selectK: max минимального запаса среди k с полным попаданием ранних якорей; verify игнорируется', () => {
   // Запас (margin) якоря = min(index − lo, hi − index); промах → k не кандидат.
@@ -115,4 +120,57 @@ test('buildDrivers: счётный критерий со events нормируе
   const plain = buildDrivers(mk({ covered: true, value: 1, sources: src }));
   assert.equal(capped.find((d) => d.id === 'D1').score, plain.find((d) => d.id === 'D1').score);
   assert.equal(PARAMS.capCount, 5);
+});
+
+test('selectK: равный minMargin → tie-break к k v0.7 (меньшее отклонение от baseK), не к меньшему k', () => {
+  // Протокол §10.1 (таск 07): при равном запасе предпочтение — параметрам,
+  // ближайшим к v0.7. baseK = 2.0: k=2.0 отклоняется на 0, k=1.7 на 0.3.
+  const mk = (k) => ({
+    k,
+    anchors: [{ id: 'a', index: 10, target: [0, 20], role: 'select' }],
+  });
+  const r = selectK([mk(1.7), mk(2.0)], 2.0);
+  assert.equal(r.k, 2.0);
+});
+
+test('anchors: 10 профилей (6 старых + 4 новых), все валидны через validate', () => {
+  const anchors = loadAnchors(ANCHORS_DIR);
+  assert.equal(anchors.length, 10);
+  const ids = anchors.map((a) => a.meta.id).sort();
+  for (const id of [
+    'able-archer-1983', 'crimea-2014', 'cuban-1962', 'feb2022', 'georgia-2008',
+    'iraq-2003', 'kargil-1999', 'proxy-sanctions-2018', 'routine-2010s', 'yom-kippur-1973',
+  ]) {
+    assert.ok(ids.includes(id), `профиль ${id} присутствует`);
+  }
+  for (const a of anchors) {
+    assert.deepEqual(validate(a.input), [], `профиль ${a.file} проходит validate`);
+  }
+  const byId = Object.fromEntries(anchors.map((a) => [a.meta.id, a.meta]));
+  // Роли и целевые диапазоны новых якорей — по §9 v0.7 и тикету 07
+  assert.deepEqual(byId['able-archer-1983'].target, [81, 96]);
+  assert.equal(byId['able-archer-1983'].rollingOrigin, 'verify');
+  assert.deepEqual(byId['kargil-1999'].target, [41, 60]);
+  assert.equal(byId['kargil-1999'].rollingOrigin, 'select');
+  assert.deepEqual(byId['yom-kippur-1973'].target, [61, 80]);
+  assert.equal(byId['yom-kippur-1973'].rollingOrigin, 'select');
+  assert.deepEqual(byId['iraq-2003'].target, [61, 80]);
+  assert.equal(byId['iraq-2003'].rollingOrigin, 'select');
+});
+
+test('calibrate: 8 якорей — k=1.95 (параметры v0.7), все select попадают, verify в диапазонах', () => {
+  const anchors = loadAnchors(ANCHORS_DIR);
+  const { chosen, iterations } = calibrate(anchors, PARAMS);
+  // k=1.95 — калиброванное значение v0.7; на 8 якорях подтверждено без
+  // итераций по весам/порогам (значение из журнала калибровки, не из кода).
+  assert.equal(chosen.k, 1.95);
+  assert.equal(chosen.allHit, true);
+  assert.ok(chosen.minMargin >= 6, `min-запас ${chosen.minMargin} ≥ 6`);
+  assert.equal(iterations.length, 1, 'достаточно итерации 1 (k-решётка)');
+  assert.equal(PARAMS.k, 1.95);
+  for (const { meta, input } of anchors) {
+    const idx = runAnchor(input, chosen.params).result.index;
+    const m = Math.min(idx - meta.target[0], meta.target[1] - idx);
+    assert.ok(m >= 0, `${meta.id}: ${idx} в [${meta.target[0]}–${meta.target[1]}]`);
+  }
 });

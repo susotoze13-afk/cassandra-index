@@ -13,8 +13,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
         "en": "Truce talks have intensified among neighbouring states in the region."
       },
       "why": {
-        "ru": "Переговорный трек снижает вероятность распространения конфликта.",
-        "en": "A negotiation track lowers the chance of the conflict spreading."
+        "ru": "Переговорный трек снижает риск распространения конфликта.",
+        "en": "A negotiation track lowers the risk of the conflict spreading."
       },
       "contribution": "medium",
       "confidence": "medium",
