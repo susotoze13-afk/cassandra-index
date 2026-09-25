@@ -71,3 +71,71 @@ test('resolveMeasures: из снапшота / дефолты при отсут�
   assert.deepEqual(resolveMeasures({ measures: { direct: 'extreme', nuclear: null } }),
     { direct: 'high', nuclear: 'low' });
 });
+
+// R56: единая сортировка источников — тип (primary=0, OSINT=1, secondary=2),
+// затем дата publication_date по убыванию (новые выше), затем домен по алфавиту.
+// Ожидания разобраны вручную от фикстуры ниже.
+import { sortSources, sourcesOpenState, rememberSourcesOpen, SOURCES_OPEN_KEY, SOURCES_OPEN_TTL_MS } from '../js/sections/drivers.js';
+
+function src(type, publicationDate, domain) {
+  return {
+    id: `${domain}-${publicationDate}`,
+    title: { ru: 'Источник', en: 'Source' },
+    domain,
+    url: `https://${domain}/report`,
+    publication_date: publicationDate,
+    accessed_date: '2026-09-13',
+    source_type: type,
+    cluster_id: 'A-mainstream',
+    state_affiliated: false,
+  };
+}
+
+test('sortSources: тип → дата (новые выше) → домен (алфавит), вход не мутируется', () => {
+  const input = [
+    src('secondary', '2026-09-01', 'aaa.example'),
+    src('primary', '2026-08-01', 'zzz.example'),
+    src('OSINT', '2026-09-05', 'mmm.example'),
+    src('primary', '2026-09-02', 'bbb.example'),
+    src('primary', '2026-09-02', 'aaa.example'),
+  ];
+  const before = input.slice();
+  const sorted = sortSources(input);
+  // primary 09-02: aaa раньше bbb (домен), затем primary 08-01; дальше OSINT, secondary
+  assert.deepEqual(
+    sorted.map((s) => `${s.source_type} ${s.domain} ${s.publication_date}`),
+    [
+      'primary aaa.example 2026-09-02',
+      'primary bbb.example 2026-09-02',
+      'primary zzz.example 2026-08-01',
+      'OSINT mmm.example 2026-09-05',
+      'secondary aaa.example 2026-09-01',
+    ]
+  );
+  assert.deepEqual(input, before, 'входной массив не должен меняться');
+});
+
+test('sortSources: легаси-источники (только date) сортируются как secondary', () => {
+  const legacy = { title: { ru: 'Т', en: 'T' }, url: 'https://a.example/x', domain: 'a.example', date: '2026-09-10' };
+  const primary = src('primary', '2026-09-01', 'z.example');
+  assert.deepEqual(sortSources([legacy, primary]).map((s) => s.domain), ['z.example', 'a.example']);
+});
+
+// R57: разворот аккордеона источников живёт в sessionStorage ≤ 30 минут;
+// чтение — чистый шов с подменой хранилища и времени.
+test('sourcesOpenState: новая сессия свёрнута; свежая метка — развёрнут; после 30 минут — свёрнут', () => {
+  const fake = (map) => ({
+    getItem: (k) => (k in map ? map[k] : null),
+    setItem: (k, v) => { map[k] = v; },
+  });
+  const t0 = 1_800_000_000_000;
+  const fresh = fake({});
+  rememberSourcesOpen(fresh, t0);
+  assert.equal(sourcesOpenState(fresh, t0), true);
+  assert.equal(sourcesOpenState(fresh, t0 + SOURCES_OPEN_TTL_MS), true, 'ровно 30 минут — ещё живёт');
+  assert.equal(sourcesOpenState(fresh, t0 + SOURCES_OPEN_TTL_MS + 1), false, 'истекло — свёрнут');
+  assert.equal(sourcesOpenState(fake({}), t0), false, 'новая сессия — свёрнут');
+  // битое значение — не разворачиваем
+  assert.equal(sourcesOpenState(fake({ [SOURCES_OPEN_KEY]: 'не-json' }), t0), false);
+  assert.equal(sourcesOpenState(null, t0), false, 'хранилище недоступно — свёрнут, без исключений');
+});

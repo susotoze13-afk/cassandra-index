@@ -8,6 +8,7 @@ import {
   tooltipDate,
   summaryText,
   clampX,
+  trendSegments,
 } from '../js/sections/trend.js';
 
 // §4.4 / История 13 — подпись «текущее / неделю назад / направление»: Δ со знаком.
@@ -27,12 +28,23 @@ test('arrowOf и directionOf по знаку дельты', () => {
   assert.equal(directionOf(0), 'flat');
 });
 
-// Каждая точка графика: aria-label «значение, дата» на языке интерфейса (§19.25 —
-// данные дублируются в aria-label вместо aria-live).
-test('pointAriaLabel: «значение, дата» RU и EN', () => {
+// R63: aria-label точки — «Дата: X, Индекс: Y, Состояние: Z» на языке интерфейса.
+// Состояние — по шкале risk (72 → very → «очень опасно» / «very dangerous»).
+test('pointAriaLabel: «Дата / Индекс / Состояние» RU и EN (R63)', () => {
   const p = { date: '2026-09-13', value: 72 };
-  assert.equal(pointAriaLabel('ru', p), '72 из 100, 13 сентября 2026');
-  assert.equal(pointAriaLabel('en', p), '72 of 100, 13 Sep, 2026');
+  assert.equal(pointAriaLabel('ru', p), 'Дата: 13 сентября 2026, Индекс: 72, Состояние: очень опасно');
+  assert.equal(pointAriaLabel('en', p), 'Date: 13 Sep, 2026, Index: 72, State: very dangerous');
+});
+
+// Неопубликованная неделя (value:null, таск 05): индекс подписан словами,
+// состояние не выдумывается.
+test('pointAriaLabel: value:null — «не опубликовано», без состояния', () => {
+  const p = { date: '2026-09-13', value: null, methodology: '2.0' };
+  const ru = pointAriaLabel('ru', p);
+  assert.match(ru, /Дата: 13 сентября 2026/);
+  assert.match(ru, /Индекс: не опубликовано/);
+  const en = pointAriaLabel('en', p);
+  assert.match(en, /Index: not published/);
 });
 
 // Tooltip точки: дата — длинным локальным форматом, совпадающим с aria-label
@@ -92,4 +104,53 @@ test('clampX: зажимает позицию tooltip внутри контей�
   assert.equal(clampX(120, 80, 320), 120);
   // tooltip шире контейнера — прижимаем к левому краю
   assert.equal(clampX(50, 400, 320), 0);
+});
+
+// R28: разрыв серии при смене версии методологии между соседними точками.
+// Формат данных точек — контракт таска 05: {date, value|null, methodology?}.
+test('trendSegments: смена methodology между точками → два сегмента и одна метка разрыва', () => {
+  const points = [
+    { date: '2026-08-16', value: 66, methodology: '1.0' },
+    { date: '2026-08-23', value: 67, methodology: '1.0' },
+    { date: '2026-08-30', value: 64, methodology: '2.0' },
+    { date: '2026-09-06', value: 62, methodology: '2.0' },
+  ];
+  const { segments, breaks } = trendSegments(points);
+  assert.equal(segments.length, 2);
+  assert.deepEqual(segments[0].map((p) => p.date), ['2026-08-16', '2026-08-23']);
+  assert.deepEqual(segments[1].map((p) => p.date), ['2026-08-30', '2026-09-06']);
+  assert.equal(breaks.length, 1);
+  assert.equal(breaks[0].index, 2);
+  assert.equal(breaks[0].reason, 'methodology');
+  assert.equal(breaks[0].from, '1.0');
+  assert.equal(breaks[0].to, '2.0');
+});
+
+// Неделя не опубликована (value:null, таск 05): серия рвётся, null-точки
+// не попадают ни в один сегмент линии.
+test('trendSegments: value:null рвёт серию даже без смены методологии', () => {
+  const points = [
+    { date: '2026-08-16', value: 66 },
+    { date: '2026-08-23', value: 67 },
+    { date: '2026-08-30', value: null, methodology: '2.0' },
+    { date: '2026-09-06', value: null, methodology: '2.0' },
+  ];
+  const { segments, breaks } = trendSegments(points);
+  assert.equal(segments.length, 1);
+  assert.deepEqual(segments[0].map((p) => p.date), ['2026-08-16', '2026-08-23']);
+  assert.equal(breaks.length, 1);
+  assert.equal(breaks[0].reason, 'unpublished');
+  assert.equal(breaks[0].index, 2);
+});
+
+// Без переломов — один сегмент, без меток (ручные демо-недели 08-02…08-23).
+test('trendSegments: однородный ряд — один сегмент без разрывов', () => {
+  const points = Array.from({ length: 12 }, (_, i) => ({
+    date: `2026-0${Math.floor(i / 4) + 6}-${String(22 + (i % 4) * 7).padStart(2, '0')}`,
+    value: 50 + i,
+  }));
+  const { segments, breaks } = trendSegments(points);
+  assert.equal(segments.length, 1);
+  assert.equal(segments[0].length, 12);
+  assert.deepEqual(breaks, []);
 });

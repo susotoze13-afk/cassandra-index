@@ -622,6 +622,11 @@ const DICTS = {
     'demo.banner': 'Демо-состояние: {mode}',
     'data.retry': 'Повторить',
     'sources.word': '{n} {n, plural, one{источник} few{источника} many{источников} other{источников}}',
+    'sources.type.primary': 'первичный',
+    'sources.type.OSINT': 'OSINT',
+    'sources.type.secondary': 'вторичный',
+    'sources.sort.tooltip': 'Сортировка: тип (primary → OSINT → secondary) → дата → алфавит',
+    'sources.affiliated': 'государственная принадлежность',
     'drivers.title': 'Что изменилось',
     'drivers.observation': 'Наблюдение',
     'drivers.why': 'Почему это важно',
@@ -647,15 +652,28 @@ const DICTS = {
     'drivers.measures.nuclear.def': 'Событие: применение ядерного оружия в боевой обстановке любой из сторон.',
     'drivers.measures.calibration': 'Уровни — качественные категории: сопоставления с частотой таких событий в прошлом пока не выполнено, численная калибровка не проводилась.',
     'trend.now': 'Сейчас: {value} из 100',
+    'trend.now.na': 'Сейчас: не опубликовано',
     'trend.weekAgo': 'Неделю назад: {value}',
+    'trend.weekAgo.na': 'Неделю назад: не опубликовано',
     'trend.direction.label': 'Направление',
     'trend.direction.up': 'растёт',
     'trend.direction.down': 'снижается',
     'trend.direction.flat': 'без изменений',
     'trend.points': '{n, plural, one{пункт} few{пункта} many{пунктов} other{пунктов}}',
     'trend.summary': 'За неделю индекс изменился на {week} {weekWord}; за 12 недель — на {total} {totalWord}.',
-    'trend.point.aria': '{value} из 100, {date}',
+    'trend.point.aria': 'Дата: {date}, Индекс: {value}, Состояние: {state}',
+    'trend.point.na': 'не опубликовано',
+    'trend.state.na': '—',
     'trend.chart.label': 'График индекса за 12 недель',
+    'trend.sheet.close': 'Закрыть',
+    'trend.sheet.delta': 'Изменение за неделю: {value}',
+    'trend.sheet.methodology': 'Методология недели: v{version}',
+    'trend.break.mark': 'Смена методологии v{from} → v{to}',
+    'trend.break.note': 'Дальше методология обновлена до v{to}: значения до и после могут быть несопоставимы.',
+    'trend.table.caption': 'Таблица: индекс за 12 недель',
+    'trend.table.date': 'Дата',
+    'trend.table.index': 'Индекс',
+    'trend.table.state': 'Состояние',
     'footer.next': 'Следующая публикация: {when}',
     'disclaimer.full': 'Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.',
     'footer.ip': 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам',
@@ -865,6 +883,11 @@ const DICTS = {
     'demo.banner': 'Demo state: {mode}',
     'data.retry': 'Retry',
     'sources.word': '{n} {n, plural, one{source} other{sources}}',
+    'sources.type.primary': 'primary',
+    'sources.type.OSINT': 'OSINT',
+    'sources.type.secondary': 'secondary',
+    'sources.sort.tooltip': 'Sorted by: type (primary → OSINT → secondary) → date → alphabet',
+    'sources.affiliated': 'state-affiliated',
     'drivers.title': 'What changed',
     'drivers.observation': 'Observation',
     'drivers.why': 'Why it matters',
@@ -890,15 +913,28 @@ const DICTS = {
     'drivers.measures.nuclear.def': 'Event: use of nuclear weapons in a combat situation by any party.',
     'drivers.measures.calibration': 'Levels are qualitative categories: they have not yet been benchmarked against the historical frequency of such events, and no numerical calibration has been performed.',
     'trend.now': 'Now: {value} of 100',
+    'trend.now.na': 'Now: not published',
     'trend.weekAgo': 'A week ago: {value}',
+    'trend.weekAgo.na': 'A week ago: not published',
     'trend.direction.label': 'Direction',
     'trend.direction.up': 'rising',
     'trend.direction.down': 'falling',
     'trend.direction.flat': 'unchanged',
     'trend.points': '{n, plural, one{point} other{points}}',
     'trend.summary': 'Over the week the index changed by {week} {weekWord}; over 12 weeks — by {total} {totalWord}.',
-    'trend.point.aria': '{value} of 100, {date}',
+    'trend.point.aria': 'Date: {date}, Index: {value}, State: {state}',
+    'trend.point.na': 'not published',
+    'trend.state.na': '—',
     'trend.chart.label': '12-week index chart',
+    'trend.sheet.close': 'Close',
+    'trend.sheet.delta': 'Change over the week: {value}',
+    'trend.sheet.methodology': 'Week methodology: v{version}',
+    'trend.break.mark': 'Methodology change v{from} → v{to}',
+    'trend.break.note': 'From here the methodology was updated to v{to}: values before and after may not be comparable.',
+    'trend.table.caption': 'Table: 12-week index',
+    'trend.table.date': 'Date',
+    'trend.table.index': 'Index',
+    'trend.table.state': 'State',
     'history.week.label': 'Week',
     'history.week.current': 'current',
     'history.index': 'Global index',
@@ -2047,10 +2083,62 @@ const { el } = __ci_require("js/ui.js");
 // Секция «Что изменилось» (регистрируется как 'drivers'): три драйвера недели
 // по цепочке Наблюдение → Почему это важно → Уверенность → Источники (§4.3)
 // + дополнительные измерения риска без процентов (R41, §4.5).
-// Чистые швы (sourcesLabel, visibleSources, resolveMeasures) — без DOM, тестируются.
+// Чистые швы (sourcesLabel, visibleSources, resolveMeasures, sortSources,
+// sourcesOpenState, rememberSourcesOpen) — без DOM, тестируются.
 
 
 const LEVELS = ['high', 'medium', 'low'];
+
+// R56: порядок типа при сортировке источников: primary выше OSINT выше secondary.
+const TYPE_RANK = { primary: 0, OSINT: 1, secondary: 2 };
+
+// Единая сортировка источников (R56): тип → дата (новые выше) → домен (азбучно).
+// Легаси-записи демо-недель без source_type сортируются как secondary. Возвращает
+// новый массив — вход не мутируется (аккордеон держит исходный порядок данных).
+function sortSources(sources) {
+  const list = Array.isArray(sources) ? sources : [];
+  const rank = (s) => TYPE_RANK[s?.source_type] ?? TYPE_RANK.secondary;
+  const dateOf = (s) => s?.publication_date ?? s?.date ?? '';
+  return list.slice().sort((a, b) =>
+    rank(a) - rank(b) ||
+    dateOf(b).localeCompare(dateOf(a)) ||
+    String(a?.domain ?? '').localeCompare(String(b?.domain ?? '')) ||
+    String(a?.url ?? '').localeCompare(String(b?.url ?? ''))
+  );
+}
+
+// R57: разворот аккордеона источников — только sessionStorage, живёт ≤ 30 минут;
+// новая сессия и истёкшая метка → свёрнут. Чистые швы с подменой хранилища/времени.
+const SOURCES_OPEN_KEY = 'cassandra.sources.open';
+const SOURCES_OPEN_TTL_MS = 30 * 60 * 1000;
+
+function sourcesOpenState(storage, now = Date.now(), key = SOURCES_OPEN_KEY, ttl = SOURCES_OPEN_TTL_MS) {
+  try {
+    const raw = storage?.getItem?.(key);
+    if (!raw) return false;
+    const at = Number(JSON.parse(raw)?.at);
+    if (!Number.isFinite(at)) return false;
+    return now - at <= ttl;
+  } catch {
+    return false;
+  }
+}
+
+function rememberSourcesOpen(storage, now = Date.now(), key = SOURCES_OPEN_KEY) {
+  try {
+    storage?.setItem?.(key, JSON.stringify({ at: now }));
+  } catch {
+    /* хранилище недоступно — состояние просто не запоминается */
+  }
+}
+
+function forgetSourcesOpen(storage, key = SOURCES_OPEN_KEY) {
+  try {
+    storage?.removeItem?.(key);
+  } catch {
+    /* см. rememberSourcesOpen */
+  }
+}
 
 // Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, ICU-plural §11.2).
 // Склонения живут в словаре (sources.word) — целиком ICU-строка, без конкатенации.
@@ -2105,16 +2193,30 @@ const LEVEL_TONE = {
   low: '--state-calm',
 };
 
+// Иконка типа источника (R56): строго CSS-токены, aria-hidden — рядом текстовая
+// метка типа (значения не только цветом/иконкой).
+function buildTypeBadge(lang, src) {
+  const type = ['primary', 'OSINT', 'secondary'].includes(src?.source_type) ? src.source_type : 'secondary';
+  const badge = el('span', `src-type src-type--${type.toLowerCase()}`);
+  badge.setAttribute('aria-hidden', 'true');
+  badge.title = t(lang, `sources.type.${type}`);
+  return { badge, label: t(lang, `sources.type.${type}`) };
+}
+
 function buildSourceItem(lang, src) {
   const li = el('li', 'driver-source');
   const a = el('a', 'driver-source-link');
   a.href = src.url;
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
+  const { badge, label } = buildTypeBadge(lang, src);
+  a.append(badge);
   a.append(el('span', 'driver-source-title', src.title?.[lang] ?? src.title?.ru ?? ''));
   const meta = el('span', 'driver-source-meta');
+  meta.append(el('span', 'driver-source-type', label));
   meta.append(el('span', 'driver-source-domain', src.domain ?? ''));
-  meta.append(el('span', 'driver-source-date', date(lang, src.date, true)));
+  // Новая схема R55: publication_date; легаси-поле date — фолбэк демо-истории.
+  meta.append(el('span', 'driver-source-date', date(lang, src.publication_date ?? src.date, true)));
   a.append(meta);
   li.append(a);
   return li;
@@ -2123,17 +2225,21 @@ function buildSourceItem(lang, src) {
 // Аккордеон источников (§4.3.1) — единый builder для драйверов и регионов.
 // Возвращает узлы, чтобы вызывающий сам решил, куда их вставить: карточка
 // драйвера добавляет в корень, блок региона — в обёртку .region-driver-sources.
+// Список отсортирован (R56), разворот по умолчанию свёрнут и живёт в
+// sessionStorage ≤ 30 минут (R57).
 function buildSourcesAccordion(lang, sources, listId) {
+  const sorted = sortSources(sources);
   const list = el('ul', 'driver-sources');
   list.id = listId;
   const moreBtn = el('button', 'driver-sources-more', t(lang, 'drivers.sources.showAll'));
   moreBtn.type = 'button';
   moreBtn.hidden = true;
 
-  const state = { expanded: false, showAll: false };
+  const session = typeof sessionStorage !== 'undefined' ? sessionStorage : null;
+  const state = { expanded: sourcesOpenState(session), showAll: false };
 
   const paint = () => {
-    const { shown, remaining } = visibleSources(sources, state.showAll);
+    const { shown, remaining } = visibleSources(sorted, state.showAll);
     list.innerHTML = '';
     for (const src of shown) list.append(buildSourceItem(lang, src));
     // Кнопка «все источники» живёт под раскрытым списком: при свёрнутом
@@ -2146,8 +2252,8 @@ function buildSourcesAccordion(lang, sources, listId) {
     toggle.setAttribute('aria-expanded', String(state.expanded));
     // При раскрытии label меняется: «N источников — скрыть» (§4.3.1).
     toggle.querySelector('[data-role="src-count"]').textContent = state.expanded
-      ? `${sourcesLabel(lang, sources.length)} — ${t(lang, 'drivers.sources.hide')}`
-      : sourcesLabel(lang, sources.length);
+      ? `${sourcesLabel(lang, sorted.length)} — ${t(lang, 'drivers.sources.hide')}`
+      : sourcesLabel(lang, sorted.length);
     toggle.classList.toggle('is-open', state.expanded);
   };
 
@@ -2155,10 +2261,13 @@ function buildSourcesAccordion(lang, sources, listId) {
   toggle.type = 'button';
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-controls', listId);
+  toggle.title = t(lang, 'sources.sort.tooltip');
   toggle.append(el('span', 'src-toggle-label', ''));
   toggle.querySelector('.src-toggle-label').dataset.role = 'src-count';
   toggle.addEventListener('click', () => {
     state.expanded = !state.expanded;
+    if (state.expanded) rememberSourcesOpen(session);
+    else forgetSourcesOpen(session);
     paint();
   });
   moreBtn.addEventListener('click', () => {
@@ -2261,6 +2370,12 @@ function render(appState) {
   host.append(mHost);
 }
 
+exports["sortSources"] = sortSources;
+exports["SOURCES_OPEN_KEY"] = SOURCES_OPEN_KEY;
+exports["SOURCES_OPEN_TTL_MS"] = SOURCES_OPEN_TTL_MS;
+exports["sourcesOpenState"] = sourcesOpenState;
+exports["rememberSourcesOpen"] = rememberSourcesOpen;
+exports["forgetSourcesOpen"] = forgetSourcesOpen;
 exports["sourcesLabel"] = sourcesLabel;
 exports["visibleSources"] = visibleSources;
 exports["resolveMeasures"] = resolveMeasures;
@@ -2274,12 +2389,14 @@ return exports;
 }]);
 factories.push(["js/sections/trend.js", function (exports) {
 const { t, date } = __ci_require("js/i18n.js");
+const risk = __ci_require("js/risk.js");
 const { el } = __ci_require("js/ui.js");
 // Секция «Тренд» (регистрируется как 'trend'): интерактивный график индекса
 // за 12 недель, целиком инлайн-SVG из данных снапшота (Решение п.8, История 13).
 // Подпись: текущее значение, неделю назад, направление, нарративный summary.
 // Чистые швы (signedDelta, arrowOf, directionOf, pointAriaLabel, summaryText,
-// clampX) — без DOM, тестируются; aria-label точек вместо aria-live (§19.25).
+// clampX, trendSegments) — без DOM, тестируются; R28: разрыв серии при смене
+// methodology; R63: aria-label «Дата / Индекс / Состояние» + sr-таблица + live.
 
 
 // Δ со знаком: '+6' | '-3' | '0' (подпись и summary).
@@ -2300,12 +2417,50 @@ function directionOf(delta) {
   return delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat';
 }
 
-// aria-label точки графика: «значение, дата» на языке интерфейса (§19.25).
+// aria-label точки графика (R63): «Дата: X, Индекс: Y, Состояние: Z».
+// Неопубликованная неделя (value:null) подписана словами, состояние не выдумывается.
 function pointAriaLabel(lang, point) {
+  const valued = typeof point?.value === 'number';
+  const stateId = valued ? risk.status(point.value) : null;
   return t(lang, 'trend.point.aria', {
-    value: point?.value ?? 0,
     date: date(lang, point?.date),
+    value: valued ? point.value : t(lang, 'trend.point.na'),
+    state: stateId ? t(lang, `statusLower.${stateId}`) : t(lang, 'trend.state.na'),
   });
+}
+
+// R28: разбиение ряда на непрерывные сегменты линии. Серия рвётся между
+// соседними точками при смене methodology либо при value:null (неделя не
+// опубликована — точки контракта таска 05). Возвращает сегменты (только
+// точки с числовым value) и метки разрывов с причиной и версиями.
+function trendSegments(points) {
+  const list = Array.isArray(points) ? points : [];
+  const methOf = (p) =>
+    p && typeof p.methodology === 'string' && p.methodology !== '' ? p.methodology : null;
+  const segments = [];
+  const breaks = [];
+  let current = [];
+  let prev = null;
+  list.forEach((p, i) => {
+    const point = p ?? {};
+    const valued = typeof point.value === 'number';
+    let reason = null;
+    if (prev) {
+      // Неопубликованная неделя рвёт серию сама по себе; смена methodology
+      // фиксируется отдельно, между опубликованными точками.
+      if (!valued && typeof prev.value === 'number') reason = 'unpublished';
+      else if (methOf(point) !== methOf(prev)) reason = 'methodology';
+    }
+    if (reason) {
+      if (current.length) segments.push(current);
+      breaks.push({ index: i, reason, from: methOf(prev), to: methOf(point) });
+      current = [];
+    }
+    if (valued) current.push(point);
+    prev = point;
+  });
+  if (current.length) segments.push(current);
+  return { segments, breaks };
 }
 
 // Дата вторичной строки tooltip: длинный локальный формат, совпадает с aria-label
@@ -2315,8 +2470,9 @@ function tooltipDate(lang, point) {
 }
 
 // Короткий нарративный summary: Δ за неделю и за всё окно, слово «пункт» со склонением (ICU).
+// Неопубликованные точки (value:null) игнорируются: Δ считается между опубликованными неделями.
 function summaryText(lang, points) {
-  const list = Array.isArray(points) ? points : [];
+  const list = (Array.isArray(points) ? points : []).filter((p) => typeof p?.value === 'number');
   if (list.length < 2) return '';
   const cur = list[list.length - 1].value;
   const prev = list[list.length - 2].value;
@@ -2343,7 +2499,6 @@ const VIEW_W = 640;
 const VIEW_H = 280;
 const PAD = { top: 16, right: 14, bottom: 30, left: 34 };
 const GRID = [30, 60, 90];
-const TAP_HIDE_MS = 3500;
 
 function svgEl(tag, attrs = {}) {
   const node = document.createElementNS(NS, tag);
@@ -2351,24 +2506,72 @@ function svgEl(tag, attrs = {}) {
   return node;
 }
 
+// Детект сенсорного ввода (R58): coarse pointer; fallback — первый touchstart
+// на графике переводит взаимодействие в тач-режим до конца сессии страницы.
+function detectTouch() {
+  try {
+    return typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(pointer: coarse)').matches;
+  } catch {
+    return false;
+  }
+}
+
+// Вибрация при листании точек — опционально, без ошибок где API нет (R58).
+function vibrate(ms) {
+  try {
+    if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+      navigator.vibrate(ms);
+    }
+  } catch {
+    /* не поддерживается — молча */
+  }
+}
+
+// Анонс скринридеру через общий live-регион (R63).
+function announce(text) {
+  const live = document.querySelector('[data-role="a11y-live"]');
+  if (live) live.textContent = text;
+}
+
+// Методология точки (строка либо null — точки ручных неделей её не несут).
+function methOf(p) {
+  return p && typeof p.methodology === 'string' && p.methodology !== '' ? p.methodology : null;
+}
+
 function render(appState) {
   if (typeof document === 'undefined') return;
   const host = document.querySelector('[data-section="trend"]');
   if (!host) return;
   const { lang, snapshot } = appState;
+
+  // Полный перерендер (смена недели/языка) убирает открытую sheet: иначе
+  // подложка и диалог останутся висеть над новым содержимым.
+  document.querySelectorAll('.trend-sheet, .trend-sheet-backdrop').forEach((n) => n.remove());
+
   host.innerHTML = '';
 
   const points = Array.isArray(snapshot?.trend) ? snapshot.trend : [];
   if (points.length < 2) return;
 
-  const last = points[points.length - 1];
-  const prev = points[points.length - 2];
-  const week = last.value - prev.value;
+  // Δ подписи — по последним опубликованным точкам: неделя insufficient
+  // (value:null, таск 05) не должна превращать подпись в NaN.
+  const valued = points.filter((p) => typeof p.value === 'number');
+  const lastValued = valued[valued.length - 1] ?? null;
+  const prevValued = valued[valued.length - 2] ?? null;
+  const week = lastValued && prevValued ? lastValued.value - prevValued.value : 0;
 
   // Подпись: текущее, неделю назад, направление (словом и стрелкой), summary.
+  // id — мишень aria-describedby графика (R63: сводка описывает svg).
   const caption = el('p', 'trend-caption');
-  caption.append(el('span', 'trend-caption-item', t(lang, 'trend.now', { value: last.value })));
-  caption.append(el('span', 'trend-caption-item', t(lang, 'trend.weekAgo', { value: prev.value })));
+  caption.id = 'trend-caption';
+  caption.append(el('span', 'trend-caption-item', lastValued
+    ? t(lang, 'trend.now', { value: lastValued.value })
+    : t(lang, 'trend.now.na')));
+  caption.append(el('span', 'trend-caption-item', prevValued
+    ? t(lang, 'trend.weekAgo', { value: prevValued.value })
+    : t(lang, 'trend.weekAgo.na')));
   const dir = el('span', 'trend-caption-item');
   dir.append(el('span', 'trend-caption-label', `${t(lang, 'trend.direction.label')}:`));
   dir.append(el('span', 'trend-direction', `${t(lang, `trend.direction.${directionOf(week)}`)} ${arrowOf(week)}`));
@@ -2376,18 +2579,18 @@ function render(appState) {
   host.append(caption);
   host.append(el('p', 'trend-summary', summaryText(lang, points)));
 
-  // График: контейнер + инлайн-SVG + HTML-tooltip (mono 15/600 + mono 11 muted).
+  // График: контейнер + инлайн-SVG + HTML-tooltip (desktop) + bottom sheet (touch).
   const chart = el('div', 'trend-chart');
   chart.dataset.role = 'trend-chart';
   const svg = svgEl('svg', {
     viewBox: `0 0 ${VIEW_W} ${VIEW_H}`,
     role: 'img',
     'aria-label': t(lang, 'trend.chart.label'),
+    'aria-describedby': 'trend-caption',
   });
 
   const x = (i) => PAD.left + (i / (points.length - 1)) * (VIEW_W - PAD.left - PAD.right);
   const y = (v) => PAD.top + (1 - Math.min(100, Math.max(0, v)) / 100) * (VIEW_H - PAD.top - PAD.bottom);
-  const coords = points.map((p, i) => [x(i), y(p.value)]);
 
   // Градиентная область rgba(88,166,255,.30) → 0 (§4.4).
   const defs = svgEl('defs');
@@ -2413,36 +2616,72 @@ function render(appState) {
     stroke: 'var(--border-soft)', 'stroke-width': 1,
   }));
 
-  // Область под линией и сама линия 2px --accent.
+  // Серия: сегменты по trendSegments (R28 — разрыв при смене methodology,
+  // таск 05 — разрыв вокруг неопубликованных недель).
+  const { segments, breaks } = trendSegments(points);
   const baseline = y(0);
-  const area = svgEl('path', {
-    d: `M ${coords[0][0]} ${baseline} ` + coords.map(([cx, cy]) => `L ${cx} ${cy}`).join(' ') + ` L ${coords[coords.length - 1][0]} ${baseline} Z`,
-    fill: 'url(#trend-area-fill)',
-  });
-  svg.append(area);
-  svg.append(svgEl('polyline', {
-    points: coords.map(([cx, cy]) => `${cx},${cy}`).join(' '),
-    fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2,
-  }));
+  for (const seg of segments) {
+    const coords = seg.map((p) => [x(points.indexOf(p)), y(p.value)]);
+    if (coords.length > 1) {
+      const area = svgEl('path', {
+        d: `M ${coords[0][0]} ${baseline} ` + coords.map(([cx, cy]) => `L ${cx} ${cy}`).join(' ') + ` L ${coords[coords.length - 1][0]} ${baseline} Z`,
+        fill: 'url(#trend-area-fill)',
+      });
+      svg.append(area);
+    }
+    svg.append(svgEl('polyline', {
+      points: coords.map(([cx, cy]) => `${cx},${cy}`).join(' '),
+      fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2,
+    }));
+  }
 
-  // Tooltip: «N / 100» (mono 15/600, доминирует) + дата (mono 11, muted). aria-hidden —
-  // данные дублируются в aria-label точек (§19.25); позиция зажата по X.
+  // Маркеры разрыва: подпись «Смена методологии vX → vY» со ссылкой на
+  // changelog-якорь methodology-секции (R28). Неопубликованные недели — без
+  // подписи: пустоту в серии и aria-label точек достаточно.
+  for (const br of breaks) {
+    if (br.reason !== 'methodology' || br.index < 1) continue;
+    const xMid = (x(br.index - 1) + x(br.index)) / 2;
+    svg.append(svgEl('line', {
+      x1: xMid, x2: xMid, y1: PAD.top, y2: VIEW_H - PAD.bottom,
+      'class': 'trend-break-line',
+      stroke: 'var(--border)', 'stroke-width': 1, 'stroke-dasharray': '3 3',
+    }));
+    const link = svgEl('a', { href: '#methodology', 'class': 'trend-break-label' });
+    const text = svgEl('text', { x: xMid + 5, y: PAD.top + 10 });
+    text.textContent = t(lang, 'trend.break.mark', { from: br.from ?? '—', to: br.to ?? '—' });
+    link.append(text);
+    svg.append(link);
+  }
+
+  // Tooltip (desktop): «N / 100» mono 15/600 + дата; при разрыве методологии
+  // — строка версии. aria-hidden: те же данные в aria-label точек и sheet.
   const tooltip = el('div', 'trend-tooltip');
   tooltip.setAttribute('aria-hidden', 'true');
   tooltip.hidden = true;
   const tipValue = el('span', 'trend-tooltip-value');
   const tipDate = el('span', 'trend-tooltip-date');
-  tooltip.append(tipValue, tipDate);
+  const tipNote = el('span', 'trend-tooltip-note');
+  tooltip.append(tipValue, tipDate, tipNote);
 
-  let tapTimer = null;
+  let touchMode = detectTouch();
+  chart.addEventListener('touchstart', () => { touchMode = true; }, { once: true, passive: true });
 
   const hide = () => {
     tooltip.hidden = true;
   };
 
-  const show = (hitEl, p) => {
-    tipValue.textContent = `${p.value} / 100`;
+  const tooltipLines = (p) => {
+    const valuedPoint = typeof p.value === 'number';
+    tipValue.textContent = valuedPoint ? `${p.value} / 100` : t(lang, 'trend.point.na');
     tipDate.textContent = tooltipDate(lang, p);
+    const i = points.indexOf(p);
+    const methChanged = i > 0 && methOf(p) && methOf(p) !== methOf(points[i - 1]);
+    tipNote.textContent = methChanged ? t(lang, 'trend.sheet.methodology', { version: methOf(p) }) : '';
+    tipNote.hidden = !methChanged;
+  };
+
+  const show = (hitEl, p) => {
+    tooltipLines(p);
     tooltip.hidden = false;
     const chartRect = chart.getBoundingClientRect();
     const r = hitEl.getBoundingClientRect();
@@ -2455,18 +2694,115 @@ function render(appState) {
     tooltip.style.top = `${Math.round(r.top - chartRect.top - tooltip.offsetHeight - 10)}px`;
   };
 
-  // Точки: фокусируемые (tabindex=0, role=button, aria-label «значение, дата»),
-  // последняя крупнее с обводкой --surface; увеличение на hover/фокус/tap — CSS.
+  // Bottom sheet (touch, R58): role=dialog, aria-modal, закрытие только по X,
+  // тапу вне области или Escape; автоскрытия по таймеру нет; фокус уходит на
+  // панель при открытии и возвращается на точку при закрытии.
+  let sheet = null;
+  let sheetBackdrop = null;
+  let sheetReturnFocus = null;
+  let sheetKeyHandler = null;
+
+  const closeSheet = () => {
+    if (!sheet) return;
+    sheet.remove();
+    sheetBackdrop.remove();
+    sheet = null;
+    sheetBackdrop = null;
+    if (sheetKeyHandler) {
+      document.removeEventListener('keydown', sheetKeyHandler, true);
+      sheetKeyHandler = null;
+    }
+    if (sheetReturnFocus && typeof sheetReturnFocus.focus === 'function') {
+      sheetReturnFocus.focus();
+    }
+    sheetReturnFocus = null;
+  };
+
+  const trapTab = (ev) => {
+    if (ev.key !== 'Tab' || !sheet) return;
+    const focusables = sheet.querySelectorAll('button, a[href]');
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (ev.shiftKey && document.activeElement === first) {
+      ev.preventDefault();
+      last.focus();
+    } else if (!ev.shiftKey && document.activeElement === last) {
+      ev.preventDefault();
+      first.focus();
+    }
+  };
+
+  const openSheet = (dotEl, p) => {
+    closeSheet();
+    sheetReturnFocus = dotEl;
+    sheetBackdrop = el('div', 'trend-sheet-backdrop');
+    sheet = el('div', 'trend-sheet');
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-label', pointAriaLabel(lang, p));
+    sheet.tabIndex = -1;
+
+    const head = el('div', 'trend-sheet-head');
+    head.append(el('p', 'trend-sheet-date', tooltipDate(lang, p)));
+    const closeBtn = el('button', 'trend-sheet-close', '×');
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', t(lang, 'trend.sheet.close'));
+    closeBtn.addEventListener('click', closeSheet);
+    head.append(closeBtn);
+
+    const body = el('div', 'trend-sheet-body');
+    const valuedPoint = typeof p.value === 'number';
+    body.append(el('p', 'trend-sheet-value',
+      valuedPoint ? `${p.value} / 100` : t(lang, 'trend.point.na')));
+    const stateId = valuedPoint ? risk.status(p.value) : null;
+    body.append(el('p', 'trend-sheet-state',
+      stateId ? t(lang, `statusLower.${stateId}`) : t(lang, 'trend.state.na')));
+    const i = points.indexOf(p);
+    const prev = valuedPoint ? [...points.slice(0, i)].reverse().find((q) => typeof q.value === 'number') : null;
+    if (valuedPoint && prev) {
+      body.append(el('p', 'trend-sheet-delta',
+        t(lang, 'trend.sheet.delta', { value: signedDelta(p.value - prev.value) })));
+    }
+    const methChanged = i > 0 && methOf(p) && methOf(p) !== methOf(points[i - 1]);
+    if (methChanged) {
+      body.append(el('p', 'trend-sheet-note',
+        t(lang, 'trend.break.note', { to: methOf(p) })));
+    }
+
+    sheet.append(head, body);
+    sheetBackdrop.addEventListener('click', closeSheet);
+    // Подпись-маркер R26 (баннер) живёт в таске 10; здесь — ссылка на changelog.
+    sheetKeyHandler = (ev) => {
+      if (ev.key === 'Escape') {
+        ev.stopPropagation();
+        closeSheet();
+      } else {
+        trapTab(ev);
+      }
+    };
+    document.addEventListener('keydown', sheetKeyHandler, true);
+    document.body.append(sheetBackdrop, sheet);
+    sheet.focus();
+  };
+
+  // Точки: фокусируемые (tabindex=0, role=button, aria-label «Дата / Индекс /
+  // Состояние», R63). Неопубликованные недели — пустые точки на нулевой линии.
+  const dots = [];
   points.forEach((p, i) => {
+    const isValued = typeof p.value === 'number';
     const wrap = svgEl('g');
-    const hit = svgEl('circle', { cx: x(i), cy: y(p.value), r: 20, 'class': 'trend-hit' });
-    const dot = svgEl('circle', {
-      cx: x(i), cy: y(p.value), 'class': `trend-point${i === points.length - 1 ? ' trend-point--last' : ''}`,
-    });
+    const cy = isValued ? y(p.value) : baseline;
+    const hit = svgEl('circle', { cx: x(i), cy, r: 20, 'class': 'trend-hit' });
+    const classes = ['trend-point'];
+    if (i === points.length - 1) classes.push('trend-point--last');
+    if (!isValued) classes.push('trend-point--na');
+    const dot = svgEl('circle', { cx: x(i), cy, 'class': classes.join(' ') });
     dot.setAttribute('tabindex', '0');
     dot.setAttribute('role', 'button');
     dot.setAttribute('aria-label', pointAriaLabel(lang, p));
     wrap.append(hit, dot);
+    dots.push(dot);
 
     const activate = () => {
       dot.classList.add('is-active');
@@ -2476,34 +2812,69 @@ function render(appState) {
       dot.classList.remove('is-active');
       hide();
     };
-    wrap.addEventListener('pointerenter', activate);
-    wrap.addEventListener('pointerleave', deactivate);
-    // Клавиатура: focus/blur (фокус видимый — глобальный :focus-visible + рост точки).
-    dot.addEventListener('focus', activate);
-    dot.addEventListener('blur', deactivate);
+    // Desktop: hover — с автоскрытием при уходе; фокус — без автоскрытия
+    // (скрывается только по blur/Escape, R58.1).
+    wrap.addEventListener('pointerenter', () => { if (!touchMode) activate(); });
+    wrap.addEventListener('pointerleave', () => { if (!touchMode) deactivate(); });
+    dot.addEventListener('focus', () => { if (!touchMode) activate(); });
+    dot.addEventListener('blur', () => { if (!touchMode) deactivate(); });
     dot.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Escape') {
+      // Клавиатурная навигация по точкам: анонс через aria-live (R63) + вибрация.
+      if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') {
+        ev.preventDefault();
+        const next = dots[i + (ev.key === 'ArrowRight' ? 1 : -1)];
+        if (next) {
+          next.focus();
+          announce(pointAriaLabel(lang, points[dots.indexOf(next)]));
+          vibrate(10);
+        }
+        return;
+      }
+      if (ev.key === 'Escape' && !touchMode) {
         hide();
         dot.blur();
       }
     });
-    // Tap: показали — автоскрытие через 3.5 с (История 13).
+    // Tap: сенсорный путь — bottom sheet без автоскрытия (R58); desktop-клик —
+    // тот же tooltip, что по hover.
     dot.addEventListener('click', () => {
-      clearTimeout(tapTimer);
-      activate();
-      tapTimer = setTimeout(hide, TAP_HIDE_MS);
+      if (touchMode) openSheet(dot, p);
+      else activate();
     });
     svg.append(wrap);
   });
 
   chart.append(svg, tooltip);
   host.append(chart);
+
+  // R63: скрытая таблица тренда для скринридера — все 12 точек: дата, индекс,
+  // состояние. Под графиком, caption из словаря.
+  const table = el('table', 'sr-only trend-table');
+  table.append(el('caption', '', t(lang, 'trend.table.caption')));
+  const thead = el('thead');
+  const headRow = el('tr');
+  for (const k of ['trend.table.date', 'trend.table.index', 'trend.table.state']) {
+    headRow.append(el('th', '', t(lang, k)));
+  }
+  thead.append(headRow);
+  const tbody = el('tbody');
+  for (const p of points) {
+    const row = el('tr');
+    const stateId = typeof p.value === 'number' ? risk.status(p.value) : null;
+    row.append(el('td', '', date(lang, p.date)));
+    row.append(el('td', '', typeof p.value === 'number' ? String(p.value) : t(lang, 'trend.point.na')));
+    row.append(el('td', '', stateId ? t(lang, `statusLower.${stateId}`) : t(lang, 'trend.state.na')));
+    tbody.append(row);
+  }
+  table.append(thead, tbody);
+  host.append(table);
 }
 
 exports["signedDelta"] = signedDelta;
 exports["arrowOf"] = arrowOf;
 exports["directionOf"] = directionOf;
 exports["pointAriaLabel"] = pointAriaLabel;
+exports["trendSegments"] = trendSegments;
 exports["tooltipDate"] = tooltipDate;
 exports["summaryText"] = summaryText;
 exports["clampX"] = clampX;
@@ -2701,6 +3072,7 @@ const { t, date } = __ci_require("js/i18n.js");
 const data = __ci_require("js/data.js");
 const { isHistorical, historyBannerText } = __ci_require("js/sections/states.js");
 const { signedDelta, arrowOf } = __ci_require("js/sections/trend.js");
+const { sortSources } = __ci_require("js/sections/drivers.js");
 const { statusLabel } = __ci_require("js/sections/regions.js");
 const { deltaClass } = __ci_require("js/ui.js");
 // Секция «История и источники» (регистрируется как 'history'): выбор недели из
@@ -2795,11 +3167,16 @@ function escapeHtml(s) {
   }[c]));
 }
 
+// Источник недели: иконка типа (CSS, aria-hidden) + заголовок-ссылка +
+// мета «тип · домен · дата публикации». Поле даты — publication_date (R55),
+// легаси date — фолбэк; порядок — единая сортировка R56 (sortSources).
 function sourceItem(lang, s) {
   const title = s.title?.[lang] ?? s.title?.ru ?? '';
+  const type = ['primary', 'OSINT', 'secondary'].includes(s.source_type) ? s.source_type : 'secondary';
   return `<li class="source-row">
+    <span class="src-type src-type--${type.toLowerCase()}" aria-hidden="true" title="${escapeHtml(t(lang, `sources.type.${type}`))}"></span>
     <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>
-    <span class="source-meta">${escapeHtml(s.domain)} · ${date(lang, s.date, true)}</span>
+    <span class="source-meta">${escapeHtml(t(lang, `sources.type.${type}`))} · ${escapeHtml(s.domain)} · ${date(lang, s.publication_date ?? s.date, true)}</span>
   </li>`;
 }
 
@@ -2873,7 +3250,7 @@ function render(appState) {
     <div class="history-sources">
       <h3>${t(lang, 'history.sources.title')}</h3>
       <ul class="source-list">
-        ${snapshot.sources.map((s) => sourceItem(lang, s)).join('')}
+        ${sortSources(snapshot.sources).map((s) => sourceItem(lang, s)).join('')}
       </ul>
     </div>` : ''}`;
 

@@ -1271,6 +1271,171 @@ main {
   color: var(--text-muted);
 }
 
+.trend-tooltip-note {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Неопубликованная неделя (value:null): пустая точка на нулевой линии. */
+.trend-point--na {
+  fill: var(--surface);
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+/* R28: маркер разрыва серии при смене методологии. */
+.trend-break-label text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+  fill: var(--accent);
+}
+
+.trend-break-label:hover text,
+.trend-break-label:focus-visible text {
+  text-decoration: underline;
+}
+
+/* ---------- Bottom sheet точки тренда (R58, таск 09) ---------- */
+
+.trend-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.trend-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 12px 12px 0 0;
+  padding: 16px 20px 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+  outline: none;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.trend-sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.trend-sheet-date {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Кнопка X: touch-target ≥ 44px. */
+.trend-sheet-close {
+  min-width: 44px;
+  min-height: 44px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.trend-sheet-close:hover {
+  color: var(--text);
+}
+
+.trend-sheet-body {
+  margin-top: 8px;
+}
+
+.trend-sheet-value {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trend-sheet-state {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.trend-sheet-delta {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.trend-sheet-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ---------- Иконка типа источника (R56, таск 09) ---------- */
+
+.src-type {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.src-type--primary {
+  background: var(--accent);
+}
+
+.src-type--osint {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+}
+
+.src-type--secondary {
+  background: var(--text-muted);
+}
+
+.driver-source-link .src-type {
+  align-self: center;
+  margin-right: 8px;
+}
+
+.driver-source-link {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 4px 8px;
+}
+
+.driver-source-type {
+  color: var(--text-secondary);
+}
+
+.source-row .src-type {
+  align-self: center;
+}
+
+/* prefers-reduced-motion: появление sheet — без анимации (глобальный запрос
+   гасит переходы, здесь фиксируем явно для будущих анимаций sheet). */
+@media (prefers-reduced-motion: reduce) {
+  .trend-sheet {
+    transition: none;
+  }
+}
+
 @media (max-width: 640px) {
   .header-inner {
     height: auto; /* иначе фикс базы (64px) не даст вырасти под двухстрочный nav */

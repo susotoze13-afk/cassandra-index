@@ -11,6 +11,7 @@ import { t, date } from '../i18n.js';
 import * as data from '../data.js';
 import { isHistorical, historyBannerText } from './states.js';
 import { signedDelta, arrowOf } from './trend.js';
+import { sortSources } from './drivers.js';
 import { statusLabel } from './regions.js';
 import { deltaClass } from '../ui.js';
 
@@ -96,11 +97,16 @@ function escapeHtml(s) {
   }[c]));
 }
 
+// Источник недели: иконка типа (CSS, aria-hidden) + заголовок-ссылка +
+// мета «тип · домен · дата публикации». Поле даты — publication_date (R55),
+// легаси date — фолбэк; порядок — единая сортировка R56 (sortSources).
 function sourceItem(lang, s) {
   const title = s.title?.[lang] ?? s.title?.ru ?? '';
+  const type = ['primary', 'OSINT', 'secondary'].includes(s.source_type) ? s.source_type : 'secondary';
   return `<li class="source-row">
+    <span class="src-type src-type--${type.toLowerCase()}" aria-hidden="true" title="${escapeHtml(t(lang, `sources.type.${type}`))}"></span>
     <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>
-    <span class="source-meta">${escapeHtml(s.domain)} · ${date(lang, s.date, true)}</span>
+    <span class="source-meta">${escapeHtml(t(lang, `sources.type.${type}`))} · ${escapeHtml(s.domain)} · ${date(lang, s.publication_date ?? s.date, true)}</span>
   </li>`;
 }
 
@@ -174,7 +180,7 @@ export function render(appState) {
     <div class="history-sources">
       <h3>${t(lang, 'history.sources.title')}</h3>
       <ul class="source-list">
-        ${snapshot.sources.map((s) => sourceItem(lang, s)).join('')}
+        ${sortSources(snapshot.sources).map((s) => sourceItem(lang, s)).join('')}
       </ul>
     </div>` : ''}`;
 

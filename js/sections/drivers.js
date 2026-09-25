@@ -1,12 +1,64 @@
 // Секция «Что изменилось» (регистрируется как 'drivers'): три драйвера недели
 // по цепочке Наблюдение → Почему это важно → Уверенность → Источники (§4.3)
 // + дополнительные измерения риска без процентов (R41, §4.5).
-// Чистые швы (sourcesLabel, visibleSources, resolveMeasures) — без DOM, тестируются.
+// Чистые швы (sourcesLabel, visibleSources, resolveMeasures, sortSources,
+// sourcesOpenState, rememberSourcesOpen) — без DOM, тестируются.
 
 import { t, date } from '../i18n.js';
 import { el } from '../ui.js';
 
 const LEVELS = ['high', 'medium', 'low'];
+
+// R56: порядок типа при сортировке источников: primary выше OSINT выше secondary.
+const TYPE_RANK = { primary: 0, OSINT: 1, secondary: 2 };
+
+// Единая сортировка источников (R56): тип → дата (новые выше) → домен (азбучно).
+// Легаси-записи демо-недель без source_type сортируются как secondary. Возвращает
+// новый массив — вход не мутируется (аккордеон держит исходный порядок данных).
+export function sortSources(sources) {
+  const list = Array.isArray(sources) ? sources : [];
+  const rank = (s) => TYPE_RANK[s?.source_type] ?? TYPE_RANK.secondary;
+  const dateOf = (s) => s?.publication_date ?? s?.date ?? '';
+  return list.slice().sort((a, b) =>
+    rank(a) - rank(b) ||
+    dateOf(b).localeCompare(dateOf(a)) ||
+    String(a?.domain ?? '').localeCompare(String(b?.domain ?? '')) ||
+    String(a?.url ?? '').localeCompare(String(b?.url ?? ''))
+  );
+}
+
+// R57: разворот аккордеона источников — только sessionStorage, живёт ≤ 30 минут;
+// новая сессия и истёкшая метка → свёрнут. Чистые швы с подменой хранилища/времени.
+export const SOURCES_OPEN_KEY = 'cassandra.sources.open';
+export const SOURCES_OPEN_TTL_MS = 30 * 60 * 1000;
+
+export function sourcesOpenState(storage, now = Date.now(), key = SOURCES_OPEN_KEY, ttl = SOURCES_OPEN_TTL_MS) {
+  try {
+    const raw = storage?.getItem?.(key);
+    if (!raw) return false;
+    const at = Number(JSON.parse(raw)?.at);
+    if (!Number.isFinite(at)) return false;
+    return now - at <= ttl;
+  } catch {
+    return false;
+  }
+}
+
+export function rememberSourcesOpen(storage, now = Date.now(), key = SOURCES_OPEN_KEY) {
+  try {
+    storage?.setItem?.(key, JSON.stringify({ at: now }));
+  } catch {
+    /* хранилище недоступно — состояние просто не запоминается */
+  }
+}
+
+export function forgetSourcesOpen(storage, key = SOURCES_OPEN_KEY) {
+  try {
+    storage?.removeItem?.(key);
+  } catch {
+    /* см. rememberSourcesOpen */
+  }
+}
 
 // Кнопка аккордеона: «3 источника» / «3 sources» (§4.3.1, ICU-plural §11.2).
 // Склонения живут в словаре (sources.word) — целиком ICU-строка, без конкатенации.
@@ -61,16 +113,30 @@ const LEVEL_TONE = {
   low: '--state-calm',
 };
 
+// Иконка типа источника (R56): строго CSS-токены, aria-hidden — рядом текстовая
+// метка типа (значения не только цветом/иконкой).
+function buildTypeBadge(lang, src) {
+  const type = ['primary', 'OSINT', 'secondary'].includes(src?.source_type) ? src.source_type : 'secondary';
+  const badge = el('span', `src-type src-type--${type.toLowerCase()}`);
+  badge.setAttribute('aria-hidden', 'true');
+  badge.title = t(lang, `sources.type.${type}`);
+  return { badge, label: t(lang, `sources.type.${type}`) };
+}
+
 export function buildSourceItem(lang, src) {
   const li = el('li', 'driver-source');
   const a = el('a', 'driver-source-link');
   a.href = src.url;
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
+  const { badge, label } = buildTypeBadge(lang, src);
+  a.append(badge);
   a.append(el('span', 'driver-source-title', src.title?.[lang] ?? src.title?.ru ?? ''));
   const meta = el('span', 'driver-source-meta');
+  meta.append(el('span', 'driver-source-type', label));
   meta.append(el('span', 'driver-source-domain', src.domain ?? ''));
-  meta.append(el('span', 'driver-source-date', date(lang, src.date, true)));
+  // Новая схема R55: publication_date; легаси-поле date — фолбэк демо-истории.
+  meta.append(el('span', 'driver-source-date', date(lang, src.publication_date ?? src.date, true)));
   a.append(meta);
   li.append(a);
   return li;
@@ -79,17 +145,21 @@ export function buildSourceItem(lang, src) {
 // Аккордеон источников (§4.3.1) — единый builder для драйверов и регионов.
 // Возвращает узлы, чтобы вызывающий сам решил, куда их вставить: карточка
 // драйвера добавляет в корень, блок региона — в обёртку .region-driver-sources.
+// Список отсортирован (R56), разворот по умолчанию свёрнут и живёт в
+// sessionStorage ≤ 30 минут (R57).
 export function buildSourcesAccordion(lang, sources, listId) {
+  const sorted = sortSources(sources);
   const list = el('ul', 'driver-sources');
   list.id = listId;
   const moreBtn = el('button', 'driver-sources-more', t(lang, 'drivers.sources.showAll'));
   moreBtn.type = 'button';
   moreBtn.hidden = true;
 
-  const state = { expanded: false, showAll: false };
+  const session = typeof sessionStorage !== 'undefined' ? sessionStorage : null;
+  const state = { expanded: sourcesOpenState(session), showAll: false };
 
   const paint = () => {
-    const { shown, remaining } = visibleSources(sources, state.showAll);
+    const { shown, remaining } = visibleSources(sorted, state.showAll);
     list.innerHTML = '';
     for (const src of shown) list.append(buildSourceItem(lang, src));
     // Кнопка «все источники» живёт под раскрытым списком: при свёрнутом
@@ -102,8 +172,8 @@ export function buildSourcesAccordion(lang, sources, listId) {
     toggle.setAttribute('aria-expanded', String(state.expanded));
     // При раскрытии label меняется: «N источников — скрыть» (§4.3.1).
     toggle.querySelector('[data-role="src-count"]').textContent = state.expanded
-      ? `${sourcesLabel(lang, sources.length)} — ${t(lang, 'drivers.sources.hide')}`
-      : sourcesLabel(lang, sources.length);
+      ? `${sourcesLabel(lang, sorted.length)} — ${t(lang, 'drivers.sources.hide')}`
+      : sourcesLabel(lang, sorted.length);
     toggle.classList.toggle('is-open', state.expanded);
   };
 
@@ -111,10 +181,13 @@ export function buildSourcesAccordion(lang, sources, listId) {
   toggle.type = 'button';
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-controls', listId);
+  toggle.title = t(lang, 'sources.sort.tooltip');
   toggle.append(el('span', 'src-toggle-label', ''));
   toggle.querySelector('.src-toggle-label').dataset.role = 'src-count';
   toggle.addEventListener('click', () => {
     state.expanded = !state.expanded;
+    if (state.expanded) rememberSourcesOpen(session);
+    else forgetSourcesOpen(session);
     paint();
   });
   moreBtn.addEventListener('click', () => {
