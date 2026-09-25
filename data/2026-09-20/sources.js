@@ -771,6 +771,272 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "OSINT",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "www-nytimes-com-ukraine-russia-talks-wtk",
+    "title": {
+      "ru": "Переговоры России и Украины: где находится мирный процесс, 5 сентября 2026",
+      "en": "Here Is Where Ukraine Peace Talks Stand, as a New Round Begins"
+    },
+    "domain": "nytimes.com",
+    "url": "https://www.nytimes.com/2026/09/05/world/europe/ukraine-russia-talks-wtk.html",
+    "publication_date": "2026-09-05",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "understandingwar-org-roca-september-17-2026",
+    "title": {
+      "ru": "ISW: оценка российского наступления, 17 сентября 2026",
+      "en": "ISW Russian Offensive Campaign Assessment, September 17, 2026"
+    },
+    "domain": "understandingwar.org",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-17-2026/",
+    "publication_date": "2026-09-17",
+    "accessed_date": "2026-09-25",
+    "source_type": "OSINT",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-nti-org-nuclear-security-index-2026",
+    "title": {
+      "ru": "Индекс ядерной безопасности NTI 2026: Россия и США сокращают участие в ядерной безопасности",
+      "en": "Russia and United States retreat from nuclear security as 12 countries step up, 2026 NTI Nuclear Security Index finds"
+    },
+    "domain": "nti.org",
+    "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/",
+    "publication_date": "2026-09-15",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "sanctionsnews-bakermckenzie-com-graham-act-tariff-powers",
+    "title": {
+      "ru": "Президент США подписал закон о санкциях против России и Ирана с новыми полномочиями на пошлины",
+      "en": "US President signs Russia and Iran sanctions bill with new tariff powers"
+    },
+    "domain": "sanctionsnews.bakermckenzie.com",
+    "url": "https://sanctionsnews.bakermckenzie.com/us-president-signs-russia-and-iran-sanctions-bill-with-new-tariff-powers/",
+    "publication_date": "2026-09-21",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-legal500-com-weekly-sanctions-update-2026-09-08",
+    "title": {
+      "ru": "Еженедельный обзор санкций, 8 сентября 2026: ЕС готовит пакет до 1600 листингов по ВПК России",
+      "en": "Weekly Sanctions Update: September 8, 2026"
+    },
+    "domain": "legal500.com",
+    "url": "https://www.legal500.com/intelligence/global/government-public-sector/weekly-sanctions-update-september-8-2026",
+    "publication_date": "2026-09-08",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "understandingwar-org-roca-september-18-2026",
+    "title": {
+      "ru": "ISW: оценка российского наступления, 18 сентября 2026",
+      "en": "ISW Russian Offensive Campaign Assessment, September 18, 2026"
+    },
+    "domain": "understandingwar.org",
+    "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-18-2026/",
+    "publication_date": "2026-09-19",
+    "accessed_date": "2026-09-25",
+    "source_type": "OSINT",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "24tv-ua-mobilizacija-rossija-300-tysjach-n3138153",
+    "title": {
+      "ru": "Зеленский заявил о планах России привлечь ещё 300 тысяч военнослужащих",
+      "en": "Zelensky says Russia plans to bring in 300,000 more troops"
+    },
+    "domain": "24tv.ua",
+    "url": "https://24tv.ua/ru/mobilizacija-v-rossii-v-sentjabre-2026-goda-rossija-planiruet-otpravit-na-front-300-tysjach-chelovek_n3138153",
+    "publication_date": "2026-09-08",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "nv-ua-isw-minoborony-prinuditelny-prizyv-50636768",
+    "title": {
+      "ru": "ISW: Минобороны РФ готовится к принудительному призыву осенью 2026 года",
+      "en": "ISW: Russian Defense Ministry prepares for compulsory call-up in autumn 2026"
+    },
+    "domain": "nv.ua",
+    "url": "https://nv.ua/world/countries/mobilizaciya-v-rossii-2026-minoborony-gotovitsya-k-prinuditelnomu-prizyvu-analiz-isw-50636768.html",
+    "publication_date": "2026-08-29",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "ru-themoscowtimes-com-zapasnik-vyezd-a205473",
+    "title": {
+      "ru": "В России начали ограничивать выезд запасников за границу по решению военкоматов",
+      "en": "Russia begins restricting reservists' exit from country by military commissariat decisions"
+    },
+    "domain": "ru.themoscowtimes.com",
+    "url": "https://ru.themoscowtimes.com/2026/09/07/v-rossii-nachali-ogranichivat-viezd-zapasnikov-za-granitsu-po-resheniyu-voenkomatov-a205473",
+    "publication_date": "2026-09-07",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "nv-ua-zapret-vyezda-zapasniku-50639309",
+    "title": {
+      "ru": "В России впервые не выпустили за границу военнообязанного запаса по решению военкомата",
+      "en": "Russia for first time bars military reservist from leaving country by military commissariat decision"
+    },
+    "domain": "nv.ua",
+    "url": "https://nv.ua/world/countries/mobilizaciya-v-rossii-vpervye-voennoobyazannomu-zapasa-zapretili-vyezd-po-resheniyu-voenkomata-50639309.html",
+    "publication_date": "2026-09-07",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "tsn-ua-rossiyan-ostanavlivayut-granitse-3163967",
+    "title": {
+      "ru": "Россиян начали останавливать на границе: в чём причина",
+      "en": "Russians being stopped at the border: what is known"
+    },
+    "domain": "tsn.ua",
+    "url": "https://tsn.ua/ru/svit/rossiyan-nachali-ostanavlivat-na-granitse-v-chem-prichina-3163967.html",
+    "publication_date": "2026-09-07",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "fakty-com-ua-vyyizd-cholovikiv-1-veresnya",
+    "title": {
+      "ru": "Выезд мужчин за границу с 1 сентября 2026: кто имеет право и какие документы нужны",
+      "en": "Men's travel abroad from 1 September 2026: who is eligible and which documents are required"
+    },
+    "domain": "fakty.com.ua",
+    "url": "https://fakty.com.ua/ru/ukraine/20260901-vyyizd-cholovikiv-za-kordon-z-1-veresnya-hto-maye-pravo-ta-yaki-dokumenty-potribni/",
+    "publication_date": "2026-09-01",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-independent-co-uk-ukraine-russia-talks-envoys-b3045408",
+    "title": {
+      "ru": "Украина — Россия: эмиссары Трампа покинули переговоры, по Киеву ударили баллистическими ракетами",
+      "en": "Ukraine–Russia war: Trump's envoys leave talks as Kyiv hit by ballistic missiles"
+    },
+    "domain": "independent.co.uk",
+    "url": "https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-trump-putin-zelensky-talks-witkoff-kushner-b3045408.html",
+    "publication_date": "2026-09-08",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-iaea-org-update-366-ukraine-znpp",
+    "title": {
+      "ru": "МАГАТЭ: заявление гендиректора о ситуации на ЗАЭС, 11 сентября 2026",
+      "en": "IAEA Director General statement on situation in Ukraine, Update 366, 11 September 2026"
+    },
+    "domain": "iaea.org",
+    "url": "https://www.iaea.org/newscenter/pressreleases/update-366-iaea-director-general-statement-on-situation-in-ukraine",
+    "publication_date": "2026-09-11",
+    "accessed_date": "2026-09-25",
+    "source_type": "primary",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-aa-com-tr-rosatom-grossi-znpp-vienna-4057265",
+    "title": {
+      "ru": "Глава «Росатома» и гендиректор МАГАТЭ обсудили безопасность ЗАЭС в Вене",
+      "en": "Rosatom chief, UN nuclear watchdog director general discuss Zaporizhzhia plant safety in Vienna"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/world/rosatom-chief-un-nuclear-watchdog-director-general-discuss-zaporizhzhia-nuclear-plant-s-safety-in-vienna/4057265",
+    "publication_date": "2026-09-15",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "www-thehindubusinessline-com-iaea-kursk-npp-drone-71483674",
+    "title": {
+      "ru": "МАГАТЭ осудило атаки на ядерные объекты после удара дрона по градирне Курской АЭС",
+      "en": "IAEA condemns attacks on nuclear facilities after drone hits Kursk nuclear plant cooling tower"
+    },
+    "domain": "thehindubusinessline.com",
+    "url": "https://www.thehindubusinessline.com/news/world/iaea-condemns-attacks-on-nuclear-facilities-after-drone-hits-kursk-nuclear-plant-cooling-tower/article71483674.ece",
+    "publication_date": "2026-09-19",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "www-forbes-ru-vysylka-150-diplomatov-germaniya",
+    "title": {
+      "ru": "Посольство России сообщило о высылке из Германии 150 дипломатов и членов их семей",
+      "en": "Russian embassy reports expulsion of 150 diplomats and their family members from Germany"
+    },
+    "domain": "forbes.ru",
+    "url": "https://www.forbes.ru/society/568359-posol-stvo-rossii-rasskazalo-o-vysylke-iz-germanii-150-diplomatov-i-clenov-ih-semej",
+    "publication_date": "2026-09-10",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "uawire-org-germany-150-russian-staff-leave",
+    "title": {
+      "ru": "Германия потребовала от более чем 150 сотрудников российских миссий и их родственников покинуть страну",
+      "en": "Germany orders over 150 Russian mission staff and relatives to leave"
+    },
+    "domain": "uawire.org",
+    "url": "https://uawire.org/germany-orders-over-150-russian-mission-staff-and-relatives-to-leave",
+    "publication_date": "2026-09-11",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "unn-ua-germany-expels-150-diplomats-leipzig",
+    "title": {
+      "ru": "Германия выдворяет более 150 российских дипломатов и членов их семей после инцидента в Лейпциге",
+      "en": "Germany expels more than 150 Russian diplomats and their family members following Leipzig incident"
+    },
+    "domain": "unn.ua",
+    "url": "https://unn.ua/en/news/germany-expels-more-than-150-russian-diplomats-and-their-family-members-following-sabotage-in-leipzig",
+    "publication_date": "2026-09-10",
+    "accessed_date": "2026-09-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();
