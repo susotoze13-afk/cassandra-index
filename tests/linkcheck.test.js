@@ -24,7 +24,7 @@ test('classify: 2xx/3xx → ok; 403 → blocked; прочее 4xx/5xx и обр�
   for (const s of [400, 401, 404, 410, 418, 500, 503]) {
     assert.equal(classify(s), 'broken', `status ${s}`);
   }
-  assert.equal(classify(null), 'broken', 'обрыв без ответа (status null)');
+  assert.equal(classify(null), 'blocked', 'ответ не получен (DNS/таймаут) — не битая ссылка');
 });
 
 test('checkUrl: 200 → ok, одна попытка, полный результат', async () => {
@@ -109,6 +109,18 @@ test('checkUrl: обрыв сети (fetch бросает) → повторяе�
   assert.equal(r.attempts, 2);
 });
 
+test('checkUrl: запрос идёт с браузерными заголовками (User-Agent, Accept)', async () => {
+  let seenHeaders;
+  const fetchImpl = async (url, opts = {}) => {
+    seenHeaders = opts.headers;
+    return response(200);
+  };
+  await checkUrl('https://example.com/h', { fetchImpl, retryDelayMs: 0 });
+  assert.ok(seenHeaders, 'fetchImpl получил headers');
+  assert.match(seenHeaders['User-Agent'], /^Mozilla\/5\.0 /, 'браузерный User-Agent');
+  assert.match(seenHeaders.Accept, /text\/html/, 'Accept с text/html');
+  assert.ok(!seenHeaders.Accept.includes('application/json'));
+});
 test('checkUrl: 403 → ok=false, одна попытка, не повторяется', async () => {
   const fetchImpl = fakeFetch(async () => response(403));
   const r = await checkUrl('https://example.com/guarded', { fetchImpl, retryDelayMs: 0 });
@@ -142,5 +154,23 @@ test('checkSources: последовательная проверка и отч�
   ]);
   assert.deepEqual(report.blocked, [
     { url: 'https://c.example/guarded', status: 403, where: 'sources[2]' },
+  ]);
+});
+
+
+test('checkSources: blocked без ответа (DNS/обрыв) несёт reason: no-response', async () => {
+  const fetchImpl = async (url) => {
+    if (url.endsWith('/down')) throw new TypeError('getaddrinfo ENOTFOUND');
+    return response(200);
+  };
+  const items = [
+    { url: 'https://up.example/1', where: 'sources[0]' },
+    { url: 'https://down.example/down', where: 'sources[1]' },
+  ];
+  const report = await checkSources(items, { fetchImpl, retries: 0, retryDelayMs: 0 });
+  assert.equal(report.ok, 1);
+  assert.equal(report.broken.length, 0, 'нет ответа — не битая ссылка');
+  assert.deepEqual(report.blocked, [
+    { url: 'https://down.example/down', status: null, where: 'sources[1]', reason: 'no-response' },
   ]);
 });
