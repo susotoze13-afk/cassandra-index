@@ -9,6 +9,8 @@
 
 import { t } from '../i18n.js';
 import * as risk from '../risk.js';
+import { el } from '../ui.js';
+import { CRITERIA_LIST } from '../criteria.js';
 
 // Пункты списков и якоря порогов — из ключей словаря (§11.3: жёстких строк нет).
 const LIST_KEYS = {
@@ -43,6 +45,61 @@ export function thresholdRanges() {
 }
 
 const OPEN_QUESTION_COUNT = 25;
+
+// R05: полный перечень 45 критериев из js/criteria.js, сгруппированный по
+// драйверам. Чистый шов: модель групп (заголовок драйвера + позиции) по языку —
+// без DOM, тестируется. Названия драйверов — прозаические ключи словаря;
+// названия и описания критериев — данные модуля criteria.js.
+export function criteriaModel(lang) {
+  const groups = [];
+  for (const c of CRITERIA_LIST) {
+    let group = groups.find((g) => g.driver === c.driver);
+    if (!group) {
+      group = {
+        driver: c.driver,
+        title: t(lang, `method.criteria.driver.${c.driver.toLowerCase()}`),
+        items: [],
+      };
+      groups.push(group);
+    }
+    group.items.push({ id: c.id, name: c.name[lang], desc: c.desc[lang] });
+  }
+  return groups;
+}
+
+// Сворачиваемая группа драйвера: <details>/<summary> — нативная a11y
+// (клавиатура и скринридер без скриптов). DOM только createElement + textContent.
+function criteriaGroupNode(group) {
+  const details = el('details', 'method-criteria-group');
+  const summary = el('summary', 'method-criteria-summary');
+  summary.appendChild(el('span', 'method-criteria-driver', group.title));
+  summary.appendChild(el('span', 'method-criteria-count', String(group.items.length)));
+  details.appendChild(summary);
+  const ul = el('ul', 'method-criteria-list');
+  for (const item of group.items) {
+    const li = el('li', 'method-criteria-item');
+    const head = el('div', 'method-criteria-head');
+    head.appendChild(el('span', 'method-criteria-id', item.id));
+    head.appendChild(el('span', 'method-criteria-name', item.name));
+    li.appendChild(head);
+    li.appendChild(el('div', 'method-criteria-desc', item.desc));
+    ul.appendChild(li);
+  }
+  details.appendChild(ul);
+  return details;
+}
+
+// Блок «Полный перечень критериев» для раздела (R05). Сигналы — без формул,
+// шкал и порогов: это принципиально зафиксировано в js/criteria.js и его тесте.
+function criteriaBlock(lang) {
+  const block = el('div', 'method-block');
+  block.appendChild(el('h3', '', t(lang, 'method.criteria.title')));
+  block.appendChild(el('p', '', t(lang, 'method.criteria.intro')));
+  for (const group of criteriaModel(lang)) {
+    block.appendChild(criteriaGroupNode(group));
+  }
+  return block;
+}
 
 function list(lang, keys) {
   return `<ul>${keys.map((k) => `<li>${t(lang, k)}</li>`).join('')}</ul>`;
@@ -103,4 +160,8 @@ export function render(appState) {
       <h3>${t(lang, 'method.open.title')}</h3>
       <ol class="method-open">${openQuestions}</ol>
     </div>`;
+  // Перечень критериев — сразу после «Что модель измеряет»: это первое, что
+  // ищет посетитель раздела (R05); прочие блоки методологии — после него.
+  const anchor = host.querySelector('.method-block');
+  host.insertBefore(criteriaBlock(lang), anchor?.nextSibling ?? null);
 }
