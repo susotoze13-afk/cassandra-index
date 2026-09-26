@@ -215,13 +215,14 @@ const FOOTER = '})();\n';
 const j = (v) => JSON.stringify(v, null, 2);
 
 // Числовая часть global.js: global (null при insufficient), q/nullWeight/
-// coverage/confidence/preview/recalc — из классификации; служебные строки
-// published/through/methodology — как были (защищённые поля не меняются).
+// coverage/confidence/preview/recalc — из классификации; published/methodology
+// — как были (защищённые поля). through — дата самой недели: окно анализа
+// W−7…W включительно, дата покрытия = день публикации (R02).
 export function renderGlobal(week, snap, globalOut, meta) {
   const lines = [
     `  s.global = ${j(globalOut)};`,
     `  s.published = ${JSON.stringify(snap.published)};`,
-    `  s.through = ${JSON.stringify(snap.through)};`,
+    `  s.through = ${JSON.stringify(week)};`,
     `  s.methodology = ${JSON.stringify(snap.methodology)};`,
     `  s.dataState = ${JSON.stringify(meta.dataState)};`,
     `  s.q = ${j(meta.q)};`,
