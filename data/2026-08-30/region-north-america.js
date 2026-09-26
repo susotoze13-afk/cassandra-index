@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона north-america (неделя 2026-08-30, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-08-30.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["north-america"] = {
   "index": 60,
   "delta": 18,
@@ -13,84 +12,84 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "В регионе завершён цикл учений стратегических сил без отклонений.",
-        "en": "The region completed a strategic forces exercise cycle without incidents."
+        "ru": "Москва предупредила Великобританию о последствиях поставок оружия Украине; министр обороны Великобритании заявил, что Лондон останется с Киевом несмотря на возмутительные угрозы.",
+        "en": "Moscow warned the United Kingdom over arms supplies to Ukraine; the UK defence secretary said London will stand with Kyiv despite the outrageous threats."
       },
       "why": {
-        "ru": "Завершение цикла без инцидентов снижает краткосрочную напряжённость.",
-        "en": "An incident-free cycle lowers short-term tension."
+        "ru": "Публичные угрозы в адрес союзников и твёрдые ответные заявления закрепляют конфронтацию между столицами.",
+        "en": "Public threats against allies and firm responses entrench confrontation between capitals."
       },
-      "contribution": "low",
+      "contribution": "medium",
       "confidence": "high",
       "sources": [
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "guardian-europe-live-2026-08-24",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Бёрнем: Великобритания с Украиной «до конца» несмотря на «возмутительные угрозы» России — онлайн",
+            "en": "Burnham says UK with Ukraine 'all the way' despite 'outrageous threats' from Russia – Europe live"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-23",
+          "domain": "theguardian.com",
+          "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates",
+          "publication_date": "2026-08-24",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
-          "state_affiliated": true
+          "state_affiliated": false
         },
         {
-          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "id": "democracynow-headlines-2026-08-27",
           "title": {
-            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-            "en": "Global military spending rise continues as European and Asian expenditures surge"
+            "ru": "Заголовки 27 августа 2026: Украина и Россия обмениваются ударами, Москва предупреждает Великобританию",
+            "en": "Headlines August 27, 2026: Ukraine and Russia trade attacks as Moscow warns the UK"
           },
-          "domain": "sipri.org",
-          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-          "publication_date": "2026-04-27",
-          "accessed_date": "2026-08-23",
+          "domain": "democracynow.org",
+          "url": "https://www.democracynow.org/2026/8/27/headlines",
+          "publication_date": "2026-08-27",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Дипломатические контакты по линии оборонных ведомств сохраняются.",
-        "en": "Defence-ministry diplomatic contacts remain in place."
+        "ru": "ЕС одобрил 7,1 млрд долларов новой военной помощи Украине; сводки санкционного регулирования фиксируют вступление в силу очередных ограничительных мер.",
+        "en": "The EU approved USD 7.1 billion in new military aid to Ukraine; sanctions-regulation roundups record new restrictive measures taking effect."
       },
       "why": {
-        "ru": "Рабочие каналы связи снижают риск ошибочной эскалации.",
-        "en": "Working communication channels reduce the risk of accidental escalation."
+        "ru": "Серийное наращивание помощи и санкций закрепляет ожидание длительного периода напряжённости в трансатлантическом пространстве.",
+        "en": "Serial increases in aid and sanctions entrench expectations of a prolonged period of tension across the Atlantic."
       },
       "contribution": "low",
       "confidence": "medium",
       "sources": [
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "aa-eu-defense-aid-2026-08-24",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "ЕС одобрил $7,1 млрд новой военной помощи Украине",
+            "en": "EU approves $7.1B in new defense aid for Ukraine"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-23",
+          "domain": "aa.com.tr",
+          "url": "https://www.aa.com.tr/en/europe/eu-approves-71b-in-new-defense-aid-for-ukraine/4035762",
+          "publication_date": "2026-08-24",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "A-mainstream",
-          "state_affiliated": false
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "ecovis-sanctions-regulation-august-2026",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "RegRally Insights: санкционное регулирование, август 2026",
+            "en": "RegRally Insights: Sanctions Regulation, August 2026"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-08-23",
-          "source_type": "OSINT",
-          "cluster_id": "A-mainstream",
+          "domain": "ecovis.lt",
+          "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/",
+          "publication_date": "2026-08-27",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
           "state_affiliated": false
         }
       ]

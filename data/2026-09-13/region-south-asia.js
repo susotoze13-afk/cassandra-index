@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-13"] = window.CI_DATA.snapshots["2026-09-13"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона south-asia (неделя 2026-09-13, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-13.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["south-asia"] = {
   "index": 60,
   "delta": 2,
@@ -13,83 +12,97 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Обстрелы на линии разграничения участились по данным наблюдателей.",
-        "en": "Observers report more exchanges of fire along the line of control."
+        "ru": "В России впервые не выпустили за границу военнообязанного запаса по решению военкомата — подтверждено тремя независимыми изданиями; Зеленский заявляет о планах России привлечь ещё около 300 тысяч военнослужащих.",
+        "en": "Russia for the first time barred a reservist from leaving the country by a draft-board decision, confirmed by three independent outlets; Zelensky says Russia plans to recruit about 300,000 more troops."
       },
       "why": {
-        "ru": "Частые обстрелы поддерживают высокий уровень боевого сдерживания.",
-        "en": "Frequent fire keeps the level of military deterrence high."
+        "ru": "Наращивание мобилизационного ресурса меняет долгосрочный баланс сил в регионе и влияет на расчёты соседей.",
+        "en": "Expanding the mobilisation resource changes the long-term balance of power in the region and shapes neighbours’ calculations."
       },
-      "contribution": "high",
+      "contribution": "medium",
       "confidence": "high",
       "sources": [
         {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "id": "ru-themoscowtimes-com-zapasnik-vyezd-a205473",
           "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+            "ru": "В России начали ограничивать выезд запасников за границу по решению военкоматов",
+            "en": "Russia begins restricting reservists' exit from country by military commissariat decisions"
           },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-09-06",
-          "source_type": "OSINT",
+          "domain": "ru.themoscowtimes.com",
+          "url": "https://ru.themoscowtimes.com/2026/09/07/v-rossii-nachali-ogranichivat-viezd-zapasnikov-za-granitsu-po-resheniyu-voenkomatov-a205473",
+          "publication_date": "2026-09-07",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "nv-ua-zapret-vyezda-zapasniku-50639309",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "В России впервые не выпустили за границу военнообязанного запаса по решению военкомата",
+            "en": "Russia for first time bars military reservist from leaving country by military commissariat decision"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-09-06",
+          "domain": "nv.ua",
+          "url": "https://nv.ua/world/countries/mobilizaciya-v-rossii-vpervye-voennoobyazannomu-zapasa-zapretili-vyezd-po-resheniyu-voenkomata-50639309.html",
+          "publication_date": "2026-09-07",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
+        },
+        {
+          "id": "24tv-ua-mobilizacija-300-tysjach-n3138153",
+          "title": {
+            "ru": "Зеленский заявил о планах России привлечь ещё 300 тысяч военнослужащих",
+            "en": "Zelensky says Russia plans to bring in 300,000 more troops"
+          },
+          "domain": "24tv.ua",
+          "url": "https://24tv.ua/ru/mobilizacija-v-rossii-v-sentjabre-2026-goda-rossija-planiruet-otpravit-na-front-300-tysjach-chelovek_n3138153",
+          "publication_date": "2026-09-08",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "В регионе испытываются новые ракетные комплексы средней дальности.",
-        "en": "New medium-range missile systems are being tested in the region."
+        "ru": "Цены на бензин в российских регионах стабилизировались, очереди на заправках сокращаются; мировые нефтяные цены при этом растут.",
+        "en": "Petrol prices in Russian regions stabilised and queues at filling stations are shrinking; global oil prices are rising meanwhile."
       },
       "why": {
-        "ru": "Испытания ракет средней дальности усиливают циклы демонстрации сил.",
-        "en": "Medium-range missile tests strengthen cycles of shows of force."
+        "ru": "Разнонаправленные сигналы на топливных рынках удерживают неопределённость для импортозависимых экономик Южной Азии.",
+        "en": "Mixed signals in fuel markets keep uncertainty high for import-dependent South Asian economies."
       },
-      "contribution": "medium",
+      "contribution": "low",
       "confidence": "medium",
       "sources": [
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "mentoday-ru-benzin-azs-2026-09-08",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Цены устаканились, очереди на АЗС сокращаются: что происходит с бензином в регионах и что будет осенью",
+            "en": "Fuel prices stabilise, gas station queues shrink: what is happening with petrol in Russian regions"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-09-06",
+          "domain": "mentoday.ru",
+          "url": "https://www.mentoday.ru/life/news/08-09-2026/ceny-ustakanilis-ocheredi-na-azs-sokrashchayutsya-chto-proishodit-s-benzinom-v-regionah-i-chto-budet-osenyu/",
+          "publication_date": "2026-09-08",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
-          "state_affiliated": true
+          "state_affiliated": false
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "sergeytereshkin-co-uk-oil-gas-news-2026-09-12",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "Нефтегазовые новости, 12 сентября 2026: Brent выше $100 после роста на 7%, дизель в США дороже $6",
+            "en": "Oil and Gas News, Saturday 12 September 2026: Brent ends week above $100 after 7% rise, US diesel over $6"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-09-06",
-          "source_type": "OSINT",
+          "domain": "sergeytereshkin.co.uk",
+          "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         }

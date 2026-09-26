@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона middle-east (неделя 2026-09-06, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["middle-east"] = {
   "index": 60,
   "delta": -20,
@@ -13,44 +12,40 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Доступ инспекторов к ряду объектов ограничен, говорится в докладе агентства.",
-        "en": "An agency report says inspector access to several facilities is limited."
+        "ru": "Рынок страхования от ударов беспилотников переоценивает риски; запрет на экспорт дизельного топлива продлён до 30 сентября, ужесточая глобальный баланс средних дистиллятов.",
+        "en": "The drone-strike insurance market is repricing risk; the diesel export ban was extended to 30 September, tightening the global balance of middle distillates."
       },
       "why": {
-        "ru": "Снижение прозрачности затрудняет проверку соблюдения обязательств.",
-        "en": "Reduced transparency makes it harder to verify compliance with obligations."
+        "ru": "Рост страховых и топливных издержек переносится на фрахт и снабжение, в том числе по маршрутам, важным для импортёров региона.",
+        "en": "Rising insurance and fuel costs are passed on to freight and supply, including on routes that matter for the region’s importers."
       },
-      "contribution": "high",
+      "contribution": "low",
       "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Меньше данных, чем обычно: часть источников недоступна.",
-        "en": "Fewer data than usual: some sources are unavailable."
-      },
       "sources": [
         {
-          "id": "www-iaea-org-newscenter-news-iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
+          "id": "insur-info-drone-risk-insurance-market",
           "title": {
-            "ru": "Совет управляющих МАГАТЭ проинформирован об Украине, Иране и глобальном сотрудничестве",
-            "en": "IAEA Board of Governors Briefed on Ukraine, Iran and Global Nuclear Cooperation"
+            "ru": "Воздушная защита: сколько стоят страховки от БПЛА в России",
+            "en": "Air defence: the cost of drone-attack insurance in Russia"
           },
-          "domain": "iaea.org",
-          "url": "https://www.iaea.org/newscenter/news/iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
-          "publication_date": "2026-06-09",
-          "accessed_date": "2026-08-30",
+          "domain": "insur-info.ru",
+          "url": "https://www.insur-info.ru/press/213927/",
+          "publication_date": "2026-09-04",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "F-financial",
           "state_affiliated": false
         },
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "cargorun-ru-diesel-export-ban-extended",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "Запрет на экспорт дизтоплива производителями продлён до 30 сентября 2026 года",
+            "en": "Diesel fuel export ban for producers extended to 30 September 2026"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-30",
+          "domain": "cargorun.ru",
+          "url": "https://cargorun.ru/blog/novosti/zapret-eksport-diztopliva-30-sentyabrya-2026",
+          "publication_date": "2026-08-31",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
@@ -59,54 +54,40 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     },
     {
       "observation": {
-        "ru": "Гуманитарные коридоры работают с перебоями, по данным гуманитарных организаций.",
-        "en": "Humanitarian organisations report that corridors are operating intermittently."
+        "ru": "Премьер Испании обвинил Россию и Израиль в дезинформации во время кризиса в Сеуте, ссылаясь на исследование EEAS; Россия отвергла связанные с Лейпцигом обвинения.",
+        "en": "Spain’s prime minister accused Russia and Israel of disinformation during the Ceuta crisis, citing an EEAS study; Russia rejected the Leipzig-related accusations."
       },
       "why": {
-        "ru": "Нестабильные коридоры сопровождаются ростом локальных столкновений.",
-        "en": "Unstable corridors coincide with more local clashes."
+        "ru": "Документированные кампании влияния вокруг кризисов миграции добавляют информационное измерение напряжённости в приграничье.",
+        "en": "Documented influence campaigns around migration crises add an informational dimension to tension in border areas."
       },
-      "contribution": "high",
-      "confidence": "low",
+      "contribution": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "aljazeera-com-ceuta-disinformation-eeas",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Премьер Испании обвинил Россию и Израиль в дезинформации во время кризиса в Сеуте, ссылаясь на исследование EEAS",
+            "en": "Spain's Sanchez says Russia, Israel spread disinformation during Ceuta crisis, citing EEAS research"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-08-30",
+          "domain": "aljazeera.com",
+          "url": "https://www.aljazeera.com/news/2026/8/31/spains-sanchez-condemns-russia-israel-disinformation-during-ceuta-crisis",
+          "publication_date": "2026-08-31",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
-          "state_affiliated": false
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
         },
         {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "id": "kommersant-ru-russia-rejects-leipzig-8924396",
           "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+            "ru": "Россия отвергла обвинения Германии в инциденте в Лейпциге и пообещала жёсткий ответ на санкции",
+            "en": "Russia rejects German accusations over Leipzig incident, promises harsh response to sanctions"
           },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-08-30",
-          "source_type": "OSINT",
-          "cluster_id": "A-mainstream",
-          "state_affiliated": false
-        },
-        {
-          "id": "news-un-org-en-story-2026-07-1167860-2",
-          "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
-          },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-30",
+          "domain": "kommersant.ru",
+          "url": "https://www.kommersant.ru/doc/8924396",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false

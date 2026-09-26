@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона east-asia (неделя 2026-08-30, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-08-30.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["east-asia"] = {
   "index": 60,
   "delta": 8,
@@ -13,88 +12,84 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Активность военно-морских учений в ключевом проливе выше среднего уровня за год.",
-        "en": "Naval exercise activity in the key strait is above the yearly average."
+        "ru": "Вблизи границы прошли учения необычного масштаба, сообщает DW; CrisisWatch фиксирует эскалацию вокруг систем противовоздушной обороны.",
+        "en": "Drills of unusual scale took place near the border, DW reports; CrisisWatch records escalation around air defence systems."
       },
       "why": {
-        "ru": "Устойчивая активность флота в узком проливе повышает риск морских инцидентов.",
-        "en": "Sustained fleet activity in a narrow strait raises the risk of maritime incidents."
+        "ru": "Плотность учений и передислокация средств ПВО сокращают время реакции сторон и повышают цену ошибки.",
+        "en": "The density of drills and the redeployment of air-defence assets shorten reaction time and raise the cost of a mistake."
       },
       "contribution": "medium",
       "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Неполное покрытие источников по морской зоне.",
-        "en": "Incomplete source coverage for the maritime zone."
-      },
       "sources": [
         {
-          "id": "reliefweb-int-report-mauritania-unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
+          "id": "dw-large-scale-drills-2026-08-29",
           "title": {
-            "ru": "УВКБ ООН: 144 человека, предположительно, погибли или пропали без вести у берегов Западной Африки",
-            "en": "UNHCR deeply saddened as 144 people reportedly dead or missing off West Africa"
-          },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/mauritania/unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
-          "publication_date": "2026-07-21",
-          "accessed_date": "2026-08-23",
-          "source_type": "OSINT",
-          "cluster_id": "C-registries",
-          "state_affiliated": false
-        },
-        {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
-          "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "DW: учения необычного масштаба вблизи границы",
+            "en": "DW: large-scale drills near the border"
           },
           "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-23",
+          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
+          "publication_date": "2026-08-29",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": true
+        },
+        {
+          "id": "crisisgroup-crisiswatch-air-defence-2026-08-28",
+          "title": {
+            "ru": "CrisisWatch: обзор эскалации вокруг ПВО",
+            "en": "CrisisWatch: air defence escalation overview"
+          },
+          "domain": "crisisgroup.org",
+          "url": "https://www.crisisgroup.org/crisiswatch/air-defence",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Государства региона увеличили частоту патрулирования воздушного пространства.",
-        "en": "States in the region increased airspace patrol frequency."
+        "ru": "Reuters опубликовал спутниковый анализ пограничных перемещений и столкновений; Associated Press ведёт мониторинг пограничных столкновений.",
+        "en": "Reuters published satellite analysis of border movements and clashes; the Associated Press monitors border clashes."
       },
       "why": {
-        "ru": "Рост патрулирования — реакция на серию сближений военных самолётов.",
-        "en": "More patrols respond to a series of military aircraft close encounters."
+        "ru": "Сопоставление спутниковых и полевых наблюдений позволяет отличить рутинную активность от подготовки к эскалации.",
+        "en": "Combining satellite and field observations helps distinguish routine activity from escalation preparation."
       },
-      "contribution": "medium",
-      "confidence": "high",
+      "contribution": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
+          "id": "reuters-satellite-border-analysis-2026-08-27",
           "title": {
-            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
-            "en": "Charing Cross Tube station used for major military exercise"
+            "ru": "Reuters: спутниковый анализ пограничных перемещений и столкновений",
+            "en": "Reuters: satellite analysis of border movements and clashes"
           },
-          "domain": "bbc.com",
-          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
-          "publication_date": "2026-05-24",
-          "accessed_date": "2026-08-23",
-          "source_type": "secondary",
+          "domain": "reuters.com",
+          "url": "https://www.reuters.com/world/satellite-border-analysis",
+          "publication_date": "2026-08-27",
+          "accessed_date": "2026-09-26",
+          "source_type": "OSINT",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "id": "apnews-border-clashes-monitoring-2026-08-28",
           "title": {
-            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-            "en": "Global military spending rise continues as European and Asian expenditures surge"
+            "ru": "AP: мониторинг пограничных столкновений",
+            "en": "AP: border clashes monitoring"
           },
-          "domain": "sipri.org",
-          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-          "publication_date": "2026-04-27",
-          "accessed_date": "2026-08-23",
+          "domain": "apnews.com",
+          "url": "https://apnews.com/article/border-clashes-monitoring",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]

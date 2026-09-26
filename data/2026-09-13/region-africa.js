@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-13"] = window.CI_DATA.snapshots["2026-09-13"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона africa (неделя 2026-09-13, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-13.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["africa"] = {
   "index": 60,
   "delta": 13,
@@ -13,83 +12,83 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "В соседних государствах региона активизировались переговоры о перемирии.",
-        "en": "Truce talks have intensified among neighbouring states in the region."
+        "ru": "Хуситы захватили остров Перим в Красном море; морские маршруты вдоль восточного побережья Африки несут растущие страховые издержки.",
+        "en": "The Houthis seized Perim island in the Red Sea; sea routes along Africa’s eastern coast face rising insurance costs."
       },
       "why": {
-        "ru": "Переговорный трек снижает риск распространения конфликта.",
-        "en": "A negotiation track lowers the risk of the conflict spreading."
+        "ru": "Нестабильность в Красном море ударяет по торговле и снабжению восточной Африки через фрахт и страхование.",
+        "en": "Red Sea instability hits East African trade and supply through freight and insurance."
       },
       "contribution": "medium",
       "confidence": "medium",
       "sources": [
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "news-usni-org-houthis-perim-red-sea-2026-09-11",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "Хуситы захватили остров Перим; США и Иран переходят к танкерам против военных кораблей",
+            "en": "Houthis Make Moves on Red Sea, U.S., Iran Go Tanker for Warship"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-09-06",
+          "domain": "news.usni.org",
+          "url": "https://news.usni.org/2026/09/11/houthis-make-moves-on-red-sea-u-s-iran-go-tanker-for-warship",
+          "publication_date": "2026-09-11",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "sergeytereshkin-co-uk-oil-gas-news-2026-09-12",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Нефтегазовые новости, 12 сентября 2026: Brent выше $100 после роста на 7%, дизель в США дороже $6",
+            "en": "Oil and Gas News, Saturday 12 September 2026: Brent ends week above $100 after 7% rise, US diesel over $6"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-09-06",
+          "domain": "sergeytereshkin.co.uk",
+          "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Гуманитарные организации фиксируют рост перемещённых лиц в приграничных районах.",
-        "en": "Aid organisations record more displaced people in border areas."
+        "ru": "Brent подорожала выше 100 долларов; рост цен на энергоносители повышает издержки импортёров.",
+        "en": "Brent rose above USD 100; higher energy prices raise costs for importers."
       },
       "why": {
-        "ru": "Потоки перемещённых лиц — индикатор устойчивой нестабильности в приграничье.",
-        "en": "Displacement flows signal persistent instability near borders."
+        "ru": "Дорогая энергия и логистика сокращают ресурсы африканских экономик на продовольствие и гуманитарные программы.",
+        "en": "Expensive energy and logistics drain African economies’ resources for food and humanitarian programmes."
       },
       "contribution": "low",
       "confidence": "medium",
       "sources": [
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026-2",
+          "id": "sergeytereshkin-co-uk-oil-gas-news-2026-09-12",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Нефтегазовые новости, 12 сентября 2026: Brent выше $100 после роста на 7%, дизель в США дороже $6",
+            "en": "Oil and Gas News, Saturday 12 September 2026: Brent ends week above $100 after 7% rise, US diesel over $6"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-09-06",
+          "domain": "sergeytereshkin.co.uk",
+          "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "id": "mentoday-ru-benzin-azs-2026-09-08",
           "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+            "ru": "Цены устаканились, очереди на АЗС сокращаются: что происходит с бензином в регионах и что будет осенью",
+            "en": "Fuel prices stabilise, gas station queues shrink: what is happening with petrol in Russian regions"
           },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-09-06",
-          "source_type": "OSINT",
+          "domain": "mentoday.ru",
+          "url": "https://www.mentoday.ru/life/news/08-09-2026/ceny-ustakanilis-ocheredi-na-azs-sokrashchayutsya-chto-proishodit-s-benzinom-v-regionah-i-chto-budet-osenyu/",
+          "publication_date": "2026-09-08",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         }

@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона south-asia (неделя 2026-09-06, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["south-asia"] = {
   "index": 60,
   "delta": 2,
@@ -13,84 +12,98 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Обстрелы на линии разграничения участились по данным наблюдателей.",
-        "en": "Observers report more exchanges of fire along the line of control."
+        "ru": "Россия продлила запрет на экспорт дизельного топлива производителями до 30 сентября 2026 года; по оценкам рынка, это ужесточает глобальный баланс средних дистиллятов и влияет на цены в Азии.",
+        "en": "Russia extended the producers’ ban on diesel exports to 30 September 2026; market assessments say this tightens the global balance of middle distillates and affects prices in Asia."
       },
       "why": {
-        "ru": "Частые обстрелы поддерживают высокий уровень боевого сдерживания.",
-        "en": "Frequent fire keeps the level of military deterrence high."
+        "ru": "Южная Азия — крупнейший импортный рынок дистиллятов: перебои экспорта напрямую бьют по стоимости топлива и логистики региона.",
+        "en": "South Asia is the largest import market for distillates: export disruptions directly hit the region’s fuel and logistics costs."
       },
-      "contribution": "high",
-      "confidence": "high",
+      "contribution": "medium",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "id": "commodity-board-diesel-ban-distillate-supply",
           "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+            "ru": "Россия продлевает запрет на экспорт дизельного топлива до 30 сентября 2026 года, ужесточая глобальный баланс средних дистиллятов",
+            "en": "Russia extends diesel export ban to 30 September 2026, tightening global middle-distillate supply"
           },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-08-30",
-          "source_type": "OSINT",
+          "domain": "commodity-board.com",
+          "url": "https://commodity-board.com/%D1%80%D0%BE%D1%81%D1%81%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B4%D0%BB%D0%B5%D0%B2%D0%B0%D0%B5%D1%82-%D0%B7%D0%B0%D0%BF%D1%80%D0%B5%D1%82-%D0%BD%D0%B0-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B8%D0%B7%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D0%BE%D0%BF%D0%BB%D0%B8%D0%B2%D0%B0-%D0%B4%D0%BE-30-%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8F-2026-%D0%B3%D0%BE%D0%B4%D0%B0",
+          "publication_date": "2026-09-01",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "F-financial",
+          "state_affiliated": false
+        },
+        {
+          "id": "cargorun-ru-diesel-export-ban-extended",
+          "title": {
+            "ru": "Запрет на экспорт дизтоплива производителями продлён до 30 сентября 2026 года",
+            "en": "Diesel fuel export ban for producers extended to 30 September 2026"
+          },
+          "domain": "cargorun.ru",
+          "url": "https://cargorun.ru/blog/novosti/zapret-eksport-diztopliva-30-sentyabrya-2026",
+          "publication_date": "2026-08-31",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "marketpower-diesel-ban-winter-stockpiles",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Власти России продлили запрет на экспорт дизельного топлива до 30 сентября 2026 года для формирования запасов на зиму",
+            "en": "Russia extends diesel export ban to 30 September 2026 to build winter fuel reserves"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-08-30",
+          "domain": "marketpower.pro",
+          "url": "https://marketpower.pro/publications/vlasti-rossii-prodlili-zapret-na-eksport-dizelnogo-topliva-do-30-sentiabria",
+          "publication_date": "2026-09-03",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "В регионе испытываются новые ракетные комплексы средней дальности.",
-        "en": "New medium-range missile systems are being tested in the region."
+        "ru": "Независимый мониторинг за август не зафиксировал пусков и смены ядерной риторики; ISW подтверждает отсутствие технических сигналов стратегических сил в окне.",
+        "en": "Independent August monitoring recorded no launches or shifts in nuclear rhetoric; ISW confirms an absence of strategic-forces technical signals in the window."
       },
       "why": {
-        "ru": "Испытания ракет средней дальности усиливают циклы демонстрации сил.",
-        "en": "Medium-range missile tests strengthen cycles of shows of force."
+        "ru": "Аттестованное отсутствие сигналов сдерживания снижает неопределённость по одному из самых чувствительных направлений региона.",
+        "en": "An attested absence of deterrent signals reduces uncertainty in one of the region’s most sensitive domains."
       },
-      "contribution": "medium",
+      "contribution": "low",
       "confidence": "medium",
       "sources": [
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "isans-org-belarus-military-review-august-2026",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Обзор военной активности в Беларуси за август 2026 года",
+            "en": "Review of military activity in Belarus, August 2026"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-30",
-          "source_type": "secondary",
-          "cluster_id": "A-mainstream",
-          "state_affiliated": true
+          "domain": "isans.org",
+          "url": "https://isans.org/military-ru/obzor-voennoj-aktivnosti-v-belarusi-za-avgust-2026.html",
+          "publication_date": "2026-09-01",
+          "accessed_date": "2026-09-26",
+          "source_type": "OSINT",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "understandingwar-org-roca-september-4-2026",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "ISW: оценка российского наступления, 4 сентября 2026",
+            "en": "ISW Russian Offensive Campaign Assessment, September 4, 2026"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-08-30",
+          "domain": "understandingwar.org",
+          "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-4-2026/",
+          "publication_date": "2026-09-04",
+          "accessed_date": "2026-09-26",
           "source_type": "OSINT",
-          "cluster_id": "A-mainstream",
+          "cluster_id": "C-registries",
           "state_affiliated": false
         }
       ]

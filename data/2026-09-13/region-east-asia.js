@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-13"] = window.CI_DATA.snapshots["2026-09-13"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона east-asia (неделя 2026-09-13, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-13.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["east-asia"] = {
   "index": 60,
   "delta": 8,
@@ -13,87 +12,97 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Активность военно-морских учений в ключевом проливе выше среднего уровня за год.",
-        "en": "Naval exercise activity in the key strait is above the yearly average."
+        "ru": "КНДР запустила несколько баллистических ракет в сторону Японского моря; сначала был зафиксирован неопознанный снаряд, затем — серия пусков.",
+        "en": "The DPRK fired several ballistic missiles toward the Sea of Japan; an unidentified projectile was recorded first, followed by a series of launches."
       },
       "why": {
-        "ru": "Устойчивая активность флота в узком проливе повышает риск морских инцидентов.",
-        "en": "Sustained fleet activity in a narrow strait raises the risk of maritime incidents."
-      },
-      "contribution": "medium",
-      "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Неполное покрытие источников по морской зоне.",
-        "en": "Incomplete source coverage for the maritime zone."
-      },
-      "sources": [
-        {
-          "id": "reliefweb-int-report-mauritania-unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
-          "title": {
-            "ru": "УВКБ ООН: 144 человека, предположительно, погибли или пропали без вести у берегов Западной Африки",
-            "en": "UNHCR deeply saddened as 144 people reportedly dead or missing off West Africa"
-          },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/mauritania/unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
-          "publication_date": "2026-07-21",
-          "accessed_date": "2026-09-06",
-          "source_type": "OSINT",
-          "cluster_id": "C-registries",
-          "state_affiliated": false
-        },
-        {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
-          "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
-          },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-09-06",
-          "source_type": "secondary",
-          "cluster_id": "A-mainstream",
-          "state_affiliated": true
-        }
-      ]
-    },
-    {
-      "observation": {
-        "ru": "Государства региона увеличили частоту патрулирования воздушного пространства.",
-        "en": "States in the region increased airspace patrol frequency."
-      },
-      "why": {
-        "ru": "Рост патрулирования — реакция на серию сближений военных самолётов.",
-        "en": "More patrols respond to a series of military aircraft close encounters."
+        "ru": "Серийные пуски повышают напряжённость вокруг Корейского полуострова и требуют координации сил сдерживания.",
+        "en": "Serial launches raise tension around the Korean peninsula and require coordination of deterrent forces."
       },
       "contribution": "medium",
       "confidence": "high",
       "sources": [
         {
-          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
+          "id": "en-yna-co-kr-nkorea-ballistic-2026-09-12",
           "title": {
-            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
-            "en": "Charing Cross Tube station used for major military exercise"
+            "ru": "КНДР запустила баллистические ракеты, 12 сентября 2026",
+            "en": "N. Korea fires ballistic missiles, September 12, 2026"
           },
-          "domain": "bbc.com",
-          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
-          "publication_date": "2026-05-24",
-          "accessed_date": "2026-09-06",
+          "domain": "en.yna.co.kr",
+          "url": "https://en.yna.co.kr/view/PYH20260912021500315",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "id": "iz-ru-en-nkorea-missiles-2165769",
           "title": {
-            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-            "en": "Global military spending rise continues as European and Asian expenditures surge"
+            "ru": "Yonhap: КНДР запустила несколько баллистических ракет в сторону Японского моря",
+            "en": "Yonhap: North Korea launched several ballistic missiles toward the Sea of Japan"
           },
-          "domain": "sipri.org",
-          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-          "publication_date": "2026-04-27",
-          "accessed_date": "2026-09-06",
+          "domain": "iz.ru",
+          "url": "https://iz.ru/en/2165769/2026-09-12/yonhap-reported-north-korea-launched-several-missiles-towards-sea-japan",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
+        },
+        {
+          "id": "usnews-com-nkorea-projectile-2026-09-11",
+          "title": {
+            "ru": "КНДР выпустила неопознанный снаряд в сторону Японского моря, сообщает Рёнхап",
+            "en": "North Korea launches unidentified projectile toward East Sea, Yonhap reports"
+          },
+          "domain": "usnews.com",
+          "url": "https://www.usnews.com/news/world/articles/2026-09-11/north-korea-launches-unidentified-projectile-toward-east-sea-yonhap-reports",
+          "publication_date": "2026-09-11",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
+        }
+      ]
+    },
+    {
+      "observation": {
+        "ru": "Посол Японии выступил на Совете управляющих МАГАТЭ по применению гарантий к ДКНЯР; генеральный директор МАГАТЭ открыл сентябрьскую сессию Совета управляющих.",
+        "en": "Japan’s ambassador addressed the IAEA Board of Governors on safeguards for the DPRK; the IAEA Director General opened the Board’s September session."
+      },
+      "why": {
+        "ru": "Перенос ядерной повестки КНДР на площадку МАГАТЭ закрепляет международный контроль за программой и повышает ставки пусков.",
+        "en": "Bringing the DPRK nuclear file to the IAEA board entrenches international oversight of the programme and raises the stakes of launches."
+      },
+      "contribution": "low",
+      "confidence": "medium",
+      "sources": [
+        {
+          "id": "vie-mission-emb-japan-dprk-safeguards-2026-09-09",
+          "title": {
+            "ru": "Заявление посла Японии Кайфу Ацуши на Совете управляющих МАГАТЭ по ДКНЯР, 9 сентября 2026",
+            "en": "Statement by Ambassador KAIFU Atsushi at the IAEA Board of Governors, DPRK safeguards, 9 September 2026"
+          },
+          "domain": "vie-mission.emb-japan.go.jp",
+          "url": "https://www.vie-mission.emb-japan.go.jp/itprtop_en/11_000001_00769.html",
+          "publication_date": "2026-09-09",
+          "accessed_date": "2026-09-26",
+          "source_type": "primary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
+        },
+        {
+          "id": "iaea-org-dg-statement-board-7-september-2026",
+          "title": {
+            "ru": "МАГАТЭ: вступительное заявление генерального директора на Совете управляющих, 7 сентября 2026",
+            "en": "IAEA Director General's Introductory Statement to the Board of Governors, 7 September 2026"
+          },
+          "domain": "iaea.org",
+          "url": "https://www.iaea.org/newscenter/statements/iaea-director-generals-introductory-statement-to-the-board-of-governors-7-september-2026",
+          "publication_date": "2026-09-07",
+          "accessed_date": "2026-09-26",
+          "source_type": "primary",
           "cluster_id": "C-registries",
           "state_affiliated": false
         }

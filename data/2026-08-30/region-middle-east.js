@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона middle-east (неделя 2026-08-30, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-08-30.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["middle-east"] = {
   "index": 60,
   "delta": -20,
@@ -13,100 +12,82 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Доступ инспекторов к ряду объектов ограничен, говорится в докладе агентства.",
-        "en": "An agency report says inspector access to several facilities is limited."
+        "ru": "CrisisWatch фиксирует эскалацию вокруг средств ПВО; UANI документирует обновлённую картину судоходства Ирана на фоне кризиса в Ормузском проливе и Красном море.",
+        "en": "CrisisWatch records escalation around air-defence assets; UANI documents an updated picture of Iranian shipping amid the crisis in the Strait of Hormuz and the Red Sea."
       },
       "why": {
-        "ru": "Снижение прозрачности затрудняет проверку соблюдения обязательств.",
-        "en": "Reduced transparency makes it harder to verify compliance with obligations."
+        "ru": "Пересечение эскалации ПВО и перебоев судоходства повышает риски для энергетических маршрутов региона.",
+        "en": "The intersection of air-defence escalation and shipping disruption raises risks for the region’s energy routes."
       },
-      "contribution": "high",
+      "contribution": "medium",
       "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Меньше данных, чем обычно: часть источников недоступна.",
-        "en": "Fewer data than usual: some sources are unavailable."
-      },
       "sources": [
         {
-          "id": "www-iaea-org-newscenter-news-iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
+          "id": "crisisgroup-crisiswatch-air-defence-2026-08-28",
           "title": {
-            "ru": "Совет управляющих МАГАТЭ проинформирован об Украине, Иране и глобальном сотрудничестве",
-            "en": "IAEA Board of Governors Briefed on Ukraine, Iran and Global Nuclear Cooperation"
+            "ru": "CrisisWatch: обзор эскалации вокруг ПВО",
+            "en": "CrisisWatch: air defence escalation overview"
           },
-          "domain": "iaea.org",
-          "url": "https://www.iaea.org/newscenter/news/iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
-          "publication_date": "2026-06-09",
-          "accessed_date": "2026-08-23",
+          "domain": "crisisgroup.org",
+          "url": "https://www.crisisgroup.org/crisiswatch/air-defence",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "C-registries",
           "state_affiliated": false
         },
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "uani-iran-shipping-update-2026-08-28",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "UANI: обновление по судоходству Ирана, 28 августа 2026",
+            "en": "UANI Iran Shipping Update – August 28, 2026"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-23",
-          "source_type": "secondary",
-          "cluster_id": "A-mainstream",
+          "domain": "unitedagainstnucleariran.com",
+          "url": "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-28-2026",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
+          "source_type": "OSINT",
+          "cluster_id": "C-registries",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Гуманитарные коридоры работают с перебоями, по данным гуманитарных организаций.",
-        "en": "Humanitarian organisations report that corridors are operating intermittently."
+        "ru": "Блокада чёрноморских портов остановила экспорт зерна, эскалация войны прерывает судоходство; торговые маршруты в двух морях одновременно под давлением.",
+        "en": "The blockade of Black Sea ports halted grain exports and the escalation of the war is disrupting shipping; trade routes in two seas are under pressure at once."
       },
       "why": {
-        "ru": "Нестабильные коридоры сопровождаются ростом локальных столкновений.",
-        "en": "Unstable corridors coincide with more local clashes."
+        "ru": "Перестройка морских маршрутов и рост страховых издержек затрагивают торговлю и снабжение государств региона.",
+        "en": "The rerouting of sea lanes and rising insurance costs affect trade and supply for states in the region."
       },
-      "contribution": "high",
-      "confidence": "low",
+      "contribution": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "lemonde-black-sea-blockade-2026-08-28",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Блокада черноморских портов душит экспорт зерна Украины",
+            "en": "Ukraine's Black Sea port blockade strangles grain exports"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-08-23",
+          "domain": "lemonde.fr",
+          "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
-          "state_affiliated": false
-        },
-        {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
-          },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-08-23",
-          "source_type": "OSINT",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "news-un-org-en-story-2026-07-1167860-2",
+          "id": "world-grain-black-sea-exports-2026-08-25",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "Эскалация войны останавливает экспорт зерна через Черное море",
+            "en": "Escalating war stalling Black Sea grain exports"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-23",
+          "domain": "world-grain.com",
+          "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports",
+          "publication_date": "2026-08-25",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false

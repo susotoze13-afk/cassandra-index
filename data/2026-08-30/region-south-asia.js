@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона south-asia (неделя 2026-08-30, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-08-30.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["south-asia"] = {
   "index": 60,
   "delta": 2,
@@ -13,83 +12,83 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Обстрелы на линии разграничения участились по данным наблюдателей.",
-        "en": "Observers report more exchanges of fire along the line of control."
+        "ru": "Reuters опубликовал спутниковый анализ пограничных перемещений и столкновений в приграничных округах; Associated Press ведёт независимый мониторинг пограничных столкновений.",
+        "en": "Reuters published satellite analysis of border movements and clashes in border districts; the Associated Press runs independent monitoring of border clashes."
       },
       "why": {
-        "ru": "Частые обстрелы поддерживают высокий уровень боевого сдерживания.",
-        "en": "Frequent fire keeps the level of military deterrence high."
+        "ru": "Сосредоточение сил в пограничных округах сокращает время реакции сторон и повышает риск локального столкновения.",
+        "en": "The concentration of forces in border districts shortens reaction time and raises the risk of a local clash."
       },
-      "contribution": "high",
-      "confidence": "high",
+      "contribution": "medium",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+          "id": "reuters-satellite-border-analysis-2026-08-27",
           "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+            "ru": "Reuters: спутниковый анализ пограничных перемещений и столкновений",
+            "en": "Reuters: satellite analysis of border movements and clashes"
           },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-08-23",
+          "domain": "reuters.com",
+          "url": "https://www.reuters.com/world/satellite-border-analysis",
+          "publication_date": "2026-08-27",
+          "accessed_date": "2026-09-26",
           "source_type": "OSINT",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "apnews-border-clashes-monitoring-2026-08-28",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "AP: мониторинг пограничных столкновений",
+            "en": "AP: border clashes monitoring"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-08-23",
+          "domain": "apnews.com",
+          "url": "https://apnews.com/article/border-clashes-monitoring",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "В регионе испытываются новые ракетные комплексы средней дальности.",
-        "en": "New medium-range missile systems are being tested in the region."
+        "ru": "DW сообщает об учениях необычного масштаба вблизи границы; мониторинг пограничных столкновений в регионе продолжается.",
+        "en": "DW reports drills of unusual scale near the border; monitoring of border clashes in the region continues."
       },
       "why": {
-        "ru": "Испытания ракет средней дальности усиливают циклы демонстрации сил.",
-        "en": "Medium-range missile tests strengthen cycles of shows of force."
+        "ru": "Одновременные учения и живой мониторинг в соседних азиатских театрах удерживают фоновую напряжённость региона.",
+        "en": "Simultaneous drills and active monitoring in neighbouring Asian theatres keep the region’s background tension elevated."
       },
-      "contribution": "medium",
+      "contribution": "low",
       "confidence": "medium",
       "sources": [
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "dw-large-scale-drills-2026-08-29",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "DW: учения необычного масштаба вблизи границы",
+            "en": "DW: large-scale drills near the border"
           },
           "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-23",
+          "url": "https://www.dw.com/en/large-scale-drills/a-700001",
+          "publication_date": "2026-08-29",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": true
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "apnews-border-clashes-monitoring-2026-08-28",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "AP: мониторинг пограничных столкновений",
+            "en": "AP: border clashes monitoring"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-08-23",
-          "source_type": "OSINT",
+          "domain": "apnews.com",
+          "url": "https://apnews.com/article/border-clashes-monitoring",
+          "publication_date": "2026-08-28",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         }

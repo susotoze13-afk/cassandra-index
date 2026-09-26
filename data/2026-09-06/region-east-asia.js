@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона east-asia (неделя 2026-09-06, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["east-asia"] = {
   "index": 60,
   "delta": 8,
@@ -13,88 +12,84 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Активность военно-морских учений в ключевом проливе выше среднего уровня за год.",
-        "en": "Naval exercise activity in the key strait is above the yearly average."
+        "ru": "Южная Корея заявила в ООН, что сотрудничество России и КНДР затягивает войну против Украины; тема связки Москвы и Пхеньяна прозвучала на площадке Организации Объединённых Наций.",
+        "en": "South Korea told the UN that Russia-DPRK cooperation is prolonging the war against Ukraine; the Moscow-Pyongyang alignment was raised at the United Nations."
       },
       "why": {
-        "ru": "Устойчивая активность флота в узком проливе повышает риск морских инцидентов.",
-        "en": "Sustained fleet activity in a narrow strait raises the risk of maritime incidents."
+        "ru": "Публичная фиксация военной связки в ООН повышает цену северокорейской поддержки России и усиливает внимание к региону.",
+        "en": "Publicly recording the military alignment at the UN raises the cost of North Korea’s support for Russia and sharpens focus on the region."
       },
       "contribution": "medium",
       "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Неполное покрытие источников по морской зоне.",
-        "en": "Incomplete source coverage for the maritime zone."
-      },
       "sources": [
         {
-          "id": "reliefweb-int-report-mauritania-unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
+          "id": "zn-ua-south-korea-un-rf-dprk",
           "title": {
-            "ru": "УВКБ ООН: 144 человека, предположительно, погибли или пропали без вести у берегов Западной Африки",
-            "en": "UNHCR deeply saddened as 144 people reportedly dead or missing off West Africa"
+            "ru": "Южная Корея заявила в ООН, что сотрудничество между РФ и КНДР затягивает войну в Украине",
+            "en": "South Korea tells UN that Russia-DPRK cooperation prolongs the war in Ukraine"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/mauritania/unhcr-deeply-saddened-144-people-reportedly-dead-or-missing-west-africa",
-          "publication_date": "2026-07-21",
-          "accessed_date": "2026-08-30",
-          "source_type": "OSINT",
-          "cluster_id": "C-registries",
+          "domain": "zn.ua",
+          "url": "https://zn.ua/war/juzhnaja-koreja-zajavila-v-oon-chto-sotrudnichestvo-mezhdu-rf-i-kndr-zatjahivaet-vojnu-v-ukraine.html",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "apostrophe-ua-south-korea-un-rf-dprk",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Россия и КНДР затягивают войну против Украины: заявление Южной Кореи в ООН",
+            "en": "Russia and North Korea prolonging war against Ukraine: South Korea's statement at UN"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-30",
+          "domain": "apostrophe.ua",
+          "url": "https://apostrophe.ua/ru/politics/foreign-policy/rossija-i-kndr-zatjahivajut-vojnu-protiv-ukrainy-zajavlenie-juzhnoj-korei-v-oon-.html",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
-          "state_affiliated": true
+          "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Государства региона увеличили частоту патрулирования воздушного пространства.",
-        "en": "States in the region increased airspace patrol frequency."
+        "ru": "6 сентября в России произошёл массовый сбой интернета; среди причин названы учения по автономности Рунета; мобильный интернет работал нестабильно.",
+        "en": "On 6 September a mass internet outage hit Russia; exercises of the Runet’s autonomy were named among the causes; mobile internet was unstable."
       },
       "why": {
-        "ru": "Рост патрулирования — реакция на серию сближений военных самолётов.",
-        "en": "More patrols respond to a series of military aircraft close encounters."
+        "ru": "Контроль и автономность цифровой инфраструктуры — признак подготовки к устойчивой работе в условиях длительной конфронтации, за которой наблюдают и азиатские столицы.",
+        "en": "Control and autonomy of digital infrastructure signals preparation for resilient operation during prolonged confrontation, watched closely by Asian capitals."
       },
-      "contribution": "medium",
-      "confidence": "high",
+      "contribution": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
+          "id": "techora-mass-internet-shutdown-september-6",
           "title": {
-            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
-            "en": "Charing Cross Tube station used for major military exercise"
+            "ru": "6 сентября: массовый сбой интернета в России — учения автономности Рунета",
+            "en": "6 September: mass internet outage across Russia during Runet autonomy exercises"
           },
-          "domain": "bbc.com",
-          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
-          "publication_date": "2026-05-24",
-          "accessed_date": "2026-08-30",
+          "domain": "techora.ru",
+          "url": "https://techora.ru/news/6-sentyabrya-massovyy-sboy-interneta-v-2026-09-06",
+          "publication_date": "2026-09-06",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "id": "news-ru-mobile-internet-september-6",
           "title": {
-            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-            "en": "Global military spending rise continues as European and Asian expenditures surge"
+            "ru": "Почему не работает мобильный интернет 6 сентября: причины сбоев в России",
+            "en": "Why mobile internet is down on 6 September: causes of outages in Russia"
           },
-          "domain": "sipri.org",
-          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-          "publication_date": "2026-04-27",
-          "accessed_date": "2026-08-30",
+          "domain": "news.ru",
+          "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-6-sentyabrya-prichiny-sboi-v-rossii",
+          "publication_date": "2026-09-06",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]

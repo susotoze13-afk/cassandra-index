@@ -1,167 +1,230 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника. source_type: 'OSINT' —
-  // спутниковые/полевые наблюдения, иначе 'secondary'. cluster_id: 'A-mainstream'
-  // — информационные агентства/СМИ, 'C-registries' — институты и реестры.
-  // state_affiliated: true только для dw.com (общественно-правовое вещание,
-  // финансируется государством). Отображаемые тексты не изменены.
+  // Редакционный сид недели 2026-09-06: три главных драйвера недели.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json (R55).
 s.drivers = [
   {
-    "label": {
-      "ru": "Военная активность выросла",
-      "en": "Military activity increased"
-    },
     "observation": {
-      "ru": "Спутниковые снимки фиксируют переброску дополнительных сил в приграничных округах двух государств.",
-      "en": "Satellite imagery shows additional troop movements in the border districts of two states."
+      "ru": "Между Россией и Украиной действует режим тишины 5–8 сентября, ВСУ получили приказ соблюдать прекращение огня; Зеленский заявил о готовности прекратить удары по городам, где проходят мирные переговоры при посредничестве США; на ЗАЭС вступило в силу седьмое локальное прекращение огня для ремонта линии электропередачи под мониторингом МАГАТЭ; при этом Путин поручил подготовить массированные удары по энергетике Украины.",
+      "en": "A silence regime between Russia and Ukraine is in force on 5–8 September and the Ukrainian armed forces were ordered to observe it; Zelensky said he is ready to halt strikes on cities hosting peace talks mediated by the United States; a seventh local ceasefire took effect at the Zaporizhzhia nuclear plant to repair a power line under IAEA monitoring; at the same time Putin ordered preparations for massed strikes on Ukraine’s energy grid."
     },
     "why": {
-      "ru": "Сосредоточение группировок сокращает время реакции сторон и повышает риск случайного столкновения.",
-      "en": "Concentrated forces shorten reaction time and raise the risk of an unintended clash."
+      "ru": "Первое устойчивое снижение интенсивности за недели сочетается с прямыми угрозами новых ударов — риск возврата к эскалации сохраняется.",
+      "en": "The first sustained de-escalation in weeks is combined with direct threats of new strikes, so the risk of a return to escalation persists."
     },
     "contribution": "high",
     "confidence": "high",
     "sources": [
       {
-        "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+        "id": "gazeta-ru-regime-of-silence-september-5",
         "title": {
-          "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-          "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+          "ru": "Режим тишины между Россией и Украиной 5–8 сентября: ВСУ получили приказ соблюдать прекращение огня",
+          "en": "Russia-Ukraine silence regime September 5-8: AFU ordered to abide by ceasefire"
         },
-        "domain": "reuters.com",
-        "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-        "publication_date": "2020-06-25",
-        "accessed_date": "2026-08-30",
-        "source_type": "OSINT",
-        "cluster_id": "A-mainstream",
-        "state_affiliated": false
-      },
-      {
-        "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-        "title": {
-          "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-          "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
-        },
-        "domain": "apnews.com",
-        "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-        "publication_date": "2026-02-28",
-        "accessed_date": "2026-08-30",
-        "source_type": "OSINT",
-        "cluster_id": "A-mainstream",
-        "state_affiliated": false
-      },
-      {
-        "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
-        "title": {
-          "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-          "en": "Ukraine, 9 nations form ballistic missile defense coalition"
-        },
-        "domain": "dw.com",
-        "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-        "publication_date": "2026-07-13",
-        "accessed_date": "2026-08-30",
+        "domain": "gazeta.ru",
+        "url": "https://www.gazeta.ru/politics/2026/09/05/23506915.shtml",
+        "publication_date": "2026-09-05",
+        "accessed_date": "2026-09-26",
         "source_type": "secondary",
         "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      },
+      {
+        "id": "aa-com-tr-zelenskiy-halt-strikes-talks-cities-4048283",
+        "title": {
+          "ru": "Зеленский: Украина готова прекратить удары по городам, где проходят мирные переговоры при посредничестве США",
+          "en": "Zelenskyy: Ukraine ready to halt strikes on cities hosting US-mediated peace talks"
+        },
+        "domain": "aa.com.tr",
+        "url": "https://www.aa.com.tr/ru/%D0%BC%D0%B8%D1%80/%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D1%83%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0-%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%B0-%D0%BF%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C-%D1%83%D0%B4%D0%B0%D1%80%D1%8B-%D0%BF%D0%BE-%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B0%D0%BC-%D0%B3%D0%B4%D0%B5-%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B4%D1%8F%D1%82-%D0%BC%D0%B8%D1%80%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D1%8B-%D0%BF%D1%80%D0%B8-%D0%BF%D0%BE%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5-%D1%81%D1%88%D0%B0/4048283",
+        "publication_date": "2026-09-05",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
         "state_affiliated": true
+      },
+      {
+        "id": "aa-com-tr-iaea-zaes-local-ceasefire-4048007",
+        "title": {
+          "ru": "МАГАТЭ: в районе ЗАЭС вступило в силу локальное прекращение огня для ремонта линии электропередачи",
+          "en": "IAEA: local ceasefire around ZNPP enters into force for power line repair"
+        },
+        "domain": "aa.com.tr",
+        "url": "https://www.aa.com.tr/ru/%D0%BC%D0%B8%D1%80/%D0%BC%D0%B0%D0%B3%D0%B0%D1%82%D1%8D-%D0%B2-%D1%80%D0%B0%D0%B9%D0%BE%D0%BD%D0%B5-%D0%B7%D0%B0%D1%8D%D1%81-%D0%B2%D1%81%D1%82%D1%83%D0%BF%D0%B8%D0%BB%D0%BE-%D0%B2-%D1%81%D0%B8%D0%BB%D1%83-%D0%BB%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B3%D0%BD%D1%8F-/4048007",
+        "publication_date": "2026-09-05",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      },
+      {
+        "id": "rbc-ru-putin-poruchenie-udary-02-09-2026",
+        "title": {
+          "ru": "Путин рассказал о поручении насчет ударов по украинской энергетике и приостановке переговоров",
+          "en": "Putin speaks on order regarding strikes on Ukrainian energy grid and suspension of talks"
+        },
+        "domain": "rbc.ru",
+        "url": "https://www.rbc.ru/politics/02/09/2026/6a973cb65bd2c4a73a49f0dd",
+        "publication_date": "2026-09-02",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
       }
-    ]
+    ],
+    "label": {
+      "ru": "Режим тишины 5–8 сентября и локальное перемирие на ЗАЭС",
+      "en": "Silence regime of 5–8 September and local ceasefire at the ZNPP"
+    }
   },
   {
-    "label": {
-      "ru": "Интенсивность столкновений выросла",
-      "en": "Clash intensity increased"
-    },
     "observation": {
-      "ru": "Число боестолкновений вдоль линии соприкосновения за неделю выросло по данным независимого мониторинга.",
-      "en": "Independent monitoring recorded more clashes along the line of contact this week."
+      "ru": "Германия обвинила Россию в атаке дронов в аэропорту Лейпцига, где целью был украинский транспортный самолёт, и анонсировала закрытие Русского дома и генконсульства; Россия отвергла обвинения и пообещала жёсткий ответ на санкции; в ЕС объяснили новые ограничения для российских дипломатов.",
+      "en": "Germany accused Russia of a drone attack at Leipzig airport targeting a Ukrainian transport aircraft and announced the closure of the Russian House and its consulate general; Russia rejected the accusations and promised a tough response to sanctions; the EU explained new restrictions on Russian diplomats."
     },
     "why": {
-      "ru": "Устойчивый рост интенсивности — один из самых стабильных признаков нарастания риска.",
-      "en": "A steady rise in intensity is one of the most persistent signs of growing risk."
+      "ru": "Прямое обвинение в диверсии на территории страны НАТО и взаимные дипломатические меры сужают пространство для переговоров и повышают ставки инцидентов.",
+      "en": "A direct accusation of sabotage on NATO territory and reciprocal diplomatic measures narrow the room for talks and raise the stakes of incidents."
     },
     "contribution": "high",
-    "confidence": "medium",
-    "confidenceNote": {
-      "ru": "Независимые источники дают противоречивые показания по интенсивности.",
-      "en": "Independent sources give conflicting readings on intensity."
-    },
+    "confidence": "high",
     "sources": [
       {
-        "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
+        "id": "kommersant-ru-leipzig-consulate-closure-8924215",
         "title": {
-          "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-          "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
+          "ru": "Германия обвинила Россию в атаке дронов в Лейпциге и анонсировала закрытие Русского дома и генконсульства",
+          "en": "Germany accuses Russia of Leipzig drone attack, announces closure of Russian House and consulate general"
         },
-        "domain": "apnews.com",
-        "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-        "publication_date": "2026-02-28",
-        "accessed_date": "2026-08-30",
-        "source_type": "OSINT",
+        "domain": "kommersant.ru",
+        "url": "https://www.kommersant.ru/doc/8924215",
+        "publication_date": "2026-09-02",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
         "cluster_id": "A-mainstream",
         "state_affiliated": false
       },
       {
-        "id": "news-un-org-en-story-2026-07-1167860",
+        "id": "kommersant-ru-germany-accuses-leipzig-8923569",
         "title": {
-          "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-          "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+          "ru": "Германия обвинила Россию в инциденте с дроном в аэропорту Лейпцига",
+          "en": "Germany accuses Russia over drone incident at Leipzig airport"
         },
-        "domain": "un.org",
-        "url": "https://news.un.org/en/story/2026/07/1167860",
-        "publication_date": "2026-07-02",
-        "accessed_date": "2026-08-30",
+        "domain": "kommersant.ru",
+        "url": "https://www.kommersant.ru/doc/8923569",
+        "publication_date": "2026-09-01",
+        "accessed_date": "2026-09-26",
         "source_type": "secondary",
         "cluster_id": "A-mainstream",
         "state_affiliated": false
+      },
+      {
+        "id": "kommersant-ru-russia-rejects-leipzig-8924396",
+        "title": {
+          "ru": "Россия отвергла обвинения Германии в инциденте в Лейпциге и пообещала жёсткий ответ на санкции",
+          "en": "Russia rejects German accusations over Leipzig incident, promises harsh response to sanctions"
+        },
+        "domain": "kommersant.ru",
+        "url": "https://www.kommersant.ru/doc/8924396",
+        "publication_date": "2026-09-02",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      },
+      {
+        "id": "dw-com-germany-response-leipzig-sanctions",
+        "title": {
+          "ru": "Ответ Германии на диверсию с дронами в Лейпциге: обвинение в адрес России и санкции",
+          "en": "Germany's response to Leipzig drone sabotage: accusations against Russia and sanctions"
+        },
+        "domain": "dw.com",
+        "url": "https://www.dw.com/ru/otvet-germanii-na-diversiu-s-dronami-v-lejpcige/a-78844842",
+        "publication_date": "2026-09-03",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      },
+      {
+        "id": "lenta-ru-ogranicheniya-diplomatov-es",
+        "title": {
+          "ru": "Ограничения для российских дипломатов в ЕС объяснили подготовкой к войне с Россией",
+          "en": "EU restrictions on Russian diplomats explained as preparation for war with Russia"
+        },
+        "domain": "lenta.ru",
+        "url": "https://lenta.ru/news/2026/09/04/ogranicheniya-dlya-rossiyskih-diplomatov-v-es-ob-yasnili/",
+        "publication_date": "2026-09-04",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
       }
-    ]
+    ],
+    "label": {
+      "ru": "Инцидент в Лейпциге вызвал дипломатический разрыв с Германией",
+      "en": "Leipzig incident triggered a diplomatic rupture with Germany"
+    }
   },
   {
-    "label": {
-      "ru": "Оборонные расходы растут",
-      "en": "Defence spending is rising"
-    },
     "observation": {
-      "ru": "Несколько государств объявили об увеличении оборонных бюджетов на следующий финансовый год.",
-      "en": "Several states announced higher defence budgets for the next fiscal year."
+      "ru": "В Латвии начались учения Namejs-2026 с участием 12 тысяч военнослужащих из США, Канады и стран Прибалтики; Германия удвоила оборонный бюджет и взяла на себя ответственность за оборону Европы; военные расходы Берлина вырастут до 110 млрд евро.",
+      "en": "Exercise Namejs-2026 began in Latvia with 12,000 troops from the United States, Canada and the Baltic states; Germany doubled its defence budget and took responsibility for Europe’s defence; Berlin’s military spending will rise to EUR 110 billion."
     },
     "why": {
-      "ru": "Серийный рост расходов отражает ожидание длительного периода напряжённости.",
-      "en": "Serial spending growth reflects expectations of a prolonged period of tension."
+      "ru": "Плотность учений на восточном фланге и серийный рост расходов закрепляют ожидание длительной напряжённости у границ альянса.",
+      "en": "Dense drills on the eastern flank and serial spending growth entrench expectations of prolonged tension at the alliance’s borders."
     },
     "contribution": "medium",
     "confidence": "high",
     "sources": [
       {
-        "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+        "id": "ura-news-namejs-2026-latvia-start",
         "title": {
-          "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-          "en": "Global military spending rise continues as European and Asian expenditures surge"
+          "ru": "В Латвии начались учения НАТО Namejs-2026 с участием 12 тысяч военнослужащих из США, Канады и Прибалтики",
+          "en": "NATO's Namejs-2026 exercise begins in Latvia with 12,000 troops from the US, Canada and the Baltics"
         },
-        "domain": "sipri.org",
-        "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-        "publication_date": "2026-04-27",
-        "accessed_date": "2026-08-30",
+        "domain": "ura.news",
+        "url": "https://ura.news/news/1053123716",
+        "publication_date": "2026-09-02",
+        "accessed_date": "2026-09-26",
         "source_type": "secondary",
-        "cluster_id": "C-registries",
+        "cluster_id": "A-mainstream",
         "state_affiliated": false
       },
       {
-        "id": "www-crisisgroup-org-europe-eastern-europe-ukraine",
+        "id": "realtribune-ru-germany-defense-budget-doubled",
         "title": {
-          "ru": "CrisisWatch: Украина, июль 2026 года",
-          "en": "CrisisWatch Ukraine July 2026"
+          "ru": "Германия удвоила оборонный бюджет и взяла ответственность за оборону Европы",
+          "en": "Germany doubles defence budget and takes responsibility for Europe's defence"
         },
-        "domain": "crisisgroup.org",
-        "url": "https://www.crisisgroup.org/europe/eastern-europe/ukraine",
-        "publication_date": "2026-06-26",
-        "accessed_date": "2026-08-30",
+        "domain": "realtribune.ru",
+        "url": "https://realtribune.ru/germaniya-udvoila-oboronnyj-bjudzhet-i-vzyala-otvetstvennost-za-evropu/",
+        "publication_date": "2026-08-31",
+        "accessed_date": "2026-09-26",
         "source_type": "secondary",
-        "cluster_id": "C-registries",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      },
+      {
+        "id": "br-az-germany-record-rearmament-budget",
+        "title": {
+          "ru": "Германия готовится к рекордному перевооружению: военные расходы вырастут до €110 млрд",
+          "en": "Germany prepares for record rearmament: military spending to rise to 110 billion euros"
+        },
+        "domain": "br.az",
+        "url": "https://br.az/inworld/121800/germaniya-gotovitsya-k-rekordnomu-perevooruzheniyu-voennye-rashody-vzletyat-do-euro110-mlrd/",
+        "publication_date": "2026-08-31",
+        "accessed_date": "2026-09-26",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
         "state_affiliated": false
       }
-    ]
+    ],
+    "label": {
+      "ru": "Учения НАТО в Прибалтике и рост оборонных бюджетов",
+      "en": "NATO drills in the Baltics and rising defence budgets"
+    }
   }
 ];
 })();

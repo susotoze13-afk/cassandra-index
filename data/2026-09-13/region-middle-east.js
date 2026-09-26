@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-13"] = window.CI_DATA.snapshots["2026-09-13"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона middle-east (неделя 2026-09-13, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-13.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["middle-east"] = {
   "index": 60,
   "delta": -20,
@@ -13,100 +12,96 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "Доступ инспекторов к ряду объектов ограничен, говорится в докладе агентства.",
-        "en": "An agency report says inspector access to several facilities is limited."
+        "ru": "Совет управляющих МАГАТЭ принял резолюцию по выполнению соглашения о гарантиях НПТ с Ираном; заседание сопровождалось заявлениями сторон.",
+        "en": "The IAEA Board of Governors adopted a resolution on implementation of the NPT safeguards agreement with Iran; the session was accompanied by statements from the parties."
       },
       "why": {
-        "ru": "Снижение прозрачности затрудняет проверку соблюдения обязательств.",
-        "en": "Reduced transparency makes it harder to verify compliance with obligations."
+        "ru": "Формальная резолюция по иранским гарантиям повышает давление на Тегеран и усиливает неопределённость вокруг ядерной программы региона.",
+        "en": "A formal resolution on Iran’s safeguards raises pressure on Tehran and adds uncertainty around the region’s nuclear programme."
       },
-      "contribution": "high",
-      "confidence": "medium",
-      "confidenceNote": {
-        "ru": "Меньше данных, чем обычно: часть источников недоступна.",
-        "en": "Fewer data than usual: some sources are unavailable."
-      },
+      "contribution": "medium",
+      "confidence": "high",
       "sources": [
         {
-          "id": "www-iaea-org-newscenter-news-iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
+          "id": "gov-uk-iaea-iran-resolution-september-2026",
           "title": {
-            "ru": "Совет управляющих МАГАТЭ проинформирован об Украине, Иране и глобальном сотрудничестве",
-            "en": "IAEA Board of Governors Briefed on Ukraine, Iran and Global Nuclear Cooperation"
+            "ru": "Резолюция Совета управляющих МАГАТЭ по гарантиям НПТ с Ираном, сентябрь 2026",
+            "en": "NPT Safeguards Agreement with Iran: Resolution to the IAEA Board of Governors, September 2026"
           },
-          "domain": "iaea.org",
-          "url": "https://www.iaea.org/newscenter/news/iaea-board-of-governors-briefed-on-ukraine-iran-and-global-nuclear-cooperation",
-          "publication_date": "2026-06-09",
-          "accessed_date": "2026-09-06",
-          "source_type": "secondary",
+          "domain": "gov.uk",
+          "url": "https://www.gov.uk/government/speeches/npt-safeguards-agreement-with-iran-resolution-to-the-iaea-board-of-governors-september-2026",
+          "publication_date": "2026-09-10",
+          "accessed_date": "2026-09-26",
+          "source_type": "primary",
           "cluster_id": "C-registries",
           "state_affiliated": false
         },
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "iranwatch-org-iaea-board-resolution-september-2026",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "Резолюция Совета управляющих МАГАТЭ: выполнение соглашения о гарантиях НПТ с Ираном, сентябрь 2026",
+            "en": "IAEA Board Resolution: Implementation of the NPT Safeguards Agreement with Iran, September 2026"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-09-06",
-          "source_type": "secondary",
-          "cluster_id": "A-mainstream",
+          "domain": "iranwatch.org",
+          "url": "https://www.iranwatch.org/library/multilateral-organizations/international-atomic-energy-agency/iaea-resolution/iaea-board-resolution-implementation-npt-safeguards-agreement-0",
+          "publication_date": "2026-09-09",
+          "accessed_date": "2026-09-26",
+          "source_type": "primary",
+          "cluster_id": "C-registries",
+          "state_affiliated": false
+        },
+        {
+          "id": "iaea-org-dg-statement-board-7-september-2026",
+          "title": {
+            "ru": "МАГАТЭ: вступительное заявление генерального директора на Совете управляющих, 7 сентября 2026",
+            "en": "IAEA Director General's Introductory Statement to the Board of Governors, 7 September 2026"
+          },
+          "domain": "iaea.org",
+          "url": "https://www.iaea.org/newscenter/statements/iaea-director-generals-introductory-statement-to-the-board-of-governors-7-september-2026",
+          "publication_date": "2026-09-07",
+          "accessed_date": "2026-09-26",
+          "source_type": "primary",
+          "cluster_id": "C-registries",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Гуманитарные коридоры работают с перебоями, по данным гуманитарных организаций.",
-        "en": "Humanitarian organisations report that corridors are operating intermittently."
+        "ru": "Хуситы захватили остров Перим в Красном море; США и Иран перешли к атакам на танкеры в ответ на военные корабли; нефть Brent подорожала выше 100 долларов.",
+        "en": "The Houthis seized Perim island in the Red Sea; the United States and Iran moved to attacking tankers in response to military ships; Brent crude rose above USD 100."
       },
       "why": {
-        "ru": "Нестабильные коридоры сопровождаются ростом локальных столкновений.",
-        "en": "Unstable corridors coincide with more local clashes."
+        "ru": "Перехват контроля в районе пролива и переход к атакам на танкеры угрожают одному из ключевых энергетических маршрутов мира.",
+        "en": "Seizing control near the strait and moving to attacks on tankers threatens one of the world’s key energy routes."
       },
       "contribution": "high",
-      "confidence": "low",
+      "confidence": "high",
       "sources": [
         {
-          "id": "reliefweb-int-report-south-sudan-south-sudan-humanitarian-access-snapshot-may-2026",
+          "id": "news-usni-org-houthis-perim-red-sea-2026-09-11",
           "title": {
-            "ru": "Южный Судан: снимок гуманитарного доступа (май 2026 года)",
-            "en": "South Sudan: Humanitarian Access Snapshot (May 2026)"
+            "ru": "Хуситы захватили остров Перим; США и Иран переходят к танкерам против военных кораблей",
+            "en": "Houthis Make Moves on Red Sea, U.S., Iran Go Tanker for Warship"
           },
-          "domain": "reliefweb.int",
-          "url": "https://reliefweb.int/report/south-sudan/south-sudan-humanitarian-access-snapshot-may-2026",
-          "publication_date": "2026-06-15",
-          "accessed_date": "2026-09-06",
+          "domain": "news.usni.org",
+          "url": "https://news.usni.org/2026/09/11/houthis-make-moves-on-red-sea-u-s-iran-go-tanker-for-warship",
+          "publication_date": "2026-09-11",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
-          "state_affiliated": false
-        },
-        {
-          "id": "apnews-com-article-pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "title": {
-            "ru": "Пакистан наносит удары по Афганистану; пограничные бои не стихают",
-            "en": "Pakistan strikes inside Afghanistan with no letup in border fighting"
-          },
-          "domain": "apnews.com",
-          "url": "https://apnews.com/article/pakistan-afghanistan-border-clashes-air-strikes-b24a3f12e630e8dd30f8a4841f2c4198",
-          "publication_date": "2026-02-28",
-          "accessed_date": "2026-09-06",
-          "source_type": "OSINT",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "news-un-org-en-story-2026-07-1167860-2",
+          "id": "sergeytereshkin-co-uk-oil-gas-news-2026-09-12",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "Нефтегазовые новости, 12 сентября 2026: Brent выше $100 после роста на 7%, дизель в США дороже $6",
+            "en": "Oil and Gas News, Saturday 12 September 2026: Brent ends week above $100 after 7% rise, US diesel over $6"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-09-06",
+          "domain": "sergeytereshkin.co.uk",
+          "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020",
+          "publication_date": "2026-09-12",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false

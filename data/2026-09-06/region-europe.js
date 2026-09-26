@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона europe (неделя 2026-09-06, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["europe"] = {
   "index": 60,
   "delta": -8,
@@ -13,83 +12,111 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "В восточных районах региона фиксируется рост числа учений с боевой стрельбой.",
-        "en": "More live-fire exercises are being recorded in the region’s eastern districts."
+        "ru": "Германия обвинила Россию в атаке дронов в аэропорту Лейпцига и анонсировала закрытие Русского дома и генконсульства; Берлин ввёл санкции в ответ на диверсию.",
+        "en": "Germany accused Russia of a drone attack at Leipzig airport and announced the closure of the Russian House and its consulate general; Berlin imposed sanctions in response to the sabotage."
       },
       "why": {
-        "ru": "Регулярные учения повышают плотность сил и риск инцидентов на границах.",
-        "en": "Regular drills increase force density and the risk of border incidents."
+        "ru": "Инцидент на территории страны НАТО и взаимные меры ухудшают доверие между столицами и повышают риск цепных реакций.",
+        "en": "An incident on NATO territory and reciprocal measures erode trust between capitals and raise the risk of chain reactions."
       },
       "contribution": "high",
       "confidence": "high",
       "sources": [
         {
-          "id": "www-bbc-com-news-articles-c2e2vjl2ry8o",
+          "id": "kommersant-ru-germany-accuses-leipzig-8923569",
           "title": {
-            "ru": "Станция Чаринг-кросс использована для крупных военных учений",
-            "en": "Charing Cross Tube station used for major military exercise"
+            "ru": "Германия обвинила Россию в инциденте с дроном в аэропорту Лейпцига",
+            "en": "Germany accuses Russia over drone incident at Leipzig airport"
           },
-          "domain": "bbc.com",
-          "url": "https://www.bbc.com/news/articles/c2e2vjl2ry8o",
-          "publication_date": "2026-05-24",
-          "accessed_date": "2026-08-30",
+          "domain": "kommersant.ru",
+          "url": "https://www.kommersant.ru/doc/8923569",
+          "publication_date": "2026-09-01",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "kommersant-ru-leipzig-consulate-closure-8924215",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Германия обвинила Россию в атаке дронов в Лейпциге и анонсировала закрытие Русского дома и генконсульства",
+            "en": "Germany accuses Russia of Leipzig drone attack, announces closure of Russian House and consulate general"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-30",
+          "domain": "kommersant.ru",
+          "url": "https://www.kommersant.ru/doc/8924215",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
+          "state_affiliated": false
+        },
+        {
+          "id": "dw-com-germany-response-leipzig-sanctions",
+          "title": {
+            "ru": "Ответ Германии на диверсию с дронами в Лейпциге: обвинение в адрес России и санкции",
+            "en": "Germany's response to Leipzig drone sabotage: accusations against Russia and sanctions"
+          },
+          "domain": "dw.com",
+          "url": "https://www.dw.com/ru/otvet-germanii-na-diversiu-s-dronami-v-lejpcige/a-78844842",
+          "publication_date": "2026-09-03",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "B-state-media",
           "state_affiliated": true
         }
       ]
     },
     {
       "observation": {
-        "ru": "Поставки систем ПВО странам региона продолжаются третий месяц подряд.",
-        "en": "Air-defence deliveries to states in the region continue for a third straight month."
+        "ru": "В Латвии начались учения Namejs-2026 с участием 12 тысяч военнослужащих; Путин вновь публично опроверг слухи о мобилизации после выборов в Госдуму; издания разбирают сценарий новой волны призыва.",
+        "en": "Exercise Namejs-2026 began in Latvia with 12,000 troops; Putin again publicly denied rumours of mobilisation after the Duma elections; outlets examine the scenario of a new conscription wave."
       },
       "why": {
-        "ru": "Наращивание ПВО сопровождается ростом боевого дежурства в воздушном пространстве.",
-        "en": "Air-defence build-up comes with higher alert status in regional airspace."
+        "ru": "Плотность учений на фланге альянса в сочетании с мобилизационной риторикой удерживает повышенную готовность сил.",
+        "en": "Dense drills on the alliance’s flank combined with mobilisation rhetoric keep forces at heightened readiness."
       },
       "contribution": "medium",
-      "confidence": "high",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "www-crisisgroup-org-europe-eastern-europe-ukraine",
+          "id": "ura-news-namejs-2026-latvia-start",
           "title": {
-            "ru": "CrisisWatch: Украина, июль 2026 года",
-            "en": "CrisisWatch Ukraine July 2026"
+            "ru": "В Латвии начались учения НАТО Namejs-2026 с участием 12 тысяч военнослужащих из США, Канады и Прибалтики",
+            "en": "NATO's Namejs-2026 exercise begins in Latvia with 12,000 troops from the US, Canada and the Baltics"
           },
-          "domain": "crisisgroup.org",
-          "url": "https://www.crisisgroup.org/europe/eastern-europe/ukraine",
-          "publication_date": "2026-06-26",
-          "accessed_date": "2026-08-30",
+          "domain": "ura.news",
+          "url": "https://ura.news/news/1053123716",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "ura-news-putin-otverg-mobilizaciyu",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "Путин вновь опроверг слухи о мобилизации после выборов в Госдуму",
+            "en": "Putin again denies rumours of mobilisation after State Duma elections"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-08-30",
-          "source_type": "OSINT",
+          "domain": "ura.news",
+          "url": "https://ura.news/news/1053123991",
+          "publication_date": "2026-09-03",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
+        },
+        {
+          "id": "klerk-ru-mobilization-after-elections",
+          "title": {
+            "ru": "Мобилизация после выборов 2026 года: будет ли новая волна",
+            "en": "Mobilisation after the 2026 elections: will there be a new wave"
+          },
+          "domain": "klerk.ru",
+          "url": "https://www.klerk.ru/buh/articles/707264/",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         }

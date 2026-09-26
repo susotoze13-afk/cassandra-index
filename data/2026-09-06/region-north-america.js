@@ -1,10 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Миграция таск 09 (R55): новая схема источника, маппинг — как в sources.js
-  // демо-недели ('OSINT' — спутниковые/полевые наблюдения, иначе 'secondary';
-  // 'A-mainstream' — агентства/СМИ, 'C-registries' — институты и реестры;
-  // state_affiliated: true только для dw.com). Тексты не изменены.
+  // Редакционный сид региона north-america (неделя 2026-09-06, R55): два драйвера региона.
+  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
+  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["north-america"] = {
   "index": 60,
   "delta": 18,
@@ -13,83 +12,83 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "drivers": [
     {
       "observation": {
-        "ru": "В регионе завершён цикл учений стратегических сил без отклонений.",
-        "en": "The region completed a strategic forces exercise cycle without incidents."
+        "ru": "Зеленский заявил, что Украина готова прекратить удары по городам, где проходят мирные переговоры при посредничестве США; режим тишины 5–8 сентября соблюдается приказом ВСУ.",
+        "en": "Zelensky said Ukraine is ready to halt strikes on cities hosting peace talks mediated by the United States; the 5–8 September silence regime is observed under an order to the armed forces."
       },
       "why": {
-        "ru": "Завершение цикла без инцидентов снижает краткосрочную напряжённость.",
-        "en": "An incident-free cycle lowers short-term tension."
+        "ru": "Американское посредничество в локальных прекращениях огня — главный дипломатический канал недели, определяющий повестку Вашингтона.",
+        "en": "US mediation in local ceasefires is the week’s main diplomatic channel, shaping Washington’s agenda."
       },
-      "contribution": "low",
-      "confidence": "high",
+      "contribution": "medium",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "www-dw-com-en-ukraine-9-countries-form-ballistic-missile-defense-coalition-live-77927840",
+          "id": "aa-com-tr-zelenskiy-halt-strikes-talks-cities-4048283",
           "title": {
-            "ru": "Украина и девять стран создают коалицию противоракетной обороны",
-            "en": "Ukraine, 9 nations form ballistic missile defense coalition"
+            "ru": "Зеленский: Украина готова прекратить удары по городам, где проходят мирные переговоры при посредничестве США",
+            "en": "Zelenskyy: Ukraine ready to halt strikes on cities hosting US-mediated peace talks"
           },
-          "domain": "dw.com",
-          "url": "https://www.dw.com/en/ukraine-9-countries-form-ballistic-missile-defense-coalition/live-77927840",
-          "publication_date": "2026-07-13",
-          "accessed_date": "2026-08-30",
+          "domain": "aa.com.tr",
+          "url": "https://www.aa.com.tr/ru/%D0%BC%D0%B8%D1%80/%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D1%83%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0-%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%B0-%D0%BF%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%82%D0%B8%D1%82%D1%8C-%D1%83%D0%B4%D0%B0%D1%80%D1%8B-%D0%BF%D0%BE-%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B0%D0%BC-%D0%B3%D0%B4%D0%B5-%D0%BF%D1%80%D0%BE%D1%85%D0%BE%D0%B4%D1%8F%D1%82-%D0%BC%D0%B8%D1%80%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D1%8B-%D0%BF%D1%80%D0%B8-%D0%BF%D0%BE%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5-%D1%81%D1%88%D0%B0/4048283",
+          "publication_date": "2026-09-05",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "A-mainstream",
+          "cluster_id": "B-state-media",
           "state_affiliated": true
         },
         {
-          "id": "www-sipri-org-media-press-release-2026-global-military-spending-rise-continues-european-and-asian-expenditures-surge",
+          "id": "gazeta-ru-regime-of-silence-september-5",
           "title": {
-            "ru": "Рост мировых военных расходов продолжается на фоне всплеска трат в Европе и Азии",
-            "en": "Global military spending rise continues as European and Asian expenditures surge"
+            "ru": "Режим тишины между Россией и Украиной 5–8 сентября: ВСУ получили приказ соблюдать прекращение огня",
+            "en": "Russia-Ukraine silence regime September 5-8: AFU ordered to abide by ceasefire"
           },
-          "domain": "sipri.org",
-          "url": "https://www.sipri.org/media/press-release/2026/global-military-spending-rise-continues-european-and-asian-expenditures-surge",
-          "publication_date": "2026-04-27",
-          "accessed_date": "2026-08-30",
+          "domain": "gazeta.ru",
+          "url": "https://www.gazeta.ru/politics/2026/09/05/23506915.shtml",
+          "publication_date": "2026-09-05",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "C-registries",
+          "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Дипломатические контакты по линии оборонных ведомств сохраняются.",
-        "en": "Defence-ministry diplomatic contacts remain in place."
+        "ru": "В учениях Namejs-2026 в Латвии участвуют военнослужащие из США и Канады; Германия удвоила оборонный бюджет, взяв на себя ответственность за оборону Европы.",
+        "en": "US and Canadian troops take part in Exercise Namejs-2026 in Latvia; Germany doubled its defence budget, assuming responsibility for Europe’s defence."
       },
       "why": {
-        "ru": "Рабочие каналы связи снижают риск ошибочной эскалации.",
-        "en": "Working communication channels reduce the risk of accidental escalation."
+        "ru": "Рост оборонных усилий союзников означает более высокую трансатлантическую нагрузку и устойчивый спрос на координацию через Вашингтон.",
+        "en": "Allies’ rising defence efforts mean a heavier transatlantic burden and steady demand for coordination through Washington."
       },
       "contribution": "low",
-      "confidence": "medium",
+      "confidence": "high",
       "sources": [
         {
-          "id": "news-un-org-en-story-2026-07-1167860",
+          "id": "ura-news-namejs-2026-latvia-start",
           "title": {
-            "ru": "Совет Безопасности: экстренное заседание по иранской атаке в Бахрейне",
-            "en": "Security Council LIVE: Emergency meeting on Iranian attack in Bahrain"
+            "ru": "В Латвии начались учения НАТО Namejs-2026 с участием 12 тысяч военнослужащих из США, Канады и Прибалтики",
+            "en": "NATO's Namejs-2026 exercise begins in Latvia with 12,000 troops from the US, Canada and the Baltics"
           },
-          "domain": "un.org",
-          "url": "https://news.un.org/en/story/2026/07/1167860",
-          "publication_date": "2026-07-02",
-          "accessed_date": "2026-08-30",
+          "domain": "ura.news",
+          "url": "https://ura.news/news/1053123716",
+          "publication_date": "2026-09-02",
+          "accessed_date": "2026-09-26",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "www-reuters-com-graphics-india-china-border-bdwpkadxqpm",
+          "id": "br-az-germany-record-rearmament-budget",
           "title": {
-            "ru": "Индо-китайский спор: спутниковые снимки показывают новые сооружения возле места пограничного столкновения",
-            "en": "India-China dispute: Satellite Images show new structures near site of border clash"
+            "ru": "Германия готовится к рекордному перевооружению: военные расходы вырастут до €110 млрд",
+            "en": "Germany prepares for record rearmament: military spending to rise to 110 billion euros"
           },
-          "domain": "reuters.com",
-          "url": "https://www.reuters.com/graphics/INDIA-CHINA/BORDER/bdwpkadxqpm/",
-          "publication_date": "2020-06-25",
-          "accessed_date": "2026-08-30",
-          "source_type": "OSINT",
+          "domain": "br.az",
+          "url": "https://br.az/inworld/121800/germaniya-gotovitsya-k-rekordnomu-perevooruzheniyu-voennye-rashody-vzletyat-do-euro110-mlrd/",
+          "publication_date": "2026-08-31",
+          "accessed_date": "2026-09-26",
+          "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         }
