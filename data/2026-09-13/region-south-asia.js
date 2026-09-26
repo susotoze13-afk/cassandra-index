@@ -1,12 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-13"] = window.CI_DATA.snapshots["2026-09-13"] || {};
-  // Редакционный сид региона south-asia (неделя 2026-09-13, R55): два драйвера региона.
-  // Источники — verbatim-записи из calc/input/2026-09-13.json. index/delta/status
-  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["south-asia"] = {
-  "index": 60,
-  "delta": 2,
+  "index": 41,
+  "delta": -1,
   "status": "danger",
   "confidence": "medium",
   "drivers": [

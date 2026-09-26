@@ -1,12 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
-  // Редакционный сид региона north-america (неделя 2026-09-06, R55): два драйвера региона.
-  // Источники — verbatim-записи из calc/input/2026-09-06.json. index/delta/status
-  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["north-america"] = {
-  "index": 60,
-  "delta": 18,
+  "index": 42,
+  "delta": -9,
   "status": "danger",
   "confidence": "high",
   "drivers": [

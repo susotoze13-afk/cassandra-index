@@ -3,33 +3,33 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-09-06"] = window.CI_DATA.snapshots["2026-09-06"] || {};
   s.regions = {
   "europe": {
-    "index": 60,
-    "delta": -8,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   },
   "east-asia": {
-    "index": 60,
-    "delta": 8,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   },
   "middle-east": {
-    "index": 60,
-    "delta": -20,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   },
   "north-america": {
-    "index": 60,
-    "delta": 18,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   },
   "south-asia": {
-    "index": 60,
-    "delta": 2,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   },
   "africa": {
-    "index": 60,
-    "delta": 13,
+    "index": 42,
+    "delta": -9,
     "status": "danger"
   }
 };

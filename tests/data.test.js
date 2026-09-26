@@ -250,7 +250,7 @@ test('week: insufficient-снапшот отдаётся как есть, не u
   delete globalThis.window;
 });
 
-// --- Дисковые снапшоты: демо-история валидна прежней формой, пересчитанные недели — insufficient ---
+// --- Дисковые снапшоты: демо-история валидна прежней формой, пересчитанные недели — published ---
 function loadFullSnapshot(date) {
   const snap = {};
   for (const file of ['global', 'regions', 'trend', 'drivers', 'sources']) {
@@ -274,17 +274,19 @@ test('диск: демо-неделя 2026-08-23 валидна прежней �
   assert.equal(v.ok, true);
 });
 
-test('диск: пересчитанная 2026-09-13 — insufficient с global:null и preview', () => {
+test('диск: пересчитанная 2026-09-13 — published с полным покрытием', () => {
   const snap = loadFullSnapshot('2026-09-13');
   const v = validate(snap);
   assert.deepEqual(v.errors, []);
-  assert.equal(snap.dataState, 'insufficient');
-  assert.equal(snap.global, null);
-  assert.equal(typeof snap.q, 'number');
-  assert.equal(typeof snap.nullWeight, 'number');
-  assert.equal(snap.confidence, 'none');
-  assert.ok(snap.preview && typeof snap.preview.index === 'number');
+  assert.equal(snap.dataState, 'published');
+  assert.equal(snap.global.index, 41);
+  assert.equal(snap.global.delta, -1);
+  assert.equal(snap.confidence, 'full');
+  assert.equal(snap.q, 1);
+  assert.equal(snap.nullWeight, 0);
+  assert.equal(snap.through, '2026-09-13');
+  assert.equal(snap.published, '2026-09-13');
   assert.ok(snap.recalc && typeof snap.recalc.reason === 'string');
   const recalcPoints = snap.trend.filter((p) => p.date >= '2026-08-30');
-  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => p.value === null && typeof p.methodology === 'string'));
+  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => typeof p.value === 'number' && typeof p.methodology === 'string'));
 });

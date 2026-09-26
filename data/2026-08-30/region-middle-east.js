@@ -1,12 +1,9 @@
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
-  // Редакционный сид региона middle-east (неделя 2026-08-30, R55): два драйвера региона.
-  // Источники — verbatim-записи из calc/input/2026-08-30.json. index/delta/status
-  // пересчитываются пайплайном; confidence — редакционная.
   s.regions["middle-east"] = {
-  "index": 60,
-  "delta": -20,
+  "index": 51,
+  "delta": -29,
   "status": "danger",
   "confidence": "low",
   "drivers": [
