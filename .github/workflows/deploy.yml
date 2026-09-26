@@ -28,6 +28,7 @@ jobs:
           mkdir -p _site
           cp index.html privacy.html _site/
           cp -r css js data _site/
+          echo cassindex.ru > _site/CNAME
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
