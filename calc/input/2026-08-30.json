@@ -6,91 +6,671 @@
       "value": 0.2,
       "covered": true,
       "sources": [
-        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-08-27", "cluster": "D-satellite-osint" },
-        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-08-26", "cluster": "A-mainstream" }
+        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-08-28", "cluster": "A-mainstream" },
+        { "url": "https://militarnyi.com/en/news/zelensky-ukraine-strikes-russian-iskander-launcher/", "date": "2026-08-27", "cluster": "A-mainstream" }
       ]
     },
     "D1.2": {
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-08-29", "cluster": "A-mainstream" },
-        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-08-27", "cluster": "D-satellite-osint" }
+        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-08-29", "cluster": "A-mainstream", "state_affiliated": true },
+        { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-08-27", "cluster": "A-mainstream" }
       ]
     },
-    "D1.3": null,
+    "D1.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://militarnyi.com/en/news/zelensky-ukraine-strikes-russian-iskander-launcher/", "date": "2026-08-27", "cluster": "A-mainstream" }
+      ]
+    },
     "D1.4": {
+      "events": [1.0, 1.0, 0.5, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.bbc.com/news/articles/c86xwqez4npo", "date": "2026-08-29", "cluster": "A-mainstream" },
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://united24media.com/war-in-ukraine/kyiv-faces-record-13-air-raid-alerts-russias-answer-to-cia-directors-moscow-visit-22024", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true }
+      ]
+    },
+    "D1.5": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D1.6": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://kyivindependent.com/missile-strike-reportedly-hits-belgorod-damaging-ozon-facility-and-power-plant/", "date": "2026-08-30", "cluster": "A-mainstream" }
+      ]
+    },
+    "D2.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D2.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D2.3": {
+      "events": [1.0],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D2.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D3.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
+    "D3.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
+    "D3.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" },
+        { "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/", "date": "2026-08-27", "cluster": "C-registries" },
+        { "url": "https://www.aa.com.tr/en/europe/eu-approves-71b-in-new-defense-aid-for-ukraine/4035762", "date": "2026-08-24", "cluster": "B-state-media", "state_affiliated": true }
+      ]
+    },
+    "D3.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.reuters.com/world/europe/zelenskiys-top-aide-says-ukraine-russia-talks-may-be-possible-september-2026-08-27/", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://united24media.com/war-in-ukraine/kyiv-faces-record-13-air-raid-alerts-russias-answer-to-cia-directors-moscow-visit-22024", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true }
+      ]
+    },
+    "D3.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.reuters.com/world/europe/zelenskiys-top-aide-says-ukraine-russia-talks-may-be-possible-september-2026-08-27/", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D4.1": {
       "value": 0.2,
       "covered": true,
       "sources": [
-        { "url": "https://apnews.com/article/border-clashes-monitoring", "date": "2026-08-28", "cluster": "A-mainstream" },
-        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-08-29", "cluster": "A-mainstream" }
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" },
+        { "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/", "date": "2026-08-27", "cluster": "C-registries" }
       ]
     },
-    "D1.5": null,
-    "D1.6": null,
-    "D2.1": null,
-    "D2.2": null,
-    "D2.3": null,
-    "D2.4": null,
-    "D2.5": null,
-    "D3.1": null,
-    "D3.2": null,
-    "D3.3": {
-      "value": 0.1,
-      "covered": true,
-      "sources": [
-        { "url": "https://news.un.org/en/story/security-council-session", "date": "2026-08-29", "cluster": "A-mainstream" }
-      ]
-    },
-    "D3.4": null,
-    "D3.5": null,
-    "D4.1": null,
     "D4.2": {
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.sipri.org/media/press-release/budgets", "date": "2026-08-25", "cluster": "C-registries" },
-        { "url": "https://www.crisisgroup.org/crisiswatch/air-defence", "date": "2026-08-28", "cluster": "A-mainstream" }
+        { "url": "https://www.crisisgroup.org/crisiswatch/air-defence", "date": "2026-08-28", "cluster": "C-registries" },
+        { "url": "https://www.aa.com.tr/en/europe/eu-approves-71b-in-new-defense-aid-for-ukraine/4035762", "date": "2026-08-24", "cluster": "B-state-media", "state_affiliated": true }
       ]
     },
-    "D4.3": null,
-    "D4.4": null,
-    "D4.5": null,
-    "D5.1": null,
+    "D4.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html", "date": "2026-08-28", "cluster": "A-mainstream" },
+        { "url": "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-28-2026", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D4.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.france24.com/en/europe/20260824-what-renewed-black-sea-blockade-means-ukraine-farmers", "date": "2026-08-24", "cluster": "A-mainstream" },
+        { "url": "https://united24media.com/war-in-ukraine/kyiv-faces-record-13-air-raid-alerts-russias-answer-to-cia-directors-moscow-visit-22024", "date": "2026-08-28", "cluster": "B-state-media", "state_affiliated": true }
+      ]
+    },
+    "D4.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/", "date": "2026-08-27", "cluster": "C-registries" },
+        { "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports", "date": "2026-08-25", "cluster": "A-mainstream" }
+      ]
+    },
+    "D5.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
     "D5.2": null,
     "D5.3": null,
-    "D5.4": null,
+    "D5.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
     "D6.1": null,
-    "D6.2": null,
-    "D6.3": null,
-    "D6.4": null,
-    "D7.1": null,
-    "D7.2": null,
-    "D7.3": null,
-    "D7.4": null,
-    "D8.1": null,
-    "D8.2": null,
+    "D6.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.bbc.com/news/articles/c86xwqez4npo", "date": "2026-08-29", "cluster": "A-mainstream" },
+        { "url": "https://kyivindependent.com/kyiv-records-13-air-raid-alerts-in-single-day-most-since-full-scale-invasion-as-explosions-continue-overnight/", "date": "2026-08-28", "cluster": "A-mainstream" }
+      ]
+    },
+    "D6.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/europe/eu-approves-71b-in-new-defense-aid-for-ukraine/4035762", "date": "2026-08-24", "cluster": "B-state-media", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
+    "D6.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" },
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
+    "D7.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" },
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" }
+      ]
+    },
+    "D7.2": {
+      "events": [0.5, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://kyivindependent.com/kyiv-records-13-air-raid-alerts-in-single-day-most-since-full-scale-invasion-as-explosions-continue-overnight/", "date": "2026-08-28", "cluster": "A-mainstream" }
+      ]
+    },
+    "D7.3": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://kyivindependent.com/missile-strike-reportedly-hits-belgorod-damaging-ozon-facility-and-power-plant/", "date": "2026-08-30", "cluster": "A-mainstream" }
+      ]
+    },
+    "D7.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://www.democracynow.org/2026/8/27/headlines", "date": "2026-08-27", "cluster": "A-mainstream" }
+      ]
+    },
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://www.reuters.com/world/europe/zelenskiys-top-aide-says-ukraine-russia-talks-may-be-possible-september-2026-08-27/", "date": "2026-08-27", "cluster": "A-mainstream" }
+      ]
+    },
+    "D8.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.reuters.com/world/europe/zelenskiys-top-aide-says-ukraine-russia-talks-may-be-possible-september-2026-08-27/", "date": "2026-08-27", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates", "date": "2026-08-24", "cluster": "A-mainstream" }
+      ]
+    },
     "D8.3": null,
-    "D8.4": null,
+    "D8.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://kyivindependent.com/kyiv-records-13-air-raid-alerts-in-single-day-most-since-full-scale-invasion-as-explosions-continue-overnight/", "date": "2026-08-28", "cluster": "A-mainstream" },
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" }
+      ]
+    },
     "D9.1": null,
-    "D9.2": null,
-    "D9.3": null,
-    "D9.4": null,
+    "D9.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.akm.ru/eng/comments/bspb-market-monitoring-august-24-2026/", "date": "2026-08-24", "cluster": "F-financial" },
+        { "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/", "date": "2026-08-27", "cluster": "C-registries" }
+      ]
+    },
+    "D9.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html", "date": "2026-08-28", "cluster": "A-mainstream" },
+        { "url": "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-28-2026", "date": "2026-08-28", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports", "date": "2026-08-25", "cluster": "A-mainstream" }
+      ]
+    },
+    "D9.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/", "date": "2026-08-25", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports", "date": "2026-08-25", "cluster": "A-mainstream" }
+      ]
+    },
     "D9.5": null,
     "D9.6a": null,
     "D9.6b": null,
-    "D9.7": null
+    "D9.7": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.akm.ru/eng/comments/bspb-market-monitoring-august-24-2026/", "date": "2026-08-24", "cluster": "F-financial" },
+        { "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/", "date": "2026-08-27", "cluster": "C-registries" }
+      ]
+    }
   },
   "driverConfidence": {
-    "D1": { "level": "medium", "reason": "независимые источники дают противоречивые показания по интенсивности столкновений; слепые зоны: Д1.3, Д1.5, Д1.6" },
-    "D2": { "level": "low", "reason": "нет подтверждённых наблюдений по ядерной сигнальной активности за окно" },
-    "D3": { "level": "low", "reason": "покрыт только Д3.3; слепые зоны по дипломатическому треку (Д3.1, Д3.2, Д3.4, Д3.5)" },
-    "D4": { "level": "medium", "reason": "покрыт только Д4.2; слепые зоны по санкциям и цепочкам поставок (Д4.1, Д4.3–Д4.5)" },
-    "D5": { "level": "low", "reason": "нет подтверждённых наблюдений по информационной и киберсфере за окно" },
-    "D6": { "level": "low", "reason": "нет подтверждённых наблюдений по мобилизационным мерам за окно" },
-    "D7": { "level": "low", "reason": "нет подтверждённых наблюдений по вовлечению третьих сторон за окно" },
-    "D8": { "level": "low", "reason": "нет подтверждённых деэскалационных исходов за окно; отсутствие эскалации не засчитывается (§4.1.8)" },
-    "D9": { "level": "medium", "reason": "косвенные сигналы не покрыты наблюдениями; без прямого подтверждения потолок — средняя (§4.3.1)" }
-  }
+    "D1": {
+      "level": "high",
+      "reason": "покрыто 6/6 критериев; подтверждение верифицированным OSINT (ISW 25.08) и двумя кластерами; Д1.6 закрыт нулём с аттестацией (разведения сил и сокращения активности нет, наступление и удары продолжаются)"
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "покрыто 5/5 критериев; сигнал — учебный пуск мобильной МБР Ярс с Плесецка (Д2.3, 28.08, подтверждён независимым мониторингом russianforces.org); публичных угроз применения ЯО и повышения готовности сил в окне нет — Д2.1/Д2.2/Д2.4/Д2.5 закрыты нулями с аттестацией"
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "покрыто 5/5 критериев; контакт США–РФ (визит директора ЦРУ в Москву 25.08, заявление о возможных переговорах в сентябре) — Д3.4=0.67; угрозы РФ по поставкам вооружения (Д3.2=0.33); разрывов и высылок в окне нет — Д3.1=0 с аттестацией; договорённостей и коридоров нет — Д3.5=0"
+    },
+    "D4": {
+      "level": "high",
+      "reason": "покрыто 5/5 критериев; блокада украинских портов и разрыв экспортных цепочек подтверждены несколькими кластерами (Le Monde, UANI, World Grain, France 24); меры 21-го пакета ЕС вступили в силу 25.08; отмен ограничений нет — Д4.5=0 с аттестацией"
+    },
+    "D5": {
+      "level": "low",
+      "reason": "покрыто 2/4 критерия; эскалационная риторика зафиксирована (Д5.1=0.33), снижения пропаганды нет (Д5.4=0); слепые зоны: Д5.2 и Д5.3 — наблюдаемых сигналов (подтверждённых киберопераций, развёрнутых дезинформационных кампаний) в окне нет"
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "покрыто 3/4 критерия; эвакуации в окне носят реактивный характер (последствия удара по складам в Миле, ~400 эвакуированных) — Д6.2=0.33; отмен мобилизационных мер нет — Д6.4=0; слепая зона: Д6.1 — новых мобилизационных законов и военного положения в окне нет (аттестация)"
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "покрыто 4/4 критерия; инциденты за пределами основного театра (закрытие перехода Молдова–Украина после ударов дрона, вторжение дронов в Молдову) — Д7.2; поставки Storm Shadow и предупреждения РФ (Д7.1=0.33); новых фронтов и выходов третьих сторон нет — Д7.3/Д7.4=0"
+    },
+    "D8": {
+      "level": "low",
+      "reason": "покрыто 3/4 критериев; все деэскалационные исходы на нуле (перемирия и договорённостей нет, интенсивность рекордная: 13 тревог за день в Киеве 27.08 — Д8.4=0); слепая зона: Д8.3 — международных миссий и инспекций в окне нет (аттестация)"
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "покрыто 4/8 подгрупп (Д9.2, Д9.3, Д9.4, Д9.7 — транспорт и страхование: блокада Черного моря и кризис в Ормузе/Красном море, 0.67); без прямого подтверждения потолок — средняя (§4.3.1); слепые зоны: Д9.1, Д9.5, Д9.6a, Д9.6b — наблюдаемых сигналов в окне нет (аттестация)"
+    }
+  },
+  "sources": [
+    {
+      "id": "isw-roc-assessment-2026-08-25",
+      "title": {
+        "ru": "ISW: оценка российского наступления, 25 августа 2026",
+        "en": "ISW Russian Offensive Campaign Assessment, August 25, 2026"
+      },
+      "domain": "understandingwar.org",
+      "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-august-25-2026/",
+      "publication_date": "2026-08-25",
+      "accessed_date": "2026-09-26",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "militarnyi-iskander-launcher-2026-08-27",
+      "title": {
+        "ru": "Зеленский: ВСУ поразили российскую пусковую установку Искандер-М",
+        "en": "Zelensky: Ukraine strikes Russian Iskander launcher"
+      },
+      "domain": "militarnyi.com",
+      "url": "https://militarnyi.com/en/news/zelensky-ukraine-strikes-russian-iskander-launcher/",
+      "publication_date": "2026-08-27",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "kyivindependent-13-air-raid-alerts-2026-08-28",
+      "title": {
+        "ru": "Киев зафиксировал 13 воздушных тревог за день — рекорд с начала полномасштабного вторжения",
+        "en": "Kyiv records 13 air raid alerts in a single day, most since full-scale invasion began"
+      },
+      "domain": "kyivindependent.com",
+      "url": "https://kyivindependent.com/kyiv-records-13-air-raid-alerts-in-single-day-most-since-full-scale-invasion-as-explosions-continue-overnight/",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "kyivindependent-belgorod-strike-2026-08-30",
+      "title": {
+        "ru": "Ракетный удар по Белгороду: повреждены склад Ozon и тепловая электростанция",
+        "en": "Missile strike hits Belgorod, reportedly damaging Ozon facility and power plant"
+      },
+      "domain": "kyivindependent.com",
+      "url": "https://kyivindependent.com/missile-strike-reportedly-hits-belgorod-damaging-ozon-facility-and-power-plant/",
+      "publication_date": "2026-08-30",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "bbc-myla-depot-strike-2026-08-29",
+      "title": {
+        "ru": "Не менее 37 погибших и сотни эвакуированных после удара по складу оружия под Киевом",
+        "en": "At least 37 dead and hundreds evacuated after strike on Kyiv weapons depot"
+      },
+      "domain": "bbc.com",
+      "url": "https://www.bbc.com/news/articles/c86xwqez4npo",
+      "publication_date": "2026-08-29",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-yars-plesetsk-launch-2026-08-28",
+      "title": {
+        "ru": "Россия провела пуск мобильной межконтинентальной баллистической ракеты с космодрома Плесецк",
+        "en": "Russia says it launched mobile ICBM from Plesetsk Cosmodrome"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/eurasia/russia-says-it-launched-mobile-icbm-from-plesetsk-cosmodrome/4040451",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "russianforces-yars-launch-2026-08-28",
+      "title": {
+        "ru": "Пуск мобильной ракеты «Ярс» с Плесецка",
+        "en": "Launch of mobile Yars missile from Plesetsk"
+      },
+      "domain": "russianforces.org",
+      "url": "https://russianforces.org/blog/2026/08/launch_of_mobile_yars_missile_.shtml",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "democracynow-headlines-2026-08-27",
+      "title": {
+        "ru": "Заголовки 27 августа 2026: Украина и Россия обмениваются ударами, Москва предупреждает Великобританию",
+        "en": "Headlines August 27, 2026: Ukraine and Russia trade attacks as Moscow warns the UK"
+      },
+      "domain": "democracynow.org",
+      "url": "https://www.democracynow.org/2026/8/27/headlines",
+      "publication_date": "2026-08-27",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-europe-live-2026-08-24",
+      "title": {
+        "ru": "Бёрнем: Великобритания с Украиной «до конца» несмотря на «возмутительные угрозы» России — онлайн",
+        "en": "Burnham says UK with Ukraine 'all the way' despite 'outrageous threats' from Russia – Europe live"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/live/2026/aug/24/europe-ukraine-russia-war-kyiv-andy-burnham-volodymyr-zelenskyy-latest-news-updates",
+      "publication_date": "2026-08-24",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-talks-possible-september-2026-08-27",
+      "title": {
+        "ru": "Советник Зеленского: переговоры Украина–Россия возможны в сентябре",
+        "en": "Zelenskiy's top aide says Ukraine-Russia talks may be possible in September"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/europe/zelenskiys-top-aide-says-ukraine-russia-talks-may-be-possible-september-2026-08-27/",
+      "publication_date": "2026-08-27",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "united24-record-air-raid-alerts-2026-08-28",
+      "title": {
+        "ru": "Рекордные 13 воздушных тревог в Киеве — ответ России на визит директора ЦРУ",
+        "en": "Kyiv faces record 13 air raid alerts — Russia's answer to CIA director's Moscow visit"
+      },
+      "domain": "united24media.com",
+      "url": "https://united24media.com/war-in-ukraine/kyiv-faces-record-13-air-raid-alerts-russias-answer-to-cia-directors-moscow-visit-22024",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "ecovis-sanctions-regulation-august-2026",
+      "title": {
+        "ru": "RegRally Insights: санкционное регулирование, август 2026",
+        "en": "RegRally Insights: Sanctions Regulation, August 2026"
+      },
+      "domain": "ecovis.lt",
+      "url": "https://ecovis.lt/regrally-insights-sanctions-regulation-august-2026/",
+      "publication_date": "2026-08-27",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "lemonde-black-sea-blockade-2026-08-28",
+      "title": {
+        "ru": "Блокада черноморских портов душит экспорт зерна Украины",
+        "en": "Ukraine's Black Sea port blockade strangles grain exports"
+      },
+      "domain": "lemonde.fr",
+      "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "france24-black-sea-farmers-2026-08-24",
+      "title": {
+        "ru": "Что возобновленная блокада Черного моря означает для фермеров Украины",
+        "en": "What the renewed Black Sea blockade means for Ukraine's farmers"
+      },
+      "domain": "france24.com",
+      "url": "https://www.france24.com/en/europe/20260824-what-renewed-black-sea-blockade-means-ukraine-farmers",
+      "publication_date": "2026-08-24",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "world-grain-black-sea-exports-2026-08-25",
+      "title": {
+        "ru": "Эскалация войны останавливает экспорт зерна через Черное море",
+        "en": "Escalating war stalling Black Sea grain exports"
+      },
+      "domain": "world-grain.com",
+      "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports",
+      "publication_date": "2026-08-25",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "uani-iran-shipping-update-2026-08-28",
+      "title": {
+        "ru": "UANI: обновление по судоходству Ирана, 28 августа 2026",
+        "en": "UANI Iran Shipping Update – August 28, 2026"
+      },
+      "domain": "unitedagainstnucleariran.com",
+      "url": "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-28-2026",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-eu-defense-aid-2026-08-24",
+      "title": {
+        "ru": "ЕС одобрил $7,1 млрд новой военной помощи Украине",
+        "en": "EU approves $7.1B in new defense aid for Ukraine"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/eu-approves-71b-in-new-defense-aid-for-ukraine/4035762",
+      "publication_date": "2026-08-24",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "akm-bspb-market-monitoring-2026-08-24",
+      "title": {
+        "ru": "Банк Санкт-Петербурга: мониторинг рынка, 24 августа 2026",
+        "en": "BSPB: Market monitoring, August 24, 2026"
+      },
+      "domain": "akm.ru",
+      "url": "https://www.akm.ru/eng/comments/bspb-market-monitoring-august-24-2026/",
+      "publication_date": "2026-08-24",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-myla-strike-37-killed-2026-08-29",
+      "title": {
+        "ru": "37 погибших и более 40 раненых при ударе дрона по складу под Киевом, сообщает Украина",
+        "en": "37 killed, over 40 injured in Russian drone strike on warehouse near Kyiv, says Ukraine"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/russia-ukraine-war/37-killed-over-40-injured-in-russian-drone-strike-on-warehouse-near-kyiv-says-ukraine/4040922",
+      "publication_date": "2026-08-29",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "reuters-satellite-border-analysis-2026-08-27",
+      "title": {
+        "ru": "Reuters: спутниковый анализ пограничных перемещений и столкновений",
+        "en": "Reuters: satellite analysis of border movements and clashes"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/satellite-border-analysis",
+      "publication_date": "2026-08-27",
+      "accessed_date": "2026-09-26",
+      "source_type": "OSINT",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "apnews-border-clashes-monitoring-2026-08-28",
+      "title": {
+        "ru": "AP: мониторинг пограничных столкновений",
+        "en": "AP: border clashes monitoring"
+      },
+      "domain": "apnews.com",
+      "url": "https://apnews.com/article/border-clashes-monitoring",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "dw-large-scale-drills-2026-08-29",
+      "title": {
+        "ru": "DW: учения необычного масштаба вблизи границы",
+        "en": "DW: large-scale drills near the border"
+      },
+      "domain": "dw.com",
+      "url": "https://www.dw.com/en/large-scale-drills/a-700001",
+      "publication_date": "2026-08-29",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": true
+    },
+    {
+      "id": "crisisgroup-crisiswatch-air-defence-2026-08-28",
+      "title": {
+        "ru": "CrisisWatch: обзор эскалации вокруг ПВО",
+        "en": "CrisisWatch: air defence escalation overview"
+      },
+      "domain": "crisisgroup.org",
+      "url": "https://www.crisisgroup.org/crisiswatch/air-defence",
+      "publication_date": "2026-08-28",
+      "accessed_date": "2026-09-26",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    }
+  ]
 }
