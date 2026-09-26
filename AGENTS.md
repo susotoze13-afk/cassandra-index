@@ -25,7 +25,7 @@
 ## Публикация
 
 - Выкат — GitHub Actions `.github/workflows/deploy.yml` на push в `master`; публикуется
-  только `index.html`, `privacy.html`, `css/`, `js/`, `data/` — остальное наружу не уходит.
+  только `index.html`, `privacy.html`, `icon.svg`, `css/`, `js/`, `data/` — остальное наружу не уходит.
 - Пуш в master = автоматический выкат; коммитить только готовое к публикации, коммит и пуш — только за оркестратором (агенты-исполнители НЕ коммитят — был инцидент).
 - Обновление недели: вход `calc/input/<дата>.json` → `node calc/calc.js --write <дата>` →
   `node build.js` → `node --test` зелёный → commit (push — оркестратору).
@@ -36,30 +36,40 @@
 ```
 index.html                единственная страница; RU-разметка hero в HTML
 privacy.html              политика приватности
+icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
-                          region, render, sections/* (7 секций), share, demo, ui
+                          region, render, sections/* (7 секций), share, demo, ui, criteria
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
-                          Break Override (§5.4), региональная модель (§7), validate входов
+                          Break Override (§5.4), региональная модель (§7), validate входов,
+                          константы CRITERIA (45)
 calc/params.js            PARAMS — единственный источник численных параметров (k = 1.95)
 calc/calc.js              CLI прогона недели; маппинг входа → драйверы через buildDrivers;
-                          ворота ссылок (linkcheck) перед --write; validateInputSources (R55)
+                          ворота ссылок и контракта перед --write; validateInputSources (R55);
+                          шов рендера снапшотов renderGlobal/renderRegionFile
 calc/linkcheck.js         чистый модуль проверки URL: classify(status) → ok|blocked|broken,
                           checkUrl (ретраи на 429/406/5xx, таймаут 10 c, браузерные
                           заголовки), checkSources (последовательный обход)
 calc/check-sources.js     CLI перепроверки ссылок всех/перечисленных недель поверх calc.js
 calc/calibrate.js         калибровка k на якорях: buildDrivers, runAnchor, evaluateGrid, selectK, sensitivity
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
-calc/input/<неделя>.json  входные сигналы недели (45 критериев D1..D9, null = непокрыт,
-                          опционально sources по R55)
+calc/input/<неделя>.json  входные сигналы недели: 45 критериев D1..D9 ({value, covered,
+                          sources}, слепые — covered:false с аттестацией), R55-источники,
+                          driverConfidence; покрытие 37–42/45
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
-data/<YYYY-MM-DD>/        снапшоты 08-02…09-20 (8 недель): global/regions/region-*/
+data/<YYYY-MM-DD>/        8 недель: 08-02…08-23 — непересчитываемая демо-история
+                          (methodology "1.0"), 08-30…09-20 — пересчитанные published
+                          (methodology "2.0", q=1): global/regions/region-*/
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0017,
+                          два параллельных ряда + новые прогона recalc-3months-publish)
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
-tests/*.test.js           25 файлов, node --test (в т.ч. linkcheck, sources-schema)
+docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
+                          всё решённое — в архиве «Решено» (v1.2)
+tests/*.test.js           27 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -84,7 +94,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   от опубликованного PREV_WEEK = '2026-08-23'; переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
-  `validateInputSources` (строгая схема R55, cluster_id по whitelist PARAMS.clusters).
+  `validateInputSources` (строгая схема R55, cluster_id по whitelist PARAMS.clusters),
+  `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js),
+  `renderRegionFile` (числа пересчёта + drivers/confidence из прежнего файла).
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
 - `js/data.js` — контракт снапшотов: `validate` (published/through/methodology, dataState
@@ -93,26 +105,33 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   источники по isSource), `validateQuality` (q/nullWeight/confidence/coverage/preview/
   recalc, неделя insufficient обязана нести полный пакет непубликации);
   `week/latest/listWeeks`; битый снапшот → `unavailable` + событие.
+- `js/criteria.js` — статический `CRITERIA_LIST` (45 критериев: id, драйвер, RU/EN название
+  и описание; порядок = Object.keys(engine.CRITERIA), паритет пинит tests/methodology-criteria.test.js).
+- `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
+  список 45 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
+  рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
 - `build.js` — свой мини-бандлер: топосорт, namespace `window.CI`, входы js/app.js+js/share.js
   и js/i18n.js+js/ui.js; неподдержанные формы import/export — ошибка сборки.
 
 ## Архитектура
 
 - Поток данных расчёта: `calc/input/<week>.json` → `validate` + `validateInputSources`
-  (если вход несёт sources, R55) → `buildDrivers` → `aggregateDrivers` (ctx: prevInternal/
+  (входы цепочки несут sources, R55) → `buildDrivers` → `aggregateDrivers` (ctx: prevInternal/
   prevPublished/structuralBreak) → классификация публикации → ворота ссылок
   (collectSourceItems + linkcheck, раньше контрактной самопроверки) → `validate` из
-  js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend,
-  плюс sources.js если вход нёс sources); защищённые поля (published/through/methodology)
-  неизменны; после записи — append в data/audit.jsonl (recalc, flash).
+  js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend;
+  sources.js — из входа, иначе прежние сохраняются); published/methodology — защищённые
+  поля из прежнего снапшота, through = дата самой недели (окно W−7…W включительно);
+  глобальный drivers.js генератор не трогает (редакционный сид); после записи —
+  append в data/audit.jsonl (recalc, flash).
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
   (document.write — fetch на file:// невозможен) → `js/app.js` init → `render.renderAll`
   по 7 зарегистрированным секциям. Сайт не знает про calc/ — читает только data/.
 - События document: `ci:ready`, `ci:datastate`, `ci:regionchange`, `ci:demo`.
 - Шов для тестов — чистые функции: `calc/engine.js`, `calc/linkcheck.js` (поддельный
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
-  `nextChainState` из calc.js (синтетические данные) + чистые модули сайта (i18n, risk,
-  region, data). CLI — тонкая обвязка.
+  `nextChainState`/`renderGlobal`/`renderRegionFile` из calc.js (синтетические данные)
+  + чистые модули сайта (i18n, risk, region, data). CLI — тонкая обвязка.
 - Схема источника R55 (во всех 8 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
@@ -131,6 +150,24 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - Лексика: нет слов из Avoid-списка PRD §11.5, фраз «на пороге/на грани» и метафоры часов.
 - Не трогать: `cassandra-index-prototype.html` (read-only), `PRD_Casandra_Index.md`,
   `METHODOLOGY.md`, `.autopilot/`.
+
+## Окружение
+
+Секретов, конфигов и переменных окружения нет — репозиторий полностью статический;
+для проверки ссылок нужна сеть (без неё проверки массово уходят в blocked — ворота
+это не блокирует, но отчёт раздувает).
+
+## Тесты
+
+`node --test` без аргументов (27 файлов, 250 passed / 0 fail — подтверждено оркестратором
+2026-09-26). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js`; калибровка:
+`tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
+контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель — см.
+подводные камни); схема источников R55: `tests/sources-schema.test.js`;
+insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
+through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
+engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`.
 
 ## Подводные камни
 
@@ -151,17 +188,23 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - Страницы грузят СОБРАННЫЕ `js/bundle.js`/`js/bundle-privacy.js`, а не ES-модули (CORS на file://).
   После правки `js/**` обязателен `node build.js` — иначе коммиченный бандл молча останется
   старым. bundle руками не править; тесты идут против исходников.
-- Недели 08-02…08-23 в `data/` — непересчитываемая демо-история; calc.js откажется
-  считать неделю вне RECALC_WEEKS.
+- Недели 08-02…08-23 в `data/` — непересчитываемая демо-история (methodology "1.0" у них,
+  у пересчитанной цепочки "2.0" — разрыв версии на тренде реален, баннер смены версии
+  на сайте проявляется); calc.js откажется считать неделю вне RECALC_WEEKS.
 - Новая неделя требует редакционного сида ДО `--write`: `data/<неделя>/drivers.js`
   (ровно 3 драйвера по контракту) и `region-*.js` (по 2 драйвера на регион) — иначе
-  ворото `validate` отклонит запись («drivers: exactly 3 required»). Источники сида —
+  ворота `validate` отклонят запись («drivers: exactly 3 required»). Источники сида —
   verbatim-записи из `input.sources` по id (иначе linkcheck пойдёт проверять лишние URL).
-- Демо-снапшоты 08-30/09-06/09-13 побайтово идентичны по наблюдениям (D01) — driverConfidence
-  у всех трёх одинакова, поэтому. trend-хвосты ручных неделей не равны их global.js
-  (демо-данные противоречивы: у 08-23 опубликован 61, в trend-хвосте 67).
-- Пересчитанные значения 60/58/57 ниже ручных 63/66/72 — корректный эффект q-сжатия
-  при покрытии 5/45 критериев, не баг.
+- Генератор при `--write` перезаписывает `region-*.js` целиком (renderRegionFile): числа
+  из движка + drivers/confidence, перенесённые из прежнего файла; ручные комментарии
+  сидов съедаются (видно в diff 96616da → 5d7d335) — осознанное поведение, не баг.
+- Фикстура `tests/data.test.js` пинит точные выходные числа пайплайна для дисковых недель
+  цепочки (index/delta/q/through) — после каждого пересчёта её нужно актуализировать;
+  это конвенция, не баг.
+- Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
+  включительно), не защищённое поле; защищены только published/methodology.
+- Входы цепочки несут R55-источники (23–74 записей на неделю), покрытие 37–42/45;
+  слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
 - `calc.js` звёт `engine.regionalIndex` даже для слепых регионов (nReg=0 →
   background, I_region = I_global) — региональная ветка движка не дублируется.
 - `calc.js --write` пишет ДВА ворот до диска: сначала ссылки (любой broken → отказ,
@@ -174,8 +217,6 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - Д9 не может иметь уверенность high без прямого подтверждения (§4.3.1) — validate режет.
 - Пересохранение `design/cassandra-index.pen` в pen.dev перезаписывает `"version"` →
   ломает `tests/pen.test.js` (жёстко ожидает текущую версию).
-- Все демо-снапшоты имеют `methodology: "1.0"` — строка о смене версии в UI покрыта
-  тестом, но на демо-данных не проявляется.
 - `js/share.js`: `share.announce` берёт язык из localStorage на момент клика, не из appState.
 - Тренд: 12 точек на ширину экрана физически не дают hit-target 44px каждая (r=20 SVG).
 - Workflow не включает Pages сам: в НОВОМ репозитории нужен одноразовый шаг
@@ -184,22 +225,6 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `.autopilot/sync.py` требует `PYTHONUTF8=1` на Windows (cp1252 падает на печати).
 - Отсутствующая возможность — не повод ставить пакет: возвращай BLOCKED с описанием,
   оркестратор решит.
-
-## Окружение
-
-Секретов, конфигов и переменных окружения нет — репозиторий полностью статический.
-Для проверки ссылок нужна сеть; без неё `calc.js --write` и `check-sources.js`
-массово уйдут в blocked (null → blocked), что ворота не блокирует, но отчёт раздувает.
-
-## Тесты
-
-`node --test` без аргументов (25 файлов, 241 passed / 0 fail — подтверждено оркестратором).
-Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули без DOM,
-тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js`; калибровка:
-`tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (15 тестов, поддельный
-fetchImpl, без сети); контракт данных и схема источников R55: `tests/data.test.js`,
-`tests/sources-schema.test.js`; шов insufficient-публикации (classifyPublication,
-nextChainState): `tests/insufficient.test.js`. Аудит: `tests/audit.test.js`.
 
 ## Как здесь работает Autopilot
 

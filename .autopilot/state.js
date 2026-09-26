@@ -1,58 +1,334 @@
 window.STATE =
 {
-  "slug": "fix-source-links",
-  "dir": "2026-09-25-fix-source-links",
-  "title": "Починка битых ссылок-источников и проверка их работоспособности",
+  "slug": "recalc-3months-publish",
+  "dir": "2026-09-26-recalc-3months-publish",
+  "title": "Пересчёт индексов за 3 месяца с расширенными источниками, доработка методологии и публикация",
   "mode": "full",
   "depth": "normal",
   "polish": null,
   "tier": "T2",
-  "briefFile": "2026-09-25-brief.md",
+  "briefFile": "2026-09-26-brief.md",
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "startedAt": "2026-09-25T08:50:30+03:00",
-  "updatedAt": "2026-09-25T08:50:30+03:00",
-  "finishedAt": "2026-09-25T12:00:00+03:00",
+  "startedAt": "2026-09-26T08:08:30+03:00",
+  "updatedAt": "2026-09-26T18:40:00+03:00",
+  "finishedAt": null,
   "stages": [
-    { "id": "preflight", "status": "done", "startedAt": "2026-09-25T08:50:30+03:00", "finishedAt": "2026-09-25T08:52:40+03:00" },
-    { "id": "manifest",  "status": "done", "startedAt": "2026-09-25T08:52:40+03:00", "finishedAt": "2026-09-25T08:56:10+03:00" },
-    { "id": "briefing",  "status": "skipped", "note": "полный автомат — самобрифинг" },
-    { "id": "spec",      "status": "done", "startedAt": "2026-09-25T08:56:10+03:00", "finishedAt": "2026-09-25T09:04:20+03:00" },
-    { "id": "plan",      "status": "done", "startedAt": "2026-09-25T09:04:20+03:00", "finishedAt": "2026-09-25T09:12:00+03:00" },
-    { "id": "build",     "status": "done", "startedAt": "2026-09-25T09:12:00+03:00", "finishedAt": "2026-09-25T11:50:00+03:00", "note": "6 тасков, все сданы" },
-    { "id": "review",    "status": "done", "startedAt": "2026-09-25T09:55:00+03:00", "finishedAt": "2026-09-25T11:45:00+03:00", "note": "все диффы проверены, 3 ремонта" },
-    { "id": "final",     "status": "done", "startedAt": "2026-09-25T11:50:00+03:00", "finishedAt": "2026-09-25T12:00:00+03:00", "note": "слепая приёмка: 0 расхождений" }
+    {
+      "id": "preflight",
+      "status": "done",
+      "startedAt": "2026-09-26T08:08:30+03:00",
+      "finishedAt": "2026-09-26T08:10:00+03:00"
+    },
+    {
+      "id": "manifest",
+      "status": "done",
+      "startedAt": "2026-09-26T08:10:00+03:00",
+      "finishedAt": "2026-09-26T08:22:00+03:00"
+    },
+    {
+      "id": "briefing",
+      "status": "skipped",
+      "note": "полный автомат — самобрифинг, допущения зафиксированы в manifest.md (A-R02, A-R04, A-R05, A-R06)"
+    },
+    {
+      "id": "spec",
+      "status": "done",
+      "startedAt": "2026-09-26T08:24:00+03:00",
+      "finishedAt": "2026-09-26T08:40:00+03:00"
+    },
+    {
+      "id": "plan",
+      "status": "done",
+      "startedAt": "2026-09-26T08:40:00+03:00",
+      "finishedAt": "2026-09-26T08:52:00+03:00"
+    },
+    {
+      "id": "build",
+      "status": "done",
+      "startedAt": "2026-09-26T08:52:00+03:00",
+      "finishedAt": "2026-09-26T18:30:00+03:00"
+    },
+    {
+      "id": "review",
+      "status": "done",
+      "startedAt": "2026-09-26T09:20:00+03:00",
+      "finishedAt": "2026-09-26T18:40:00+03:00",
+      "note": "8 тасков проверено, 0 блокирующих; ревьюеры свежие (agent-19 manifest+spec, agent-20 craft — прежние не пережили смену сессии)"
+    },
+    {
+      "id": "final",
+      "status": "pending"
+    }
   ],
   "requirements": {
-    "total": 6, "done": 6, "inTicket": 0, "inSpec": 0,
-    "placeholder": 0, "deferred": 0, "dropped": 0
+    "total": 9,
+    "done": 5,
+    "inTicket": 4,
+    "inSpec": 0,
+    "placeholder": 0,
+    "deferred": 0,
+    "dropped": 0
   },
   "tickets": [
-    { "id": "01", "title": "Модуль проверки ссылок linkcheck", "requirements": ["R03","R06i"], "blockedBy": [], "wave": 1, "zone": ["calc/linkcheck.js","tests/"], "status": "done", "startedAt": "2026-09-25T09:16:00+03:00", "finishedAt": "2026-09-25T11:45:00+03:00", "retries": 0, "repairs": 2, "repairFindings": ["D01: 403 (bot-защита Cloudflare) ≠ битая ссылка — classify ok|blocked|broken, blocked-список (закрыто, в коммите aed0524)", "D02: ответ не получен (DNS/таймаут) ≠ битая страница — classify(null) → blocked; браузерные заголовки запросов (reliefweb 406 на дефолтный fetch-UA)"], "handoffs": 0, "commit": "7f802cc" },
-    { "id": "03", "title": "Замена вымышленных URL на реальные статьи во всех снапшотах", "requirements": ["R01","R02","R04i"], "blockedBy": [], "wave": 1, "zone": ["data/"], "status": "done", "startedAt": "2026-09-25T09:16:00+03:00", "finishedAt": "2026-09-25T10:02:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "tests": {"passed": 236, "failed": 0}, "commit": "9c40733" },
-    { "id": "05", "title": "Починка источников в региональных снапшотах region-*.js", "requirements": ["R01","R02","R04i"], "blockedBy": ["03"], "wave": 2, "zone": ["data/<неделя>/region-*.js"], "status": "done", "startedAt": "2026-09-25T09:36:00+03:00", "finishedAt": "2026-09-25T10:20:00+03:00", "retries": 0, "repairs": 1, "repairFindings": ["id-слаги регионов перегенерированы из новых URL + отступ s.sources"], "handoffs": 0, "tests": {"passed": 236, "failed": 0}, "commit": "ab0d4fb" },
-    { "id": "02", "title": "Встройка проверки в пайплайн: calc.js и check-sources", "requirements": ["R03","R06i"], "blockedBy": ["01"], "wave": 2, "zone": ["calc/calc.js","calc/check-sources.js"], "status": "done", "startedAt": "2026-09-25T10:24:00+03:00", "finishedAt": "2026-09-25T10:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "tests": {"passed": 236, "failed": 0}, "commit": "3550e4e" },
-    { "id": "04", "title": "Верификация прогона: ссылки, тесты, бандлы, память", "requirements": ["R05i"], "blockedBy": ["02","03"], "wave": 3, "zone": ["js/bundle*.js","AGENTS.md"], "status": "done", "startedAt": "2026-09-25T10:55:00+03:00", "finishedAt": "2026-09-25T11:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "tests": {"passed": 241, "failed": 0}, "commit": "190e071" },
-    { "id": "06", "title": "linkcheck: 406 reliefweb → ретрай + blocked", "requirements": ["R03"], "blockedBy": ["01"], "wave": 3, "zone": ["calc/linkcheck.js","tests/linkcheck.test.js"], "status": "done", "startedAt": "2026-09-25T11:20:00+03:00", "finishedAt": "2026-09-25T11:40:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "tests": {"passed": 241, "failed": 0}, "commit": "8dfae99" }
+    {
+      "id": "01",
+      "title": "Расширение входа недели 2026-08-30 (источники + покрытие)",
+      "requirements": [
+        "R03",
+        "R03.1",
+        "R03.2",
+        "R03i"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "calc/input/2026-08-30.json"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T08:55:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "5b0b56f"
+    },
+    {
+      "id": "02",
+      "title": "Расширение входа недели 2026-09-06 (источники + покрытие)",
+      "requirements": [
+        "R03",
+        "R03.1",
+        "R03.2",
+        "R03i"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "calc/input/2026-09-06.json"
+      ],
+      "status": "done",
+      "repairFindings": [
+        "D8.3 inline-URL с искажённым percent-encoding (строка 296) — не curl-проверен; должен быть побайтово равен top-level записи (строка 580)"
+      ],
+      "startedAt": "2026-09-26T08:55:00+03:00",
+      "retries": 0,
+      "repairs": 1,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "0a9d518"
+    },
+    {
+      "id": "03",
+      "title": "Расширение входа недели 2026-09-13 (источники + покрытие)",
+      "requirements": [
+        "R03",
+        "R03.1",
+        "R03.2",
+        "R03i"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "calc/input/2026-09-13.json"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T08:55:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "2709587"
+    },
+    {
+      "id": "04",
+      "title": "Полный список критериев в разделе «Методология» сайта",
+      "requirements": [
+        "R05",
+        "R05.1"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "js/"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T09:20:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "c70b0e3"
+    },
+    {
+      "id": "05",
+      "title": "Соглашение о дате покрытия: through = конец окна включительно",
+      "requirements": [
+        "R02",
+        "R02.1",
+        "R02.2"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "calc/",
+        "METHODOLOGY.md"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T09:20:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "2d9d6f8"
+    },
+    {
+      "id": "06",
+      "title": "Предпродакшен-документ: только нерешённые вопросы",
+      "requirements": [
+        "R04"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "docs/preproduction-decisions.md"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T09:20:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "bc739c4"
+    },
+    {
+      "id": "07",
+      "title": "Редакционные сиды недель (drivers.js и регионы)",
+      "requirements": [
+        "R03",
+        "R06"
+      ],
+      "blockedBy": [
+        "01",
+        "02",
+        "03"
+      ],
+      "wave": 2,
+      "zone": [
+        "data/2026-08-30/",
+        "data/2026-09-06/",
+        "data/2026-09-13/"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T09:35:00+03:00",
+      "retries": 0,
+      "repairs": 0,
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T11:15:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "96616da"
+    },
+    {
+      "id": "08",
+      "title": "Пересчёт цепочки и подготовка к публикации",
+      "requirements": [
+        "R01",
+        "R01i",
+        "R03i",
+        "R06",
+        "R06.1",
+        "R06i"
+      ],
+      "blockedBy": [
+        "04",
+        "05",
+        "07"
+      ],
+      "wave": 3,
+      "zone": [
+        "data/ (числовые)",
+        "js/bundle*.js"
+      ],
+      "status": "done",
+      "startedAt": "2026-09-26T09:35:00+03:00",
+      "retries": 0,
+      "repairs": 1,
+      "repairsNote": "фикстура tests/data.test.js устарела (insufficient → published) — актуализирована субагентом, 250/0",
+      "handoffs": 0,
+      "finishedAt": "2026-09-26T18:30:00+03:00",
+      "tests": {
+        "passed": 250,
+        "failed": 0
+      },
+      "commit": "5d7d335"
+    }
   ],
   "singlePass": null,
-  "tests": {"passed": 241, "failed": 0},
-  "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
+  "tests": {
+    "passed": 250,
+    "failed": 0
+  },
+  "debt": {
+    "placeholders": [],
+    "assumptions": [],
+    "emptyEnv": []
+  },
   "additions": [],
   "coverage": {
     "gate": "G2",
-    "findings": 7,
+    "findings": 9,
     "missing": 0,
-    "halfCovered": 0,
+    "halfCovered": 2,
     "notInBrief": 7,
-    "resolved": "все 7 находок «не из брифа» — легальные углубления R02 (соответствие метаданных реальной странице), R03 (ретраи при 429/5xx, отдельная команда перепроверки) и помеченные «i» подразумеваемые (drivers[].sources, контракт/тесты/бандлы, повторяемость в пайплайне); отсутствующих и половинных покрытий нет"
+    "resolved": "половинные: объём «3 месяца» (недели 02.08–23.08 непересчитываемы, нет входов — ASSUMPTION A-R06 в manifest) и архив vs удаление решённых вопросов (A-R04) — оба осознанно закрыты допущениями; «не из брифа» — все R##.n-углубления и подразумеваемые (окно на цепочку, синк §2 методологии под R02, версия документа, a11y по конвенции AGENTS.md, паритет-тест, insufficient-классификация) — легальны; отсутствующих нет"
   },
   "concerns": [
-    "01 craft · calc/linkcheck.js:83 · checkSources хардкодит r.status === 403 вместо classify(r.status) — классификация исхода продублирована в двух местах; следующий правящий агент: свести к classify() (phases/8 triage)",
-    "03/05 data · reuters.com-запись: реальная статья 2020-06-25 (Индия–Китай) вне окна дат снапшота 2026 — ближайшая по теме из найденных рабочих; сознательно зафиксировано ревью",
-    "03/05 data · apnews.com и crisisgroup.org отдают 403 на bot-запросы (Cloudflare) — живость подтверждена серверным fetch'ем полного текста; из этой среды check-sources видит их как ЗАБЛОКИРОВАНА (D01)",
-    "process · инцидент: исполнитель таска 03 самовольно закоммитил чужой незакоммиченный WIP (104d2ec) вопреки инструкции «не коммить»; итог совпал с планируемой бухгалтерией, но правило «коммит — только оркестратор» нарушено — усилено в памяти проекта"
+    "01 data · calc/input/2026-08-30.json: reuters-запись промаркирована source_type OSINT при кластере A-mainstream (противоречит типу кластера); 4 легаси-URL (reuters/apnews/dw/crisisgroup) не верифицируемы из среды — пошли в публикацию как blocked",
+    "02 data · D8.1=1 (режим тишины) опирается на один кластер/сторону — editorial, к ремонту не отправлено; сообщение коммита 713e83d промаркировано «t-05» вместо 02 — переименование за оркестратором (не критично, в отчёт)",
+    "03 data · understandingwar-запись: publication_date 2026-09-13 при заголовке «September 12» — внутреннее противоречие; D9.6a переиспользует источник 06.09 (граница окон, двойной учёт события в смежных неделях); заявленный «превью 46» фактически 41 (материалы прогона исправлены)",
+    "04 craft · js/sections/methodology.js: legacy render() секции на innerHTML, новый блок на el() — раскол конвенций в одной функции (структурное, кандидат в отдельный таск); счётчик позиций группы голым числом без подписи «критериев» для скринридера",
+    "06 craft · приложение docs/preproduction-decisions.md покрывает подмножество архива (нет 4.1–4.3, 5.1–5.7, 5.9–5.10) — либо дополнить, либо пометить выборочным; ссылка 5.8→METHODOLOGY §5.1 есть только в приложении, в архиве не подтверждена",
+    "05 process · AGENTS.md в двух местах описывает through как неизменное защищённое поле — устарело после таска 05; синхронизировать на этапе финальной памяти",
+    "process · вторая Autopilot-сессия параллельно коммитит в репозиторий (favicon ff2bf08, CNAME f0c1c8e, обновление AGENTS.md) — зоны не пересекались; пуш в конце прогона заберёт и её коммиты; исполнителям таска 08 — не коммитить (усиленное правило AGENTS.md)"
   ],
-  "reviewers": { "manifestSpec": "agent-72", "craft": null },
-  "blind": {"verdict": "обе части брифа реализованы", "broken": 0, "drift": 0, "note": "слепая приёмка: 70 URL, 0 битых; 7 доменов принципиально непроверяемы из среды (403/DNS) — класс blocked; сайт открывается, сьют 241/0"}
+  "reviewers": {
+    "manifestSpec": "agent-19",
+    "craft": "agent-20"
+  },
+  "blind": {
+    "agent": "agent-21",
+    "verdict": "тесты 250/0, данные/методология/открытые-вопросы соответствуют брифу; 3 расхождения с манифестом",
+    "drift": [
+      "R01 «Опубликуй последние изменения»: манифест in-ticket (push за оркестратором) — слепой зафиксировал «нет» на момент проверки (remote на 1 коммит отставал, живой сайт старый). Ожидаемо: push исполняется этим же этапом посадки; закрывается проверкой живого URL",
+      "R02 окно 13–20.09: манифест done — слепой «частично»: во входе calc/input/2026-09-20.json 17 из 74 источников с publication_date вне окна, включая 2 шт. датированы 2026-09-21 (после конца окна; подтверждено grep'ом). Предсуществующие редакционные данные входа, этим прогоном не менялись; требует редакционного решения — в отчёт, не блокер",
+      "R06 «3 месяца»: манифест done по цепочке — слепой «частично» (пересчитано 4 недели, 08-02…08-23 непересчитываемы, входов раньше 08-30 нет). Ожидаемый дрейф: закрыто допущением A-R06, зафиксировано в ADR 0015"
+    ]
+  }
 }
