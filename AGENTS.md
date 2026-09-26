@@ -29,7 +29,7 @@
 - Пуш в master = автоматический выкат; коммитить только готовое к публикации, коммит и пуш — только за оркестратором (агенты-исполнители НЕ коммитят — был инцидент).
 - Обновление недели: вход `calc/input/<дата>.json` → `node calc/calc.js --write <дата>` →
   `node build.js` → `node --test` зелёный → commit (push — оркестратору).
-- URL: `https://susotoze13-afk.github.io/cassandra-index/` (репозиторий `susotoze13-afk/cassandra-index`, public).
+- URL: `https://cassindex.ru` (кастомный домен, зарегистрирован на Beget; DNS: 4 A-записи GitHub Pages на apex + CNAME `www` → `susotoze13-afk.github.io`). Репозиторий `susotoze13-afk/cassandra-index`, public. Старый адрес `https://susotoze13-afk.github.io/cassandra-index/` продолжает работать (GitHub редиректит на кастомный домен).
 
 ## Структура
 
@@ -134,6 +134,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Подводные камни
 
+- Кастомный домен `cassindex.ru`: workflow сам кладёт `_site/CNAME` (менять домен —
+  править строку `echo cassindex.ru > _site/CNAME` в deploy.yml). CNAME из артефакта
+  НЕ привязывает домен автоматически: одноразово домен сохранён вручную (Settings →
+  Pages → Custom domain); REST `PATCH /pages` у токена возвращает 404 (нет права
+  Administration) — при смене домена делать это вручную в UI.
 - Коммит и push — только оркестратор. Исполнитель-агент, закоммитивший сам, — инцидент;
   правки остаются рабочим деревом.
 - Сеть из среды проверки небезупречна: DNS не резолвит www.bbc.com/www.dw.com (проверять
