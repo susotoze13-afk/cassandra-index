@@ -14,7 +14,7 @@
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20) |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27) |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
@@ -56,11 +56,12 @@ calc/calibrate.js         калибровка k на якорях: buildDrivers
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
 calc/input/<неделя>.json  входные сигналы недели: 45 критериев D1..D9 ({value, covered,
                           sources}, слепые — covered:false с аттестацией), R55-источники,
-                          driverConfidence; покрытие 37–42/45
+                          driverConfidence; покрытие 26–42/45
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
-data/<YYYY-MM-DD>/        8 недель: 08-02…08-23 — непересчитываемая демо-история
-                          (methodology "1.0"), 08-30…09-20 — пересчитанные published
-                          (methodology "2.0", q=1): global/regions/region-*/
+data/<YYYY-MM-DD>/        9 недель: 08-02…08-23 — непересчитываемая демо-история
+                          (methodology "1.0"), 08-30…09-27 — пересчитанные published
+                          (methodology "2.0"; q=1 у 08-30…09-20, 0.907 у 09-27):
+                          global/regions/region-*/
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
@@ -90,7 +91,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
   `checkSources(items: {url, where})` → `{checked, ok, broken, blocked}`; ворота падают
   только по broken, blocked — предупреждение. Проверка последовательная — не долбить сайты.
-- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20'], старт
+- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27'], старт
   от опубликованного PREV_WEEK = '2026-08-23'; переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
@@ -132,7 +133,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
   `nextChainState`/`renderGlobal`/`renderRegionFile` из calc.js (синтетические данные)
   + чистые модули сайта (i18n, risk, region, data). CLI — тонкая обвязка.
-- Схема источника R55 (во всех 8 неделях, включая региональные drivers): id,
+- Схема источника R55 (во всех 9 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
@@ -159,15 +160,18 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (27 файлов, 250 passed / 0 fail — подтверждено оркестратором
-2026-09-26). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
-без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js`; калибровка:
+`node --test` без аргументов (27 файлов, 253 passed / 0 fail — подтверждено прогоном
+2026-10-02). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
+перенос регионального отклонения при nReg = 0); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель — см.
 подводные камни); схема источников R55: `tests/sources-schema.test.js`;
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
-engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`.
+engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
+отсечение точек v1 на тренде и подпись v2 (selectMethodology, summaryTextV2):
+`tests/trend.test.js`.
 
 ## Подводные камни
 
@@ -189,8 +193,10 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   После правки `js/**` обязателен `node build.js` — иначе коммиченный бандл молча останется
   старым. bundle руками не править; тесты идут против исходников.
 - Недели 08-02…08-23 в `data/` — непересчитываемая демо-история (methodology "1.0" у них,
-  у пересчитанной цепочки "2.0" — разрыв версии на тренде реален, баннер смены версии
-  на сайте проявляется); calc.js откажется считать неделю вне RECALC_WEEKS.
+  у пересчитанной цепочки "2.0" — разрыв версии реален); calc.js откажется считать неделю
+  вне RECALC_WEEKS. На тренде точки v1 не показываются (см. ниже про selectMethodology);
+  несопоставимость версий раскрывается в секции истории (`methodologyNote`,
+  `history.methodology.note`) при просмотре недели другой версии.
 - Новая неделя требует редакционного сида ДО `--write`: `data/<неделя>/drivers.js`
   (ровно 3 драйвера по контракту) и `region-*.js` (по 2 драйвера на регион) — иначе
   ворота `validate` отклонят запись («drivers: exactly 3 required»). Источники сида —
@@ -203,10 +209,24 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   это конвенция, не баг.
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищены только published/methodology.
-- Входы цепочки несут R55-источники (23–74 записей на неделю), покрытие 37–42/45;
+- Входы цепочки несут R55-источники (19–74 записей на неделю), покрытие 26–42/45;
   слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
-- `calc.js` звёт `engine.regionalIndex` даже для слепых регионов (nReg=0 →
-  background, I_region = I_global) — региональная ветка движка не дублируется.
+- Слепые регионы (nReg = 0, региональной атрибуции D01 во входах нет — все 6 регионов
+  цепочки слепые): `calc.js` звёт `engine.regionalIndex` с prevIndex/prevGlobal из
+  опубликованного снапшота прошлой недели; background остаётся true, но индекс региона
+  = I_global + clamp(prevIndex − prevGlobal, ±regionClamp) — сохраняется последнее
+  региональное отклонение от глобального фона, а не схлопывание в I_global (иначе все
+  регионы одинаковы и локальные аномалии маскируются). Стартовое отклонение первой
+  недели цепочки сидируется из демо-недели 08-23 методологии 1.0 (prevRegions против
+  prevGlobal) — намеренно: регионы 2.0 наследуют якоря v1.
+- Тренд (`js/sections/trend.js`) показывает только точки методологии 2.0: `selectMethodology`
+  отсекает точки v1 на входе секции (построены по другой методике, несопоставимы) —
+  осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`
+  RU/EN); «за N недель» в подписи считает число опубликованных точек v2, а не
+  календарный спан окна.
+- Записи аудита recalc несут только глобальный diff (`recalcDiff`: global.index/delta,
+  dataState, q, nullWeight, confidence, preview) — региональный перенос в diff не
+  попадает, смотреть файлы регионов.
 - `calc.js --write` пишет ДВА ворот до диска: сначала ссылки (любой broken → отказ,
   blocked — только предупреждение), затем контракт `validate` из js/data.js; при
   провале любого из них диск не тронут.
