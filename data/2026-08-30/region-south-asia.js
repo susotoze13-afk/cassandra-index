@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
   s.regions["south-asia"] = {
-  "index": 51,
-  "delta": -7,
+  "index": 48,
+  "delta": -10,
   "status": "danger",
   "confidence": "medium",
   "drivers": [

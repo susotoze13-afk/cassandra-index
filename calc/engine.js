@@ -303,9 +303,11 @@ export function aggregateDrivers(drivers, params, context) {
 // region: {iWith, iWithout — внутренние значения гипотетических прогонов §5
 //   по сигналам региона и без них; nReg — число независимых региональных
 //   сигналов за окно; eStruct, eDyn ∈ [0,1]; hasDeescSignals: bool;
-//   prevIndex — опубликованный региональный индекс прошлой недели (для Δ)}.
-// Слепой регион (nReg = 0) → I_region = I_global, background = true
-// (статус «глобальный фон», §7/§11).
+//   prevIndex — опубликованный региональный индекс прошлой недели (для Δ);
+//   prevGlobal — опубликованный глобальный индекс той же прошлой недели
+//   (для переноса последнего регионального отклонения)}.
+// Слепой регион (nReg = 0) сохраняет последнее региональное отклонение
+// относительно глобального фона, а не схлопывается в I_global.
 export function regionalIndex(global, region, params) {
   const p = params || {};
   const g = global || {};
@@ -313,13 +315,24 @@ export function regionalIndex(global, region, params) {
   const gInternal = typeof g.internal === 'number' ? g.internal : g.index;
   const gIndex = typeof g.index === 'number' ? g.index : roundHalfUp(gInternal);
   const nReg = typeof r.nReg === 'number' ? r.nReg : 0;
+  const clampR = p.regionClamp != null ? p.regionClamp : PARAMS.regionClamp;
   if (nReg <= 0) {
     const prevIndex = typeof r.prevIndex === 'number' ? r.prevIndex : null;
+    const prevGlobal = typeof r.prevGlobal === 'number' ? r.prevGlobal : null;
+    // При отсутствии региональных данных сохраняем последнее региональное
+    // отклонение относительно глобального фона (а не схлопываем регион в
+    // глобал). Иначе все регионы становятся одинаковыми и локальные аномалии
+    // маскируются.
+    const offset = prevIndex != null && prevGlobal != null
+      ? clamp(prevIndex - prevGlobal, -clampR, clampR)
+      : 0;
+    const internal = clamp(gInternal + offset, 0, 100);
+    const index = roundHalfUp(internal);
     return {
-      index: gIndex,
-      state: stateOf(gIndex, p),
-      delta: prevIndex != null ? gIndex - prevIndex : (typeof g.delta === 'number' ? g.delta : null),
-      internal: gInternal,
+      index,
+      state: stateOf(index, p),
+      delta: prevIndex != null ? index - prevIndex : (typeof g.delta === 'number' ? g.delta : null),
+      internal,
       background: true,
       mirrored: false,
     };
@@ -328,7 +341,6 @@ export function regionalIndex(global, region, params) {
   const e_r = gamma * (r.eStruct || 0) + (1 - gamma) * (r.eDyn || 0);
   const n0 = p.n0 != null ? p.n0 : PARAMS.n0;
   const m = nReg / (nReg + n0);
-  const clampR = p.regionClamp != null ? p.regionClamp : PARAMS.regionClamp;
   const deltaRegion = clamp((r.iWith != null ? r.iWith : gInternal) - (r.iWithout != null ? r.iWithout : gInternal), -clampR, clampR);
   let internal = gInternal + e_r * m * deltaRegion;
   // Зеркалирование глобального шока, взвешенное по структурной экспозиции (§7).

@@ -661,6 +661,8 @@ const DICTS = {
     'trend.direction.flat': 'без изменений',
     'trend.points': '{n, plural, one{пункт} few{пункта} many{пунктов} other{пунктов}}',
     'trend.summary': 'За неделю индекс изменился на {week} {weekWord}; за 12 недель — на {total} {totalWord}.',
+    'trend.summary.v2': 'За неделю индекс изменился на {week} {weekWord}; за {weeks} {weeksWord} методологии 2.0 — на {total} {totalWord}.',
+    'trend.weeks': '{n, plural, one{неделю} few{недели} many{недель} other{недель}}',
     'trend.point.aria': 'Дата: {date}, Индекс: {value}, Состояние: {state}',
     'trend.point.na': 'не опубликовано',
     'trend.state.na': '—',
@@ -933,6 +935,8 @@ const DICTS = {
     'trend.direction.flat': 'unchanged',
     'trend.points': '{n, plural, one{point} other{points}}',
     'trend.summary': 'Over the week the index changed by {week} {weekWord}; over 12 weeks — by {total} {totalWord}.',
+    'trend.summary.v2': 'Over the week the index changed by {week} {weekWord}; over {weeks} {weeksWord} of methodology 2.0 — by {total} {totalWord}.',
+    'trend.weeks': '{n, plural, one{week} other{weeks}}',
     'trend.point.aria': 'Date: {date}, Index: {value}, State: {state}',
     'trend.point.na': 'not published',
     'trend.state.na': '—',
@@ -2508,6 +2512,27 @@ function summaryText(lang, points) {
   });
 }
 
+// Подпись для тренда, показывающего только методологию v2: недельное Δ и
+// Δ за всё окно из этой версии методологии. Именно этот формат используется
+// секцией после отсечения точек v1.
+function summaryTextV2(lang, points, version = '2.0') {
+  const filtered = selectMethodology(points, version);
+  const list = filtered.filter((p) => typeof p?.value === 'number');
+  if (list.length < 2) return '';
+  const cur = list[list.length - 1].value;
+  const prev = list[list.length - 2].value;
+  const week = cur - prev;
+  const total = cur - list[0].value;
+  return t(lang, 'trend.summary.v2', {
+    week: signedDelta(week),
+    weekWord: t(lang, 'trend.points', { n: Math.abs(week) }),
+    weeks: list.length,
+    weeksWord: t(lang, 'trend.weeks', { n: list.length }),
+    total: signedDelta(total),
+    totalWord: t(lang, 'trend.points', { n: Math.abs(total) }),
+  });
+}
+
 // Tooltip не выходит за контейнер по X (История 13): позиция зажата с обеих сторон.
 function clampX(left, width, containerWidth) {
   const max = Math.max(0, containerWidth - width);
@@ -2562,6 +2587,12 @@ function methOf(p) {
   return p && typeof p.methodology === 'string' && p.methodology !== '' ? p.methodology : null;
 }
 
+// Точки тренда для показа: только методология version (по умолчанию «2.0»).
+// Точки v1 не показываются: они построены по другой методике и несопоставимы.
+function selectMethodology(points, version = '2.0') {
+  return (Array.isArray(points) ? points : []).filter((p) => methOf(p) === version);
+}
+
 function render(appState) {
   if (typeof document === 'undefined') return;
   const host = document.querySelector('[data-section="trend"]');
@@ -2574,7 +2605,7 @@ function render(appState) {
 
   host.innerHTML = '';
 
-  const points = Array.isArray(snapshot?.trend) ? snapshot.trend : [];
+  const points = selectMethodology(snapshot?.trend);
   if (points.length < 2) return;
 
   // Δ подписи — по последним опубликованным точкам: неделя insufficient
@@ -2599,7 +2630,7 @@ function render(appState) {
   dir.append(el('span', 'trend-direction', `${t(lang, `trend.direction.${directionOf(week)}`)} ${arrowOf(week)}`));
   caption.append(dir);
   host.append(caption);
-  host.append(el('p', 'trend-summary', summaryText(lang, points)));
+  host.append(el('p', 'trend-summary', summaryTextV2(lang, points)));
 
   // График: контейнер + инлайн-SVG + HTML-tooltip (desktop) + bottom sheet (touch).
   const chart = el('div', 'trend-chart');
@@ -2899,7 +2930,9 @@ exports["pointAriaLabel"] = pointAriaLabel;
 exports["trendSegments"] = trendSegments;
 exports["tooltipDate"] = tooltipDate;
 exports["summaryText"] = summaryText;
+exports["summaryTextV2"] = summaryTextV2;
 exports["clampX"] = clampX;
+exports["selectMethodology"] = selectMethodology;
 exports["render"] = render;
 return exports;
 }]);

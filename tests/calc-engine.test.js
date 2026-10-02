@@ -467,6 +467,20 @@ test('regionalIndex: слепой регион (nReg = 0) → глобальны
   assert.equal(r.state, 'very');
 });
 
+test('regionalIndex: слепой регион сохраняет последнее отклонение от глобального фона', () => {
+  // Европа отошла от глобала на +13 (prevIndex 73 при prevGlobal 60), африка — на -9 (51/60).
+  const g = { index: 72, internal: 72, delta: 10 };
+  const eu = regionalIndex(g, { nReg: 0, prevIndex: 73, prevGlobal: 60 }, PARAMS);
+  assert.equal(eu.background, true);
+  assert.equal(eu.internal, 85); // 72 + clamp(73−60) = 85
+  assert.equal(eu.index, 85);
+  assert.equal(eu.delta, 12); // 85 − 73
+  const af = regionalIndex(g, { nReg: 0, prevIndex: 51, prevGlobal: 60 }, PARAMS);
+  assert.equal(af.internal, 63); // 72 − 9
+  assert.equal(af.index, 63);
+  assert.equal(af.delta, 12);
+});
+
 test('regionalIndex: модель отклонения — e_r = 0.5·(e_struct+e_dyn), m = n/(n+5)', () => {
   const r = regionalIndex(GLOBAL, {
     iWith: 80, iWithout: 60, nReg: 10, eStruct: 0.8, eDyn: 0.4,

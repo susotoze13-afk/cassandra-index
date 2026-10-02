@@ -2,9 +2,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
   s.regions["north-america"] = {
-  "index": 51,
-  "delta": 9,
-  "status": "danger",
+  "index": 32,
+  "delta": -10,
+  "status": "tense",
   "confidence": "high",
   "drivers": [
     {

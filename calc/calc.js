@@ -11,8 +11,11 @@
 // Неделя без аргументов = вся пересчитываемая цепочка RECALC_WEEKS.
 // Цепочка: инерция (prevInternal) и опубликованное prevPublished текут от
 // недели к неделе внутри прогона; старт цепочки — опубликованный снапшот
-// PREV_WEEK (демо-история не пересчитывается). Регионы входов сигналов не
-// несут (D01) → nReg = 0, «слепые регионы»: I_region = I_global, background.
+// PREV_WEEK (демо-история не пересчитывается). Входы недель не несут
+// региональной атрибуции (D01), поэтому все регионы считаются «слепыми»
+// (nReg = 0): их значение сохраняет последнее региональное отклонение от
+// глобального фона, а не схлопывается в I_global (исправление: одинаковый
+// индекс у всех регионов невозможен, §7).
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -288,16 +291,21 @@ export function runWeek(week, state) {
   const g = aggregateDrivers(drivers, PARAMS, ctx);
   const classification = classifyPublication(g, drivers, PARAMS);
 
-  // Слепые регионы (nReg = 0 → I_region = I_global, background, §7) — через
-  // engine.regionalIndex, даже в этом вырожденном случае; в res.regions —
-  // проекция в форму снапшота {index, delta, status}. Для insufficient-недели
-  // это расчётные числа превью (публикация запрещена — число не уходит
-  // в global/trend, но файлы регионов несут его для редакции).
+  // Слепые регионы (nReg = 0) — через engine.regionalIndex, который сохраняет
+  // последнее региональное отклонение от глобального фона (prevRegions против
+  // prevPublished прошлой недели); в res.regions — проекция в форму снапшота
+  // {index, delta, status}. Для insufficient-недели это расчётные числа превью
+  // (публикация запрещена — число не уходит в global/trend, но файлы регионов
+  // несут его для редакции).
   const regions = {};
   for (const id of REGION_IDS) {
     const r = regionalIndex(
       { index: g.index, internal: g.internal, delta: g.delta },
-      { nReg: 0, prevIndex: state.prevRegions[id] },
+      {
+        nReg: 0,
+        prevIndex: state.prevRegions[id],
+        prevGlobal: state.prevPublished,
+      },
       PARAMS,
     );
     regions[id] = { index: r.index, delta: r.delta, status: r.state };
@@ -544,7 +552,7 @@ function printWeek(res, writeMode, writeRejected = false) {
   if (res.flash.length) {
     lines.push(`flash: ${res.flash.map((t) => t.criterion).join(', ')} — запись в audit`);
   }
-  lines.push('regions (слепые, nReg=0 → background, I_region = I_global, без зеркалирования):');
+  lines.push('regions (слепые, nReg=0 → сохранено последнее региональное отклонение от глобального фона):');
   for (const [id, r] of Object.entries(res.regions)) {
     lines.push(`  ${id}: ${r.index} (${r.status}, Δ ${r.delta >= 0 ? '+' : ''}${r.delta})`);
   }
