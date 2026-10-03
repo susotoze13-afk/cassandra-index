@@ -115,15 +115,15 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "state_affiliated": false
   },
   {
-    "id": "abcnews-com-houthi-rebels-seize-islands-136415608",
+    "id": "abcnews-com-houthis-yemen-gains-strategic-strait-136485092",
     "title": {
-      "ru": "Хуситы захватили ключевые острова в южной части Красного моря, усилив контроль над судоходными путями",
-      "en": "Yemen's Houthi rebels seize key islands in Red Sea, tighten grip on shipping routes"
+      "ru": "Продвижение хуситов в Йемене ставит под вопрос контроль над стратегическим проливом и ключевыми городами",
+      "en": "Houthis' Yemen gains put control of strategic strait, key cities in focus"
     },
     "domain": "abcnews.com",
-    "url": "https://abcnews.com/Business/wireStory/yemens-houthi-rebels-seize-key-islands-southern-red-136415608",
-    "publication_date": "2026-09-14",
-    "accessed_date": "2026-09-25",
+    "url": "https://abcnews.com/International/houthis-yemen-gains-put-control-strategic-strait-key/story?id=136485092",
+    "publication_date": "2026-09-16",
+    "accessed_date": "2026-10-03",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
