@@ -10,6 +10,7 @@ import { render as regionsRender } from './sections/regions.js';
 import { render as statesRender } from './sections/states.js';
 import { render as historyRender } from './sections/history.js';
 import { render as methodologyRender } from './sections/methodology.js';
+import { render as feedbackRender } from './sections/feedback.js';
 
 export const SECTIONS = [
   'hero',
@@ -19,6 +20,7 @@ export const SECTIONS = [
   'states',
   'history',
   'methodology',
+  'feedback',
 ];
 
 const registry = new Map();
@@ -31,6 +33,7 @@ registerSection('regions', regionsRender);
 registerSection('states', statesRender);
 registerSection('history', historyRender);
 registerSection('methodology', methodologyRender);
+registerSection('feedback', feedbackRender);
 
 export function registerSection(name, renderFn) {
   if (!SECTIONS.includes(name)) return false;

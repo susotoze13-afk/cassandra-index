@@ -1753,6 +1753,100 @@ main {
   background: var(--accent-soft);
 }
 
+/* ---------- Секция «Обратная связь» (форма, антиспам-поля, статус) ---------- */
+
+.feedback-form {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.feedback-field {
+  display: grid;
+  gap: 6px;
+}
+
+.feedback-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.feedback-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font: inherit;
+}
+
+.feedback-form textarea.feedback-input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.feedback-input--error {
+  border-color: var(--state-danger);
+}
+
+.feedback-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.feedback-error {
+  margin: 0;
+  color: var(--state-danger);
+  font-size: 13px;
+}
+
+/* Honeypot-поля: ловушка для ботов — не display:none, из фокуса и автозаполнения. */
+.feedback-hp {
+  position: absolute;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+.feedback-btn {
+  justify-self: start;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feedback-btn:hover {
+  background: var(--accent-line);
+}
+
+.feedback-btn:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.feedback-status {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  min-height: 1.5em;
+}
+
+.feedback-note {
+  margin: 16px 0 0;
+  max-width: 640px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .footer-ip {
   margin: 8px 0 0;
   max-width: 720px;

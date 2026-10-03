@@ -60,6 +60,7 @@ test('privacy.html: смысловое содержимое — дефолтны
     'privacy.gdpr.text',
     'privacy.fz.text',
     'privacy.geo.text',
+    'privacy.feedback.text',
     'privacy.not.cookies',
     'privacy.not.third',
     'privacy.delete.text',
