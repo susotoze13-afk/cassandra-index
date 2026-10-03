@@ -39,7 +39,8 @@ privacy.html              политика приватности
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
-                          region, render, sections/* (7 секций), share, demo, ui, criteria
+                          region, render, sections/* (8 секций), share, demo, ui, criteria,
+                          sections/feedback (форма обратной связи)
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
                           Break Override (§5.4), региональная модель (§7), validate входов,
@@ -70,7 +71,7 @@ docs/adr/                 зафиксированные архитектурн�
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           27 файлов, node --test
+tests/*.test.js           28 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -111,6 +112,14 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
   список 45 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
+- `js/sections/feedback.js` — секция «Обратная связь» (8-я, зарегистрирована в js/render.js):
+  форма шлёт POST JSON на FormSubmit (`formsubmit.co/ajax/Zasik2008@yandex.ru` — внешний
+  сервис, бэкенда у сайта нет). Антиспам чистыми швами: `honeypotCheck` (3 скрытых поля),
+  `timingCheck`/`timingToken` (мин. 2 c + подпись по соли модуля), `rateLimit` (бэкофф
+  30→120→300 c, состояние в памяти модуля), `originAllowed` (whitelist доменов, null для
+  file://). Все ловушки дают боту фейковый «Отправлено» без fetch. Константы модуля:
+  FEEDBACK_TOPICS, MIN/MAX_MESSAGE (5/4000), TIMING_MIN_MS, RATE_LIMIT_STEPS_MS,
+  HONEYPOT_FIELDS, ENDPOINT, ALLOWED_ORIGINS. Тесты: tests/feedback.test.js (17).
 - `build.js` — свой мини-бандлер: топосорт, namespace `window.CI`, входы js/app.js+js/share.js
   и js/i18n.js+js/ui.js; неподдержанные формы import/export — ошибка сборки.
 
@@ -127,7 +136,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   append в data/audit.jsonl (recalc, flash).
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
   (document.write — fetch на file:// невозможен) → `js/app.js` init → `render.renderAll`
-  по 7 зарегистрированным секциям. Сайт не знает про calc/ — читает только data/.
+  по 8 зарегистрированным секциям. Сайт не знает про calc/ — читает только data/.
 - События document: `ci:ready`, `ci:datastate`, `ci:regionchange`, `ci:demo`.
 - Шов для тестов — чистые функции: `calc/engine.js`, `calc/linkcheck.js` (поддельный
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
@@ -162,7 +171,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (27 файлов, 251 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (28 файлов, 268 passed / 0 fail — подтверждено прогоном
 2026-10-02). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
@@ -245,6 +254,13 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   (`gh api repos/<владелец>/<repo>/pages -X POST -f build_type=workflow`), иначе выкат
   молча не публикуется.
 - `.autopilot/sync.py` требует `PYTHONUTF8=1` на Windows (cp1252 падает на печати).
+- Форма обратной связи (js/sections/feedback.js) шлёт через FormSubmit: адрес
+  `Zasik2008@yandex.ru` требует одноразовой активации владельцем ссылкой из первого
+  письма FormSubmit — без неё отправки молча не дойдут, форма покажет честную ошибку.
+  Все антиспам-ловушки (honeypot/timing/rateLimit/origin) дают боту фейковый «Отправлено»
+  и НЕ шлют fetch — «успешная» отправка в логах/сети не доказательство реального письма.
+  Инфраструктурный DDoS статики клиентом не закрывается (закрыт только флод самой формы);
+  капча с серверным ключом (Turnstile/reCAPTCHA) не сделана — требует аккаунта владельца.
 - Отсутствующая возможность — не повод ставить пакет: возвращай BLOCKED с описанием,
   оркестратор решит.
 
