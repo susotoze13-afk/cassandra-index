@@ -143,7 +143,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 - Ноль зависимостей: только stdlib Node / браузер; любой импорт npm/CDN — ошибка. Всё ESM.
 - Вся пользовательская строка — только через словарь `js/i18n.js` (data-i18n,
-  data-i18n-aria, data-i18n-placeholder; плюрализация RU; даты через Intl).
+  data-i18n-aria, data-i18n-placeholder; плюрализация RU; даты через Intl). Сайт
+  одноязычный RU: DICTS только ru, `resolveLang()` в js/ui.js всегда 'ru',
+  переключателя языка нет (EN-словарь и lang-UI удалены).
 - DOM только через `document.createElement` + `textContent` — никакого innerHTML со строками.
 - Цвета — только CSS-токены из `css/styles.css`; тон статуса — `risk.tone` (--state-*).
 - a11y: видимый фокус 2px #58A6FF, контраст ≥4.5:1, touch ≥44px, reflow 320px,
@@ -160,7 +162,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (27 файлов, 253 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (27 файлов, 251 passed / 0 fail — подтверждено прогоном
 2026-10-02). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
@@ -221,8 +223,8 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   prevGlobal) — намеренно: регионы 2.0 наследуют якоря v1.
 - Тренд (`js/sections/trend.js`) показывает только точки методологии 2.0: `selectMethodology`
   отсекает точки v1 на входе секции (построены по другой методике, несопоставимы) —
-  осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`
-  RU/EN); «за N недель» в подписи считает число опубликованных точек v2, а не
+  осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`);
+  «за N недель» в подписи считает число опубликованных точек v2, а не
   календарный спан окна.
 - Записи аудита recalc несут только глобальный diff (`recalcDiff`: global.index/delta,
   dataState, q, nullWeight, confidence, preview) — региональный перенос в diff не
@@ -237,7 +239,7 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 - Д9 не может иметь уверенность high без прямого подтверждения (§4.3.1) — validate режет.
 - Пересохранение `design/cassandra-index.pen` в pen.dev перезаписывает `"version"` →
   ломает `tests/pen.test.js` (жёстко ожидает текущую версию).
-- `js/share.js`: `share.announce` берёт язык из localStorage на момент клика, не из appState.
+- `js/share.js`: `share.announce` получает язык через `resolveLang()` — всегда 'ru' (сайт одноязычный).
 - Тренд: 12 точек на ширину экрана физически не дают hit-target 44px каждая (r=20 SVG).
 - Workflow не включает Pages сам: в НОВОМ репозитории нужен одноразовый шаг
   (`gh api repos/<владелец>/<repo>/pages -X POST -f build_type=workflow`), иначе выкат
