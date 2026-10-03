@@ -12,10 +12,6 @@
 
   <header class="privacy-top">
     <a class="privacy-back" href="index.html" data-i18n="privacy.back">← На главную</a>
-    <div class="lang-switch" role="group" aria-label="Язык / Language" data-i18n-aria="lang.label">
-      <button type="button" class="lang-btn" data-lang="ru" aria-pressed="true" data-i18n="nav.lang.ru">RU</button>
-      <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="nav.lang.en">EN</button>
-    </div>
   </header>
 
   <main>
@@ -24,7 +20,6 @@
     <section aria-labelledby="privacy-storage">
       <h2 id="privacy-storage" data-i18n="privacy.storage.h">Что сайт хранит в вашем браузере</h2>
       <ul>
-        <li data-i18n="privacy.storage.lang">cassandra.lang — выбранный язык интерфейса. Записывается, только когда вы сами переключаете язык.</li>
         <li data-i18n="privacy.storage.region">cassandra.region — выбранный вами регион. Записывается, только если вы включили переключатель «Запомнить» в панели выбора региона; без него выбор живёт только до закрытия вкладки.</li>
         <li data-i18n="privacy.storage.consent">cassandra.region.consent — ваш ответ на вопрос об автоматическом определении региона: статус (granted/denied), время ответа и, при отказе, срок повторного запроса (denied_until, 30 дней). Записывается, только когда вы отвечаете на уведомление на главной странице.</li>
         <li data-i18n="privacy.storage.first">До согласия ничего не сохраняется: до вашего явного действия localStorage остаётся пустым, регион не определяется, показывается только глобальный индекс.</li>
@@ -72,11 +67,11 @@
 
     <section aria-labelledby="privacy-delete">
       <h2 id="privacy-delete" data-i18n="privacy.delete.h">Как удалить сохранённое</h2>
-      <p data-i18n="privacy.delete.text">Очистка данных сайта в настройках браузера (или удаление ключей cassandra.lang, cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.</p>
+      <p data-i18n="privacy.delete.text">Очистка данных сайта в настройках браузера (или удаление ключей cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.</p>
     </section>
   </main>
 
-  <!-- Локализация теми же словарями, что и на главной (§11.3); ES-модули на file://
+  <!-- Локализация тем же словарём, что и на главной (§11.3); ES-модули на file://
        блокирует Chrome — classic script, собранный build.js (node build.js). -->
   <script src="js/bundle-privacy.js"></script>
   <script>
@@ -91,18 +86,7 @@
       document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
         el.setAttribute('aria-label', t(lang, el.getAttribute('data-i18n-aria')));
       });
-      document.querySelectorAll('.lang-btn').forEach((b) => {
-        b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
-      });
     }
-
-    document.querySelectorAll('.lang-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
-        try { localStorage.setItem('cassandra.lang', lang); } catch { /* см. resolveLang */ }
-        apply(lang);
-      });
-    });
 
     apply(resolveLang());
   </script>

@@ -44,8 +44,6 @@ export function thresholdRanges() {
   });
 }
 
-const OPEN_QUESTION_COUNT = 25;
-
 // R05: полный перечень 45 критериев из js/criteria.js, сгруппированный по
 // драйверам. Чистый шов: модель групп (заголовок драйвера + позиции) по языку —
 // без DOM, тестируется. Названия драйверов — прозаические ключи словаря;
@@ -115,8 +113,6 @@ export function render(appState) {
   const ranges = thresholdRanges();
   const anchors = ANCHOR_KEYS.map((key, i) =>
     `<tr><td>${t(lang, key)}</td><td>${ranges[i]}</td></tr>`).join('');
-  const openQuestions = Array.from({ length: OPEN_QUESTION_COUNT }, (_, i) =>
-    `<li>${t(lang, `method.open.${i + 1}`)}</li>`).join('');
 
   host.innerHTML = `
     <div class="method-block">
@@ -155,10 +151,6 @@ export function render(appState) {
       <h3>${t(lang, 'method.version.title')}</h3>
       <p>${t(lang, 'method.version.text', { version: version ?? '—' })}</p>
       <p>${t(lang, 'method.version.note')}</p>
-    </div>
-    <div class="method-block">
-      <h3>${t(lang, 'method.open.title')}</h3>
-      <ol class="method-open">${openQuestions}</ol>
     </div>`;
   // Перечень критериев — сразу после «Что модель измеряет»: это первое, что
   // ищет посетитель раздела (R05); прочие блоки методологии — после него.

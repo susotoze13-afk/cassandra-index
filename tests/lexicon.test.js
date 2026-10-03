@@ -89,19 +89,14 @@ test('lexiconHits: находит каждое запрещённое слово
   assert.deepEqual(lexiconHits('нейтральная формулировка без запрета'), []);
 });
 
-// Словарь i18n: оба языка чисты; наборы ключей RU и EN совпадают (парность).
-test('i18n-словарь: нет запрещённой лексики, RU и EN парные', () => {
-  for (const lang of ['ru', 'en']) {
+// Словарь i18n: все строки чисты от запрещённой лексики.
+test('i18n-словарь: нет запрещённой лексики', () => {
+  for (const lang of ['ru']) {
     for (const [key, text] of Object.entries(DICTS[lang])) {
       const hits = lexiconHits(text);
       assert.deepEqual(hits, [], `${lang}:${key} содержит запретную лексику: ${hits.join(', ')}`);
     }
   }
-  assert.deepEqual(
-    Object.keys(DICTS.ru).sort(),
-    Object.keys(DICTS.en).sort(),
-    'наборы ключей RU и EN должны совпадать'
-  );
 });
 
 // Тексты демо-снапшотов (observation/why драйверов и регионов, sources.title и
@@ -120,15 +115,14 @@ test('тексты снапшотов 2026-08-02…2026-09-13: нет запре
   }
 });
 
-// R10: дисклеймер «Оценка состояния, а не прогноз даты» присутствует в обоих языках.
+// R10: дисклеймер «Оценка состояния, а не прогноз даты» присутствует в словаре.
 test('R10: дисклеймер «Оценка состояния, а не прогноз даты» в словаре', () => {
   assert.equal(DICTS.ru['hero.legal.disclaimer'], 'Оценка состояния, а не прогноз даты.');
-  assert.equal(DICTS.en['hero.legal.disclaimer'], 'An assessment of the state, not a forecast of a date.');
 });
 
-// R53: H1 утвердительный — без вопросительного знака в обоих языках.
+// R53: H1 утвердительный — без вопросительного знака.
 test('R53: H1 утвердительный (без вопроса и обратного отсчёта)', () => {
-  for (const lang of ['ru', 'en']) {
+  for (const lang of ['ru']) {
     const title = DICTS[lang]['hero.title'];
     assert.ok(!title.includes('?'), `hero.title (${lang}) — вопрос: ${title}`);
     assert.deepEqual(lexiconHits(title), []);

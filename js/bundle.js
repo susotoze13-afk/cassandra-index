@@ -525,7 +525,8 @@ exports["search"] = search;
 return exports;
 }]);
 factories.push(["js/i18n.js", function (exports) {
-// Словари RU/EN. Ни одной пользовательской строки вне словаря (§11.3).
+// Словарь RU (сайт одноязычный; EN удалён — прогон 2026-10-03-ru-only-ui-tweaks).
+// Ни одной пользовательской строки вне словаря (§11.3).
 // Экспорт — для теста лексики (контент-ревью, PRD §11.5): сканер читает словарь напрямую.
 const DICTS = {
   ru: {
@@ -536,14 +537,12 @@ const DICTS = {
     'nav.trend': 'Тренд',
     'nav.method': 'Методология',
     'nav.sources': 'История и источники',
-    'nav.lang.ru': 'RU',
-    'nav.lang.en': 'EN',
     'nav.label': 'Основная навигация',
-    'lang.label': 'Язык / Language',
     'regions.title': 'Что это значит для моего региона?',
     'regions.yours': 'ваш регион',
     'regions.drivers': 'Главные драйверы',
-    'hero.title': 'Индекс состояния риска глобального военного конфликта',
+    'hero.title': 'Индекс риска глобального военного конфликта',
+    'hero.index.label': 'Мировой индекс',
     'hero.subtitle': 'Индекс состояния риска по шкале от 0 до 100, рассчитываемый еженедельно по открытым данным: уровень и направление изменения риска.',
     'hero.legal.disclaimer': 'Оценка состояния, а не прогноз даты.',
     'hero.preliminary': 'Предварительная оценка — неполное покрытие источников',
@@ -576,7 +575,6 @@ const DICTS = {
     'region.panel.cancel': 'Отмена',
     'region.panel.notfound': 'Ничего не найдено — выберите регион из списка',
     'a11y.region.changed': 'Ваш регион: {city} · {region}, индекс {index} из 100',
-    'a11y.lang.changed': 'Язык: русский',
     'state.published': 'Опубликовано',
     'state.updating': 'Обновляется',
     'state.delayed': 'Задержка данных',
@@ -692,7 +690,7 @@ const DICTS = {
     'privacy.title': 'Политика приватности',
     'privacy.back': '← На главную',
     'privacy.storage.h': 'Что сайт хранит в вашем браузере',
-    'privacy.storage.lang': 'cassandra.lang — выбранный язык интерфейса. Записывается, только когда вы сами переключаете язык.',
+    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.',
     'privacy.storage.region': 'cassandra.region — выбранный вами регион. Записывается, только если вы включили переключатель «Запомнить» в панели выбора региона; без него выбор живёт только до закрытия вкладки.',
     'privacy.storage.consent': 'cassandra.region.consent — ваш ответ на вопрос об автоматическом определении региона: статус (granted/denied), время ответа и, при отказе, срок повторного запроса (denied_until, 30 дней). Записывается, только когда вы отвечаете на уведомление на главной странице.',
     'privacy.storage.first': 'До согласия ничего не сохраняется: до вашего явного действия localStorage остаётся пустым, регион не определяется, показывается только глобальный индекс.',
@@ -716,7 +714,6 @@ const DICTS = {
     'privacy.not.cookies': 'Не использует файлы cookie, счётчики аналитики, рекламные идентификаторы и сторонние виджеты.',
     'privacy.not.third': 'Не передаёт данные третьим лицам: в статической сборке данные вообще никуда не отправляются — сайт можно открыть с локального диска, не подключаясь к сети.',
     'privacy.delete.h': 'Как удалить сохранённое',
-    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.lang, cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.',
     'history.week.label': 'Неделя',
     'history.week.current': 'текущая',
     'history.index': 'Глобальный индекс',
@@ -774,317 +771,17 @@ const DICTS = {
     'method.version.title': 'Версия методологии',
     'method.version.text': 'Каждый недельный снапшот привязан к версии методологии. Текущая версия: {version}.',
     'method.version.note': 'Если изменение методологии влияет на сопоставимость с прошлыми неделями, интерфейс раскрывает это рядом с затронутыми данными; история не пересчитывается молча.',
-    'method.open.title': 'Открытые вопросы перед продакшеном',
-    'method.open.1': 'Какая статистическая интерпретация лежит в основе индекса 0–100?',
-    'method.open.2': 'Откалиброваны ли 12-месячные оценки частоты событий и проверены ли на прошлых данных?',
-    'method.open.3': 'Какое доказательство обосновывает каждый порог состояния?',
-    'method.open.4': 'Какое минимальное покрытие источников необходимо для публикации?',
-    'method.open.5': 'Что происходит, если серьёзное событие случилось между недельными публикациями?',
-    'method.open.6': 'Кто владеет редакторским ревью текста критического режима и ссылок на официальные источники?',
-    'method.open.7': 'Какая региональная таксономия является авторитетной?',
-    'method.open.8': 'Как определяется независимость источников?',
-    'method.open.9': 'Каков аудиторский след для изменённого исторического снапшота?',
-    'method.open.10': 'Какие изменения методологии нарушают сопоставимость с предыдущими неделями?',
-    'method.open.11': 'Геолокация по IP: какой провайдер, какая точность на страну и регион, каков уровень сервиса, какие данные логируются?',
-    'method.open.12': 'Соответствие приватности: как обработка IP согласуется с GDPR, 152-ФЗ и CCPA в целевом регионе?',
-    'method.open.13': 'Справочник регионов и городов: какая единая таксономия сопоставляет «город ↔ регион» и кто её владелец?',
-    'method.open.14': 'Согласие на сохранение региона: показывать уведомление при первом визите или полагаться на политику?',
-    'method.open.15': 'Заголовок: как измерить, что утвердительная формулировка не воспринимается как таймер?',
-    'method.open.16': 'Мультиязычность: как заголовок ведёт себя в английском и других языках без потери смысла?',
-    'method.open.17': 'Источники в драйверах: какой минимальный набор полей у каждого источника (заголовок, домен, дата, URL, тип)?',
-    'method.open.18': 'Порядок источников: сортировка по релевантности, дате или типу — кто принимает решение?',
-    'method.open.19': 'Раскрытие списка источников: запоминать состояние между визитами или каждый раз закрывать?',
-    'method.open.20': 'Интерактивный тренд на сенсорных экранах: достаточно ли показа при касании с автозакрытием, или нужна отдельная панель на мобильных?',
-    'method.open.21': 'Город-представитель региона: как выбирается и кто владелец логики?',
-    'method.open.22': 'Точность определения по IP: при какой уверенности показывать город-представитель, а при какой — только регион?',
-    'method.open.23': 'Удаление блока уверенности из первого экрана: не снижает ли это доверие у новых посетителей?',
-    'method.open.24': 'Плюрализация и склонения: поддерживает ли система перевода сложные правила без ручных исключений?',
-    'method.open.25': 'Доступность подсказки на тренде: достаточно ли текстового описания точки, или нужен отдельный живой регион для скринридера?',
     'footer.disclaimer': 'Оценка риска на основе открытых данных. Не официальный прогноз.',
-  },
-  en: {
-    'app.title': 'Cassandra Index — conflict risk index',
-    'app.description': 'A weekly assessment of the level and direction of global conflict risk based on open data.',
-    'nav.overview': 'Overview',
-    'nav.regions': 'Regions',
-    'nav.trend': 'Trend',
-    'nav.method': 'Methodology',
-    'nav.sources': 'History & sources',
-    'nav.lang.ru': 'RU',
-    'nav.lang.en': 'EN',
-    'nav.label': 'Main navigation',
-    'lang.label': 'Language / Язык',
-    'regions.title': 'What does this mean for my region?',
-    'regions.yours': 'your region',
-    'regions.drivers': 'Key drivers',
-    'hero.title': 'The state of global military conflict risk',
-    'hero.subtitle': 'A risk state index on a 0–100 scale, calculated weekly from open data: the level and direction of risk.',
-    'hero.legal.disclaimer': 'An assessment of the state, not a forecast of a date.',
-    'hero.preliminary': 'Preliminary assessment — incomplete source coverage',
-    'meta.published': 'Last published',
-    'meta.through': 'Data through',
-    'hero.index.of': 'of 100',
-    'hero.week.change': 'this week',
-    'status.calm': 'Calm',
-    'status.tense': 'Tense',
-    'status.danger': 'Dangerous',
-    'status.very': 'Very dangerous',
-    'status.critical': 'Critically dangerous',
-    'status.extreme': 'Extreme threat',
-    'statusLower.calm': 'calm',
-    'statusLower.tense': 'tense',
-    'statusLower.danger': 'dangerous',
-    'statusLower.very': 'very dangerous',
-    'statusLower.critical': 'critically dangerous',
-    'statusLower.extreme': 'extreme threat',
-    'region.yours': 'YOUR REGION',
-    'region.change': 'change',
-    'region.unavailable': 'regional data is temporarily unavailable',
-    'region.note': 'This is contextual regional risk, not a prediction of an attack on this city.',
-    'region.cta': 'See the risk for my region →',
-    'region.panel.title': 'Choose your region',
-    'region.panel.search': 'City or region',
-    'region.panel.remember': 'Remember',
-    'region.panel.remember.hint': 'Saves your choice in this browser',
-    'region.panel.geolocate': 'Refine',
-    'region.panel.cancel': 'Cancel',
-    'region.panel.notfound': 'No results — choose a region from the list',
-    'a11y.region.changed': 'Your region: {city} · {region}, index {index} of 100',
-    'a11y.lang.changed': 'Language: English',
-    'state.published': 'Published',
-    'state.updating': 'Updating',
-    'state.delayed': 'Delayed',
-    'state.insufficient': 'Insufficient data',
-    'state.unavailable': 'Model unavailable',
-    'history.banner': 'Historical snapshot: published {published}, data through {through}. These values are not current.',
-    'quality.label': 'Data quality',
-    'quality.level.high': 'High',
-    'quality.level.medium': 'Medium',
-    'quality.level.low': 'Low',
-    'quality.badge': 'Data quality: {level}',
-    'quality.badge.aria': 'Data quality: {level}. Details on the calculation.',
-    'quality.modal.title': 'Data quality',
-    'quality.modal.q': 'Share of driver weight with data (q): {pct}%',
-    'quality.modal.nullWeight': 'Share without data: {pct}%',
-    'quality.modal.coverage': 'Drivers with data: {covered} of {total}',
-    'quality.modal.explained': 'q is the share of driver weight covered by data. The lower q is, the more the new value is compressed towards the last published one.',
-    'quality.modal.incomplete': 'Incomplete source coverage.',
-    'quality.modal.reduced': 'Published with reduced confidence due to incomplete coverage.',
-    'quality.modal.insufficient': 'This week is not published: data coverage is below the publication threshold.',
-    'quality.modal.close': 'Close',
-    'a11y.quality.opened': 'The “Data quality” dialog is open.',
-    'critical.title': 'Very high modelled risk',
-    'critical.disclaimer': 'This is a modelled assessment based on the latest weekly data. It does not mean that a state of emergency has been officially declared or that a war has started.',
-    'critical.official.title': 'Official information',
-    'critical.official.text': 'Follow messages from the competent authorities of your region — civil protection and emergency services. Cassandra Index is not an official alerting source and does not replace them.',
-    'critical.actions.title': 'Calm actions',
-    'critical.action.1': 'follow official local alerts;',
-    'critical.action.2': 'read your local emergency instructions;',
-    'critical.action.3': 'keep a basic supply;',
-    'critical.action.4': 'agree on a way to stay in touch with your loved ones.',
-    'unavailable.title': 'Model unavailable',
-    'unavailable.text': 'Could not load this week’s data. Check your connection and try again.',
-    'demo.link': 'Demo states',
-    'demo.title': 'Demo states',
-    'demo.hint': 'The override works only in the current session and is marked “demo”; it does not affect real data.',
-    'demo.critical': 'Critical mode',
-    'demo.delayed': 'Delayed data',
-    'demo.insufficient': 'Insufficient data',
-    'demo.unavailable': 'Model unavailable',
-    'demo.off': 'Turn off demo',
-    'demo.close': 'Close',
-    'demo.banner': 'Demo state: {mode}',
-    'data.retry': 'Retry',
-    'sources.word': '{n} {n, plural, one{source} other{sources}}',
-    'sources.type.primary': 'primary',
-    'sources.type.OSINT': 'OSINT',
-    'sources.type.secondary': 'secondary',
-    'sources.sort.tooltip': 'Sorted by: type (primary → OSINT → secondary) → date → alphabet',
-    'sources.affiliated': 'state-affiliated',
-    'drivers.title': 'What changed',
-    'drivers.observation': 'Observation',
-    'drivers.why': 'Why it matters',
-    'drivers.contribution.label': 'Contribution',
-    'drivers.contribution.high': 'high',
-    'drivers.contribution.medium': 'medium',
-    'drivers.contribution.low': 'low',
-    'drivers.confidence.label': 'Confidence',
-    'drivers.confidence.high': 'high',
-    'drivers.confidence.medium': 'medium',
-    'drivers.confidence.low': 'low',
-    'drivers.sources.hide': 'hide',
-    'drivers.sources.showAll': 'Show all sources',
-    'drivers.sources.hideAll': 'Show fewer sources',
-    'drivers.measures.title': 'Additional risk dimensions',
-    'drivers.measures.direct': 'Direct military confrontation',
-    'drivers.measures.nuclear': 'Risk of nuclear weapons use',
-    'drivers.measures.level.high': 'High',
-    'drivers.measures.level.medium': 'Medium',
-    'drivers.measures.level.low': 'Low',
-    'drivers.measures.horizon': 'Assessment horizon: 12 months.',
-    'drivers.measures.direct.def': 'Event: open hostilities between the regular armed forces of two or more states.',
-    'drivers.measures.nuclear.def': 'Event: use of nuclear weapons in a combat situation by any party.',
-    'drivers.measures.calibration': 'Levels are qualitative categories: they have not yet been benchmarked against the historical frequency of such events, and no numerical calibration has been performed.',
-    'trend.now': 'Now: {value} of 100',
-    'trend.now.na': 'Now: not published',
-    'trend.weekAgo': 'A week ago: {value}',
-    'trend.weekAgo.na': 'A week ago: not published',
-    'trend.direction.label': 'Direction',
-    'trend.direction.up': 'rising',
-    'trend.direction.down': 'falling',
-    'trend.direction.flat': 'unchanged',
-    'trend.points': '{n, plural, one{point} other{points}}',
-    'trend.summary': 'Over the week the index changed by {week} {weekWord}; over 12 weeks — by {total} {totalWord}.',
-    'trend.summary.v2': 'Over the week the index changed by {week} {weekWord}; over {weeks} {weeksWord} of methodology 2.0 — by {total} {totalWord}.',
-    'trend.weeks': '{n, plural, one{week} other{weeks}}',
-    'trend.point.aria': 'Date: {date}, Index: {value}, State: {state}',
-    'trend.point.na': 'not published',
-    'trend.state.na': '—',
-    'trend.chart.label': '12-week index chart',
-    'trend.sheet.close': 'Close',
-    'trend.sheet.delta': 'Change over the week: {value}',
-    'trend.sheet.methodology': 'Week methodology: v{version}',
-    'trend.break.mark': 'Methodology change v{from} → v{to}',
-    'trend.break.note': 'From here the methodology was updated to v{to}: values before and after may not be comparable.',
-    'trend.table.caption': 'Table: 12-week index',
-    'trend.table.date': 'Date',
-    'trend.table.index': 'Index',
-    'trend.table.state': 'State',
-    'history.week.label': 'Week',
-    'history.week.current': 'current',
-    'history.index': 'Global index',
-    'history.methodology': 'Methodology version',
-    'history.methodology.note': 'This week was calculated with methodology version {viewed}, while the current week uses version {current}: the values may not be comparable.',
-    'history.review.title': 'Week in review ({date}): where we were wrong, where we were right, where uncertainty remains',
-    'history.review.wrong': 'Where we were wrong',
-    'history.review.right': 'Where we were right',
-    'history.review.uncertain': 'Where uncertainty remains',
-    'history.sources.title': 'Sources for this week',
-    'method.measures.title': 'What the model measures',
-    'method.measures.1': 'The state of global conflict risk from confirmed open signals — including shadow preparation indicators. The 0–100 value is an anomaly index relative to a peacetime baseline (reference: 2010–2019): a measure of how similar the current combination of signals is to historical crises, not a forecast of the future.',
-    'method.criteria.title': 'Full list of criteria',
-    'method.criteria.intro': 'The index is built from 45 criteria grouped into 9 drivers. Below is what the model observes for each criterion; calculation rules, scales and thresholds are not exposed in the public interface.',
-    'method.criteria.driver.d1': 'D1. Military activity',
-    'method.criteria.driver.d2': 'D2. Nuclear signaling',
-    'method.criteria.driver.d3': 'D3. Diplomatic escalation and de-escalation',
-    'method.criteria.driver.d4': 'D4. Economic conflict indicators',
-    'method.criteria.driver.d5': 'D5. Information & cyber',
-    'method.criteria.driver.d6': 'D6. Mobilisation',
-    'method.criteria.driver.d7': 'D7. Spillover and third-party involvement',
-    'method.criteria.driver.d8': 'D8. Confirmed de-escalation outcomes',
-    'method.criteria.driver.d9': 'D9. Shadow indicators',
-    'method.not.title': 'What the model does not measure',
-    'method.not.1': 'The outbreak of war and the date of an event — the index is never interpreted this way.',
-    'method.not.2': 'The risk of a strike on a specific city: the city in the interface is only a label for your region.',
-    'method.not.3': 'The very fact of covert preparation: shadow signals are observations, not proof.',
-    'method.gaps.title': 'Gaps in the data',
-    'method.gaps.1': 'Source coverage is uneven across regions and signal types; this affects confidence in the assessment.',
-    'method.gaps.2': 'For shadow preparation indicators, data from closed countries is scarce — blind spots are possible there.',
-    'method.gaps.3': 'When coverage is poor, the new value shrinks towards the previous one, and the uncertainty share is shown separately in the interface.',
-    'method.gaps.4': 'Observability of de-escalation is asymmetric: signed arrangements lag the actual easing of tension, and closed negotiations are invisible to open sources until published.',
-    'method.conflicts.title': 'Conflicting sources',
-    'method.conflicts.1': 'When signals that are independent in origin contradict each other, confidence in the assessment is reduced, and the reason is shown next to the driver.',
-    'method.conflicts.2': 'Independence is checked through source genealogy: a reprint of one primary source is one source, not two independent confirmations.',
-    'method.conflicts.3': 'State actors can imitate signs of preparation or hide them; rules against information operations and regular external reviews reduce but do not eliminate this risk.',
-    'method.failures.title': 'Failure cases',
-    'method.failures.1': 'If too large a share of drivers lacks data, the snapshot is either not published or published with reduced confidence — the decision is recorded in the methodology version.',
-    'method.failures.2': 'If the model is unavailable, the last valid snapshot is shown with an explicit “Historical snapshot” label and its dates.',
-    'method.failures.3': 'A stale value never looks current: a data-state indicator and a date are always shown next to it.',
-    'method.fpfn.title': 'Known assessment errors: false positives and misses',
-    'method.fpfn.1': 'Shadow indicators have historically produced false clusters without real preparation; that is why their confidence is capped and their contribution to the index is bounded.',
-    'method.fpfn.2': 'Seasonal procurements and routine drills periodically look like preparation signals; comparison is made against the seasonal line for the same calendar period in previous years.',
-    'method.fpfn.3': 'Misses are possible where an event is hidden from open sources; specific reviews are published in the “History & sources” section.',
-    'method.thresholds.title': 'Threshold justification',
-    'method.thresholds.intro': 'State thresholds are calibrated not by abstract mathematics but by anchoring to historical crises: backtesting must place known events into the declared ranges. Every threshold has documented justification, and changing it happens only through methodology versioning.',
-    'method.anchor.col.event': 'Historical anchor',
-    'method.anchor.col.range': 'Index range',
-    'method.anchor.routine': 'Routine of the 2010s',
-    'method.anchor.proxy': 'Sanction wars and local proxy conflicts without direct confrontation of great powers',
-    'method.anchor.local': 'Crimea and Donbas 2014; Kargil 1999',
-    'method.anchor.conv': 'Georgia 2008; Yom Kippur 1973; run-up to Iraq 2003',
-    'method.anchor.full': 'Start of the full-scale Russia–Ukraine war in 2022; Able Archer exercise 1983',
-    'method.anchor.extreme': 'Cuban Missile Crisis 1962',
-    'method.version.title': 'Methodology version',
-    'method.version.text': 'Every weekly snapshot is bound to a methodology version. Current version: {version}.',
-    'method.version.note': 'If a methodology change affects comparability with past weeks, the interface discloses this next to the affected data; history is never silently recalculated.',
-    'method.open.title': 'Open questions before production',
-    'method.open.1': 'What statistical interpretation underlies the 0–100 index?',
-    'method.open.2': 'Have the 12-month event frequency assessments been calibrated and backtested on past data?',
-    'method.open.3': 'What evidence justifies each state threshold?',
-    'method.open.4': 'What minimum source coverage is required for publication?',
-    'method.open.5': 'What happens if a serious event occurs between weekly releases?',
-    'method.open.6': 'Who owns the editorial review of critical-mode text and links to official sources?',
-    'method.open.7': 'Which regional taxonomy is authoritative?',
-    'method.open.8': 'How is source independence determined?',
-    'method.open.9': 'What is the audit trail for a modified historical snapshot?',
-    'method.open.10': 'Which methodology changes break comparability with previous weeks?',
-    'method.open.11': 'IP geolocation: which provider, what accuracy for country and region, what service level, which data is logged?',
-    'method.open.12': 'Privacy compliance: how does IP processing align with GDPR, 152-FZ and CCPA in the target region?',
-    'method.open.13': 'Region and city directory: which unified taxonomy maps “city ↔ region” and who owns it?',
-    'method.open.14': 'Consent for saving the region: show a notice on the first visit or rely on the policy?',
-    'method.open.15': 'Headline: how do we measure that the assertive wording is not perceived as a timer?',
-    'method.open.16': 'Multilingual: how does the headline behave in English and other languages without losing meaning?',
-    'method.open.17': 'Sources in drivers: what is the minimum field set per source (title, domain, date, URL, type)?',
-    'method.open.18': 'Source ordering: sorted by relevance, date or type — who decides?',
-    'method.open.19': 'Source list disclosure: remember the state between visits or collapse it every time?',
-    'method.open.20': 'Interactive trend on touch screens: is tap-to-show with auto-hide enough, or is a separate panel needed on mobile?',
-    'method.open.21': 'Representative city of a region: how is it chosen and who owns the logic?',
-    'method.open.22': 'IP detection accuracy: at what confidence do we show the representative city, and at what — only the region?',
-    'method.open.23': 'Removing the confidence block from the first screen: does this reduce trust for new visitors?',
-    'method.open.24': 'Pluralization and declension: does the translation system support complex rules without manual exceptions?',
-    'method.open.25': 'Trend tooltip accessibility: is a text description of each point enough, or is a separate live region needed for screen readers?',
-    'footer.next': 'Next publication: {when}',
-    'disclaimer.full': 'Cassandra Index is an experimental risk assessment based on open data. It is not an official forecast of any government or international organisation. The assessment may be wrong.',
-    'footer.ip': 'your region is determined approximately from your browser’s time zone — only after you consent; your IP address is not used, stored, or shared with third parties',
-    'region.toast.text': 'We can determine your region approximately from your browser’s time zone to show regional context. Your IP address is not used or stored.',
-    'region.toast.change': 'Change',
-    'region.toast.accept': 'Agree',
-    'region.toast.dismiss': 'Dismiss',
-    'footer.privacy': 'Privacy',
-    'share.brand': 'CASSANDRA INDEX',
-    'share.button': 'Share',
-    'share.region': 'Your region: {name} · {index} / 100',
-    'share.announce': 'Snapshot card downloaded',
-    'footer.nav': 'Service links',
-    'privacy.title': 'Privacy policy',
-    'privacy.back': '← Back to the main page',
-    'privacy.storage.h': 'What the site stores in your browser',
-    'privacy.storage.lang': 'cassandra.lang — the interface language you selected. It is written only when you switch the language yourself.',
-    'privacy.storage.region': 'cassandra.region — the region you selected. It is written only if you turn on the “Remember” toggle in the region picker; without it, your choice lives only until the tab is closed.',
-    'privacy.storage.consent': 'cassandra.region.consent — your answer to automatic region detection: status (granted/denied), the time of the answer and, on refusal, when the site may ask again (denied_until, 30 days). It is written only when you respond to the notice on the main page.',
-    'privacy.storage.first': 'Nothing is stored before consent: until you take an explicit action, localStorage stays empty, the region is not determined, and only the global index is shown.',
-    'privacy.region.h': 'How your region is determined',
-    'privacy.region.static': 'The site is fully static and runs without a backend. Your region is determined approximately from your browser’s time zone — and only after you consent: before consent, the region is neither determined nor stored. The time zone is not stored and is not sent anywhere.',
-    'privacy.region.future': 'In a future version with a server (the edge layer), detection will happen on the server: the raw IP address will never enter the site’s infrastructure, and only the region code will reach the application. Outside the EU/UK and Russia this will be opt-out (automatic detection that you can turn off); the EU/UK and Russia keep opt-in.',
-    'privacy.consent.h': 'Consent for region detection (region_consent)',
-    'privacy.consent.text': 'On your first visit a non-blocking notice appears with “Change” (opens the manual region picker), “Agree” and “Dismiss”. “Agree” enables time-zone detection and records your answer with a timestamp; “Dismiss” records a refusal — the site will not ask again for 30 days. The answer is never tied to your IP address and never leaves your browser.',
-    'privacy.edge.h': 'The “edge/browser” model and your raw IP',
-    'privacy.edge.text': 'A raw IP address never enters the site’s infrastructure. In the static build, detection happens in the browser (time zone) and only after consent; the site learns nothing else about your location. When a backend appears, geolocation will run on an edge server and only the region code will reach the application; raw IPs are not logged (salted hash, 24-hour retention — the protocol is in docs/governance.md).',
-    'privacy.laws.h': 'Applicable law',
-    'privacy.ccpa.h': 'CCPA (California)',
-    'privacy.ccpa.text': 'IP addresses and device identifiers are personal information. The site gives notice at collection (the consent toast) and the right to opt out (“Dismiss” records a refusal for 30 days); its disclosure of data shared with third parties is empty — the site shares nothing.',
-    'privacy.gdpr.h': 'GDPR (EU/UK)',
-    'privacy.gdpr.text': 'Post-consent region detection relies on legitimate interest — Art. 6(1)(f) GDPR with Recital 30 in view: processing is minimal (a derived region code, no raw IP), there is no sharing with third parties, you can refuse at any time, and the consent record can be deleted in your browser settings.',
-    'privacy.fz.h': '152-FZ (Russia)',
-    'privacy.fz.text': 'From 2026, IP addresses, cookie identifiers and geolocation data are personal data, and their storage is subject to localisation within the Russian Federation. Geolocation on a foreign edge server may violate the localisation requirement — a legal review is mandatory before the edge layer launches (the open question is recorded in docs/governance.md).',
-    'privacy.geo.h': 'Precise geolocation',
-    'privacy.geo.text': 'Coordinates are requested only when you click “Refine”; there is no automatic GPS request. Coordinates are used only on your device to refine the region and are never sent anywhere.',
-    'privacy.not.h': 'What the site does not do',
-    'privacy.not.cookies': 'It does not use cookies, analytics counters, advertising identifiers, or third-party widgets.',
-    'privacy.not.third': 'It does not share data with third parties: in the static build, no data is sent anywhere at all — you can open the site from a local disk without any network connection.',
-    'privacy.delete.h': 'How to delete saved data',
-    'privacy.delete.text': 'Clearing the site data in your browser settings (or removing the cassandra.lang, cassandra.region and cassandra.region.consent keys from localStorage) erases the saved values. After cassandra.region.consent is removed, the site will ask for consent again on your next visit. The site holds no other data about you.',
-    'footer.disclaimer': 'Risk assessment based on open data. Not an official forecast.',
   },
 };
 
-const LANGS = ['ru', 'en'];
+const LANGS = ['ru'];
 
-const LOCALES = { ru: 'ru-RU', en: 'en-US' };
+const LOCALES = { ru: 'ru-RU' };
 
 // --- ICU MessageFormat (собственное подмножество, R62 / решение A3): ---
 // интерполяция `{var}`, plural `{n, plural, one{…} few{…} many{…} other{…}}`,
-// select `{x, select, …}`. CLDR-правила RU (one/few/many, дробные → other) и EN (one/other).
+// select `{x, select, …}`. CLDR-правила RU (one/few/many, дробные → other).
 function pluralCategory(lang, n) {
   const v = Math.abs(Number(n));
   if (!Number.isFinite(v)) return 'other';
@@ -1180,14 +877,14 @@ function t(lang, key, vars) {
 }
 
 // Обратная совместимость: тонкая обёртка поверх CLDR-категорий (интерфейс §швы).
-// RU: forms = [one, few, many/other]; EN: forms = [one, other].
+// RU: forms = [one, few, many/other].
 function plural(lang, n, forms) {
   const cat = pluralCategory(lang, n);
   if (lang === 'ru') return forms[cat === 'one' ? 0 : cat === 'few' ? 1 : 2];
   return cat === 'one' ? forms[0] : forms[1];
 }
 
-// «13 сентября 2026» / «13 Sep, 2026»; короткие «13.09» / «Sep 13» (§11.2).
+// «13 сентября 2026»; короткие «13.09» (§11.2).
 // Собирается из formatToParts, чтобы строка не зависела от суффиксов ICU («г.» и т.п.).
 function date(lang, iso, short = false) {
   const d = new Date(`${iso}T12:00:00`);
@@ -1264,7 +961,7 @@ factories.push(["js/ui.js", function (exports) {
 const risk = __ci_require("js/risk.js");
 // js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
 // el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
-// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=;
+// resolveLang() — всегда 'ru' (сайт одноязычный); parseWeekParam() — разбор ?week=;
 // createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
 // Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
 
@@ -1290,20 +987,9 @@ function deltaClass(change) {
   return DELTA_CLASS[risk.deltaTone(change)] ?? null;
 }
 
-const LANG_KEY = 'cassandra.lang';
-
-// §11.1: сохранённый выбор побеждает; без сохранённого — язык браузера;
-// не определён — дефолт 'ru'.
+// Сайт одноязычный (русский); сигнатура сохранена для вызывающего кода.
 function resolveLang() {
-  try {
-    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(LANG_KEY) : null;
-    if (saved === 'ru' || saved === 'en') return saved;
-  } catch {
-    /* хранилище недоступно — остаёмся на дефолте */
-  }
-  const nav = typeof navigator !== 'undefined' && navigator.language ? navigator.language : '';
-  if (!nav) return 'ru';
-  return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+  return 'ru';
 }
 
 // Разбор ?week= из query-строки: строгий формат YYYY-MM-DD, иначе null.
@@ -1352,7 +1038,6 @@ function createToast({ text, actions = [], dismiss = null }) {
 
 exports["el"] = el;
 exports["deltaClass"] = deltaClass;
-exports["LANG_KEY"] = LANG_KEY;
 exports["resolveLang"] = resolveLang;
 exports["parseWeekParam"] = parseWeekParam;
 exports["createToast"] = createToast;
@@ -3084,7 +2769,7 @@ function render(appState) {
     const li = el('li', 'region-row');
     if (row.id === personal) li.classList.add('is-personal');
 
-    // Строка-раскрывалка: №, регион, Δ со знаком и цветом; личный регион — текстовым бейджем.
+    // Строка-раскрывалка: №, регион, индекс, Δ со знаком и цветом; личный регион — текстовым бейджем.
     const head = el('button', 'region-row-head');
     head.type = 'button';
     head.setAttribute('aria-expanded', 'false');
@@ -3096,7 +2781,10 @@ function render(appState) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
       head.setAttribute('aria-label',
-        `${region.get(row.id)?.name[lang] ?? row.id}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+        `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+    }
+    if (typeof row.index === 'number' && Number.isFinite(row.index)) {
+      head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
     }
     head.append(deltaSpan(lang, row.delta));
 
@@ -3789,8 +3477,6 @@ function thresholdRanges() {
   });
 }
 
-const OPEN_QUESTION_COUNT = 25;
-
 // R05: полный перечень 45 критериев из js/criteria.js, сгруппированный по
 // драйверам. Чистый шов: модель групп (заголовок драйвера + позиции) по языку —
 // без DOM, тестируется. Названия драйверов — прозаические ключи словаря;
@@ -3860,8 +3546,6 @@ function render(appState) {
   const ranges = thresholdRanges();
   const anchors = ANCHOR_KEYS.map((key, i) =>
     `<tr><td>${t(lang, key)}</td><td>${ranges[i]}</td></tr>`).join('');
-  const openQuestions = Array.from({ length: OPEN_QUESTION_COUNT }, (_, i) =>
-    `<li>${t(lang, `method.open.${i + 1}`)}</li>`).join('');
 
   host.innerHTML = `
     <div class="method-block">
@@ -3900,10 +3584,6 @@ function render(appState) {
       <h3>${t(lang, 'method.version.title')}</h3>
       <p>${t(lang, 'method.version.text', { version: version ?? '—' })}</p>
       <p>${t(lang, 'method.version.note')}</p>
-    </div>
-    <div class="method-block">
-      <h3>${t(lang, 'method.open.title')}</h3>
-      <ol class="method-open">${openQuestions}</ol>
     </div>`;
   // Перечень критериев — сразу после «Что модель измеряет»: это первое, что
   // ищет посетитель раздела (R05); прочие блоки методологии — после него.
@@ -4136,19 +3816,11 @@ const region = __ci_require("js/region.js");
 const { t } = __ci_require("js/i18n.js");
 const { renderAll, applyI18n } = __ci_require("js/render.js");
 const { applyDemo, initDemo } = __ci_require("js/demo.js");
-const { LANG_KEY, resolveLang, parseWeekParam } = __ci_require("js/ui.js");
-// app.js — оркестрация: язык, регион, неделя (?week=), data-state, первый render.
+const { resolveLang, parseWeekParam } = __ci_require("js/ui.js");
+// app.js — оркестрация: регион, неделя (?week=), data-state, первый render.
 // Скелет: собирает appState и дергает renderAll; глубокая обвязка событий — таск 02+.
 
 
-
-function saveLang(lang) {
-  try {
-    if (typeof localStorage !== 'undefined') localStorage.setItem(LANG_KEY, lang);
-  } catch {
-    /* см. resolveLang */
-  }
-}
 
 function resolveWeek() {
   try {
@@ -4200,9 +3872,6 @@ function renderApp(state) {
     document.querySelector('meta[name="description"]')
       ?.setAttribute('content', t(state.lang, 'app.description'));
     applyI18n(document, state.lang);
-    document.querySelectorAll('.lang-btn').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang));
-    });
   }
   return renderAll(state);
 }
@@ -4231,14 +3900,6 @@ function navigateToWeek(week) {
 function init() {
   const state = buildState();
   if (typeof document !== 'undefined') {
-    document.querySelectorAll('.lang-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
-        saveLang(lang);
-        announce(lang, 'a11y.lang.changed');
-        renderApp({ ...currentState(), lang });
-      });
-    });
     // Демо-панель A01: ci:demo меняет только сессионный режим подмены.
     document.addEventListener('ci:demo', (e) => {
       demoMode = e.detail?.mode ?? null;
@@ -4293,7 +3954,6 @@ if (typeof document !== 'undefined') {
 }
 
 exports["resolveLang"] = resolveLang;
-exports["saveLang"] = saveLang;
 exports["resolveWeek"] = resolveWeek;
 exports["buildState"] = buildState;
 exports["renderApp"] = renderApp;

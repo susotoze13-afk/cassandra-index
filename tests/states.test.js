@@ -41,15 +41,11 @@ test('isHistorical: старый снапшот помечен, текущий �
 
 // Баннер архивного снапшота: даты просматриваемого снапшота длинным локальным
 // форматом (История 20 / §7). Ожидаемые строки разобраны вручную из образца дат.
-test('historyBannerText: RU и EN с датами снапшота', () => {
+test('historyBannerText: RU с датами снапшота', () => {
   const snap = { published: '2026-09-06', through: '2026-08-30' };
   assert.equal(
     historyBannerText('ru', snap),
     'Архивный снапшот: опубликован 6 сентября 2026, данные по 30 августа 2026. Значения не являются текущими.'
-  );
-  assert.equal(
-    historyBannerText('en', snap),
-    'Historical snapshot: published 6 Sep, 2026, data through 30 Aug, 2026. These values are not current.'
   );
 });
 

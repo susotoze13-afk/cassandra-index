@@ -1,4 +1,4 @@
-// app.js — оркестрация: язык, регион, неделя (?week=), data-state, первый render.
+// app.js — оркестрация: регион, неделя (?week=), data-state, первый render.
 // Скелет: собирает appState и дергает renderAll; глубокая обвязка событий — таск 02+.
 
 import * as data from './data.js';
@@ -6,17 +6,9 @@ import * as region from './region.js';
 import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
 import { applyDemo, initDemo } from './demo.js';
-import { LANG_KEY, resolveLang, parseWeekParam } from './ui.js';
+import { resolveLang, parseWeekParam } from './ui.js';
 
 export { resolveLang };
-
-export function saveLang(lang) {
-  try {
-    if (typeof localStorage !== 'undefined') localStorage.setItem(LANG_KEY, lang);
-  } catch {
-    /* см. resolveLang */
-  }
-}
 
 export function resolveWeek() {
   try {
@@ -68,9 +60,6 @@ export function renderApp(state) {
     document.querySelector('meta[name="description"]')
       ?.setAttribute('content', t(state.lang, 'app.description'));
     applyI18n(document, state.lang);
-    document.querySelectorAll('.lang-btn').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang));
-    });
   }
   return renderAll(state);
 }
@@ -99,14 +88,6 @@ function navigateToWeek(week) {
 export function init() {
   const state = buildState();
   if (typeof document !== 'undefined') {
-    document.querySelectorAll('.lang-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang === 'en' ? 'en' : 'ru';
-        saveLang(lang);
-        announce(lang, 'a11y.lang.changed');
-        renderApp({ ...currentState(), lang });
-      });
-    });
     // Демо-панель A01: ci:demo меняет только сессионный режим подмены.
     document.addEventListener('ci:demo', (e) => {
       demoMode = e.detail?.mode ?? null;

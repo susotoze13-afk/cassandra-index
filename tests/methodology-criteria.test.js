@@ -78,12 +78,13 @@ test('criteriaModel: 9 групп, 45 позиций, заголовки дра�
   }
 });
 
-test('criteriaModel: RU и EN переводят названия, описания и заголовки драйверов', () => {
+test('criteriaModel: заголовки драйверов — из RU-словаря при любом языке; названия и описания переводятся', () => {
   const ru = criteriaModel('ru');
   const en = criteriaModel('en');
   assert.equal(ru.length, en.length);
   for (let i = 0; i < ru.length; i += 1) {
-    assert.notEqual(ru[i].title, en[i].title, `заголовок ${ru[i].driver} не переведён`);
+    // словарь одноязычный (ru): заголовки драйверов совпадают
+    assert.equal(ru[i].title, en[i].title, `заголовок ${ru[i].driver} не из RU-словаря`);
     assert.equal(ru[i].items.length, en[i].items.length);
     for (let j = 0; j < ru[i].items.length; j += 1) {
       assert.notEqual(ru[i].items[j].name, en[i].items[j].name,
@@ -94,10 +95,10 @@ test('criteriaModel: RU и EN переводят названия, описан�
   }
 });
 
-// R05 (история 8): ни одной формулы и в выводе модели рендера — на обоих языках.
+// R05 (история 8): ни одной формулы и в выводе модели рендера.
 test('criteriaModel: вывод модели не содержит формул, шкал и порогов', () => {
   const failures = [];
-  for (const lang of ['ru', 'en']) {
+  for (const lang of ['ru']) {
     for (const g of criteriaModel(lang)) {
       const strings = [g.title, ...g.items.flatMap((i) => [i.id, i.name, i.desc])];
       for (const value of strings) {

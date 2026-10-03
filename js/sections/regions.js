@@ -145,7 +145,7 @@ export function render(appState) {
     const li = el('li', 'region-row');
     if (row.id === personal) li.classList.add('is-personal');
 
-    // Строка-раскрывалка: №, регион, Δ со знаком и цветом; личный регион — текстовым бейджем.
+    // Строка-раскрывалка: №, регион, индекс, Δ со знаком и цветом; личный регион — текстовым бейджем.
     const head = el('button', 'region-row-head');
     head.type = 'button';
     head.setAttribute('aria-expanded', 'false');
@@ -157,7 +157,10 @@ export function render(appState) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
       head.setAttribute('aria-label',
-        `${region.get(row.id)?.name[lang] ?? row.id}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+        `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+    }
+    if (typeof row.index === 'number' && Number.isFinite(row.index)) {
+      head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
     }
     head.append(deltaSpan(lang, row.delta));
 

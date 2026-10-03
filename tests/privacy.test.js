@@ -11,20 +11,16 @@ const privacyHtml = readFileSync(join(root, 'privacy.html'), 'utf8');
 
 // §17 (PRD) дословно — ожидание взято из текста спецификации, не из кода.
 const DISCLAIMER_RU = 'Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.';
-const DISCLAIMER_EN = 'Cassandra Index is an experimental risk assessment based on open data. It is not an official forecast of any government or international organisation. The assessment may be wrong.';
 // Раскрытие модели определения региона: часовой пояс браузера после согласия,
 // сырой IP не используется (таск 06, R43/R47 — синхронизировано с privacy.html).
 const IP_RU = 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам';
-const IP_EN = 'your region is determined approximately from your browser’s time zone — only after you consent; your IP address is not used, stored, or shared with third parties';
 
-test('§17 дословно в словаре RU и EN', () => {
+test('§17 дословно в словаре RU', () => {
   assert.equal(t('ru', 'disclaimer.full'), DISCLAIMER_RU);
-  assert.equal(t('en', 'disclaimer.full'), DISCLAIMER_EN);
 });
 
-test('Раскрытие модели региона RU и EN (таск 06)', () => {
+test('Раскрытие модели региона RU (таск 06)', () => {
   assert.equal(t('ru', 'footer.ip'), IP_RU);
-  assert.equal(t('en', 'footer.ip'), IP_EN);
   assert.ok(!/по IP для отображения/.test(t('ru', 'footer.ip')));
 });
 
@@ -37,9 +33,8 @@ test('index.html: кнопка «Поделиться», §17 и раскрыт�
   assert.ok(indexHtml.includes('data/regions/reference.js'));
 });
 
-test('privacy.html: цели ключей cassandra.region/cassandra.lang/consent, локализация, file://', () => {
+test('privacy.html: цели ключей cassandra.region/consent, локализация, file://', () => {
   assert.ok(privacyHtml.includes('cassandra.region'));
-  assert.ok(privacyHtml.includes('cassandra.lang'));
   assert.ok(privacyHtml.includes('cassandra.region.consent'));
   assert.ok(privacyHtml.includes('localStorage'));
   assert.ok(privacyHtml.includes('data-i18n'));
@@ -54,7 +49,6 @@ test('privacy.html: смысловое содержимое — дефолтны
   // Страница-заглушка с голыми ключами/подстроками не пройдёт: дефолтный текст
   // HTML обязан совпадать со значениями словаря RU (applyI18n перезаписывает им).
   for (const key of [
-    'privacy.storage.lang',
     'privacy.storage.region',
     'privacy.storage.consent',
     'privacy.storage.first',
@@ -73,7 +67,6 @@ test('privacy.html: смысловое содержимое — дефолтны
     assert.ok(privacyHtml.includes(t('ru', key)), `privacy.html не содержит текста ключа ${key}`);
   }
   // Рядом с ключами описаны цель и хранилище, а не только имена ключей.
-  assert.match(t('ru', 'privacy.storage.lang'), /язык/i);
   assert.match(t('ru', 'privacy.storage.region'), /Запомнить/);
   assert.match(t('ru', 'privacy.storage.consent'), /granted\/denied/);
   assert.match(t('ru', 'privacy.storage.first'), /localStorage/i);
@@ -88,7 +81,7 @@ test('privacy.html: смысловое содержимое — дефолтны
   assert.match(t('ru', 'privacy.delete.text'), /cassandra.region.consent/);
 });
 
-test('словарь: новые ключи таска 06 есть в паре ru+en', () => {
+test('словарь: новые ключи таска 06 есть в словаре ru', () => {
   for (const key of [
     'privacy.storage.consent',
     'privacy.consent.h',
@@ -107,8 +100,6 @@ test('словарь: новые ключи таска 06 есть в паре r
     'region.toast.accept',
     'region.toast.dismiss',
   ]) {
-    assert.notEqual(t('en', key), key, `EN-словарь не содержит ${key}`);
-    assert.ok(t('en', key).length > 3, `EN-строка ${key} слишком короткая`);
     assert.notEqual(t('ru', key), key, `RU-словарь не содержит ${key}`);
   }
 });

@@ -33,10 +33,6 @@
         <a href="#methodology" data-i18n="nav.method">Методология</a>
         <a href="#sources" data-i18n="nav.sources">История и источники</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Язык / Language" data-i18n-aria="lang.label">
-        <button type="button" class="lang-btn" data-lang="ru" aria-pressed="true" data-i18n="nav.lang.ru">RU</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" data-i18n="nav.lang.en">EN</button>
-      </div>
     </div>
   </header>
 
@@ -45,7 +41,7 @@
          Последний ВАЛИДНЫЙ снапшот — 2026-08-23 (global 61, ↑+3): недели 08-30…09-13
          insufficient (global:null), JS показывает их через этот fallback с баннером. -->
     <section id="overview" class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title" data-i18n="hero.title">Индекс состояния риска глобального военного конфликта</h1>
+      <h1 id="hero-title" data-i18n="hero.title">Индекс риска глобального военного конфликта</h1>
       <p class="subtitle" data-i18n="hero.subtitle">Индекс состояния риска по шкале от 0 до 100, рассчитываемый еженедельно по открытым данным: уровень и направление изменения риска.</p>
 
       <div class="meta">
@@ -58,6 +54,7 @@
 
       <div class="hero-numbers">
         <div class="global-index">
+          <div class="index-overline" data-i18n="hero.index.label">Мировой индекс</div>
           <div class="big" data-role="global-index">61</div>
           <div class="index-caption"><span data-i18n="hero.index.of">из 100</span></div>
           <div class="status-line">
@@ -102,7 +99,7 @@
       <!-- Inline-панель выбора региона (наполняет js/sections/hero.js). -->
       <div id="region-picker" data-role="region-picker" hidden></div>
 
-      <!-- Скрытый aria-live: объявления скринридеру о смене региона/языка. -->
+      <!-- Скрытый aria-live: объявления скринридеру о смене региона. -->
       <p class="sr-only" data-role="a11y-live" aria-live="polite"></p>
     </section>
 

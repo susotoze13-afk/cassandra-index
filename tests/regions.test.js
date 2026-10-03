@@ -37,18 +37,14 @@ test('rankedRegions: нет данных / битый регион — без п
 
 // §4.6 — раскрытая карточка показывает статус словами (нижний регистр, как в hero):
 // слово из шкалы §10, локализованное через словарь.
-test('statusLabel: слово статуса по индексу, оба языка', () => {
+test('statusLabel: слово статуса по индексу', () => {
   assert.equal(statusLabel('ru', 88), 'критически опасно');
-  assert.equal(statusLabel('en', 88), 'critically dangerous');
   assert.equal(statusLabel('ru', 41), 'опасно');
-  assert.equal(statusLabel('en', 41), 'dangerous');
   assert.equal(statusLabel('ru', 0), 'спокойно');
-  assert.equal(statusLabel('en', 100), 'extreme threat');
   // вне шкалы / не число — пустая строка, не мусор
   assert.equal(statusLabel('ru', null), '');
   assert.equal(statusLabel('ru', 101), '');
-  assert.equal(statusLabel('en', NaN), '');
+  assert.equal(statusLabel('ru', NaN), '');
   // верхний регистр — для автономной подписи в карточке
   assert.equal(statusLabel('ru', 88, false), 'Критически опасно');
-  assert.equal(statusLabel('en', 88, false), 'Critically dangerous');
 });

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { sourcesLabel, visibleSources, resolveMeasures, levelLabel, confidenceInfo, driverLabel } from '../js/sections/drivers.js';
 
-// §4.3.1 — кнопка «N источников»: RU 1/2–4/5+, EN 1 source/N sources.
+// §4.3.1 — кнопка «N источников»: RU 1/2–4/5+.
 test('sourcesLabel: склонение RU 1/2–4/5+', () => {
   assert.equal(sourcesLabel('ru', 1), '1 источник');
   assert.equal(sourcesLabel('ru', 2), '2 источника');
@@ -10,12 +10,6 @@ test('sourcesLabel: склонение RU 1/2–4/5+', () => {
   assert.equal(sourcesLabel('ru', 5), '5 источников');
   assert.equal(sourcesLabel('ru', 11), '11 источников');
   assert.equal(sourcesLabel('ru', 21), '21 источник');
-});
-
-test('sourcesLabel: EN 1 source / N sources', () => {
-  assert.equal(sourcesLabel('en', 1), '1 source');
-  assert.equal(sourcesLabel('en', 2), '2 sources');
-  assert.equal(sourcesLabel('en', 5), '5 sources');
 });
 
 // §4.3.1 — больше 5 источников: первые 5 + «Показать все источники».
@@ -45,18 +39,16 @@ test('driverLabel: короткий локализованный лейбл, о�
 
 // Общий компонент уверенности (шов для карточек регионов, таск 05): слово с родом
 // (§11.2 — «высокий вклад» / «высокая уверенность») + причина при сниженной уверенности.
-test('levelLabel: род согласован RU / EN без рода', () => {
+test('levelLabel: род согласован RU', () => {
   assert.equal(levelLabel('ru', 'contribution', 'high'), 'высокий');
   assert.equal(levelLabel('ru', 'contribution', 'low'), 'низкий');
   assert.equal(levelLabel('ru', 'confidence', 'high'), 'высокая');
   assert.equal(levelLabel('ru', 'confidence', 'medium'), 'средняя');
-  assert.equal(levelLabel('en', 'confidence', 'low'), 'low');
 });
 
 test('confidenceInfo: слово + причина при сниженной уверенности', () => {
   const drv = { confidence: 'medium', confidenceNote: { ru: 'Меньше данных, чем обычно.', en: 'Fewer data than usual.' } };
   assert.deepEqual(confidenceInfo('ru', drv), { word: 'средняя', note: 'Меньше данных, чем обычно.' });
-  assert.deepEqual(confidenceInfo('en', drv), { word: 'medium', note: 'Fewer data than usual.' });
   // высокая уверенность — без строки-причины
   assert.deepEqual(confidenceInfo('ru', { confidence: 'high' }), { word: 'высокая', note: null });
 });

@@ -31,11 +31,10 @@ test('arrowOf и directionOf по знаку дельты', () => {
 });
 
 // R63: aria-label точки — «Дата: X, Индекс: Y, Состояние: Z» на языке интерфейса.
-// Состояние — по шкале risk (72 → very → «очень опасно» / «very dangerous»).
-test('pointAriaLabel: «Дата / Индекс / Состояние» RU и EN (R63)', () => {
+// Состояние — по шкале risk (72 → very → «очень опасно»).
+test('pointAriaLabel: «Дата / Индекс / Состояние» RU (R63)', () => {
   const p = { date: '2026-09-13', value: 72 };
   assert.equal(pointAriaLabel('ru', p), 'Дата: 13 сентября 2026, Индекс: 72, Состояние: очень опасно');
-  assert.equal(pointAriaLabel('en', p), 'Date: 13 Sep, 2026, Index: 72, State: very dangerous');
 });
 
 // Неопубликованная неделя (value:null, таск 05): индекс подписан словами,
@@ -45,18 +44,14 @@ test('pointAriaLabel: value:null — «не опубликовано», без �
   const ru = pointAriaLabel('ru', p);
   assert.match(ru, /Дата: 13 сентября 2026/);
   assert.match(ru, /Индекс: не опубликовано/);
-  const en = pointAriaLabel('en', p);
-  assert.match(en, /Index: not published/);
 });
 
 // Tooltip точки: дата — длинным локальным форматом, совпадающим с aria-label
-// точки (История 13 / R36: «13 сентября 2026 / 13 Sep, 2026», не короткий «13.09»).
+// точки (История 13 / R36: «13 сентября 2026», не короткий «13.09»).
 test('tooltipDate: длинный локальный формат, как в aria-label точки', () => {
   const p = { date: '2026-09-13', value: 72 };
   assert.equal(tooltipDate('ru', p), '13 сентября 2026');
-  assert.equal(tooltipDate('en', p), '13 Sep, 2026');
   assert.ok(pointAriaLabel('ru', p).includes(tooltipDate('ru', p)));
-  assert.ok(pointAriaLabel('en', p).includes(tooltipDate('en', p)));
 });
 
 
@@ -74,16 +69,7 @@ test('summaryText: RU с плюрализацией 1/2–4/5+', () => {
   );
 });
 
-test('summaryText: EN 1 point / N points', () => {
-  const points = [
-    { date: '2026-06-28', value: 56 },
-    { date: '2026-09-06', value: 71 },
-    { date: '2026-09-13', value: 72 },
-  ];
-  assert.equal(
-    summaryText('en', points),
-    'Over the week the index changed by +1 point; over 12 weeks — by +16 points.'
-  );
+test('summaryText: падение и граничные случаи', () => {
   // падение: отрицательные дельты со знаком «-»
   const falling = [
     { date: '2026-06-28', value: 72 },

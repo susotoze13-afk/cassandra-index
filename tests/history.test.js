@@ -31,10 +31,9 @@ test('nextPublication: с понедельника → завтрашний вт
 // Подпись «вторник, 12:00» локализована через Intl (R62.1). Дата собирается
 // локальным конструктором (вторник 09:05 в любом поясе), поэтому ожидания
 // — константы, не зависящие от системного часового пояса.
-test('publicationLabel: RU и EN для даты вторника', () => {
+test('publicationLabel: RU для даты вторника', () => {
   const tuesday = new Date(2026, 8, 22, 9, 5); // вторник, 09:05 локально в любом TZ
   assert.equal(publicationLabel('ru', tuesday), 'вторник, 09:05');
-  assert.equal(publicationLabel('en', tuesday), 'Tuesday, 09:05');
 });
 
 // §8.5: смена версии методологии между просматриваемой неделей и текущей
@@ -50,8 +49,8 @@ test('methodologyNote: разные версии → строка с обеим�
 });
 
 // §8.4: демо-записи истории содержат разбор «где ошиблись / где были правы /
-// где неопределённость» — все три части на обоих языках.
-test('DEMO_REVIEWS: каждая запись имеет все три части на RU и EN', () => {
+// где неопределённость» — все три части.
+test('DEMO_REVIEWS: каждая запись имеет все три части на RU', () => {
   assert.ok(Array.isArray(DEMO_REVIEWS));
   assert.ok(DEMO_REVIEWS.length >= 1);
   for (const r of DEMO_REVIEWS) {
@@ -59,13 +58,7 @@ test('DEMO_REVIEWS: каждая запись имеет все три част�
     for (const part of ['wrong', 'right', 'uncertain']) {
       assert.equal(typeof r[part]?.ru, 'string');
       assert.ok(r[part].ru.length > 10, `${r.week}.${part}.ru`);
-      assert.equal(typeof r[part]?.en, 'string');
-      assert.ok(r[part].en.length > 10, `${r.week}.${part}.en`);
-      // RU и EN — разные непустые тексты: переставленные/продублированные
-      // копии одного языка не проходят.
       assert.notEqual(r[part].ru.trim(), '', `${r.week}.${part}.ru пуст`);
-      assert.notEqual(r[part].en.trim(), '', `${r.week}.${part}.en пуст`);
-      assert.notEqual(r[part].ru, r[part].en, `${r.week}.${part}: ru и en совпадают`);
     }
   }
 });

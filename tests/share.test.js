@@ -32,31 +32,18 @@ test('cardLayout RU: все элементы образца, язык = язык
   assert.equal(items[5].text, 'Оценка риска на основе открытых данных. Не официальный прогноз.');
 });
 
-test('cardLayout EN: строки образца на английском', () => {
-  const items = cardLayout('en', SNAPSHOT, 'europe');
-  assert.equal(items[1].status, 'VERY DANGEROUS');
-  assert.equal(items[2].text, '↑ +6 THIS WEEK');
-  assert.equal(items[3].text, 'Your region: Europe · 74 / 100');
-  assert.equal(items[4].text, '13 Sep, 2026');
-  assert.equal(items[5].text, 'Risk assessment based on open data. Not an official forecast.');
-});
-
 test('cardLayout: только регион, без города (R80)', () => {
   const items = cardLayout('ru', SNAPSHOT, 'europe');
   const regionItem = items.find((i) => i.kind === 'region');
   assert.ok(regionItem);
   assert.ok(!regionItem.text.includes('Амстердам'));
-  const en = cardLayout('en', SNAPSHOT, 'europe');
-  assert.ok(!en.find((i) => i.kind === 'region').text.includes('Amsterdam'));
 });
 
 // §79/История 29: метафора часов и обратный отсчёт запрещены — на карточке их нет.
 test('cardLayout: без обратного отсчёта — только известные блоки', () => {
   const allowed = ['brand', 'index', 'delta', 'region', 'date', 'disclaimer'];
-  for (const lang of ['ru', 'en']) {
-    const items = cardLayout(lang, SNAPSHOT, 'europe');
-    assert.deepEqual(items.map((i) => i.kind), allowed);
-  }
+  const items = cardLayout('ru', SNAPSHOT, 'europe');
+  assert.deepEqual(items.map((i) => i.kind), allowed);
 });
 
 test('cardLayout: регион без данных или не выбран — строки региона нет', () => {
@@ -70,8 +57,8 @@ test('cardLayout: нет глобального индекса — карточ�
 });
 
 test('cardLayout: снижение — стрелка вниз, тон --state-calm (§12, значения не только цветом)', () => {
-  const items = cardLayout('en', { ...SNAPSHOT, global: { index: 66, delta: -3 } }, null);
-  assert.equal(items[2].text, '↓ -3 THIS WEEK');
+  const items = cardLayout('ru', { ...SNAPSHOT, global: { index: 66, delta: -3 } }, null);
+  assert.equal(items[2].text, '↓ -3 ЗА НЕДЕЛЮ');
   assert.equal(items[2].tone, '--state-calm');
 });
 

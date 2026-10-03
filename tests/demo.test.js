@@ -65,9 +65,8 @@ test('applyDemo null: состояние без изменений', () => {
 });
 
 // Локализованные названия режимов (панель — на языке интерфейса).
-test('demoModeLabel: RU и EN', () => {
+test('demoModeLabel: RU', () => {
   assert.equal(demoModeLabel('ru', 'critical'), 'Критический режим');
-  assert.equal(demoModeLabel('en', 'critical'), 'Critical mode');
   assert.equal(demoModeLabel('ru', 'unavailable'), 'Модель недоступна');
-  assert.equal(demoModeLabel('en', 'bogus'), 'demo.bogus'); // фолбэк словаря — сам ключ
+  assert.equal(demoModeLabel('ru', 'bogus'), 'demo.bogus'); // фолбэк словаря — сам ключ
 });

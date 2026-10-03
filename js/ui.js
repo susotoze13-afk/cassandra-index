@@ -1,6 +1,6 @@
 // js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
 // el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
-// resolveLang() — язык из localStorage/navigator; parseWeekParam() — разбор ?week=;
+// resolveLang() — всегда 'ru' (сайт одноязычный); parseWeekParam() — разбор ?week=;
 // createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
 // Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
 
@@ -27,20 +27,9 @@ export function deltaClass(change) {
   return DELTA_CLASS[risk.deltaTone(change)] ?? null;
 }
 
-export const LANG_KEY = 'cassandra.lang';
-
-// §11.1: сохранённый выбор побеждает; без сохранённого — язык браузера;
-// не определён — дефолт 'ru'.
+// Сайт одноязычный (русский); сигнатура сохранена для вызывающего кода.
 export function resolveLang() {
-  try {
-    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(LANG_KEY) : null;
-    if (saved === 'ru' || saved === 'en') return saved;
-  } catch {
-    /* хранилище недоступно — остаёмся на дефолте */
-  }
-  const nav = typeof navigator !== 'undefined' && navigator.language ? navigator.language : '';
-  if (!nav) return 'ru';
-  return nav.toLowerCase().startsWith('ru') ? 'ru' : 'en';
+  return 'ru';
 }
 
 // Разбор ?week= из query-строки: строгий формат YYYY-MM-DD, иначе null.
