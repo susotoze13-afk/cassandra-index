@@ -11,6 +11,7 @@ import {
   selectMethodology,
   clampX,
   trendSegments,
+  axisLabels,
 } from '../js/sections/trend.js';
 
 // §4.4 / История 13 — подпись «текущее / неделю назад / направление»: Δ со знаком.
@@ -173,4 +174,48 @@ test('summaryTextV2: Δ по неделям только методологии 
   assert.match(ru, /За неделю индекс изменился на -1 пункт/);
   assert.match(ru, /3 недели/);
   assert.match(ru, /на -10 пунктов/);
+});
+
+// R01: подписи горизонтальной оси — короткая дата каждой недели.
+test('axisLabels: по подписи на точку, короткий формат ДД.ММ, якоря start/end/middle', () => {
+  const dates = ['2026-07-12', '2026-07-19', '2026-07-26', '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27'];
+  const points = dates.map((date, i) => ({ date, value: 40 + i }));
+  const labels = axisLabels('ru', points);
+  assert.equal(labels.length, 12);
+  assert.equal(labels[0].anchor, 'start');
+  assert.equal(labels[11].anchor, 'end');
+  assert.equal(labels[1].anchor, 'middle');
+  assert.equal(labels[0].text, '12.07');
+  assert.equal(labels[11].text, '27.09');
+  // x монотонно растёт и не выходит за viewBox (0…640).
+  for (let i = 1; i < labels.length; i += 1) assert.ok(labels[i].x > labels[i - 1].x);
+  assert.ok(labels.every((l) => l.x >= 0 && l.x <= 640));
+});
+
+test('axisLabels: меньше двух точек — нет подписей; пустая дата — пустая подпись', () => {
+  assert.deepEqual(axisLabels('ru', []), []);
+  assert.deepEqual(axisLabels('ru', [{ date: '2026-09-13', value: 72 }]), []);
+  const labels = axisLabels('ru', [{ date: '', value: null }, { date: '2026-09-20', value: 44 }]);
+  assert.equal(labels[0].text, '');
+  assert.equal(labels[1].text, '20.09');
+});
+
+// R01.2: при 12 точках подписи не пересекаются и не выходят за viewBox (640×280).
+test('axisLabels: 12 подписей не пересекаются в системе координат графика', () => {
+  const dates = ['2026-07-12', '2026-07-19', '2026-07-26', '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27'];
+  const labels = axisLabels('ru', dates.map((date, i) => ({ date, value: 40 + i })));
+  // Моноширинный 10px: «ДД.ММ» — 5 знаков ≈ 6px/знак.
+  const w = 5 * 6;
+  const box = (l) => (l.anchor === 'start'
+    ? [l.x, l.x + w]
+    : l.anchor === 'end'
+      ? [l.x - w, l.x]
+      : [l.x - w / 2, l.x + w / 2]);
+  for (let i = 1; i < labels.length; i += 1) {
+    const [pl, pr] = box(labels[i - 1]);
+    const [cl, cr] = box(labels[i]);
+    assert.ok(cl >= pr, `подписи ${labels[i - 1].text} и ${labels[i].text} пересекаются`);
+    assert.ok(cl >= 0 && cr <= 640, 'подпись выходит за viewBox');
+    assert.ok(pl >= 0 && pr <= 640, 'подпись выходит за viewBox');
+  }
 });

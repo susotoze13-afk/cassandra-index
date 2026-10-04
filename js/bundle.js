@@ -2252,6 +2252,13 @@ const VIEW_H = 280;
 const PAD = { top: 16, right: 14, bottom: 30, left: 34 };
 const GRID = [30, 60, 90];
 
+// X-координата i-й точки в системе viewBox — один источник и для линии,
+// и для подписей оси (иначе координата и её подпись разъедутся).
+function plotX(i, count, width = VIEW_W, pad = PAD) {
+  if (count < 2) return pad.left;
+  return pad.left + (i / (count - 1)) * (width - pad.left - pad.right);
+}
+
 function svgEl(tag, attrs = {}) {
   const node = document.createElementNS(NS, tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
@@ -2296,6 +2303,21 @@ function methOf(p) {
 // Точки v1 не показываются: они построены по другой методике и несопоставимы.
 function selectMethodology(points, version = '2.0') {
   return (Array.isArray(points) ? points : []).filter((p) => methOf(p) === version);
+}
+
+// Подписи горизонтальной оси тренда: короткая дата недели каждой точки (R01).
+// Первая подпись прижата влево, последняя — вправо (крайние не выходят за
+// viewBox), промежуточные центрированы. Пустая дата — пустая подпись, не
+// выдумываем. Чистый шов — тестируется без DOM.
+function axisLabels(lang, points, width = VIEW_W, pad = PAD) {
+  const list = Array.isArray(points) ? points : [];
+  const n = list.length;
+  if (n < 2) return [];
+  return list.map((p, i) => ({
+    x: plotX(i, n, width, pad),
+    text: p && p.date ? date(lang, p.date, true) : '',
+    anchor: i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle',
+  }));
 }
 
 function render(appState) {
@@ -2347,7 +2369,7 @@ function render(appState) {
     'aria-describedby': 'trend-caption',
   });
 
-  const x = (i) => PAD.left + (i / (points.length - 1)) * (VIEW_W - PAD.left - PAD.right);
+  const x = (i) => plotX(i, points.length);
   const y = (v) => PAD.top + (1 - Math.min(100, Math.max(0, v)) / 100) * (VIEW_H - PAD.top - PAD.bottom);
 
   // Градиентная область rgba(88,166,255,.30) → 0 (§4.4).
@@ -2602,6 +2624,16 @@ function render(appState) {
     svg.append(wrap);
   });
 
+  // Подписи горизонтальной оси: короткая дата каждой недели (R01). Ниже линии
+  // нуля, в нижнем поле SVG; декоративны — SVG несёт role=img, полные даты
+  // остаются в sr-only таблице.
+  for (const spec of axisLabels(lang, points)) {
+    const label = svgEl('text', { x: spec.x, y: VIEW_H - PAD.bottom + 14, 'text-anchor': spec.anchor });
+    label.setAttribute('class', 'trend-axis-label');
+    label.textContent = spec.text;
+    svg.append(label);
+  }
+
   chart.append(svg, tooltip);
   host.append(chart);
 
@@ -2638,6 +2670,7 @@ exports["summaryText"] = summaryText;
 exports["summaryTextV2"] = summaryTextV2;
 exports["clampX"] = clampX;
 exports["selectMethodology"] = selectMethodology;
+exports["axisLabels"] = axisLabels;
 exports["render"] = render;
 return exports;
 }]);

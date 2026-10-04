@@ -1218,6 +1218,13 @@ main {
   fill: var(--text-muted);
 }
 
+/* Подписи горизонтальной оси — даты недель, mono 10px muted */
+.trend-axis-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+
 /* Точки: базовый радиус 5, последняя крупнее с обводкой --surface;
    рост на hover/фокус/tap — через CSS-свойство r (prefers-reduced-motion
    гасит переход глобальным медиа-запросом) */

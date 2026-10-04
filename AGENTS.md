@@ -182,7 +182,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (29 файлов, 269 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (29 файлов, 272 passed / 0 fail — подтверждено прогоном
 2026-10-04). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
@@ -192,8 +192,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
-отсечение точек v1 на тренде и подпись v2 (selectMethodology, summaryTextV2):
-`tests/trend.test.js`; состав разметки страницы (отсутствие скрытой секции #sources
+отсечение точек v1 на тренде, подпись v2 и подписи оси
+(selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
+разметки страницы (отсутствие скрытой секции #sources
 и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`.
 
 ## Подводные камни
@@ -250,7 +251,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   отсекает точки v1 на входе секции (построены по другой методике, несопоставимы) —
   осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`);
   «за N недель» в подписи считает число опубликованных точек v2, а не
-  календарный спан окна.
+  календарный спан окна. Подписи горизонтальной оси — чистый шов
+  `axisLabels(lang, points, width?, pad?) -> [{x, text, anchor}]`: короткая дата
+  каждой недели (`date(lang, p.date, true)` = ДД.ММ), класс `.trend-axis-label`,
+  Y = VIEW_H − PAD.bottom + 14; первая подпись `start`, последняя `end`,
+  промежуточные `middle`; общий helper координаты `plotX` с линией (r=20 SVG).
 - Записи аудита recalc несут только глобальный diff (`recalcDiff`: global.index/delta,
   dataState, q, nullWeight, confidence, preview) — региональный перенос в diff не
   попадает, смотреть файлы регионов.
