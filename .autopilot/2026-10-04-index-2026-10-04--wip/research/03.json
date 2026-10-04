@@ -1,0 +1,330 @@
+{
+  "group": "03",
+  "window": { "from": "2026-09-28", "to": "2026-10-04" },
+  "criteria": {
+    "D7.1": {
+      "covered": true,
+      "events": [0.2],
+      "sources": [
+        { "url": "https://www.ynetnews.com/article/bjxod8tcfe", "date": "2026-10-02", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.siasat.com/saudi-arabia-plans-houthi-offensive-to-retake-bab-el-mandeb-3551859/", "date": "2026-10-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Прямого ввода новых государств в окне нет; учтён минимальным весом (severity 0.2) опубликованный план саудовского наступления на Баб-эль-Мандеб силами до 100 тыс. человек (02.10–03.10) — подготовительный, а не состоявшийся вход."
+    },
+    "D7.2": {
+      "covered": true,
+      "events": [0.5],
+      "sources": [
+        { "url": "https://cde.news/nato-baltic-air-policing-jets-shoot-down-drone-over-latvia/", "date": "2026-10-02", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Дрон, вошедший в воздушное пространство Латвии, перехвачен истребителями NATO в зоне Baltic Air Policing (02.10) — атака/угроза объекту третьей страны за пределами основных театров; единственный источник, прошедший проверку окна, поэтому уверенность ограничена."
+    },
+    "D7.3": {
+      "covered": false,
+      "note": "Новых фронтов или театров в соседних регионах в окне не открыто: саудовский план относится к существующему йеменскому театру, бои шли на уже активных направлениях (Украина, Газа, Судан, Эфиопия, Афганистан–Пакистан)."
+    },
+    "D7.4": {
+      "covered": true,
+      "value": 1,
+      "sources": [
+        { "url": "https://www.theguardian.com/us-news/2026/sep/30/pentagon-formal-withdrawal-troops-iraq", "date": "2026-09-30", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.cnn.com/2026/09/30/middleeast/us-military-withdrawal-iraq-intl", "date": "2026-09-30", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Пентагон 30.09 подтвердил полное завершение вывода войск из Ирака — 23-летнее присутствие и базирование закрыты (Guardian, CNN); 01.10 «Катайиб Хезболла» объявила о приостановке операций. Критерий выполнен полностью (уровень 3 из 3)."
+    },
+    "D8.1": {
+      "covered": true,
+      "value": 0,
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/3/israeli-air-attack-on-gaza-city-apartment-kills-at-least-five", "date": "2026-10-03", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.reuters.com/world/middle-east/israeli-strike-kills-four-people-gaza-medics-say-2026-10-02/", "date": "2026-10-02", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Действующее в Газе прекращение огня нарушено внутри окна: удар по жилому дому в Газе 03.10 (не менее 5 погибших) и удар 02.10 (4 погибших). Требование «соблюдаемое в течение всего окна без нарушений» не выполнено — значение 0."
+    },
+    "D8.2": {
+      "covered": false,
+      "note": "Подписанных мирных договорённостей и верифицируемых схем разведения сил в окне 28.09–04.10 не зафиксировано: переговоры по Газе, Украине и Ливану продолжаются без подписания."
+    },
+    "D8.3": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.securitycouncilreport.org/monthly-forecast/2026-10/lebanon-40.php", "date": "2026-10-01", "cluster": "C-registries", "type": "secondary", "state_affiliated": false },
+        { "url": "https://italytelegraph.com/posts/italy-takes-command-new-plan-to-monitor-lebanons-demilitarized-border", "date": "2026-10-04", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Международное наблюдение действует, но без новых верификационных схем: обзор СБ ООН по Ливану на октябрь (01.10) фиксирует режим прекращения огня и мандат наблюдения, 04.10 объявлен план под командованием Италии по контролю демилитаризованной границы — уровень 1 из 3."
+    },
+    "D8.4": {
+      "covered": false,
+      "note": "Устойчивого снижения интенсивности ≥3 окон подряд не подтверждено: в окне продолжались российские удары по инфраструктуре Украины (мосты в Киеве 28.09–02.10), удары по Газе, бои в Судане и Эфиопии — режимы нарушались."
+    },
+    "D9.1": {
+      "covered": false,
+      "note": "Проверяемых сигналов медицинской подготовки (нетипичные закупки раневых препаратов, запасы крови и плазмы, расширение коечного фонда) в открытом окне не найдено."
+    },
+    "D9.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.reuters.com/business/russia-puts-german-retailer-metros-assets-under-temporary-administration-amid-2026-09-28/", "date": "2026-09-28", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://apnews.com/article/russia-kremlin-metro-germany-ukraine-3c9e1ffc85eec2a448ca2dbc2ef4147b", "date": "2026-09-28", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "28.09 Путин передал активы немецкой сети Metro AG в России под временное управление — разовый акт отзыва/отчуждения активов иностранной компании на фоне войн. Иных мер финансовой изоляции (капконтроль, приостановка выплат по долгу, военные займы, экспортные запреты) в окне не зафиксировано — уровень 1 из 3."
+    },
+    "D9.3": {
+      "covered": false,
+      "note": "Скачков war risk premium, отзыва страхового покрытия, массовой отмены рейсов или закрытия воздушного пространства, датированных именно окном 28.09–04.10, в проверяемых открытых публикациях не найдено (единственный найденный обзор от 08.09 — вне окна)."
+    },
+    "D9.4": {
+      "covered": false,
+      "note": "Аномальных закупок в госрезервы, круглосуточных режимов ВПК или мобилизационных заказов в окне нет; G7 02.10 наоборот объявил о выпуске 100 млн баррелей нефти и дизеля из резервов для сдерживания цен."
+    },
+    "D9.5": {
+      "covered": false,
+      "note": "Изменений возраста и категорий призыва, расширения списков военнообязанных или ограничений выезда для специалистов в окне 28.09–04.10 не обнаружено."
+    },
+    "D9.6a": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.reuters.com/legal/litigation/turkish-court-orders-access-ban-popular-news-portal-over-lgbtq-propaganda-2026-09-30/", "date": "2026-09-30", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://europeanjournalists.org/blog/2026/10/01/turkey-istanbul-court-shuts-down-independent-news-site-t24/", "date": "2026-10-01", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "30.09 турецкий суд распорядился о закрытии независимого новостного сайта T24 (отключение сайта и аккаунтов) — усиление цензуры и информационного контроля. Иных мер информационного суверенитета (фильтрация сети, замена ПО, помехи GPS) в окне не зафиксировано — уровень 1 из 3."
+    },
+    "D9.6b": {
+      "covered": false,
+      "note": "Эвакуации семей дипломатов и чиновников, отзыва студентов и специалистов или вывоза архивов в окне нет; разрыв связей Эритреи и Эфиопией 01.10 — высылка дипломатов, а не эвакуация элит."
+    },
+    "D9.7": {
+      "covered": false,
+      "note": "Снятия «тихих» мер (отмена капконтроля, возврат дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам) в окне 28.09–04.10 не зафиксировано."
+    }
+  },
+  "driverConfidence": {
+    "D7": { "level": "medium", "reason": "Покрыто 3/4: D7.4 подтверждён двумя источниками (вывод США из Ирака), D7.1 — только планы ввода, D7.2 — один прошедший проверку источник (дрон над Латвией), D7.3 не покрыт." },
+    "D8": { "level": "medium", "reason": "Покрыто 2/4 (ровно на пороге §4.2): D8.1 = 0 из-за нарушений перемирия в Газе, D8.3 = 0.33 по двум независимым кластерам; D8.2 и D8.4 без сигналов." },
+    "D9": { "level": "medium", "reason": "Покрыто 2/8 подгрупп (D9.2, D9.6a), обе сигналящие — только 1 соседняя подгруппа, поэтому короборация 0.5; D9.1/D9.3/D9.4/D9.5/D9.6b/D9.7 без сигналов, уровень high невозможен (§4.3.1)." }
+  },
+  "regions": [
+    {
+      "region": "middle-east",
+      "observation": { "ru": "Перемирие в Газе нарушено внутри окна: удары Израиля по жилым домам 02.10 и 03.10, погибли как минимум 9 человек.", "en": "The Gaza ceasefire was violated inside the window: Israeli strikes on residential buildings on 02.10 and 03.10 killed at least nine people." },
+      "why": { "ru": "Нарушение действующего режима — прямое опровержение деэскалационного критерия D8.1 за эту неделю.", "en": "Violations of the standing regime directly refute the de-escalation criterion D8.1 for this week." },
+      "contribution": "medium",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/3/israeli-air-attack-on-gaza-city-apartment-kills-at-least-five", "date": "2026-10-03", "cluster": "B-state-media" },
+        { "url": "https://www.reuters.com/world/middle-east/israeli-strike-kills-four-people-gaza-medics-say-2026-10-02/", "date": "2026-10-02", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "europe",
+      "observation": { "ru": "Дрон, вошедший в воздушное пространство Латвии, перехвачен истребителями NATO (02.10); на фоне выборов в Латвии отмечен рост нарушений воздушного пространства и гибридных угроз.", "en": "A drone that entered Latvian airspace was intercepted by NATO fighters (02.10); Latvia's election week saw a rise in airspace incursions and hybrid threats." },
+      "why": { "ru": "Атака/угроза объекту страны NATO — единственный подтверждённый в окне сигнал D7.2 о событиях за пределами основного театра.", "en": "An attack/threat against a NATO country is the only window-confirmed D7.2 signal of events beyond the main theatre." },
+      "contribution": "medium",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://cde.news/nato-baltic-air-policing-jets-shoot-down-drone-over-latvia/", "date": "2026-10-02", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "africa",
+      "observation": { "ru": "Эритрея разорвала дипломатические отношения с Эфиопией (01.10) после взаимных высылок дипломатов; Египет объявил персоной нон грата дипломата Эфиопии.", "en": "Eritrea severed diplomatic ties with Ethiopia (01.10) after tit-for-tat diplomat expulsions; Egypt declared an Ethiopian diplomat persona non grata." },
+      "why": { "ru": "Дипломатический разрыв в регионе, где идёт война в Тыгае, повышает риск прямого вовлечения соседей.", "en": "A diplomatic rupture in a region already at war in Tigray raises the risk of direct neighbouring involvement." },
+      "contribution": "medium",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/1/eritrea-severs-diplomatic-ties-with-ethiopia-in-tit-for-tat-move", "date": "2026-10-01", "cluster": "B-state-media" }
+      ]
+    },
+    {
+      "region": "south-asia",
+      "observation": { "ru": "Пакистан 01.10 нанёс авиаудары по Афганистану, заявив о гибели 22 боевиков; Кабул сообщает о 9 погибших мирных жителях в Кунаре и Гельменде.", "en": "Pakistan struck Afghanistan on 01.10, claiming 22 militants killed; Kabul reported nine civilian deaths in Kunar and Helmand." },
+      "why": { "ru": "Государственные авиаудары по территории соседа продолжают двустороннюю войну Пакистан–Афганистан без деэскалации.", "en": "State airstrikes on a neighbour sustain the Pakistan–Afghanistan war with no de-escalation." },
+      "contribution": "high",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.reuters.com/world/asia-pacific/pakistani-airstrikes-afghanistan-kill-nine-kabul-says-2026-10-01/", "date": "2026-10-01", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "north-america",
+      "observation": { "ru": "Пентагон 30.09 подтвердил полное завершение вывода войск из Ирака — завершено 23-летнее присутствие США.", "en": "The Pentagon confirmed on 30.10... (30.09) the completed withdrawal of US troops from Iraq, ending a 23-year presence." },
+      "why": { "ru": "Крупнейшее деэскалационное событие недели: выход третьих сторон из конфликта (D7.4, уровень 3).", "en": "The week's largest de-escalation event: withdrawal of a third party from the conflict (D7.4, level 3)." },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.theguardian.com/us-news/2026/sep/30/pentagon-formal-withdrawal-troops-iraq", "date": "2026-09-30", "cluster": "A-mainstream" },
+        { "url": "https://www.cnn.com/2026/09/30/middleeast/us-military-withdrawal-iraq-intl", "date": "2026-09-30", "cluster": "A-mainstream" }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "theguardian-com-pentagon-withdrawal-iraq",
+      "title": { "ru": "Пентагон сообщает о формальном завершении вывода войск США из Ирака", "en": "Pentagon says it has formally completed withdrawal of US troops from Iraq" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/us-news/2026/sep/30/pentagon-formal-withdrawal-troops-iraq",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnn-com-us-troops-complete-iraq-exit",
+      "title": { "ru": "Войска США завершили выход из Ирака, Иран и его союзники празднуют", "en": "US troops complete Iraq exit, as Iran and its allies celebrate" },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/09/30/middleeast/us-military-withdrawal-iraq-intl",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "ynetnews-com-saudi-yemen-offensive-bab-el-mandeb",
+      "title": { "ru": "Саудовская Аравия планирует наступление в Йемене силами до 100 тыс. человек для возврата Баб-эль-Мандеба у хуситов", "en": "Saudi Arabia plans 100,000-troop Yemen offensive to retake Bab el-Mandeb from Houthis" },
+      "domain": "ynetnews.com",
+      "url": "https://www.ynetnews.com/article/bjxod8tcfe",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "siasat-com-saudi-houthi-bab-el-mandeb-offensive",
+      "title": { "ru": "Саудовская Аравия планирует наступление на хуситов для возврата Баб-эль-Мандеб", "en": "Saudi Arabia plans Houthi offensive to retake Bab el-Mandeb" },
+      "domain": "siasat.com",
+      "url": "https://www.siasat.com/saudi-arabia-plans-houthi-offensive-to-retake-bab-el-mandeb-3551859/",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cde-news-nato-intercept-drone-latvia",
+      "title": { "ru": "Истребители NATO перехватывают угрозу дрона в воздушном пространстве Латвии", "en": "NATO Fighter Jets Intercept Drone Threat Over Latvia" },
+      "domain": "cde.news",
+      "url": "https://cde.news/nato-baltic-air-policing-jets-shoot-down-drone-over-latvia/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-com-gaza-city-apartment-strike",
+      "title": { "ru": "Воздушная атака Израиля на жилой дом в Газе убила не менее пяти человек", "en": "Israeli air attack on Gaza City apartment kills at least five" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/3/israeli-air-attack-on-gaza-city-apartment-kills-at-least-five",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "reuters-com-israeli-strike-gaza-2026-10-02",
+      "title": { "ru": "Удар Израиля по Газе убил четырёх человек, сообщают медики", "en": "Israeli strike kills four people in Gaza, medics say" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/middle-east/israeli-strike-kills-four-people-gaza-medics-say-2026-10-02/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-com-turkey-court-access-ban-t24",
+      "title": { "ru": "Турецкий суд распорядился заблокировать популярный новостный портал под предлогом «LGBT-пропаганды»", "en": "Turkish court orders access ban on popular news portal over LGBTQ propaganda" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/legal/litigation/turkish-court-orders-access-ban-popular-news-portal-over-lgbtq-propaganda-2026-09-30/",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "europeanjournalists-org-turkey-t24-shutdown",
+      "title": { "ru": "Турция: стамбульский суд закрыл независимое новостное издание T24", "en": "Turkey: Istanbul court shuts down independent news site T24" },
+      "domain": "europeanjournalists.org",
+      "url": "https://europeanjournalists.org/blog/2026/10/01/turkey-istanbul-court-shuts-down-independent-news-site-t24/",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "securitycouncilreport-org-lebanon-october-2026-forecast",
+      "title": { "ru": "Ливан: месячный прогноз Совета Безопасности на октябрь 2026", "en": "Lebanon, October 2026 Monthly Forecast" },
+      "domain": "securitycouncilreport.org",
+      "url": "https://www.securitycouncilreport.org/monthly-forecast/2026-10/lebanon-40.php",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "italytelegraph-com-italy-lead-lebanon-monitoring",
+      "title": { "ru": "Италия возглавит миссию ООН в Ливане: новый план контроля демилитаризованной границы", "en": "Italy to Lead UN Lebanon Mission: Border Control Plan 2026" },
+      "domain": "italytelegraph.com",
+      "url": "https://italytelegraph.com/posts/italy-takes-command-new-plan-to-monitor-lebanons-demilitarized-border",
+      "publication_date": "2026-10-04",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-com-russia-metro-temporary-administration",
+      "title": { "ru": "Россия передала активы немецкой сети Metro под временное управление", "en": "Russia puts German retailer Metro's assets under temporary administration" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/russia-puts-german-retailer-metros-assets-under-temporary-administration-amid-2026-09-28/",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "apnews-com-russia-kremlin-metro-germany",
+      "title": { "ru": "Путин перевёл российские активы Metro AG под временное управление Кремля", "en": "Putin places Metro AG's Russian assets under temporary administration" },
+      "domain": "apnews.com",
+      "url": "https://apnews.com/article/russia-kremlin-metro-germany-ukraine-3c9e1ffc85eec2a448ca2dbc2ef4147b",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-com-eritrea-severs-ties-ethiopia",
+      "title": { "ru": "Эритрея разрывает дипломатические отношения с Эфиопией в ответ на высылку дипломатов", "en": "Eritrea severs diplomatic ties with Ethiopia in tit-for-tat move" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/1/eritrea-severs-diplomatic-ties-with-ethiopia-in-tit-for-tat-move",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "reuters-com-pakistan-airstrikes-afghanistan",
+      "title": { "ru": "Удары Пакистана по Афганистану убили девять человек, заявляет Кабул", "en": "Pakistani airstrikes in Afghanistan kill nine, Kabul says" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/pakistani-airstrikes-afghanistan-kill-nine-kabul-says-2026-10-01/",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    }
+  ]
+}
