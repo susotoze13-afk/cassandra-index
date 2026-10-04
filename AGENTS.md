@@ -34,12 +34,15 @@
 ## Структура
 
 ```
-index.html                единственная страница; RU-разметка hero в HTML
+index.html                единственная страница; RU-разметка hero в HTML; блок
+                          «История и источники» скрыт (секция #sources и ссылка
+                          навигации удалены — пинит tests/page-structure.test.js)
 privacy.html              политика приватности
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
-                          region, render, sections/* (8 секций), share, demo, ui, criteria,
+                          region, render, sections/* (8 зарегистрированных секций, на
+                          странице видимых 7 — history скрыта), share, demo, ui, criteria,
                           sections/feedback (форма обратной связи)
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
@@ -72,7 +75,7 @@ docs/adr/                 зафиксированные архитектурн�
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           28 файлов, node --test
+tests/*.test.js           29 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -110,6 +113,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `week/latest/listWeeks`; битый снапшот → `unavailable` + событие.
 - `js/criteria.js` — статический `CRITERIA_LIST` (45 критериев: id, драйвер, RU/EN название
   и описание; порядок = Object.keys(engine.CRITERIA), паритет пинит tests/methodology-criteria.test.js).
+- `js/sections/history.js` — модуль скрытой секции «История и источники»: регистрация 'history'
+  в js/render.js сохранена, но хоста `[data-section="history"]` в index.html нет — render()
+  при пустом DOM обновляет только футер «Следующая публикация» (`[data-role="footer-next"]`,
+  §9 R62.1). Чистые швы: `nextPublication`, `publicationLabel`, `methodologyNote`,
+  `DEMO_REVIEWS`, `reviewFor`. Тесты модуля (tests/history.test.js) сохранены.
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
   список 45 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
@@ -137,7 +145,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   append в data/audit.jsonl (recalc, flash).
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
   (document.write — fetch на file:// невозможен) → `js/app.js` init → `render.renderAll`
-  по 8 зарегистрированным секциям. Сайт не знает про calc/ — читает только data/.
+  по 8 зарегистрированным секциям (на странице видимых 7: «История и источники»
+  скрыта — её render при отсутствии хоста обновляет только футер «Следующая
+  публикация»). Сайт не знает про calc/ — читает только data/.
 - События document: `ci:ready`, `ci:datastate`, `ci:regionchange`, `ci:demo`.
 - Шов для тестов — чистые функции: `calc/engine.js`, `calc/linkcheck.js` (поддельный
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
@@ -172,7 +182,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (28 файлов, 268 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (29 файлов, 269 passed / 0 fail — подтверждено прогоном
 2026-10-04). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
@@ -183,7 +193,8 @@ insufficient-публикация (classifyPublication, nextChainState): `tests/
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
 отсечение точек v1 на тренде и подпись v2 (selectMethodology, summaryTextV2):
-`tests/trend.test.js`.
+`tests/trend.test.js`; состав разметки страницы (отсутствие скрытой секции #sources
+и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`.
 
 ## Подводные камни
 
@@ -268,6 +279,12 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   капча с серверным ключом (Turnstile/reCAPTCHA) не сделана — требует аккаунта владельца.
 - Отсутствующая возможность — не повод ставить пакет: возвращай BLOCKED с описанием,
   оркестратор решит.
+- Футер «Следующая публикация» живёт в модуле js/sections/history.js — при скрытой
+  секции «История и источники» модуль и его регистрация в js/render.js не удаляются:
+  render() без хоста `[data-section="history"]` обновляет только `[data-role="footer-next"]`.
+- В тексте методологии (`method.fpfn.3` в js/i18n.js) осталось упоминание скрытого
+  раздела «История и источники» — известная недействительная ссылка, намеренно не правлена
+  (словарь в этом прогоне не чистился).
 
 ## Как здесь работает Autopilot
 
