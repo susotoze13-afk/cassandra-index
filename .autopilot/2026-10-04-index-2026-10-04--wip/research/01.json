@@ -1,0 +1,421 @@
+{
+  "group": "01",
+  "window": { "from": "2026-09-28", "to": "2026-10-04" },
+  "criteria": {
+    "D1.1": {
+      "covered": true,
+      "events": [0.5],
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "Контингент НОАК прибыл в Россию для участия в учениях «Центры-2026» — наземная переброска иностранных войск к театру военных действий; других подтверждённых перебросок войск в окне не найдено."
+    },
+    "D1.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "Учения «Центры-2026» с участием китайского контингента — расширение состава и международного охвата учений; нет данных о рекордном масштабе или близости к границам НАТО в окне."
+    },
+    "D1.3": {
+      "covered": false,
+      "note": "Сигналов наращивания военной логистики (склады БК, полевые госпитали, переправы) в окне не найдено; сведения о бюджете-2027 — экономика, а не полевая логистика."
+    },
+    "D1.4": {
+      "covered": true,
+      "events": [1.0, 0.5],
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-war-briefing-russia-pounds-power-grid-with-seven-killed-in-biggest-energy-attack-in-months",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.hindustantimes.com/world-news/ukraine-attacks-major-russian-refinery-and-oil-pipeline-hub-with-drones-in-samara-region-101790959628787.html",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "Крупнейшая атака на энергосеть Украины за месяцы, 7 погибших (01.10), и массовые украинские удары дронами по НПЗ и нефтепроводному узлу в Самарской/Волгоградской областях (02.10); непрерывные удары по мостам Киева — контекст той же недели."
+    },
+    "D1.5": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/diplomacy/article/3369666/us-deploy-nmesis-anti-ship-system-japanese-island-closest-taiwan-first-time",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "США впервые развёртывают противокорабельную систему NMESIS на японском острове, ближайшем к Тайваню — переброска ударных систем в западной части Тихого океана; ядерная инфраструктура и подводные группы в окне не фиксировались."
+    },
+    "D1.6": {
+      "covered": false,
+      "note": "Подтверждённого разведения войск или вывода из позиций в окне нет; сигналы возможного энергетического перемирия относятся к 14–22.09, вне окна."
+    },
+    "D5.1": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/sep/30/ukraine-war-briefing-nato-condemns-moscows-irresponsible-nuclear-rhetoric-as-strikes-on-kyiv-intensify",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/09/30/ukraine-war-russia-nato-nuclear-kyiv.html",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "НАТО публично осуждает «безответственную ядерную риторику» Москвы на фоне нарастающих ударов по Киеву и атак на дата-центры; официальные заявления РФ по «всем видам оружия» и доктрине авиаударов усиливают язык неизбежности."
+    },
+    "D5.2": {
+      "covered": false,
+      "note": "В окне не найдено атрибутированных конфликтующей стороне кибератак на критическую инфраструктуру; все найденные материалы об атаках датированы августом 2026 и раньше."
+    },
+    "D5.3": {
+      "covered": false,
+      "note": "В окне нет отчётов проверенных аналитических центров о координированных дезинформационных кампаниях, разворачиваемых в преддверии действий."
+    },
+    "D5.4": {
+      "covered": false,
+      "note": "Снижения уровня военной пропаганды, закрытия каналов разжигания или публичных опровержений эскалационных нарративов в окне не зафиксировано."
+    },
+    "D6.1": {
+      "covered": false,
+      "note": "Новых законов о военном положении или мобилизации в окне нет (продление Радой ВП до 31.10 принято 14.07, вне окна); единственные в-окне материалы о призыве (sud.ua, ukrmedia.news) не открываются из проверочной среды — таймаут, цитировать нельзя."
+    },
+    "D6.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        {
+          "url": "https://www.yahoo.com/news/world/articles/kyivs-bomb-shelters-dire-state-172646250.html",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "Материал о состоянии сети киевских убежищ: только 2% населения размещаются в более защищённых помещениях, выделено финансирование на строительство и ремонт, прогресс медленный; массовой эвакуации и учений ГО необычного масштаба в окне нет."
+    },
+    "D6.3": {
+      "covered": true,
+      "value": 1,
+      "sources": [
+        {
+          "url": "https://finance.yahoo.com/economy/policy/articles/russia-plans-27-increase-military-135647070.html",
+          "date": "2026-09-30",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "note": "Проект бюджета РФ на 2027 год, внесённый в Госдуму 30.09: 17,1 трлн руб. на военные расходы (+27% к уточнённому плану, ~35% бюджета) — крупнейшие в истории военные госзаказы, рост налогов и заимствований на военные цели."
+    },
+    "D6.4": {
+      "covered": false,
+      "note": "Отмены мобилизационных мер, возврата эвакуированных или перевода на гражданские режимы в окне не зафиксировано."
+    }
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "medium",
+      "reason": "Покрыто 4/6 (D1.3 и D1.6 без сигналов в окне) — выше порога 0.5; часть событий опирается на один источник (SCMP) для D1.1/D1.2."
+    },
+    "D5": {
+      "level": "low",
+      "reason": "Покрыто 1/4 (D5.2, D5.3, D5.4 без подтверждённых сигналов в окне) — ниже порога 0.5, агрегация драйвера может дать null."
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "Покрыто 2/4 (D6.1 и D6.4 — новых решений в окне нет) — ровно на пороге 0.5; D6.3 опирается на один финансовый источник."
+    }
+  },
+  "regions": [
+    {
+      "region": "europe",
+      "observation": {
+        "ru": "В окне участились гибридные инциденты на территории Европы: Эстония впервые публично возложила на Россию поджог завода дронов, поставляющих Украине; в Финляндии взломы в домах парламентариев связывают с иностранной державой.",
+        "en": "Hybrid incidents inside Europe intensified in the window: Estonia publicly blamed Russia for an arson attack on a drone maker supplying Ukraine; break-ins at Finnish MPs' homes were linked to a foreign power."
+      },
+      "why": {
+        "ru": "Прямые атаки на военное производство и политиков в странах НАТО повышают риск прямого столкновения и ответных мер.",
+        "en": "Direct attacks on defense production and politicians inside NATO countries raise the risk of direct confrontation and countermeasures."
+      },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/sep/29/estonia-blames-russia-arson-attack-drone-maker-ukraine",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/oct/01/finland-suspected-break-ins-mp-homes-foreign-power",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    {
+      "region": "north-america",
+      "observation": {
+        "ru": "США через G7 инициируют выброс 100 млн баррелей нефти и дизеля из стратегических резервов из-за топливного кризиса, вызванного войной; Трамп давит на Европу с угрозой запрета экспорт дизеля, одновременно критикуя удары Украины по российским НПЗ.",
+        "en": "The US initiated a G7 release of 100 million barrels of oil and diesel from strategic reserves over a war-driven fuel crisis; Trump pressured Europe with a diesel export ban threat while criticizing Ukraine's strikes on Russian refineries."
+      },
+      "why": {
+        "ru": "Дефицит дизеля и вовлечённость Белого дома в энергетическое давление показывают трансатлантическое влияние войны на экономику и политику США.",
+        "en": "The diesel crunch and White House involvement in energy pressure show the war's transatlantic economic and political impact on the US."
+      },
+      "contribution": "medium",
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/live/2026/oct/02/france-schools-protests-violence-ukraine-kallas-rome-pope-latest-news-updates",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-russian-oil-refinery-strikes-defying-trump-fuel-price-warnings",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    {
+      "region": "east-asia",
+      "observation": {
+        "ru": "Восточная Азия: США впервые развёртывают ПКР NMESIS на японском острове у Тайваня, КНДР испытала ракету средней дальности, Китай направляет военных на российские учения «Центры-2026» — одновременное укрепление трёх военных осей.",
+        "en": "East Asia: the US deployed NMESIS anti-ship missiles on a Japanese island near Taiwan for the first time, North Korea test-fired an intermediate-range missile, and China sent troops to Russia's Tsentr-2026 exercises — simultaneous hardening of three military axes."
+      },
+      "why": {
+        "ru": "Одновременное усиление развёртываний и ракетных испытаний в регионе повышает фоновую напряжённость вокруг Тайваня и Корейского полуострова.",
+        "en": "Simultaneous deployments and missile tests raise background tension around Taiwan and the Korean peninsula."
+      },
+      "contribution": "medium",
+      "confidence": "high",
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/diplomacy/article/3369666/us-deploy-nmesis-anti-ship-system-japanese-island-closest-taiwan-first-time",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.scmp.com/news/asia/east-asia/article/3369665/north-korea-test-fires-intermediate-range-missile-amid-mine-blast-tensions",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "scmp-china-troops-tsentr-2026",
+      "title": {
+        "ru": "Китайские военные выстроились на учения «Центры-2026» России по мере укрепления военных связей",
+        "en": "Chinese troops line up for Russia's Tsentr-2026 exercise as military ties tighten"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-nmesis-japan-island",
+      "title": {
+        "ru": "США впервые развёртывают противокорабельную систему NMESIS на японском острове, ближайшем к Тайваню",
+        "en": "US to deploy NMESIS anti-ship system on Japanese island closest to Taiwan for first time"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/diplomacy/article/3369666/us-deploy-nmesis-anti-ship-system-japanese-island-closest-taiwan-first-time",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-north-korea-irmb-test",
+      "title": {
+        "ru": "КНДР провела испытание ракеты средней дальности на фоне напряжённости из-за взрыва в шахте",
+        "en": "North Korea test-fires intermediate-range missile amid mine blast tensions"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/asia/east-asia/article/3369665/north-korea-test-fires-intermediate-range-missile-amid-mine-blast-tensions",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-power-grid-attack",
+      "title": {
+        "ru": "Сводка войны в Украине: Россия обрушилась на энергосеть, семь погибших — крупнейшая атака за месяцы",
+        "en": "Ukraine war briefing: Russia pounds power grid with seven killed in biggest energy attack in months"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-war-briefing-russia-pounds-power-grid-with-seven-killed-in-biggest-energy-attack-in-months",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "hindustantimes-samara-refinery-drones",
+      "title": {
+        "ru": "Украина атаковала дронами крупный российский НПЗ и узел нефтепроводов в Самарской области",
+        "en": "Ukraine attacks major Russian refinery and oil pipeline hub with drones in Samara region"
+      },
+      "domain": "hindustantimes.com",
+      "url": "https://www.hindustantimes.com/world-news/ukraine-attacks-major-russian-refinery-and-oil-pipeline-hub-with-drones-in-samara-region-101790959628787.html",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-nato-nuclear-rhetoric",
+      "title": {
+        "ru": "Сводка: НАТО осуждает «безответственную ядерную риторику» Москвы, пока удары по Киеву нарастают",
+        "en": "Ukraine war briefing: Nato condemns Moscow's 'irresponsible nuclear rhetoric' as strikes on Kyiv intensify"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/sep/30/ukraine-war-briefing-nato-condemns-moscows-irresponsible-nuclear-rhetoric-as-strikes-on-kyiv-intensify",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbc-kyiv-datacenters-nuclear-rhetoric",
+      "title": {
+        "ru": "Россия атакует дата-центры в Киеве на фоне осуждения НАТО ядерной риторики Москвы",
+        "en": "Russia targets data centers in Kyiv as NATO condemns Moscow's 'irresponsible nuclear rhetoric'"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/09/30/ukraine-war-russia-nato-nuclear-kyiv.html",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "yahoo-finance-russia-military-spending-2027",
+      "title": {
+        "ru": "Россия планирует увеличение военных расходов на 27% в 2027 году",
+        "en": "Russia Plans 27% Increase in Military Spending in 2027"
+      },
+      "domain": "finance.yahoo.com",
+      "url": "https://finance.yahoo.com/economy/policy/articles/russia-plans-27-increase-military-135647070.html",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "yahoo-kyiv-bomb-shelters-dire",
+      "title": {
+        "ru": "Киевские бомбоубежища в плачевном состоянии: мэр Кличко перекладывает вину",
+        "en": "Kyiv's bomb shelters are in a dire state. Mayor Klitschko is passing on the blame"
+      },
+      "domain": "yahoo.com",
+      "url": "https://www.yahoo.com/news/world/articles/kyivs-bomb-shelters-dire-state-172646250.html",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-estonia-russia-arson",
+      "title": {
+        "ru": "Эстония обвиняет Россию в поджоге завода дронов, поставляющих Украине",
+        "en": "Estonia blames Russia for arson attack on drone maker supplying Ukraine"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/sep/29/estonia-blames-russia-arson-attack-drone-maker-ukraine",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-finland-mp-break-ins",
+      "title": {
+        "ru": "Премьер Финляндии: взломы в домах депутатов могла совершить иностранная держава",
+        "en": "Finnish PM says suspected break-ins at MPs' homes could be work of foreign power"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/finland-suspected-break-ins-mp-homes-foreign-power",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-ukraine-refinery-strikes-defying-trump",
+      "title": {
+        "ru": "Украина продолжает удары по российским НПЗ, несмотря на предупреждения Трампа о ценах на топливо",
+        "en": "Ukraine persists with Russian oil refinery strikes in defiance of Trump"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-russian-oil-refinery-strikes-defying-trump-fuel-price-warnings",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-g7-reserves-diesel-live",
+      "title": {
+        "ru": "Г7 выпустит 100 млн баррелей из резервов для сдерживания роста цен на дизель — хроника",
+        "en": "G7 to release 100m barrels from reserves to combat surging diesel prices - as it happened"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/live/2026/oct/02/france-schools-protests-violence-ukraine-kallas-rome-pope-latest-news-updates",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    }
+  ]
+}
