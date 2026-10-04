@@ -1,0 +1,510 @@
+ Storm-1516 operation targets the Baltic states  - DFRLab 
+ Research 
+ Policy 
+ Events 
+ Training + Resources 
+ About 
+ Trending Topics 
+ Election Coverage 
+ Pravda Network 
+ Ukraine 
+ Middle East 
+ Research 
+ Policy 
+ Events 
+ Training + Resources 
+ About 
+ Election Coverage 
+ Pravda Network 
+ Ukraine 
+ Middle East 
+ September 17, 2026 
+ Storm-1516 operation targets the Baltic states  
+ by 
+ Nika Aleksejeva 
+ Operation publicly attributed to Russia’s military intelligence attempts to undermine international trust in the Baltic states’ ability to defend itself and support Ukraine. 
+ September 17, 2026 
+ Storm-1516 operation targets the Baltic states  
+ by 
+ Nika Aleksejeva 
+ Share this story 
+ <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdfrlab.org%2F2026%2F09%2F17%2Fstorm-1516-operation-targets-the-baltic-states%2F#"
+ title="Share on Facebook"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__facebook">
+ <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdfrlab.org%2F2026%2F09%2F17%2Fstorm-1516-operation-targets-the-baltic-states%2F&text=Storm-1516 operation targets the Baltic states &via=AtlanticCouncil"
+ title="Share on Twitter"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__twitter">
+ <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://dfrlab.org/2026/09/17/storm-1516-operation-targets-the-baltic-states/"
+ title="Share on LinkedIn"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__linkedin">
+ Print Article 
+ THE FOCUS 
+ Disinformation 
+ Foreign Information Manipulation and Interferences (FIMI) 
+ Instagram 
+ Technology & Innovation 
+ TikTok 
+ Twitter 
+ <img src="https://dfrlab.org/wp-content/uploads/sites/3/2026/09/DFRLab-Storm-1516-Cover-.jpg" 
+ class="gta-horizontal-featured--img"
+ alt="Storm-1516 operation targets the Baltic states " >
+ (Illustration by DFRLab) 
+ In August 2026, X accounts that had been previously connected to Russian propagandist group Storm-1516&#8217;s information manipulation set (IMS), initiated or joined in spreading four falsehoods about the Baltic states. The campaign displayed signatory patterns characteristic of those that have been attributed to the Main Intelligence Directorate (GRU), Russia’s military intelligence agency. Namely, the identified accounts cloned websites and logos of reputable media outlets to promote the identified falsehoods. 
+ The earliest identified posts by Storm 1516-affiliated X accounts that introduced the falsehoods about the Baltic states. (Source: @ROYALMRBADNEWS / archive , left; @camaradamachado / archive , middle; @ROYALMRBADNEWS / archive , right) 
+ According to Clemson University Media Forensics Hub, the US-based research center that first spotted the activity, the operation has been active since August 2024, and has been monitored since the end of 2023. Dubbed Storm-1516 in September 2024, the operation&#8217;s technical links, such as web infrastructure, have ties to the individuals, organizations, and IMS of project Lakhta–a large Russian cyber warfare and disinformation operation, led by now deceased Yevgeny Prigozhin. Prigozhin was behind the Wagner mercenary group and the Internet Research Agency (IRA), also known as the Peterburg&#8217;s Troll Farm. Many disinformation research collectives have spotted Storm-1516&#8217;s attempts to undermine Western support of Ukraine, meddle in elections in the US , Moldova , Armenia , France , Germany , and promote Russia as human rights advocate abroad. 
+ The fact that the Baltic states were a current target of the Storm-1516 is a worrying signal in the context of growing anxiety among NATO countries about possible Russian preparations for a hybrid warfare operation to test NATO’s resolve. On August 25, Central Intelligence Agency (CIA) Director John Ratcliffe reportedly visited Moscow to warn Russian officials against attacking NATO countries. That same day, new decrees signed by Russian President Vladimir Putin appeared on Russia’s official legal information portal. The numbering skipped three decrees, suggesting that Putin had also signed three classified decrees that were not published. The timing prompted speculation that the secret decrees might relate to Russian military planning against NATO. 
+ Two days later, this perception of potential Russian action was heightened when Belarusian President Aleksander Lukashenka went to Moscow to meet with Putin on August 29 to discuss “ security matters .” Donald Tusk, the Polish prime minister, stated that “Russia [is] very seriously preparing to escalate tensions, both in its war against Ukraine and across the region.” Finnish President Alexander Stubb played down the worries on August 31 by reportedly stating that “Moscow’s attempts to probe the alliance as ‘more like teasing’ than preparation for war.” The leaders of Latvia, Estonia, and Lithuania emphasized that the threat level from Russia had not changed. 
+ This context provides the backdrop for the four Storm-1516 campaigns. The operations targeted the Baltic states from July 30 until August 17. Two campaigns used clones of reputable media outlets to claim that the presidents of Estonia and Lithuania were involved in Epstein’s human trafficking ring and that debris from a downed Ukrainian drone caused damage to two Portuguese Air Force F-16 Fighting Falcon fighter jets. Both campaigns also spread videos promoting the falsehoods that were labeled with reputable media logos. Similarly, a campaign falsely claiming that a Ukrainian soldier opened fire during a Baltic Trust 26 military exercise–killing three NATO troops and then himself–used a video with Euronews logo on it. The fourth campaign used X’s Grok Imagine video-generation tool to create a short video from a photo of a Latvian soldier. The video falsely claimed that only twenty-five percent of young men called up for military service report as required. Latvian media reported that approximately two-thirds of those who receive conscription notices attend the required medical examination. Two of the falsehoods were already debunked by fact-checking outlets like Propastop in Estonia and by the Latvian Ministry of Defense . For the two other falsehoods, the DFRLab found no public rebuttal as of September 2. The falsehood about the presidents of Lithuania and Estonia received the highest relative engagement among the campaigns. 
+ Storm-1516 accounts on X launch disinformation campaigns 
+ The DFRLab identified 275 mentions across X, Telegram, Facebook, TikTok, Instagram, VKontakte, and Pravda Network webpages. Researchers collected the data using the social media monitoring tools Osavul, Junkipedia, and BuzzSumo, supplemented by advanced Google searches and the native search functions of major social media platforms used in the Baltic region. Each mention was recorded in an Excel spreadsheet and coded by username, campaign, publication time, platform, post type (original post, repost, quote post, or comment), language, active engagement (including reactions, comments, shares, and saves), views when available, and any URLs included in the post. The team structured the dataset for further analysis using Excel PivotTables and Tableau. The DFRLab’s data indicates that several X accounts previously associated with Storm-1516 seeded or amplified four campaigns targeting the Baltic states. One campaign falsely claimed that debris from a Ukrainian drone downed in Estonia had damaged two Portuguese F-16 fighter jets. The claim originated with @camaradamachado , an account belonging to Raphael Machado. It shared a video displaying The Defense Post logo and linked to a cloned version of the outlet’s website that used the .eu top-level domain in place of the legitimate .com domain. Propastop, an Estonian outlet that investigates disinformation, documented the tactic in detail. The claim was subsequently amplified by @leiroz_lucas (Lucas Leiroz), @br_resistencia (Nova Resistência), @ROYALMRBADNEWS (THE REAL DARK JUDGE), and @Mai_ASUR (Ellie). 
+ Machado is president of Nova Resistência, a Brazilian far-right organization that France’s VIGINUM has previously identified as an amplifier of Storm-1516 campaigns. Leiroz is a member of Nova Resistência and an author for several pro-Kremlin outlets, including InfoBRICS, which has reportedly been linked to Russia’s military intelligence agency, the GRU. Previous research has documented Leiroz’s recurring role in Storm-1516, including efforts to influence Moldova’s 2025 parliamentary elections. The @ROYALMRBADNEWS and @Mai_ASUR accounts have also appeared in Storm-1516 campaigns targeting elections in Armenia. 
+ Table summarizing Storm-1516 account activity on X. The publicly attributed operation accounts are in bold red font. The account that was not attributed to Storm-1516 but participated in more than one disinformation campaign, is in orange font. (Source: DFRLab via Excel) 
+ Another false claim alleged that a Ukrainian soldier had opened fire during the Baltic Trust 26 military exercise in Latvia, killing three NATO soldiers before taking his own life. The claim first appeared on @Truthtellerftm (Truth_teller) and was subsequently amplified by @ROYALMRBADNEWS . The latter account shared a video carrying the Euronews logo to create the appearance of a legitimate news report. The DFRLab found no associated clone of the Euronews website. 
+ The claim was later amplified by @TheSaviour (The Saviour) and @s2funcensored (Saviour). Both @s2funcensored and @Truthtellerftm linked to a post by @DangerousThinkg that was no longer accessible on September 2, when the DFRLab conducted its analysis. 
+ Previous investigations found that @Truthtellerftm, @ROYALMRBADNEWS, and @DangerousThinkg played prominent roles in disseminating Storm-1516 content targeting elections in Moldova and Armenia . According to VIGINUM, the two Saviour accounts and @DangerousThinkg also participated in a Storm-1516 campaign targeting the office of French President Emmanuel Macron in February 2026. 
+ Table summarizing Storm 1516 accounts’ activity on X. The publicly attributed operation accounts are in bold red font. (Source: DFRLab via Excel) 
+ A similar group of accounts seeded and amplified a false claim linking the presidents of Estonia and Lithuania to Jeffrey Epstein and his sex-trafficking network. The first five accounts to share a link to a website impersonating EUobserver, along with a video that misused the outlet’s logo, were @ROYALMRBADNEWS, @Truthtellerftm, @MmisterNobody (Mr. Nobody), @TheSaviour, and @TheQNewsPatriot (SGAnon). 
+ The @MmisterNobody post also linked to a video published by @TheWyteRabbit1 (The White Rabbit), which was no longer available when the DFRLab conducted its analysis. Previous research identified @TheWyteRabbit1 as a prominent amplifier of Storm-1516 campaigns targeting Armenia’s elections. The @MmisterNobody account also participated in the February 2026 campaign targeting French President Emmanuel Macron’s office, while @TheQNewsPatriot was among the accounts promoting a Storm-1516 campaign targeting Ukrainian President Volodymyr Zelenskyy. 
+ Table summarizing Storm-1516 accounts’ activity on X. The publicly attributed operation accounts are in bold red font. The account that was not attributed to Storm-1516 but participated in more than one disinformation campaign, is in orange font. (Source: DFRLab via Excel) 
+ The most recent Storm-1516 campaign targeting the Baltic states on X falsely claimed that only one-quarter of the young men called up for Latvia’s annual national defense service reported for the required medical examination. @BowesChay , the account of Chay Bowes, first posted the claim. Bowes is an Irish correspondent for RT, a Kremlin-controlled outlet whose broadcasting activities the European Union has suspended . The DFRLab found no other account that independently posted the claim. Previous investigations have repeatedly identified Bowes as a prominent participant in Storm-1516 campaigns targeting Moldova , Ukraine , and Germany . 
+ Amplification patterns 
+ The DFRLab analyzed 1,651 unique X accounts identified through the publicly available repost lists of original posts promoting the four false claims. Of these accounts, 105, or approximately 6.4 percent, amplified content from more than one campaign. No account amplified all four campaigns. Analysis using Excel PivotTables identified eleven accounts that amplified three of the campaigns. In each case, they reposted content published by @ROYALMRBADNEWS. 
+ List of accounts that reposted each @ROYALMRBADNEWS post . (Source: DFRLab via Excel) 
+ The DFRLab identified a comparable cluster of forty-one accounts that amplified two false claims originally posted by @Geopolitik_2030. The DFRLab found no public research attributing @Geopolitik_2030 to Storm-1516. 
+ The two clusters described above amplified content exclusively from either @ROYALMRBADNEWS or @Geopolitik_2030. An examination of the amplifying accounts produced no conclusive evidence about their authenticity and revealed no clear indicators of coordinated inauthentic behavior. Reposts and quote posts accounted for most of their activity. 
+ The DFRLab identified two additional, mutually exclusive groups based on their amplification patterns. The first consisted of thirty-two accounts that amplified multiple false claims published by several X accounts previously attributed to Storm-1516. The second consisted of ten accounts that amplified the same false claim through posts published by at least three Storm-1516 accounts. No accounts appeared in both groups. 
+ The four campaigns and the sample analyzed provide too little evidence to determine whether Storm-1516 routinely relies on specific X accounts for amplification. The patterns nevertheless identify a subset of accounts that merits examination across additional case studies. 
+ Spread across languages and platforms 
+ The earliest posts introducing the falsehoods identified by the DFRLab appeared on X in English and were subsequently picked up by English-language Telegram accounts, with one exception: the falsehood about drone debris damaging a Portuguese fighter jet. That falsehood was first posted in Portuguese by @camaradamachado and later amplified by a single account on Instagram . The DFRLab did not identify any other posts outside X spreading the falsehood. 
+ Telegram played significant role in amplifying the falsehoods about the Lithuanian and Estonian presidents and, particularly, the alleged murder of NATO soldiers. The platform accounted for approximately forty-three percent (12 out of 28) and six percent (117 out of 194) of the posts for both falsehoods, respectively. 
+ Bar chart showing the total number of posts split by platforms. (Source: DFRLab via Tableau) 
+ Both falsehoods subsequently spread to Facebook and TikTok. The adaptation on Facebook was most notable for the falsehood about Lithuanian and Estonian presidents. Three Lithuanian-language and four English-language Facebook accounts amplified the false video, primarily by reposting it as a reel. Lithuanian-language Facebook posts garnered 423 engagements compared with 17 engagements for the English-language posts. For the falsehood about the alleged killing of NATO soldiers, Facebook and TikTok were used to share the false video as reels in English, accompanied by post text in Russian (three posts) English (one post) and Ukrainian (one post). On Facebook, these videos garnered a combined 20 engagements while three TikTok videos garnered 11 engagements. Notably, two Facebook users amplified the falsehood in the comment section. One user posted beneath articles published by two Russian-language media outlets in Latvia. The other posted under six publications from two Kazakh media outlets and one page belonging to the Press Service of the President of Kazakhstan. None of the comments garnered engagement. The limited number of posts and total engagement on both platforms suggest that neither Facebook nor TikTok were primary spaces for falsehood dissemination. 
+ In this campaign, the DFRLab detected the presence of the Pravda Network, an ongoing pro-Kremlin operation targeting large language models. Pravda’s web pages and Vkontakte accounts amplified falsehoods about killing of NATO soldiers and low conscription rates. In both cases, the network assets posted in English-targeting Latvia, Ireland and EU. Latvia, NATO, Australia and Japan were targeted in English with the falsehood about the killing of NATO soldiers. The DFRLab did not identify any other websites spreading the falsehoods examined in this study. 
+ X exhibited the greatest linguistic diversity among the platforms examined. While English was the primary language used, Portuguese featured most prominently in posts spreading the falsehood about drone debris damaging the NATO fighter jet. For other falsehoods, Russian, Spanish, Italian, French, German, Czech, Serbian, and Turkish were used when quoting an original English-language posts on X. 
+ Bar chart showing the total number of posts on X split by languages. (Source: DFRLab via Tableau) 
+ Engagement 
+ In terms of engagement–total number of reactions, comments, shares, and saves, where applicable–X generated the most traction for each of the falsehoods targeting the Baltic states. The average engagement was notably higher than median engagement, indicating that there were accounts that drew much more engagement than the rest. 
+ Bar charts comparing average number of total engagement (where applicable) with median markers across four Storm-1516 campaigns. (Source: DFRLab via Tableau) 
+ The falsehood about Lithuanian and Estonian presidents garnered the most engagement for both X and Facebook, where it was further spread in Lithuanian. 
+ Despite the large number of Telegram posts spreading the falsehoods about the Lithuanian and Estonian presidents, and the alleged killing of NATO soldiers, average views per post were significantly lower on Telegram than on X – almost 302 times lower and around 35 times lower, respectively. 
+ Bar charts comparing average number of total views (where applicable) with median markers across four Storm 1516 campaigns. (Source: DFRLab via Tableau) 
+ Conclusion 
+ The content and distribution of the four false narratives indicate that Storm-1516 sought to reach an international audience. The narratives aimed to undermine confidence in the Baltic states’ ability to defend themselves and weaken support for Ukraine’s defense against Russia. A small number of Pravda Network webpages and VKontakte accounts also directed the narratives at audiences in Australia and Japan, although neither country belongs to the EU or NATO. 
+ The operation made limited efforts to adapt the narratives into local languages. Russian-language accounts, however, actively circulated the false claim that a Ukrainian soldier had killed NATO personnel in Latvia. Latvian defense authorities subsequently refuted the claim, but the DFRLab found no evidence that its circulation in Russian had brought it to their attention. 
+ These findings demonstrate the need for cross-language monitoring of pro-Kremlin information operations. Storm-1516 can move the same narratives across national, regional, and linguistic boundaries. 
+ Cite this case study: 
+ Nika Aleksejeva, “Storm-1516 operation targets the Baltic states ,” Digital Forensic Research Lab (DFRLab), September 17, 2026, 
+ <a href="mailto:?subject=Storm-1516 operation targets the Baltic states &body=https://dfrlab.org/2026/09/17/storm-1516-operation-targets-the-baltic-states/"
+ title="Share by Email"
+ class="e-share-link e-share-link__email">
+ <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdfrlab.org%2F2026%2F09%2F17%2Fstorm-1516-operation-targets-the-baltic-states%2F#"
+ title="Share on Facebook"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__facebook">
+ <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdfrlab.org%2F2026%2F09%2F17%2Fstorm-1516-operation-targets-the-baltic-states%2F&text=Storm-1516 operation targets the Baltic states &via=AtlanticCouncil"
+ title="Share on Twitter"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__twitter">
+ <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://dfrlab.org/2026/09/17/storm-1516-operation-targets-the-baltic-states/"
+ title="Share on LinkedIn"
+ onclick="window.open(this.href,'targetWindow', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800px, height=600px'); return false;"
+ class="e-share-link e-share-link__linkedin">
+ Research 
+ Policy 
+ Events 
+ Training &#038; Resources 
+ About 
+ General Contact and Media Relations 
+ Click Here 
+ © 2026 Digital Forensic Research Lab 
+ Contact 
+ Press 
+ Careers 
+ Privacy Policy 
+ Cookie Policy 
+ Intellectual independence policy 
+ Terms and Condition of Use 
+ Hide 
+ Refine Search 
+ -->
+ Issues 
+ Advertising 
+ AI Poisoning 
+ API 
+ Arms Control 
+ Artificial Intelligence 
+ Artificial Intelligence 
+ BalticBrief 
+ Botnets 
+ Botspot 
+ Brigading 
+ BuiltWIth 
+ Business 
+ Business 
+ Business 
+ Buzzsumo 
+ Civil Society 
+ Climate Change & Climate Action 
+ Cloud Computing 
+ Clubhouse 
+ Combating Cybercrime 
+ Conflict 
+ Conflict in and through the Cyber Domain 
+ Content Moderation Policies 
+ Coronavirus 
+ Corruption 
+ COVID-19 
+ Crisis Management 
+ Critical Infrastructure Policy 
+ CrowdTangle 
+ CrowdTangle 
+ Cyber 9/12 Strategy Challenge 
+ Cyber Statecraft Initiative 
+ Cyber Strategy 
+ Cybersecurity 
+ Cybersecurity Standards and Requirements 
+ Deceptive Content Manipulation 
+ Deep Learning Processes 
+ Defense Industry 
+ Defense Policy 
+ Defense Technologies 
+ Democracy 
+ Democratic Transitions 
+ Developing the Cyber Workforce 
+ Digital Authoritarianism 
+ Digital Policy 
+ Digital Sovereignty 
+ Disinformation 
+ DNSLytics 
+ Drones 
+ Economic Issue 
+ Economic Sanctions 
+ Economy & Business 
+ Education 
+ Elections 
+ Elections 
+ Electorate 
+ Energy & Environment 
+ Energy Markets & Governance 
+ Energy Transitions 
+ Entrepreneurship 
+ Executive 
+ Extremism 
+ Facebook 
+ Financial Regulation 
+ Foreign Information Manipulation and Interferences (FIMI) 
+ Freedom and Prosperity 
+ Geolocation 
+ Geopolitics & Energy Security 
+ Gephi 
+ Gephi 
+ Google 
+ Government 
+ Government 
+ Government (Includes international governing bodies) 
+ Hacking - Data Exfiltration 
+ Hacking - DDoS 
+ Human Rights 
+ Immigration 
+ Incidents, Vulnerabilities, and Information Sharing 
+ Independent Media 
+ Influential Individual 
+ Influential Individual 
+ Influential Individuals 
+ Infrastructure Protection 
+ Instagram 
+ Intelligence 
+ International Financial Institutions 
+ International Markets 
+ International Norms 
+ International Organizations 
+ Internet 
+ Internet Governance 
+ Internet of Things 
+ Internet of Things 
+ Junk News 
+ Kompromat 
+ Legistlative 
+ Line 
+ LinkedIn 
+ Local 
+ Maritime Security 
+ Media 
+ Media 
+ Meltwater Explore 
+ Messaging Platform 
+ MeWe 
+ Migration 
+ Military Exercises 
+ Missile Defense 
+ Narrative Analysis 
+ National Security 
+ Nationalism 
+ NATO 
+ NATO Partnerships 
+ Network Mapping 
+ Non-State Political Actor 
+ Non-State Political Actor 
+ Non-State Political Actor 
+ Non-Traditional Threats 
+ Nuclear Energy 
+ Nuclear Nonproliferation 
+ Oil and Gas 
+ Online Harassment 
+ Open Source Software 
+ Open Web 
+ Operational Technology 
+ Organization - Actor 
+ Organization - Target 
+ OSCE 
+ Other 
+ Other 
+ Other 
+ Other 
+ Parler 
+ Platform 
+ Political Party 
+ Political Party 
+ Political Party 
+ Political Reform 
+ Politics & Diplomacy 
+ Populism 
+ Proliferation of Offensive Cyber Capabilities 
+ Propaganda 
+ Public Health 
+ Python 
+ Racial, Ethnic, Religious, or Sexual Identity Group 
+ Racial, Ethnic, Religious, or Sexual Identity Group 
+ Reddit 
+ Region 
+ Renewables & Advanced Energy 
+ Research Methods 
+ Research Tools 
+ Resilience 
+ Resilience 
+ Resilience & Society 
+ RiskIQ 
+ Rule of Law 
+ Search Engine Manipulation 
+ Security 
+ Security & Defense 
+ Security Partnerships 
+ Series 
+ Series and Response 
+ Signal 
+ Snapchat 
+ Social Blade 
+ Social Media 
+ Social Media Listening 
+ Sockpuppets 
+ Software Supply Chains 
+ Space 
+ State Media 
+ Tactics 
+ Technology & Innovation 
+ Telecomms and the Internet 
+ Telegram 
+ Terrorism 
+ Terrorism 
+ TGStat 
+ TGStat 
+ TikTok 
+ Topic 
+ Trade 
+ Trade and tariffs 
+ Traffic Tracking 
+ Twitter 
+ United Nations 
+ VK 
+ War Crimes 
+ Weapons Trafficking 
+ WeChat 
+ Weibo 
+ WhatsApp 
+ WhoIS 
+ Women 
+ Youth 
+ YouTube 
+ REGIONS 
+ Afghanistan 
+ Africa 
+ Algeria 
+ Americas 
+ Arctic 
+ Argentina 
+ Armenia 
+ Asia 
+ Asia Pacific 
+ Australia 
+ Azerbaijan 
+ Balkans 
+ Baltics 
+ Belarus 
+ Belarus 
+ Bolivia 
+ Brazil 
+ Brazil 
+ Bulgaria 
+ Cameroon 
+ Canada 
+ Caucasus 
+ Central Africa 
+ Central African Republic 
+ Central America 
+ Central Asia 
+ Central Europe 
+ Central Europe 
+ Chile 
+ China 
+ China 
+ Colombia 
+ Colombia 
+ Congo 
+ Cuba 
+ Czechia 
+ Denmark 
+ East Africa 
+ East Africa 
+ East Asia 
+ East Asia 
+ Eastern Europe 
+ Eastern Europe 
+ Ecuador 
+ Egypt 
+ Estonia 
+ Ethiopia 
+ Eurasia 
+ Europe 
+ Europe & Eurasia 
+ European Union 
+ European Union 
+ Finland 
+ France 
+ France 
+ Gaza 
+ General Africa 
+ Georgia 
+ Germany 
+ Germany 
+ Greece 
+ Guatemala 
+ Gulf 
+ Hong Kong 
+ Hungary 
+ India 
+ India 
+ Indo-Pacific 
+ Indonesia 
+ Iran 
+ Iran 
+ Iraq 
+ Israel 
+ Israel 
+ Italy 
+ Italy 
+ Japan 
+ Jordan 
+ Kenya 
+ Kosovo 
+ Kuwait 
+ Latin America 
+ Latin America 
+ Latvia 
+ Lebanon 
+ Lithuania 
+ Malaysia 
+ Mali 
+ Mexico 
+ Mexico 
+ Middle East 
+ Moldova 
+ Moldova 
+ Morocco 
+ Netherlands 
+ Nicaragua 
+ Niger 
+ Nigeria 
+ North & West Africa 
+ North & West Africa 
+ North & West Africa 
+ North Africa 
+ North Africa 
+ North America 
+ North Korea 
+ Northern Europe 
+ Northern Europe 
+ Northern Triangle 
+ Pakistan 
+ Pakistan 
+ Palestine 
+ Poland 
+ Qatar 
+ Romania 
+ Russia 
+ Russia 
+ Sahel 
+ Saudi Arabia 
+ Saudi Arabia 
+ Serbia 
+ Slovakia 
+ South & Central Africa 
+ South & Central Africa 
+ South Africa 
+ South Africa 
+ South America 
+ South Asia 
+ South Asia 
+ South China Sea 
+ Southeast Asia 
+ Southern & Southeastern Europe 
+ Southern & Southeastern Europe 
+ Spain 
+ SubSaharan Africa 
+ Sudan 
+ Sweden 
+ Switzerland 
+ Syria 
+ Syria 
+ Taiwan 
+ The Balkans 
+ The Balkans 
+ The Caucasus 
+ The Caucasus 
+ The Gulf 
+ The Gulf 
+ The West Bank 
+ Tunisia 
+ Turkey 
+ Turkey 
+ Uganda 
+ Uganda 
+ Ukraine 
+ Ukraine 
+ United Kingdom 
+ United Kingdom 
+ United Nations 
+ United States 
+ United States and Canada 
+ United States and Canada 
+ United States and Canada 
+ Venezuela 
+ Venezuela 
+ West Africa 
+ Western Europe 
+ Western Europe 
+ Zimbabwe 
+ Total Results {{ currentCount }}/{{ totalCount }} 
+ {{ searchResult.date }} 
+ {{ searchResult.author }} 
+ 0">
+ Related Experts: 
+ {{ related_expert }} 
+ -->
+ Tags: 
+ {{ searchResult.taxonomy }} 
+ currentPage">
+ Load More 
+ We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it. Ok 

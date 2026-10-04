@@ -1,0 +1,714 @@
+{
+ "week": "2026-09-27",
+ "params": "calc/params.js",
+ "driverConfidence": {
+  "D1": {
+   "level": "medium",
+   "reason": "покрыто 6/6 критериев Guardian (окно 24–27.09): удары по цифровой экономике и металлургии, закрытие «АрселорМиттал», эскалационная риторика; подтверждение одним кластером A-mainstream — средняя уверенность"
+  },
+  "D2": {
+   "level": "medium",
+   "reason": "Принят без изменений относительно недели 2026-09-20 (решение оркестратора 2026-09-27): в окне 21–27.09 новых ядерных сигналов не подтверждено проверяемыми источниками — счёт Д2 перенесён без изменений, источники и оценка наследуются из 2026-09-20."
+  },
+  "D3": {
+   "level": "medium",
+   "reason": "покрыто 3/5 критериев: отказ Трампа от иранской сделки по Хормузу, условия IRGC; Д3.4/Д3.5 — сигналов в окне нет"
+  },
+  "D4": {
+   "level": "low",
+   "reason": "покрыто 3/5 критериев; экономические сигналы (долларовые поставки Ирак–США, вывод коалиции из Курдистана) — без новых санкционных пакетов; низкая уверенность"
+  },
+  "D5": {
+   "level": "low",
+   "reason": "покрыто 2/4 критерия: атаки на интернет-провайдеров и дата-центры Украины (кибер), предупреждение разведки Дании; атрибуция — один кластер; низкая уверенность"
+  },
+  "D6": {
+   "level": "low",
+   "reason": "покрыт только Д6.1 (наращивание военного бюджета Польши на фоне угрозы РФ по НАТО); мобилизационных сигналов в окне нет — низкая уверенность"
+  },
+  "D7": {
+   "level": "low",
+   "reason": "покрыто 2/4: расширение ударов правительственных сил Йемена против хуситов, угрозы IRGC по судам США; без КНДР-вовлечённости — низкая уверенность"
+  },
+  "D8": {
+   "level": "low",
+   "reason": "покрыто 3/4: все деэскалационные сигналы на нуле (перемирий нет), дипломатические зонды (Хормуз) без результата — низкая уверенность"
+  },
+  "D9": {
+   "level": "low",
+   "reason": "покрыта 1/8 подгрупп (Д9.3 — торговый разворот Ирана на Каспий); без прямого подтверждения потолок — средняя (§4.3.1); слепые зоны: Д9.1, Д9.2, Д9.4, Д9.5, Д9.6a, Д9.6b, Д9.7"
+  }
+ },
+ "criteria": {
+  "D1.1": null,
+  "D1.2": null,
+  "D1.3": null,
+  "D1.4": {
+   "value": 0.67,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/russia-strikes-ukraine-digital-economy-attacks-isps-datacentres",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/25/ukraine-war-briefing-finland-elon-musk-starlink-coverage-russia",
+     "date": "2026-09-25",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/ukraine-war-briefing-german-foreign-minister-urges-russia-to-abandon-dangerous-escalation-in-rare-meeting",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://en.yna.co.kr/view/AEN20260927002651315",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D1.5": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D1.6": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-led-coalition-withdraw-iraqs-kurdistan-30-september",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D2.1": null,
+  "D2.2": null,
+  "D2.3": null,
+  "D2.4": null,
+  "D2.5": null,
+  "D3.1": null,
+  "D3.2": {
+   "value": 0.67,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-ships-indian-ocean-will-be-hit-if-another-war-breaks-out-irgc-says",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D3.3": {
+   "value": 0.1,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iraq-seeks-us-exemption-sanctions-iranian-airlines",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D3.4": {
+   "value": 0.67,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/ukraine-war-briefing-german-foreign-minister-urges-russia-to-abandon-dangerous-escalation-in-rare-meeting",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/25/ukraine-war-briefing-finland-elon-musk-starlink-coverage-russia",
+     "date": "2026-09-25",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D3.5": null,
+  "D4.1": {
+   "value": 0.1,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iraq-seeks-us-exemption-sanctions-iranian-airlines",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D4.2": {
+   "value": 0.67,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/ukraine-war-briefing-russian-attacks-close-largest-steelmaker-arcelormittal",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D4.3": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/russia-strikes-ukraine-digital-economy-attacks-isps-datacentres",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/ukraine-war-briefing-russian-attacks-close-largest-steelmaker-arcelormittal",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D4.4": {
+   "value": 0.2,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D4.5": {
+   "value": 0.1,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D5.1": {
+   "value": 0.67,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-ships-indian-ocean-will-be-hit-if-another-war-breaks-out-irgc-says",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/ukraine-war-briefing-german-foreign-minister-urges-russia-to-abandon-dangerous-escalation-in-rare-meeting",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D5.2": null,
+  "D5.3": null,
+  "D5.4": null,
+  "D6.1": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D6.2": null,
+  "D6.3": {
+   "value": 1,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D6.4": null,
+  "D7.1": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/russia-strikes-ukraine-digital-economy-attacks-isps-datacentres",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/25/ukraine-war-briefing-finland-elon-musk-starlink-coverage-russia",
+     "date": "2026-09-25",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D7.2": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/24/russia-could-attack-a-nato-country-within-months-danish-intelligence-says",
+     "date": "2026-09-24",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D7.3": null,
+  "D7.4": null,
+  "D8.1": {
+   "value": 0,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/hell-on-earth-last-residents-eat-weeds-to-survive-in-russian-occupied-oleshky",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/ukraine-war-briefing-german-foreign-minister-urges-russia-to-abandon-dangerous-escalation-in-rare-meeting",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D8.2": {
+   "value": 0,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+     "date": "2026-09-26",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D8.3": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://en.yna.co.kr/view/AEN20260927002651315",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D8.4": null,
+  "D9.1": null,
+  "D9.2": null,
+  "D9.3": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iraq-seeks-us-exemption-sanctions-iranian-airlines",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D9.4": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    },
+    {
+     "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
+     "date": "2026-09-27",
+     "cluster": "A-mainstream",
+     "type": "secondary"
+    }
+   ]
+  },
+  "D9.5": null,
+  "D9.6a": null,
+  "D9.6b": null,
+  "D9.7": null
+ },
+ "sources": [
+  {
+   "id": "guardian-russia-strikes-ukraine-digital-economy",
+   "title": {
+    "ru": "Россия бьёт по цифровой экономике Украины: атаки на интернет-провайдеров и дата-центры",
+    "en": "Russia strikes at heart of Ukraine's digital economy with attacks on ISPs and datacentres"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/26/russia-strikes-ukraine-digital-economy-attacks-isps-datacentres",
+   "publication_date": "2026-09-26",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-russian-attacks-close-largest-steelmaker",
+   "title": {
+    "ru": "Атаки России вынудили закрыть крупнейшего сталевара Украины",
+    "en": "Russian attacks force closure of Ukraine's largest steelmaker"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/26/ukraine-war-briefing-russian-attacks-close-largest-steelmaker-arcelormittal",
+   "publication_date": "2026-09-26",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-poland-military-spending",
+   "title": {
+    "ru": "Польша резко наращивает военные расходы",
+    "en": "Poland is racing ahead with military spending"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-russia-attack-nato-danish-intelligence",
+   "title": {
+    "ru": "Разведка Дании: Россия может атаковать страну НАТО в течение месяцев",
+    "en": "Russia could attack a Nato country within months, Danish intelligence says"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/24/russia-could-attack-a-nato-country-within-months-danish-intelligence-says",
+   "publication_date": "2026-09-24",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-oleshky-hell-on-earth",
+   "title": {
+    "ru": "Олешки под российской оккупацией: последние жители едят траву",
+    "en": "'Hell on earth': last residents eat weeds to survive in Russian-occupied Oleshky"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/27/hell-on-earth-last-residents-eat-weeds-to-survive-in-russian-occupied-oleshky",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-kyiv-frontline-winter",
+   "title": {
+    "ru": "Киев стал прифронтовым городом — и приближается зима",
+    "en": "Kyiv has become a frontline city - and winter is on the way"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/26/after-summer-respite-kyiv-winter-dread",
+   "publication_date": "2026-09-26",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-german-fm-russia-escalation",
+   "title": {
+    "ru": "Глава МИД Германии призвал Россию отказаться от опасной эскалации",
+    "en": "German foreign minister urges Russia to abandon dangerous escalation in rare meeting"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/27/ukraine-war-briefing-german-foreign-minister-urges-russia-to-abandon-dangerous-escalation-in-rare-meeting",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-finland-starlink",
+   "title": {
+    "ru": "Финляндия призывает Маска расширить покрытие Starlink для Киева",
+    "en": "Finland urges Elon Musk to expand Kyiv's Starlink coverage over Russia"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/25/ukraine-war-briefing-finland-elon-musk-starlink-coverage-russia",
+   "publication_date": "2026-09-25",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-trump-rejects-iran-hormuz-deal",
+   "title": {
+    "ru": "Трамп отклонил иранское семидневное предложение по открытию Ормузского пролива",
+    "en": "Trump rejects Iran's seven-day peace deal to reopen strait of Hormuz"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/world/2026/sep/26/trump-dismiss-iran-seven-day-peace-deal-hormuz",
+   "publication_date": "2026-09-26",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "mea-us-ships-indian-ocean-irgc",
+   "title": {
+    "ru": "КСИР: суда США в Индийском океане будут поражены при новой войне",
+    "en": "US ships in Indian Ocean will be hit if US launches new attacks, IRGC says"
+   },
+   "domain": "middleeasteye.net",
+   "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-ships-indian-ocean-will-be-hit-if-another-war-breaks-out-irgc-says",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "mea-iraq-seeks-us-exemption-sanctions",
+   "title": {
+    "ru": "Ирак просит США об исключении из санкций против иранских авиалиний",
+    "en": "Iraq seeks US exemption from sanctions on Iranian airlines"
+   },
+   "domain": "middleeasteye.net",
+   "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iraq-seeks-us-exemption-sanctions-iranian-airlines",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aa-oman-hormuz-navigation",
+   "title": {
+    "ru": "Оман обещает обеспечивать навигацию в Ормузском проливе и призывает Иран и США к урегулированию",
+    "en": "Oman pledges to safeguard Strait of Hormuz navigation, urges Iran-US settlement"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/middle-east/oman-pledges-to-safeguard-strait-of-hormuz-navigation-urges-iran-us-settlement/4070489",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "mea-us-coalition-withdraw-iraq-kurdistan",
+   "title": {
+    "ru": "Коалиция во главе с США выведет войска из Иракского Курдистана к 30 сентября",
+    "en": "US-led coalition to withdraw from Iraqi Kurdistan by 30 September"
+   },
+   "domain": "middleeasteye.net",
+   "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-led-coalition-withdraw-iraqs-kurdistan-30-september",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aa-iraq-us-dollar-cash-shipments",
+   "title": {
+    "ru": "Ирак и США договорились возобновить поставки наличных долларов",
+    "en": "Iraq, US agree to resume dollar cash shipments"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aa-australia-openai-anthropic-senate",
+   "title": {
+    "ru": "Австралия вызвала главы OpenAI и Anthropic на парламентское расследование по ИИ",
+    "en": "Australia calls OpenAI, Anthropic CEOs to face Senate AI inquiry"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/world/australia-calls-openai-anthropic-ceos-to-face-senate-ai-inquiry/4070696",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "guardian-london-takeover-frenzy",
+   "title": {
+    "ru": "Банкиры и юристы Лондона заработали более £1 млрд на волне поглощений",
+    "en": "London's investment bankers and lawyers make more than £1bn in takeover frenzy"
+   },
+   "domain": "theguardian.com",
+   "url": "https://www.theguardian.com/business/2026/sep/27/londons-investment-bankers-lawyers-paid-more-than-1bn",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aj-yemen-forces-widen-attacks-houthis",
+   "title": {
+    "ru": "Силы правительства Йемена расширяют атаки против хуситов",
+    "en": "Yemen government forces widen attacks against Houthis: What we know"
+   },
+   "domain": "aljazeera.com",
+   "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aj-iran-shifts-trade-caspian",
+   "title": {
+    "ru": "Иран переориентирует торговлю на Каспий из-за войны и Ормузского пролива",
+    "en": "Iran shifts trade north to Caspian Sea as war impairs Strait of Hormuz"
+   },
+   "domain": "aljazeera.com",
+   "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "yonhap-dmz-blast-joint-probe",
+   "title": {
+    "ru": "Военные Южной Кореи и Командование ООН проводят совместную проверку места взрыва в ДМЗ",
+    "en": "S. Korean military, U.N. Command conduct joint probe of DMZ blast site"
+   },
+   "domain": "en.yna.co.kr",
+   "url": "https://en.yna.co.kr/view/AEN20260927002651315",
+   "publication_date": "2026-09-27",
+   "accessed_date": "2026-09-27",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  }
+ ]
+}

@@ -1,0 +1,427 @@
+<head
+ prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# ya: http://webmaster.yandex.ru/vocabularies/">
+ КНДР предупредила США и Южную Корею о возможном применении ядерного оружия | Новости мира | Известия | 16.09.2026 
+ <link rel="apple-touch-icon"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon.png">
+ <link rel="apple-touch-icon" sizes="57x57"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-57x57.png">
+ <link rel="apple-touch-icon" sizes="60x60"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-60x60.png">
+ <link rel="apple-touch-icon" sizes="72x72"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-72x72.png">
+ <link rel="apple-touch-icon" sizes="76x76"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-76x76.png">
+ <link rel="apple-touch-icon" sizes="114x114"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-114x114.png">
+ <link rel="apple-touch-icon" sizes="120x120"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-120x120.png">
+ <link rel="apple-touch-icon" sizes="144x144"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-144x144.png">
+ <link rel="apple-touch-icon" sizes="152x152"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-152x152.png">
+ <link rel="apple-touch-icon" sizes="180x180"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/apple-icon-180x180.png">
+ <link rel="icon" type="image/png" sizes="192x192"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/android-icon-192x192.png">
+ <link rel="icon" type="image/png" sizes="32x32"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="96x96"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/favicon-96x96.png">
+ <link rel="icon" type="image/png" sizes="16x16"
+ href="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/favicon-16x16.png">
+ <meta name="msapplication-TileImage"
+ content="https://cdn.iz.ru/profiles/portal/themes/purple/images/favicons/ms-icon-144x144.png">
+ -->
+ -->
+ Спецоперация России на Украине 
+ Известия — о важном 
+ Эскалация на Ближнем Востоке 
+ Известия — про деньги 
+ $
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"/>
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"/>
+ €
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"/>
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"/>
+ Спецоперация России на Украине 
+ Известия — о важном 
+ Эскалация на Ближнем Востоке 
+ Известия — про деньги 
+ $
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"/>
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"/>
+ €
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_down_red"/>
+ <use width="6" height="12"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_currency_arrow_up_green"/>
+ -->
+ <svg class="lg" xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="152" height="32"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg#header--iz-logo-full"
+ href="/profiles/portal/themes/purple/images/sprite-svg.svg#header--iz-logo-full"/>
+ <svg class="xs" xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="109" height="25"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--iz-logo-full"
+ href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--iz-logo-full"/>
+ -->
+ Главное меню 
+ Новости 
+ Статьи 
+ Мнения 
+ Фото 
+ Видео 
+ Инфографика 
+ Рубрики 
+ Политика 
+ Общество 
+ Здоровье 
+ Интернет и технологии 
+ Экономика 
+ Происшествия 
+ Авто 
+ Туризм 
+ Мир 
+ Армия 
+ Наука и техника 
+ Новости компаний 
+ Страна 
+ Культура 
+ Спорт 
+ Спецпроекты 
+ -->
+ Газета 
+ Приложения 
+ <a
+ href="https://subscribe.iz.ru/" target="_blank">Подписка 
+ Главное 
+ <a
+ href="/o-kompanii"
+ >О компании 
+ <a
+ href="/o-kompanii"
+ >Редакция 
+ Пресс-центр 
+ <a
+ href="/reklama"
+ >Реклама 
+ Новости о нас 
+ Пользовательское соглашение 
+ Политика конфиденциальности 
+ Охрана труда 
+ Обратная связь 
+ <a href="https://vk.com/izvestia" target="_blank"
+ class="footer__top__inside__left__social__item vk">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="30" height="30"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--vk_white"/>
+ <a href="https://ok.ru/group/53243993063542" target="_blank"
+ class="footer__top__inside__left__social__item odnoklassniki">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="30" height="30"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--ok_white"/>
+ <a href="https://telegram.me/izvestia" target="_blank"
+ class="footer__top__inside__left__social__item telegram">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="30" height="22"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--telegram"/>
+ <a href="https://rutube.ru/channel/23872322/"
+ target="_blank"
+ class="footer__top__inside__left__social__item rutube">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="60" height="25"
+ xlink:href="/profiles/portal/themes/purple/images/footer/social/rutube-white.svg#rutube"/>
+ Сайт функционирует при финансовой поддержке Министерства цифрового развития, связи и массовых коммуникаций Российской Федерации.
+ На информационном ресурсе применяются рекомендательные технологии.
+ Подробнее 
+ Зарегистрировано Федеральной службой
+ по надзору 
+ в сфере 
+ связи, информационных технологий
+ и массовых 
+ коммуникаций.
+ Свидетельства о регистрации <a
+ href="http://rkn.gov.ru/mass-communications/reestr/media/?id=630443"
+ target="_blank">ЭЛ № ФС 77 - 76208 от 8 июля 2019 года , <a
+ href="http://rkn.gov.ru/mass-communications/reestr/media/?id=630951"
+ target="_blank">ЭЛ № ФС 77 - 72003 от 26 декабря 2017 года 
+ Все права защищены
+ © ООО «МИЦ «Известия», 2026 
+ Новости iz.ru 
+ <a href="/newspaper"
+ class="mobile-links-item mobile_izpaper">
+ Газета «Известия» 
+ <a href="https://ren.tv/" target="_blank"
+ class="mobile-links-item mobile_rentv">
+ Новости РЕН ТВ 
+ <a
+ href="https://www.5-tv.ru"
+ class="mobile-links-item mobile_fivetv"
+ target="_blank"
+ >
+ Новости 5 канала 
+ <a href="https://www.78.ru/"
+ class="mobile-links-item mobile_tv78" target="_blank">
+ Новости 78 
+ <a
+ href="https://www.sport-express.ru/?utm_source=iz.ru&utm_medium=cpc&utm_campaign=button"
+ target="_blank"
+ class="mobile-links-item mobile_se"
+ >
+ Новости Спорт-Экспресс 
+ <a href="https://doc.ru/"
+ class="mobile-links-item mobile_docru" target="_blank">
+ Документальное кино 
+ <a href="https://nmg.ru/"
+ class="mobile-links-item mobile_nmg" target="_blank">
+ Новости НМГ 
+ Новости iz.ru 
+ <a href="/newspaper"
+ class="top-panel-inside__bottom__right__logos__item izpaper">
+ <img
+ src="/profiles/portal/themes/purple/images/header/logo_iz_paper.svg">
+ Газета «Известия» 
+ <a href="https://nmg.ru/"
+ class="top-panel-inside__bottom__right__logos__item nmg" target="_blank">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="37" height="24"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--channels--logo-nmg"/>
+ НМГ 
+ <a href="https://ren.tv/" target="_blank"
+ class="top-panel-inside__bottom__right__logos__item rentv">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="24" height="24"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--channels--logo_ren_white"/>
+ Новости РЕН ТВ 
+ <a
+ href="https://www.5-tv.ru"
+ class="top-panel-inside__bottom__right__logos__item fivetv"
+ target="_blank"
+ >
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="24" height="24"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--channels--logo_5_white"/>
+ Новости 5 канала 
+ <a href="https://www.78.ru/"
+ class="top-panel-inside__bottom__right__logos__item tv78" target="_blank">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="24" height="24"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--channels--logo_78_white"/>
+ Новости 78 
+ <a
+ href="https://www.sport-express.ru/?utm_source=iz.ru&utm_medium=cpc&utm_campaign=button"
+ target="_blank"
+ class="top-panel-inside__bottom__right__logos__item se"
+ >
+ Новости Спорт-Экспресс 
+ <a
+ href="https://doc.ru"
+ target="_blank"
+ class="top-panel-inside__bottom__right__logos__item docru"
+ >
+ Документальное Кино 
+ <div
+ class="top-panel-inside__bottom__right__left__item__inside__icon">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="50" height="35"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#header--icon_gazeta2"/>
+ <div
+ class="top-panel-inside__bottom__right__left__item__inside__label" style="display: none">
+ Газета
+ <div
+ class="top-panel-inside__bottom__right__left__item__inside__icon_arrow">
+ <div
+ class="top-panel-inside__bottom__right__left__item__inside__icon_arrow__item one">
+ <svg class="down" xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="14" height="14"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_header_menu_down"> 
+ <div
+ class="top-panel-inside__bottom__right__left__item__inside__icon_arrow__item two">
+ <svg class="up" xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="14" height="14"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_header_menu_up"> 
+ Газета 
+ Приложения 
+ <a href="https://subscribe.iz.ru/" class="paper__list__item "
+ target="_blank">
+ Подписка 
+ <div
+ class="search_block__bottom__list__name">
+ Фийон отрицает организацию встречи
+ ливанского бизнесмена с Путиным
+ 20
+ Марта
+ Все результаты 
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="26" height="26"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#SVG--icon_header_search"/>
+ -->
+ Перейти к основному содержанию
+ Реклама 
+ Прямой эфир 
+ Спорт 
+ Российский вратарь «Нью-Йорк Айлендерс» Сорокин признан первой звездой дня в НХЛ 
+ Происшествия 
+ Туристы отогнали медведя песнями и криками в нацпарке «Зюраткуль» 
+ Мир 
+ Польша и Румыния отказались наращивать помощь Киеву в экспорте зерна 
+ Происшествия 
+ Подросток в Новокузнецке выбросил мошеннику из окна 1,4 млн рублей 
+ Происшествия 
+ Дочь расчлененной в Москве женщины нашли убитой в гараже сожителя матери 
+ Происшествия 
+ Три человека погибли и 12 пострадали при атаках ВСУ на Белгородскую область 
+ Мир 
+ Медведев заявил о наличии у Ирана «термоядерного оружия» 
+ Политика 
+ Депутат объяснила отсутствие футболистов в составе Госдумы 
+ Мир 
+ СМИ узнали о предложении ЕП передать замороженные активы РФ Еврокомиссии 
+ Мир 
+ Один человек погиб в результате стрельбы на поминальной службе в Лондоне 
+ Мир 
+ Медведев предупредил о риске космической войны при блокировке системы «Рассвет» 
+ Общество 
+ Был найден крупнейший в истории Северо-Запада РФ клад с серебром X-XIV веков 
+ Общество 
+ Полина Гагарина сделала признание об отношении к алкоголю 
+ Армия 
+ Путин призвал наращивать возможности орбитальной группировки России 
+ Мир 
+ В зоне СВО ликвидирована сражавшаяся за ВСУ сторонница ЛГБТ Куценко 
+ Мир 
+ Гросси объяснил отказ МАГАТЭ называть Киев виновным в атаках на ЗАЭС 
+ Происшествия 
+ В Курской области за сутки сбили 216 украинских беспилотников 
+ Мир 
+ NYT сообщила о возможном использовании задержанных у базы Фэрфорд втемную 
+ <div
+ class="page-content inside_page active ">
+ <meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage"
+ itemid="https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia">
+ Мир 
+ КНДР предупредила США и Южную Корею о возможном применении ядерного оружия 
+ КНДР предупредила США и Южную Корею о возможном применении ядерного оружия 
+ 2026-09-16T15:56:33+03:00 
+ 2026-09-16T14:20:06+03:00 
+ Новости 
+ Мир 
+ КНДР предупредила США и Южную Корею о возможном применении ядерного оружия 
+ Партийный переулок, д. 1, к. 57, с. 3 
+ 115093 
+ Москва, Россия 
+ info@iz.ru 
+ 16 сентября 2026, 14:20 
+ 0 
+ КНДР 
+ США 
+ Республика Корея (Южная Корея) 
+ Ядерное оружие 
+ EN 
+ Фото: Global Look Press/Cheng Dayu/Xinhua 
+ Следите за нашими новостями в удобном формате
+ Есть новость? Присылайте!
+ Озвучить текст 
+ Выделить главное 
+ Вкл
+ Выкл
+ Минобороны КНДР предупредило о возможности применения ядерного оружия в ответ на действия США и Республики Корея (РК). Об этом 16 сентября заявили в Центральном телеграфном агентстве Кореи (ЦТАК). «Такие угрозы врагов, связанные с атакой и использованием оружия массового уничтожения против нашего государства, могут считаться важнейшим вызовом к обеспечению безопасности, который требует приведения в действие соответствующих статей закона о политике по вопросам государственных ядерных вооруженных сил», — сообщили в агентстве. Представитель минобороны КНДР призвал проанализировать, что означает «приведение в действие соответствующих статей закона о политике по вопросам государственных ядерных вооруженных сил» и принять это заявление как серьезное предупреждение. Речь идет о законе, принятом в 2022 году и предусматривающем возможность применения ядерного оружия в случае нападения на руководство страны, систему управления ядерными силами, а также при угрозе применения против КНДР оружия массового уничтожения. В ведомстве сообщили, что США и РК 10 сентября провели «так называемое заседание Комиссии по реагированию на оружие массового уничтожения», на котором решили создать систему совладения информацией и активизировать объединенные учения в ответ на якобы потенциальную угрозу атаки оружием массового уничтожения со стороны КНДР. «Это является откровенным объявлением о конфронтации, нацеленной на использование ядерного, химического и биологического оружия против нашего государства в случае войны на Корейском полуострове», — заявляет представитель ведомства. Также в минобороны КНДР обратили внимание на создание США сети 30 институтов биологического оружия на Украине и размещение биолабораторий на военных базах Вашингтона в РК. Кроме того, в «законе о полномочиях на оборону государства на 2026-й финансовый год» зафиксированы крупные расходы для разработки, испытания, содержания и применения химического и биологического оружия. 
+ С новыми скилами: армия КНДР увеличила темпы масштабного перевооружения
+ Перспективные разработки, представленные Северной Кореей в 2025 году, могут изменить баланс сил в АТР 
+ Министр обороны КНДР Ким Сон Ги 7 сентября пригрозил мощными ответными мерами в случае военной конфронтации со стороны США и их союзников. Министр предостерег США от «безрассудных военных махинаций», провоцирующих возможность военного столкновения, и напомнил о способности КНДР отреагировать «более мощными и решительными практическими действиями». 
+ Поделиться:
+ Читайте также 
+ Прямой эфир 
+ -->
+ -->
+ -->
+<!--
+ <!--
+ -->
+<!--
+ Подпишитесь и получайте новости первыми
+ Новости smi2.ru -->
+<!--
+ Меню
+ <a href="https://vk.com/izvestia" target="_blank"
+ class="footer__top__inside__left__social__item vk">
+ <use width="30" height="30"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--vk_white"/>
+ <a href="https://ok.ru/group/53243993063542" target="_blank"
+ class="footer__top__inside__left__social__item odnoklassniki">
+ <use width="30" height="30"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--ok_white"/>
+ <a href="https://telegram.me/izvestia" target="_blank"
+ class="footer__top__inside__left__social__item telegram">
+ <use width="30" height="22"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--social--telegram"/>
+ <a href="https://rutube.ru/channel/23872322/" target="_blank"
+ class="footer__top__inside__left__social__item rutube">
+ <use width="60" height="25"
+ xlink:href="/profiles/portal/themes/purple/images/footer/social/rutube-white.svg#rutube"/>
+ <a target="_blank" href="https://iz.ru/reklama"
+ class="footer__top__inside__right__short__menu__item news_item">
+ Реклама
+ <a target="_blank" href="https://subscribe.iz.ru/"
+ class="footer__top__inside__right__short__menu__item news_item">
+ Подписка на газету
+ <a target="_blank" href="/xml/rss/all.xml"
+ class="footer__top__inside__right__short__menu__item rss_item">
+ <svg xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <use width="23" height="23"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#footer--icon_rss"/>
+ RSS
+ Прислать новость
+ О компании 
+ Редакция 
+ Пресс-центр 
+ Реклама 
+ Новости о нас 
+ Пользовательское соглашение 
+ Политика конфиденциальности 
+ Охрана труда 
+ Обратная связь 
+ Авторское право на систему визуализации содержимого портала iz.ru, а также на исходные данные, включая тексты, фотографии, аудио- и видеоматериалы, графические изображения, иные произведения и товарные знаки принадлежит ООО «МИЦ «Известия». Указанная информация охраняется в соответствии с законодательством РФ и международными соглашениями.
+ Частичное цитирование возможно только при условии гиперссылки на iz.ru 
+ Сайт функционирует при финансовой поддержке Министерства цифрового развития, связи и массовых коммуникаций Российской Федерации.
+ Ответственность за содержание любых рекламных материалов, размещенных на портале, несет рекламодатель.
+ На информационном ресурсе применяются рекомендательные технологии.
+ <a
+ href="/recrules.html"
+ target="_blank"
+ >Подробнее 
+ Новости, аналитика, прогнозы и другие материалы, представленные на данном сайте, не являются офертой или рекомендацией к покупке или продаже каких-либо активов.
+ Зарегистрировано Федеральной службой по надзору в сфере связи, информационных технологий и массовых коммуникаций. Свидетельства о регистрации
+ ЭЛ №ФС 77 - 76208 от 8 июля 2019 года
+ ,
+ ЭЛ №ФС 77 - 72003 от 26 декабря 2017 года
+ Все права защищены © ООО «МИЦ «Известия», 2026
+ <use width="50" height="50"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#button_to_top--button_top_desktop"/>
+ <use width="40" height="40"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#button_to_top--button_top_desktop"/>
+ <use width="50" height="50"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#button_to_top--button_top_desktop_hover"/>
+ <use width="40" height="40"
+ xlink:href="/profiles/portal/themes/purple/images/sprite-svg.svg?v=1.3#button_to_top--button_top_desktop_hover"/>
