@@ -1,0 +1,403 @@
+{
+  "group": "02",
+  "window": { "from": "2026-09-28", "to": "2026-10-04" },
+  "criteria": {
+    "D2.1": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.reuters.com/business/aerospace-defense/russia-issues-nuclear-warning-nato-tensions-rise-baltic-2026-09-30/", "date": "2026-09-30", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/world/2195299", "date": "2026-09-30", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "30.09 Россия направила НАТО дипломатическое предупреждение о готовности применить всё вооружение, включая ядерное, при попытке блокады Калининграда; получение ноты подтвердил генсек НАТО Рютте, ранее о «ядерном ультиматуме» сообщили посольства РФ в Европе. 01.10 Путин заявил о готовности использовать «все виды вооружения, включая ядерные». Повторяющиеся публичные угрозы на уровне посольств/Кремля/президента — порядковая шкала 0.67."
+    },
+    "D2.2": {
+      "covered": false,
+      "note": "Изменений ядерной доктрины, выхода из договоров или приостановки механизмов уведомления в окне 28.09–04.10.2026 проверяемыми публикациями не подтверждено."
+    },
+    "D2.3": {
+      "covered": false,
+      "note": "Единственный ракетный инцидент окна — пуск баллистической ракеты КНДР у Вонсана 03.10 (около 700 км, по данным РЮК/Японии тактический/средней дальности) — не относится к учениям стратегических сил, подвижкам ракетных комплексов, подготовке полигонов или смене режима дежурств; учений стратегических сил в окне не найдено."
+    },
+    "D2.4": {
+      "covered": false,
+      "note": "Публичных заявлений о переводе ядерных сил на особый режим в окне нет."
+    },
+    "D2.5": {
+      "covered": false,
+      "note": "Отхода от ядерной риторики не было: в окне наоборот зафиксирована эскалация заявлениями 30.09–01.10 (см. D2.1), восстановления договорных механизмов нет."
+    },
+    "D3.1": {
+      "covered": false,
+      "note": "Разрывов или понижения отношений, массовых высылок дипломатов и закрытия посольств в окне нет; вызов пакистанским МИД индийского поверенного в делах 03.10 — протест, а не разрыв отношений."
+    },
+    "D3.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.indiatoday.in/world/story/us-iran-talks-qatar-mediates-after-trump-rejects-iran-seven-day-hormuz-truce-proposal-3005173-2026-09-28", "date": "2026-09-28", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://gulfnews.com/uae/us-iran-war-us-responds-to-tehrans-hormuz-plan-what-uae-residents-need-to-know-tonight-september-30-2026-1.500693821", "date": "2026-09-30", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Иранская 7-дневная программа по Гормузу (открытие пролива, снятие блокады портов, возобновление ядерных переговоров) публично отклонена Трампом; Тегеран требует снятия ограничений как условия, Вашингтон — предварительных шагов Ирана. Позиции сторон публично несовместимы — единичные проявления, порядковая 0.33."
+    },
+    "D3.3": {
+      "covered": true,
+      "events": [0.5, 0.5],
+      "sources": [
+        { "url": "https://www.reuters.com/world/asia-pacific/us-sanctions-10-over-allegedly-procuring-weapons-iran-2026-09-29/", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/10/united-states-cuts-off-hamas-financing-network/", "date": "2026-10-02", "cluster": "C-registries", "type": "primary", "state_affiliated": true }
+      ],
+      "note": "29.09 санкции Минфина и Госдепа США против 13 физических и юридических лиц (Россия, Китай, Гонконг, Пакистан) за закупки оружия и компонентов для Ирана — sev 0.5; 02.10 Минфин внёс в санкционный список сеть финансирования ХАМАС (оперативник в Газе и сборщики средств во Франции) — sev 0.5. Нормированное значение: min(1, 1.0/5) = 0.2."
+    },
+    "D3.4": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/9/29/irans-araghchi-meets-qatari-mediators-as-us-insists-on-nuclear-talks", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.democracynow.org/2026/9/29/headlines/us_and_iran_hold_indirect_talks_on_deal_to_end_fighting_lift_sanctions_and_reopen_hormuz", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Министр Иностранных дел Ирана Арагичи встретился с катарскими посредниками в Нью-Йорке (29.09) для обсуждения плана открытия Гормуза; США и Иран провели косвенные переговоры о плане прекращения боёв, снятия санкций и открытия пролива. Активное посредничество третьих стран в течение недели — порядковая 0.67."
+    },
+    "D3.5": {
+      "covered": false,
+      "note": "Новых подтверждённых договорённостей о гуманитарных коридорах, обменах пленными или доступе инспекций, заключённых в окне 28.09–04.10.2026, не найдено; сообщения о нарушениях перемирия в Газе — о действующей, а не новой договорённости."
+    },
+    "D4.1": {
+      "covered": true,
+      "events": [1.0],
+      "sources": [
+        { "url": "https://www.cnbc.com/2026/09/29/canada-import-ban-trade-war.html", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.theguardian.com/us-news/2026/sep/29/ban-canada-imports", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "29.09 в силу вступили импортные запрещения США на ряд канадских товаров (алкоголь, молочная продукция, мотоциклы; порядка $1 млрд) в ответ на контрмеры Оттавы — очередное ограничение в торговом конфликте США–Канада — sev 1.0. Нормированное значение: min(1, 1.0/5) = 0.2. Оба источника кластера A — независимость между кластерами не подтверждена."
+    },
+    "D4.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.reuters.com/business/autos-transportation/boeing-wins-us-navys-next-generation-fighter-contract-sources-say-2026-09-29/", "date": "2026-09-29", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.war.gov/News/Releases/Release/Article/4614331/department-of-war-and-us-navy-award-contract-for-fa-xx-program/", "date": "2026-09-29", "cluster": "C-registries", "type": "primary", "state_affiliated": true }
+      ],
+      "note": "29.09 ВМС США законтрактовали Boeing на полномасштабную разработку истребителя F/A-XX на сумму свыше $20 млрд — официальное решение о крупных военных расходах в окне. Экстренных бюджетных ассигнований (открытые бюджеты/поправки парламентов) в окне не найдено, поэтому единичные проявления — порядковая 0.33."
+    },
+    "D4.3": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency", "date": "2026-10-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html", "date": "2026-10-03", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Энергопоставки остаются сжатыми из-за ограничений движения в Ормузском проливе: G7 в пятницу договорились выпустить 100 млн баррелей нефти и дизеля, ИЭА 03.10 сообщает о выпуске 325 млн баррелей из стратегических резервов (из 400 млн, объявленных в марте). Системные перебои с критичным ресурсом в течение недели — порядковая 0.67."
+    },
+    "D4.4": {
+      "covered": true,
+      "events": [1.0, 1.0],
+      "sources": [
+        { "url": "https://gcaptain.com/another-tanker-hit-in-strait-of-hormuz-as-attacks-continue/", "date": "2026-10-01", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517", "date": "2026-10-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "01.10 удар неизвестного снаряда по танкеру в Ормузском проливе (пожар, экипаж восстановил управление) — sev 1.0; 02.10 по данным UKMTO два танкера поражены неопознанными снарядами в районе пролива — sev 1.0. Атаки по торговому пути на фоне иранских ограничений движения — блокировка торговых путей. Нормированное значение: min(1, 2.0/5) = 0.4. Оба источника кластера A."
+    },
+    "D4.5": {
+      "covered": false,
+      "note": "Отмены экономических ограничений, восстановления торговых связей или гуманитарных экономических исключений в окне нет: снятие санкций с Ирана публично отклонено (28.09), а 29.09 вступили в силу новые импортные запрещения (D4.1)."
+    }
+  },
+  "driverConfidence": {
+    "D2": { "level": "low", "reason": "покрыто 1/5 (D2.1) — ядерные сигналы окна ограничены публичной риторикой, доктрины/договоры/технические сигналы не подтверждены" },
+    "D3": { "level": "medium", "reason": "покрыто 3/5 (D3.2, D3.3, D3.4); D3.1 и D3.5 — сигналов в окне нет; часть источников одного кластера A" },
+    "D4": { "level": "medium", "reason": "покрыто 4/5 (D4.1–D4.4); D4.5 — сигналов нет; решения подтверждены официальными релизами и ведущими СМИ, часть источников кластера A" }
+  },
+  "regions": [
+    {
+      "region": "middle-east",
+      "observation": {
+        "ru": "Вокруг Ирана и Ормузского пролива неделя прошла под знаком санкционного и военного давления при живом посредничестве: 29.09 новые санкции США за закупки оружия для Ирана, 01–02.10 удары по танкерам в проливе, иранская 7-дневная программа отклонена Вашингтоном.",
+        "en": "A week of sanctions and military pressure around Iran and the Strait of Hormuz with mediation still alive: new US sanctions over Iranian weapons procurement on 29 Sep, tanker attacks in the strait on 1–2 Oct, Washington rejecting Iran's seven-day plan."
+      },
+      "why": {
+        "ru": "Пролив остаётся узким местом мировой энергетики, поэтому удары по танкерам и ограничения движения дают и военный, и экономический вклад в индекс.",
+        "en": "The strait remains the world's energy chokepoint, so tanker attacks and shipping restrictions feed both the military and the economic side of the index."
+      },
+      "contribution": "high",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/10/united-states-cuts-off-hamas-financing-network/", "date": "2026-10-02", "cluster": "C-registries" },
+        { "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517", "date": "2026-10-03", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "north-america",
+      "observation": {
+        "ru": "29.09 США ввели в действие импортные запрещения на ряд канадских товаров (алкоголь, молочная продукция, мотоциклы, около $1 млрд) в ответ на контрмеры Оттавы — эскалация торговой войны между союзниками.",
+        "en": "On 29 Sep the US brought into force import bans on a range of Canadian goods (alcohol, dairy, motorcycles, about $1 billion) in response to Ottawa's countermeasures — an escalation of the trade war between allies."
+      },
+      "why": {
+        "ru": "Прямое ограничение торговых связей внутри НАТО: экономический трек драйвера D4 и одновременно сигнал о трениях в североамериканском альянсе.",
+        "en": "A direct restriction of trade inside NATO: the D4 economic track and at the same time a signal of friction inside the North American alliance."
+      },
+      "contribution": "medium",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.cnbc.com/2026/09/29/canada-import-ban-trade-war.html", "date": "2026-09-29", "cluster": "A-mainstream" },
+        { "url": "https://www.theguardian.com/us-news/2026/sep/29/ban-canada-imports", "date": "2026-09-29", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "south-asia",
+      "observation": {
+        "ru": "03.10 Пакистан вызвал индийского поверенного в делах после гибели двух пакистанских граждан у границы 02.10; стороны обмениваются протестами на фоне устойчивой напряжённости между ядерными державами.",
+        "en": "On 3 Oct Pakistan summoned India's charge d'affaires after two Pakistani civilians were killed at the border on 2 Oct; the sides exchange protests against a backdrop of persistent tension between two nuclear powers."
+      },
+      "why": {
+        "ru": "Пограничный инцидент с летальным исходом и дипломатический протест — редкий для окна сигнал на южноазиатском направлении, где отношения двух ядерных держав остаются хрупкими.",
+        "en": "A lethal border incident with a diplomatic protest — a rare signal on the South Asian track, where relations between two nuclear powers remain fragile."
+      },
+      "contribution": "low",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/3/pakistan-summons-indian-diplomat-over-border-killing-of-two-pakistanis", "date": "2026-10-03", "cluster": "A-mainstream" },
+        { "url": "https://mofa.gov.pk/press-releases/indian-charge-daffaires-summoned-over-killing-of-two-pakistani-civilians", "date": "2026-10-03", "cluster": "C-registries" }
+      ]
+    },
+    {
+      "region": "africa",
+      "observation": {
+        "ru": "04.10 Египет принимает в Новом Эль-Аламейне четырёхсторонний саммит (Египет, Эритрея, Судан, Сомали) на фоне обострения конфликта в Эфиопии и боёв в Тыграе; отдельно идёт дискуссия о водном споре по Нилу.",
+        "en": "On 4 Oct Egypt hosts a four-way summit (Egypt, Eritrea, Sudan, Somalia) in New El Alamein amid the escalation of the conflict in Ethiopia and fighting in Tigray, with the Nile water dispute also in the background."
+      },
+      "why": {
+        "ru": "Региональная дипломатия активизировалась именно из-за военного обострения: саммит — ответ на риск расширения конфликта в Африкоме и на спор о влиянии Эфиопии.",
+        "en": "Regional diplomacy accelerated precisely because of the military escalation: the summit is a response to the risk of the conflict spreading in the Horn of Africa and to the dispute over Ethiopia's influence."
+      },
+      "contribution": "medium",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.anews.com.tr/europe/2026/10/03/egypt-to-host-4-way-summit-with-eritrea-somalia-sudan-amid-ethiopia-conflict", "date": "2026-10-03", "cluster": "A-mainstream" },
+        { "url": "https://www.presidency.eg/en/%D9%82%D8%B3%D9%85-%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D8%B1%D8%A6%D8%A7%D8%B3%D9%8A%D8%A9/news03102026-6/", "date": "2026-10-03", "cluster": "C-registries" }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "reuters-russia-nuclear-warning-kaliningrad",
+      "title": { "ru": "Россия направила НАТО ядерное предупреждение на фоне роста напряжённости в Балтике", "en": "Russia sends nuclear warning to NATO as tensions rise in the Baltic" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/aerospace-defense/russia-issues-nuclear-warning-nato-tensions-rise-baltic-2026-09-30/",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-nato-confirms-russian-warning",
+      "title": { "ru": "Генсек НАТО подтвердил получение российского предупреждения о возможной блокаде Калининграда", "en": "NATO chief confirms receipt of Russian warning over potential Kaliningrad blockade" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2195299",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "indiatoday-trump-rejects-iran-seven-day-plan",
+      "title": { "ru": "Трамп отклонил план перемирия: Катар пытается возобновить диалог США и Ирана", "en": "Trump rejected truce plan. Qatar now tries to get US and Iran talking again" },
+      "domain": "indiatoday.in",
+      "url": "https://www.indiatoday.in/world/story/us-iran-talks-qatar-mediates-after-trump-rejects-iran-seven-day-hormuz-truce-proposal-3005173-2026-09-28",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "gulfnews-us-responds-to-tehran-hormuz-plan",
+      "title": { "ru": "Война США и Ирана: Вашингтон ответил на тегеранскую программу по Гормузу", "en": "US-Iran war: US responds to Tehran's Hormuz plan" },
+      "domain": "gulfnews.com",
+      "url": "https://gulfnews.com/uae/us-iran-war-us-responds-to-tehrans-hormuz-plan-what-uae-residents-need-to-know-tonight-september-30-2026-1.500693821",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-us-sanctions-iran-weapons-procurement",
+      "title": { "ru": "США ввели санкции против 13 лиц и компаний в связи с закупками оружия для Ирана", "en": "US imposes sanctions on 13 tied to Iran weapons procurement" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/us-sanctions-10-over-allegedly-procuring-weapons-iran-2026-09-29/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "state-us-cuts-off-hamas-financing",
+      "title": { "ru": "США перекрыли сеть финансирования ХАМАС", "en": "United States Cuts Off Hamas Financing Network" },
+      "domain": "state.gov",
+      "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/10/united-states-cuts-off-hamas-financing-network/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-araghchi-meets-qatari-mediators",
+      "title": { "ru": "Министр Ирана Арагичи встретился с катарскими посредниками; США настаивают на ядерных переговорах", "en": "Iran's Araghchi meets Qatari mediators as US insists on nuclear talks" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/9/29/irans-araghchi-meets-qatari-mediators-as-us-insists-on-nuclear-talks",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "democracynow-us-iran-indirect-talks",
+      "title": { "ru": "США и Иран провели косвенные переговоры о прекращении боёв, снятии санкций и открытии Гормуза", "en": "US and Iran Hold Indirect Talks on Deal to End Fighting, Lift Sanctions and Reopen Hormuz" },
+      "domain": "democracynow.org",
+      "url": "https://www.democracynow.org/2026/9/29/headlines/us_and_iran_hold_indirect_talks_on_deal_to_end_fighting_lift_sanctions_and_reopen_hormuz",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbc-canada-import-ban-in-force",
+      "title": { "ru": "Американские ограничения на импорт канадских товаров вступили в силу: список запрещённых товаров", "en": "America's Canadian import restrictions come into force. Here are the products barred" },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/09/29/canada-import-ban-trade-war.html",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-us-ban-on-canadian-imports",
+      "title": { "ru": "Запрет США на канадский импорт грозит ещё больше ослабить хрупкие отношения", "en": "US ban on Canadian imports likely to weaken already fragile relations" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/us-news/2026/sep/29/ban-canada-imports",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-boeing-wins-navy-fighter-contract",
+      "title": { "ru": "Пентагон: Boeing получил контракт ВМС на истребитель нового поколения", "en": "Boeing wins US Navy's next-generation fighter contract, Pentagon says" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/autos-transportation/boeing-wins-us-navys-next-generation-fighter-contract-sources-say-2026-09-29/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "war-gov-faxx-contract-award",
+      "title": { "ru": "Министерство войны и ВМС США заключили контракт по программе F/A-XX", "en": "Department of War and U.S. Navy Award Contract for F/A-XX Program" },
+      "domain": "war.gov",
+      "url": "https://www.war.gov/News/Releases/Release/Article/4614331/department-of-war-and-us-navy-award-contract-for-fa-xx-program/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "straitstimes-iea-325m-barrels-released",
+      "title": { "ru": "ИЭА: из стратегических резервов выпущено 325 млн баррелей нефти", "en": "325 million barrels of oil released from strategic reserves: IEA" },
+      "domain": "straitstimes.com",
+      "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "xinhua-iea-325m-barrels-released",
+      "title": { "ru": "ИЭА: выпущено 325 млн баррелей нефти из стратегических резервов", "en": "325 mln barrels of oil released from strategic reserves: IEA" },
+      "domain": "english.news.cn",
+      "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "gcaptain-tanker-hit-hormuz",
+      "title": { "ru": "Ещё один танкер поражён в Ормузском проливе, атаки продолжаются", "en": "Another Tanker Hit in Strait of Hormuz as Attacks Continue" },
+      "domain": "gcaptain.com",
+      "url": "https://gcaptain.com/another-tanker-hit-in-strait-of-hormuz-as-attacks-continue/",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "gulfnews-oil-tankers-attacked-hormuz",
+      "title": { "ru": "Танкеры атакованы в Ормузском проливе — британская морская служба", "en": "Oil tankers attacked in Hormuz strait: UK maritime agency" },
+      "domain": "gulfnews.com",
+      "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-pakistan-summons-indian-diplomat",
+      "title": { "ru": "Пакистан вызвал индийского дипломата после убийства двух пакистанцев у границы", "en": "Pakistan summons Indian diplomat over border killing of two Pakistanis" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/3/pakistan-summons-indian-diplomat-over-border-killing-of-two-pakistanis",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "mofa-pakistan-summons-indian-charge-daffaires",
+      "title": { "ru": "Атташе по делам Индии вызван в МИД Пакистана в связи с убийством двух граждан", "en": "Indian Chargé d'Affaires Summoned over Killing of Two Pakistani Civilians" },
+      "domain": "mofa.gov.pk",
+      "url": "https://mofa.gov.pk/press-releases/indian-charge-daffaires-summoned-over-killing-of-two-pakistani-civilians",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "anews-egypt-four-way-summit",
+      "title": { "ru": "Египет проведёт четырёхсторонний саммит с Эритреей, Сомали и Суданом на фоне конфликта в Эфиопии", "en": "Egypt to host 4-way summit with Eritrea, Somalia, Sudan amid Ethiopia conflict" },
+      "domain": "anews.com.tr",
+      "url": "https://www.anews.com.tr/europe/2026/10/03/egypt-to-host-4-way-summit-with-eritrea-somalia-sudan-amid-ethiopia-conflict",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "presidency-egypt-sisi-four-way-summit",
+      "title": { "ru": "Президент аль-Сиси примет участие в координационном саммите Африканского союза и четырёхстороннем консультативном саммите", "en": "President El-Sisi Attends AU Mid-Year Coordination Meeting & Four-way Consultative Summit" },
+      "domain": "presidency.eg",
+      "url": "https://www.presidency.eg/en/%D9%82%D8%B3%D9%85-%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D8%B1%D8%A6%D8%A7%D8%B3%D9%8A%D8%A9/news03102026-6/",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    }
+  ]
+}
