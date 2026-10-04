@@ -377,6 +377,18 @@ export function plural(lang, n, forms) {
   return cat === 'one' ? forms[0] : forms[1];
 }
 
+// Формат подписей осей графиков: «12 июл» (RU) / «Jul 12» (EN) — день и
+// сокращённый месяц без точки (ICU отдаёт «июл.» — точка срезается, §11.2).
+export function axisDate(lang, iso) {
+  const d = new Date(`${iso}T12:00:00`);
+  if (Number.isNaN(d.getTime())) return '';
+  const locale = LOCALES[lang] ?? LOCALES.ru;
+  const parts = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' }).formatToParts(d);
+  const get = (type) => (parts.find((p) => p.type === type) ?? {}).value ?? '';
+  const month = get('month').replace(/\.$/, '');
+  return lang === 'ru' ? `${get('day')} ${month}` : `${month} ${get('day')}`;
+}
+
 // «13 сентября 2026»; короткие «13.09» (§11.2).
 // Собирается из formatToParts, чтобы строка не зависела от суффиксов ICU («г.» и т.п.).
 export function date(lang, iso, short = false) {

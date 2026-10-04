@@ -5,7 +5,7 @@
 // clampX, trendSegments) — без DOM, тестируются; R28: разрыв серии при смене
 // methodology; R63: aria-label «Дата / Индекс / Состояние» + sr-таблица + live.
 
-import { t, date } from '../i18n.js';
+import { t, date, axisDate } from '../i18n.js';
 import * as risk from '../risk.js';
 import { el } from '../ui.js';
 
@@ -128,7 +128,7 @@ export function clampX(left, width, containerWidth) {
 const NS = 'http://www.w3.org/2000/svg';
 const VIEW_W = 640;
 const VIEW_H = 280;
-const PAD = { top: 16, right: 14, bottom: 30, left: 34 };
+const PAD = { top: 16, right: 30, bottom: 30, left: 34 };
 const GRID = [30, 60, 90];
 
 // X-координата i-й точки в системе viewBox — один источник и для линии,
@@ -184,18 +184,19 @@ export function selectMethodology(points, version = '2.0') {
   return (Array.isArray(points) ? points : []).filter((p) => methOf(p) === version);
 }
 
-// Подписи горизонтальной оси тренда: короткая дата недели каждой точки (R01).
-// Первая подпись прижата влево, последняя — вправо (крайние не выходят за
-// viewBox), промежуточные центрированы. Пустая дата — пустая подпись, не
-// выдумываем. Чистый шов — тестируется без DOM.
+// Подписи горизонтальной оси тренда: дата расчёта индекса каждой недели в
+// читаемом формате «12 июл» (R01). Все подписи центрированы на своей точке:
+// формат «ДД мон» (до 7 знаков ≈ 46px при 11px) не влезает между соседними
+// точками при краевых якорях start/end — центровка не пересекается.
+// Пустая дата — пустая подпись, не выдумываем. Чистый шов — тестируется без DOM.
 export function axisLabels(lang, points, width = VIEW_W, pad = PAD) {
   const list = Array.isArray(points) ? points : [];
   const n = list.length;
   if (n < 2) return [];
   return list.map((p, i) => ({
     x: plotX(i, n, width, pad),
-    text: p && p.date ? date(lang, p.date, true) : '',
-    anchor: i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle',
+    text: p && p.date ? axisDate(lang, p.date) : '',
+    anchor: 'middle',
   }));
 }
 
@@ -503,9 +504,9 @@ export function render(appState) {
     svg.append(wrap);
   });
 
-  // Подписи горизонтальной оси: короткая дата каждой недели (R01). Ниже линии
-  // нуля, в нижнем поле SVG; декоративны — SVG несёт role=img, полные даты
-  // остаются в sr-only таблице.
+  // Подписи горизонтальной оси: дата расчёта индекса каждой недели (R01) —
+  // «12 июл». Ниже линии нуля, в нижнем поле SVG; декоративны — SVG несёт
+  // role=img, полные даты остаются в sr-only таблице.
   for (const spec of axisLabels(lang, points)) {
     const label = svgEl('text', { x: spec.x, y: VIEW_H - PAD.bottom + 14, 'text-anchor': spec.anchor });
     label.setAttribute('class', 'trend-axis-label');

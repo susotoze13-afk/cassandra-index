@@ -70,8 +70,14 @@ data/<YYYY-MM-DD>/        10 недель: 08-02…08-23 — непересчи�
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0017,
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0018,
                           два параллельных ряда + новые прогона recalc-3months-publish)
+docs/jev-classification.md  логика классификации источников Jev-ом по 45 критериям:
+                          роли (Jev → редактор → код), правила (окно, цитата,
+                          events[], дедупликация, Д9-кластеры, carryover Д2),
+                          ворота без поблажек, статус пилота (версия 0.1)
+docs/llm-pilot-journal.md аудиторский след пилота машинной разметки (ретро-прогоны
+                          09-27/09-20, критерии успеха, решение о форвард-пилоте)
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
@@ -252,10 +258,13 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`);
   «за N недель» в подписи считает число опубликованных точек v2, а не
   календарный спан окна. Подписи горизонтальной оси — чистый шов
-  `axisLabels(lang, points, width?, pad?) -> [{x, text, anchor}]`: короткая дата
-  каждой недели (`date(lang, p.date, true)` = ДД.ММ), класс `.trend-axis-label`,
-  Y = VIEW_H − PAD.bottom + 14; первая подпись `start`, последняя `end`,
-  промежуточные `middle`; общий helper координаты `plotX` с линией (r=20 SVG).
+  `axisLabels(lang, points, width?, pad?) -> [{x, text, anchor}]`: дата расчёта
+  индекса каждой недели в формате «12 июл» (`axisDate` в js/i18n.js — день +
+  сокращённый месяц без точки; ICU отдаёт «июл.»/«сент»), класс
+  `.trend-axis-label` (mono 11px, --text-secondary), Y = VIEW_H − PAD.bottom +
+  14; все якоря `middle` (формат «ДД мон» до 7 знаков не влезает между
+  соседними точками при краевых start/end, поэтому PAD.right поднят до 30);
+  общий helper координаты `plotX` с линией (r=20 SVG).
 - Записи аудита recalc несут только глобальный diff (`recalcDiff`: global.index/delta,
   dataState, q, nullWeight, confidence, preview) — региональный перенос в diff не
   попадает, смотреть файлы регионов.

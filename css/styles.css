@@ -1218,11 +1218,11 @@ main {
   fill: var(--text-muted);
 }
 
-/* Подписи горизонтальной оси — даты недель, mono 10px muted */
+/* Подписи горизонтальной оси — даты расчёта индекса, mono 11px secondary */
 .trend-axis-label {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 10px;
-  fill: var(--text-muted);
+  font-size: 11px;
+  fill: var(--text-secondary);
 }
 
 /* Точки: базовый радиус 5, последняя крупнее с обводкой --surface;
