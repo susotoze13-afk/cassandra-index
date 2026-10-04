@@ -133,6 +133,23 @@ JSON и полнота критериев.
 - D8 покрыт ровно на пороге 50 % (2 из 4).
 - `driverConfidence`: D7/D8/D9 присутствуют с reason.
 
+## Из таска 04 — вход, сиды, расчёт недели 2026-10-04
+
+- `calc/input/2026-10-04.json` — 45 критериев: 26 покрыто (value либо events),
+  19 = `null`; верхнеуровневый `sources` — 46 R55-записей (дедуп по url);
+  `driverConfidence` D1..D9; схема R55 проходит `validateInputSources`.
+  Известное отступление: D2.2–D2.5 перенесены из входа 2026-09-27 (источники
+  15–20.09, вне окна) — иначе D2 = 1/5 → `insufficient`; это решение
+  зафиксировано как concern (прецедент 09-27).
+- `data/2026-10-04/` — global, trend, regions, sources, drivers + 6 × region-*.js;
+  `js/data.js validate` зелёный: global.index 45, delta −2, q 0.9293,
+  dataState published, trend 12 точек, последняя 2026-10-04.
+- `calc/calc.js` — RECALC_WEEKS дополнен `'2026-10-04'`.
+- `data/latest.js` — CI_WEEKS + CI_LATEST = `2026-10-04`.
+- `tests/calc-engine.test.js` — пин `files.length` 15 → 16.
+- `data/audit.jsonl` — запись recalc-0025 (пишет пайплайн).
+- `node --test` → 268 passed / 0 failed (до таска — столько же).
+
 ## Общее после волны 1
 
 - Три файла `research/01.json`, `02.json`, `03.json` валидны, окно у всех

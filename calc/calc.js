@@ -31,7 +31,7 @@ import * as audit from './audit.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
-const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27'];
+const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04'];
 const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
 const RECALC_SET = new Set(RECALC_WEEKS);
 

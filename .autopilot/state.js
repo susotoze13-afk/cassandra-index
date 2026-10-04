@@ -28,17 +28,21 @@ window.STATE =
     "placeholder": 0, "deferred": 0, "dropped": 0
   },
   "tickets": [
-    { "id": "01", "wave": 1, "zone": "research/D1-D5-D6",        "status": "review", "finishedAt": "2026-10-04T10:05:00+03:00", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
-    { "id": "02", "wave": 1, "zone": "research/D2-D3-D4",        "status": "review", "finishedAt": "2026-10-04T10:05:00+03:00", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
-    { "id": "03", "wave": 1, "zone": "research/D7-D8-D9",        "status": "review", "finishedAt": "2026-10-04T10:05:00+03:00", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
-    { "id": "04", "wave": 2, "zone": "integration/input-seeds-build", "status": "pending", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": ["01", "02", "03"] }
+    { "id": "01", "wave": 1, "zone": "research/D1-D5-D6",        "status": "done", "finishedAt": "2026-10-04T10:05:00+03:00", "commit": "9159388", "tests": "research JSON валиден; 14 критериев; 13 URL открылись", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
+    { "id": "02", "wave": 1, "zone": "research/D2-D3-D4",        "status": "done", "finishedAt": "2026-10-04T10:05:00+03:00", "commit": "a005316", "tests": "research JSON валиден; 15 критериев; 20 записей", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
+    { "id": "03", "wave": 1, "zone": "research/D7-D8-D9",        "status": "done", "finishedAt": "2026-10-04T10:05:00+03:00", "commit": "dd3b963", "tests": "research JSON валиден; 16 критериев; 15 записей", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": [] },
+    { "id": "04", "wave": 2, "zone": "integration/input-seeds-build", "status": "in-progress", "startedAt": "2026-10-04T10:12:00+03:00", "retries": 0, "repairs": [], "handoffs": [], "blockedBy": ["01", "02", "03"] }
   ],
   "singlePass": null,
   "tests": null,
   "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
   "additions": [],
   "coverage": "G2 независимый (бриф + спека, без манифеста): «нет в спецификации» — только режим запуска full (процесс, не продукт — зафиксирован в state.js, не требование продукта); «покрыто наполовину» — 0; «лишнее» — 8 пунктов, все трассируются к R##i-строкам манифеста (подразумеванные требования) — прикреплено, не свободные добавления; actionable findings 0",
-  "concerns": [],
+  "concerns": [
+    "ревью волны 1 (Manifest): research/01.json, регион north-america — slug URL (france-schools-protests-ukraine-kallas-rome-pope) не совпадает с заголовком про G7/100m barrels; ссылку в наблюдении заменить или убрать (не блокирует, но таск 04 должен не тащить её в сайт)",
+    "ревью волны 1 (Manifest): research/02.json D2.1 — в note упомянуто событие 01.10 без датированного source; не блокирует, note поправить при сборке",
+    "волна 1: у части критериев оба источника одного кластера A — межкластерная независимость не подтверждена (в пределах лимита ≤2, engine предупредит independenceWarnings)"
+  ],
   "reviewers": { "manifestSpec": "obs-led", "craft": null },
   "blind": null
 }

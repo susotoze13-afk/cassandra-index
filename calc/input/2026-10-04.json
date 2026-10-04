@@ -1,0 +1,1100 @@
+{
+  "week": "2026-10-04",
+  "params": "calc/params.js",
+  "criteria": {
+    "D1.1": {
+      "events": [0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D1.3": null,
+    "D1.4": {
+      "events": [1.0, 0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-war-briefing-russia-pounds-power-grid-with-seven-killed-in-biggest-energy-attack-in-months",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.hindustantimes.com/world-news/ukraine-attacks-major-russian-refinery-and-oil-pipeline-hub-with-drones-in-samara-region-101790959628787.html",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D1.5": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.scmp.com/news/china/diplomacy/article/3369666/us-deploy-nmesis-anti-ship-system-japanese-island-closest-taiwan-first-time",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/business/aerospace-defense/russia-issues-nuclear-warning-nato-tensions-rise-baltic-2026-09-30/",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://tass.com/world/2195299",
+          "date": "2026-09-30",
+          "cluster": "B-state-media"
+        }
+      ]
+    },
+    "D2.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/",
+          "date": "2026-09-15",
+          "cluster": "C-registries"
+        },
+        {
+          "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/",
+          "date": "2026-09-17",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia",
+          "date": "2026-09-16",
+          "cluster": "B-state-media"
+        }
+      ]
+    },
+    "D2.3": {
+      "events": [0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/north-korea-fires-missile-off-east-coast-yonhap-says-2026-09-20/",
+          "date": "2026-09-20",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://ria.ru/20260920/renkhap-2118896646.html",
+          "date": "2026-09-20",
+          "cluster": "B-state-media"
+        }
+      ]
+    },
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/",
+          "date": "2026-09-17",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://ria.ru/20260919/medvedev-2118722131.html",
+          "date": "2026-09-19",
+          "cluster": "B-state-media"
+        }
+      ]
+    },
+    "D2.5": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia",
+          "date": "2026-09-16",
+          "cluster": "B-state-media"
+        },
+        {
+          "url": "https://ria.ru/20260919/medvedev-2118722131.html",
+          "date": "2026-09-19",
+          "cluster": "B-state-media"
+        },
+        {
+          "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/",
+          "date": "2026-09-15",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.1": null,
+    "D3.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.indiatoday.in/world/story/us-iran-talks-qatar-mediates-after-trump-rejects-iran-seven-day-hormuz-truce-proposal-3005173-2026-09-28",
+          "date": "2026-09-28",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://gulfnews.com/uae/us-iran-war-us-responds-to-tehrans-hormuz-plan-what-uae-residents-need-to-know-tonight-september-30-2026-1.500693821",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D3.3": {
+      "events": [0.5, 0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/us-sanctions-10-over-allegedly-procuring-weapons-iran-2026-09-29/",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/10/united-states-cuts-off-hamas-financing-network/",
+          "date": "2026-10-02",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D3.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/9/29/irans-araghchi-meets-qatari-mediators-as-us-insists-on-nuclear-talks",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.democracynow.org/2026/9/29/headlines/us_and_iran_hold_indirect_talks_on_deal_to_end_fighting_lift_sanctions_and_reopen_hormuz",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D3.5": null,
+    "D4.1": {
+      "events": [1.0],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.cnbc.com/2026/09/29/canada-import-ban-trade-war.html",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/sep/29/ban-canada-imports",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D4.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/business/autos-transportation/boeing-wins-us-navys-next-generation-fighter-contract-sources-say-2026-09-29/",
+          "date": "2026-09-29",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.war.gov/News/Releases/Release/Article/4614331/department-of-war-and-us-navy-award-contract-for-fa-xx-program/",
+          "date": "2026-09-29",
+          "cluster": "C-registries"
+        }
+      ]
+    },
+    "D4.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html",
+          "date": "2026-10-03",
+          "cluster": "B-state-media"
+        }
+      ]
+    },
+    "D4.4": {
+      "events": [1.0, 1.0],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D4.5": null,
+    "D5.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/sep/30/ukraine-war-briefing-nato-condemns-moscows-irresponsible-nuclear-rhetoric-as-strikes-on-kyiv-intensify",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.cnbc.com/2026/09/30/ukraine-war-russia-nato-nuclear-kyiv.html",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D5.2": null,
+    "D5.3": null,
+    "D5.4": null,
+    "D6.1": null,
+    "D6.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.yahoo.com/news/world/articles/kyivs-bomb-shelters-dire-state-172646250.html",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D6.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://finance.yahoo.com/economy/policy/articles/russia-plans-27-increase-military-135647070.html",
+          "date": "2026-09-30",
+          "cluster": "F-financial"
+        }
+      ]
+    },
+    "D6.4": null,
+    "D7.1": {
+      "events": [0.2],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.ynetnews.com/article/bjxod8tcfe",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.siasat.com/saudi-arabia-plans-houthi-offensive-to-retake-bab-el-mandeb-3551859/",
+          "date": "2026-10-03",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D7.2": {
+      "events": [0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://cde.news/nato-baltic-air-policing-jets-shoot-down-drone-over-latvia/",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D7.3": null,
+    "D7.4": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/us-news/2026/sep/30/pentagon-formal-withdrawal-troops-iraq",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://www.cnn.com/2026/09/30/middleeast/us-military-withdrawal-iraq-intl",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/10/3/israeli-air-attack-on-gaza-city-apartment-kills-at-least-five",
+          "date": "2026-10-03",
+          "cluster": "B-state-media"
+        },
+        {
+          "url": "https://www.reuters.com/world/middle-east/israeli-strike-kills-four-people-gaza-medics-say-2026-10-02/",
+          "date": "2026-10-02",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D8.2": null,
+    "D8.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.securitycouncilreport.org/monthly-forecast/2026-10/lebanon-40.php",
+          "date": "2026-10-01",
+          "cluster": "C-registries"
+        },
+        {
+          "url": "https://italytelegraph.com/posts/italy-takes-command-new-plan-to-monitor-lebanons-demilitarized-border",
+          "date": "2026-10-04",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D8.4": null,
+    "D9.1": null,
+    "D9.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/business/russia-puts-german-retailer-metros-assets-under-temporary-administration-amid-2026-09-28/",
+          "date": "2026-09-28",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://apnews.com/article/russia-kremlin-metro-germany-ukraine-3c9e1ffc85eec2a448ca2dbc2ef4147b",
+          "date": "2026-09-28",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D9.3": null,
+    "D9.4": null,
+    "D9.5": null,
+    "D9.6a": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.reuters.com/legal/litigation/turkish-court-orders-access-ban-popular-news-portal-over-lgbtq-propaganda-2026-09-30/",
+          "date": "2026-09-30",
+          "cluster": "A-mainstream"
+        },
+        {
+          "url": "https://europeanjournalists.org/blog/2026/10/01/turkey-istanbul-court-shuts-down-independent-news-site-t24/",
+          "date": "2026-10-01",
+          "cluster": "A-mainstream"
+        }
+      ]
+    },
+    "D9.6b": null,
+    "D9.7": null
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "medium",
+      "reason": "Покрыто 4/6: удары по энергосети Украины и НПЗ РФ (D1.4), переброска войск КНР на учения «Центры-2026» (D1.1/D1.2), первое развёртывание NMESIS у Тайваня (D1.5); D1.3/D1.6 без сигналов в окне, часть опирается на один источник (SCMP)."
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "Свежий сигнал окна D2.1 (дипломатическое ядерное предупреждение России НАТО 30.09, Reuters/TASS). D2.2–D2.5 перенесены без изменений из недели 2026-09-27 (та же редакционная практика, что и в 09-27): новых проверяемых доктринальных/технических сигналов в окне 28.09–04.10 нет."
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "Покрыто 3/5: санкции США против сетей закупок для Ирана и финансирования ХАМАС (D3.3), посредничество Катара (D3.4), взаимные условия США–Иран по Ормузу (D3.2); D3.1/D3.5 без сигналов, часть источников одного кластера A."
+    },
+    "D4": {
+      "level": "medium",
+      "reason": "Покрыто 4/5: импортные запреты США против Канады (D4.1), контракт F/A-XX (D4.2), выпуск 325 млн баррелей из резервов ИЭА (D4.3), удары по танкерам в Ормузе (D4.4); D4.5 без сигналов."
+    },
+    "D5": {
+      "level": "low",
+      "reason": "Покрыто 1/4: НАТО осуждает ядерную риторику Москвы на фоне ударов по Киеву (D5.1); D5.2–D5.4 без подтверждённых сигналов в окне — ниже порога."
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "Покрыто 2/4: рост военных расходов РФ на 27% по проекту бюджета-2027 (D6.3), состояние укрытий Киева (D6.2); новых мобилизационных решений в окне нет."
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "Покрыто 3/4: подтверждённое завершение вывода войск США из Ирака (D7.4), перехват дрона над Латвией (D7.2), план саудовского наступления на Баб-эль-Мандеб (D7.1); новых театров (D7.3) нет."
+    },
+    "D8": {
+      "level": "medium",
+      "reason": "Покрыто ровно 2/4: нарушения перемирия в Газе (D8.1 = 0), наблюдение за границей Ливана без новых верификационных схем (D8.3); подписанных договорённостей и устойчивого снижения интенсивности нет."
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "Покрыто 2/8 подгрупп (D9.2 — временное управление активами Metro, D9.6a — закрытие турецкого T24); при одной сигналящей соседней подгруппе короборация 0.5; уровень high невозможен (§4.3.1)."
+    }
+  },
+  "sources": [
+    {
+      "id": "scmp-china-troops-tsentr-2026",
+      "title": {
+        "ru": "Китайские военные выстроились на учения «Центры-2026» России по мере укрепления военных связей",
+        "en": "Chinese troops line up for Russia's Tsentr-2026 exercise as military ties tighten"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/military/article/3369657/chinese-troops-line-russias-tsentr-2026-exercise-military-ties-tighten",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-nmesis-japan-island",
+      "title": {
+        "ru": "США впервые развёртывают противокорабельную систему NMESIS на японском острове, ближайшем к Тайваню",
+        "en": "US to deploy NMESIS anti-ship system on Japanese island closest to Taiwan for first time"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/diplomacy/article/3369666/us-deploy-nmesis-anti-ship-system-japanese-island-closest-taiwan-first-time",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-north-korea-irmb-test",
+      "title": {
+        "ru": "КНДР провела испытание ракеты средней дальности на фоне напряжённости из-за взрыва в шахте",
+        "en": "North Korea test-fires intermediate-range missile amid mine blast tensions"
+      },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/asia/east-asia/article/3369665/north-korea-test-fires-intermediate-range-missile-amid-mine-blast-tensions",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-power-grid-attack",
+      "title": {
+        "ru": "Сводка войны в Украине: Россия обрушилась на энергосеть, семь погибших — крупнейшая атака за месяцы",
+        "en": "Ukraine war briefing: Russia pounds power grid with seven killed in biggest energy attack in months"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-war-briefing-russia-pounds-power-grid-with-seven-killed-in-biggest-energy-attack-in-months",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "hindustantimes-samara-refinery-drones",
+      "title": {
+        "ru": "Украина атаковала дронами крупный российский НПЗ и узел нефтепроводов в Самарской области",
+        "en": "Ukraine attacks major Russian refinery and oil pipeline hub with drones in Samara region"
+      },
+      "domain": "hindustantimes.com",
+      "url": "https://www.hindustantimes.com/world-news/ukraine-attacks-major-russian-refinery-and-oil-pipeline-hub-with-drones-in-samara-region-101790959628787.html",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-nato-nuclear-rhetoric",
+      "title": {
+        "ru": "Сводка: НАТО осуждает «безответственную ядерную риторику» Москвы, пока удары по Киеву нарастают",
+        "en": "Ukraine war briefing: Nato condemns Moscow's 'irresponsible nuclear rhetoric' as strikes on Kyiv intensify"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/sep/30/ukraine-war-briefing-nato-condemns-moscows-irresponsible-nuclear-rhetoric-as-strikes-on-kyiv-intensify",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbc-kyiv-datacenters-nuclear-rhetoric",
+      "title": {
+        "ru": "Россия атакует дата-центры в Киеве на фоне осуждения НАТО ядерной риторики Москвы",
+        "en": "Russia targets data centers in Kyiv as NATO condemns Moscow's 'irresponsible nuclear rhetoric'"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/09/30/ukraine-war-russia-nato-nuclear-kyiv.html",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "yahoo-finance-russia-military-spending-2027",
+      "title": {
+        "ru": "Россия планирует увеличение военных расходов на 27% в 2027 году",
+        "en": "Russia Plans 27% Increase in Military Spending in 2027"
+      },
+      "domain": "finance.yahoo.com",
+      "url": "https://finance.yahoo.com/economy/policy/articles/russia-plans-27-increase-military-135647070.html",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "yahoo-kyiv-bomb-shelters-dire",
+      "title": {
+        "ru": "Киевские бомбоубежища в плачевном состоянии: мэр Кличко перекладывает вину",
+        "en": "Kyiv's bomb shelters are in a dire state. Mayor Klitschko is passing on the blame"
+      },
+      "domain": "yahoo.com",
+      "url": "https://www.yahoo.com/news/world/articles/kyivs-bomb-shelters-dire-state-172646250.html",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-estonia-russia-arson",
+      "title": {
+        "ru": "Эстония обвиняет Россию в поджоге завода дронов, поставляющих Украине",
+        "en": "Estonia blames Russia for arson attack on drone maker supplying Ukraine"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/sep/29/estonia-blames-russia-arson-attack-drone-maker-ukraine",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-finland-mp-break-ins",
+      "title": {
+        "ru": "Премьер Финляндии: взломы в домах депутатов могла совершить иностранная держава",
+        "en": "Finnish PM says suspected break-ins at MPs' homes could be work of foreign power"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/finland-suspected-break-ins-mp-homes-foreign-power",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-ukraine-refinery-strikes-defying-trump",
+      "title": {
+        "ru": "Украина продолжает удары по российским НПЗ, несмотря на предупреждения Трампа о ценах на топливо",
+        "en": "Ukraine persists with Russian oil refinery strikes in defiance of Trump"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/01/ukraine-russian-oil-refinery-strikes-defying-trump-fuel-price-warnings",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-russia-nuclear-warning-kaliningrad",
+      "title": {
+        "ru": "Россия направила НАТО ядерное предупреждение на фоне роста напряжённости в Балтике",
+        "en": "Russia sends nuclear warning to NATO as tensions rise in the Baltic"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/aerospace-defense/russia-issues-nuclear-warning-nato-tensions-rise-baltic-2026-09-30/",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-nato-confirms-russian-warning",
+      "title": {
+        "ru": "Генсек НАТО подтвердил получение российского предупреждения о возможной блокаде Калининграда",
+        "en": "NATO chief confirms receipt of Russian warning over potential Kaliningrad blockade"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2195299",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "indiatoday-trump-rejects-iran-seven-day-plan",
+      "title": {
+        "ru": "Трамп отклонил план перемирия: Катар пытается возобновить диалог США и Ирана",
+        "en": "Trump rejected truce plan. Qatar now tries to get US and Iran talking again"
+      },
+      "domain": "indiatoday.in",
+      "url": "https://www.indiatoday.in/world/story/us-iran-talks-qatar-mediates-after-trump-rejects-iran-seven-day-hormuz-truce-proposal-3005173-2026-09-28",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "gulfnews-us-responds-to-tehran-hormuz-plan",
+      "title": {
+        "ru": "Война США и Ирана: Вашингтон ответил на тегеранскую программу по Ормузу",
+        "en": "US-Iran war: US responds to Tehran's Hormuz plan"
+      },
+      "domain": "gulfnews.com",
+      "url": "https://gulfnews.com/uae/us-iran-war-us-responds-to-tehrans-hormuz-plan-what-uae-residents-need-to-know-tonight-september-30-2026-1.500693821",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-us-sanctions-iran-weapons-procurement",
+      "title": {
+        "ru": "США ввели санкции против 13 лиц и компаний в связи с закупками оружия для Ирана",
+        "en": "US imposes sanctions on 13 tied to Iran weapons procurement"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/us-sanctions-10-over-allegedly-procuring-weapons-iran-2026-09-29/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "state-us-cuts-off-hamas-financing",
+      "title": {
+        "ru": "США перекрыли сеть финансирования ХАМАС",
+        "en": "United States Cuts Off Hamas Financing Network"
+      },
+      "domain": "state.gov",
+      "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/10/united-states-cuts-off-hamas-financing-network/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-araghchi-meets-qatari-mediators",
+      "title": {
+        "ru": "Министр Ирана Арагичи встретился с катарскими посредниками; США настаивают на ядерных переговорах",
+        "en": "Iran's Araghchi meets Qatari mediators as US insists on nuclear talks"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/9/29/irans-araghchi-meets-qatari-mediators-as-us-insists-on-nuclear-talks",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "democracynow-us-iran-indirect-talks",
+      "title": {
+        "ru": "США и Иран провели косвенные переговоры о прекращении боёв, снятии санкций и открытии Ормуза",
+        "en": "US and Iran Hold Indirect Talks on Deal to End Fighting, Lift Sanctions and Reopen Hormuz"
+      },
+      "domain": "democracynow.org",
+      "url": "https://www.democracynow.org/2026/9/29/headlines/us_and_iran_hold_indirect_talks_on_deal_to_end_fighting_lift_sanctions_and_reopen_hormuz",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbc-canada-import-ban-in-force",
+      "title": {
+        "ru": "Американские ограничения на импорт канадских товаров вступили в силу: список запрещённых товаров",
+        "en": "America's Canadian import restrictions come into force. Here are the products barred"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/09/29/canada-import-ban-trade-war.html",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-us-ban-on-canadian-imports",
+      "title": {
+        "ru": "Запрет США на канадский импорт грозит ещё больше ослабить хрупкие отношения",
+        "en": "US ban on Canadian imports likely to weaken already fragile relations"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/us-news/2026/sep/29/ban-canada-imports",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-boeing-wins-navy-fighter-contract",
+      "title": {
+        "ru": "Пентагон: Boeing получил контракт ВМС на истребитель нового поколения",
+        "en": "Boeing wins US Navy's next-generation fighter contract, Pentagon says"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/autos-transportation/boeing-wins-us-navys-next-generation-fighter-contract-sources-say-2026-09-29/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "war-gov-faxx-contract-award",
+      "title": {
+        "ru": "Министерство войны и ВМС США заключили контракт по программе F/A-XX",
+        "en": "Department of War and U.S. Navy Award Contract for F/A-XX Program"
+      },
+      "domain": "war.gov",
+      "url": "https://www.war.gov/News/Releases/Release/Article/4614331/department-of-war-and-us-navy-award-contract-for-fa-xx-program/",
+      "publication_date": "2026-09-29",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "straitstimes-iea-325m-barrels-released",
+      "title": {
+        "ru": "ИЭА: из стратегических резервов выпущено 325 млн баррелей нефти",
+        "en": "325 million barrels of oil released from strategic reserves: IEA"
+      },
+      "domain": "straitstimes.com",
+      "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "xinhua-iea-325m-barrels-released",
+      "title": {
+        "ru": "ИЭА: выпущено 325 млн баррелей нефти из стратегических резервов",
+        "en": "325 mln barrels of oil released from strategic reserves: IEA"
+      },
+      "domain": "english.news.cn",
+      "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "gulfnews-oil-tankers-attacked-hormuz",
+      "title": {
+        "ru": "Танкеры атакованы в Ормузском проливе — британская морская служба",
+        "en": "Oil tankers attacked in Hormuz strait: UK maritime agency"
+      },
+      "domain": "gulfnews.com",
+      "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-pakistan-summons-indian-diplomat",
+      "title": {
+        "ru": "Пакистан вызвал индийского дипломата после убийства двух пакистанцев у границы",
+        "en": "Pakistan summons Indian diplomat over border killing of two Pakistanis"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/3/pakistan-summons-indian-diplomat-over-border-killing-of-two-pakistanis",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "mofa-pakistan-summons-indian-charge-daffaires",
+      "title": {
+        "ru": "Атташе по делам Индии вызван в МИД Пакистана в связи с убийством двух граждан",
+        "en": "Indian Chargé d'Affaires Summoned over Killing of Two Pakistani Civilians"
+      },
+      "domain": "mofa.gov.pk",
+      "url": "https://mofa.gov.pk/press-releases/indian-charge-daffaires-summoned-over-killing-of-two-pakistani-civilians",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "anews-egypt-four-way-summit",
+      "title": {
+        "ru": "Египет проведёт четырёхсторонний саммит с Эритреей, Сомали и Суданом на фоне конфликта в Эфиопии",
+        "en": "Egypt to host 4-way summit with Eritrea, Somalia, Sudan amid Ethiopia conflict"
+      },
+      "domain": "anews.com.tr",
+      "url": "https://www.anews.com.tr/europe/2026/10/03/egypt-to-host-4-way-summit-with-eritrea-somalia-sudan-amid-ethiopia-conflict",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "presidency-egypt-sisi-four-way-summit",
+      "title": {
+        "ru": "Президент ас-Сиси примет участие в координационном саммите Афросоюза и четырёхстороннем консультативном саммите",
+        "en": "President El-Sisi Attends AU Mid-Year Coordination Meeting & Four-way Consultative Summit"
+      },
+      "domain": "presidency.eg",
+      "url": "https://www.presidency.eg/en/%D9%82%D8%B3%D9%85-%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1-%D8%B1%D8%A6%D8%A7%D8%B3%D9%8A%D8%A9/news03102026-6/",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "theguardian-com-pentagon-withdrawal-iraq",
+      "title": {
+        "ru": "Пентагон сообщает о формальном завершении вывода войск США из Ирака",
+        "en": "Pentagon says it has formally completed withdrawal of US troops from Iraq"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/us-news/2026/sep/30/pentagon-formal-withdrawal-troops-iraq",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnn-com-us-troops-complete-iraq-exit",
+      "title": {
+        "ru": "Войска США завершили выход из Ирака, Иран и его союзники празднуют",
+        "en": "US troops complete Iraq exit, as Iran and its allies celebrate"
+      },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/09/30/middleeast/us-military-withdrawal-iraq-intl",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "ynetnews-com-saudi-yemen-offensive-bab-el-mandeb",
+      "title": {
+        "ru": "Саудовская Аравия планирует наступление в Йемене силами до 100 тыс. человек для возврата Баб-эль-Мандеба у хуситов",
+        "en": "Saudi Arabia plans 100,000-troop Yemen offensive to retake Bab el-Mandeb from Houthis"
+      },
+      "domain": "ynetnews.com",
+      "url": "https://www.ynetnews.com/article/bjxod8tcfe",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "siasat-com-saudi-houthi-bab-el-mandeb-offensive",
+      "title": {
+        "ru": "Саудовская Аравия планирует наступление на хуситов для возврата Баб-эль-Мандеб",
+        "en": "Saudi Arabia plans Houthi offensive to retake Bab el-Mandeb"
+      },
+      "domain": "siasat.com",
+      "url": "https://www.siasat.com/saudi-arabia-plans-houthi-offensive-to-retake-bab-el-mandeb-3551859/",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cde-news-nato-intercept-drone-latvia",
+      "title": {
+        "ru": "Истребители НАТО перехватывают угрозу дрона в воздушном пространстве Латвии",
+        "en": "NATO Fighter Jets Intercept Drone Threat Over Latvia"
+      },
+      "domain": "cde.news",
+      "url": "https://cde.news/nato-baltic-air-policing-jets-shoot-down-drone-over-latvia/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-com-gaza-city-apartment-strike",
+      "title": {
+        "ru": "Воздушная атака Израиля на жилой дом в Газе убила не менее пяти человек",
+        "en": "Israeli air attack on Gaza City apartment kills at least five"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/3/israeli-air-attack-on-gaza-city-apartment-kills-at-least-five",
+      "publication_date": "2026-10-03",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "reuters-com-israeli-strike-gaza-2026-10-02",
+      "title": {
+        "ru": "Удар Израиля по Газе убил четырёх человек, сообщают медики",
+        "en": "Israeli strike kills four people in Gaza, medics say"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/middle-east/israeli-strike-kills-four-people-gaza-medics-say-2026-10-02/",
+      "publication_date": "2026-10-02",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-com-turkey-court-access-ban-t24",
+      "title": {
+        "ru": "Турецкий суд распорядился заблокировать популярный новостный портал под предлогом «LGBT-пропаганды»",
+        "en": "Turkish court orders access ban on popular news portal over LGBTQ propaganda"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/legal/litigation/turkish-court-orders-access-ban-popular-news-portal-over-lgbtq-propaganda-2026-09-30/",
+      "publication_date": "2026-09-30",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "europeanjournalists-org-turkey-t24-shutdown",
+      "title": {
+        "ru": "Турция: стамбульский суд закрыл независимое новостное издание T24",
+        "en": "Turkey: Istanbul court shuts down independent news site T24"
+      },
+      "domain": "europeanjournalists.org",
+      "url": "https://europeanjournalists.org/blog/2026/10/01/turkey-istanbul-court-shuts-down-independent-news-site-t24/",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "securitycouncilreport-org-lebanon-october-2026-forecast",
+      "title": {
+        "ru": "Ливан: месячный прогноз Совета Безопасности на октябрь 2026",
+        "en": "Lebanon, October 2026 Monthly Forecast"
+      },
+      "domain": "securitycouncilreport.org",
+      "url": "https://www.securitycouncilreport.org/monthly-forecast/2026-10/lebanon-40.php",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "italytelegraph-com-italy-lead-lebanon-monitoring",
+      "title": {
+        "ru": "Италия возглавит миссию ООН в Ливане: новый план контроля демилитаризованной границы",
+        "en": "Italy to Lead UN Lebanon Mission: Border Control Plan 2026"
+      },
+      "domain": "italytelegraph.com",
+      "url": "https://italytelegraph.com/posts/italy-takes-command-new-plan-to-monitor-lebanons-demilitarized-border",
+      "publication_date": "2026-10-04",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-com-russia-metro-temporary-administration",
+      "title": {
+        "ru": "Россия передала активы немецкой сети Metro под временное управление",
+        "en": "Russia puts German retailer Metro's assets under temporary administration"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/russia-puts-german-retailer-metros-assets-under-temporary-administration-amid-2026-09-28/",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "apnews-com-russia-kremlin-metro-germany",
+      "title": {
+        "ru": "Путин перевёл российские активы Metro AG под временное управление Кремля",
+        "en": "Putin places Metro AG's Russian assets under temporary administration"
+      },
+      "domain": "apnews.com",
+      "url": "https://apnews.com/article/russia-kremlin-metro-germany-ukraine-3c9e1ffc85eec2a448ca2dbc2ef4147b",
+      "publication_date": "2026-09-28",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-com-eritrea-severs-ties-ethiopia",
+      "title": {
+        "ru": "Эритрея разрывает дипломатические отношения с Эфиопией в ответ на высылку дипломатов",
+        "en": "Eritrea severs diplomatic ties with Ethiopia in tit-for-tat move"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/1/eritrea-severs-diplomatic-ties-with-ethiopia-in-tit-for-tat-move",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "reuters-com-pakistan-airstrikes-afghanistan",
+      "title": {
+        "ru": "Удары Пакистана по Афганистану убили девять человек, заявляет Кабул",
+        "en": "Pakistani airstrikes in Afghanistan kill nine, Kabul says"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/pakistani-airstrikes-afghanistan-kill-nine-kabul-says-2026-10-01/",
+      "publication_date": "2026-10-01",
+      "accessed_date": "2026-10-04",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    }
+  ]
+}
