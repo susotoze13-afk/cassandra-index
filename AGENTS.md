@@ -14,7 +14,7 @@
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27) |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04) |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
@@ -59,9 +59,10 @@ calc/input/<неделя>.json  входные сигналы недели: 45 �
                           sources}, слепые — covered:false с аттестацией), R55-источники,
                           driverConfidence; покрытие 26–42/45
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
-data/<YYYY-MM-DD>/        9 недель: 08-02…08-23 — непересчитываемая демо-история
-                          (methodology "1.0"), 08-30…09-27 — пересчитанные published
-                          (methodology "2.0"; q=1 у 08-30…09-20, 0.907 у 09-27):
+data/<YYYY-MM-DD>/        10 недель: 08-02…08-23 — непересчитываемая демо-история
+                          (methodology "1.0"), 08-30…10-04 — пересчитанные published
+                          (methodology "2.0"; q=1 у 08-30…09-20, 0.907 у 09-27,
+                          0.9293 у 10-04):
                           global/regions/region-*/
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
@@ -92,7 +93,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
   `checkSources(items: {url, where})` → `{checked, ok, broken, blocked}`; ворота падают
   только по broken, blocked — предупреждение. Проверка последовательная — не долбить сайты.
-- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27'], старт
+- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04'], старт
   от опубликованного PREV_WEEK = '2026-08-23'; переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
@@ -142,7 +143,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
   `nextChainState`/`renderGlobal`/`renderRegionFile` из calc.js (синтетические данные)
   + чистые модули сайта (i18n, risk, region, data). CLI — тонкая обвязка.
-- Схема источника R55 (во всех 9 неделях, включая региональные drivers): id,
+- Схема источника R55 (во всех 10 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
@@ -172,7 +173,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 ## Тесты
 
 `node --test` без аргументов (28 файлов, 268 passed / 0 fail — подтверждено прогоном
-2026-10-02). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+2026-10-04). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
@@ -222,6 +223,10 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   включительно), не защищённое поле; защищены только published/methodology.
 - Входы цепочки несут R55-источники (19–74 записей на неделю), покрытие 26–42/45;
   слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
+- D2 (ядерная сфера) может не иметь сигналов в окне недели — приём проекта: переносить
+  D2.1–D2.5 из предыдущей недели (их источники старше окна) при явном раскрытии в
+  `driverConfidence`, иначе D2 = 1/5 → `insufficient`; так сделано в 09-27 и 10-04 —
+  конвенция, не баг.
 - Слепые регионы (nReg = 0, региональной атрибуции D01 во входах нет — все 6 регионов
   цепочки слепые): `calc.js` звёт `engine.regionalIndex` с prevIndex/prevGlobal из
   опубликованного снапшота прошлой недели; background остаётся true, но индекс региона
