@@ -15,7 +15,7 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-08-29", "cluster": "A-mainstream", "state_affiliated": true },
+        { "url": "https://www.dw.com/en/large-scale-drills/a-700001", "date": "2026-08-29", "cluster": "B-state-media", "state_affiliated": true },
         { "url": "https://www.reuters.com/world/satellite-border-analysis", "date": "2026-08-27", "cluster": "A-mainstream" }
       ]
     },
@@ -655,7 +655,7 @@
       "publication_date": "2026-08-29",
       "accessed_date": "2026-09-26",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
+      "cluster_id": "B-state-media",
       "state_affiliated": true
     },
     {

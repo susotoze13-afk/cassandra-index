@@ -183,7 +183,7 @@
         {
           "url": "https://www.aljazeera.com/news/2026/9/29/irans-araghchi-meets-qatari-mediators-as-us-insists-on-nuclear-talks",
           "date": "2026-09-29",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         },
         {
           "url": "https://www.democracynow.org/2026/9/29/headlines/us_and_iran_hold_indirect_talks_on_deal_to_end_fighting_lift_sanctions_and_reopen_hormuz",
@@ -715,8 +715,8 @@
       "publication_date": "2026-09-29",
       "accessed_date": "2026-10-04",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "democracynow-us-iran-indirect-talks",
@@ -841,8 +841,8 @@
       "publication_date": "2026-10-03",
       "accessed_date": "2026-10-04",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "mofa-pakistan-summons-indian-charge-daffaires",

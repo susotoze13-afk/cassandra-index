@@ -167,8 +167,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "publication_date": "2026-09-27",
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
-    "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   },
   {
     "id": "mea-us-coalition-withdraw-iraq-kurdistan",
@@ -195,8 +195,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "publication_date": "2026-09-27",
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
-    "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   },
   {
     "id": "aa-australia-openai-anthropic-senate",
@@ -209,8 +209,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "publication_date": "2026-09-27",
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
-    "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   },
   {
     "id": "guardian-london-takeover-frenzy",
@@ -237,8 +237,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "publication_date": "2026-09-27",
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
-    "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   },
   {
     "id": "aj-iran-shifts-trade-caspian",
@@ -251,8 +251,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "publication_date": "2026-09-27",
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
-    "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   },
   {
     "id": "yonhap-dmz-blast-joint-probe",

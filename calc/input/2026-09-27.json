@@ -242,7 +242,7 @@
         {
           "url": "https://www.aa.com.tr/en/middle-east/oman-pledges-to-safeguard-strait-of-hormuz-navigation-urges-iran-us-settlement/4070489",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -262,7 +262,7 @@
         {
           "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -273,7 +273,7 @@
         {
           "url": "https://www.aa.com.tr/en/world/australia-calls-openai-anthropic-ceos-to-face-senate-ai-inquiry/4070696",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         },
         {
           "url": "https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom",
@@ -294,7 +294,7 @@
         {
           "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -360,7 +360,7 @@
         {
           "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         },
         {
           "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-ships-indian-ocean-will-be-hit-if-another-war-breaks-out-irgc-says",
@@ -376,7 +376,7 @@
         {
           "url": "https://www.aljazeera.com/news/2026/9/27/yemen-government-forces-widen-attacks-against-houthis-what-we-know",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -409,7 +409,7 @@
         {
           "url": "https://www.aa.com.tr/en/middle-east/oman-pledges-to-safeguard-strait-of-hormuz-navigation-urges-iran-us-settlement/4070489",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -426,7 +426,7 @@
         {
           "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -439,7 +439,7 @@
         {
           "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz",
           "date": "2026-09-27",
-          "cluster": "A-mainstream"
+          "cluster": "B-state-media"
         }
       ]
     },
@@ -653,8 +653,8 @@
       "publication_date": "2026-09-27",
       "accessed_date": "2026-09-27",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "mea-us-coalition-withdraw-iraq-kurdistan",
@@ -681,8 +681,8 @@
       "publication_date": "2026-09-27",
       "accessed_date": "2026-09-27",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "aa-australia-openai-anthropic-senate",
@@ -695,8 +695,8 @@
       "publication_date": "2026-09-27",
       "accessed_date": "2026-09-27",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "guardian-london-takeover-frenzy",
@@ -723,8 +723,8 @@
       "publication_date": "2026-09-27",
       "accessed_date": "2026-09-27",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "aj-iran-shifts-trade-caspian",
@@ -737,8 +737,8 @@
       "publication_date": "2026-09-27",
       "accessed_date": "2026-09-27",
       "source_type": "secondary",
-      "cluster_id": "A-mainstream",
-      "state_affiliated": false
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     },
     {
       "id": "yonhap-dmz-blast-joint-probe",

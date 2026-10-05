@@ -17,7 +17,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.recalc = {
-  "at": "2026-10-03T06:51:42.728Z",
+  "at": "2026-10-05T04:59:46.374Z",
   "reason": "Еженедельный пересчёт",
   "previous": 47,
   "methodologyBefore": "2.0",

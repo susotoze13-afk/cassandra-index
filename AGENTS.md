@@ -164,6 +164,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
   notes. data.js принимает и легаси-схему (скалярная date) для обратной совместимости.
+- Каноническая классификация доменов (зафиксирована при правке метаданных
+  2026-10-05): aa.com.tr (Anadolu), dw.com (Deutsche Welle), aljazeera.com —
+  всегда `B-state-media` + `state_affiliated: true` (гос/госфинансируемые СМИ
+  по определению кластера в provenance-матрице). Разнобой во входах 08-30/09-27/10-04
+  исправлен; демо-недели v1.0 и региональные сиды data/<week>/region-*.js несут
+  старые значения — сиды штатным пересчётом не перезаписываются (renderRegionFile
+  переносит их verbatim).
 
 ## Соглашения кода
 
