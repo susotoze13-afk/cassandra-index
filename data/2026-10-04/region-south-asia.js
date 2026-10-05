@@ -30,8 +30,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
           "publication_date": "2026-10-03",
           "accessed_date": "2026-10-04",
           "source_type": "secondary",
-          "cluster_id": "A-mainstream",
-          "state_affiliated": false
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
         },
         {
           "id": "mofa-pakistan-summons-indian-charge-daffaires",

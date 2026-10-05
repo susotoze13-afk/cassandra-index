@@ -30,7 +30,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
           "publication_date": "2026-08-29",
           "accessed_date": "2026-09-26",
           "source_type": "secondary",
-          "cluster_id": "A-mainstream",
+          "cluster_id": "B-state-media",
           "state_affiliated": true
         },
         {
