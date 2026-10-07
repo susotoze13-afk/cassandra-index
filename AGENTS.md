@@ -231,6 +231,15 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 - Страницы грузят СОБРАННЫЕ `js/bundle.js`/`js/bundle-privacy.js`, а не ES-модули (CORS на file://).
   После правки `js/**` обязателен `node build.js` — иначе коммиченный бандл молча останется
   старым. bundle руками не править; тесты идут против исходников.
+- Прогон source-selection-hardening (2026-10-07, ADR 0019/0020): ворота независимости
+  `validateSourceIndependence` в calc/calc.js (≥2 кластеров ИЛИ ≥1 primary|OSINT на
+  покрытый критерий, `PARAMS.independenceGateFrom = '2026-10-11'`, forward-only —
+  цепочка 08-30…10-04 не пересчитывается); метрика `calc/sensitivity.js sensitivityScore`
+  (leave-one-domain/leave-one-cluster, max|ΔI| п.п., опц. поле quality-блока,
+  `PARAMS.sensitivityThreshold = 5`); ядро `PARAMS.coreSources` (9 доменов A/B/C/F,
+  warning при < coreMinDomains=4, НЕ ворота); red team: 7 вопросов (константа
+  REDTEAM_QUESTIONS в calc/audit.js = governance §3.2 пословно), record-тип `redteam`
+  в hash-цепочке аудита, advisory. Опубликованные недели до 10-11 ворота не видят.
 - Недели 08-02…08-23 в `data/` — непересчитываемая демо-история (methodology "1.0" у них,
   у пересчитанной цепочки "2.0" — разрыв версии реален); calc.js откажется считать неделю
   вне RECALC_WEEKS. На тренде точки v1 не показываются (см. ниже про selectMethodology);

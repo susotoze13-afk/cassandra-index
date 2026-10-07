@@ -60,7 +60,7 @@ test('домен-монополия → большой sensitivity; детерм
   const input = monopolyInput();
   const s = sensitivityScore(input, {}, PARAMS);
   assert.equal(typeof s, 'number');
-  assert.ok(s > 5, `ожидался большой сдвиг при исключении единственного домена, got ${s}`);
+  assert.ok(s > 5, `порог пометки R02.1 — 5 п.п.; ожидался sensitivity > 5, got ${s}`);
   // Исключение монопольного домена лишает все драйверы покрытия → internal 0
   // (известная величина из формул §5.2), значит sensitivity = baseline.internal.
   const baseline = aggregateDrivers(buildDrivers(input, PARAMS), PARAMS, {});
