@@ -1,7 +1,7 @@
 window.STATE =
 {
   "slug": "source-selection-hardening",
-  "dir": "2026-10-05-source-selection-hardening--wip",
+  "dir": "2026-10-05-source-selection-hardening",
   "title": "Укрепление выбора источников: ворота независимости, чувствительность, ядро, red team",
   "mode": "full",
   "depth": "normal",
@@ -11,17 +11,17 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-10-05T22:32:00+03:00",
-  "updatedAt": "2026-10-07T21:14:00+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-10-07T21:50:00+03:00",
+  "finishedAt": "2026-10-07T21:50:00+03:00",
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-10-05T22:29:01+03:00", "finishedAt": "2026-10-05T22:30:00+03:00" },
     { "id": "manifest",  "status": "done", "startedAt": "2026-10-05T22:30:00+03:00", "finishedAt": "2026-10-05T22:35:00+03:00", "note": "grilling-сессия: протокол Q1–Q24, R01–R06" },
     { "id": "briefing",  "status": "done", "startedAt": "2026-10-05T22:35:00+03:00", "finishedAt": "2026-10-05T23:30:00+03:00", "note": "adversarial pass в сессии grilling (4 раунда)" },
     { "id": "spec",      "status": "done", "startedAt": "2026-10-05T23:30:00+03:00", "finishedAt": "2026-10-05T23:55:00+03:00", "note": "спецификация = протокол Q1–Q24 + manifest + ADR 0019/0020" },
     { "id": "plan",      "status": "done", "startedAt": "2026-10-05T23:55:00+03:00", "finishedAt": "2026-10-06T00:06:00+03:00", "note": "7 тасков, 3 волны; interfaces.md засеян" },
-    { "id": "build",     "status": "active", "startedAt": "2026-10-06T12:00:00+03:00", "note": "01–06 сданы и закоммичены (83fffbc, 4a9e16b+39a3fcf, 4e1de90, 15f2a63, 78d055a, a683c31); ревью 05/06: findings, BLOCKING нет; в полёте 07" },
-    { "id": "review",    "status": "done", "finishedAt": "2026-10-07T23:00:00+03:00", "note": "ревью всех тасок: 04 PASS_WITH_CONCERNS (notes), остальные clean/PASS; находки — concerns" },
-    { "id": "final",     "status": "done", "startedAt": "2026-10-07T23:00:00+03:00", "finishedAt": "2026-10-07T23:40:00+03:00" }
+    { "id": "build",     "status": "done", "startedAt": "2026-10-06T12:00:00+03:00", "finishedAt": "2026-10-07T21:44:00+03:00", "note": "01–07 сданы и закоммичены (83fffbc…219b0bc); ревью всех тасок, BLOCKING нет" },
+    { "id": "review",    "status": "done", "finishedAt": "2026-10-07T21:44:00+03:00", "note": "ревью всех тасок: 04 PASS_WITH_CONCERNS (notes), остальные clean/PASS; находки — concerns" },
+    { "id": "final",     "status": "done", "startedAt": "2026-10-07T21:14:00+03:00", "finishedAt": "2026-10-07T21:44:00+03:00" }
   ],
   "requirements": { "total": 6, "done": 6, "inTicket": 0, "inSpec": 0, "placeholder": 0, "deferred": 0, "dropped": 0 },
   "tickets": [
@@ -31,7 +31,7 @@ window.STATE =
     { "id": "04", "slug": "redteam-checklist", "status": "done", "wave": 2, "startedAt": "2026-10-07T20:31:35+03:00", "finishedAt": "2026-10-07T21:10:00+03:00", "handoffs": 0, "repairs": 0, "tests": "tests/audit.test.js → 9/0; полный suite 294/0 по словам исполнителя (проверено точечно)", "commit": "15f2a63" },
     { "id": "05", "slug": "docs-governance-provenance", "status": "done", "wave": 2, "blockedBy": [], "startedAt": "2026-10-07T20:45:00+03:00", "finishedAt": "2026-10-07T21:12:00+03:00", "handoffs": 0, "repairs": 0, "commit": "78d055a", "tests": "node --test → 305/0", "note": "сдан второй линией; ревью Manifest+Spec и Craft: findings, BLOCKING нет" },
     { "id": "06", "slug": "site-methodology-bullets", "status": "done", "wave": 3, "blockedBy": [], "startedAt": "2026-10-07T20:45:00+03:00", "finishedAt": "2026-10-07T21:12:00+03:00", "handoffs": 0, "repairs": 0, "commit": "a683c31", "tests": "node --test → 305/0; бандлы пересобраны", "note": "сдан второй линией; ревью Manifest+Spec и Craft: findings, BLOCKING нет" },
-    { "id": "07", "slug": "final-acceptance", "status": "in-progress", "wave": 3, "blockedBy": [], "startedAt": "2026-10-07T21:14:00+03:00", "handoffs": 0, "repairs": 0 }
+    { "id": "07", "slug": "final-acceptance", "status": "done", "wave": 3, "blockedBy": [], "startedAt": "2026-10-07T21:14:00+03:00", "finishedAt": "2026-10-07T21:44:00+03:00", "handoffs": 0, "repairs": 0, "tests": "node --test → 312/0 (финальная сверка)", "note": "G4 слепая приёмка: «реализовано», 6/6 пунктов, расхождений нет" }
   ],
   "singlePass": null,
   "tests": "node --test → 305 passed / 0 failed",
