@@ -605,6 +605,7 @@ const DICTS = {
     'quality.modal.incomplete': 'Неполное покрытие источников.',
     'quality.modal.reduced': 'Публикация с пониженной уверенностью из-за неполного покрытия.',
     'quality.modal.insufficient': 'Неделя не опубликована: покрытие данных ниже порога публикации.',
+    'quality.modal.sensitive': 'Неделя чувствительна к выбору источников: исключение одного домена или кластера меняет индекс более чем на 5 пунктов.',
     'quality.modal.close': 'Закрыть',
     'a11y.quality.opened': 'Открыт диалог «Качество данных».',
     'critical.title': 'Очень высокий модельный риск',
@@ -776,6 +777,11 @@ const DICTS = {
     'method.gaps.2': 'Для косвенных индикаторов подготовки в закрытых странах данных мало — там возможны слепые зоны.',
     'method.gaps.3': 'При плохом покрытии новое значение сжимается к предыдущему, а доля неопределённости показывается в интерфейсе отдельно.',
     'method.gaps.4': 'Наблюдаемость снижения напряжения асимметрична: подписанные договорённости запаздывают относительно реального снижения, а закрытые переговоры не видны открытым источникам до публикации.',
+    'method.gaps.5': 'Репрезентативной выборки мирового инфополя нет: полный обход всех открытых источников по мощностям недоступен, покрытие — дисциплинированный обход по фиксированным критериям, а не полный учёт. Это граница метода, а не изъян отдельной недели.',
+    'method.sources.title': 'Как выбираются источники',
+    'method.sources.1': 'Отбор: 45 критериев фиксированы заранее и не подгоняются под результат. Источник закрывает критерий по правилу независимости — минимум два независимых кластера происхождения либо один первичный источник. Входные сигналы каждой недели публикуются открыто: ссылки, даты и классификация каждого источника.',
+    'method.sources.2': 'Проверка: ссылки источников проверяются автоматически перед публикацией — неделя с битой ссылкой не выходит. Выбор источников проходит чек-лист красной команды из семи вопросов, итоги фиксируются в журнале аудита.',
+    'method.sources.3': 'Устойчивость: чувствительность считается по каждому домену и кластеру недели — по очереди исключаем каждый источник и измеряем изменение индекса. Если наибольшее изменение превышает 5 пунктов, это раскрывается рядом с данными недели.',
     'method.conflicts.title': 'Конфликты источников',
     'method.conflicts.1': 'Если независимые по происхождению сигналы противоречат друг другу, уверенность в оценке снижается, а причина показывается рядом с драйвером.',
     'method.conflicts.2': 'Независимость проверяется через генеалогию источников: перепечатка одного первоисточника — это один источник, а не два независимых подтверждения.',
@@ -1146,6 +1152,10 @@ function qualityBadge(q) {
   return 'low';
 }
 
+// Порог показа пометки о чувствительности (R02) — равен PARAMS.sensitivityThreshold
+// (calc/params.js); сайт не читает calc/, константа зашита с комментарием.
+const SENSITIVITY_DISPLAY_THRESHOLD = 5; // п.п., = PARAMS.sensitivityThreshold
+
 // Пометка «Предварительная оценка» (R61): q ниже порога 'medium' или явный
 // флаг incompleteCoverage в снапшоте.
 function needsPreliminaryNote(snapshot) {
@@ -1271,6 +1281,12 @@ function buildQualityModal(lang, snapshot) {
   }
   addLine(body, 'quality.modal.explained');
   if (snapshot.incompleteCoverage === true) addLine(body, 'quality.modal.incomplete');
+  // R02: пометка чувствительности — только при превышении порога; поля нет или
+  // значение ≤ порога — строка не показывается.
+  if (typeof snapshot.sensitivity === 'number' && Number.isFinite(snapshot.sensitivity)
+    && snapshot.sensitivity > SENSITIVITY_DISPLAY_THRESHOLD) {
+    addLine(body, 'quality.modal.sensitive');
+  }
   if (snapshot.confidence === 'reduced') addLine(body, 'quality.modal.reduced');
   if (snapshot.dataState === 'insufficient') addLine(body, 'quality.modal.insufficient');
 
@@ -3526,7 +3542,8 @@ const { CRITERIA_LIST } = __ci_require("js/criteria.js");
 const LIST_KEYS = {
   measures: ['method.measures.1'],
   notMeasures: ['method.not.1', 'method.not.2', 'method.not.3'],
-  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4'],
+  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4', 'method.gaps.5'],
+  sources: ['method.sources.1', 'method.sources.2', 'method.sources.3'],
   conflicts: ['method.conflicts.1', 'method.conflicts.2', 'method.conflicts.3'],
   failures: ['method.failures.1', 'method.failures.2', 'method.failures.3'],
   fpfn: ['method.fpfn.1', 'method.fpfn.2', 'method.fpfn.3'],
@@ -3628,6 +3645,10 @@ function render(appState) {
     <div class="method-block">
       <h3>${t(lang, 'method.measures.title')}</h3>
       ${list(lang, LIST_KEYS.measures)}
+    </div>
+    <div class="method-block">
+      <h3>${t(lang, 'method.sources.title')}</h3>
+      ${list(lang, LIST_KEYS.sources)}
     </div>
     <div class="method-block">
       <h3>${t(lang, 'method.not.title')}</h3>

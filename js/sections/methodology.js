@@ -16,7 +16,8 @@ import { CRITERIA_LIST } from '../criteria.js';
 const LIST_KEYS = {
   measures: ['method.measures.1'],
   notMeasures: ['method.not.1', 'method.not.2', 'method.not.3'],
-  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4'],
+  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4', 'method.gaps.5'],
+  sources: ['method.sources.1', 'method.sources.2', 'method.sources.3'],
   conflicts: ['method.conflicts.1', 'method.conflicts.2', 'method.conflicts.3'],
   failures: ['method.failures.1', 'method.failures.2', 'method.failures.3'],
   fpfn: ['method.fpfn.1', 'method.fpfn.2', 'method.fpfn.3'],
@@ -118,6 +119,10 @@ export function render(appState) {
     <div class="method-block">
       <h3>${t(lang, 'method.measures.title')}</h3>
       ${list(lang, LIST_KEYS.measures)}
+    </div>
+    <div class="method-block">
+      <h3>${t(lang, 'method.sources.title')}</h3>
+      ${list(lang, LIST_KEYS.sources)}
     </div>
     <div class="method-block">
       <h3>${t(lang, 'method.not.title')}</h3>

@@ -57,6 +57,10 @@ export function qualityBadge(q) {
   return 'low';
 }
 
+// Порог показа пометки о чувствительности (R02) — равен PARAMS.sensitivityThreshold
+// (calc/params.js); сайт не читает calc/, константа зашита с комментарием.
+const SENSITIVITY_DISPLAY_THRESHOLD = 5; // п.п., = PARAMS.sensitivityThreshold
+
 // Пометка «Предварительная оценка» (R61): q ниже порога 'medium' или явный
 // флаг incompleteCoverage в снапшоте.
 export function needsPreliminaryNote(snapshot) {
@@ -182,6 +186,12 @@ function buildQualityModal(lang, snapshot) {
   }
   addLine(body, 'quality.modal.explained');
   if (snapshot.incompleteCoverage === true) addLine(body, 'quality.modal.incomplete');
+  // R02: пометка чувствительности — только при превышении порога; поля нет или
+  // значение ≤ порога — строка не показывается.
+  if (typeof snapshot.sensitivity === 'number' && Number.isFinite(snapshot.sensitivity)
+    && snapshot.sensitivity > SENSITIVITY_DISPLAY_THRESHOLD) {
+    addLine(body, 'quality.modal.sensitive');
+  }
   if (snapshot.confidence === 'reduced') addLine(body, 'quality.modal.reduced');
   if (snapshot.dataState === 'insufficient') addLine(body, 'quality.modal.insufficient');
 
