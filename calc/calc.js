@@ -25,7 +25,7 @@ import vm from 'node:vm';
 import { PARAMS } from './params.js';
 import { aggregateDrivers, validate, regionalIndex, CRITERIA, detectFlashTriggers } from './engine.js';
 import { buildDrivers } from './calibrate.js';
-import { sensitivityScore, SENSITIVITY_THRESHOLD } from './sensitivity.js';
+import { sensitivityScore } from './sensitivity.js';
 import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import * as audit from './audit.js';
@@ -165,6 +165,35 @@ export function validateSourceIndependence(input, params = PARAMS) {
     }
   }
   return errors;
+}
+
+// --- Ядро источников недели (R03, ADR 0020) ---
+// Чистый шов: пересечение доменов источников входа (критериальные по url +
+// top-level sources по полю domain|url) с PARAMS.coreSources. Возвращает
+// { present, missing, count } — count уникальных доменов ядра в неделе.
+// Ниже params.coreMinDomains — warning в отчёте расчёта (не ворота).
+export function checkCoreSources(input, params = PARAMS) {
+  const core = (params.coreSources && typeof params.coreSources === 'object') ? params.coreSources : {};
+  const domains = new Set();
+  const addSource = (s) => {
+    if (!s || typeof s !== 'object') return;
+    let d = typeof s.domain === 'string' ? s.domain : '';
+    if (!d && typeof s.url === 'string') {
+      try { d = new URL(s.url).hostname; } catch { d = ''; }
+    }
+    d = d.toLowerCase().replace(/^www\./, '');
+    if (d !== '') domains.add(d);
+  };
+  for (const entry of Object.values(input && input.criteria ? input.criteria : {})) {
+    if (Array.isArray(entry && entry.sources)) entry.sources.forEach(addSource);
+  }
+  if (Array.isArray(input && input.sources)) input.sources.forEach(addSource);
+  const present = Object.keys(core).filter((d) => domains.has(d.toLowerCase()));
+  return {
+    present,
+    missing: Object.keys(core).filter((d) => !domains.has(d.toLowerCase())),
+    count: present.length,
+  };
 }
 
 // --- Сбор URL источников собранного снапшота (R03) ---
@@ -402,6 +431,7 @@ export function runWeek(week, state) {
     sbReason,
     sources: input.sources,
     flash: detectFlashTriggers(input.criteria, PARAMS) ? flashDetails(input.criteria, PARAMS) : [],
+    core: checkCoreSources(input, PARAMS),
     coverage: {
       criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
       totalCriteria: Object.keys(CRITERIA).length,
@@ -594,9 +624,16 @@ function printWeek(res, writeMode, writeRejected = false) {
   lines.push(`internal: ${g.internal.toFixed(3)}  q: ${g.q.toFixed(3)}  ` +
     `покрытие: критериев ${res.coverage.criteria}/${res.coverage.totalCriteria}, драйверов ${res.coverage.drivers}/9`);
   lines.push(`structuralBreak: ${g.structuralBreak.active ? `АКТИВЕН (${g.structuralBreak.reason})` : 'нет'}`);
-  lines.push(`sensitivity: ${res.sensitivity === null ? 'н/д (нет источников)' : `${res.sensitivity} п.п.`} (порог ${SENSITIVITY_THRESHOLD} — пометка на сайте, таск 06)`);
+  lines.push(`sensitivity: ${res.sensitivity === null ? 'н/д (нет источников)' : `${res.sensitivity} п.п.`} (порог ${PARAMS.sensitivityThreshold} — пометка на сайте, таск 06)`);
   if (res.flash.length) {
     lines.push(`flash: ${res.flash.map((t) => t.criterion).join(', ')} — запись в audit`);
+  }
+  // Ядро источников (R03, ADR 0020): warning, не ворота — запись не блокирует.
+  if (res.core && res.core.count < PARAMS.coreMinDomains) {
+    lines.push(
+      `предупреждение: ядро источников представлено ${res.core.count} из ` +
+      `${PARAMS.coreMinDomains}+ доменов (нет: ${res.core.missing.join(', ')}) — сравнимость недель снижена, запись не блокируется`,
+    );
   }
   lines.push('regions (слепые, nReg=0 → сохранено последнее региональное отклонение от глобального фона):');
   for (const [id, r] of Object.entries(res.regions)) {

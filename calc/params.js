@@ -53,6 +53,27 @@ export const PARAMS = {
   // проверке не подлежат (forward-only, опубликованная цепочка не трогается);
   // breaking
   independenceGateFrom: '2026-10-11',
+  // Ядро источников (R03, ADR 0020): домен → кластер происхождения; ≥1 домен
+  // из кластеров A/B/C/F. Обоснование состава и роли D/E («не задействованы»)
+  // — governance §3 (таск 05). Непредставленность ядра в неделе — warning,
+  // не ворота; breaking
+  coreSources: {
+    'reuters.com': 'A-mainstream',
+    'theguardian.com': 'A-mainstream',
+    'apnews.com': 'A-mainstream',
+    'aa.com.tr': 'B-state-media',
+    'dw.com': 'B-state-media',
+    'understandingwar.org': 'C-registries',
+    'crisisgroup.org': 'C-registries',
+    'bloomberg.com': 'F-financial',
+    'finance.yahoo.com': 'F-financial',
+  },
+  // Минимум уникальных доменов ядра в неделе: ниже — warning в отчёте расчёта
+  // (запись не блокируется); breaking
+  coreMinDomains: 4,
+  // Порог публикации пометки чувствительности, п.п. (R02, протокол Q5/Q21;
+  // сайт подсвечивает при sensitivity > порога — таск 06); breaking
+  sensitivityThreshold: 5,
   // Flash-триггеры (R16–R19): событие severity 2.0 по Д1.4/Д2.4 или Д7.3 = 1;
   // breaking
   flashTriggers: { criteria: ['D1.4', 'D2.4'], severity: 2.0, d7Value: 1 },

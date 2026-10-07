@@ -80,7 +80,7 @@ export function sensitivityScore(input, ctx, params = PARAMS) {
   return round1(max);
 }
 
-// Порог публикации пометки чувствительности, п.п. (протокол Q5/Q21; сайт
-// подсвечивает при sensitivity > порога — таск 06). Константа здесь, а не в
-// params.js: params.js в этом прогоне правит таск 03, перенос — за ним.
-export const SENSITIVITY_THRESHOLD = 5;
+// Порог публикации пометки чувствительности, п.п. — теперь PARAMS.
+// sensitivityThreshold (params.js, конвенция «все числа в params.js»,
+// перенос условием ревью таска 02); здесь re-export для совместимости импортов.
+export const SENSITIVITY_THRESHOLD = PARAMS.sensitivityThreshold;
