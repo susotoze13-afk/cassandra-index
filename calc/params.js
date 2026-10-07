@@ -47,6 +47,12 @@ export const PARAMS = {
     'A-mainstream', 'B-state-media', 'C-registries',
     'D-satellite-osint', 'E-field-osint', 'F-financial',
   ],
+  // Дата вступления ворот независимости источников (R01, §4.1.2): каждый
+  // покрытый критерий недели ≥ этой даты обязан опираться на источники из
+  // ≥2 кластеров whitelist ИЛИ ≥1 primary|OSINT; недели раньше даты
+  // проверке не подлежат (forward-only, опубликованная цепочка не трогается);
+  // breaking
+  independenceGateFrom: '2026-10-11',
   // Flash-триггеры (R16–R19): событие severity 2.0 по Д1.4/Д2.4 или Д7.3 = 1;
   // breaking
   flashTriggers: { criteria: ['D1.4', 'D2.4'], severity: 2.0, d7Value: 1 },

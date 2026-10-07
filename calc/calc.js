@@ -136,6 +136,36 @@ export function validateInputSources(sources, params = PARAMS) {
   return errors;
 }
 
+// --- Ворота независимости источников покрытых критериев (R01, §4.1.2) ---
+// Чистый шов: каждый покрытый критерий входа обязан опираться на источники
+// из ≥2 разных кластеров whitelist params.clusters ИЛИ иметь ≥1 источник
+// типа primary|OSINT (Provisional Primary). Проверка применяется только к
+// неделям ≥ params.independenceGateFrom (forward-only, A2: опубликованная
+// цепочка 08-30…10-04 поведение не меняет); недели раньше даты — []
+// безусловно. state_affiliated primary допустим (пометка — таск 04).
+// Ошибка входа → неделя не считается (loadInput, раньше linkcheck).
+export function validateSourceIndependence(input, params = PARAMS) {
+  const from = params.independenceGateFrom;
+  if (typeof from !== 'string' || from === '') return [];
+  if (!input || typeof input.week !== 'string' || input.week < from) return [];
+  const errors = [];
+  for (const [id, entry] of Object.entries(input.criteria || {})) {
+    if (!entry || typeof entry !== 'object' || entry.covered !== true) continue;
+    const sources = Array.isArray(entry.sources) ? entry.sources : [];
+    const clusters = new Set(
+      sources.map((s) => s && s.cluster).filter((c) => typeof c === 'string' && c !== ''),
+    );
+    const hasPrimary = sources.some((s) => s && (s.type === 'primary' || s.type === 'OSINT'));
+    if (clusters.size < 2 && !hasPrimary) {
+      errors.push(
+        `criteria.${id}: независимость источников — покрытие на ${clusters.size} ` +
+        `кластере без primary/OSINT; нужно ≥2 кластеров whitelist или ≥1 primary|OSINT (§4.1.2)`,
+      );
+    }
+  }
+  return errors;
+}
+
 // --- Сбор URL источников собранного снапшота (R03) ---
 // items { url, where } для linkcheck.checkSources: top-level sources,
 // drivers[].sources[] и региональные drivers[].sources[]. where — неделя +
@@ -270,6 +300,11 @@ function loadInput(week) {
   const errors = validate(input);
   if (!errors.length && input.sources !== undefined) {
     errors.push(...validateInputSources(input.sources, PARAMS));
+  }
+  // Ворота независимости (R01, §4.1.2): покрытый критерий ≥ даты ворот
+  // требует ≥2 кластеров ИЛИ ≥1 primary|OSINT; ошибка — неделя не считается.
+  if (!errors.length) {
+    errors.push(...validateSourceIndependence(input, PARAMS));
   }
   return errors.length ? { errors } : { input };
 }
