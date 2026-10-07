@@ -185,7 +185,8 @@ function validate(snapshot) {
 }
 
 // Опциональные поля качества публикации (таск 05): q, nullWeight, confidence,
-// coverage, preview, recalc, incompleteCoverage. Старые снапшоты без них —
+// coverage, preview, recalc, incompleteCoverage; sensitivity (таск 02, R02) —
+// метрика чувствительности недели в п.п. Старые снапшоты без них —
 // валидны. Неделя insufficient обязана нести полное описание непубликации.
 const CONFIDENCES = ['full', 'reduced', 'none'];
 
@@ -231,6 +232,15 @@ function validateQuality(snapshot, errors) {
   }
   if (snapshot.incompleteCoverage !== undefined && typeof snapshot.incompleteCoverage !== 'boolean') {
     errors.push('incompleteCoverage: boolean');
+  }
+  // Метрика чувствительности недели (R02): max|ΔI| leave-one-out в п.п.
+  // (одно десятичное, ≥ 0); поле опционально — недели до внедрения его не несут.
+  if (
+    snapshot.sensitivity !== undefined &&
+    (typeof snapshot.sensitivity !== 'number' || !Number.isFinite(snapshot.sensitivity) ||
+      snapshot.sensitivity < 0 || snapshot.sensitivity > 100)
+  ) {
+    errors.push('sensitivity: number 0..100 (percentage points)');
   }
 
   if (snapshot.dataState === 'insufficient') {
