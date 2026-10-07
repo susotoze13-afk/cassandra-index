@@ -25,6 +25,7 @@ import vm from 'node:vm';
 import { PARAMS } from './params.js';
 import { aggregateDrivers, validate, regionalIndex, CRITERIA, detectFlashTriggers } from './engine.js';
 import { buildDrivers } from './calibrate.js';
+import { sensitivityScore, SENSITIVITY_THRESHOLD } from './sensitivity.js';
 import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import * as audit from './audit.js';
@@ -265,6 +266,7 @@ export function renderGlobal(week, snap, globalOut, meta) {
   ];
   if (meta.preview) lines.push(`  s.preview = ${j(meta.preview)};`);
   if (meta.incompleteCoverage) lines.push('  s.incompleteCoverage = true;');
+  if (typeof meta.sensitivity === 'number') lines.push(`  s.sensitivity = ${j(meta.sensitivity)};`);
   lines.push(`  s.recalc = ${j(meta.recalc)};`);
   return header(week) + lines.join('\n') + '\n' + FOOTER;
 }
@@ -325,6 +327,11 @@ export function runWeek(week, state) {
   };
   const g = aggregateDrivers(drivers, PARAMS, ctx);
   const classification = classifyPublication(g, drivers, PARAMS);
+  // Метрика чувствительности недели (R02, ADR 0019): leave-one-out по
+  // доменам и кластерам критериальных источников при том же контексте
+  // цепочки; max|ΔI| в п.п. Чистая функция, без сети, до ворот записи.
+  // null — вырожденный вход без единого источника (R02.3), поле не пишется.
+  const sensitivity = sensitivityScore(input, ctx, PARAMS);
 
   // Слепые регионы (nReg = 0) — через engine.regionalIndex, который сохраняет
   // последнее региональное отклонение от глобального фона (prevRegions против
@@ -388,6 +395,7 @@ export function runWeek(week, state) {
     errors: [],
     global: g,
     classification,
+    sensitivity,
     regions,
     trend,
     sbLeft,
@@ -462,6 +470,7 @@ async function writeWeek(res, state) {
       ? { preview: { index: res.global.index, internal: round3(res.global.internal) } }
       : {}),
     ...(cls.reduced ? { incompleteCoverage: true } : {}),
+    ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
     recalc,
   };
 
@@ -473,6 +482,7 @@ async function writeWeek(res, state) {
     nullWeight: meta.nullWeight,
     coverage: meta.coverage,
     confidence: meta.confidence,
+    ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
     recalc,
   };
   if (meta.preview) full.preview = meta.preview;
@@ -584,6 +594,7 @@ function printWeek(res, writeMode, writeRejected = false) {
   lines.push(`internal: ${g.internal.toFixed(3)}  q: ${g.q.toFixed(3)}  ` +
     `покрытие: критериев ${res.coverage.criteria}/${res.coverage.totalCriteria}, драйверов ${res.coverage.drivers}/9`);
   lines.push(`structuralBreak: ${g.structuralBreak.active ? `АКТИВЕН (${g.structuralBreak.reason})` : 'нет'}`);
+  lines.push(`sensitivity: ${res.sensitivity === null ? 'н/д (нет источников)' : `${res.sensitivity} п.п.`} (порог ${SENSITIVITY_THRESHOLD} — пометка на сайте, таск 06)`);
   if (res.flash.length) {
     lines.push(`flash: ${res.flash.map((t) => t.criterion).join(', ')} — запись в audit`);
   }
