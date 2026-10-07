@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const DEFAULT_LOG = fileURLToPath(new URL('../data/audit.jsonl', import.meta.url));
 const GENESIS = 'GENESIS';
-const TYPES = ['recalc', 'flash', 'methodology'];
+const TYPES = ['recalc', 'flash', 'methodology', 'redteam'];
 const REQUIRED_FIELDS = [
   'snapshot_id',
   'version_before',
@@ -16,6 +16,25 @@ const REQUIRED_FIELDS = [
   'recalculation_method',
   'diff',
   'approved_by',
+];
+const REQUIRED_BY_TYPE = {
+  recalc: REQUIRED_FIELDS,
+  flash: REQUIRED_FIELDS,
+  methodology: REQUIRED_FIELDS,
+  redteam: ['week', 'answers', 'approved_by'],
+};
+
+// Канонические 7 вопросов red team чек-листа (протокол Q16, ADR 0020).
+// Порядок фиксирован: answers[i] журнальной записи отвечает на QUESTIONS[i];
+// вопросы 6 и 7 намеренно не объединены (Q16).
+export const REDTEAM_QUESTIONS = [
+  'Есть ли домен или кластер, давший больше 50 % покрытия недели?',
+  'Назван ли источник, опровергающий главный сигнал недели?',
+  'Есть ли критерии, которые держатся на одном домене?',
+  'Какие домены ядра пропущены в окне недели и почему?',
+  'Есть ли короборация secondary-источником без primary?',
+  'Сверена ли цитата каждого драйвера с исходным источником?',
+  'Отделены ли события недели от громкости ленты (пропагандного фона)?',
 ];
 
 function canonical(value) {
@@ -53,10 +72,15 @@ function validate(record) {
   if (!TYPES.includes(record.type)) {
     throw new Error(`audit: unknown type "${record.type}" (expected ${TYPES.join('|')})`);
   }
-  for (const field of REQUIRED_FIELDS) {
+  const required = REQUIRED_BY_TYPE[record.type];
+  for (const field of required) {
     if (!(field in record) || record[field] === undefined) {
       throw new Error(`audit: missing required field "${field}"`);
     }
+  }
+  if (record.type === 'redteam') {
+    validateRedteam(record);
+    return;
   }
   if (typeof record.snapshot_id !== 'string' || record.snapshot_id === '') {
     throw new Error('audit: snapshot_id must be a non-empty string');
@@ -67,6 +91,27 @@ function validate(record) {
     if (!isDiffObject || Object.keys(diff).length === 0) {
       throw new Error('audit: diff must be a non-empty object {field: {from, to}}');
     }
+  }
+}
+
+function validateRedteam(record) {
+  if (typeof record.week !== 'string' || record.week === '') {
+    throw new Error('audit: week must be a non-empty string');
+  }
+  if (
+    !Array.isArray(record.answers) ||
+    record.answers.length !== 7 ||
+    record.answers.some((a) => typeof a !== 'string' || a === '')
+  ) {
+    throw new Error('audit: answers must be an array of exactly 7 non-empty strings');
+  }
+  if ('flags' in record && record.flags !== undefined) {
+    if (!Array.isArray(record.flags) || record.flags.some((f) => typeof f !== 'string')) {
+      throw new Error('audit: flags must be an array of strings');
+    }
+  }
+  if (typeof record.approved_by !== 'string' || record.approved_by === '') {
+    throw new Error('audit: approved_by must be a non-empty string');
   }
 }
 
@@ -83,7 +128,7 @@ export function append(record, logPath = DEFAULT_LOG) {
     ...fields,
     type,
     id: `${type}-${String(seq).padStart(4, '0')}`,
-    created_by: record.changed_by,
+    created_by: record.changed_by ?? record.approved_by,
     prev_hash: prevHash,
   };
   stored.hash = chainHash(stored, prevHash);

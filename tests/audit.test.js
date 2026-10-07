@@ -4,7 +4,7 @@ import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { append, verify, read } from '../calc/audit.js';
+import { append, verify, read, REDTEAM_QUESTIONS } from '../calc/audit.js';
 
 const REQUIRED_FIELDS = [
   'snapshot_id',
@@ -112,6 +112,71 @@ test('flash-запись: diff может быть пустым, snapshot_id о�
     () => append(makeRecord({ snapshot_id: 42 }), log),
     /snapshot_id/,
   );
+});
+
+test('redteam-запись: append проходит, verify зелёный, форма — 7 ответов + flags + approved_by', () => {
+  const log = tmpLog();
+  append(makeRecord(), log);
+  const rec = append(
+    {
+      type: 'redteam',
+      week: '2026-10-11',
+      answers: [
+        'домен X = 60 % недели — превышение, источники перераспределены',
+        'источник, опровергающий главный сигнал: не назван — добавлен',
+        'D3 и D4 полностью на одном домене — подтверждение вторым кластером найдено',
+        'ядро: пропуск cluster C (реестры) — в окне нет сигналов, зафиксировано',
+        'secondary-на-secondary без primary у D7 — заменено на primary',
+        'цитата драйвера D5 сверена с источником дословно',
+        'события отделены от громкости ленты по правилу §4 окна W−7…W',
+      ],
+      flags: ['dominance: example.com', 'core-gap: C'],
+      approved_by: 'editor-in-chief',
+    },
+    log,
+  );
+  assert.match(rec.id, /^redteam-0002$/);
+
+  const clean = verify(log);
+  assert.deepEqual(clean, { ok: true, brokenAt: null, count: 2 });
+
+  const lines = readFileSync(log, 'utf8').trim().split('\n');
+  const stored = JSON.parse(lines[1]);
+  assert.equal(stored.prev_hash, JSON.parse(lines[0]).hash);
+  assert.equal(stored.week, '2026-10-11');
+  assert.equal(stored.answers.length, 7);
+  assert.equal(stored.created_by, 'editor-in-chief');
+});
+
+test('redteam-валидация: ровно 7 непустых строк answers, week/approved_by обязательны, flags — строки', () => {
+  const log = tmpLog();
+  const good = {
+    type: 'redteam',
+    week: '2026-10-11',
+    answers: ['1', '2', '3', '4', '5', '6', '7'],
+    flags: [],
+    approved_by: 'editor-in-chief',
+  };
+  append(good, log);
+
+  assert.throws(() => append({ ...good, answers: ['1', '2', '3'] }, log), /answers/);
+  assert.throws(() => append({ ...good, answers: ['1', '2', '3', '4', '5', '6', ''] }, log), /answers/);
+  assert.throws(() => append({ ...good, week: '' }, log), /week/);
+  assert.throws(() => append({ ...good, approved_by: '' }, log), /approved_by/);
+  assert.throws(() => append({ ...good, flags: [42] }, log), /flags/);
+  assert.throws(() => append({ ...good, type: 'unknown' }, log), /unknown type/);
+  assert.equal(read(log).length, 1, 'отклонённые записи не попадают в журнал');
+});
+
+test('REDTEAM_QUESTIONS: канонические 7 вопросов чек-листа (Q16), 6 и 7 — разные', () => {
+  assert.equal(REDTEAM_QUESTIONS.length, 7);
+  for (const q of REDTEAM_QUESTIONS) {
+    assert.equal(typeof q, 'string');
+    assert.notEqual(q.trim(), '');
+  }
+  assert.match(REDTEAM_QUESTIONS[1], /опроверг/i, 'вопрос 2 — поиск опровержения главного сигнала');
+  assert.match(REDTEAM_QUESTIONS[3], /ядр/i, 'вопрос 4 — пропуски ядра');
+  assert.notEqual(REDTEAM_QUESTIONS[5], REDTEAM_QUESTIONS[6], '6 и 7 не объединены');
 });
 
 test('read() возвращает записи в порядке добавления', () => {
