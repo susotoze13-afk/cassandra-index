@@ -5,6 +5,7 @@
 import { t, date } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
+import * as analytics from '../analytics.js';
 import { createToast, deltaClass } from '../ui.js';
 import { visibleSnapshotOf, needsPreliminaryNote } from './states.js';
 
@@ -416,4 +417,10 @@ export function render(appState) {
 
   if (panel && panelOpen) syncPanel(appState);
   maybeShowConsentToast(appState);
+  // Баннер аналитики — только после ответа на региональное согласие (два toast
+  // не наслаиваются), один раз за сессию; внутри — свои ворота (настроен ли счётчик).
+  analytics.maybeShowBanner({
+    lang,
+    regionAnswered: region.consent.status().status !== null,
+  });
 }

@@ -3,6 +3,7 @@
 
 import * as data from './data.js';
 import * as region from './region.js';
+import * as analytics from './analytics.js';
 import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
 import { applyDemo, initDemo } from './demo.js';
@@ -94,6 +95,9 @@ export function init() {
       renderApp(currentState());
     });
     initDemo(() => resolveLang());
+    // Аналитика: счётчик грузится только при уже выданном согласии
+    // (cassandra.analytics.consent); при отсутствии ответа — показывает баннер hero.js.
+    analytics.maybeInit();
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
       const { id, persist } = e.detail ?? {};

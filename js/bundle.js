@@ -1,5 +1,5 @@
 // js/bundle.js — СГЕНЕРИРОВАН build.js, не править вручную.
-// Исходники: js/data.js, js/region.js, js/i18n.js, js/risk.js, js/ui.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/criteria.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
+// Исходники: js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/criteria.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
 (function () {
 'use strict';
 const modules = {};
@@ -541,6 +541,136 @@ exports["choose"] = choose;
 exports["search"] = search;
 return exports;
 }]);
+factories.push(["js/risk.js", function (exports) {
+// Шкала §10 (PRD): 0–20 Calm … 97–100 Extreme threat.
+// Единственное место, где живут пороги.
+const SCALE = [
+  { max: 20, id: 'calm' },
+  { max: 40, id: 'tense' },
+  { max: 60, id: 'danger' },
+  { max: 80, id: 'very' },
+  { max: 96, id: 'critical' },
+  { max: 100, id: 'extreme' },
+];
+
+const TONES = {
+  calm: '--state-calm',
+  tense: '--state-tense',
+  danger: '--state-danger',
+  very: '--state-very',
+  critical: '--state-critical',
+  extreme: '--state-extreme',
+};
+
+function status(index) {
+  if (typeof index !== 'number' || Number.isNaN(index) || index < 0 || index > 100) return null;
+  return SCALE.find((s) => index <= s.max).id;
+}
+
+function tone(statusId) {
+  return TONES[statusId] ?? null;
+}
+
+// Цвет недельного изменения: рост → --state-very, снижение → --state-calm, ноль → --text-secondary.
+function deltaTone(change) {
+  if (typeof change !== 'number' || Number.isNaN(change)) return null;
+  if (change > 0) return '--state-very';
+  if (change < 0) return '--state-calm';
+  return '--text-secondary';
+}
+
+exports["SCALE"] = SCALE;
+exports["status"] = status;
+exports["tone"] = tone;
+exports["deltaTone"] = deltaTone;
+return exports;
+}]);
+factories.push(["js/ui.js", function (exports) {
+const risk = __ci_require("js/risk.js");
+// js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
+// el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
+// resolveLang() — всегда 'ru' (сайт одноязычный); parseWeekParam() — разбор ?week=;
+// createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
+// Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
+
+
+// DOM-фабрика: createElement + className + textContent (конвенция проекта —
+// никакого innerHTML со строками).
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+// Класс тона недельного изменения — из risk.deltaTone (единый каскад §12,
+// пороги направления живут в risk.js, а не в знаковых ветках по месту).
+const DELTA_CLASS = {
+  '--state-very': 'delta--rise',
+  '--state-calm': 'delta--fall',
+  '--text-secondary': 'delta--same',
+};
+
+function deltaClass(change) {
+  return DELTA_CLASS[risk.deltaTone(change)] ?? null;
+}
+
+// Сайт одноязычный (русский); сигнатура сохранена для вызывающего кода.
+function resolveLang() {
+  return 'ru';
+}
+
+// Разбор ?week= из query-строки: строгий формат YYYY-MM-DD, иначе null.
+// Владелец разбора — один на app.js/share.js/sections.
+function parseWeekParam(search) {
+  if (typeof search !== 'string' || !search) return null;
+  const q = new URLSearchParams(search).get('week');
+  return q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? q : null;
+}
+
+// Неблокирующий toast: role=status + aria-live polite, фокус не воруется,
+// кнопки-действия с доступными именами (сторона вызывающего кода — монтирование
+// и обработчики). actions: [{ label, onClick, className? }]; dismiss: {label, onClick}.
+// Возвращает корневой элемент (не прикреплён к документу).
+function createToast({ text, actions = [], dismiss = null }) {
+  const node = document.createElement('div');
+  node.className = 'toast';
+  node.setAttribute('role', 'status');
+  node.setAttribute('aria-live', 'polite');
+  const body = document.createElement('p');
+  body.className = 'toast-text';
+  body.textContent = text;
+  node.appendChild(body);
+  const controls = document.createElement('div');
+  controls.className = 'toast-actions';
+  for (const a of actions) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = a.className ?? 'toast-btn';
+    b.textContent = a.label;
+    b.addEventListener('click', a.onClick);
+    controls.appendChild(b);
+  }
+  if (dismiss) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'toast-close';
+    b.setAttribute('aria-label', dismiss.label);
+    b.textContent = '×';
+    b.addEventListener('click', dismiss.onClick);
+    controls.appendChild(b);
+  }
+  node.appendChild(controls);
+  return node;
+}
+
+exports["el"] = el;
+exports["deltaClass"] = deltaClass;
+exports["resolveLang"] = resolveLang;
+exports["parseWeekParam"] = parseWeekParam;
+exports["createToast"] = createToast;
+return exports;
+}]);
 factories.push(["js/i18n.js", function (exports) {
 // Словарь RU (сайт одноязычный; EN удалён — прогон 2026-10-03-ru-only-ui-tweaks).
 // Ни одной пользовательской строки вне словаря (§11.3).
@@ -695,11 +825,14 @@ const DICTS = {
     'trend.table.state': 'Состояние',
     'footer.next': 'Следующая публикация: {when}',
     'disclaimer.full': 'Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.',
-    'footer.ip': 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам',
+    'footer.ip': 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; для этого IP-адрес не используется и не сохраняется. Если вы разрешите аналитику, включается cookie-less аналитика Cloudflare Web Analytics — подробности в политике приватности',
     'region.toast.text': 'Мы можем определить ваш регион приблизительно по часовому поясу браузера, чтобы показать региональный контекст. IP-адрес не используется и не сохраняется.',
     'region.toast.change': 'Изменить',
     'region.toast.accept': 'Согласен',
     'region.toast.dismiss': 'Закрыть',
+    'analytics.banner.text': 'Разрешить сбор статистики посещений? Сайт использует cookie-less аналитику Cloudflare Web Analytics, чтобы понимать, сколько людей его открывает. Счётчик подключится только с вашего согласия — без него аналитика не работает.',
+    'analytics.banner.accept': 'Разрешить',
+    'analytics.banner.decline': 'Не разрешать',
     'footer.privacy': 'Приватность',
     'share.brand': 'CASSANDRA INDEX',
     'share.button': 'Поделиться',
@@ -726,12 +859,15 @@ const DICTS = {
     'feedback.note': 'Сообщение и ваш адрес (если указан) передаются через сервис FormSubmit владельцу сайта на почту.',
     'privacy.feedback.h': 'Форма обратной связи',
     'privacy.feedback.text': 'Если вы пишете через форму обратной связи на главной странице, текст сообщения и указанный вами обратный адрес передаются через сервис FormSubmit (formsubmit.co) на почту владельцу сайта. Сайт сам ничего не хранит: отправка идёт напрямую из вашего браузера во внешний сервис. Адрес получателя виден в коде страницы — на статическом сайте его нельзя скрыть.',
+    'privacy.analytics.h': 'Аналитика посещений (Cloudflare Web Analytics)',
+    'privacy.analytics.text': 'На главной странице используется Cloudflare Web Analytics — cookie-less аналитика: она не ставит cookie, не отслеживает вас между сайтами и не сохраняет персональные данные. Учитываются только адрес страницы, источник перехода, примерная страна, тип устройства и скорость загрузки. Счётчик подключается только после вашего согласия: до него никакие данные не отправляются. Отказаться можно в любой момент, очистив данные сайта в браузере.',
     'privacy.title': 'Политика приватности',
     'privacy.back': '← На главную',
     'privacy.storage.h': 'Что сайт хранит в вашем браузере',
-    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.region и cassandra.region.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие при следующем визите. Других данных о вас у сайта нет.',
+    'privacy.delete.text': 'Очистка данных сайта в настройках браузера (или удаление ключей cassandra.region, cassandra.region.consent и cassandra.analytics.consent из localStorage) стирает сохранённые значения. После удаления cassandra.region.consent сайт снова спросит согласие о регионе при следующем визите, а после удаления cassandra.analytics.consent — снова предложит аналитику. Других данных о вас у сайта нет.',
     'privacy.storage.region': 'cassandra.region — выбранный вами регион. Записывается, только если вы включили переключатель «Запомнить» в панели выбора региона; без него выбор живёт только до закрытия вкладки.',
     'privacy.storage.consent': 'cassandra.region.consent — ваш ответ на вопрос об автоматическом определении региона: статус (granted/denied), время ответа и, при отказе, срок повторного запроса (denied_until, 30 дней). Записывается, только когда вы отвечаете на уведомление на главной странице.',
+    'privacy.storage.analytics': 'cassandra.analytics.consent — ваш ответ на предложение включить аналитику: статус (granted/denied) и время ответа. Записывается, только когда вы отвечаете на баннер аналитики; отказ сохраняется, пока вы не очистите данные сайта.',
     'privacy.storage.first': 'До согласия ничего не сохраняется: до вашего явного действия localStorage остаётся пустым, регион не определяется, показывается только глобальный индекс.',
     'privacy.region.h': 'Как определяется регион',
     'privacy.region.static': 'Сайт полностью статический и работает без бэкенда. Регион определяется приблизительно по часовому поясу вашего браузера — и только после вашего согласия: до согласия регион не определяется и не сохраняется. Часовой пояс не сохраняется и никуда не передаётся.',
@@ -739,19 +875,19 @@ const DICTS = {
     'privacy.consent.h': 'Согласие на определение региона (region_consent)',
     'privacy.consent.text': 'При первом визите показывается неблокирующее уведомление с кнопками «Изменить» (открывает выбор региона вручную), «Согласен» и «Закрыть». «Согласен» разрешает определение по часовому поясу и запоминает ответ с меткой времени; «Закрыть» фиксирует отказ — повторный запрос возможен не раньше чем через 30 дней. Ответ не привязан к IP-адресу и не покидает ваш браузер.',
     'privacy.edge.h': 'Модель «edge/браузер» и сырой IP',
-    'privacy.edge.text': 'Сырой IP-адрес никогда не попадает в инфраструктуру сайта. В статической сборке определение выполняется в браузере (часовой пояс) и только после согласия; больше сайт ничего не узнаёт о вашем местоположении. При появлении бэкенда геолокация выполняется на edge-сервере, в приложение уходит только код региона; сырой IP не логируется (хэш с солью, хранение 24 часа — протокол в docs/governance.md).',
+    'privacy.edge.text': 'Сырой IP-адрес не попадает в инфраструктуру сайта: регион определяется в браузере (часовой пояс) и только после согласия. Отдельно, если вы разрешите аналитику, технические данные запроса получает сервис Cloudflare Web Analytics, который не использует cookie и не сохраняет персональные данные. При появлении бэкенда геолокация выполняется на edge-сервере, в приложение уходит только код региона; сырой IP не логируется (хэш с солью, хранение 24 часа — протокол в docs/governance.md).',
     'privacy.laws.h': 'Применимое право',
     'privacy.ccpa.h': 'CCPA (Калифорния)',
-    'privacy.ccpa.text': 'IP-адрес и идентификаторы устройства относятся к персональной информации. Сайт уведомляет о сборе при первом визите (toast согласия), предоставляет право на отказ («Закрыть» фиксирует отказ на 30 дней), а раскрытие о передаче третьим лицам — пустое: сайт ничего не передаёт.',
+    'privacy.ccpa.text': 'IP-адрес и идентификаторы устройства относятся к персональной информации. Сайт уведомляет о сборе при первом визите (уведомление о регионе и баннер аналитики), предоставляет право на отказ: «Закрыть» откладывает вопрос о регионе на 30 дней, отказ от аналитики сохраняется. Передача данных третьим лицам ограничена cookie-less аналитикой Cloudflare Web Analytics (только с вашего согласия) и формой обратной связи.',
     'privacy.gdpr.h': 'GDPR (EU/UK)',
-    'privacy.gdpr.text': 'Определение региона после согласия опирается на законный интерес — ст. 6(1)(f) GDPR с учётом Recital 30: обработка минимальна (производный код региона, без сырого IP), без передачи третьим лицам, с возможностью отказа в любой момент и удалением записи согласия в настройках браузера.',
+    'privacy.gdpr.text': 'Определение региона после согласия опирается на законный интерес — ст. 6(1)(f) GDPR с учётом Recital 30: обработка минимальна (производный код региона, без сырого IP). Аналитика Cloudflare Web Analytics включается только по вашему явному согласию, не использует cookie и отключается очисткой данных сайта в браузере.',
     'privacy.fz.h': '152-ФЗ (Россия)',
     'privacy.fz.text': 'С 2026 года IP-адреса, cookie-идентификаторы и геоданные относятся к персональным данным; их хранение подлежит локализации на территории РФ. Геолокация на зарубежном edge-сервере может нарушать требование локализации — перед запуском edge-слоя обязательна юридическая экспертиза (открытый вопрос зафиксирован в docs/governance.md).',
     'privacy.geo.h': 'Точная геолокация',
     'privacy.geo.text': 'Координаты запрашиваются, только если вы нажимаете «Уточнить точнее»; автоматического запроса GPS нет. Координаты используются только на вашем устройстве, чтобы уточнить регион, и никуда не отправляются.',
     'privacy.not.h': 'Чего сайт не делает',
-    'privacy.not.cookies': 'Не использует файлы cookie, счётчики аналитики, рекламные идентификаторы и сторонние виджеты.',
-    'privacy.not.third': 'Не передаёт данные третьим лицам: кроме отправки через форму обратной связи (описана выше), данные никуда не уходят — сайт можно открыть с локального диска, не подключаясь к сети.',
+    'privacy.not.cookies': 'Не использует файлы cookie и сторонние виджеты, кроме cookie-less аналитики Cloudflare Web Analytics — она подключается только с вашего согласия.',
+    'privacy.not.third': 'Данные передаются третьим лицам только в двух случаях: отправка сообщения через форму обратной связи и cookie-less аналитика Cloudflare Web Analytics (подключается только с вашего согласия) — оба описаны выше. Без согласия сайт можно открыть с локального диска, не подключаясь к сети.',
     'privacy.delete.h': 'Как удалить сохранённое',
     'history.week.label': 'Неделя',
     'history.week.current': 'текущая',
@@ -970,134 +1106,152 @@ exports["axisDate"] = axisDate;
 exports["date"] = date;
 return exports;
 }]);
-factories.push(["js/risk.js", function (exports) {
-// Шкала §10 (PRD): 0–20 Calm … 97–100 Extreme threat.
-// Единственное место, где живут пороги.
-const SCALE = [
-  { max: 20, id: 'calm' },
-  { max: 40, id: 'tense' },
-  { max: 60, id: 'danger' },
-  { max: 80, id: 'very' },
-  { max: 96, id: 'critical' },
-  { max: 100, id: 'extreme' },
-];
+factories.push(["js/analytics.js", function (exports) {
+const { createToast } = __ci_require("js/ui.js");
+const { t } = __ci_require("js/i18n.js");
+// js/analytics.js — согласие на аналитику и подключение cookie-less счётчика
+// Cloudflare Web Analytics (https://developers.cloudflare.com/web-analytics/).
+// Выбран как privacy-friendly: без cookie, без отслеживания между сайтами, без
+// сохранения персональных данных. Проект сохраняет явное согласие
+// (localStorage cassandra.analytics.consent). Загрузчик живёт в бандле
+// (createElement + src) — CSP остаётся строгим (см. head index.html).
+// Тесты: tests/analytics.test.js.
 
-const TONES = {
-  calm: '--state-calm',
-  tense: '--state-tense',
-  danger: '--state-danger',
-  very: '--state-very',
-  critical: '--state-critical',
-  extreme: '--state-extreme',
+
+// Beacon-токен Cloudflare Web Analytics (Дашборд → Web Analytics → сайт
+// cassindex.ru → установка «JS snippet»). Это НЕ секрет: токен встроен в HTML
+// публичной страницы. Пусто = аналитика не настроена: баннер и загрузка выключены.
+const CF_BEACON_TOKEN = '49a23a5d11824903ad1cc3a2c76223a9';
+
+const CONSENT_KEY = 'cassandra.analytics.consent';
+
+// beacon.min.js раздаётся Cloudflare; отчёты уходят на cloudflareinsights.com.
+const BEACON_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
+
+function isConfigured() {
+  return typeof CF_BEACON_TOKEN === 'string' && CF_BEACON_TOKEN.length > 0;
+}
+
+function storage() {
+  try {
+    if (typeof localStorage !== 'undefined') return localStorage;
+  } catch {
+    /* доступ к хранилищу запрещён — считаем его отсутствующим */
+  }
+  return null;
+}
+
+function write(key, status) {
+  const ls = storage();
+  if (!ls) return false;
+  try {
+    ls.setItem(key, JSON.stringify({ v: 1, status, at: new Date().toISOString() }));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Согласие на аналитику: {status:'granted'|'denied'|null, at}.
+// В отличие от region_consent отказ НЕ истекает: аналитику не переспрашиваем.
+// Вернуть согласие можно, очистив данные сайта в браузере.
+const consent = {
+  KEY: CONSENT_KEY,
+
+  status() {
+    const ls = storage();
+    if (!ls) return { status: null, at: null };
+    let raw = null;
+    try {
+      raw = JSON.parse(ls.getItem(this.KEY) ?? 'null');
+    } catch {
+      raw = null;
+    }
+    if (!raw || (raw.status !== 'granted' && raw.status !== 'denied')) {
+      return { status: null, at: null };
+    }
+    return { status: raw.status, at: raw.at ?? null };
+  },
+
+  grant() {
+    return write(this.KEY, 'granted');
+  },
+
+  deny() {
+    return write(this.KEY, 'denied');
+  },
 };
 
-function status(index) {
-  if (typeof index !== 'number' || Number.isNaN(index) || index < 0 || index > 100) return null;
-  return SCALE.find((s) => index <= s.max).id;
+// Подключение счётчика: вставляет beacon.min.js через createElement, передавая
+// токен в data-cf-beacon. Тип — module (официальный сниппет Cloudflare; модули
+// выполняются отложенно). No-op вне браузера и при пустом токене — безопасно в тестах.
+function loadCounter(token = CF_BEACON_TOKEN) {
+  if (typeof token !== 'string' || token.length === 0) return false;
+  if (typeof window === 'undefined' || typeof document === 'undefined') return false;
+  if (window.__ciCounterLoaded) return false;
+  const script = document.createElement('script');
+  script.type = 'module';
+  script.src = BEACON_SRC;
+  script.setAttribute('data-cf-beacon', JSON.stringify({ token }));
+  document.head.appendChild(script);
+  window.__ciCounterLoaded = true;
+  return true;
 }
 
-function tone(statusId) {
-  return TONES[statusId] ?? null;
+// Загрузка при уже выданном согласии — вызывается при старте приложения.
+function maybeInit() {
+  if (!isConfigured()) return false;
+  if (consent.status().status !== 'granted') return false;
+  return loadCounter();
 }
 
-// Цвет недельного изменения: рост → --state-very, снижение → --state-calm, ноль → --text-secondary.
-function deltaTone(change) {
-  if (typeof change !== 'number' || Number.isNaN(change)) return null;
-  if (change > 0) return '--state-very';
-  if (change < 0) return '--state-calm';
-  return '--text-secondary';
+// Баннер согласия: один раз за сессию и только когда счётчик настроен, ответа ещё
+// нет, пользователь уже ответил на региональное согласие (чтобы два toast не
+// наслаивались) и на экране нет другого toast.
+let bannerShown = false;
+
+function maybeShowBanner({ lang = 'ru', regionAnswered = false } = {}) {
+  if (bannerShown) return null;
+  if (!isConfigured()) return null;
+  if (!regionAnswered) return null;
+  if (consent.status().status !== null) return null;
+  if (typeof document === 'undefined') return null;
+  if (document.querySelector('.toast')) return null;
+  const host = document.querySelector('#overview');
+  if (!host) return null;
+  bannerShown = true;
+  const toast = createToast({
+    text: t(lang, 'analytics.banner.text'),
+    actions: [
+      {
+        label: t(lang, 'analytics.banner.accept'),
+        className: 'toast-btn toast-btn--primary',
+        onClick: () => {
+          consent.grant();
+          toast.remove();
+          loadCounter();
+        },
+      },
+      {
+        label: t(lang, 'analytics.banner.decline'),
+        onClick: () => {
+          consent.deny();
+          toast.remove();
+        },
+      },
+    ],
+  });
+  host.appendChild(toast);
+  return toast;
 }
 
-exports["SCALE"] = SCALE;
-exports["status"] = status;
-exports["tone"] = tone;
-exports["deltaTone"] = deltaTone;
-return exports;
-}]);
-factories.push(["js/ui.js", function (exports) {
-const risk = __ci_require("js/risk.js");
-// js/ui.js — общие хелперы интерфейса, единый экземпляр каждого (таск 11):
-// el() — DOM-фабрика секций; deltaClass() — класс тона Δ из risk.deltaTone;
-// resolveLang() — всегда 'ru' (сайт одноязычный); parseWeekParam() — разбор ?week=;
-// createToast() — неблокирующий toast (role=status, кнопки-действия, a11y).
-// Модуль без побочных эффектов: безопасен для импорта из privacy.html и тестов.
-
-
-// DOM-фабрика: createElement + className + textContent (конвенция проекта —
-// никакого innerHTML со строками).
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
-
-// Класс тона недельного изменения — из risk.deltaTone (единый каскад §12,
-// пороги направления живут в risk.js, а не в знаковых ветках по месту).
-const DELTA_CLASS = {
-  '--state-very': 'delta--rise',
-  '--state-calm': 'delta--fall',
-  '--text-secondary': 'delta--same',
-};
-
-function deltaClass(change) {
-  return DELTA_CLASS[risk.deltaTone(change)] ?? null;
-}
-
-// Сайт одноязычный (русский); сигнатура сохранена для вызывающего кода.
-function resolveLang() {
-  return 'ru';
-}
-
-// Разбор ?week= из query-строки: строгий формат YYYY-MM-DD, иначе null.
-// Владелец разбора — один на app.js/share.js/sections.
-function parseWeekParam(search) {
-  if (typeof search !== 'string' || !search) return null;
-  const q = new URLSearchParams(search).get('week');
-  return q && /^\d{4}-\d{2}-\d{2}$/.test(q) ? q : null;
-}
-
-// Неблокирующий toast: role=status + aria-live polite, фокус не воруется,
-// кнопки-действия с доступными именами (сторона вызывающего кода — монтирование
-// и обработчики). actions: [{ label, onClick, className? }]; dismiss: {label, onClick}.
-// Возвращает корневой элемент (не прикреплён к документу).
-function createToast({ text, actions = [], dismiss = null }) {
-  const node = document.createElement('div');
-  node.className = 'toast';
-  node.setAttribute('role', 'status');
-  node.setAttribute('aria-live', 'polite');
-  const body = document.createElement('p');
-  body.className = 'toast-text';
-  body.textContent = text;
-  node.appendChild(body);
-  const controls = document.createElement('div');
-  controls.className = 'toast-actions';
-  for (const a of actions) {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = a.className ?? 'toast-btn';
-    b.textContent = a.label;
-    b.addEventListener('click', a.onClick);
-    controls.appendChild(b);
-  }
-  if (dismiss) {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'toast-close';
-    b.setAttribute('aria-label', dismiss.label);
-    b.textContent = '×';
-    b.addEventListener('click', dismiss.onClick);
-    controls.appendChild(b);
-  }
-  node.appendChild(controls);
-  return node;
-}
-
-exports["el"] = el;
-exports["deltaClass"] = deltaClass;
-exports["resolveLang"] = resolveLang;
-exports["parseWeekParam"] = parseWeekParam;
-exports["createToast"] = createToast;
+exports["CF_BEACON_TOKEN"] = CF_BEACON_TOKEN;
+exports["CONSENT_KEY"] = CONSENT_KEY;
+exports["isConfigured"] = isConfigured;
+exports["consent"] = consent;
+exports["loadCounter"] = loadCounter;
+exports["maybeInit"] = maybeInit;
+exports["maybeShowBanner"] = maybeShowBanner;
 return exports;
 }]);
 factories.push(["js/sections/states.js", function (exports) {
@@ -1463,6 +1617,7 @@ factories.push(["js/sections/hero.js", function (exports) {
 const { t, date } = __ci_require("js/i18n.js");
 const risk = __ci_require("js/risk.js");
 const region = __ci_require("js/region.js");
+const analytics = __ci_require("js/analytics.js");
 const { createToast, deltaClass } = __ci_require("js/ui.js");
 const { visibleSnapshotOf, needsPreliminaryNote } = __ci_require("js/sections/states.js");
 // Секция hero (js/render.js регистрирует render как 'hero'): глобальный индекс,
@@ -1878,6 +2033,12 @@ function render(appState) {
 
   if (panel && panelOpen) syncPanel(appState);
   maybeShowConsentToast(appState);
+  // Баннер аналитики — только после ответа на региональное согласие (два toast
+  // не наслаиваются), один раз за сессию; внутри — свои ворота (настроен ли счётчик).
+  analytics.maybeShowBanner({
+    lang,
+    regionAnswered: region.consent.status().status !== null,
+  });
 }
 
 exports["formatDelta"] = formatDelta;
@@ -4288,6 +4449,7 @@ return exports;
 factories.push(["js/app.js", function (exports) {
 const data = __ci_require("js/data.js");
 const region = __ci_require("js/region.js");
+const analytics = __ci_require("js/analytics.js");
 const { t } = __ci_require("js/i18n.js");
 const { renderAll, applyI18n } = __ci_require("js/render.js");
 const { applyDemo, initDemo } = __ci_require("js/demo.js");
@@ -4381,6 +4543,9 @@ function init() {
       renderApp(currentState());
     });
     initDemo(() => resolveLang());
+    // Аналитика: счётчик грузится только при уже выданном согласии
+    // (cassandra.analytics.consent); при отсутствии ответа — показывает баннер hero.js.
+    analytics.maybeInit();
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
       const { id, persist } = e.detail ?? {};

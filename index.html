@@ -7,8 +7,11 @@
   <!-- CSP через meta: GitHub Pages не даёт задавать заголовки ответа. Meta-вариант
        не поддерживает frame-ancestors/report-uri, поэтому защита от встраивания
        здесь недостижима. Скрипты страницы — только внешние (self), включая
-       подгрузку data/latest.js через document.write. F-05, docs/security-review.md. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'">
+       подгрузку data/latest.js через document.write и cookie-less счётчик
+       Cloudflare Web Analytics (скрипт static.cloudflareinsights.com, отчёты на
+       cloudflareinsights.com), который подключается из бандла и только после
+       согласия — без inline-сниппета. F-05, docs/security-review.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self' https://formsubmit.co https://cloudflareinsights.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'">
   <title>Cassandra Index — индекс конфликтного риска</title>
   <meta name="description" content="Еженедельная оценка уровня и направления глобального конфликтного риска на основе открытых данных.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -143,7 +146,7 @@
   <footer class="site-footer">
     <!-- §17 дословно (История 27) + краткое раскрытие IP-обработки под будущий бэкенд. -->
     <p class="disclaimer" data-i18n="disclaimer.full">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
-    <p class="footer-ip" data-i18n="footer.ip">регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; IP-адрес не используется, не сохраняется и не передаётся третьим лицам</p>
+    <p class="footer-ip" data-i18n="footer.ip">регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; для этого IP-адрес не используется и не сохраняется. Если вы разрешите аналитику, включается cookie-less аналитика Cloudflare Web Analytics — подробности в политике приватности</p>
     <!-- «Следующая публикация» (R62.1) наполняет js/sections/history.js. -->
     <p class="footer-next" data-role="footer-next"></p>
     <nav class="footer-nav" aria-label="Сервисные ссылки" data-i18n-aria="footer.nav">
