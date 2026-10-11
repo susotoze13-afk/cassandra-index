@@ -14,7 +14,7 @@
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04) |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11) |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
@@ -46,8 +46,9 @@ js/                       сайт: app (оркестрация), data (конт
                           sections/feedback (форма обратной связи)
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
-                          Break Override (§5.4), региональная модель (§7), validate входов,
-                          константы CRITERIA (45)
+                          Break Override (§5.4), региональная модель (§7): regionalIndex
+                          + агрегация атрибуции regionalSignals, общее ядро маппинга
+                          buildDriversCore, validate входов, константы CRITERIA (45)
 calc/params.js            PARAMS — единственный источник численных параметров (k = 1.95)
 calc/calc.js              CLI прогона недели; маппинг входа → драйверы через buildDrivers;
                           ворота ссылок и контракта перед --write; validateInputSources (R55);
@@ -60,18 +61,22 @@ calc/calibrate.js         калибровка k на якорях: buildDrivers
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
 calc/input/<неделя>.json  входные сигналы недели: 45 критериев D1..D9 ({value, covered,
                           sources}, слепые — covered:false с аттестацией), R55-источники,
-                          driverConfidence; покрытие 26–42/45
+                          driverConfidence; покрытие 26–42/45; критерий может нести
+                          опциональную региональную атрибуцию `regions: string[]` (§4.1.9)
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
-data/<YYYY-MM-DD>/        10 недель: 08-02…08-23 — непересчитываемая демо-история
-                          (methodology "1.0"), 08-30…10-04 — пересчитанные published
+data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчитываемая демо-история
+                          (methodology "1.0"), 08-30…10-11 — пересчитанные published
                           (methodology "2.0"; q=1 у 08-30…09-20, 0.907 у 09-27,
-                          0.9293 у 10-04):
+                          0.9293 у 10-04, 0.8622 у 10-11):
                           global/regions/region-*/
                           trend/drivers/sources (.js в window.CI_DATA)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0018,
-                          два параллельных ряда + новые прогона recalc-3months-publish)
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0022,
+                          два параллельных ряда + новые прогонов recalc-3months-publish,
+                          source-selection-hardening 0019/0020, region-delta-market-criterion
+                          0021 (рыночный критерий → методология 3.0, ввод — отдельный
+                          будущий прогон) и 0022 (трактовки regionalSignals))
 docs/jev-classification.md  логика классификации источников Jev-ом по 45 критериям:
                           роли (Jev → редактор → код), правила (окно, цитата,
                           events[], дедупликация, Д9-кластеры, carryover Д2),
@@ -81,7 +86,7 @@ docs/llm-pilot-journal.md аудиторский след пилота маши�
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           29 файлов, node --test
+tests/*.test.js           35 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -91,32 +96,47 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/engine.js` — чистые функции методологии: `driverScore`, `d8Strength`, `aggregateD9`,
   `aggregateDrivers` (→ `{index, state, delta, internal, q, parts, structuralBreak}`),
   `applyInertia`, `detectStructuralBreak`, `detectFlashTriggers`, `regionalIndex`, `stateOf`,
-  константы `CRITERIA` (45), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Округление только
+  константы `CRITERIA` (45), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
+  `buildDriversCore(criteriaIn, confidenceLevels, params)` — общее ядро маппинга критериев →
+  драйверы (делегируют calibrate.js и calc.js) и `regionalSignals(criteria, regionIds, params)`
+  — агрегация региональной атрибуции критериев (`regions: string[]` из 6 REGION_IDS) в
+  сигналы региона для regionalIndex (ветка nReg>0); трактовки §7 — docs/adr/0022,
+  `PARAMS.regionEstructDefault = 0.5`. Округление только
   на выходе; внутренние float течёт в инерцию следующей недели.
 - `calc/params.js` — `PARAMS` + `list()` (глубокая копия). Все числа здесь; engine
   только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал).
-- `calc/calibrate.js` — единственный шов маппинга входа → драйверы: `buildDrivers(input, params)`
-  (используют и calibrate, и calc.js; в calc.js не дублируется).
+- `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
+  обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
+  маппинг в calibrate.js не дублируется).
 - `calc/linkcheck.js` — чистый модуль: `classify` (2xx/3xx → ok; 401/403/406/null → blocked;
   404/410/прочее → broken), `checkUrl` (fetchImpl прокидывается снаружи — шов тестов,
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
   `checkSources(items: {url, where})` → `{checked, ok, broken, blocked}`; ворота падают
   только по broken, blocked — предупреждение. Проверка последовательная — не долбить сайты.
-- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04'], старт
-  от опубликованного PREV_WEEK = '2026-08-23'; переиспользуемые швы: `loadSnapshotPart`
+- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-11'], старт
+  от опубликованного PREV_WEEK = '2026-08-23'; runWeek проводит региональные сигналы:
+  `regionalSignals(input.criteria, REGION_IDS, PARAMS)` → регион с сигналами считается
+  по ним (nReg>0, background:false), без — слепой веткой (background:true); переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
   `validateInputSources` (строгая схема R55, cluster_id по whitelist PARAMS.clusters),
   `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js),
-  `renderRegionFile` (числа пересчёта + drivers/confidence из прежнего файла).
+  `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла).
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
 - `js/data.js` — контракт снапшотов: `validate` (published/through/methodology, dataState
   из DATA_STATES, global:null только при insufficient/unavailable, regions по REGION_IDS
-  (6), trend ровно 12 точек (value:null только с methodology), ровно 3 драйвера,
+  (6), опциональный `regions.<id>.background: boolean` — absent=false, true = слепой
+  регион (индекс отражает глобальный фон), trend ровно 12 точек (value:null только с
+  methodology), ровно 3 драйвера,
   источники по isSource), `validateQuality` (q/nullWeight/confidence/coverage/preview/
   recalc, неделя insufficient обязана нести полный пакет непубликации);
   `week/latest/listWeeks`; битый снапшот → `unavailable` + событие.
+- `js/sections/hero.js` — чистый шов `isBackgroundRegion(rdata)` (true только при
+  `background === true`) — импортируется в js/sections/regions.js; при background:true Δ
+  не подаётся как региональная: пометка i18n-ключа `region.background` («Индекс отражает
+  глобальный фон; региональных данных недостаточно») и CSS-класс `.region-background`
+  (--text-muted) в hero, ranked-строке и раскрытой карточке.
 - `js/criteria.js` — статический `CRITERIA_LIST` (45 критериев: id, драйвер, RU/EN название
   и описание; порядок = Object.keys(engine.CRITERIA), паритет пинит tests/methodology-criteria.test.js).
 - `js/sections/history.js` — модуль скрытой секции «История и источники»: регистрация 'history'
@@ -145,7 +165,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   prevPublished/structuralBreak) → классификация публикации → ворота ссылок
   (collectSourceItems + linkcheck, раньше контрактной самопроверки) → `validate` из
   js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend;
-  sources.js — из входа, иначе прежние сохраняются); published/methodology — защищённые
+  sources.js — из входа, иначе прежние сохраняются); записи регионов несут флаг background
+  (regions.js + region-*.js); published/methodology — защищённые
   поля из прежнего снапшота, through = дата самой недели (окно W−7…W включительно);
   глобальный drivers.js генератор не трогает (редакционный сид); после записи —
   append в data/audit.jsonl (recalc, flash).
@@ -159,7 +180,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
   `nextChainState`/`renderGlobal`/`renderRegionFile` из calc.js (синтетические данные)
   + чистые модули сайта (i18n, risk, region, data). CLI — тонкая обвязка.
-- Схема источника R55 (во всех 10 неделях, включая региональные drivers): id,
+- Схема источника R55 (во всех 11 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
@@ -197,8 +218,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (29 файлов, 272 passed / 0 fail — подтверждено прогоном
-2026-10-04). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (35 файлов, 323 passed / 0 fail — подтверждено прогоном
+2026-10-11). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
@@ -257,20 +278,32 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   это конвенция, не баг.
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищены только published/methodology.
-- Входы цепочки несут R55-источники (19–74 записей на неделю), покрытие 26–42/45;
+- Входы цепочки несут R55-источники (19–79 записей на неделю), покрытие 26–42/45;
   слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
 - D2 (ядерная сфера) может не иметь сигналов в окне недели — приём проекта: переносить
   D2.1–D2.5 из предыдущей недели (их источники старше окна) при явном раскрытии в
   `driverConfidence`, иначе D2 = 1/5 → `insufficient`; так сделано в 09-27 и 10-04 —
   конвенция, не баг.
-- Слепые регионы (nReg = 0, региональной атрибуции D01 во входах нет — все 6 регионов
-  цепочки слепые): `calc.js` звёт `engine.regionalIndex` с prevIndex/prevGlobal из
-  опубликованного снапшота прошлой недели; background остаётся true, но индекс региона
+- Региональная атрибуция и слепые регионы: критерий входа может нести `regions: string[]`
+  (⊆ 6 REGION_IDS); регион без единого сигнала в неделе — слепой (nReg = 0,
+  background:true), смешанная неделя (часть регионов с сигналами, часть без) допустима.
+  `calc.js` звёт `engine.regionalIndex` с prevIndex/prevGlobal из
+  опубликованного снапшота прошлой недели; индекс слепого региона
   = I_global + clamp(prevIndex − prevGlobal, ±regionClamp) — сохраняется последнее
   региональное отклонение от глобального фона, а не схлопывание в I_global (иначе все
   регионы одинаковы и локальные аномалии маскируются). Стартовое отклонение первой
   недели цепочки сидируется из демо-недели 08-23 методологии 1.0 (prevRegions против
-  prevGlobal) — намеренно: регионы 2.0 наследуют якоря v1.
+  prevGlobal) — намеренно: регионы 2.0 наследуют якоря v1. Следствие формулы: дельта
+  слепого региона по построению равна глобальной — подача честная через флаг background
+  и пометку `region.background`, не баг. Во всех опубликованных на диске неделях
+  регионы слепые (входы не несут атрибуции regions[] — механизм из прогона
+  region-delta-market-criterion 2026-10-11 пока не задействован данными).
+- Дубли id внутри `regions[]` одного критерия validate входа не отклоняет (проверяются
+  только тип и whitelist) — известная неблокирующая находка; regionalSignals такую
+  запись засчитает дважды.
+- `rankedRegions` (js/sections/regions.js) пропускает записи с нечисловым delta
+  (typeof !== 'number' / не finite) — нечисловую дельту в данные НЕ вводить, честность
+  недостатка данных — через флаг background, а не через костыль формата.
 - Тренд (`js/sections/trend.js`) показывает только точки методологии 2.0: `selectMethodology`
   отсекает точки v1 на входе секции (построены по другой методике, несопоставимы) —
   осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`);
