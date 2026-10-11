@@ -222,6 +222,17 @@
       "note": "Нефтяное эмбарго ОПЕК (объявлено 19–21 октября): ценовой шок и перебои снабжения"
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yom_Kippur_War",
+          "date": "1973-10-22",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,

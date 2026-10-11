@@ -204,6 +204,17 @@
       ]
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Poisoning_of_Sergei_and_Yulia_Skripal",
+          "date": "2018-03-12",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,

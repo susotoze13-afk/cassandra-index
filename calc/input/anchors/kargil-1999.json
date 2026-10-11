@@ -197,6 +197,17 @@
       ]
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kargil_War",
+          "date": "1999-06-28",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,

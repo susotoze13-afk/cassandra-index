@@ -199,6 +199,17 @@
       ]
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2003_invasion_of_Iraq",
+          "date": "2003-03-24",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0.67,
       "covered": true,

@@ -204,6 +204,17 @@
       ]
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2010s",
+          "date": "2013-06-03",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0,
       "covered": true,

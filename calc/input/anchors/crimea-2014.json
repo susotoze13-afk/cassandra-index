@@ -194,6 +194,17 @@
       ]
     },
     "D4.5": null,
+    "D4.6": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Annexation_of_Crimea_by_the_Russian_Federation",
+          "date": "2014-03-03",
+          "cluster": "C-registries"
+        }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,
