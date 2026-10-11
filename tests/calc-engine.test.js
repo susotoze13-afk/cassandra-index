@@ -802,7 +802,10 @@ test('validate: все входы недель и якорей calc/input/**/*.j
     ...readdirSync(INPUT_DIR).filter((f) => f.endsWith('.json')),
     ...readdirSync(path.join(INPUT_DIR, 'anchors')).filter((f) => f.endsWith('.json')),
   ];
-  assert.equal(files.length, 17); // 7 недель (включая 2026-10-11) + 10 якорей (6 прежних + 4 новых профилей)
+  // Не меньше базового набора (7 недель на 2026-10-11 + 10 якорей): новая неделя
+  // добавляет вход и не должна ломать автозапуск (weekly-calc.yml); исчезновение
+  // файла тест ловит. Точное число не пиним — иначе каждая неделя требует правки.
+  assert.ok(files.length >= 17, `ожидалось ≥ 17 входов calc/input, найдено ${files.length}`);
   for (const f of files) {
     const dir = f.includes('-') && /^\d{4}/.test(f) ? INPUT_DIR : path.join(INPUT_DIR, 'anchors');
     const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));

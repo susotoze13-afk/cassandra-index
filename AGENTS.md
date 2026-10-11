@@ -17,6 +17,7 @@
 | Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11) |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
+| Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
 
 `node calc/calc.js --write` требует сети: перед записью собранный снапшот гоняется
@@ -27,6 +28,7 @@
 - Выкат — GitHub Actions `.github/workflows/deploy.yml` на push в `master`; публикуется
   только `index.html`, `privacy.html`, `icon.svg`, `css/`, `js/`, `data/` — остальное наружу не уходит.
 - Пуш в master = автоматический выкат; коммитить только готовое к публикации, коммит и пуш — только за оркестратором (агенты-исполнители НЕ коммитят — был инцидент).
+- Автопуш по расписанию — `.github/workflows/weekly-calc.yml` (cron вс 08:00 МСК + `workflow_dispatch`): ЕДИНСТВЕННОЕ исключение правила выше — коммитит от `github-actions[bot]` и пушит в master только при готовом входе и сидах, после зелёных `node --test`; деплой запускается явно (`gh workflow run deploy.yml`, т.к. push от `GITHUB_TOKEN` не триггерит другие workflow). Подготовка входа и сидов остаётся ручной (§10.1); ворот на «не публиковать» нет — если вход/сиды не готовы, неделя тихо пропускается.
 - Обновление недели: вход `calc/input/<дата>.json` → `node calc/calc.js --write <дата>` →
   `node build.js` → `node --test` зелёный → commit (push — оркестратору).
 - URL: `https://cassindex.ru` (кастомный домен, зарегистрирован на Beget; DNS: 4 A-записи GitHub Pages на apex + CNAME `www` → `susotoze13-afk.github.io`). Репозиторий `susotoze13-afk/cassandra-index`, public. Старый адрес `https://susotoze13-afk.github.io/cassandra-index/` продолжает работать (GitHub редиректит на кастомный домен).
@@ -58,6 +60,9 @@ calc/linkcheck.js         чистый модуль проверки URL: classi
                           заголовки), checkSources (последовательный обход)
 calc/check-sources.js     CLI перепроверки ссылок всех/перечисленных недель поверх calc.js
 calc/calibrate.js         калибровка k на якорях: buildDrivers, runAnchor, evaluateGrid, selectK, sensitivity
+calc/prepare-week.js      механика новой недели для weekly-calc: чистые швы addRecalcWeek/
+                          addLatestWeek (RECALC_WEEKS, CI_WEEKS/CI_LATEST) + CLI [--write];
+                          тесты tests/prepare-week.test.js
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
 calc/input/<неделя>.json  входные сигналы недели: 45 критериев D1..D9 ({value, covered,
                           sources}, слепые — covered:false с аттестацией), R55-источники,
@@ -228,6 +233,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
+механика недели автозапуска (addRecalcWeek/addLatestWeek, идемпотентность):
+`tests/prepare-week.test.js`;
 отсечение точек v1 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
 разметки страницы (отсутствие скрытой секции #sources
@@ -241,7 +248,19 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   Pages → Custom domain); REST `PATCH /pages` у токена возвращает 404 (нет права
   Administration) — при смене домена делать это вручную в UI.
 - Коммит и push — только оркестратор. Исполнитель-агент, закоммитивший сам, — инцидент;
-  правки остаются рабочим деревом.
+  правки остаются рабочим деревом. Исключение — workflow `.github/workflows/weekly-calc.yml`
+  (см. «Публикация»): его коммит/пуш — автоматика по расписанию, не агент.
+- `weekly-calc.yml`: зелёный skip — не ошибка (неделя без входа/сидов или уже пересчитанная;
+  причина — в логе шага «Ворота пропуска»). GitHub может задерживать cron до ~30 мин;
+  ретрай несостоявшегося прогона — `workflow_dispatch` с input `week`. Красный фейл (битая
+  ссылка, упавшие тесты, отклонённый push) коммита не оставляет. Ворота проверяют только
+  факт наличия входа и семи сидов (`drivers.js` + 6 `region-*.js`) — качество входа
+  по-прежнему на редакторе (§10.1), автоматической сверки нет.
+- Списки недель (`RECALC_WEEKS` в calc/calc.js и `CI_WEEKS`/`CI_LATEST` в data/latest.js)
+  при публикации по расписанию обновляет `calc/prepare-week.js`; вручную добавлять не
+  обязательно (идемпотентно — повторный запуск не дублирует дату). деплой после автопуша
+  запускается явно (`gh workflow run deploy.yml`) — push от `GITHUB_TOKEN` не триггерит
+  другие workflow; поэтому у deploy.yml есть триггер `workflow_dispatch`.
 - Сеть из среды проверки небезупречна: DNS не резолвит www.bbc.com/www.dw.com (проверять
   извне, curl --resolve); apnews/crisisgroup/iaea — Cloudflare 403 на bot-запросы,
   reuters.com — site-wide 401 даже на главной (D04, проверено 2026-09-25)

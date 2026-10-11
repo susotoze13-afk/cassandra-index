@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
+  # Явный запуск после автопуша weekly-calc.yml: push от GITHUB_TOKEN не
+  # порождает другие workflow, поэтому деплой запускается через gh workflow run.
+  workflow_dispatch:
 
 permissions:
   contents: read
