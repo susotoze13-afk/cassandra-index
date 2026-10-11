@@ -5,6 +5,8 @@
 по открытым данным. Две половины репо: сайт (статика, `index.html` + `js/` + `data/`)
 и расчётный пайплайн (`calc/`: входные сигналы → детерминированный движок → снапшоты
 в `data/`). Не предсказывает дату войны и не является вероятностью войны.
+Текущая методология — **3.0** (46 критериев, включая рыночный стресс-критерий D4.6
+драйвера Д4); недели 08-02…08-23 — непересчитываемая демо-история методологии 1.0.
 Стек: чистый HTML/CSS/JS, ноль зависимостей; Node ≥ 18; всё — ESM, кроме CommonJS `build.js`.
 
 ## Команды
@@ -50,15 +52,20 @@ calc/engine.js            ядро формул: скор драйвера (§4.
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
                           Break Override (§5.4), региональная модель (§7): regionalIndex
                           + агрегация атрибуции regionalSignals, общее ядро маппинга
-                          buildDriversCore, validate входов, константы CRITERIA (45)
-calc/params.js            PARAMS — единственный источник численных параметров (k = 1.95)
+                          buildDriversCore, validate входов, константы CRITERIA (46,
+                          D4.6 — ordinal-шкала 0/0.33/0.67/1)
+calc/params.js            PARAMS — единственный источник чисел (k = 1.95,
+                          methodology = '3.0')
 calc/calc.js              CLI прогона недели; маппинг входа → драйверы через buildDrivers;
                           ворота ссылок и контракта перед --write; validateInputSources (R55);
+                          ignoredRegionalAttribution (R01.2, предупреждение об игноре);
                           шов рендера снапшотов renderGlobal/renderRegionFile
 calc/linkcheck.js         чистый модуль проверки URL: classify(status) → ok|blocked|broken,
                           checkUrl (ретраи на 429/406/5xx, таймаут 10 c, браузерные
                           заголовки), checkSources (последовательный обход)
 calc/check-sources.js     CLI перепроверки ссылок всех/перечисленных недель поверх calc.js
+calc/sensitivity.js       sensitivityScore — leave-one-domain/leave-one-cluster метрика
+                          (R02): max|ΔI| в п.п., поле sensitivity quality-блока снапшота
 calc/classify.js          чистый конвертер «черновик Jev v2 → штатный вход»
                           (docs/jev-classification.md §6.1, ADR 0018 доп.): ворота
                           правил 9–10, без сети и без вызова Jev; в CI не встроен;
@@ -68,45 +75,52 @@ calc/prepare-week.js      механика новой недели для weekly
                           addLatestWeek (RECALC_WEEKS, CI_WEEKS/CI_LATEST) + CLI [--write];
                           тесты tests/prepare-week.test.js
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
-calc/input/<неделя>.json  входные сигналы недели: 45 критериев D1..D9 ({value, covered,
-                          sources}, слепые — covered:false с аттестацией), R55-источники,
-                          driverConfidence; покрытие 26–42/45; критерий может нести
-                          опциональную региональную атрибуцию `regions: string[]` (§4.1.9)
+calc/input/<неделя>.json  входные сигналы недели: 46 критериев D1..D9 ({value, covered,
+                          sources}, слепые — covered:false с аттестацией), R55-источники
+                          (top-level, 20–82 записи/неделя), driverConfidence; покрытие
+                          27–43/46; критерий может нести опциональную региональную
+                          атрибуцию `regions: string[]` (§4.1.9)
 calc/input/drafts/        пилот Jev: черновики `<неделя>.llm-draft.json` (schema_version 2,
                           append-only), корпус текстов `texts-<неделя>/<source_id>.txt`
                           (предоставляет человек), сырой вход пилота `pilot-llm-<неделя>.json`
-calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
+calc/input/anchors/       10 модельных якорных профилей §9 (rollingOrigin select/verify),
+                          D4.6 добавлен к каждому как ordinal {value, covered, sources}
 data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчитываемая демо-история
                           (methodology "1.0"), 08-30…10-11 — пересчитанные published
-                          (methodology "2.0"; q=1 у 08-30…09-20, 0.907 у 09-27,
+                          (methodology "3.0"; index 51/42/43/56/47/46/56, delta
+                          −10/−9/+1/+13/−9/−1/+10; q=1 у 08-30…09-20, 0.9071 у 09-27,
                           0.9293 у 10-04, 0.8622 у 10-11):
-                          global/regions/region-*/
-                          trend/drivers/sources (.js в window.CI_DATA)
+                          global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA);
+                          запись региона несёт background (true = слепой регион; слепых
+                          по неделям 4/5/4/3/3/2/2 из 6)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
 docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0022,
                           два параллельных ряда + новые прогонов recalc-3months-publish,
                           source-selection-hardening 0019/0020, region-delta-market-criterion
-                          0021 (рыночный критерий → методология 3.0, ввод — отдельный
-                          будущий прогон), 0022 (трактовки regionalSignals) и
-                          0018-jev-source-classification (доп. 2026-10-11: шов calc/classify.js,
-                          схема черновика v2))
-docs/jev-classification.md  логика классификации источников Jev-ом по 45 критериям:
+                          0021 (рыночный критерий D4.6 → методология 3.0 — РЕАЛИЗОВАНО
+                          прогоном regional-index-sources), 0022 (трактовки regionalSignals)
+                          и 0018-jev-source-classification (доп. 2026-10-11: шов
+                          calc/classify.js, схема черновика v2))
+docs/jev-classification.md  логика классификации источников Jev-ом по критериям
+                          D1…D9 (текст документа ещё говорит «45» — под 46/3.0 не
+                          обновлён):
                           роли (Jev → редактор → код), правила (окно, цитата,
                           events[], дедупликация, Д9-кластеры, carryover Д2),
                           ворота без поблажек, механический шов §6.1, статус пилота
                           (версия 0.2, форвардный; критерии ±2 / ≥50 % — §7)
 docs/llm-pilot-journal.md аудиторский след пилота машинной разметки (ретро-прогоны
                           09-27/09-20, критерии успеха, решение о форвард-пилоте)
-docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
+docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21; доп. 2026-10-11 —
+                          ввод D4.6, methodology 3.0, k = 1.95 подтверждён)
 docs/articles/            черновики статей для внешних площадок и пакеты публикаций:
                           habr-idea-d.md (источник + рабочие заметки) → habr-post-final.md
                           (тело без заметок, doc-ссылки на GitHub) + habr-publish-package.md
-                          (поля редактора Habr, карта картинок, чек-лист); однотипно vc-*;
-                          скриншоты — docs/articles/img/. Сама публикация — вручную (внешнее действие)
+                          (поля редактора Habr, карта картинок, чек-лист); то же для vc-*
+                          и pikabu-*; скриншоты — docs/articles/img/. Сама публикация — вручную (внешнее действие)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           36 файлов, node --test
+tests/*.test.js           38 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -116,7 +130,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/engine.js` — чистые функции методологии: `driverScore`, `d8Strength`, `aggregateD9`,
   `aggregateDrivers` (→ `{index, state, delta, internal, q, parts, structuralBreak}`),
   `applyInertia`, `detectStructuralBreak`, `detectFlashTriggers`, `regionalIndex`, `stateOf`,
-  константы `CRITERIA` (45), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
+  константы `CRITERIA` (46, D4.6 — Д4/esc/ordinal), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
   `buildDriversCore(criteriaIn, confidenceLevels, params)` — общее ядро маппинга критериев →
   драйверы (делегируют calibrate.js и calc.js) и `regionalSignals(criteria, regionIds, params)`
   — агрегация региональной атрибуции критериев (`regions: string[]` из 6 REGION_IDS) в
@@ -124,7 +138,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `PARAMS.regionEstructDefault = 0.5`. Округление только
   на выходе; внутренние float течёт в инерцию следующей недели.
 - `calc/params.js` — `PARAMS` + `list()` (глубокая копия). Все числа здесь; engine
-  только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал).
+  только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал);
+  `PARAMS.methodology = '3.0'` — единственный источник версии перевыпуска
+  (renderGlobal берёт её отсюда; `published` — защищённое поле из прежнего снапшота).
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
   маппинг в calibrate.js не дублируется).
@@ -140,10 +156,15 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
   sources/drivers/regions), `classifyPublication` (R11–R15), `nextChainState`,
   `validateInputSources` (строгая схема R55, cluster_id по whitelist PARAMS.clusters),
+  `ignoredRegionalAttribution` (R01.2 — сортированные id Д2/Д4/Д9-кроме-D9.3 с непустой
+  `regions[]`; поле `ignoredAttribution` в выводе runWeek, предупреждение об игноре ADR 0022),
   `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js),
   `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла).
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
+- `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
+  `aggregateDrivers` при исключении каждого домена и каждого кластера источников,
+  `max|ΔI|` по internal (одно десятичное); `SENSITIVITY_THRESHOLD = PARAMS.sensitivityThreshold`.
 - `calc/classify.js` — чистый конвертер «черновик Jev v2 → штатный вход»
   (docs/jev-classification.md §6.1, ADR 0018 доп. 2026-10-11): шов `normalizeText`
   (пробелы/дефисы/кавычки → канон), `quoteFound` (дословность цитаты — ворот
@@ -173,7 +194,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   не подаётся как региональная: пометка i18n-ключа `region.background` («Индекс отражает
   глобальный фон; региональных данных недостаточно») и CSS-класс `.region-background`
   (--text-muted) в hero, ranked-строке и раскрытой карточке.
-- `js/criteria.js` — статический `CRITERIA_LIST` (45 критериев: id, драйвер, RU/EN название
+- `js/criteria.js` — статический `CRITERIA_LIST` (46 критериев: id, драйвер, RU/EN название
   и описание; порядок = Object.keys(engine.CRITERIA), паритет пинит tests/methodology-criteria.test.js).
 - `js/sections/history.js` — модуль скрытой секции «История и источники»: регистрация 'history'
   в js/render.js сохранена, но хоста `[data-section="history"]` в index.html нет — render()
@@ -181,7 +202,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   §9 R62.1). Чистые швы: `nextPublication`, `publicationLabel`, `methodologyNote`,
   `DEMO_REVIEWS`, `reviewFor`. Тесты модуля (tests/history.test.js) сохранены.
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
-  список 45 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
+  список 46 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
 - `js/sections/feedback.js` — секция «Обратная связь» (8-я, зарегистрирована в js/render.js):
   форма шлёт POST JSON на FormSubmit (`formsubmit.co/ajax/Zasik2008@yandex.ru` — внешний
@@ -202,10 +223,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (collectSourceItems + linkcheck, раньше контрактной самопроверки) → `validate` из
   js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend;
   sources.js — из входа, иначе прежние сохраняются); записи регионов несут флаг background
-  (regions.js + region-*.js); published/methodology — защищённые
-  поля из прежнего снапшота, through = дата самой недели (окно W−7…W включительно);
+  (regions.js + region-*.js); published — защищённое поле из прежнего снапшота,
+  methodology — из `PARAMS.methodology` (3.0), through = дата самой недели (окно W−7…W
+  включительно); точка тренда недели несёт `{date, value, methodology}` — своя неделя берёт
+  версию записываемого снапшота (PARAMS), более ранние — из их `global.js` на диске;
   глобальный drivers.js генератор не трогает (редакционный сид); после записи —
-  append в data/audit.jsonl (recalc, flash).
+  append в data/audit.jsonl (recalc: `version_before` из снапшота, `version_after` из
+  PARAMS, `recalculation_method: 'aggregateDrivers v3.0'`; flash).
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
   (document.write — fetch на file:// невозможен) → `js/app.js` init → `render.renderAll`
   по 8 зарегистрированным секциям (на странице видимых 7: «История и источники»
@@ -250,15 +274,23 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 Секретов, конфигов и переменных окружения нет — репозиторий полностью статический;
 для проверки ссылок нужна сеть (без неё проверки массово уходят в blocked — ворота
-это не блокирует, но отчёт раздувает).
+это не блокирует, но отчёт раздувает). Доступ к сети в этой среде — только через
+оболочку (`curl.exe`, `node` fetch); инструменты WebSearch/WebFetch ходят через мёртвый
+прокси и результата не дают.
 
 ## Тесты
 
-`node --test` без аргументов (36 файлов, 345 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (38 файлов, 359 passed / 0 fail — подтверждено прогоном
 2026-10-11). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
-перенос регионального отклонения при nReg = 0); калибровка:
+перенос регионального отклонения при nReg = 0); региональная модель:
+`tests/regional-signals.test.js` (aggregation атрибуции в регионы) и `tests/regions.test.js`;
+признак игнора атрибуции: `tests/ignored-attribution.test.js` (R01.2, ADR 0022); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
+чувствительность: `tests/sensitivity.test.js` (чистый sensitivityScore + пин реальной
+недели 10-04 = 5.4 через прогон цепочки); ворота независимости и ядро источников:
+`tests/independence-gates.test.js`, `tests/core-sources.test.js`,
+`tests/acceptance-source-selection.test.js`;
 конвертер черновика Jev: `tests/classify.test.js` (ворота 9–10, merge, not_found → null,
 сквозной позитив: эмитированный вход проходит engine.validate и маппится в 9 драйверов);
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель — см.
@@ -268,7 +300,7 @@ through-конвенция: `tests/through.test.js`; список критери
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
 механика недели автозапуска (addRecalcWeek/addLatestWeek, идемпотентность):
 `tests/prepare-week.test.js`;
-отсечение точек v1 на тренде, подпись v2 и подписи оси
+отсечение точек не-3.0 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
 разметки страницы (отсутствие скрытой секции #sources
 и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`.
@@ -314,8 +346,8 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   REDTEAM_QUESTIONS в calc/audit.js = governance §3.2 пословно), record-тип `redteam`
   в hash-цепочке аудита, advisory. Опубликованные недели до 10-11 ворота не видят.
 - Недели 08-02…08-23 в `data/` — непересчитываемая демо-история (methodology "1.0" у них,
-  у пересчитанной цепочки "2.0" — разрыв версии реален); calc.js откажется считать неделю
-  вне RECALC_WEEKS. На тренде точки v1 не показываются (см. ниже про selectMethodology);
+  у пересчитанной цепочки "3.0" — разрыв версии реален); calc.js откажется считать неделю
+  вне RECALC_WEEKS. На тренде точки не-3.0 не показываются (см. ниже про selectMethodology);
   несопоставимость версий раскрывается в секции истории (`methodologyNote`,
   `history.methodology.note`) при просмотре недели другой версии.
 - Новая неделя требует редакционного сида ДО `--write`: `data/<неделя>/drivers.js`
@@ -327,10 +359,13 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   сидов съедаются (видно в diff 96616da → 5d7d335) — осознанное поведение, не баг.
 - Фикстура `tests/data.test.js` пинит точные выходные числа пайплайна для дисковых недель
   цепочки (index/delta/q/through) — после каждого пересчёта её нужно актуализировать;
-  это конвенция, не баг.
+  это конвенция, не баг. Текущий пин: 09-13 index 43, delta +1, q 1, trend-точки недель
+  цепочки несут methodology '3.0' (своя неделя — версию записываемого снапшота).
+  `tests/sensitivity.test.js` пинит sensitivity реальной недели 10-04 = 5.4 (через прогон
+  цепочки тем же кодом, что и --write) — тоже обновляется после пересчёта.
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
-  включительно), не защищённое поле; защищены только published/methodology.
-- Входы цепочки несут R55-источники (19–79 записей на неделю), покрытие 26–42/45;
+  включительно), не защищённое поле; защищено только published.
+- Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
   слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
 - D2 (ядерная сфера) может не иметь сигналов в окне недели — приём проекта: переносить
   D2.1–D2.5 из предыдущей недели (их источники старше окна) при явном раскрытии в
@@ -345,20 +380,25 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   региональное отклонение от глобального фона, а не схлопывание в I_global (иначе все
   регионы одинаковы и локальные аномалии маскируются). Стартовое отклонение первой
   недели цепочки сидируется из демо-недели 08-23 методологии 1.0 (prevRegions против
-  prevGlobal) — намеренно: регионы 2.0 наследуют якоря v1. Следствие формулы: дельта
+  prevGlobal) — намеренно: регионы 3.0 наследуют якоря v1. Следствие формулы: дельта
   слепого региона по построению равна глобальной — подача честная через флаг background
-  и пометку `region.background`, не баг. Во всех опубликованных на диске неделях
-  регионы слепые (входы не несут атрибуции regions[] — механизм из прогона
-  region-delta-market-criterion 2026-10-11 пока не задействован данными).
+  и пометку `region.background`, не баг. Недели цепочки 3.0 смешанные: входы несут
+  атрибуцию `regions[]` на части критериев, поэтому у недели есть регионы с сигналами
+  (background:false) и слепые (background:true; слепых 4/5/4/3/3/2/2 из 6 у
+  08-30…10-11). Какие регионы страны/группы к каким id — REGION_IDS в js/data.js.
 - Дубли id внутри `regions[]` одного критерия validate входа не отклоняет (проверяются
   только тип и whitelist) — известная неблокирующая находка; regionalSignals такую
   запись засчитает дважды.
 - `rankedRegions` (js/sections/regions.js) пропускает записи с нечисловым delta
   (typeof !== 'number' / не finite) — нечисловую дельту в данные НЕ вводить, честность
   недостатка данных — через флаг background, а не через костыль формата.
-- Тренд (`js/sections/trend.js`) показывает только точки методологии 2.0: `selectMethodology`
-  отсекает точки v1 на входе секции (построены по другой методике, несопоставимы) —
-  осознанно. Подпись — `summaryTextV2` (i18n-ключи `trend.summary.v2`/`trend.weeks`);
+- Тренд (`js/sections/trend.js`) показывает только точки методологии 3.0: `selectMethodology`
+  отсекает точки других версий на входе секции (построены по другой методике,
+  несопоставимы) — осознанно. Точка тренда несёт `{date, value, methodology}`; неделя
+  W берёт версию записываемого снапшота, предыдущие — из их `global.js` на диске
+  (регресс-защита: своя неделя не должна брать до-записную версию и выпадать из серии).
+  Подпись — `summaryTextV2(lang, points, version = '3.0')` (i18n-ключи
+  `trend.summary.v2`/`trend.weeks`; `trend.summary.v2` требует плейсхолдер `{version}`);
   «за N недель» в подписи считает число опубликованных точек v2, а не
   календарный спан окна. Подписи горизонтальной оси — чистый шов
   `axisLabels(lang, points, width?, pad?) -> [{x, text, anchor}]`: дата расчёта
@@ -370,7 +410,9 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   общий helper координаты `plotX` с линией (r=20 SVG).
 - Записи аудита recalc несут только глобальный diff (`recalcDiff`: global.index/delta,
   dataState, q, nullWeight, confidence, preview) — региональный перенос в diff не
-  попадает, смотреть файлы регионов.
+  попадает, смотреть файлы регионов. Перевыпуск 3.0: записи recalc-0034…0041,
+  `version_before '2.0'` → `version_after '3.0'`, `recalculation_method
+  'aggregateDrivers v3.0'`; flash-записи оставлены version_before=version_after.
 - `calc.js --write` пишет ДВА ворот до диска: сначала ссылки (любой broken → отказ,
   blocked — только предупреждение), затем контракт `validate` из js/data.js; при
   провале любого из них диск не тронут.
@@ -379,6 +421,10 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   corr 0.5; лимит 30 % Д9 — закрытая форма относительно прогона без Д9; персистентность
   Structural Break Override (2 недели) — состояние цикла несёт calc.js через ctx.
 - Д9 не может иметь уверенность high без прямого подтверждения (§4.3.1) — validate режет.
+- D4.6 — стресс рынков (методология 3.0, ADR 0021), драйвер Д4, эскалационный,
+  ordinal-шкала 0/0.33/0.67/1 (та же, что в якорях); входит в нормировку Д4 как обычный
+  esc-критерий, региональную агрегацию не получает (Д4 игнорируется, см.
+  ignoredRegionalAttribution). Паритет движок↔сайт пинит tests/methodology-criteria.test.js.
 - Пересохранение `design/cassandra-index.pen` в pen.dev перезаписывает `"version"` →
   ломает `tests/pen.test.js` (жёстко ожидает текущую версию).
 - `js/share.js`: `share.announce` получает язык через `resolveLang()` — всегда 'ru' (сайт одноязычный).
