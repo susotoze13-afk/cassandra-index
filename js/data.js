@@ -122,6 +122,13 @@ export function validate(snapshot) {
       const r = snapshot.regions[id];
       if (!r || !isIndex(r.index) || !isDelta(r.delta)) {
         errors.push(`regions.${id}: { index: 0..100, delta: number } required`);
+        continue;
+      }
+      // Фоновый регион (нет региональных данных, индекс = глобальный фон):
+      // опционально, отсутствие = false (обратная совместимость со старыми
+      // снапшотами); сайт при true не подаёт дельту как региональную.
+      if (r.background !== undefined && typeof r.background !== 'boolean') {
+        errors.push(`regions.${id}.background: boolean`);
       }
     }
   }

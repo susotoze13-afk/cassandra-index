@@ -8,6 +8,7 @@
 // когда вызывающий не передал params явно.
 
 import { PARAMS } from './params.js';
+import { REGION_IDS } from '../js/data.js';
 
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
@@ -115,6 +116,78 @@ export function aggregateD9(subgroups, params) {
   for (const s of covered) s9 += w * s.score * corr[s.id];
   const nSignaling = covered.filter((s) => s.score * corr[s.id] > 0).length;
   return { score: clamp(s9, 0, 1), signaling: nSignaling, corr };
+}
+
+// --- §4.2–§4.3: ядро маппинга критериев → драйверы ---
+// criteriaIn: карта критериев входа; confidenceLevels: {D1..D9: {level}} |
+// {} (тогда уверенность всех драйверов — 'medium'). Публичный шов маппинга —
+// buildDrivers в calibrate.js: он резолвит driverConfidence из входа и делегирует
+// сюда (логика не дублируется). Знаменатель порога покрытия — все критерии
+// драйвера из CRITERIA: отсутствие ключа в файле эквивалентно явному null (§4.2).
+export function buildDriversCore(criteriaIn, confidenceLevels, params) {
+  const p = params || PARAMS;
+  const conf = confidenceLevels || {};
+  const map = (criteriaIn && typeof criteriaIn === 'object') ? criteriaIn : {};
+  const entriesOf = (driver) =>
+    Object.entries(CRITERIA)
+      .filter(([, meta]) => meta.driver === driver)
+      .map(([id, meta]) => ({ id, meta, entry: map[id] || null }));
+  const level = (d) => ((conf[d] || {}).level) || 'medium';
+  const drivers = [];
+  for (let i = 1; i <= 7; i++) {
+    const id = `D${i}`;
+    const criteria = entriesOf(id).map(({ entry, meta }) => ({
+      dir: meta.dir,
+      value: entry ? normalizeCriterion(entry, p) : 0,
+      covered: !!entry && entry.covered === true,
+    }));
+    drivers.push({
+      id,
+      score: driverScore(criteria, p.alpha, p.coverageThreshold),
+      confidence: level(id),
+    });
+  }
+  const d8Entries = entriesOf('D8');
+  drivers.push({
+    id: 'D8',
+    score: d8Strength(
+      d8Entries.map(({ entry }) => ({
+        value: entry ? normalizeCriterion(entry, p) : 0,
+        covered: !!entry && entry.covered === true,
+      })),
+      p.coverageThreshold,
+    ),
+    confidence: level('D8'),
+    breakValue: d8Entries.find(({ id }) => id === 'D8.2' && map['D8.2'] && map['D8.2'].covered === true)
+      ? map['D8.2'].value
+      : 0,
+  });
+  const d9 = aggregateD9(
+    entriesOf('D9').map(({ id, entry }) => ({
+      id,
+      score: entry && entry.covered === true ? normalizeCriterion(entry, p) : null,
+      acyclic: !!entry && entry.acyclic === true,
+      rejected: !!entry && entry.rejected === true,
+    })),
+    p,
+  );
+  drivers.push({
+    id: 'D9',
+    score: d9.score,
+    confidence: level('D9'),
+    signalingSubgroups: d9.signaling,
+  });
+  return drivers;
+}
+
+// --- §5 (шаги 2–6): гипотетический индекс по карте критериев ---
+// Контрфактический прогон внутри недели: без контекста цепочки, поэтому q-сжатие
+// (шаг 7) и инерция/override (шаг 8) не применяются — предыдущего значения у
+// гипотетики нет (трактовка — ADR 0022). Возвращает внутреннее float-значение
+// (округление — только на выходе публикуемого индекса).
+function hypotheticalIndex(criteriaIn, params) {
+  const drivers = buildDriversCore(criteriaIn, {}, params);
+  return aggregateDrivers(drivers, params, {}).internal;
 }
 
 // --- §7.3: нормировка счётного критерия ---
@@ -367,6 +440,80 @@ export function regionalIndex(global, region, params) {
   };
 }
 
+// --- §7: агрегация региональной атрибуции критериев в сигналы региона ---
+// criteria: входная карта критериев (input.criteria после validate);
+// regionIds: whitelist регионов (по умолчанию — REGION_IDS из js/data.js).
+// Возвращает { [regionId]: {nReg, eStruct, eDyn, hasDeescSignals, iWith,
+// iWithout} } только для регионов с ≥1 региональным сигналом; {} при
+// отсутствии атрибуции. Результат — готовый вход engine.regionalIndex.
+// Трактовка шкал §7, которую методология не определяет однозначно, —
+// зафиксирована в docs/adr/0022-regional-signals-interpretation.md:
+//   - сигнал региона — покрытая (covered:true) запись критерия с непустым
+//     regions[], включающим регион; nReg — число таких записей (объём данных:
+//     сигнал с value 0 тоже считается — это зафиксированное наблюдение, а не
+//     отсутствие данных); «независимость» на уровне недели гарантируют ворота
+//     validateSourceIndependence (calc.js), а не эта функция;
+//   - Д2 и Д4, а также Д9 кроме Д9.3, в агрегацию не входят: §7 относит их
+//     эффект к экспозиции региона, а не к дублированию сигнала;
+//   - hasDeescSignals — есть покрытый сигнал региона по критерию с
+//     направлением 'deesc' и нормированным значением > 0;
+//   - eStruct — стартовое нейтральное значение params.regionEstructDefault
+//     (структурная экспозиция недельный вход не несёт; квартальный реестр —
+//     задел методологии 3.0); eDyn = nReg / (число покрытых критериев недели)
+//     — доля сигналов региона в общем потоке (компонента «близость к активным
+//     событиям» недоступна во входе недели — ADR 0022);
+//   - iWith — гипотетический индекс §5 (шаги 2–6) по сигналам региона;
+//     iWithout — тот же прогон по всем покрытым критериям недели без сигналов
+//     региона (сигналы других регионов остаются).
+export function regionalSignals(criteria, regionIds, params) {
+  const p = params || PARAMS;
+  const whitelist = Array.isArray(regionIds) && regionIds.length ? regionIds : REGION_IDS;
+  const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
+  const eligible = (id) => {
+    const m = CRITERIA[id];
+    if (!m) return false;
+    if (m.driver === 'D2' || m.driver === 'D4') return false;
+    if (m.driver === 'D9' && id !== 'D9.3') return false;
+    return true;
+  };
+  const attributed = {}; // regionId -> [{id, entry}]
+  let nCovered = 0;
+  for (const [id, entry] of Object.entries(map)) {
+    if (!entry || entry.covered !== true) continue;
+    nCovered += 1;
+    if (!eligible(id) || !Array.isArray(entry.regions)) continue;
+    for (const rid of entry.regions) {
+      if (!whitelist.includes(rid)) continue;
+      (attributed[rid] = attributed[rid] || []).push({ id, entry });
+    }
+  }
+  const eStructDefault = p.regionEstructDefault != null ? p.regionEstructDefault : 0.5;
+  const out = {};
+  for (const rid of whitelist) {
+    const signals = attributed[rid];
+    if (!signals || signals.length === 0) continue;
+    const withMap = {};
+    for (const { id, entry } of signals) withMap[id] = entry;
+    const withoutMap = {};
+    for (const [id, entry] of Object.entries(map)) {
+      if (entry && entry.covered === true && !signals.some((s) => s.id === id)) {
+        withoutMap[id] = entry;
+      }
+    }
+    out[rid] = {
+      nReg: signals.length,
+      eStruct: eStructDefault,
+      eDyn: nCovered > 0 ? signals.length / nCovered : 0,
+      hasDeescSignals: signals.some(
+        ({ id, entry }) => CRITERIA[id].dir === 'deesc' && normalizeCriterion(entry, p) > 0,
+      ),
+      iWith: hypotheticalIndex(withMap, p),
+      iWithout: hypotheticalIndex(withoutMap, p),
+    };
+  }
+  return out;
+}
+
 // --- Валидация входного файла недели (calc/input/<неделя>.json) ---
 // Контракт для тасок 02/03. validate(input) -> массив строк ошибок с путями
 // полей; [] = вход валиден. Битый вход не считается (R01.2).
@@ -532,8 +679,15 @@ export function validate(input, params) {
           }
         });
       }
-      if (entry.regions != null && (!Array.isArray(entry.regions) || entry.regions.some((r) => typeof r !== 'string' || r.length === 0))) {
-        err(`${path}.regions`, 'ожидается массив непустых строк регионов');
+      if (entry.regions != null) {
+        if (!Array.isArray(entry.regions) || entry.regions.some((r) => typeof r !== 'string' || r.length === 0)) {
+          err(`${path}.regions`, 'ожидается массив непустых строк регионов');
+        } else {
+          const unknown = entry.regions.filter((r) => !REGION_IDS.includes(r));
+          if (unknown.length) {
+            err(`${path}.regions`, `неизвестный регион: ${unknown.join(', ')} (whitelist: ${REGION_IDS.join(', ')})`);
+          }
+        }
       }
       for (const flag of ['acyclic', 'rejected', 'flash_origin']) {
         if (entry[flag] != null && typeof entry[flag] !== 'boolean') err(`${path}.${flag}`, 'ожидается boolean');

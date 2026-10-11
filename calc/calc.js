@@ -11,11 +11,11 @@
 // Неделя без аргументов = вся пересчитываемая цепочка RECALC_WEEKS.
 // Цепочка: инерция (prevInternal) и опубликованное prevPublished текут от
 // недели к неделе внутри прогона; старт цепочки — опубликованный снапшот
-// PREV_WEEK (демо-история не пересчитывается). Входы недель не несут
-// региональной атрибуции (D01), поэтому все регионы считаются «слепыми»
-// (nReg = 0): их значение сохраняет последнее региональное отклонение от
-// глобального фона, а не схлопывается в I_global (исправление: одинаковый
-// индекс у всех регионов невозможен, §7).
+// PREV_WEEK (демо-история не пересчитывается). Региональная атрибуция критериев
+// (regions[], §4.1.9) — задел для будущих недель (R03): регион с сигналами
+// считается по ним (nReg > 0, background:false), без них — «слепой» (nReg = 0,
+// background:true): значение сохраняет последнее региональное отклонение от
+// глобального фона, а не схлопывается в I_global (§7).
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -23,7 +23,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 
 import { PARAMS } from './params.js';
-import { aggregateDrivers, validate, regionalIndex, CRITERIA, detectFlashTriggers } from './engine.js';
+import { aggregateDrivers, validate, regionalIndex, regionalSignals, CRITERIA, detectFlashTriggers } from './engine.js';
 import { buildDrivers } from './calibrate.js';
 import { sensitivityScore } from './sensitivity.js';
 import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
@@ -32,7 +32,7 @@ import * as audit from './audit.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
-const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04'];
+const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
 const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
 const RECALC_SET = new Set(RECALC_WEEKS);
 
@@ -304,14 +304,14 @@ export function renderRegions(week, regions) {
   return header(week) + `  s.regions = ${j(regions)};\n` + FOOTER;
 }
 
-// region-*.js: пересчитываются только index/delta/status; confidence и
-// narrative-поля (drivers) сохраняются из уже опубликованного файла.
-function mergedRegion(prev, index, delta, status) {
-  return { index, delta, status, confidence: prev.confidence, drivers: prev.drivers };
+// region-*.js: пересчитываются только index/delta/status/background; confidence
+// и narrative-поля (drivers) сохраняются из уже опубликованного файла.
+function mergedRegion(prev, index, delta, status, background) {
+  return { index, delta, status, background, confidence: prev.confidence, drivers: prev.drivers };
 }
 
-export function renderRegionFile(week, id, prev, index, delta, status) {
-  return header(week) + `  s.regions[${JSON.stringify(id)}] = ${j(mergedRegion(prev, index, delta, status))};\n` + FOOTER;
+export function renderRegionFile(week, id, prev, index, delta, status, background) {
+  return header(week) + `  s.regions[${JSON.stringify(id)}] = ${j(mergedRegion(prev, index, delta, status, background))};\n` + FOOTER;
 }
 
 export function renderTrend(week, trend) {
@@ -362,24 +362,27 @@ export function runWeek(week, state) {
   // null — вырожденный вход без единого источника (R02.3), поле не пишется.
   const sensitivity = sensitivityScore(input, ctx, PARAMS);
 
-  // Слепые регионы (nReg = 0) — через engine.regionalIndex, который сохраняет
-  // последнее региональное отклонение от глобального фона (prevRegions против
+  // Регионы: атрибуция критериев (engine.regionalSignals, §7) → регион с
+  // сигналами считается по ним (nReg > 0, background:false), без сигналов —
+  // «слепой» веткой (nReg = 0, background:true), которая сохраняет последнее
+  // региональное отклонение от глобального фона (prevRegions против
   // prevPublished прошлой недели); в res.regions — проекция в форму снапшота
-  // {index, delta, status}. Для insufficient-недели это расчётные числа превью
-  // (публикация запрещена — число не уходит в global/trend, но файлы регионов
-  // несут его для редакции).
+  // {index, delta, status, background}. Для insufficient-недели это расчётные
+  // числа превью (публикация запрещена — число не уходит в global/trend, но
+  // файлы регионов несут его для редакции).
+  const signals = regionalSignals(input.criteria, REGION_IDS, PARAMS);
   const regions = {};
   for (const id of REGION_IDS) {
     const r = regionalIndex(
       { index: g.index, internal: g.internal, delta: g.delta },
       {
-        nReg: 0,
+        ...(signals[id] || { nReg: 0 }),
         prevIndex: state.prevRegions[id],
         prevGlobal: state.prevPublished,
       },
       PARAMS,
     );
-    regions[id] = { index: r.index, delta: r.delta, status: r.state };
+    regions[id] = { index: r.index, delta: r.delta, status: r.state, background: r.background };
   }
 
   // Персистентность Structural Break Override (§5.4): 2 недели.
@@ -523,7 +526,7 @@ async function writeWeek(res, state) {
     const prev = loadSnapshotPart(week, `region-${id}`);
     full.regions[id] = mergedRegion(
       prev && prev.regions ? prev.regions[id] : {},
-      res.regions[id].index, res.regions[id].delta, res.regions[id].status,
+      res.regions[id].index, res.regions[id].delta, res.regions[id].status, res.regions[id].background,
     );
   }
   for (const f of ['drivers']) {
@@ -560,7 +563,7 @@ async function writeWeek(res, state) {
   for (const id of REGION_IDS) {
     const prev = loadSnapshotPart(week, `region-${id}`);
     files[`region-${id}.js`] = renderRegionFile(
-      week, id, prev ? prev.regions[id] : {}, res.regions[id].index, res.regions[id].delta, res.regions[id].status,
+      week, id, prev ? prev.regions[id] : {}, res.regions[id].index, res.regions[id].delta, res.regions[id].status, res.regions[id].background,
     );
   }
   for (const [file, content] of Object.entries(files)) {
@@ -635,9 +638,10 @@ function printWeek(res, writeMode, writeRejected = false) {
       `${PARAMS.coreMinDomains}+ доменов (нет: ${res.core.missing.join(', ')}) — сравнимость недель снижена, запись не блокируется`,
     );
   }
-  lines.push('regions (слепые, nReg=0 → сохранено последнее региональное отклонение от глобального фона):');
+  const nSignaled = Object.values(res.regions).filter((r) => !r.background).length;
+  lines.push(`regions (фоновые, nReg=0 → сохранено последнее региональное отклонение от глобального фона; с сигналами: ${nSignaled}):`);
   for (const [id, r] of Object.entries(res.regions)) {
-    lines.push(`  ${id}: ${r.index} (${r.status}, Δ ${r.delta >= 0 ? '+' : ''}${r.delta})`);
+    lines.push(`  ${id}: ${r.index} (${r.status}, Δ ${r.delta >= 0 ? '+' : ''}${r.delta})${r.background ? ' — фон' : ''}`);
   }
   const replaced = res.trend.filter((p) => RECALC_SET.has(p.date)).length;
   const last = res.trend[res.trend.length - 1];

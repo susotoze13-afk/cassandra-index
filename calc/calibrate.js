@@ -12,12 +12,8 @@ import path from 'node:path';
 
 import { PARAMS, list } from './params.js';
 import {
-  CRITERIA,
-  driverScore,
-  d8Strength,
-  aggregateD9,
+  buildDriversCore,
   aggregateDrivers,
-  normalizeCriterion,
   validate,
 } from './engine.js';
 
@@ -27,64 +23,15 @@ export const K_GRID = Object.freeze(
 );
 
 // --- Маппинг входного файла недели → драйверы для aggregateDrivers ---
-// Тот же шов, который использует calc.js: criteria + driverConfidence
-// (после validate) → массив {id, score, confidence, ...} по §4.2–§4.3.
-// Знаменатель порога покрытия — все критерии драйвера из CRITERIA: отсутствие
-// ключа в файле эквивалентно явному null (§4.2, R02.2).
+// Тот же шов, который использует calc.js. Реализация — buildDriversCore в
+// engine.js (driverScore/d8Strength/aggregateD9, порог покрытия); здесь —
+// публичная обёртка, резолвящая driverConfidence из входа.
 export function buildDrivers(input, params = PARAMS) {
-  const p = params || PARAMS;
-  const conf = (input && input.driverConfidence) || {};
-  const criteriaIn = (input && input.criteria) || {};
-  const entriesOf = (driver) =>
-    Object.entries(CRITERIA)
-      .filter(([, meta]) => meta.driver === driver)
-      .map(([id, meta]) => ({ id, meta, entry: criteriaIn[id] || null }));
-  const level = (d) => ((conf[d] || {}).level) || 'medium';
-  const drivers = [];
-  for (let i = 1; i <= 7; i++) {
-    const id = `D${i}`;
-    const criteria = entriesOf(id).map(({ entry, meta }) => ({
-      dir: meta.dir,
-      value: entry ? normalizeCriterion(entry, p) : 0,
-      covered: !!entry && entry.covered === true,
-    }));
-    drivers.push({
-      id,
-      score: driverScore(criteria, p.alpha, p.coverageThreshold),
-      confidence: level(id),
-    });
-  }
-  const d8Entries = entriesOf('D8');
-  drivers.push({
-    id: 'D8',
-    score: d8Strength(
-      d8Entries.map(({ entry }) => ({
-        value: entry ? normalizeCriterion(entry, p) : 0,
-        covered: !!entry && entry.covered === true,
-      })),
-      p.coverageThreshold,
-    ),
-    confidence: level('D8'),
-    breakValue: d8Entries.find(({ id }) => id === 'D8.2' && criteriaIn['D8.2'] && criteriaIn['D8.2'].covered === true)
-      ? criteriaIn['D8.2'].value
-      : 0,
-  });
-  const d9 = aggregateD9(
-    entriesOf('D9').map(({ id, entry }) => ({
-      id,
-      score: entry && entry.covered === true ? normalizeCriterion(entry, p) : null,
-      acyclic: !!entry && entry.acyclic === true,
-      rejected: !!entry && entry.rejected === true,
-    })),
-    p,
+  return buildDriversCore(
+    (input && input.criteria) || {},
+    (input && input.driverConfidence) || {},
+    params,
   );
-  drivers.push({
-    id: 'D9',
-    score: d9.score,
-    confidence: level('D9'),
-    signalingSubgroups: d9.signaling,
-  });
-  return drivers;
 }
 
 // Прогон одного якорного профиля: валидация → драйверы → aggregateDrivers
