@@ -1,0 +1,1184 @@
+{
+  "week": "2026-10-11",
+  "params": "calc/params.js",
+  "criteria": {
+    "D1.1": {
+      "events": [1.0, 1.0, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://tass.com/defense/2200415", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/defense/2200267", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.scmp.com/news/china/military/article/3370182/did-us-warship-lose-power-while-chasing-chinese-destroyer-south-china-sea", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/china-militia-boat-first-taiwan-east-coast/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.scmp.com/news/china/military/article/3370439/are-chinese-military-aircraft-already-using-new-joint-air-facility-laos", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D1.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.scmp.com/news/china/military/article/3370210/how-expanded-japan-us-military-exercises-could-complicate-pla-planning-over-taiwan", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/world/2200281", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D1.3": null,
+    "D1.4": {
+      "events": [2.0, 2.0, 1.0, 1.0, 1.0, 0.5, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/10/yemen-government-allied-forces-recapture-bab-al-mandab-strait-houthis-taiz", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.france24.com/en/europe/20261010-trump-zelensky-clash-over-diesel-deal-as-russian-strikes-on-ukraine-kill-21-including-children", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.theguardian.com/global/video/2026/oct/10/man-narrowly-escapes-drone-strike-on-playground-in-kyiv-video", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/middle-east/saudi-led-coalition-announces-large-scale-operation-against-houthis-in-yemen-says-136-military-targets-destroyed/4084119", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/emergencies/2200449", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/emergencies/2200435", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/defense/2200397", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/defense/2200261", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/defense/2200399", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.aljazeera.com/news/2026/10/10/yemeni-governments-military-says-its-forces-advancing-against-houthis", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/news/attack-riyadh-airport-leaves-12-dead-more-300-injured", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D1.5": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://tass.com/economy/2200411", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.scmp.com/news/china/military/article/3370182/did-us-warship-lose-power-while-chasing-chinese-destroyer-south-china-sea", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.armscontrol.org/media-citations/voice-america/2026-10-07", "date": "2026-10-07", "cluster": "C-registries", "type": "OSINT", "state_affiliated": false },
+        { "url": "https://www.rt.com/news/646985-rt-top-stories-macron-germany-houthis/", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D2.2": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/", "date": "2026-09-15", "cluster": "C-registries", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/", "date": "2026-09-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia", "date": "2026-09-16", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D2.3": {
+      "events": [1.0, 1.0, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.defense.gouv.fr/actualites/missile-m513-tir-dacceptation-reussi-snle-vigilant", "date": "2026-10-06", "cluster": "C-registries", "type": "primary", "state_affiliated": true },
+        { "url": "https://www.rt.com/news/646984-nato-nuclear-exercise-polyansky/", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://sputnikglobe.com/20261009/finland-to-take-part-in-natos-nuclear-deterrence-exercise-in-october---defense-ministry-1124855777.html", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.armscontrol.org/media-citations/international-business-times/2026-10-07", "date": "2026-10-07", "cluster": "C-registries", "type": "OSINT", "state_affiliated": false }
+      ]
+    },
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/", "date": "2026-09-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://ria.ru/20260919/medvedev-2118722131.html", "date": "2026-09-19", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D2.5": null,
+    "D3.1": {
+      "events": [1.0],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.rt.com/russia/646925-kiev-south-korea-recall-ambassador/", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/2026/oct/08/south-korea-fuel-shipments-to-russia-domestic-law", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D3.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://tass.com/world/2200333", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D3.3": {
+      "events": [1.0],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/imposing-sanctions-on-the-international-criminal-court/", "date": "2026-10-09", "cluster": "C-registries", "type": "primary", "state_affiliated": true },
+        { "url": "https://www.aa.com.tr/en/world/eu-urges-us-to-reverse-latest-sanctions-targeting-icc-/4084422", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.gov.uk/government/news/joint-statement-on-support-for-the-international-criminal-court", "date": "2026-10-09", "cluster": "C-registries", "type": "primary", "state_affiliated": true },
+        { "url": "https://press.un.org/en/2026/sgsm23325.doc.htm", "date": "2026-10-09", "cluster": "C-registries", "type": "primary", "state_affiliated": false },
+        { "url": "https://www.nytimes.com/2026/10/09/us/politics/trump-international-criminal-court-sanctions.html", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D3.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/europe/zelenskyy-says-ukraine-s-negotiation-team-will-visit-us-in-next-2-days-for-talks/4082504", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://sputnikglobe.com/20261010/witkoff-calls-us-ukraine-talks-productive-ahead-of-next-russia-engagement-1124858930.html", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/world/2200299", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D3.5": null,
+    "D4.1": {
+      "events": [0.5, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/business/2026/oct/05/uk-tariffs-chinese-car-imports-eu-manufacturing", "date": "2026-10-05", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D4.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/americas/us-state-department-approves-arms-sales-worth-227b-to-egypt-kuwait-uae/4078826", "date": "2026-10-05", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://sputnikglobe.com/20261010/eu-wants-to-reduce-new-budget-by-almost-180bln-but-keep-111bln-for-ukraine-1124862422.html", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.nytimes.com/2026/10/09/world/europe/putin-russia-ukraine-war-europe-nato.html", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/09/eu-pulling-out-all-stops-with-minerals-projects-as-it-tries-to-avert-china-trade-war", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D4.4": {
+      "events": [1.0, 1.0, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.france24.com/en/middle-east/20261010-yemen-says-forces-made-advances-against-houthis-around-key-waterway", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.middleeasteye.net/news/attack-riyadh-airport-leaves-12-dead-more-300-injured", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.gov.uk/government/speeches/russias-war-threatening-civilian-shipping-in-the-black-sea-uk-statement-to-the-osce", "date": "2026-10-08", "cluster": "C-registries", "type": "primary", "state_affiliated": true },
+        { "url": "https://tass.com/world/2200437", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D4.5": {
+      "events": [1.0, 0.5, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.rt.com/news/647016-washington-suspends-sanctions-russian-fuel/", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/us-news/2026/oct/09/trump-putin-russian-diesel-ukraine", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/economy/2200347", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://sputnikglobe.com/20261008/iran-oman-agree-on-safe-passage-routes-through-strait-of-hormuz---reports-1124850278.html", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D5.1": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.france24.com/en/europe/20261010-trump-zelensky-clash-over-diesel-deal-as-russian-strikes-on-ukraine-kill-21-including-children", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/world/trump-says-iran-failing-badly-keeps-military-option-open/4084135", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D5.2": {
+      "events": [0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://foreignpolicy.com/2026/10/09/russia-sabotage-europe-attacks-hybrid-warfare-estonia/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D5.3": null,
+    "D5.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/americas/us-european-ukrainian-officials-hold-talks-in-florida-on-de-escalating-ending-war-with-russia/4084138", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/world/2200231", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D6.1": null,
+    "D6.2": null,
+    "D6.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/politics/taiwan-lai-increasing-defense-spending/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.japantimes.co.jp/news/2026/10/10/japan/gcap-germany-join-japan/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/americas/us-state-department-approves-arms-sales-worth-227b-to-egypt-kuwait-uae/4078826", "date": "2026-10-05", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D6.4": null,
+    "D7.1": {
+      "events": [1.0, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.jpost.com/middle-east/article-911232", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/11/world-condemns-deadly-houthi-attack-on-saudi-arabias-riyadh-airport", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.aa.com.tr/en/europe/lebanese-army-receives-ammunition-from-france-under-military-cooperation/4084006", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D7.2": {
+      "events": [1.0, 1.0, 1.0, 0.5],
+      "covered": true,
+      "sources": [
+        { "url": "https://www.jpost.com/middle-east/article-911232", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/world/2200371", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/indian-crew-vessel-involved-incident-ras-al-khaimah-rescued", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D7.3": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.jpost.com/middle-east/article-911232", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/11/world-condemns-deadly-houthi-attack-on-saudi-arabias-riyadh-airport", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
+    "D7.4": null,
+    "D8.1": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/10/israeli-attack-destroys-building-in-gaza-one-year-into", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.france24.com/en/video/20261010-hunger-and-malnutrition-stalk-gazans-a-year-on-from-ceasefire", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D8.2": null,
+    "D8.3": null,
+    "D8.4": null,
+    "D9.1": null,
+    "D9.2": null,
+    "D9.3": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/europe/following-houthi-attacks-europes-aviation-safety-body-expands-saudi-airspace-warning/4084161", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/economy/2200307", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.aa.com.tr/en/middle-east/us-uk-embassies-urge-citizens-to-avoid-riyadh-airport-following-attacks/4084655", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.nytimes.com/2026/10/09/world/europe/russia-putin-plane-ukraine.html", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
+    "D9.4": null,
+    "D9.5": null,
+    "D9.6a": null,
+    "D9.6b": null,
+    "D9.7": null
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high",
+      "reason": "Покрыто 4/6: атака хуситов на аэропорт Эр-Рияда (12 погибших) и удары РФ по Запорожью (21 погибший), удары по Сочи, дата-центрам Яндекса и Киева, переброска войск «Север» и сосредоточение ВСУ под Славянском (D1.1/D1.4), учения Keen Sword 27 и ПВО/блокада Ормуза (D1.2/D1.5); D1.3/D1.6 без сигналов в окне. Сигналы подтверждены разными кластерами (A+B)."
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "Покрыто 4/5: свежие сигналы окна D2.1 (ядерная риторика Путина и Макрона) и D2.3 (приёмочный пуск БРПЛ M51.3 Францией 06.10, учения НАТО Steadfast Noon 13–23.10); D2.2/D2.4 перенесены без изменений из недели 2026-10-04 (та же редакционная практика, что в 09-27/10-04) — новых проверяемых доктринальных/технических сигналов готовности в окне нет; D2.5 оставлен слепым (сигнал США–КНР о взаимных инспекциях от 06.10 — единственный источник одного кластера, ворота независимости не пропускают)."
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "Покрыто 4/5: отзыв посла Южной Кореи из Украины (D3.1), требования США к Киеву по НПЗ (D3.2), санкции США против МКС с осуждением ЕС/ООН (D3.3), интенсивное посредничество США–Украина–РФ в Майами (D3.4); D3.5 не прошёл ворота независимости (один кластер). Профиль смешанный: эскалация соседствует с deesc-посредничеством."
+    },
+    "D4": {
+      "level": "high",
+      "reason": "Покрыто 5/5: тарифы ЕС/Британии против Китая (D4.1), оборонный бюджет ЕС и поставки вооружений Египту/Кувейту/ОАЭ на $2,27 млрд (D4.2), давление в цепочках критических минералов и дизеля (D4.3), морская блокада Ормуза и Баб-эль-Мандеба, удары по гражданскому судоходству в Чёрном море (D4.4), снятие санкций США на российский дизель и частичная отмена экспортного запрета РФ (D4.5). Самый плотный драйвер недели."
+    },
+    "D5": {
+      "level": "medium",
+      "reason": "Покрыто 3/4: эскалационная риторика Трампа («военная опция» по Ирану, требование нового лидера Украины) и МИД РФ (D5.1), российские гибридные операции в Европе по оценке контрразведки Эстонии (D5.2), слабый деэскалационный трек (переговоры в Майами, снятие части санкций) (D5.4); атрибутированных киберударов по КИИ (D5.3) в окне нет."
+    },
+    "D6": {
+      "level": "low",
+      "reason": "Покрыто 1/4: только военно-экономическая переориентация/оборонные заказы (D6.3 — рост оборонного бюджета Тайваня, GCAP с Германией, продажи вооружений США). Мобилизации, эвакуации и отмены мер в окне не подтверждено."
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "Покрыто 3/4: вовлечение новых сторон (возможное присоединение США к ударам по хуситам, передача Францией боеприпасов Ливану — D7.1), атаки за пределами театра (аэропорт Эр-Рияда, судно в Оманском заливе, мина в Ормузе, Рас-эль-Хайма — D7.2), новый театр у Эр-Рияда/Оманского залива (D7.3); D7.4 без сигнала — завершение миссии США в Ираке вне окна (30.09)."
+    },
+    "D8": {
+      "level": "low",
+      "reason": "Покрыто 1/4: номинальное перемирие в Газе нарушено ударом по зданию (D8.1 = 0); подписанных мирных договорённостей с верификацией (D8.2), новых схем наблюдения (D8.3) и устойчивого снижения интенсивности (D8.4) в окне нет."
+    },
+    "D9": {
+      "level": "low",
+      "reason": "Покрыта 1/8 подгрупп: транспорт и страхование (D9.3 — предупреждение EASA по воздушному пространству Саудовской Аравии, приостановка аэропорта Эр-Рияда, закрытие аэропортов Москвы). Остальные подгруппы без прямых сигналов в окне; уровень high невозможен (§4.3.1), одиночный сигнал ослаблен короборацией."
+    }
+  },
+  "sources": [
+    {
+      "id": "tass-slavyansk-kramatorsk-forces",
+      "title": { "ru": "Эксперт назвал район наибольшего сосредоточения сил ВСУ под Славянском и Краматорском", "en": "Expert names area with highest concentration of Ukrainian forces at Slavyansk, Kramatorsk" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2200415",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-battlegroup-north-lukashovo-lobanovka",
+      "title": { "ru": "Группировка «Север» взяла под контроль Лукашово и Лобановку в Харьковской области", "en": "Russia's Battlegroup North takes control of Lukashovo, Lobanovka in Kharkov Region" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2200267",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "scmp-us-warship-china-destroyer",
+      "title": { "ru": "Потерял ли эсминец США ход при преследовании китайского эсминца в Южно-Китайском море?", "en": "Did a US warship lose power while chasing a Chinese destroyer in the South China Sea?" },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/military/article/3370182/did-us-warship-lose-power-while-chasing-chinese-destroyer-south-china-sea",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "japantimes-china-militia-boat-taiwan",
+      "title": { "ru": "Китайский ополченческий катер впервые замечен у восточного побережья Тайваня", "en": "China militia boat spotted for first time off Taiwan's east coast, patrol finds" },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/china-militia-boat-first-taiwan-east-coast/",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-chinese-aircraft-laos-facility",
+      "title": { "ru": "Используют ли китайские военные самолёты новый совместный аэродром в Лаосе?", "en": "Are Chinese military aircraft already using a new joint air facility in Laos?" },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/military/article/3370439/are-chinese-military-aircraft-already-using-new-joint-air-facility-laos",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "scmp-keen-sword-27-exercises",
+      "title": { "ru": "Как расширенные учения Японии и США могут осложнить планирование НОАК по Тайваню", "en": "How expanded Japan-US military exercises could complicate PLA planning over Taiwan" },
+      "domain": "scmp.com",
+      "url": "https://www.scmp.com/news/china/military/article/3370210/how-expanded-japan-us-military-exercises-could-complicate-pla-planning-over-taiwan",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-nato-theory-of-victory",
+      "title": { "ru": "План НАТО «Теория победы» не направлен против России — глава военного комитета", "en": "NATO 'Theory of Victory' plan not directed against Russia — chairman of military committee" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200281",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-yemen-bab-al-mandab",
+      "title": { "ru": "Силы правительства Йемена отбили Баб-эль-Мандебский пролив у хуситов", "en": "Yemen government-allied forces recapture Bab al-Mandab strait from Houthis" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/10/yemen-government-allied-forces-recapture-bab-al-mandab-strait-houthis-taiz",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "france24-zaporizhzhia-strikes-diesel",
+      "title": { "ru": "Трамп и Зеленский поспорили из-за дизельной сделки, удары РФ по Украине убили 21 человека", "en": "Trump, Zelensky clash over diesel deal as Russian strikes on Ukraine kill 21, including children" },
+      "domain": "france24.com",
+      "url": "https://www.france24.com/en/europe/20261010-trump-zelensky-clash-over-diesel-deal-as-russian-strikes-on-ukraine-kill-21-including-children",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-kyiv-drone-playground",
+      "title": { "ru": "В Киеве человек едва спасся при ударе дрона по детской площадке", "en": "Man narrowly escapes drone strike on playground in Kyiv" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/global/video/2026/oct/10/man-narrowly-escapes-drone-strike-on-playground-in-kyiv-video",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-saudi-coalition-136-targets",
+      "title": { "ru": "Саудовская коалиция объявила о масштабной операции против хуситов и уничтожении 136 целей", "en": "Saudi-led coalition announces large-scale operation against Houthis in Yemen, says 136 military targets destroyed" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/saudi-led-coalition-announces-large-scale-operation-against-houthis-in-yemen-says-136-military-targets-destroyed/4084119",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-sochi-airport-drone-debris",
+      "title": { "ru": "Обломки дронов упали на территорию аэропорта Сочи, жилые районы и отели", "en": "Drone debris falls on Sochi airport grounds, residential areas and hotels" },
+      "domain": "tass.com",
+      "url": "https://tass.com/emergencies/2200449",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-yandex-data-center-vladimir",
+      "title": { "ru": "Дата-центр Яндекса во Владимире остановлен после атаки дрона", "en": "Yandex's data center in Vladimir suspended after drone attack" },
+      "domain": "tass.com",
+      "url": "https://tass.com/emergencies/2200435",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-dpr-23-attacks",
+      "title": { "ru": "Украина атаковала ДНР 23 раза за последние сутки", "en": "Ukraine attacks DPR 23 times in last 24 hours" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2200397",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-air-defenses-725-drones",
+      "title": { "ru": "Российская ПВО сбила 725 дронов, потери украинских войск — около 1455 человек", "en": "Russian air defenses down 725 drones, Ukrainian losses total about 1,455 troops" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2200261",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-oskol-river-bridge-destroyed",
+      "title": { "ru": "Россия уничтожила мост через реку Оскол — эксперт", "en": "Russia destroys bridge across the Oskol River — expert" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2200399",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-yemen-forces-advance",
+      "title": { "ru": "Военные правительства Йемена заявляют о продвижении против хуситов", "en": "Yemeni government's military says its forces advancing against Houthis" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/10/yemeni-governments-military-says-its-forces-advancing-against-houthis",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "mee-riyadh-airport-12-dead",
+      "title": { "ru": "Атака на аэропорт Эр-Рияда: 12 погибших, более 300 раненых", "en": "Attack on Riyadh airport leaves 12 dead, more than 300 injured" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/news/attack-riyadh-airport-leaves-12-dead-more-300-injured",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "jpost-centcom-vessel-strike",
+      "title": { "ru": "CENTCOM ударил по коммерческому судну, пытавшемуся обойти блокаду Ирана", "en": "CENTCOM strikes commercial vessel after ship attempts to bypass Iran blockade" },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/iran-news/article-911241",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-iaea-zaporozhye-silence",
+      "title": { "ru": "Переговоры МАГАТЭ о режиме тишины на Запорожской АЭС значимы", "en": "IAEA talks on silence regime at Zaporozhye plant significant" },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2200411",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-us-disable-ship-gulf-oman",
+      "title": { "ru": "США обездвижили судно, «пытавшееся прорвать» блокаду Ирана в Оманском заливе", "en": "US forces disable ship 'attempting to run' Iran blockade in Gulf of Oman" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aca-putin-nuclear-threat-voa",
+      "title": { "ru": "Путин вновь повторяет ядерную угрозу в адрес НАТО", "en": "Russia's Putin reiterates nuclear threat against NATO" },
+      "domain": "armscontrol.org",
+      "url": "https://www.armscontrol.org/media-citations/voice-america/2026-10-07",
+      "publication_date": "2026-10-07",
+      "accessed_date": "2026-10-11",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "rt-macron-nuclear-week",
+      "title": { "ru": "«Ядерная дуэль» Макрона: главные истории недели по версии RT", "en": "Macron's nuclear throwdown: RT stories that shaped the week" },
+      "domain": "rt.com",
+      "url": "https://www.rt.com/news/646985-rt-top-stories-macron-germany-houthis/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "nti-nuclear-security-index-2026",
+      "title": { "ru": "Россия и США отступают от ядерной безопасности — индекс NTI 2026", "en": "Russia and United States retreat from nuclear security as 12 countries step up — 2026 NTI Nuclear Security Index finds" },
+      "domain": "nti.org",
+      "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/",
+      "publication_date": "2026-09-15",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "reuters-north-korea-nuclear-expansion",
+      "title": { "ru": "Замминистра обороны КНДР: наращивание вооружений США оправдывает расширение ядерной программы", "en": "North Korea vice defence minister says US arms buildup justifies expanding nuclear programme" },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/",
+      "publication_date": "2026-09-17",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "iz-kndr-nuclear-warning",
+      "title": { "ru": "КНДР предупредила США и Южную Корею о возможном применении ядерного оружия", "en": "North Korea warned US and South Korea of possible nuclear weapons use" },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia",
+      "publication_date": "2026-09-16",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "defensegouv-m513-acceptance-test",
+      "title": { "ru": "Ракета M51.3: успешный приёмочный пуск с ПЛАРБ Le Vigilant", "en": "M51.3 missile: successful acceptance test from SSBN Le Vigilant" },
+      "domain": "defense.gouv.fr",
+      "url": "https://www.defense.gouv.fr/actualites/missile-m513-tir-dacceptation-reussi-snle-vigilant",
+      "publication_date": "2026-10-06",
+      "accessed_date": "2026-10-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "rt-nato-nuclear-drills",
+      "title": { "ru": "НАТО просит Россию «не волноваться» из-за ядерных учений", "en": "NATO asks Russia 'not to worry' about nuclear drills" },
+      "domain": "rt.com",
+      "url": "https://www.rt.com/news/646984-nato-nuclear-exercise-polyansky/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "sputnik-finland-steadfast-noon",
+      "title": { "ru": "Финляндия примет участие в ядерных учениях НАТО в октябре — Минобороны", "en": "Finland to take part in NATO's nuclear deterrence exercise in October — Defense Ministry" },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261009/finland-to-take-part-in-natos-nuclear-deterrence-exercise-in-october---defense-ministry-1124855777.html",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aca-pentagon-nuclear-options-ibt",
+      "title": { "ru": "Пентагон даёт Трампу больше ядерных опций на фоне пересмотра потенциальной войны с Россией или Китаем", "en": "Pentagon moves to give Trump more nuclear options as US rethinks potential war with Russia or China" },
+      "domain": "armscontrol.org",
+      "url": "https://www.armscontrol.org/media-citations/international-business-times/2026-10-07",
+      "publication_date": "2026-10-07",
+      "accessed_date": "2026-10-11",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "rt-south-korea-recall-ambassador",
+      "title": { "ru": "Южная Корея отзывает посла из Украины", "en": "South Korea recalls ambassador from Ukraine" },
+      "domain": "rt.com",
+      "url": "https://www.rt.com/russia/646925-kiev-south-korea-recall-ambassador/",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-south-korea-fuel-shipments",
+      "title": { "ru": "Южная Корея грозит юридическими мерами из-за поставок топлива в Россию", "en": "South Korea threatens legal action if fuel shipments to Russia found to have broken law" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/08/south-korea-fuel-shipments-to-russia-domestic-law",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-trump-demanded-zelensky-refineries",
+      "title": { "ru": "Трамп: США требовали от Зеленского прекратить удары по российским НПЗ", "en": "Trump says US demanded Zelensky halt strikes on Russian oil refineries" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200333",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-trump-diesel-new-leader",
+      "title": { "ru": "Трамп заявил, что Украине нужен новый лидер после дизельной сделки с Россией", "en": "Trump says Ukraine needs a new leader after diesel deal with Russia" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "state-icc-sanctions",
+      "title": { "ru": "О введении санкций против Международного уголовного суда", "en": "Imposing Sanctions on the International Criminal Court" },
+      "domain": "state.gov",
+      "url": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/imposing-sanctions-on-the-international-criminal-court/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-eu-urges-icc-reversal",
+      "title": { "ru": "ЕС призывает США отменить последние санкции против МКС", "en": "EU urges US to reverse latest sanctions targeting ICC" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/world/eu-urges-us-to-reverse-latest-sanctions-targeting-icc-/4084422",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "govuk-icc-joint-statement",
+      "title": { "ru": "Совместное заявление в поддержку Международного уголовного суда", "en": "Joint statement on support for the International Criminal Court" },
+      "domain": "gov.uk",
+      "url": "https://www.gov.uk/government/news/joint-statement-on-support-for-the-international-criminal-court",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "un-sg-icc-sanctions",
+      "title": { "ru": "Генсек ООН осуждает введение США санкций против Международного уголовного суда", "en": "Secretary-General condemns United States imposition of sanctions against the International Criminal Court" },
+      "domain": "press.un.org",
+      "url": "https://press.un.org/en/2026/sgsm23325.doc.htm",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "nyt-icc-sanctions",
+      "title": { "ru": "Администрация Трампа вводит жёсткие санкции против Международного уголовного суда", "en": "Trump administration hits International Criminal Court with severe sanctions" },
+      "domain": "nytimes.com",
+      "url": "https://www.nytimes.com/2026/10/09/us/politics/trump-international-criminal-court-sanctions.html",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-zelensky-negotiation-team-us",
+      "title": { "ru": "Зеленский: переговорная команда Украины отправится в США в ближайшие 2 дня", "en": "Zelenskyy says Ukraine's negotiation team will visit US in next 2 days for talks" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/zelenskyy-says-ukraine-s-negotiation-team-will-visit-us-in-next-2-days-for-talks/4082504",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "sputnik-witkoff-miami-talks",
+      "title": { "ru": "Уиткофф называет переговоры США–Украина продуктивными перед следующим раундом с Россией", "en": "Witkoff calls US-Ukraine talks productive ahead of next Russia engagement" },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261010/witkoff-calls-us-ukraine-talks-productive-ahead-of-next-russia-engagement-1124858930.html",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-witkoff-kushner-moscow",
+      "title": { "ru": "Уиткофф и Кушнер могут посетить Москву в ближайшие две недели — источник", "en": "US negotiators Witkoff, Kushner may visit Moscow in next two weeks — source" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200299",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-uk-tariffs-chinese-cars",
+      "title": { "ru": "Британия рассматривает пошлины на китайские авто в согласии с ЕС", "en": "UK reviewing whether to impose tariffs on Chinese car imports to align with EU" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/business/2026/oct/05/uk-tariffs-chinese-car-imports-eu-manufacturing",
+      "publication_date": "2026-10-05",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-eu-china-trade-crossroads",
+      "title": { "ru": "ЕС и Китай на торговом перепутье: планы строгого доступа к рынку грозят новой торговой войной", "en": "EU, China at trade crossroads amid strict market access plans threatening new trade war" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-us-arms-sales-egypt-kuwait-uae",
+      "title": { "ru": "Госдеп США одобрил продажи вооружений Египту, Кувейту и ОАЭ на 2,27 млрд долларов", "en": "US State Department approves arms sales worth $2.27B to Egypt, Kuwait, UAE" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/americas/us-state-department-approves-arms-sales-worth-227b-to-egypt-kuwait-uae/4078826",
+      "publication_date": "2026-10-05",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "sputnik-eu-budget-ukraine-reserve",
+      "title": { "ru": "ЕС хочет сократить новый бюджет почти на 180 млрд, но сохранить 111 млрд для Украины", "en": "EU wants to reduce new budget by almost $180Bln but keep $111Bln for Ukraine" },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261010/eu-wants-to-reduce-new-budget-by-almost-180bln-but-keep-111bln-for-ukraine-1124862422.html",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "nyt-europe-shadow-war",
+      "title": { "ru": "Пока Путин ведёт теневую войну, Европа ищет способ дать сдачи", "en": "As Putin wages shadow war, Europe looks for a way to hit back" },
+      "domain": "nytimes.com",
+      "url": "https://www.nytimes.com/2026/10/09/world/europe/putin-russia-ukraine-war-europe-nato.html",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-eu-minerals-china",
+      "title": { "ru": "ЕС «выкладывается по полной» с проектами по минералам, пытаясь предотвратить торговую войну с Китаем", "en": "EU 'pulling out all stops' with minerals projects as it tries to avert China trade war" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/09/eu-pulling-out-all-stops-with-minerals-projects-as-it-tries-to-avert-china-trade-war",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "fp-diesel-crisis-explained",
+      "title": { "ru": "Глобальный дизельный кризис — разбор", "en": "The global diesel crisis, explained" },
+      "domain": "foreignpolicy.com",
+      "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "france24-yemen-bab-al-mandab",
+      "title": { "ru": "Йемен заявляет о продвижении против хуситов вокруг ключевого Баб-эль-Мандебского пролива", "en": "Yemen says advancing against Houthis around key Bab al-Mandab strait" },
+      "domain": "france24.com",
+      "url": "https://www.france24.com/en/middle-east/20261010-yemen-says-forces-made-advances-against-houthis-around-key-waterway",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "govuk-black-sea-civilian-shipping",
+      "title": { "ru": "Война России угрожает гражданскому судоходству в Чёрном море: заявление Британии в ОБСЕ", "en": "Russia's war threatening civilian shipping in the Black Sea: UK statement to the OSCE" },
+      "domain": "gov.uk",
+      "url": "https://www.gov.uk/government/speeches/russias-war-threatening-civilian-shipping-in-the-black-sea-uk-statement-to-the-osce",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-un-condemns-riyadh",
+      "title": { "ru": "Генсек ООН осуждает атаку на аэропорт в Эр-Рияде", "en": "UN secretary-general condemns attack on airport in Riyadh" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200437",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "rt-us-fuel-waiver",
+      "title": { "ru": "Вашингтон приостанавливает санкции на торговлю российским топливом", "en": "Washington suspends sanctions on Russian fuel trade" },
+      "domain": "rt.com",
+      "url": "https://www.rt.com/news/647016-washington-suspends-sanctions-russian-fuel/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-trump-putin-russian-diesel",
+      "title": { "ru": "Зеленский в ярости: Трамп объявил о сделке по закупке российского дизеля", "en": "Zelenskyy furious as Trump announces deal to buy Russian diesel" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/us-news/2026/oct/09/trump-putin-russian-diesel-ukraine",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-russia-lifts-diesel-export-ban",
+      "title": { "ru": "Правительство РФ частично снимает запрет на экспорт дизеля после договорённостей Путина и Трампа", "en": "Russian government partially lifts diesel export ban following Putin-Trump agreements" },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2200347",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "sputnik-iran-oman-hormuz-routes",
+      "title": { "ru": "Иран и Оман согласовали маршруты безопасного прохода через Ормузский пролив — сообщения", "en": "Iran, Oman agree on safe passage routes through Strait of Hormuz — reports" },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261008/iran-oman-agree-on-safe-passage-routes-through-strait-of-hormuz---reports-1124850278.html",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-trump-iran-military-option",
+      "title": { "ru": "Трамп: Иран «терпит неудачу», военная опция остаётся открытой", "en": "Trump says Iran 'failing badly', keeps military option open" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/world/trump-says-iran-failing-badly-keeps-military-option-open/4084135",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-estonian-rogues-mfa",
+      "title": { "ru": "Эстонские провокаторы втягивают ЕС в трясину конфронтации — МИД РФ", "en": "Estonian rogues drag EU into quagmire of confrontation — Russian Foreign Ministry" },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2200383",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "fp-russia-sabotage-europe-estonia",
+      "title": { "ru": "Российские диверсии в Европе больше не «символические» — глава контрразведки Эстонии", "en": "Russian sabotage in Europe is no longer 'symbolic,' Estonian counterintelligence chief says" },
+      "domain": "foreignpolicy.com",
+      "url": "https://foreignpolicy.com/2026/10/09/russia-sabotage-europe-attacks-hybrid-warfare-estonia/",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-us-europe-ukraine-florida-talks",
+      "title": { "ru": "Представители США, Европы и Украины провели во Флориде переговоры о деэскалации войны с Россией", "en": "US, European, Ukrainian officials hold talks in Florida on de-escalating, ending war with Russia" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/americas/us-european-ukrainian-officials-hold-talks-in-florida-on-de-escalating-ending-war-with-russia/4084138",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-nato-no-kaliningrad-blockade",
+      "title": { "ru": "НАТО заявила, что не планирует блокаду Калининграда", "en": "NATO says it has no plans to blockade Kaliningrad" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200231",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "japantimes-taiwan-defense-spending",
+      "title": { "ru": "Лидер Тайваня заявил о наращивании оборонных расходов для «сдерживания войны»", "en": "Taiwan's leader says increasing defense spending to 'deter war'" },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/politics/taiwan-lai-increasing-defense-spending/",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "japantimes-germany-gcap",
+      "title": { "ru": "Германия рассматривает вступление в проект истребителя GCAP с Великобританией, Италией и Японией", "en": "Germany eyes joining GCAP fighter jet project with U.K., Italy and Japan" },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/10/10/japan/gcap-germany-join-japan/",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "jpost-houthi-riyadh-airport-attack",
+      "title": { "ru": "Атака хуситов на аэропорт Саудовской Аравии: 12 погибших, сотни раненых", "en": "Houthi attack on Saudi airport leaves 12 dead, hundreds wounded" },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/article-911232",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-world-condemns-riyadh",
+      "title": { "ru": "Мир осуждает смертоносную атаку хуситов на аэропорт Эр-Рияда", "en": "World condemns deadly Houthi attack on Saudi Arabia's Riyadh airport" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/11/world-condemns-deadly-houthi-attack-on-saudi-arabias-riyadh-airport",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-france-ammo-lebanon",
+      "title": { "ru": "Ливанская армия получила боеприпасы от Франции в рамках военного сотрудничества", "en": "Lebanese army receives ammunition from France under military cooperation" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/lebanese-army-receives-ammunition-from-france-under-military-cooperation/4084006",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-hormuz-supertanker-mine",
+      "title": { "ru": "Нефтяной супертанкер подорвался на мине в Ормузском проливе — КСИР", "en": "Oil supertanker hits mine in Strait of Hormuz — IRGC" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2200371",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "mee-ras-al-khaimah-vessel-rescued",
+      "title": { "ru": "Индийский экипаж судна, попавшего в «инцидент» у Рас-эль-Хаймы, спасён", "en": "Indian crew of vessel involved in 'incident' off Ras al-Khaimah rescued" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/indian-crew-vessel-involved-incident-ras-al-khaimah-rescued",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "france24-riyadh-airport-suspends",
+      "title": { "ru": "Атака на аэропорт Эр-Рияда: не менее 12 погибших, многие ранены", "en": "At least twelve killed, multiple people wounded in attack on Riyadh airport" },
+      "domain": "france24.com",
+      "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-gaza-ceasefire-violated",
+      "title": { "ru": "Израильский удар разрушил здание в Газе через год после «перемирия»", "en": "Israeli attack destroys building in Gaza one year into 'ceasefire'" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/10/israeli-attack-destroys-building-in-gaza-one-year-into",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "france24-gaza-ceasefire-year",
+      "title": { "ru": "Голод и недоедание среди жителей Газы спустя год после перемирия", "en": "Hunger and malnutrition stalk Gazans, a year on from ceasefire" },
+      "domain": "france24.com",
+      "url": "https://www.france24.com/en/video/20261010-hunger-and-malnutrition-stalk-gazans-a-year-on-from-ceasefire",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-easa-saudi-airspace-warning",
+      "title": { "ru": "После атак хуситов авиационное агентство Европы расширяет предупреждение по воздушному пространству Саудовской Аравии", "en": "Following Houthi attacks, Europe's aviation safety body expands Saudi airspace warning" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/following-houthi-attacks-europes-aviation-safety-body-expands-saudi-airspace-warning/4084161",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-riyadh-airport-suspends",
+      "title": { "ru": "Аэропорт Эр-Рияда приостанавливает работу — источник в управлении воздушным движением", "en": "Riyadh airport suspends operations — air traffic control source" },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2200307",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-embassies-avoid-riyadh-airport",
+      "title": { "ru": "Посольства США и Британии призывают граждан избегать аэропорта Эр-Рияда после атак", "en": "US, UK embassies urge citizens to avoid Riyadh airport following attacks" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/us-uk-embassies-urge-citizens-to-avoid-riyadh-airport-following-attacks/4084655",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "nyt-ukraine-drones-moscow-airports",
+      "title": { "ru": "Украинские дроны закрыли аэропорты Москвы, пока Путин возвращался в Россию", "en": "Ukrainian drones close Moscow airports as Putin flies back to Russia" },
+      "domain": "nytimes.com",
+      "url": "https://www.nytimes.com/2026/10/09/world/europe/russia-putin-plane-ukraine.html",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-ethiopia-drone-eritrea-tigray",
+      "title": { "ru": "Эфиопия нанесла дроновый удар по эритрейским войскам, вошедшим в Тыграй", "en": "Ethiopia launches drone attack against Eritrean troops who crossed into Tigray" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/08/ethiopia-drone-attack-against-eritrean-troops-in-tigray",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-view-ethiopia-conflict",
+      "title": { "ru": "Взгляд Guardian: возвращение Эфиопии к конфликту — гражданская катастрофа и региональный поликризис", "en": "The Guardian view on Ethiopia's return to conflict: civilian catastrophe and a spiralling regional polycrisis" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/commentisfree/2026/oct/08/the-guardian-view-on-ethiopias-return-to-conflict-civilian-catastrophe-and-a-spiralling-regional-polycrisis",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-pakistan-bahrain-deescalation",
+      "title": { "ru": "Пакистан и Бахрейн призывают к деэскалации на Ближнем Востоке на встрече в Исламабаде", "en": "Pakistan, Bahrain call for de-escalation in Middle East as top diplomats meet in Islamabad" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/pakistani-bahrain-call-for-de-escalation-in-middle-east-as-top-diplomats-meet-in-islamabad/4082040",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-india-condemns-houthi-airport",
+      "title": { "ru": "Индия осуждает атаки хуситов на аэропорты Саудовской Аравии", "en": "India condemns Houthi attacks on Saudi airports" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/asia-pacific/india-condemns-houthi-attacks-on-saudi-airports/4082012",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    }
+  ]
+}
