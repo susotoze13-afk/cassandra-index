@@ -1,0 +1,12 @@
+version: 2
+# Обновления GitHub Actions: при пиннинге по SHA (см. deploy.yml, F-06) нужен
+# механизм апдейтов, иначе версии молча устаревают. PR-ы Dependabot — точка
+# осознанного ревью перед мержем.
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
