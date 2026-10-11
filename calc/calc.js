@@ -50,6 +50,24 @@ export function loadSnapshotPart(week, file) {
   return sandbox.window.CI_DATA.snapshots[week] || null;
 }
 
+// --- R01.2: атрибуция regions[], которую региональная агрегация игнорирует ---
+// По ADR 0022 сигналы Д2, Д4 и Д9 (кроме Д9.3) в региональную агрегацию
+// (engine.regionalSignals) не входят: их эффект на регион идёт через
+// экспозицию (eStruct/eDyn), а не через дублирование сигнала. Молчаливого
+// игнора быть не должно — возвращаем id покрытых критериев входа с непустой
+// regions[], которые агрегация проигнорирует; печатается в отчёте недели.
+export function ignoredRegionalAttribution(criteria) {
+  const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
+  const out = [];
+  for (const [id, entry] of Object.entries(map)) {
+    if (!entry || entry.covered !== true || !Array.isArray(entry.regions) || entry.regions.length === 0) continue;
+    const m = CRITERIA[id];
+    if (!m) continue;
+    if (m.driver === 'D2' || m.driver === 'D4' || (m.driver === 'D9' && id !== 'D9.3')) out.push(id);
+  }
+  return out.sort();
+}
+
 // --- Классификация публикации (R11–R15) ---
 // Правила из PARAMS.dataCoverage: nullWeight = 1 − q; nullWeight > insufficient
 // (0.4) или null по Д1/Д2 → публикация запрещена; > reduced (0.2) — пониженная
@@ -278,15 +296,16 @@ const FOOTER = '})();\n';
 const j = (v) => JSON.stringify(v, null, 2);
 
 // Числовая часть global.js: global (null при insufficient), q/nullWeight/
-// coverage/confidence/preview/recalc — из классификации; published/methodology
-// — как были (защищённые поля). through — дата самой недели: окно анализа
+// coverage/confidence/preview/recalc — из классификации; published — как было
+// (защищённое поле из прежнего снапшота); methodology — из PARAMS.methodology
+// (версия перевыпуска; ADR 0021). through — дата самой недели: окно анализа
 // W−7…W включительно, дата покрытия = день публикации (R02).
 export function renderGlobal(week, snap, globalOut, meta) {
   const lines = [
     `  s.global = ${j(globalOut)};`,
     `  s.published = ${JSON.stringify(snap.published)};`,
     `  s.through = ${JSON.stringify(week)};`,
-    `  s.methodology = ${JSON.stringify(snap.methodology)};`,
+    `  s.methodology = ${JSON.stringify(PARAMS.methodology)};`,
     `  s.dataState = ${JSON.stringify(meta.dataState)};`,
     `  s.q = ${j(meta.q)};`,
     `  s.nullWeight = ${j(meta.nullWeight)};`,
@@ -435,6 +454,7 @@ export function runWeek(week, state) {
     sources: input.sources,
     flash: detectFlashTriggers(input.criteria, PARAMS) ? flashDetails(input.criteria, PARAMS) : [],
     core: checkCoreSources(input, PARAMS),
+    ignoredAttribution: ignoredRegionalAttribution(input.criteria),
     coverage: {
       criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
       totalCriteria: Object.keys(CRITERIA).length,
@@ -490,7 +510,7 @@ async function writeWeek(res, state) {
     reason: recalcReason(cls, res),
     previous: snap.global && typeof snap.global.index === 'number' ? snap.global.index : null,
     methodologyBefore: snap.methodology,
-    methodologyAfter: snap.methodology,
+    methodologyAfter: PARAMS.methodology,
     approvedBy: 'Editor-in-Chief',
   };
   const meta = {
@@ -576,12 +596,12 @@ async function writeWeek(res, state) {
     type: 'recalc',
     snapshot_id: week,
     version_before: snap.methodology,
-    version_after: snap.methodology,
+    version_after: PARAMS.methodology,
     changed_by: 'calc-pipeline',
     changed_at: recalc.at,
     reason: recalc.reason,
     parameters_changed: [],
-    recalculation_method: 'aggregateDrivers v2.0',
+    recalculation_method: 'aggregateDrivers v3.0',
     diff: recalcDiff(snap, globalOut, meta),
     approved_by: 'Editor-in-Chief',
   });
@@ -636,6 +656,14 @@ function printWeek(res, writeMode, writeRejected = false) {
     lines.push(
       `предупреждение: ядро источников представлено ${res.core.count} из ` +
       `${PARAMS.coreMinDomains}+ доменов (нет: ${res.core.missing.join(', ')}) — сравнимость недель снижена, запись не блокируется`,
+    );
+  }
+  // R01.2: атрибуция regions[] критериев Д2/Д4/Д9 (кроме Д9.3) региональная
+  // агрегация проигнорирует (ADR 0022) — предупреждаем, молча не глотаем.
+  if (res.ignoredAttribution && res.ignoredAttribution.length) {
+    lines.push(
+      `предупреждение: региональная атрибуция будет проигнорирована агрегацией ` +
+      `(Д2/Д4/Д9 кроме Д9.3, ADR 0022): ${res.ignoredAttribution.join(', ')}`,
     );
   }
   const nSignaled = Object.values(res.regions).filter((r) => !r.background).length;

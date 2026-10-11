@@ -5,6 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderGlobal } from '../calc/calc.js';
+import { PARAMS } from '../calc/params.js';
 
 // Снапшот как на диске: published/through/methodology. through указывает на
 // предыдущую неделю — по старому соглашению; новое — дата самой недели.
@@ -28,9 +29,11 @@ test('renderGlobal: through = дата недели, даже если на ди
   assert.ok(out.includes('  s.through = "2026-09-20";'), out);
 });
 
-test('renderGlobal: старое through не утекает в файл, published/methodology — как были', () => {
+test('renderGlobal: старое through не утекает в файл, published — как было, methodology — из PARAMS', () => {
   const out = renderGlobal('2026-09-20', SNAP, GLOBAL_OUT, META);
   assert.ok(!out.includes('2026-09-13";'), out);
   assert.ok(out.includes('  s.published = "2026-09-20";'), out);
-  assert.ok(out.includes('  s.methodology = "1.0";'), out);
+  // methodology перевыпуска берётся из PARAMS.methodology, а не из прежнего снапшота
+  assert.ok(out.includes(`  s.methodology = "${PARAMS.methodology}";`), out);
+  assert.ok(!out.includes('  s.methodology = "1.0";'), out);
 });

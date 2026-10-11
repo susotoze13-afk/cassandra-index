@@ -5,12 +5,12 @@ import { CRITERIA_LIST } from '../js/criteria.js';
 import { criteriaModel } from '../js/sections/methodology.js';
 
 // R05.1: список критериев на сайте гарантированно совпадает с тем, что считает
-// движок. Паритет импортом обоих модулей: одни и те же 45 id в том же порядке.
-test('CRITERIA_LIST: те же 45 id и тот же порядок, что в engine.CRITERIA', () => {
+// движок. Паритет импортом обоих модулей: одни и те же 46 id в том же порядке.
+test('CRITERIA_LIST: те же 46 id и тот же порядок, что в engine.CRITERIA', () => {
   const engineIds = Object.keys(CRITERIA);
   const siteIds = CRITERIA_LIST.map((c) => c.id);
-  assert.equal(engineIds.length, 45);
-  assert.equal(CRITERIA_LIST.length, 45);
+  assert.equal(engineIds.length, 46);
+  assert.equal(CRITERIA_LIST.length, 46);
   assert.deepEqual(siteIds, engineIds);
 });
 
@@ -22,7 +22,7 @@ test('CRITERIA_LIST: драйвер каждого критерия совпад
 
 // R05: у каждого критерия — название и описание наблюдаемого сигнала на обоих
 // языках (бриф: «название и короткое описание наблюдаемого сигнала (RU/EN)»).
-test('CRITERIA_LIST: name и desc непустые на RU и EN у всех 45 позиций', () => {
+test('CRITERIA_LIST: name и desc непустые на RU и EN у всех 46 позиций', () => {
   for (const c of CRITERIA_LIST) {
     for (const field of ['name', 'desc']) {
       for (const lang of ['ru', 'en']) {
@@ -61,15 +61,15 @@ test('CRITERIA_LIST: ни одна строка не содержит форму
   assert.deepEqual(failures, []);
 });
 
-// R05 (история 8): модель рендера раздела — 9 групп по драйверам, все 45
+// R05 (история 8): модель рендера раздела — 9 групп по драйверам, все 46
 // позиций; переключение языка переводит и заголовки драйверов, и названия,
 // и описания. Шов чистый (без DOM) — по аналогии с тестами соседних секций.
-test('criteriaModel: 9 групп, 45 позиций, заголовки драйверов из словаря', () => {
+test('criteriaModel: 9 групп, 46 позиций, заголовки драйверов из словаря', () => {
   const model = criteriaModel('ru');
   assert.equal(model.length, 9);
   assert.deepEqual(model.map((g) => g.driver),
     ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9']);
-  assert.equal(model.reduce((n, g) => n + g.items.length, 0), 45);
+  assert.equal(model.reduce((n, g) => n + g.items.length, 0), 46);
   for (const g of model) {
     assert.ok(g.title.length > 3, `пустой заголовок драйвера ${g.driver}`);
     for (const item of g.items) {

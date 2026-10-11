@@ -540,6 +540,9 @@ export const CRITERIA = {
   'D4.3': { driver: 'D4', dir: 'esc', scale: 'ordinal' },
   'D4.4': { driver: 'D4', dir: 'esc', scale: 'count' },
   'D4.5': { driver: 'D4', dir: 'deesc', scale: 'count' },
+  // Методология 3.0 (ADR 0021): рыночный критерий — стресс финансовых и
+  // сырьевых рынков как ранний экономический индикатор эскалации.
+  'D4.6': { driver: 'D4', dir: 'esc', scale: 'ordinal' },
   'D5.1': { driver: 'D5', dir: 'esc', scale: 'ordinal' },
   'D5.2': { driver: 'D5', dir: 'esc', scale: 'count' },
   'D5.3': { driver: 'D5', dir: 'esc', scale: 'ordinal' },

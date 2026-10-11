@@ -1,4 +1,4 @@
-// Статический список 45 критериев D1.1–D9.7 для раздела «Методология» (R05).
+// Статический список 46 критериев D1.1–D9.7 для раздела «Методология» (R05).
 // Данные по METHODOLOGY.md §4: сжатые названия и описания наблюдаемого сигнала,
 // без формул, шкал и порогов — расчётная часть методологии в публичный UI не
 // выносится. Порядок позиций совпадает с engine.CRITERIA (calc/engine.js);
@@ -193,6 +193,15 @@ export const CRITERIA_LIST = [
     desc: {
       ru: 'Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.',
       en: 'Lifting of restrictions, restoration of trade ties, humanitarian economic exemptions.',
+    },
+  },
+  {
+    id: 'D4.6',
+    driver: 'D4',
+    name: { ru: 'Стресс на финансовых и сырьевых рынках', en: 'Financial and commodity market stress' },
+    desc: {
+      ru: 'Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.',
+      en: 'Commodity exchanges, bond and equity markets react to escalation earlier than other signals: index sell-offs, spikes in oil and gold prices, widening credit spreads.',
     },
   },
   {

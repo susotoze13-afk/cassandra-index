@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   driverScore,
+  buildDriversCore,
   d8Strength,
   aggregateD9,
   aggregateDrivers,
@@ -811,4 +812,21 @@ test('validate: все входы недель и якорей calc/input/**/*.j
     const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));
     assert.deepEqual(validate(input, PARAMS), [], f);
   }
+});
+
+// --- Методология 3.0, таск 01: D4.6 — 46-й критерий (драйвер Д4, esc, ordinal) ---
+// Ожидаемое значение разобрано вручную: покрыты D4.1, D4.2 (esc, 0) и D4.6
+// (esc, 1); D4.3–D4.5 непокрыты. Покрытие 3/6 ≥ 0.5; скор Д4 = (0+0+1)/3 = 1/3.
+// Если бы D4.6 не доходил до драйвера, скор был бы 0 (sum 0 по 2 покрытым).
+test('buildDriversCore: D4.6 маппится в драйвер Д4 (46-й критерий)', () => {
+  const criteria = {
+    'D4.1': { value: 0, covered: true },
+    'D4.2': { value: 0, covered: true },
+    'D4.6': { value: 1, covered: true },
+  };
+  const drivers = buildDriversCore(criteria, {}, PARAMS);
+  const d4 = drivers.find((d) => d.id === 'D4');
+  assert.ok(d4, 'драйвер Д4 присутствует в выводе');
+  assert.ok(Math.abs(d4.score - 1 / 3) < 1e-12, `ожидался скор 1/3, получен ${d4.score}`);
+  assert.equal(drivers.length, 9);
 });
