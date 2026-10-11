@@ -1037,6 +1037,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-coalition-intercept-houthi-missile-riyadh",
+    "title": {
+      "ru": "Коалиция во главе с Саудовской Аравией заявила о перехвате ракеты хуситов по Эр-Рияду",
+      "en": "Saudi-led coalition says defence intercepted Houthi missile fired at Riyadh"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/19/saudi-led-coalition-says-defences-intercept-houthi-missile-fired-at-riyadh",
+    "publication_date": "2026-09-19",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

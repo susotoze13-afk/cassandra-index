@@ -3,11 +3,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-09-20"] = window.CI_DATA.snapshots["2026-09-20"] || {};
   s.global = {
   "index": 56,
-  "delta": 15
+  "delta": 13
 };
   s.published = "2026-09-20";
   s.through = "2026-09-20";
-  s.methodology = "2.0";
+  s.methodology = "3.0";
   s.dataState = "published";
   s.q = 1;
   s.nullWeight = 0;
@@ -16,12 +16,13 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "totalDrivers": 9
 };
   s.confidence = "full";
+  s.sensitivity = 1.6;
   s.recalc = {
-  "at": "2026-10-03T06:38:16.246Z",
+  "at": "2026-10-11T16:54:20.333Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "2.0",
-  "methodologyAfter": "2.0",
+  "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
 };
 })();

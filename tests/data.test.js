@@ -279,8 +279,8 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
   const v = validate(snap);
   assert.deepEqual(v.errors, []);
   assert.equal(snap.dataState, 'published');
-  assert.equal(snap.global.index, 41);
-  assert.equal(snap.global.delta, -1);
+  assert.equal(snap.global.index, 43);
+  assert.equal(snap.global.delta, 1);
   assert.equal(snap.confidence, 'full');
   assert.equal(snap.q, 1);
   assert.equal(snap.nullWeight, 0);
@@ -288,5 +288,11 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
   assert.equal(snap.published, '2026-09-13');
   assert.ok(snap.recalc && typeof snap.recalc.reason === 'string');
   const recalcPoints = snap.trend.filter((p) => p.date >= '2026-08-30');
-  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => typeof p.value === 'number' && typeof p.methodology === 'string'));
+  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => typeof p.value === 'number' && p.methodology === '3.0'));
+  // Точка собственной недели обязана нести версию записываемого снапшота
+  // (регресс-защита: до-записная версия с диска отсекала бы её в
+  // selectMethodology → дыра в серии 3.0).
+  const own = snap.trend[snap.trend.length - 1];
+  assert.equal(own.date, '2026-09-13');
+  assert.equal(own.methodology, '3.0');
 });

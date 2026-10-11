@@ -267,6 +267,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-iran-war-live-hormuz",
+    "title": {
+      "ru": "Хроника войны с Ираном: США отвергли заявление о «продвинутом» дроне, захваченном в Ормузе",
+      "en": "Iran war updates: US refutes claim that 'advanced' drone seized in Hormuz"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/liveblog/2026/9/27/iran-war-live-tehran-awaits-official-response-as-trump-rejects-hormuz-plan",
+    "publication_date": "2026-09-27",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

@@ -425,7 +425,11 @@ export function runWeek(week, state) {
   };
   const trend = (prevTrend ? prevTrend.trend : []).map((p) => {
     if (!RECALC_SET.has(p.date)) return { date: p.date, value: p.value };
-    const methodology = methodologyOf(p.date);
+    // Версия точки: для собственной недели берём версию записываемого снапшота
+    // (PARAMS.methodology), а не до-записную с диска — иначе при --write
+    // точка текущей недели несла бы старую версию, и trend-серия отсекала её
+    // как несопоставимую (дыра в серии + ложный разрыв trendSegments).
+    const methodology = p.date === week ? PARAMS.methodology : methodologyOf(p.date);
     const m = methodology ? { methodology } : {};
     // Классификация недели точки: уже посчитанные недели цепочки — из state;
     // текущая — из свежего расчёта; будущие — по опубликованному на диске

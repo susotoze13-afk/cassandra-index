@@ -5,12 +5,12 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 
 import { sensitivityScore } from '../calc/sensitivity.js';
 import { aggregateDrivers } from '../calc/engine.js';
 import { buildDrivers } from '../calc/calibrate.js';
-import { validate } from '../js/data.js';
+import { loadSnapshotPart, runWeek, nextChainState } from '../calc/calc.js';
+import { validate, REGION_IDS } from '../js/data.js';
 import { PARAMS } from '../calc/params.js';
 
 const src = (domain, cluster) => ({ url: `https://${domain}/a`, date: '2026-10-01', cluster });
@@ -98,11 +98,30 @@ test('поле sensitivity опционально: без поля и с пол�
   assert.equal(validate({ ...validSnapshot(), sensitivity: -1 }).ok, false);
 });
 
-// Реальный вход 2026-10-04: значение пинится независимым прогоном пайплайна
-// (конвенция tests/data.test.js) — страховка от молчаливого сдвига метрики на
-// живых данных; ctx {} — контекст цепочки фиксирован, детерминированность
-// от него не зависит.
-test('реальная неделя 2026-10-04: sensitivity пинится', () => {
-  const input = JSON.parse(readFileSync(new URL('../calc/input/2026-10-04.json', import.meta.url), 'utf8'));
-  assert.equal(sensitivityScore(input, {}, PARAMS), 15.1);
+// Реальный вход 2026-10-04: пин защищает ОПУБЛИКОВАННУЮ метрику. sensitivity
+// зависит от контекста цепочки (§5.4 инерция: prevInternal/prevPublished),
+// поэтому ctx-free вызов чувствительности даёт другое число — не то, что
+// публикует пайплайн. Прогоняем цепочку тем же кодом, что и --write, и
+// сверяем поле sensitivity записанного снапшота.
+test('реальная неделя 2026-10-04: sensitivity защищает опубликованную метрику', () => {
+  const WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04'];
+  const PREV_WEEK = '2026-08-23';
+  const pg = loadSnapshotPart(PREV_WEEK, 'global');
+  const pr = loadSnapshotPart(PREV_WEEK, 'regions');
+  const state = {
+    prevInternal: pg.global.index,
+    prevPublished: pg.global.index,
+    prevWeek: PREV_WEEK,
+    prevRegions: Object.fromEntries(REGION_IDS.map((id) => [id, pr.regions[id].index])),
+    recalcIndex: {}, classification: {}, sbLeft: 0, sbReason: null,
+  };
+  let res;
+  for (const w of WEEKS) {
+    res = runWeek(w, state);
+    assert.equal(res.errors.length, 0, `${w}: ${res.errors.join('; ')}`);
+    Object.assign(state, nextChainState(state, res));
+  }
+  assert.equal(res.week, '2026-10-04');
+  assert.equal(res.sensitivity, 5.4);
+  assert.equal(loadSnapshotPart('2026-10-04', 'global').sensitivity, res.sensitivity);
 });

@@ -421,6 +421,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "cnn-germany-leipzig-drone",
+    "title": {
+      "ru": "Германия обвинила Россию в атаке дрона на аэропорт Лейпцига",
+      "en": "Germany blames Russia for drone attack on Leipzig airport"
+    },
+    "domain": "cnn.com",
+    "url": "https://www.cnn.com/2026/09/01/europe/leipzig-drone-germany-russia-intl",
+    "publication_date": "2026-09-01",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

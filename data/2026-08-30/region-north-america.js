@@ -5,6 +5,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "index": 32,
   "delta": -10,
   "status": "tense",
+  "background": true,
   "confidence": "high",
   "drivers": [
     {

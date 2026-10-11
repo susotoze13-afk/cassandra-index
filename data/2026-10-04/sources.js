@@ -645,6 +645,48 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-iraq-security-after-us-withdrawal",
+    "title": {
+      "ru": "Как изменится безопасность Ирака после вывода войск США",
+      "en": "How does Iraq's security change after US forces withdraw?"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/30/how-does-iraqs-security-change-after-us-forces-withdraw",
+    "publication_date": "2026-09-30",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "taipeitimes-nmesis-yonaguni",
+    "title": {
+      "ru": "США разместят противокорабельные ракеты на острове у Тайваня в ходе учений",
+      "en": "US to put anti-ship missiles on island near Taiwan for drill"
+    },
+    "domain": "taipeitimes.com",
+    "url": "https://www.taipeitimes.com/News/taiwan/archives/2026/10/03/2003865333",
+    "publication_date": "2026-10-03",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "globaltimes-nmesis-yonaguni",
+    "title": {
+      "ru": "США, как сообщается, впервые развернут NMESIS на западном острове Японии; эксперт предупреждает о росте рисков безопасности",
+      "en": "US reportedly to deploy NMESIS to Japan's westernmost island for first time; expert warns greater security risk"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202610/1371655.shtml",
+    "publication_date": "2026-10-02",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

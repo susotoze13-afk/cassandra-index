@@ -323,6 +323,34 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "C-registries",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-zelensky-1000-drones",
+    "title": {
+      "ru": "Зеленский планирует наносить по России удары «1000 дронов в день»",
+      "en": "Ukraine's Zelenskyy plans to hit Russia with '1,000 drones' a day"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/8/28/ukraines-zelenskyy-plans-to-hit-russia-with-1000-drones-a-day",
+    "publication_date": "2026-08-28",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "cnn-kyiv-ammo-warehouse-38",
+    "title": {
+      "ru": "Атака РФ на склад боеприпасов в Украине вызвала серию взрывов, погибли 38 человек",
+      "en": "Russian attack on Ukrainian ammunition warehouse triggers waves of blasts, killing 38"
+    },
+    "domain": "cnn.com",
+    "url": "https://www.cnn.com/2026/08/29/europe/ukraine-kyiv-russia-war-attack-intl",
+    "publication_date": "2026-08-29",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

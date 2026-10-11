@@ -435,6 +435,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-red-sea-houthis-bab-mandeb",
+    "title": {
+      "ru": "Страны Красного моря наблюдают, как хуситы захватывают Баб-эль-Мандебский пролив",
+      "en": "Red Sea nations watch as Houthis seize Bab al-Mandeb strait"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/economy/2026/9/13/red-sea-nations-watch-as-houthis-seize-bab-al-mandeb-strait",
+    "publication_date": "2026-09-13",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

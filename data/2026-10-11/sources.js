@@ -1107,6 +1107,48 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "cnbc-hormuz-tanker-attacks-wartime-high",
+    "title": {
+      "ru": "Атаки на танкеры в Ормузском проливе достигли военного максимума",
+      "en": "Tanker attacks in Strait of Hormuz surge to wartime high"
+    },
+    "domain": "cnbc.com",
+    "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html",
+    "publication_date": "2026-10-09",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "F-financial",
+    "state_affiliated": false
+  },
+  {
+    "id": "energyconnects-iran-ship-attacks-hormuz",
+    "title": {
+      "ru": "Иран наращивает атаки на суда в Ормузе на фоне роста потоков нефти и газа",
+      "en": "Iran Ramps Up Ship Attacks in Hormuz as Oil, Gas Flows Rise"
+    },
+    "domain": "energyconnects.com",
+    "url": "https://www.energyconnects.com/news/gas-lng/2026/october/iran-ramps-up-ship-attacks-in-hormuz-as-oil-gas-flows-rise/",
+    "publication_date": "2026-10-07",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "F-financial",
+    "state_affiliated": false
+  },
+  {
+    "id": "cnbc-black-sea-grain-harvest-threat",
+    "title": {
+      "ru": "Урожай зерна Украины и России под угрозой из-за атак в Чёрном море",
+      "en": "Ukraine and Russia's grain harvest under threat amid Black sea attacks"
+    },
+    "domain": "cnbc.com",
+    "url": "https://www.cnbc.com/2026/10/10/ukraine-grain-exports-russia-harvest.html",
+    "publication_date": "2026-10-10",
+    "accessed_date": "2026-10-11",
+    "source_type": "secondary",
+    "cluster_id": "F-financial",
+    "state_affiliated": false
   }
 ];
 })();
