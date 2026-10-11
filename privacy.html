@@ -3,6 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta; inline-скрипт локализации в конце страницы требует
+       'unsafe-inline' для script-src (вынос в собранный бандл позволит строгий
+       script-src). F-05, docs/security-review.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
   <title>Cassandra Index — политика приватности</title>
   <meta name="description" content="Какие данные хранит Cassandra Index в вашем браузере и как определяется регион.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">

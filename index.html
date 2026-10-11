@@ -3,6 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт задавать заголовки ответа. Meta-вариант
+       не поддерживает frame-ancestors/report-uri, поэтому защита от встраивания
+       здесь недостижима. Скрипты страницы — только внешние (self), включая
+       подгрузку data/latest.js через document.write. F-05, docs/security-review.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'">
   <title>Cassandra Index — индекс конфликтного риска</title>
   <meta name="description" content="Еженедельная оценка уровня и направления глобального конфликтного риска на основе открытых данных.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
