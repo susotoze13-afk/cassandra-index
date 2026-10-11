@@ -237,7 +237,7 @@ Yandex Neurodetector плюс жалобы сообщества; **правил�
 - **Headless Chrome со stealth-флагами** (`--disable-blink-features=AutomationControlled`, подмена `navigator.webdriver`/`plugins`/`languages`, `--no-proxy-server`): страница ZeroGPT прогружается (есть `#textArea` и кнопка «Detect Text»), но ни `Input.insertText`, ни нативный сеттер значения не регистрируются приложением (счётчик остаётся `0/15,000`), запрос детекции не возникает.
 - `neurodetector.yandex.ru` - 404 (публичного HTTP-API нет); `giga.chat/ai-detector` - SPA ГигаЧат, требует авторизации; GigaCheck - только веб-интерфейс.
 
-Вывод: из этой среды внешние детекторы недостижимы (Cloudflare + нет открытых API/ключей). Ручной прогон: чистый текст без разметки - `docs/articles/habr-idea-d.plain.txt` (16 091 знак) - вставить в веб-формы GigaCheck / Yandex Neurodetector / ZeroGPT / GPTZero. Автоматический прогон возможен при API-ключе (Sapling/GPTZero/ZeroGPT) или из браузера пользователя.
+Вывод: из этой среды внешние детекторы недостижимы (Cloudflare + нет открытых API/ключей). Ручной прогон: чистый текст без разметки - `docs/articles/habr-idea-d.plain.txt` (15 978 знаков) - вставить в веб-формы GigaCheck / Yandex Neurodetector / ZeroGPT / GPTZero. Автоматический прогон возможен при API-ключе (Sapling/GPTZero/ZeroGPT) или из браузера пользователя.
 
 ### Антибан-чеклист
 
@@ -281,7 +281,7 @@ Yandex Neurodetector плюс жалобы сообщества; **правил�
 ### Факт-чек статьи (сверено с репозиторием 2026-10-11)
 
 - Индекс 2026-10-11 = 56, delta +10, q = 0.8622, покрыто 7/9 драйверов, sensitivity 0; 2026-10-04 = 46, delta −1, sensitivity 5,4 (`data/*/global.js`). Цепочка 3.0: 51/42/43/56/47/46/56 (30.08–11.10).
-- Якорей калибровки - 10 (6 select + 4 verify), `k = 1.95` (`docs/calibration-journal.md`).
+- Якорей калибровки - 10 (7 select + 3 verify), `k = 1.95` (`docs/calibration-journal.md`).
 - Ретро-прогоны Jev: 0 ложных покрытий на двух прогонах подряд; расхождение индекса 6 и 17 пунктов (`docs/llm-pilot-journal.md`). Форвард-прогон ещё не проведён - статус «подключён, идёт пилот» актуален (шаблон записи - в журнале).
 - Тест-файлов - 38, 359 проверок (`tests/*.test.js`).
 - Драйверы/критерии: 9 драйверов, 46 критериев (46-й — D4.6, стресс рынков) (`calc/engine.js`, `js/criteria.js`).
