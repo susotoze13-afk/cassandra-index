@@ -8,7 +8,8 @@
       "sources": [
         { "url": "https://conflictora.ru/news/belorusskie-vvs-i-pvo-pribyli-na-2026-09-08", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://ria.ru/20260911/lukashenko-2117062795.html", "date": "2026-09-11", "cluster": "B-state-media", "type": "primary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.2": {
       "value": 0.67,
@@ -16,7 +17,8 @@
       "sources": [
         { "url": "https://conflictora.ru/news/belorusskie-vvs-i-pvo-pribyli-na-2026-09-08", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://ria.ru/20260911/lukashenko-2117062795.html", "date": "2026-09-11", "cluster": "B-state-media", "type": "primary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.3": {
       "value": 0.33,
@@ -24,7 +26,8 @@
       "sources": [
         { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-12-2026/", "date": "2026-09-13", "cluster": "C-registries", "type": "OSINT" },
         { "url": "https://www.kp.ru/daily/277813.4/5299991/", "date": "2026-09-08", "cluster": "B-state-media", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.4": {
       "events": [1.0, 0.5, 0.5],
@@ -35,7 +38,8 @@
         { "url": "https://esp.md/ru/sobytiya/2026/09/09/drony-udarili-po-kpp-starokazache-na-granice-s-moldovoy-est-pogibshie-i-ranenye", "date": "2026-09-09", "cluster": "A-mainstream" },
         { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/9/7245095/", "date": "2026-09-09", "cluster": "A-mainstream" },
         { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.5": {
       "value": 0.33,
@@ -43,7 +47,8 @@
       "sources": [
         { "url": "https://conflictora.ru/news/belorusskie-vvs-i-pvo-pribyli-na-2026-09-08", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://ria.ru/20260911/lukashenko-2117062795.html", "date": "2026-09-11", "cluster": "B-state-media", "type": "primary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.6": {
       "value": 0,
@@ -51,7 +56,8 @@
       "sources": [
         { "url": "https://www.kp.ru/daily/277813.4/5299991/", "date": "2026-09-08", "cluster": "B-state-media", "state_affiliated": true },
         { "url": "https://24tv.ua/ru/massirovannaja-ataka-8-sentjabrja-2026-goda-skolko-raket-i-dronov-zapustila-rossija_n3137838", "date": "2026-09-08", "cluster": "A-mainstream" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D2.1": {
       "value": 0,
@@ -108,7 +114,8 @@
       "sources": [
         { "url": "https://ria.ru/20260911/lukashenko-2117062795.html", "date": "2026-09-11", "cluster": "B-state-media", "type": "primary", "state_affiliated": true },
         { "url": "https://www.legal500.com/intelligence/global/government-public-sector/weekly-sanctions-update-september-8-2026", "date": "2026-09-08", "cluster": "A-mainstream" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D3.3": {
       "events": [0.2, 0.5],
@@ -117,7 +124,8 @@
         { "url": "https://www.legal500.com/intelligence/global/government-public-sector/weekly-sanctions-update-september-8-2026", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://www.gov.uk/government/speeches/npt-safeguards-agreement-with-iran-resolution-to-the-iaea-board-of-governors-september-2026", "date": "2026-09-10", "cluster": "C-registries", "type": "primary" },
         { "url": "https://www.iranwatch.org/library/multilateral-organizations/international-atomic-energy-agency/iaea-resolution/iaea-board-resolution-implementation-npt-safeguards-agreement-0", "date": "2026-09-09", "cluster": "C-registries", "type": "primary" }
-      ]
+      ],
+      "regions": ["europe","middle-east"]
     },
     "D3.4": {
       "value": 0.33,
@@ -125,7 +133,8 @@
       "sources": [
         { "url": "https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-trump-putin-zelensky-talks-witkoff-kushner-b3045408.html", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://www.dw.com/en/russia-announces-it-is-closing-germanys-consulate-in-st-petersburg/a-79149908", "date": "2026-09-07", "cluster": "B-state-media", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D3.5": null,
     "D4.1": {
@@ -160,6 +169,14 @@
         { "url": "https://www.dw.com/en/russia-announces-it-is-closing-germanys-consulate-in-st-petersburg/a-79149908", "date": "2026-09-07", "cluster": "B-state-media", "state_affiliated": true }
       ]
     },
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020", "date": "2026-09-12", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.mentoday.ru/life/news/08-09-2026/ceny-ustakanilis-ocheredi-na-azs-sokrashchayutsya-chto-proishodit-s-benzinom-v-regionah-i-chto-budet-osenyu/", "date": "2026-09-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,
@@ -190,7 +207,8 @@
       "sources": [
         { "url": "https://www.kp.ru/daily/277813.4/5299991/", "date": "2026-09-08", "cluster": "B-state-media", "state_affiliated": true },
         { "url": "https://ria.ru/20260911/lukashenko-2117062795.html", "date": "2026-09-11", "cluster": "B-state-media", "type": "primary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D6.1": {
       "value": 0.33,
@@ -230,7 +248,8 @@
       "covered": true,
       "sources": [
         { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-12-2026/", "date": "2026-09-13", "cluster": "C-registries", "type": "OSINT" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D7.2": {
       "events": [0.5, 0.5],
@@ -238,14 +257,17 @@
       "sources": [
         { "url": "https://news.usni.org/2026/09/11/houthis-make-moves-on-red-sea-u-s-iran-go-tanker-for-warship", "date": "2026-09-11", "cluster": "A-mainstream" },
         { "url": "https://esp.md/ru/sobytiya/2026/09/09/drony-udarili-po-kpp-starokazache-na-granice-s-moldovoy-est-pogibshie-i-ranenye", "date": "2026-09-09", "cluster": "A-mainstream" },
-        { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" }
-      ]
+        { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" },
+        { "url": "https://www.aljazeera.com/economy/2026/9/13/red-sea-nations-watch-as-houthis-seize-bab-al-mandeb-strait", "date": "2026-09-13", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "regions": ["middle-east"]
     },
     "D7.3": {
       "value": 0,
       "covered": true,
       "sources": [
-        { "url": "https://news.usni.org/2026/09/11/houthis-make-moves-on-red-sea-u-s-iran-go-tanker-for-warship", "date": "2026-09-11", "cluster": "A-mainstream" }
+        { "url": "https://news.usni.org/2026/09/11/houthis-make-moves-on-red-sea-u-s-iran-go-tanker-for-warship", "date": "2026-09-11", "cluster": "A-mainstream" },
+        { "url": "https://www.aljazeera.com/economy/2026/9/13/red-sea-nations-watch-as-houthis-seize-bab-al-mandeb-strait", "date": "2026-09-13", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
     "D7.4": {
@@ -262,7 +284,8 @@
       "sources": [
         { "url": "https://www.kp.ru/daily/277813.4/5299991/", "date": "2026-09-08", "cluster": "B-state-media", "state_affiliated": true },
         { "url": "https://24tv.ua/ru/massirovannaja-ataka-8-sentjabrja-2026-goda-skolko-raket-i-dronov-zapustila-rossija_n3137838", "date": "2026-09-08", "cluster": "A-mainstream" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D8.2": {
       "value": 0,
@@ -270,7 +293,8 @@
       "sources": [
         { "url": "https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-trump-putin-zelensky-talks-witkoff-kushner-b3045408.html", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://www.dw.com/en/russia-announces-it-is-closing-germanys-consulate-in-st-petersburg/a-79149908", "date": "2026-09-07", "cluster": "B-state-media", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D8.3": {
       "value": 0.33,
@@ -279,7 +303,8 @@
         { "url": "https://www.iaea.org/newscenter/statements/iaea-director-generals-introductory-statement-to-the-board-of-governors-7-september-2026", "date": "2026-09-07", "cluster": "C-registries", "type": "primary" },
         { "url": "https://www.vie-mission.emb-japan.go.jp/itprtop_en/11_000001_00769.html", "date": "2026-09-09", "cluster": "C-registries", "type": "primary" },
         { "url": "https://www.gov.uk/government/speeches/npt-safeguards-agreement-with-iran-resolution-to-the-iaea-board-of-governors-september-2026", "date": "2026-09-10", "cluster": "C-registries", "type": "primary" }
-      ]
+      ],
+      "regions": ["middle-east","europe"]
     },
     "D8.4": {
       "value": 0,
@@ -287,7 +312,8 @@
       "sources": [
         { "url": "https://www.kp.ru/daily/277813.4/5299991/", "date": "2026-09-08", "cluster": "B-state-media", "state_affiliated": true },
         { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D9.1": null,
     "D9.2": {
@@ -804,6 +830,17 @@
       "source_type": "secondary",
       "cluster_id": "A-mainstream",
       "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-red-sea-houthis-bab-mandeb",
+      "title": { "ru": "Страны Красного моря наблюдают, как хуситы захватывают Баб-эль-Мандебский пролив", "en": "Red Sea nations watch as Houthis seize Bab al-Mandeb strait" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/economy/2026/9/13/red-sea-nations-watch-as-houthis-seize-bab-al-mandeb-strait",
+      "publication_date": "2026-09-13",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     }
   ]
 }

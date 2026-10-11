@@ -11,7 +11,8 @@
         { "url": "https://www.scmp.com/news/china/military/article/3370182/did-us-warship-lose-power-while-chasing-chinese-destroyer-south-china-sea", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/china-militia-boat-first-taiwan-east-coast/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.scmp.com/news/china/military/article/3370439/are-chinese-military-aircraft-already-using-new-joint-air-facility-laos", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["europe","east-asia"]
     },
     "D1.2": {
       "value": 0.67,
@@ -19,7 +20,8 @@
       "sources": [
         { "url": "https://www.scmp.com/news/china/military/article/3370210/how-expanded-japan-us-military-exercises-could-complicate-pla-planning-over-taiwan", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://tass.com/world/2200281", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe","east-asia"]
     },
     "D1.3": null,
     "D1.4": {
@@ -38,7 +40,8 @@
         { "url": "https://www.aljazeera.com/news/2026/10/10/yemeni-governments-military-says-its-forces-advancing-against-houthis", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.middleeasteye.net/news/attack-riyadh-airport-leaves-12-dead-more-300-injured", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["europe","middle-east"]
     },
     "D1.5": {
       "value": 0.67,
@@ -48,7 +51,8 @@
         { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.scmp.com/news/china/military/article/3370182/did-us-warship-lose-power-while-chasing-chinese-destroyer-south-china-sea", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["europe","middle-east","east-asia"]
     },
     "D1.6": null,
     "D2.1": {
@@ -93,7 +97,8 @@
       "sources": [
         { "url": "https://www.rt.com/russia/646925-kiev-south-korea-recall-ambassador/", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.theguardian.com/world/2026/oct/08/south-korea-fuel-shipments-to-russia-domestic-law", "date": "2026-10-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["east-asia","europe"]
     },
     "D3.2": {
       "value": 0.33,
@@ -101,7 +106,8 @@
       "sources": [
         { "url": "https://tass.com/world/2200333", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["europe","north-america"]
     },
     "D3.3": {
       "events": [1.0],
@@ -112,7 +118,8 @@
         { "url": "https://www.gov.uk/government/news/joint-statement-on-support-for-the-international-criminal-court", "date": "2026-10-09", "cluster": "C-registries", "type": "primary", "state_affiliated": true },
         { "url": "https://press.un.org/en/2026/sgsm23325.doc.htm", "date": "2026-10-09", "cluster": "C-registries", "type": "primary", "state_affiliated": false },
         { "url": "https://www.nytimes.com/2026/10/09/us/politics/trump-international-criminal-court-sanctions.html", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["north-america","europe"]
     },
     "D3.4": {
       "value": 0.67,
@@ -122,7 +129,8 @@
         { "url": "https://sputnikglobe.com/20261010/witkoff-calls-us-ukraine-talks-productive-ahead-of-next-russia-engagement-1124858930.html", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://tass.com/world/2200299", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["europe","north-america"]
     },
     "D3.5": null,
     "D4.1": {
@@ -148,7 +156,8 @@
       "sources": [
         { "url": "https://www.theguardian.com/world/2026/oct/09/eu-pulling-out-all-stops-with-minerals-projects-as-it-tries-to-avert-china-trade-war", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
-        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.cnbc.com/2026/10/10/ukraine-grain-exports-russia-harvest.html", "date": "2026-10-10", "cluster": "F-financial", "type": "secondary", "state_affiliated": false }
       ]
     },
     "D4.4": {
@@ -173,6 +182,16 @@
         { "url": "https://sputnikglobe.com/20261008/iran-oman-agree-on-safe-passage-routes-through-strait-of-hormuz---reports-1124850278.html", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html", "date": "2026-10-09", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.energyconnects.com/news/gas-lng/2026/october/iran-ramps-up-ship-attacks-in-hormuz-as-oil-gas-flows-rise/", "date": "2026-10-07", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
     "D5.1": {
       "value": 0.67,
       "covered": true,
@@ -181,7 +200,8 @@
         { "url": "https://www.france24.com/en/europe/20261010-trump-zelensky-clash-over-diesel-deal-as-russian-strikes-on-ukraine-kill-21-including-children", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aa.com.tr/en/world/trump-says-iran-failing-badly-keeps-military-option-open/4084135", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe","middle-east","north-america"]
     },
     "D5.2": {
       "events": [0.5],
@@ -189,7 +209,8 @@
       "sources": [
         { "url": "https://foreignpolicy.com/2026/10/09/russia-sabotage-europe-attacks-hybrid-warfare-estonia/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D5.3": null,
     "D5.4": {
@@ -199,7 +220,8 @@
         { "url": "https://www.aa.com.tr/en/americas/us-european-ukrainian-officials-hold-talks-in-florida-on-de-escalating-ending-war-with-russia/4084138", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://tass.com/world/2200231", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["europe","north-america"]
     },
     "D6.1": null,
     "D6.2": null,
@@ -210,7 +232,8 @@
         { "url": "https://www.japantimes.co.jp/news/2026/10/10/asia-pacific/politics/taiwan-lai-increasing-defense-spending/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.japantimes.co.jp/news/2026/10/10/japan/gcap-germany-join-japan/", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aa.com.tr/en/americas/us-state-department-approves-arms-sales-worth-227b-to-egypt-kuwait-uae/4078826", "date": "2026-10-05", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["east-asia","europe","middle-east"]
     },
     "D6.4": null,
     "D7.1": {
@@ -220,7 +243,8 @@
         { "url": "https://www.jpost.com/middle-east/article-911232", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aljazeera.com/news/2026/10/11/world-condemns-deadly-houthi-attack-on-saudi-arabias-riyadh-airport", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.aa.com.tr/en/europe/lebanese-army-receives-ammunition-from-france-under-military-cooperation/4084006", "date": "2026-10-09", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["middle-east","europe"]
     },
     "D7.2": {
       "events": [1.0, 1.0, 1.0, 0.5],
@@ -230,8 +254,10 @@
         { "url": "https://www.aljazeera.com/news/2026/10/11/us-forces-disable-ship-attempting-to-run-iran-blockade-in-gulf-of-oman", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://tass.com/world/2200371", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/indian-crew-vessel-involved-incident-ras-al-khaimah-rescued", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html", "date": "2026-10-09", "cluster": "F-financial", "type": "secondary", "state_affiliated": false }
+      ],
+      "regions": ["middle-east"]
     },
     "D7.3": {
       "value": 1,
@@ -239,7 +265,8 @@
       "sources": [
         { "url": "https://www.jpost.com/middle-east/article-911232", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aljazeera.com/news/2026/10/11/world-condemns-deadly-houthi-attack-on-saudi-arabias-riyadh-airport", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
-      ]
+      ],
+      "regions": ["middle-east"]
     },
     "D7.4": null,
     "D8.1": {
@@ -248,7 +275,8 @@
       "sources": [
         { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/10/israeli-attack-destroys-building-in-gaza-one-year-into", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.france24.com/en/video/20261010-hunger-and-malnutrition-stalk-gazans-a-year-on-from-ceasefire", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+      ],
+      "regions": ["middle-east"]
     },
     "D8.2": null,
     "D8.3": null,
@@ -263,8 +291,10 @@
         { "url": "https://tass.com/economy/2200307", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.aa.com.tr/en/middle-east/us-uk-embassies-urge-citizens-to-avoid-riyadh-airport-following-attacks/4084655", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.nytimes.com/2026/10/09/world/europe/russia-putin-plane-ukraine.html", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
-      ]
+        { "url": "https://www.france24.com/en/middle-east/20261010-riyadh-airport-suspends-operations-after-attack-leaves-multiple-people-wounded", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.cnbc.com/2026/10/10/ukraine-grain-exports-russia-harvest.html", "date": "2026-10-10", "cluster": "F-financial", "type": "secondary", "state_affiliated": false }
+      ],
+      "regions": ["middle-east","europe"]
     },
     "D9.4": null,
     "D9.5": null,
@@ -1179,6 +1209,39 @@
       "source_type": "secondary",
       "cluster_id": "B-state-media",
       "state_affiliated": true
+    },
+    {
+      "id": "cnbc-hormuz-tanker-attacks-wartime-high",
+      "title": { "ru": "Атаки на танкеры в Ормузском проливе достигли военного максимума", "en": "Tanker attacks in Strait of Hormuz surge to wartime high" },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html",
+      "publication_date": "2026-10-09",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "energyconnects-iran-ship-attacks-hormuz",
+      "title": { "ru": "Иран наращивает атаки на суда в Ормузе на фоне роста потоков нефти и газа", "en": "Iran Ramps Up Ship Attacks in Hormuz as Oil, Gas Flows Rise" },
+      "domain": "energyconnects.com",
+      "url": "https://www.energyconnects.com/news/gas-lng/2026/october/iran-ramps-up-ship-attacks-in-hormuz-as-oil-gas-flows-rise/",
+      "publication_date": "2026-10-07",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbc-black-sea-grain-harvest-threat",
+      "title": { "ru": "Урожай зерна Украины и России под угрозой из-за атак в Чёрном море", "en": "Ukraine and Russia's grain harvest under threat amid Black sea attacks" },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/10/10/ukraine-grain-exports-russia-harvest.html",
+      "publication_date": "2026-10-10",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
     }
   ]
 }

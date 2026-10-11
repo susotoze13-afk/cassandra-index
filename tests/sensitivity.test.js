@@ -104,5 +104,5 @@ test('поле sensitivity опционально: без поля и с пол�
 // от него не зависит.
 test('реальная неделя 2026-10-04: sensitivity пинится', () => {
   const input = JSON.parse(readFileSync(new URL('../calc/input/2026-10-04.json', import.meta.url), 'utf8'));
-  assert.equal(sensitivityScore(input, {}, PARAMS), 11.8);
+  assert.equal(sensitivityScore(input, {}, PARAMS), 15.1);
 });

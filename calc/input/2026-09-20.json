@@ -18,7 +18,8 @@
           "cluster": "C-registries",
           "type": "OSINT"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.2": {
       "value": 1,
@@ -35,7 +36,8 @@
           "date": "2026-09-14",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.3": {
       "value": 0.33,
@@ -52,7 +54,8 @@
           "cluster": "C-registries",
           "type": "OSINT"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.4": {
       "events": [
@@ -90,7 +93,8 @@
           "date": "2026-09-14",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe","middle-east"]
     },
     "D1.5": {
       "value": 0.33,
@@ -109,7 +113,8 @@
           "type": "primary",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D1.6": {
       "value": 0,
@@ -132,7 +137,8 @@
           "cluster": "C-registries",
           "type": "OSINT"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D2.1": {
       "value": 0.67,
@@ -249,7 +255,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D3.2": {
       "value": 0.67,
@@ -266,7 +273,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["middle-east"]
     },
     "D3.3": {
       "events": [
@@ -301,7 +309,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D3.5": {
       "events": [
@@ -320,7 +329,8 @@
           "date": "2026-09-17",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D4.1": {
       "events": [
@@ -430,6 +440,15 @@
         }
       ]
     },
+    "D4.6": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        { "url": "https://www.reuters.com/business/londons-marine-insurers-widen-black-sea-high-risk-zone-shipping-attacks-surge-2026-09-18/", "date": "2026-09-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.vedomosti.ru/business/articles/2026/09/15/1229127-pravitelstvo-prodlit-zapret", "date": "2026-09-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.interfax.ru/business/1116328", "date": "2026-09-16", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ]
+    },
     "D5.1": {
       "value": 0.33,
       "covered": true,
@@ -466,7 +485,8 @@
           "date": "2026-09-21",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D5.3": {
       "value": 0.33,
@@ -482,7 +502,8 @@
           "date": "2026-09-18",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D5.4": {
       "value": 0,
@@ -505,7 +526,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D6.1": {
       "value": 0.33,
@@ -527,7 +549,8 @@
           "date": "2026-08-29",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D6.2": {
       "value": 0.33,
@@ -544,7 +567,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D6.3": {
       "value": 1,
@@ -600,7 +624,8 @@
           "date": "2026-09-17",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["east-asia","europe"]
     },
     "D7.2": {
       "events": [
@@ -618,8 +643,10 @@
           "date": "2026-09-19",
           "cluster": "B-state-media",
           "state_affiliated": true
-        }
-      ]
+        },
+        { "url": "https://www.aljazeera.com/news/2026/9/19/saudi-led-coalition-says-defences-intercept-houthi-missile-fired-at-riyadh", "date": "2026-09-19", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "regions": ["middle-east"]
     },
     "D7.3": {
       "value": 1,
@@ -635,8 +662,10 @@
           "date": "2026-09-19",
           "cluster": "B-state-media",
           "state_affiliated": true
-        }
-      ]
+        },
+        { "url": "https://www.aljazeera.com/news/2026/9/19/saudi-led-coalition-says-defences-intercept-houthi-missile-fired-at-riyadh", "date": "2026-09-19", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "regions": ["middle-east"]
     },
     "D7.4": {
       "value": 0,
@@ -653,7 +682,8 @@
           "date": "2026-09-19",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["east-asia","europe"]
     },
     "D8.1": {
       "value": 0,
@@ -686,7 +716,8 @@
           "cluster": "B-state-media",
           "state_affiliated": true
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D8.3": {
       "value": 0.33,
@@ -709,7 +740,8 @@
           "date": "2026-09-19",
           "cluster": "A-mainstream"
         }
-      ]
+      ],
+      "regions": ["europe"]
     },
     "D8.4": {
       "value": 0,
@@ -1904,6 +1936,17 @@
       "source_type": "secondary",
       "cluster_id": "A-mainstream",
       "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-coalition-intercept-houthi-missile-riyadh",
+      "title": { "ru": "Коалиция во главе с Саудовской Аравией заявила о перехвате ракеты хуситов по Эр-Рияду", "en": "Saudi-led coalition says defence intercepted Houthi missile fired at Riyadh" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/9/19/saudi-led-coalition-says-defences-intercept-houthi-missile-fired-at-riyadh",
+      "publication_date": "2026-09-19",
+      "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
     }
   ]
 }
