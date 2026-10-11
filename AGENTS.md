@@ -59,6 +59,10 @@ calc/linkcheck.js         чистый модуль проверки URL: classi
                           checkUrl (ретраи на 429/406/5xx, таймаут 10 c, браузерные
                           заголовки), checkSources (последовательный обход)
 calc/check-sources.js     CLI перепроверки ссылок всех/перечисленных недель поверх calc.js
+calc/classify.js          чистый конвертер «черновик Jev v2 → штатный вход»
+                          (docs/jev-classification.md §6.1, ADR 0018 доп.): ворота
+                          правил 9–10, без сети и без вызова Jev; в CI не встроен;
+                          тесты tests/classify.test.js
 calc/calibrate.js         калибровка k на якорях: buildDrivers, runAnchor, evaluateGrid, selectK, sensitivity
 calc/prepare-week.js      механика новой недели для weekly-calc: чистые швы addRecalcWeek/
                           addLatestWeek (RECALC_WEEKS, CI_WEEKS/CI_LATEST) + CLI [--write];
@@ -68,6 +72,9 @@ calc/input/<неделя>.json  входные сигналы недели: 45 �
                           sources}, слепые — covered:false с аттестацией), R55-источники,
                           driverConfidence; покрытие 26–42/45; критерий может нести
                           опциональную региональную атрибуцию `regions: string[]` (§4.1.9)
+calc/input/drafts/        пилот Jev: черновики `<неделя>.llm-draft.json` (schema_version 2,
+                          append-only), корпус текстов `texts-<неделя>/<source_id>.txt`
+                          (предоставляет человек), сырой вход пилота `pilot-llm-<неделя>.json`
 calc/input/anchors/       6 модельных якорных профилей §9 (4 select + 2 verify)
 data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчитываемая демо-история
                           (methodology "1.0"), 08-30…10-11 — пересчитанные published
@@ -81,17 +88,20 @@ docs/adr/                 зафиксированные архитектурн�
                           два параллельных ряда + новые прогонов recalc-3months-publish,
                           source-selection-hardening 0019/0020, region-delta-market-criterion
                           0021 (рыночный критерий → методология 3.0, ввод — отдельный
-                          будущий прогон) и 0022 (трактовки regionalSignals))
+                          будущий прогон), 0022 (трактовки regionalSignals) и
+                          0018-jev-source-classification (доп. 2026-10-11: шов calc/classify.js,
+                          схема черновика v2))
 docs/jev-classification.md  логика классификации источников Jev-ом по 45 критериям:
                           роли (Jev → редактор → код), правила (окно, цитата,
                           events[], дедупликация, Д9-кластеры, carryover Д2),
-                          ворота без поблажек, статус пилота (версия 0.1)
+                          ворота без поблажек, механический шов §6.1, статус пилота
+                          (версия 0.2, форвардный; критерии ±2 / ≥50 % — §7)
 docs/llm-pilot-journal.md аудиторский след пилота машинной разметки (ретро-прогоны
                           09-27/09-20, критерии успеха, решение о форвард-пилоте)
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           35 файлов, node --test
+tests/*.test.js           36 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -129,6 +139,22 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла).
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
+- `calc/classify.js` — чистый конвертер «черновик Jev v2 → штатный вход»
+  (docs/jev-classification.md §6.1, ADR 0018 доп. 2026-10-11): шов `normalizeText`
+  (пробелы/дефисы/кавычки → канон), `quoteFound` (дословность цитаты — ворот
+  правила 9), `validateDraft` (схема v2: kind-дисциплина, дубль пары
+  (criterion,source), cluster из whitelist, events из {0.2,0.5,1.0,2.0}),
+  `reviewQueue` (неразрешённые review.flag/carryover — ворот правила 10),
+  `toInput(draft, r55Sources, corpusDir) → {input, report, errors}` (input:null
+  при любых ошибках; merge по критерию: events concat, value = max; not_found →
+  criteria[id]=null; events[] не сворачивается в value — нормирует движок;
+  источники критерия — из R55-записей, date = event_date || publication_date),
+  `loadDraft` + CLI `node calc/classify.js <draft> [--corpus <dir>] [--sources
+  <r55.json>] [--out <path>]` (корпус — `<corpusDir>/<source_id>.txt`, дефолт
+  `calc/input/drafts/texts-<week>/`; R55 — из `calc/input/<week>.json`; exit 0/1).
+  Jev (внешний MCP) не вызывается, сети нет, в CI не встроен; штатные ворота
+  публикации (linkcheck/validate/validateInputSources) не повторяются — сырой
+  вход проходит их в calc.js как любой ручной.
 - `js/data.js` — контракт снапшотов: `validate` (published/through/methodology, dataState
   из DATA_STATES, global:null только при insufficient/unavailable, regions по REGION_IDS
   (6), опциональный `regions.<id>.background: boolean` — absent=false, true = слепой
@@ -223,11 +249,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (35 файлов, 323 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (36 файлов, 345 passed / 0 fail — подтверждено прогоном
 2026-10-11). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
+конвертер черновика Jev: `tests/classify.test.js` (ворота 9–10, merge, not_found → null,
+сквозной позитив: эмитированный вход проходит engine.validate и маппится в 9 драйверов);
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель — см.
 подводные камни); схема источников R55: `tests/sources-schema.test.js`;
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
@@ -376,6 +404,16 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   `script-src 'unsafe-inline'` из-за инлайн-скрипта локализации (вынос в бандл снимет).
 - В рабочем дереве возможна работа параллельной сессии (weekly-calc и т.п.) — коммитит
   только оркестратор текущего прогона и только свои файлы; чужие правки в коммиты не брать.
+- Пилот Jev (прогон jev-classify-converter, 2026-10-11, ADR 0018 доп.): Jev — внешний
+  MCP, фетч текстов не часть пайплайна (редактор кладёт корпус в
+  `calc/input/drafts/texts-<неделя>/`); классификатор не отбирает источники и не решает
+  `covered:false` — это редактор (governance §10.1). Критерии пилота (index ±2 и тот же
+  state, экономия редактора ≥50 %) зафиксированы до форвард-прогона — docs/jev-classification.md §7.
+- `calc/classify.js`: merge не-счётных записей одного критерия берёт value = max —
+  трактовка реализации, дизайн (§4/§6.1) её не задавал; пересмотреть по данным
+  форвард-прогона. Известные мелкие дефекты: :129 `Array.isArray(it)` вместо
+  `Array.isArray(it.review)`, :116–118 else-if глотает вторую ошибку схемы (value вместе
+  с events при отклонённых весах) — неблокирующие, чинить отдельным таском.
 
 ## Как здесь работает Autopilot
 
