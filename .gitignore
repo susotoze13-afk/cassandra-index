@@ -6,4 +6,8 @@ __pycache__/
 .DS_Store
 .autopilot/serve.*
 
+# Скрейп-дампы чужих изданий: содержат PII авторов и сторонний трекинг.
+# В git остаются только производные черновики (calc/input/drafts/*.json).
+calc/input/drafts/texts-*/
+
 .vscode/
