@@ -24,6 +24,13 @@ export function deltaArrow(n) {
   return '→';
 }
 
+// R02 — запись региона с background:true — слепой регион (нет региональных сигналов):
+// его Δ по построению равна глобальной и не подаётся как региональная динамика.
+// Флаг обязателен только в новых записях; отсутствие = false (старые данные, §контракт).
+export function isBackgroundRegion(rdata) {
+  return rdata?.background === true;
+}
+
 // Демо-маппинг координат → один из 6 регионов (без tz-базы; грубые bounding-box).
 // Принятое решение — долготный: всё западнее −45° считается Северной Америкой,
 // восточнее 95° — Восточной Азией; внутри — уточнение по широте.
@@ -61,6 +68,20 @@ function setDelta(el, value) {
   el.classList.remove('delta--rise', 'delta--fall', 'delta--same');
   const cls = deltaClass(value);
   if (cls) el.classList.add(cls);
+}
+
+// Пометка «глобальный фон» для слепого региона (R02): создаётся один раз внутри
+// .region-stats, дальше только скрывается/показывается и переводится.
+function regionBackgroundNote(stats, lang) {
+  let note = stats.querySelector('[data-role="region-background"]');
+  if (!note) {
+    note = document.createElement('span');
+    note.className = 'region-background';
+    note.setAttribute('data-role', 'region-background');
+    stats.appendChild(note);
+  }
+  note.textContent = t(lang, 'region.background');
+  return note;
 }
 
 // Текст статуса — всегда языком интерфейса; цвет не инлайним (контраст §12,
@@ -369,7 +390,17 @@ export function render(appState) {
       $('[data-role="region-unavailable"]').hidden = true;
       $('[data-role="region-index"]').textContent = String(rdata.index);
       setStatus($('[data-role="region-status"]'), rdata.index, lang, true);
-      setDelta($('[data-role="region-delta"]'), rdata.delta);
+      // R02: слепой регион — Δ не подаётся как региональная, вместо неё пометка.
+      const rDelta = $('[data-role="region-delta"]');
+      const bgNote = regionBackgroundNote(stats, lang);
+      if (isBackgroundRegion(rdata)) {
+        rDelta.hidden = true;
+        bgNote.hidden = false;
+      } else {
+        bgNote.hidden = true;
+        rDelta.hidden = false;
+        setDelta(rDelta, rdata.delta);
+      }
       card.style.setProperty('--region-tone', `var(${risk.tone(risk.status(rdata.index))})`);
     } else {
       // Региональный снапшот недоступен: глобальный жив, строка — fallback (R56.1).

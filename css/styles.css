@@ -320,6 +320,13 @@ main {
   max-width: 420px;
 }
 
+/* Пометка у региона без региональных данных (R02): вместо Δ в строке списка,
+   раскрытой карточке и hero — честное объяснение про глобальный фон. */
+.region-background {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
 .region-unavailable {
   color: var(--text-secondary);
 }

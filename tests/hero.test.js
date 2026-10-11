@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { formatDelta, deltaArrow, refineRegionFromCoords } from '../js/sections/hero.js';
+import { formatDelta, deltaArrow, refineRegionFromCoords, isBackgroundRegion } from '../js/sections/hero.js';
 
 // §4.2.3 — изменение со знаком и стрелкой; значения не только цветом (§12).
 test('formatDelta: знак у числа', () => {
@@ -15,6 +15,17 @@ test('deltaArrow: направление изменения', () => {
   assert.equal(deltaArrow(-3), '↓');
   assert.equal(deltaArrow(0), '→');
   assert.equal(deltaArrow(null), '→');
+});
+
+// R02 — запись региона с background:true — слепой регион: его Δ по построению равна
+// глобальной и не подаётся как региональная динамика. Флаг обязателен только в новых
+// записях; отсутствие (старые данные) = false — дельта показывается как раньше.
+test('isBackgroundRegion: флаг из записи региона, дефолт false', () => {
+  assert.equal(isBackgroundRegion({ index: 68, delta: -2, background: true }), true);
+  assert.equal(isBackgroundRegion({ index: 68, delta: -2 }), false);
+  assert.equal(isBackgroundRegion({ index: 68, delta: -2, background: false }), false);
+  assert.equal(isBackgroundRegion(null), false);
+  assert.equal(isBackgroundRegion({}), false);
 });
 
 // refineRegionFromCoords: грубые bounding-box демо-регионов для «Уточнить точнее» (§5.8).

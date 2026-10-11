@@ -11,7 +11,7 @@ import { t } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
 import { el, deltaClass } from '../ui.js';
-import { formatDelta, deltaArrow } from './hero.js';
+import { formatDelta, deltaArrow, isBackgroundRegion } from './hero.js';
 import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } from './drivers.js';
 
 // Ranked-лист: все регионы снапшота по убыванию |Δ|; при равенстве |Δ| рост выше
@@ -51,6 +51,12 @@ function deltaSpan(lang, value, extraClass = '') {
   span.textContent = `${deltaArrow(value)} ${formatDelta(value)}`;
   span.setAttribute('aria-label', `${t(lang, 'hero.week.change')}: ${formatDelta(value)}`);
   return span;
+}
+
+// Пометка для слепого региона (R02): вместо Δ, поданной как региональная динамика,
+// — честное объяснение, что индекс несёт глобальный фон. Тон --text-muted (CSS).
+function backgroundNote(lang) {
+  return el('span', 'region-background', t(lang, 'region.background'));
 }
 
 // Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
@@ -94,12 +100,17 @@ function buildDetail(lang, row, data, personal) {
   const detail = el('div', 'region-detail');
 
   // Статус + индекс + Δ: значения не только цветом — слова и знак рядом с тоном (§12).
+  // R02: у слепого региона (background:true) Δ не подаётся как региональная — пометка.
   const head = el('p', 'region-detail-head');
   head.append(el('span', 'status', statusLabel(lang, row.index, false)));
   head.append(el('span', 'region-detail-index', `${row.index} ${t(lang, 'hero.index.of')}`));
-  const d = deltaSpan(lang, row.delta);
-  d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
-  head.append(d);
+  if (isBackgroundRegion(row)) {
+    head.append(backgroundNote(lang));
+  } else {
+    const d = deltaSpan(lang, row.delta);
+    d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
+    head.append(d);
+  }
   detail.append(head);
 
   // Уверенность по региону — словами; причина — если снапшот её отдаёт (поле
@@ -156,13 +167,16 @@ export function render(appState) {
     if (row.id === personal) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
+      const bg = isBackgroundRegion(row);
       head.setAttribute('aria-label',
-        `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+        bg
+          ? `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}`
+          : `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
     }
     if (typeof row.index === 'number' && Number.isFinite(row.index)) {
       head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
     }
-    head.append(deltaSpan(lang, row.delta));
+    head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
 
     const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal);
     detail.id = detailId;

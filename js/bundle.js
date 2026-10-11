@@ -134,6 +134,13 @@ function validate(snapshot) {
       const r = snapshot.regions[id];
       if (!r || !isIndex(r.index) || !isDelta(r.delta)) {
         errors.push(`regions.${id}: { index: 0..100, delta: number } required`);
+        continue;
+      }
+      // Фоновый регион (нет региональных данных, индекс = глобальный фон):
+      // опционально, отсутствие = false (обратная совместимость со старыми
+      // снапшотами); сайт при true не подаёт дельту как региональную.
+      if (r.background !== undefined && typeof r.background !== 'boolean') {
+        errors.push(`regions.${id}.background: boolean`);
       }
     }
   }
@@ -575,6 +582,7 @@ const DICTS = {
     'region.yours': 'ВАШ РЕГИОН',
     'region.change': 'изменить',
     'region.unavailable': 'данные по региону временно недоступны',
+    'region.background': 'Индекс отражает глобальный фон; региональных данных недостаточно',
     'region.note': 'Это контекстный региональный риск, а не прогноз атаки на этот город.',
     'region.cta': 'Узнать риск для моего региона →',
     'region.panel.title': 'Выбор региона',
@@ -1478,6 +1486,13 @@ function deltaArrow(n) {
   return '→';
 }
 
+// R02 — запись региона с background:true — слепой регион (нет региональных сигналов):
+// его Δ по построению равна глобальной и не подаётся как региональная динамика.
+// Флаг обязателен только в новых записях; отсутствие = false (старые данные, §контракт).
+function isBackgroundRegion(rdata) {
+  return rdata?.background === true;
+}
+
 // Демо-маппинг координат → один из 6 регионов (без tz-базы; грубые bounding-box).
 // Принятое решение — долготный: всё западнее −45° считается Северной Америкой,
 // восточнее 95° — Восточной Азией; внутри — уточнение по широте.
@@ -1515,6 +1530,20 @@ function setDelta(el, value) {
   el.classList.remove('delta--rise', 'delta--fall', 'delta--same');
   const cls = deltaClass(value);
   if (cls) el.classList.add(cls);
+}
+
+// Пометка «глобальный фон» для слепого региона (R02): создаётся один раз внутри
+// .region-stats, дальше только скрывается/показывается и переводится.
+function regionBackgroundNote(stats, lang) {
+  let note = stats.querySelector('[data-role="region-background"]');
+  if (!note) {
+    note = document.createElement('span');
+    note.className = 'region-background';
+    note.setAttribute('data-role', 'region-background');
+    stats.appendChild(note);
+  }
+  note.textContent = t(lang, 'region.background');
+  return note;
 }
 
 // Текст статуса — всегда языком интерфейса; цвет не инлайним (контраст §12,
@@ -1823,7 +1852,17 @@ function render(appState) {
       $('[data-role="region-unavailable"]').hidden = true;
       $('[data-role="region-index"]').textContent = String(rdata.index);
       setStatus($('[data-role="region-status"]'), rdata.index, lang, true);
-      setDelta($('[data-role="region-delta"]'), rdata.delta);
+      // R02: слепой регион — Δ не подаётся как региональная, вместо неё пометка.
+      const rDelta = $('[data-role="region-delta"]');
+      const bgNote = regionBackgroundNote(stats, lang);
+      if (isBackgroundRegion(rdata)) {
+        rDelta.hidden = true;
+        bgNote.hidden = false;
+      } else {
+        bgNote.hidden = true;
+        rDelta.hidden = false;
+        setDelta(rDelta, rdata.delta);
+      }
       card.style.setProperty('--region-tone', `var(${risk.tone(risk.status(rdata.index))})`);
     } else {
       // Региональный снапшот недоступен: глобальный жив, строка — fallback (R56.1).
@@ -1843,6 +1882,7 @@ function render(appState) {
 
 exports["formatDelta"] = formatDelta;
 exports["deltaArrow"] = deltaArrow;
+exports["isBackgroundRegion"] = isBackgroundRegion;
 exports["refineRegionFromCoords"] = refineRegionFromCoords;
 exports["render"] = render;
 return exports;
@@ -2719,7 +2759,7 @@ const { t } = __ci_require("js/i18n.js");
 const risk = __ci_require("js/risk.js");
 const region = __ci_require("js/region.js");
 const { el, deltaClass } = __ci_require("js/ui.js");
-const { formatDelta, deltaArrow } = __ci_require("js/sections/hero.js");
+const { formatDelta, deltaArrow, isBackgroundRegion } = __ci_require("js/sections/hero.js");
 const { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } = __ci_require("js/sections/drivers.js");
 // Секция «Что это значит для моего региона?» (регистрируется как 'regions'):
 // ranked-лист всех 6 регионов по недельному изменению (§4.6, §5.1).
@@ -2770,6 +2810,12 @@ function deltaSpan(lang, value, extraClass = '') {
   return span;
 }
 
+// Пометка для слепого региона (R02): вместо Δ, поданной как региональная динамика,
+// — честное объяснение, что индекс несёт глобальный фон. Тон --text-muted (CSS).
+function backgroundNote(lang) {
+  return el('span', 'region-background', t(lang, 'region.background'));
+}
+
 // Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
 // регион оборачивает узлы в .region-driver-sources.
 function wrapSourcesAccordion(lang, drv, uid) {
@@ -2811,12 +2857,17 @@ function buildDetail(lang, row, data, personal) {
   const detail = el('div', 'region-detail');
 
   // Статус + индекс + Δ: значения не только цветом — слова и знак рядом с тоном (§12).
+  // R02: у слепого региона (background:true) Δ не подаётся как региональная — пометка.
   const head = el('p', 'region-detail-head');
   head.append(el('span', 'status', statusLabel(lang, row.index, false)));
   head.append(el('span', 'region-detail-index', `${row.index} ${t(lang, 'hero.index.of')}`));
-  const d = deltaSpan(lang, row.delta);
-  d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
-  head.append(d);
+  if (isBackgroundRegion(row)) {
+    head.append(backgroundNote(lang));
+  } else {
+    const d = deltaSpan(lang, row.delta);
+    d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
+    head.append(d);
+  }
   detail.append(head);
 
   // Уверенность по региону — словами; причина — если снапшот её отдаёт (поле
@@ -2873,13 +2924,16 @@ function render(appState) {
     if (row.id === personal) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
+      const bg = isBackgroundRegion(row);
       head.setAttribute('aria-label',
-        `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+        bg
+          ? `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}`
+          : `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
     }
     if (typeof row.index === 'number' && Number.isFinite(row.index)) {
       head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
     }
-    head.append(deltaSpan(lang, row.delta));
+    head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
 
     const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal);
     detail.id = detailId;
