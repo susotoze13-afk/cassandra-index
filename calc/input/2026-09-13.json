@@ -37,9 +37,10 @@
         { "url": "https://24tv.ua/ru/massirovannaja-ataka-8-sentjabrja-2026-goda-skolko-raket-i-dronov-zapustila-rossija_n3137838", "date": "2026-09-08", "cluster": "A-mainstream" },
         { "url": "https://esp.md/ru/sobytiya/2026/09/09/drony-udarili-po-kpp-starokazache-na-granice-s-moldovoy-est-pogibshie-i-ranenye", "date": "2026-09-09", "cluster": "A-mainstream" },
         { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/9/7245095/", "date": "2026-09-09", "cluster": "A-mainstream" },
-        { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" }
+        { "url": "https://www.eurointegration.com.ua/rus/news/2026/09/13/7245356/", "date": "2026-09-13", "cluster": "A-mainstream" },
+        { "url": "https://www.washingtonpost.com/world/2026/09/07/mozambique-south-africa-attack-niassa-cabo-delgado/cba94c14-aae1-11f1-b498-8697f35a6743_story.html", "date": "2026-09-07", "cluster": "A-mainstream" }
       ],
-      "regions": ["europe"]
+      "regions": ["europe", "africa"]
     },
     "D1.5": {
       "value": 0.33,
@@ -247,9 +248,10 @@
       "events": [0.5],
       "covered": true,
       "sources": [
-        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-12-2026/", "date": "2026-09-13", "cluster": "C-registries", "type": "OSINT" }
+        { "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-12-2026/", "date": "2026-09-13", "cluster": "C-registries", "type": "OSINT" },
+        { "url": "https://www.aa.com.tr/en/africa/foreign-support-for-rsf-major-reason-sudan-war-persists-sudan-s-prosecutor-general/4050152", "date": "2026-09-07", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ],
-      "regions": ["europe"]
+      "regions": ["europe", "africa"]
     },
     "D7.2": {
       "events": [0.5, 0.5],
@@ -838,6 +840,28 @@
       "url": "https://www.aljazeera.com/economy/2026/9/13/red-sea-nations-watch-as-houthis-seize-bab-al-mandeb-strait",
       "publication_date": "2026-09-13",
       "accessed_date": "2026-10-11",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "wapo-mozambique-attack-0907",
+      "title": { "ru": "Среди похищенных после нападения на охотничий лагерь в Мозамбике — гражданин ЮАР", "en": "South African among workers abducted after attack on hunting camp in Mozambique" },
+      "domain": "washingtonpost.com",
+      "url": "https://www.washingtonpost.com/world/2026/09/07/mozambique-south-africa-attack-niassa-cabo-delgado/cba94c14-aae1-11f1-b498-8697f35a6743_story.html",
+      "publication_date": "2026-09-07",
+      "accessed_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-rsf-foreign-support-0907",
+      "title": { "ru": "Генпрокурор Судана: внешняя поддержка RSF — главная причина затягивания войны", "en": "Foreign support for RSF major reason Sudan war persists: Sudan's prosecutor general" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/africa/foreign-support-for-rsf-major-reason-sudan-war-persists-sudan-s-prosecutor-general/4050152",
+      "publication_date": "2026-09-07",
+      "accessed_date": "2026-10-12",
       "source_type": "secondary",
       "cluster_id": "B-state-media",
       "state_affiliated": true

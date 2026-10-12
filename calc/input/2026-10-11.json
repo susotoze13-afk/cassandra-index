@@ -39,9 +39,11 @@
         { "url": "https://tass.com/defense/2200399", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.aljazeera.com/news/2026/10/10/yemeni-governments-military-says-its-forces-advancing-against-houthis", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
         { "url": "https://www.middleeasteye.net/news/attack-riyadh-airport-leaves-12-dead-more-300-injured", "date": "2026-10-11", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+        { "url": "https://www.jpost.com/middle-east/iran-news/article-911241", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/5/four-african-leaders-issue-joint-declaration-as-ethiopia-war-escalates", "date": "2026-10-05", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.africanews.com/2026/10/08/drc-new-fighting-in-masisi-as-au-delegation-rushes-to-save-ceasefire/", "date": "2026-10-08", "cluster": "A-mainstream" }
       ],
-      "regions": ["europe","middle-east"]
+      "regions": ["europe", "middle-east", "africa"]
     },
     "D1.5": {
       "value": 0.67,
@@ -199,9 +201,10 @@
         { "url": "https://www.theguardian.com/world/2026/oct/10/ukraine-russia-strikes-war-trump-diesel-deal-zelenskyy", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.france24.com/en/europe/20261010-trump-zelensky-clash-over-diesel-deal-as-russian-strikes-on-ukraine-kill-21-including-children", "date": "2026-10-10", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
         { "url": "https://www.aa.com.tr/en/world/trump-says-iran-failing-badly-keeps-military-option-open/4084135", "date": "2026-10-10", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
-        { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+        { "url": "https://tass.com/politics/2200383", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.aljazeera.com/news/2026/10/11/ethiopia-eritrea-ramp-up-rhetoric-are-they-inching-towards-war", "date": "2026-10-11", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ],
-      "regions": ["europe","middle-east","north-america"]
+      "regions": ["europe", "middle-east", "north-america", "africa"]
     },
     "D5.2": {
       "events": [0.5],
@@ -1241,6 +1244,39 @@
       "accessed_date": "2026-10-11",
       "source_type": "secondary",
       "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-ethiopia-eritrea-rhetoric-1011",
+      "title": { "ru": "Эфиопия и Эритрея наращивают риторику: идут ли они к войне?", "en": "Ethiopia, Eritrea ramp up rhetoric: Are they inching towards war?" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/11/ethiopia-eritrea-ramp-up-rhetoric-are-they-inching-towards-war",
+      "publication_date": "2026-10-11",
+      "accessed_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-ethiopia-leaders-1005",
+      "title": { "ru": "Четыре африканских лидера выступили с совместной декларацией на фоне эскалации войны в Эфиопии", "en": "Four African leaders issue joint declaration as Ethiopia war escalates" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/5/four-african-leaders-issue-joint-declaration-as-ethiopia-war-escalates",
+      "publication_date": "2026-10-05",
+      "accessed_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "africanews-drc-masisi-1008",
+      "title": { "ru": "ДР Конго: новые бои в Масиси, делегация АС спешит спасти перемирие", "en": "DRC: New fighting in Masisi as AU delegation rushes to save ceasefire" },
+      "domain": "africanews.com",
+      "url": "https://www.africanews.com/2026/10/08/drc-new-fighting-in-masisi-as-au-delegation-rushes-to-save-ceasefire/",
+      "publication_date": "2026-10-08",
+      "accessed_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
       "state_affiliated": false
     }
   ]
