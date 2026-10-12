@@ -27,16 +27,16 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 53,
+    "index": 54,
     "delta": 10,
     "status": "danger",
     "background": true
   },
   "africa": {
-    "index": 42,
-    "delta": 10,
+    "index": 53,
+    "delta": 9,
     "status": "danger",
-    "background": true
+    "background": false
   }
 };
 })();

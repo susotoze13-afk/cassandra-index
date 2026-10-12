@@ -296,3 +296,29 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
   assert.equal(own.date, '2026-09-13');
   assert.equal(own.methodology, '3.0');
 });
+
+// Пин регионального охвата africa/south-asia после пересчёта под источники
+// (прогон africa-south-asia-sources). Ожидание — из спецификации прогона:
+// africa покрыт во всех 7 неделях цепочки, south-asia — в 08-30, 09-06,
+// 09-27, 10-04; остальные недели south-asia честно слепые. Покрытый регион
+// (background:false) обязан считаться по своим сигналам: его индекс не равен
+// глобальному (в отличие от слепого, который несёт глобальный фон).
+test('диск: africa/south-asia — background по неделям цепочки, покрытые ≠ global', () => {
+  const WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
+  const covered = {
+    africa: new Set(WEEKS),
+    'south-asia': new Set(['2026-08-30', '2026-09-06', '2026-09-27', '2026-10-04']),
+  };
+  for (const w of WEEKS) {
+    const regions = loadSnapshotPart(w, 'regions');
+    const global = loadSnapshotPart(w, 'global').global;
+    for (const id of ['africa', 'south-asia']) {
+      const r = regions.regions[id];
+      const isCovered = covered[id].has(w);
+      assert.equal(r.background, !isCovered, `${w}/${id}: background`);
+      if (isCovered) {
+        assert.notEqual(r.index, global.index, `${w}/${id}: покрытый регион не должен равняться глобальному`);
+      }
+    }
+  }
+});

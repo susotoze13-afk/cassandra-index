@@ -687,6 +687,76 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "aljazeera-kordofan-battle-1001",
+    "title": {
+      "ru": "Битва за Кордофан: коридор, связывающий восток и запад Судана",
+      "en": "The battle for Kordofan: The corridor linking Sudan's east and west"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/1/the-battle-for-kordofan-the-corridor-linking-sudans-east-and-west",
+    "publication_date": "2026-10-01",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "martinplaut-eepa-766-1001",
+    "title": {
+      "ru": "Ситуационный отчёт EEPA: Африканский Рог, № 766, 1 октября 2026",
+      "en": "EEPA Situation Report, Horn of Africa, No. 766, 1 October 2026"
+    },
+    "domain": "martinplaut.com",
+    "url": "https://martinplaut.com/2026/10/01/eepa-situation-report-horn-of-africa-no-766-1-october-2026/",
+    "publication_date": "2026-10-01",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-pakistan-raids-kunar-1001",
+    "title": {
+      "ru": "Пакистан нанёс смертоносные авиаудары по Афганистану (Кунар, Гильменд)",
+      "en": "Pakistan launches deadly air attacks on Afghanistan"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/1/afghanistan-says-nine-killed-in-pakistani-air-raids-on-kunar-helmand",
+    "publication_date": "2026-10-01",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "wapo-pakistan-airstrikes-1001",
+    "title": {
+      "ru": "Пакистанские авиаудары по Афганистану: 10 мирных жителей погибли, заявляют Кабул и ООН",
+      "en": "Pakistani airstrikes in Afghanistan kill 10 civilians, Kabul and UN say"
+    },
+    "domain": "washingtonpost.com",
+    "url": "https://www.washingtonpost.com/world/2026/10/01/pakistan-afghanistan-airstrikes-militants-civilians-border-clashes/ecd6687e-bd4f-11f1-81fc-9b76f8343b6c_story.html",
+    "publication_date": "2026-10-01",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "criticalthreats-ethiopia-review-1002",
+    "title": {
+      "ru": "Обзор войны в Эфиопии, 2 октября 2026",
+      "en": "Ethiopia War Security Review, October 2, 2026"
+    },
+    "domain": "criticalthreats.org",
+    "url": "https://www.criticalthreats.org/briefs/ethiopia-war-security-review/ethiopia-war-security-review-october-2-2026",
+    "publication_date": "2026-10-02",
+    "accessed_date": "2026-10-12",
+    "source_type": "OSINT",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
   }
 ];
 })();

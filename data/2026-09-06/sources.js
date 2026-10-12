@@ -435,6 +435,76 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-kordofan-attack-0905",
+    "title": {
+      "ru": "В Южном Кордофане Судана убиты пять человек при нападении повстанцев",
+      "en": "At least five killed in Sudan’s South Kordofan in attack by rebel group"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/5/five-killed-in-sudans-kordofan-in-attack-by-rebel-group",
+    "publication_date": "2026-09-05",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "darfur24-rsf-el-fasher-0904",
+    "title": {
+      "ru": "RSF ужесточили ограничения вокруг Эль-Фашира",
+      "en": "RSF Tightens Restrictions Around El Fasher"
+    },
+    "domain": "darfur24.com",
+    "url": "https://darfur24.com/en/2026/09/04/rsf-tightens-restrictions-around-el-fasher/",
+    "publication_date": "2026-09-04",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "indiatv-iaf-notam-0904",
+    "title": {
+      "ru": "Паника в Пакистане: экстренное совещание после NOTAM ВВС Индии на 17-дневные учения",
+      "en": "Panic in Pakistan, emergency meeting called as Indian Air Force issues NOTAM for 17-day combat exercise"
+    },
+    "domain": "indiatvnews.com",
+    "url": "https://www.indiatvnews.com/news/india/panic-in-pakistan-emergency-meeting-called-as-indian-air-force-issued-notam-for-17-day-combat-exercise-2026-09-04-1053282",
+    "publication_date": "2026-09-04",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "ssbcrack-iaf-notam-0904",
+    "title": {
+      "ru": "ВВС Индии выпустили 17-дневный NOTAM на военные учения; Пакистан усилил бдительность",
+      "en": "Indian Air Force Issues 17-Day NOTAM for Military Exercise, Pakistan Steps Up Vigilance"
+    },
+    "domain": "ssbcrack.com",
+    "url": "https://www.ssbcrack.com/2026/09/indian-air-force-issues-17-day-notam-for-military-exercise-pakistan-steps-up-vigilance.html",
+    "publication_date": "2026-09-04",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-indus-waters-0901",
+    "title": {
+      "ru": "Пакистан выиграл спор об водах Инда в Гааге, но угроза со стороны Индии сохраняется",
+      "en": "Pakistan wins Indus waters battle at The Hague, but India threat remains"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/1/pakistan-wins-indus-waters-battle-at-the-hague-but-india-threat-remains",
+    "publication_date": "2026-09-01",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

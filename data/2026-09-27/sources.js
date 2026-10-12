@@ -281,6 +281,62 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "aljazeera-cameroon-raid-0922",
+    "title": {
+      "ru": "На крайнем севере Камеруна сотни людей бегут из домов после рейда боевиков",
+      "en": "Hundreds flee homes in Far North Cameroon after armed group raid kills 15"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/22/hundreds-flee-homes-in-far-north-cameroon-after-armed-group-raid-kills-15",
+    "publication_date": "2026-09-22",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "adfmag-rsf-defections-0922",
+    "title": {
+      "ru": "Могут ли переходы бойцов RSF изменить ход гражданской войны в Судане?",
+      "en": "Could RSF Defections Turn Tide of Sudanese Civil War?"
+    },
+    "domain": "adf-magazine.com",
+    "url": "https://adf-magazine.com/2026/09/could-rsf-defections-turn-tide-of-sudanese-civil-war/",
+    "publication_date": "2026-09-22",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-pakistan-airstrikes-0924",
+    "title": {
+      "ru": "Пакистан заявил об авиаударах по Афганистану после атак беспилотников",
+      "en": "Afghanistan vows to respond after Pakistani air strikes kill four"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/9/24/pakistan-says-it-launches-air-strikes-on-afghanistan-after-drone-attacks",
+    "publication_date": "2026-09-24",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "thehindu-afghan-border-clash-0925",
+    "title": {
+      "ru": "Пакистанские силы убили нескольких боевиков «Талибана» в пограничном столкновении",
+      "en": "Pakistani forces kill several Afghan Taliban fighters in border clash amid escalating tensions"
+    },
+    "domain": "thehindu.com",
+    "url": "https://www.thehindu.com/news/international/pakistani-forces-kill-several-afghan-taliban-fighters-in-border-clash-amid-escalating-tensions/article71507478.ece",
+    "publication_date": "2026-09-25",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

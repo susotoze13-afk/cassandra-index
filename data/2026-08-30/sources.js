@@ -351,6 +351,62 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "nationpk-sudan-rsf-convoy-0824",
+    "title": {
+      "ru": "Армия Судана уничтожила 49 машин RSF, 70 бойцов захвачены",
+      "en": "Sudan's army-aligned force says 49 RSF vehicles destroyed, 70 fighters captured"
+    },
+    "domain": "nation.com.pk",
+    "url": "https://www.nation.com.pk/24-Aug-2026/sudan-s-army-aligned-force-says-49-rsf-vehicles-destroyed-70-fighters-captured",
+    "publication_date": "2026-08-24",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "criticalthreats-congo-review-0828",
+    "title": {
+      "ru": "Обзор войны в Конго: RSF/СПЛМ/ИССП (28 августа 2026)",
+      "en": "Congo War Security Review, August 28, 2026"
+    },
+    "domain": "criticalthreats.org",
+    "url": "https://www.criticalthreats.org/briefs/congo-war-security-review/august-28-2026",
+    "publication_date": "2026-08-28",
+    "accessed_date": "2026-10-12",
+    "source_type": "OSINT",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "wapo-sudan-un-sanctions-0824",
+    "title": {
+      "ru": "США призывают ввести новые санкции ООН по Судану",
+      "en": "US urges new UN sanctions to spur rivals in Sudan to negotiate an end to war"
+    },
+    "domain": "washingtonpost.com",
+    "url": "https://www.washingtonpost.com/world/2026/08/24/sudan-military-rsf-united-nations-sanctions-conflict/7659c8a8-a00d-11f1-8606-1d40ad00172e_story.html",
+    "publication_date": "2026-08-24",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "wapo-rohingya-rally-0825",
+    "title": {
+      "ru": "Беженцы-рохинджа в лагерях Бангладеш требуют безопасного возвращения в Мьянму",
+      "en": "Rohingya refugees rally in Bangladesh camps to demand safe return to Myanmar"
+    },
+    "domain": "washingtonpost.com",
+    "url": "https://www.washingtonpost.com/world/2026/08/25/bangladesh-rohingya-myanmar-refugees-coxs-bazar-anniversary/8079f94e-a08e-11f1-8606-1d40ad00172e_story.html",
+    "publication_date": "2026-08-25",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

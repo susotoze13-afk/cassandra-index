@@ -1051,6 +1051,34 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "aa-sudan-drones-0915",
+    "title": {
+      "ru": "Суданская армия сбила три беспилотника на востоке страны",
+      "en": "Sudanese army downs 3 drones in eastern Sudan"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/middle-east/sudanese-army-downs-3-drones-in-eastern-sudan/4057370",
+    "publication_date": "2026-09-15",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "nigerianeye-boko-haram-adamawa-0915",
+    "title": {
+      "ru": "Атака «Боко Харам» в штате Адамава: четверо погибших, сожжены дома",
+      "en": "Boko Haram Attack in Adamawa Leaves Four Dead and Homes Destroyed"
+    },
+    "domain": "nigerianeyenewspaper.com",
+    "url": "https://nigerianeyenewspaper.com/2026/09/15/boko-haram-attack-in-adamawa-leaves-four-dead-and-homes-destroyed/",
+    "publication_date": "2026-09-15",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

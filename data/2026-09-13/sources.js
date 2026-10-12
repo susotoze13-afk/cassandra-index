@@ -449,6 +449,34 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "wapo-mozambique-attack-0907",
+    "title": {
+      "ru": "Среди похищенных после нападения на охотничий лагерь в Мозамбике — гражданин ЮАР",
+      "en": "South African among workers abducted after attack on hunting camp in Mozambique"
+    },
+    "domain": "washingtonpost.com",
+    "url": "https://www.washingtonpost.com/world/2026/09/07/mozambique-south-africa-attack-niassa-cabo-delgado/cba94c14-aae1-11f1-b498-8697f35a6743_story.html",
+    "publication_date": "2026-09-07",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-rsf-foreign-support-0907",
+    "title": {
+      "ru": "Генпрокурор Судана: внешняя поддержка RSF — главная причина затягивания войны",
+      "en": "Foreign support for RSF major reason Sudan war persists: Sudan's prosecutor general"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/africa/foreign-support-for-rsf-major-reason-sudan-war-persists-sudan-s-prosecutor-general/4050152",
+    "publication_date": "2026-09-07",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();

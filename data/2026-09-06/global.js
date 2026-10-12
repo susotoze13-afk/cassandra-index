@@ -18,10 +18,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 2.5;
   s.recalc = {
-  "at": "2026-10-11T16:36:53.266Z",
+  "at": "2026-10-12T19:11:54.646Z",
   "reason": "Еженедельный пересчёт",
   "previous": 42,
-  "methodologyBefore": "2.0",
+  "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
 };

@@ -1149,6 +1149,48 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "F-financial",
     "state_affiliated": false
+  },
+  {
+    "id": "aljazeera-ethiopia-eritrea-rhetoric-1011",
+    "title": {
+      "ru": "Эфиопия и Эритрея наращивают риторику: идут ли они к войне?",
+      "en": "Ethiopia, Eritrea ramp up rhetoric: Are they inching towards war?"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/11/ethiopia-eritrea-ramp-up-rhetoric-are-they-inching-towards-war",
+    "publication_date": "2026-10-11",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "aljazeera-ethiopia-leaders-1005",
+    "title": {
+      "ru": "Четыре африканских лидера выступили с совместной декларацией на фоне эскалации войны в Эфиопии",
+      "en": "Four African leaders issue joint declaration as Ethiopia war escalates"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/5/four-african-leaders-issue-joint-declaration-as-ethiopia-war-escalates",
+    "publication_date": "2026-10-05",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "africanews-drc-masisi-1008",
+    "title": {
+      "ru": "ДР Конго: новые бои в Масиси, делегация АС спешит спасти перемирие",
+      "en": "DRC: New fighting in Masisi as AU delegation rushes to save ceasefire"
+    },
+    "domain": "africanews.com",
+    "url": "https://www.africanews.com/2026/10/08/drc-new-fighting-in-masisi-as-au-delegation-rushes-to-save-ceasefire/",
+    "publication_date": "2026-10-08",
+    "accessed_date": "2026-10-12",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();
