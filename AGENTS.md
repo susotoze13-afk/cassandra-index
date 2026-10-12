@@ -92,7 +92,9 @@ data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчи�
                           0.9293 у 10-04, 0.8622 у 10-11):
                           global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA);
                           запись региона несёт background (true = слепой регион; слепых
-                          по неделям 4/5/4/3/3/2/2 из 6)
+                          по неделям 2/3/3/2/2/0/1 из 6; africa покрыт во всех 7
+                          неделях цепочки, south-asia — в 08-30/09-06/09-27/10-04,
+                          остальные недели south-asia честно слепые)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
 docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0022,
@@ -280,8 +282,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (38 файлов, 359 passed / 0 fail — подтверждено прогоном
-2026-10-11). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (38 файлов, 360 passed / 0 fail — подтверждено прогоном
+2026-10-12). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); региональная модель:
 `tests/regional-signals.test.js` (aggregation атрибуции в регионы) и `tests/regions.test.js`;
@@ -293,8 +295,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 `tests/acceptance-source-selection.test.js`;
 конвертер черновика Jev: `tests/classify.test.js` (ворота 9–10, merge, not_found → null,
 сквозной позитив: эмитированный вход проходит engine.validate и маппится в 9 драйверов);
-контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель — см.
-подводные камни); схема источников R55: `tests/sources-schema.test.js`;
+контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель и
+региональный охват africa/south-asia — см. подводные камни); схема источников R55:
+`tests/sources-schema.test.js`;
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
@@ -384,8 +387,16 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   слепого региона по построению равна глобальной — подача честная через флаг background
   и пометку `region.background`, не баг. Недели цепочки 3.0 смешанные: входы несут
   атрибуцию `regions[]` на части критериев, поэтому у недели есть регионы с сигналами
-  (background:false) и слепые (background:true; слепых 4/5/4/3/3/2/2 из 6 у
-  08-30…10-11). Какие регионы страны/группы к каким id — REGION_IDS в js/data.js.
+  (background:false) и слепые (background:true; слепых 2/3/3/2/2/0/1 из 6 у
+  08-30…10-11). Прогон africa-south-asia-sources: africa получила региональные
+  источники и покрыта во всех 7 неделях, south-asia — в 08-30/09-06/09-27/10-04
+  (в 09-13/09-20/10-11 внутри окна не нашлось ≥2 независимых источников — слепая).
+  Всего 24 новых R55-источника, атрибуция `regions[]` на Д1/Д3/Д5/Д7. Какие регионы
+  страны/группы к каким id — REGION_IDS в js/data.js.
+- Критерий «дельта покрытого региона ≠ глобальной дельте» выполняется не всегда строго:
+  при стабильном региональном офсете (индекс региона свой) дельта региона может совпасть
+  с глобальной — это свойство региональной модели, не баг (пин в `tests/data.test.js`
+  проверяет индекс, а не дельту).
 - Дубли id внутри `regions[]` одного критерия validate входа не отклоняет (проверяются
   только тип и whitelist) — известная неблокирующая находка; regionalSignals такую
   запись засчитает дважды.
