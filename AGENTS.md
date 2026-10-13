@@ -16,7 +16,8 @@
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11) |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11); после частей пишет и производный `week.js` |
+| Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
@@ -47,6 +48,7 @@ css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
                           region, render, sections/* (8 зарегистрированных секций, на
                           странице видимых 7 — history скрыта), share, demo, ui, criteria,
+                          analytics (Cloudflare Web Analytics, beacon после согласия),
                           sections/feedback (форма обратной связи)
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
@@ -75,6 +77,9 @@ calc/prepare-week.js      механика новой недели для weekly
                           addLatestWeek (RECALC_WEEKS, CI_WEEKS/CI_LATEST) + CLI [--write];
                           тесты tests/prepare-week.test.js
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
+calc/migrate-week-combined.js  идемпотентная разовая миграция: `data/<week>/week.js`
+                          из дисковых частей той же функцией, что и calc.js --write
+                          (renderWeekCombined + loadWeekParts из calc.js)
 calc/input/<неделя>.json  входные сигналы недели: 46 критериев D1..D9 ({value, covered,
                           sources}, слепые — covered:false с аттестацией), R55-источники
                           (top-level, 20–82 записи/неделя), driverConfidence; покрытие
@@ -90,12 +95,15 @@ data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчи�
                           (methodology "3.0"; index 51/42/43/56/47/46/56, delta
                           −10/−9/+1/+13/−9/−1/+10; q=1 у 08-30…09-20, 0.9071 у 09-27,
                           0.9293 у 10-04, 0.8622 у 10-11):
-                          global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA);
+                          global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA)
+                          + week.js (комбинированный снапшот недели из 11 частей — единственный
+                          файл, который грузит сайт; производная, руками не править);
                           запись региона несёт background (true = слепой регион; слепых
                           по неделям 2/3/3/2/2/0/1 из 6; africa покрыт во всех 7
                           неделях цепочки, south-asia — в 08-30/09-06/09-27/10-04,
                           остальные недели south-asia честно слепые)
-data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка снапшотов
+data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
+                          (по одному запросу на неделю вместо 11 частей)
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
 docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0022,
                           два параллельных ряда + новые прогонов recalc-3months-publish,
@@ -122,7 +130,7 @@ docs/articles/            черновики статей для внешних 
                           и pikabu-*; скриншоты — docs/articles/img/. Сама публикация — вручную (внешнее действие)
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
                           всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           38 файлов, node --test
+tests/*.test.js           42 файла, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -161,7 +169,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `ignoredRegionalAttribution` (R01.2 — сортированные id Д2/Д4/Д9-кроме-D9.3 с непустой
   `regions[]`; поле `ignoredAttribution` в выводе runWeek, предупреждение об игноре ADR 0022),
   `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js),
-  `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла).
+  `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла);
+  комбинированный снапшот: `WEEK_PART_FILES` (канонический порядок 11 частей), `loadWeekParts(week)`
+  (чтение частей через vm), `renderWeekCombined(week, parts)` (чистый шов — единый IIFE
+  в `window.CI_DATA.snapshots[week]`), writeWeek — `--write` пишет week.js после частей
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
 - `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
@@ -224,7 +235,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   prevPublished/structuralBreak) → классификация публикации → ворота ссылок
   (collectSourceItems + linkcheck, раньше контрактной самопроверки) → `validate` из
   js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend;
-  sources.js — из входа, иначе прежние сохраняются); записи регионов несут флаг background
+  sources.js — из входа, иначе прежние сохраняются) и производного комбинированного
+  week.js поверх них (renderWeekCombined от 11 частей; сайт грузит только его); записи регионов несут флаг background
   (regions.js + region-*.js); published — защищённое поле из прежнего снапшота,
   methodology — из `PARAMS.methodology` (3.0), through = дата самой недели (окно W−7…W
   включительно); точка тренда недели несёт `{date, value, methodology}` — своя неделя берёт
@@ -233,14 +245,17 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   append в data/audit.jsonl (recalc: `version_before` из снапшота, `version_after` из
   PARAMS, `recalculation_method: 'aggregateDrivers v3.0'`; flash).
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
-  (document.write — fetch на file:// невозможен) → `js/app.js` init → `render.renderAll`
+  (document.write ТОЛЬКО комбинированных `data/<week>/week.js` — 11 запросов вместо
+  121 частей; измеренный эффект локально: 127→17 запросов, DCL ~5 с → ~0,14 с;
+  fetch на file:// невозможен, поэтому document.write) → `js/app.js` init → `render.renderAll`
   по 8 зарегистрированным секциям (на странице видимых 7: «История и источники»
   скрыта — её render при отсутствии хоста обновляет только футер «Следующая
   публикация»). Сайт не знает про calc/ — читает только data/.
 - События document: `ci:ready`, `ci:datastate`, `ci:regionchange`, `ci:demo`.
 - Шов для тестов — чистые функции: `calc/engine.js`, `calc/linkcheck.js` (поддельный
   fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
-  `nextChainState`/`renderGlobal`/`renderRegionFile` из calc.js (синтетические данные)
+  `nextChainState`/`renderGlobal`/`renderRegionFile`/`renderWeekCombined`/`loadWeekParts`
+  из calc.js (синтетические данные)
   + чистые модули сайта (i18n, risk, region, data). CLI — тонкая обвязка.
 - Схема источника R55 (во всех 11 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
@@ -282,8 +297,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (38 файлов, 360 passed / 0 fail — подтверждено прогоном
-2026-10-12). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (42 файла, 382 passed / 0 fail — подтверждено прогоном
+2026-10-13). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); региональная модель:
 `tests/regional-signals.test.js` (aggregation атрибуции в регионы) и `tests/regions.test.js`;
@@ -306,7 +321,12 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 отсечение точек не-3.0 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
 разметки страницы (отсутствие скрытой секции #sources
-и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`.
+и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`;
+комбинированный снапшот: `tests/week-combined.test.js` (renderWeekCombined на синтетике),
+`tests/week-combined-parity.test.js` (паритет week.js ↔ дисковые части для всех 11 недель)
+и `tests/latest-loader.test.js` (latest.js грузит только week.js); meta-CSP обеих
+страниц пинит `tests/csp.test.js` (разрешение static.cloudflareinsights.com осознанно —
+живой js/analytics.js, beacon только после согласия).
 
 ## Подводные камни
 
@@ -335,7 +355,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   (classify → blocked, не битые); reliefweb — интермитентный 406 (ретраится, финальный
   → blocked). blocked не роняет ворота и check-sources.
 - `data/latest.js` грузит через `document.write` — единственный способ без fetch на file://,
-  не баг и не удалять. Новая неделя = вход в `calc/input/` + запись через calc.js.
+  не баг и не удалять. Грузит ТОЛЬКО комбинированные `week.js` (1 на неделю); части
+  (global/regions/…/sources) остаются на диске для пайплайна и тестов, week.js —
+  производная (calc.js --write пишет его после частей; `node calc/migrate-week-combined.js`
+  идемпотентно пересобирает от частей), руками не править. Новая неделя = вход в
+  `calc/input/` + запись через calc.js.
 - Страницы грузят СОБРАННЫЕ `js/bundle.js`/`js/bundle-privacy.js`, а не ES-модули (CORS на file://).
   После правки `js/**` обязателен `node build.js` — иначе коммиченный бандл молча останется
   старым. bundle руками не править; тесты идут против исходников.
@@ -463,7 +487,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   закреплены по полному SHA — обновлять только осознанно (PR Dependabot сверять с релизом);
   выкат НЕ публикует data/audit.jsonl (rm в deploy.yml); meta-CSP на обеих страницах —
   index несёт `style-src 'unsafe-inline'` из-за временного `<style>` в head, privacy —
-  `script-src 'unsafe-inline'` из-за инлайн-скрипта локализации (вынос в бандл снимет).
+  `script-src 'unsafe-inline'` из-за инлайн-скрипта локализации (вынос в бандл снимет);
+  состав meta-CSP обеих страниц пинит tests/csp.test.js — разрешения
+  `https://static.cloudflareinsights.com` (script-src) и `https://cloudflareinsights.com`
+  (connect-src) осознанны, не мёртвое: живой js/analytics.js шлёт beacon только
+  после согласия пользователя.
 - В рабочем дереве возможна работа параллельной сессии (weekly-calc и т.п.) — коммитит
   только оркестратор текущего прогона и только свои файлы; чужие правки в коммиты не брать.
 - Пилот Jev (прогон jev-classify-converter, 2026-10-11, ADR 0018 доп.): Jev — внешний
