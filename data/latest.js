@@ -4,13 +4,12 @@ window.CI_WEEKS = ["2026-08-02","2026-08-09","2026-08-16","2026-08-23","2026-08-
 window.CI_LATEST = "2026-10-11";
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 window.CI_DATA.latest = window.CI_LATEST;
-// Синхронная подгрузка всех файлов снапшотов (document.write в момент парсинга —
-// работает и с file://, где fetch недоступен).
+// Синхронная подгрузка комбинированных снапшотов недель (document.write в момент
+// парсинга — работает и с file://, где fetch недоступен). Один файл на неделю
+// вместо 11 частей; части остаются на диске (пайплайн, тесты), week.js —
+// производная от них (calc.js --write / calc/migrate-week-combined.js).
 (function () {
-  var files = ["global","regions","region-europe","region-east-asia","region-middle-east","region-north-america","region-south-asia","region-africa","trend","drivers","sources"];
   for (var w = 0; w < window.CI_WEEKS.length; w++) {
-    for (var f = 0; f < files.length; f++) {
-      document.write('<script src="data/' + window.CI_WEEKS[w] + '/' + files[f] + '.js"><\/script>');
-    }
+    document.write('<script src="data/' + window.CI_WEEKS[w] + '/week.js"><\/script>');
   }
 })();
