@@ -295,6 +295,49 @@ function header(week) {
 const FOOTER = '})();\n';
 const j = (v) => JSON.stringify(v, null, 2);
 
+// Части недели и их порядок в комбинированном файле — как порядок загрузки
+// document.write в data/latest.js: regions стоит до region-*, т.к. тела
+// region-*.js присваивают в s.regions[id] и предполагают созданный объект.
+export const WEEK_PART_FILES = ['global', 'regions', 'region-europe', 'region-east-asia', 'region-middle-east', 'region-north-america', 'region-south-asia', 'region-africa', 'trend', 'drivers', 'sources'];
+
+// --- Комбинированный файл недели (week.js) ---
+// Единый IIFE, регистрирующий в window.CI_DATA.snapshots[week] те же поля,
+// что 11 отдельных частей: тела частей (без их обвязки) конкатенируются
+// в одну обёртку. Контракт window.CI_DATA не меняется — сайт не замечает.
+// parts: {global: '<текст global.js>', ...} — полные тексты частей (строки).
+export function renderWeekCombined(week, parts) {
+  const bodies = WEEK_PART_FILES.map((f) => {
+    const content = parts ? parts[f] : undefined;
+    if (typeof content !== 'string') throw new Error(`week.js ${week}: нет части ${f}`);
+    const lines = content.split('\n');
+    if (lines[lines.length - 1] === '') lines.pop(); // хвостовой \n файла
+    const shapeOk =
+      lines.length >= 5 &&
+      lines[0] === 'window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };' &&
+      lines[1] === '(function () {' &&
+      lines[2].startsWith('  var s = ') &&
+      lines[lines.length - 1] === '})();';
+    if (!shapeOk) throw new Error(`week.js ${week}: часть ${f} не в шаблоне генератора`);
+    return lines.slice(3, -1).join('\n');
+  });
+  return header(week) + bodies.join('\n') + '\n' + FOOTER;
+}
+
+// Чтение всех 11 частей недели с диска (для week.js после --write и миграции).
+// Возвращает {global: '<текст>', ...} по WEEK_PART_FILES; null, если недели
+// или какой-то части на диске нет.
+export function loadWeekParts(week) {
+  const dir = path.join(ROOT, 'data', week);
+  if (!existsSync(dir)) return null;
+  const parts = {};
+  for (const f of WEEK_PART_FILES) {
+    const p = path.join(dir, `${f}.js`);
+    if (!existsSync(p)) return null;
+    parts[f] = readFileSync(p, 'utf8');
+  }
+  return parts;
+}
+
 // Числовая часть global.js: global (null при insufficient), q/nullWeight/
 // coverage/confidence/preview/recalc — из классификации; published — как было
 // (защищённое поле из прежнего снапшота); methodology — из PARAMS.methodology
@@ -593,6 +636,14 @@ async function writeWeek(res, state) {
   for (const [file, content] of Object.entries(files)) {
     writeFileSync(path.join(ROOT, 'data', week, file), content, 'utf8');
   }
+  // Комбинированный week.js — производная от записанных частей: читаем их
+  // с диска, чтобы файл был байт-собран из того же источника, что и при
+  // разовой миграции (calc/migrate-week-combined.js).
+  writeFileSync(
+    path.join(ROOT, 'data', week, 'week.js'),
+    renderWeekCombined(week, loadWeekParts(week)),
+    'utf8',
+  );
 
   // Журнал аудита: recalc при каждой перезаписи (R35–R37), flash при
   // срабатывании триггера без пересчёта снапшота (R16–R19).
