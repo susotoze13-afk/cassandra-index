@@ -1,5 +1,5 @@
 // js/bundle.js — СГЕНЕРИРОВАН build.js, не править вручную.
-// Исходники: js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/criteria.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
+// Исходники: js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/geo.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/criteria.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
 (function () {
 'use strict';
 const modules = {};
@@ -963,6 +963,8 @@ const DICTS = {
     'region.panel.geolocate': 'Уточнить точнее',
     'region.panel.cancel': 'Отмена',
     'region.panel.notfound': 'Ничего не найдено — выберите регион из списка',
+    'region.panel.broad': 'Уточните запрос — показаны первые совпадения',
+    'region.panel.noregion': 'регион не определён',
     'a11y.region.changed': 'Ваш регион: {city} · {region}, индекс {index} из 100',
     'state.published': 'Опубликовано',
     'state.updating': 'Обновляется',
@@ -1065,12 +1067,14 @@ const DICTS = {
     'trend.table.index': 'Индекс',
     'trend.table.state': 'Состояние',
     'footer.next': 'Следующая публикация: {when}',
+    'footer.geo': '© GeoNames, CC BY 4.0',
     'disclaimer.full': 'Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.',
     'footer.ip': 'регион определяется приблизительно по часовому поясу вашего браузера — только после вашего согласия; для этого IP-адрес не используется и не сохраняется. Если вы разрешите аналитику, включается cookie-less аналитика Cloudflare Web Analytics — подробности в политике приватности',
     'region.toast.text': 'Мы можем определить ваш регион приблизительно по часовому поясу браузера, чтобы показать региональный контекст. IP-адрес не используется и не сохраняется.',
     'region.toast.change': 'Изменить',
     'region.toast.accept': 'Согласен',
     'region.toast.dismiss': 'Закрыть',
+    'region.toast.stale': 'Этот регион больше не входит в текущую сетку — выберите регион из списка.',
     'analytics.banner.text': 'Разрешить сбор статистики посещений? Сайт использует cookie-less аналитику Cloudflare Web Analytics, чтобы понимать, сколько людей его открывает. Счётчик подключится только с вашего согласия — без него аналитика не работает.',
     'analytics.banner.accept': 'Разрешить',
     'analytics.banner.decline': 'Не разрешать',
@@ -1126,6 +1130,8 @@ const DICTS = {
     'privacy.fz.text': 'С 2026 года IP-адреса, cookie-идентификаторы и геоданные относятся к персональным данным; их хранение подлежит локализации на территории РФ. Геолокация на зарубежном edge-сервере может нарушать требование локализации — перед запуском edge-слоя обязательна юридическая экспертиза (открытый вопрос зафиксирован в docs/governance.md).',
     'privacy.geo.h': 'Точная геолокация',
     'privacy.geo.text': 'Координаты запрашиваются, только если вы нажимаете «Уточнить точнее»; автоматического запроса GPS нет. Координаты используются только на вашем устройстве, чтобы уточнить регион, и никуда не отправляются.',
+    'privacy.geodata.h': 'Справочник городов и стран',
+    'privacy.geodata.text': 'Для поиска города или страны панель выбора региона использует статический справочник на основе данных GeoNames. Справочник подгружается, только когда вы открываете панель выбора региона. Данные GeoNames предоставлены по лицензии Creative Commons Attribution 4.0:',
     'privacy.not.h': 'Чего сайт не делает',
     'privacy.not.cookies': 'Не использует файлы cookie и сторонние виджеты, кроме cookie-less аналитики Cloudflare Web Analytics — она подключается только с вашего согласия.',
     'privacy.not.third': 'Данные передаются третьим лицам только в двух случаях: отправка сообщения через форму обратной связи и cookie-less аналитика Cloudflare Web Analytics (подключается только с вашего согласия) — оба описаны выше. Без согласия сайт можно открыть с локального диска, не подключаясь к сети.',
@@ -1135,6 +1141,7 @@ const DICTS = {
     'history.index': 'Глобальный индекс',
     'history.methodology': 'Версия методологии',
     'history.methodology.note': 'Эта неделя рассчитана по версии методологии {viewed}, а текущая неделя — по версии {current}: значения могут быть несопоставимы.',
+    'history.taxonomy.note': 'Региональная сетка обновлена с {date}: набор регионов отличается от текущего, значения по регионам несопоставимы.',
     'history.review.title': 'Разбор недели ({date}): где ошиблись, где были правы, где неопределённость',
     'history.review.wrong': 'Где ошиблись',
     'history.review.right': 'Где были правы',
@@ -1493,6 +1500,113 @@ exports["consent"] = consent;
 exports["loadCounter"] = loadCounter;
 exports["maybeInit"] = maybeInit;
 exports["maybeShowBanner"] = maybeShowBanner;
+return exports;
+}]);
+factories.push(["js/geo.js", function (exports) {
+const { search } = __ci_require("js/region.js");
+// js/geo.js — ленивая загрузка статического справочника городов и стран
+// (ADR 0029). Данные — два классических скрипта data/geo/cities.js и
+// countries.js (window.CI_GEO_*): работают с file://, в бандл не входят и в
+// index.html статически не подключены. Первый вызов loadGeo() инжектит их
+// <script>-тегами, ждёт загрузку, кэширует в памяти сессии; повторный вызов
+// отдаёт кэш. Поиск и резолв региона — чистые функции над каталогом.
+
+
+let cache = null;
+let loading = null;
+
+// Инъекция классического скрипта (по умолчанию). Тесты передают свой inject в
+// loadGeo, чтобы не ходить в сеть/DOM.
+function injectScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error(`Не удалось загрузить справочник: ${src}`));
+    document.head.appendChild(s);
+  });
+}
+
+// loadGeo(inject?) -> Promise<{cities, countries}>. Кэш в памяти: повторный
+// вызов не инжектит заново. `inject` — шов тестов (src -> Promise).
+function loadGeo(inject) {
+  if (cache) return Promise.resolve(cache);
+  if (loading) return loading;
+  const put = inject ?? injectScript;
+  loading = Promise.all([
+    Promise.resolve(put('data/geo/cities.js')),
+    Promise.resolve(put('data/geo/countries.js')),
+  ]).then(() => {
+    const root = typeof window !== 'undefined' ? window : globalThis;
+    cache = {
+      cities: Array.isArray(root.CI_GEO_CITIES) ? root.CI_GEO_CITIES : [],
+      countries: root.CI_GEO_COUNTRIES ?? {},
+    };
+    loading = null;
+    return cache;
+  }, (err) => {
+    loading = null;
+    throw err;
+  });
+  return loading;
+}
+
+// Сброс кэша — шов тестов (в браузере не нужен: справочник неизменен).
+function resetGeoCache() {
+  cache = null;
+  loading = null;
+}
+
+// Поиск по справочнику (префикс ru/en города/страны/региона, минимум 2 символа,
+// широкий → топ-20 + broad). Делегирует в js/region.js search(q, catalog).
+function geoSearch(q, catalog) {
+  return search(q, catalog);
+}
+
+// resolveRegion(countryOrCity, catalog) -> {country, region_v2, region_v1, name}|null.
+// Принимает ISO2-код, объект-город ({country}) или строку-имя страны/города.
+// Страна вне разбиения → region_*: null (честная пометка). Неизвестное → null.
+function resolveRegion(countryOrCity, catalog) {
+  if (!catalog) return null;
+  const countries = catalog.countries ?? {};
+  let country = null;
+
+  if (typeof countryOrCity === 'string') {
+    const raw = countryOrCity.trim();
+    if (/^[A-Za-z]{2}$/.test(raw) && countries[raw.toUpperCase()]) {
+      country = raw.toUpperCase();
+    } else {
+      const q = raw.toLowerCase();
+      country = Object.keys(countries).find((iso) => {
+        const c = countries[iso];
+        return c.name.ru.toLowerCase() === q || c.name.en.toLowerCase() === q;
+      }) ?? null;
+      if (!country) {
+        const city = (catalog.cities ?? []).find((c) => (
+          c.name.ru.toLowerCase() === q || c.name.en.toLowerCase() === q
+        ));
+        if (city) country = city.country ?? null;
+      }
+    }
+  } else if (countryOrCity && typeof countryOrCity === 'object') {
+    country = countryOrCity.country ?? null;
+  }
+
+  if (!country) return null;
+  const info = countries[country];
+  if (!info) return { country, region_v2: null, region_v1: null, name: null };
+  return {
+    country,
+    region_v2: info.region_v2 ?? null,
+    region_v1: info.region_v1 ?? null,
+    name: info.name ?? null,
+  };
+}
+
+exports["loadGeo"] = loadGeo;
+exports["resetGeoCache"] = resetGeoCache;
+exports["geoSearch"] = geoSearch;
+exports["resolveRegion"] = resolveRegion;
 return exports;
 }]);
 factories.push(["js/sections/states.js", function (exports) {
@@ -1859,6 +1973,7 @@ const { t, date } = __ci_require("js/i18n.js");
 const risk = __ci_require("js/risk.js");
 const region = __ci_require("js/region.js");
 const analytics = __ci_require("js/analytics.js");
+const { loadGeo } = __ci_require("js/geo.js");
 const { createToast, deltaClass } = __ci_require("js/ui.js");
 const { visibleSnapshotOf, needsPreliminaryNote } = __ci_require("js/sections/states.js");
 // Секция hero (js/render.js регистрирует render как 'hero'): глобальный индекс,
@@ -1889,13 +2004,20 @@ function isBackgroundRegion(rdata) {
   return rdata?.background === true;
 }
 
-// Демо-маппинг координат → один из 6 регионов (без tz-базы; грубые bounding-box).
-// Принятое решение — долготный: всё западнее −45° считается Северной Америкой,
-// восточнее 95° — Восточной Азией; внутри — уточнение по широте.
-// Координаты вне справочника → null (ничего не меняем).
+// Демо-маппинг координат → один из регионов таксономии v2 (ADR 0028) — грубые
+// bounding-box, без tz-базы. Порядок задаёт приоритет: специфичные области
+// (Кавказ, Средняя Азия) раньше перекрывающих их макрорегионов, catch-all
+// «Европа (ЕС и Север)» — после российской и балканской частей. Координаты вне
+// справочника → null (ничего не меняем). Столицы каждого региона — якорь теста.
 const COORD_BOXES = [
-  ['middle-east', 10, 45, 25, 70],
-  ['europe', 36, 72, -30, 40],
+  ['south-caucasus', 38, 44, 40, 51],
+  ['central-asia', 40, 56, 46, 88],
+  ['middle-east', 12, 42, 25, 63],
+  ['ukraine-moldova', 43, 53, 21, 41],
+  ['baltic', 54.2, 60, 20, 30],
+  ['balkans', 34, 47, 12, 30],
+  ['russia-belarus', 48, 82, 19, 180],
+  ['eu-north-europe', 36, 72, -25, 40],
   ['east-asia', -12, 55, 95, 180],
   ['south-asia', 5, 40, 60, 95],
   ['north-america', -60, 75, -180, -45],
@@ -1918,6 +2040,8 @@ let panelOpen = false;
 let activeOption = -1;      // активный пункт автокомплита
 let current = null;         // последний appState (для синхронизации панели)
 let lastTrigger = null;     // кнопка, открывшая панель (для возврата фокуса)
+let catalog = null;         // ленивый справочник городов/стран (js/geo.js) после загрузки
+let geoRequested = false;   // loadGeo запрошен (не повторяем попытку)
 
 function setDelta(el, value) {
   if (!el) return;
@@ -2049,7 +2173,11 @@ function paintActive(options) {
 function renderChips(state) {
   const host = panel.querySelector('[data-role="picker-chips"]');
   host.innerHTML = '';
-  for (const r of region.REGIONS) {
+  // Чипы — по набору отображаемой недели (v1 → 6, v2 → 12), а не по текущему:
+  // на старой неделе европейская «europe» остаётся в списке, но выбрать её нельзя
+  // (она вне текущей сетки — app.js покажет одноразовый тост).
+  const set = region.regionForTaxonomy(state.snapshot?.regions_taxonomy);
+  for (const r of set) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'chip';
@@ -2060,11 +2188,32 @@ function renderChips(state) {
   }
 }
 
+// Ленивый справочник (R16): грузим только при первом открытии пикера; ошибка
+// загрузки — тихий откат к встроенному CITIES (region.search без каталога).
+function ensureCatalog() {
+  if (catalog || geoRequested) return;
+  geoRequested = true;
+  loadGeo().then((c) => {
+    catalog = c;
+    const list = panel?.querySelector('[data-role="picker-list"]');
+    if (panelOpen && list && !list.hidden) renderList();
+  }, () => { /* тихий откат: поиск по встроенному CITIES */ });
+}
+
 function renderList() {
   const lang = current.lang;
   const input = panel.querySelector('[data-role="picker-input"]');
   const list = panel.querySelector('[data-role="picker-list"]');
-  const results = region.search(input.value);
+  const q = input.value;
+  // Справочник подключён: поиск идёт от двух символов (R17); пустой/короткий
+  // запрос — список скрыт, «ничего не найдено» не мелькает.
+  if (catalog && q.trim().length < 2) {
+    list.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    activeOption = -1;
+    return;
+  }
+  const results = region.search(q, catalog);
   list.innerHTML = '';
   activeOption = -1;
   if (!results.length) {
@@ -2077,18 +2226,34 @@ function renderList() {
     return;
   }
   results.forEach((c, i) => {
+    // regionId един: каталог несёт region_v2, офлайн-fallback — region.
+    const rid = c.region_v2 ?? c.region ?? null;
+    const rname = c.regionName?.[lang] ?? (rid ? region.get(rid)?.name?.[lang] : null);
     const li = document.createElement('li');
     li.setAttribute('role', 'option');
     li.setAttribute('aria-selected', 'false');
-    li.dataset.region = c.region;
     const b = document.createElement('button');
     b.type = 'button';
-    b.textContent = `${c.name[lang]} · ${c.regionName[lang]}`;
-    b.addEventListener('click', () => pick(c.region, c));
+    b.textContent = rname
+      ? `${c.name[lang]} · ${rname}`
+      : `${c.name[lang]} · ${t(lang, 'region.panel.noregion')}`;
+    if (rid) {
+      li.dataset.region = rid;
+      b.addEventListener('click', () => pick(rid, c.type === 'city' ? c : null));
+    } else {
+      // Страна вне разбиения — честная пометка, выбора нет (R15.2/R17.1).
+      b.disabled = true;
+    }
     li.appendChild(b);
     list.appendChild(li);
-    if (i === 0) activeOption = 0;
+    if (i === 0 && rid) activeOption = 0;
   });
+  if (results.broad) {
+    const hint = document.createElement('li');
+    hint.className = 'picker-broad';
+    hint.textContent = t(lang, 'region.panel.broad');
+    list.appendChild(hint);
+  }
   paintActive(listItems());
   list.hidden = false;
   input.setAttribute('aria-expanded', 'true');
@@ -2110,6 +2275,7 @@ function openPanel(state, trigger) {
   panelOpen = true;
   setTriggersExpanded(true);
   renderChips(state);
+  ensureCatalog();
   // Полный список городов не показываем до ввода: фокус в поле, список скрыт.
   const list = panel.querySelector('[data-role="picker-list"]');
   list.hidden = true;
@@ -2230,8 +2396,12 @@ function render(appState) {
   const card = $('[data-role="region-card"]');
   const cta = $('[data-role="region-cta"]');
   const regId = appState.region;
-  if (!regId) {
-    // Нераспознанный пояс: нейтральный hero + CTA (R46.1).
+  // Подсветка личного региона — только если он есть в наборе отображаемой
+  // недели (R18/R10.2): на старой v1-неделе v2-регион не показываем как личный.
+  const weekSet = region.regionForTaxonomy(viewed?.regions_taxonomy);
+  const inWeek = !!regId && weekSet.some((r) => r.id === regId);
+  if (!inWeek) {
+    // Нераспознанный пояс / регион вне сетки недели: нейтральный hero + CTA.
     card.hidden = true;
     cta.hidden = false;
   } else {
@@ -3175,18 +3345,21 @@ const { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } = __ci_
 // Чистые швы (rankedRegions, statusLabel) — без DOM, тестируются.
 
 
-// Ranked-лист: все регионы снапшота по убыванию |Δ|; при равенстве |Δ| рост выше
-// снижения, дальше — порядок справочника. Битые записи пропускаем.
+// Ranked-лист: все регионы набора отображаемой недели по убыванию |Δ|; при
+// равенстве |Δ| рост выше снижения, дальше — порядок справочника. Набор — по
+// версии таксономии недели (ADR 0028): 6 строк на v1-неделе, 12 на v2.
+// Битые записи пропускаем.
 function rankedRegions(snapshot) {
   const regs = snapshot?.regions;
   if (!regs || typeof regs !== 'object') return [];
+  const set = region.regionForTaxonomy(snapshot?.regions_taxonomy);
   const rows = [];
-  for (const r of region.REGIONS) {
+  for (const r of set) {
     const d = regs[r.id];
     if (!d || typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
     rows.push({ id: r.id, ...d });
   }
-  const order = new Map(region.REGIONS.map((r, i) => [r.id, i]));
+  const order = new Map(set.map((r, i) => [r.id, i]));
   rows.sort((a, b) => {
     const byAbs = Math.abs(b.delta) - Math.abs(a.delta);
     if (byAbs !== 0) return byAbs;
@@ -3315,7 +3488,12 @@ function render(appState) {
   const list = el('ol', 'regions-list');
   rows.forEach((row, i) => {
     const li = el('li', 'region-row');
-    if (row.id === personal) li.classList.add('is-personal');
+    if (row.id === personal) {
+      li.classList.add('is-personal');
+      // ADR 0028: на узких экранах витрина — 12 строк, поэтому личный регион
+      // пиннится вверху (класс-модификатор строки; раскладку делает CSS по нему).
+      li.classList.add('region-row--pinned');
+    }
 
     // Строка-раскрывалка: №, регион, индекс, Δ со знаком и цветом; личный регион — текстовым бейджем.
     const head = el('button', 'region-row-head');
@@ -3375,8 +3553,8 @@ const { deltaClass } = __ci_require("js/ui.js");
 // были правы / где неопределённость» (§8.4), список источников недели.
 // Плюс футер: «Следующая публикация» — ближайший вторник 12:00 UTC, показанный
 // в локальном времени через Intl (§9, R62.1).
-// Чистые швы (nextPublication, publicationLabel, methodologyNote, DEMO_REVIEWS,
-// reviewFor) — без DOM, тестируются.
+// Чистые швы (nextPublication, publicationLabel, methodologyNote, regionalGridNote,
+// DEMO_REVIEWS, reviewFor) — без DOM, тестируются.
 
 
 // Смена недели — оркестрация в app.js (владелец состояния и URL ?week=):
@@ -3413,6 +3591,14 @@ function publicationLabel(lang, d) {
 function methodologyNote(lang, viewed, current) {
   if (!viewed || !current || viewed === current) return '';
   return t(lang, 'history.methodology.note', { viewed, current });
+}
+
+// ADR 0028: версии таксономии регионов различаются (v1 — 6 строк, v2 — 12);
+// смена сетки раскрывается заметкой рядом с methodologyNote. Пусто при
+// совпадении/отсутствии версий, непусто при расхождении. Дата — TAXONOMY_V2_FROM.
+function regionalGridNote(lang, viewed, current) {
+  if (!viewed || !current || viewed === current) return '';
+  return t(lang, 'history.taxonomy.note', { date: date(lang, data.TAXONOMY_V2_FROM) });
 }
 
 // §8.4: демо-разборы недель — где ошиблись / где были правы / где неопределённость.
@@ -3477,9 +3663,16 @@ function sourceItem(lang, s) {
 function renderFooter(appState) {
   const host = document.querySelector('[data-role="footer-next"]');
   if (!host) return;
-  host.textContent = t(appState.lang, 'footer.next', {
+  host.textContent = '';
+  host.appendChild(document.createTextNode(t(appState.lang, 'footer.next', {
     when: publicationLabel(appState.lang, nextPublication()),
-  });
+  })));
+  // Атрибуция справочника GeoNames (ADR 0029, R19) — отдельной строкой в футере.
+  host.appendChild(document.createElement('br'));
+  const geo = document.createElement('span');
+  geo.className = 'footer-geo';
+  geo.textContent = t(appState.lang, 'footer.geo');
+  host.appendChild(geo);
 }
 
 function render(appState) {
@@ -3500,6 +3693,12 @@ function render(appState) {
   }).join('');
 
   const note = methodologyNote(lang, snapshot?.methodology, data.week(latest)?.methodology);
+  // ADR 0028: смена региональной сетки — заметка рядом; секция скрыта, шов дормантен.
+  const gridNote = regionalGridNote(
+    lang,
+    snapshot?.regions_taxonomy ?? '1.0',
+    data.week(latest)?.regions_taxonomy ?? '1.0',
+  );
   const review = reviewFor(week);
   const index = snapshot?.global?.index;
   const delta = snapshot?.global?.delta;
@@ -3522,6 +3721,7 @@ function render(appState) {
       <span class="meta-item"><strong>${t(lang, 'history.methodology')}</strong>: ${escapeHtml(snapshot?.methodology ?? '—')}</span>
     </div>
     ${note ? `<p class="history-note">${escapeHtml(note)}</p>` : ''}
+    ${gridNote ? `<p class="history-note history-note--grid">${escapeHtml(gridNote)}</p>` : ''}
     ${review ? `
     <div class="history-review">
       <h3>${t(lang, 'history.review.title', { date: date(lang, review.week) })}</h3>
@@ -3557,6 +3757,7 @@ function render(appState) {
 exports["nextPublication"] = nextPublication;
 exports["publicationLabel"] = publicationLabel;
 exports["methodologyNote"] = methodologyNote;
+exports["regionalGridNote"] = regionalGridNote;
 exports["DEMO_REVIEWS"] = DEMO_REVIEWS;
 exports["reviewFor"] = reviewFor;
 exports["render"] = render;
@@ -4705,7 +4906,7 @@ const analytics = __ci_require("js/analytics.js");
 const { t } = __ci_require("js/i18n.js");
 const { renderAll, applyI18n } = __ci_require("js/render.js");
 const { applyDemo, initDemo } = __ci_require("js/demo.js");
-const { resolveLang, parseWeekParam } = __ci_require("js/ui.js");
+const { resolveLang, parseWeekParam, createToast } = __ci_require("js/ui.js");
 // app.js — оркестрация: регион, неделя (?week=), data-state, первый render.
 // Скелет: собирает appState и дергает renderAll; глубокая обвязка событий — таск 02+.
 
@@ -4771,6 +4972,23 @@ function announce(lang, key, vars) {
   if (live) live.textContent = t(lang, key, vars);
 }
 
+// ADR 0028: устаревшее/недоступное значение региона (напр. 'europe') при явном
+// ручном выборе не выбирается; один раз за сессию — тост. Тихий авторежим
+// (detect/current) сюда не попадает и сообщений не даёт.
+let staleRegionToastShown = false;
+
+function showStaleRegionToast(lang) {
+  if (staleRegionToastShown) return;
+  const host = document.querySelector('#overview');
+  if (!host) return;
+  staleRegionToastShown = true;
+  const toast = createToast({
+    text: t(lang, 'region.toast.stale'),
+    dismiss: { label: t(lang, 'region.toast.dismiss'), onClick: () => toast.remove() },
+  });
+  host.appendChild(toast);
+}
+
 // URL ?week=: текущая неделя — без параметра, архивная — с ним (§8.6).
 function navigateToWeek(week) {
   try {
@@ -4801,7 +5019,12 @@ function init() {
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
       const { id, persist } = e.detail ?? {};
-      if (!id || !region.get(id)) return;
+      if (!id) return;
+      // Устаревшее (вне текущей сетки) значение — забываем, один раз предупреждаем.
+      if (!region.isCurrent(id)) {
+        showStaleRegionToast(resolveLang());
+        return;
+      }
       region.choose(id, { persist: !!persist });
       const next = currentState();
       renderApp(next);

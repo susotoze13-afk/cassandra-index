@@ -42,9 +42,12 @@ test('privacy.html: цели ключей cassandra.region/consent, локали
   assert.ok(privacyHtml.includes('data-i18n'));
   assert.ok(privacyHtml.includes('js/i18n.js'));
   assert.ok(privacyHtml.includes('href="index.html"'));
-  // ноль внешних зависимостей: ни CDN, ни внешних скриптов/стилей
+  // ноль внешних зависимостей: ни CDN, ни внешних скриптов/стилей. Внешняя
+  // ссылка-атрибуция GeoNames (R29i, CC BY 4.0) — обычный <a>, не подгружаемый
+  // ресурс; её наличие проверяем отдельно.
   assert.ok(!/src="https?:\/\//.test(privacyHtml));
-  assert.ok(!/href="https?:\/\//.test(privacyHtml));
+  assert.ok(!/rel="stylesheet"[^>]*href="https?:\/\//.test(privacyHtml));
+  assert.ok(privacyHtml.includes('href="https://creativecommons.org/licenses/by/4.0/"'));
 });
 
 test('privacy.html: смысловое содержимое — дефолтный текст совпадает со словарём, цели описаны', () => {
@@ -62,6 +65,7 @@ test('privacy.html: смысловое содержимое — дефолтны
     'privacy.gdpr.text',
     'privacy.fz.text',
     'privacy.geo.text',
+    'privacy.geodata.text',
     'privacy.feedback.text',
     'privacy.analytics.text',
     'privacy.not.cookies',

@@ -28,16 +28,27 @@ test('isBackgroundRegion: флаг из записи региона, дефол�
   assert.equal(isBackgroundRegion({}), false);
 });
 
-// refineRegionFromCoords: грубые bounding-box демо-регионов для «Уточнить точнее» (§5.8).
-// Ожидания — географические факты, не код под тестом.
-test('refineRegionFromCoords: столицы шести регионов', () => {
-  assert.equal(refineRegionFromCoords(52.37, 4.9), 'europe');        // Амстердам
-  assert.equal(refineRegionFromCoords(35.68, 139.69), 'east-asia');  // Токио
-  assert.equal(refineRegionFromCoords(33.9, 35.5), 'middle-east');   // Бейрут
-  assert.equal(refineRegionFromCoords(40.71, -74.0), 'north-america'); // Нью-Йорк
-  assert.equal(refineRegionFromCoords(19.08, 72.88), 'south-asia');  // Мумбаи
-  assert.equal(refineRegionFromCoords(-1.29, 36.82), 'africa');      // Найроби
-  assert.equal(refineRegionFromCoords(55.75, 37.6), 'europe');       // Москва
+// refineRegionFromCoords: грубые bounding-box регионов v2 (ADR 0028) для «Уточнить
+// точнее» (§5.8). Ожидания — географические факты (столицы регионов), не код под
+// тестом: по одному якорю на каждый из 12 регионов.
+test('refineRegionFromCoords: столицы двенадцати регионов v2', () => {
+  assert.equal(refineRegionFromCoords(55.75, 37.6), 'russia-belarus');   // Москва
+  assert.equal(refineRegionFromCoords(50.45, 30.52), 'ukraine-moldova'); // Киев
+  assert.equal(refineRegionFromCoords(56.95, 24.1), 'baltic');           // Рига
+  assert.equal(refineRegionFromCoords(44.79, 20.47), 'balkans');         // Белград
+  assert.equal(refineRegionFromCoords(52.37, 4.9), 'eu-north-europe');   // Амстердам
+  assert.equal(refineRegionFromCoords(41.72, 44.8), 'south-caucasus');   // Тбилиси
+  assert.equal(refineRegionFromCoords(43.24, 76.9), 'central-asia');     // Алматы
+  assert.equal(refineRegionFromCoords(35.68, 139.69), 'east-asia');      // Токио
+  assert.equal(refineRegionFromCoords(33.9, 35.5), 'middle-east');       // Бейрут
+  assert.equal(refineRegionFromCoords(40.71, -74.0), 'north-america');   // Нью-Йорк
+  assert.equal(refineRegionFromCoords(19.08, 72.88), 'south-asia');      // Мумбаи
+  assert.equal(refineRegionFromCoords(-1.29, 36.82), 'africa');          // Найроби
+});
+
+test('refineRegionFromCoords: v2-идентификаторы, устаревшая europe не возвращается', () => {
+  assert.notEqual(refineRegionFromCoords(55.75, 37.6), 'europe'); // Москва → russia-belarus
+  assert.notEqual(refineRegionFromCoords(52.37, 4.9), 'europe');  // Амстердам → eu-north-europe
 });
 
 test('refineRegionFromCoords: вне справочника — null, без изменений', () => {

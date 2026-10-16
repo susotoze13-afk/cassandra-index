@@ -14,18 +14,21 @@ import { el, deltaClass } from '../ui.js';
 import { formatDelta, deltaArrow, isBackgroundRegion } from './hero.js';
 import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } from './drivers.js';
 
-// Ranked-лист: все регионы снапшота по убыванию |Δ|; при равенстве |Δ| рост выше
-// снижения, дальше — порядок справочника. Битые записи пропускаем.
+// Ranked-лист: все регионы набора отображаемой недели по убыванию |Δ|; при
+// равенстве |Δ| рост выше снижения, дальше — порядок справочника. Набор — по
+// версии таксономии недели (ADR 0028): 6 строк на v1-неделе, 12 на v2.
+// Битые записи пропускаем.
 export function rankedRegions(snapshot) {
   const regs = snapshot?.regions;
   if (!regs || typeof regs !== 'object') return [];
+  const set = region.regionForTaxonomy(snapshot?.regions_taxonomy);
   const rows = [];
-  for (const r of region.REGIONS) {
+  for (const r of set) {
     const d = regs[r.id];
     if (!d || typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
     rows.push({ id: r.id, ...d });
   }
-  const order = new Map(region.REGIONS.map((r, i) => [r.id, i]));
+  const order = new Map(set.map((r, i) => [r.id, i]));
   rows.sort((a, b) => {
     const byAbs = Math.abs(b.delta) - Math.abs(a.delta);
     if (byAbs !== 0) return byAbs;
@@ -154,7 +157,12 @@ export function render(appState) {
   const list = el('ol', 'regions-list');
   rows.forEach((row, i) => {
     const li = el('li', 'region-row');
-    if (row.id === personal) li.classList.add('is-personal');
+    if (row.id === personal) {
+      li.classList.add('is-personal');
+      // ADR 0028: на узких экранах витрина — 12 строк, поэтому личный регион
+      // пиннится вверху (класс-модификатор строки; раскладку делает CSS по нему).
+      li.classList.add('region-row--pinned');
+    }
 
     // Строка-раскрывалка: №, регион, индекс, Δ со знаком и цветом; личный регион — текстовым бейджем.
     const head = el('button', 'region-row-head');

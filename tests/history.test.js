@@ -4,6 +4,7 @@ import {
   nextPublication,
   publicationLabel,
   methodologyNote,
+  regionalGridNote,
   DEMO_REVIEWS,
   reviewFor,
 } from '../js/sections/history.js';
@@ -46,6 +47,18 @@ test('methodologyNote: разные версии → строка с обеим�
   assert.equal(methodologyNote('ru', '1.0', '1.0'), '');
   assert.equal(methodologyNote('ru', '1.0', ''), '');
   assert.equal(methodologyNote('ru', '', '1.1'), '');
+});
+
+// ADR 0028 / R08.1: смена региональной сетки раскрывается заметкой; дата — из
+// TAXONOMY_V2_FROM ('2026-10-18' → «18 октября 2026», известная величина).
+test('regionalGridNote: разные таксономии → строка с датой, совпадающие → пусто', () => {
+  const note = regionalGridNote('ru', '1.0', '2.0');
+  assert.ok(note.includes('18 октября 2026'));
+  assert.notEqual(note, '');
+  assert.equal(regionalGridNote('ru', '1.0', '1.0'), '');
+  assert.equal(regionalGridNote('ru', '2.0', '2.0'), '');
+  assert.equal(regionalGridNote('ru', '', '2.0'), '');
+  assert.equal(regionalGridNote('ru', '1.0', ''), '');
 });
 
 // §8.4: демо-записи истории содержат разбор «где ошиблись / где были правы /

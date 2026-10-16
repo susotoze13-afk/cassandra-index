@@ -7,7 +7,7 @@ import * as analytics from './analytics.js';
 import { t } from './i18n.js';
 import { renderAll, applyI18n } from './render.js';
 import { applyDemo, initDemo } from './demo.js';
-import { resolveLang, parseWeekParam } from './ui.js';
+import { resolveLang, parseWeekParam, createToast } from './ui.js';
 
 export { resolveLang };
 
@@ -71,6 +71,23 @@ function announce(lang, key, vars) {
   if (live) live.textContent = t(lang, key, vars);
 }
 
+// ADR 0028: устаревшее/недоступное значение региона (напр. 'europe') при явном
+// ручном выборе не выбирается; один раз за сессию — тост. Тихий авторежим
+// (detect/current) сюда не попадает и сообщений не даёт.
+let staleRegionToastShown = false;
+
+function showStaleRegionToast(lang) {
+  if (staleRegionToastShown) return;
+  const host = document.querySelector('#overview');
+  if (!host) return;
+  staleRegionToastShown = true;
+  const toast = createToast({
+    text: t(lang, 'region.toast.stale'),
+    dismiss: { label: t(lang, 'region.toast.dismiss'), onClick: () => toast.remove() },
+  });
+  host.appendChild(toast);
+}
+
 // URL ?week=: текущая неделя — без параметра, архивная — с ним (§8.6).
 function navigateToWeek(week) {
   try {
@@ -101,7 +118,12 @@ export function init() {
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
       const { id, persist } = e.detail ?? {};
-      if (!id || !region.get(id)) return;
+      if (!id) return;
+      // Устаревшее (вне текущей сетки) значение — забываем, один раз предупреждаем.
+      if (!region.isCurrent(id)) {
+        showStaleRegionToast(resolveLang());
+        return;
+      }
       region.choose(id, { persist: !!persist });
       const next = currentState();
       renderApp(next);

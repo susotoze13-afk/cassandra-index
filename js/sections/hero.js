@@ -6,6 +6,7 @@ import { t, date } from '../i18n.js';
 import * as risk from '../risk.js';
 import * as region from '../region.js';
 import * as analytics from '../analytics.js';
+import { loadGeo } from '../geo.js';
 import { createToast, deltaClass } from '../ui.js';
 import { visibleSnapshotOf, needsPreliminaryNote } from './states.js';
 
@@ -32,13 +33,20 @@ export function isBackgroundRegion(rdata) {
   return rdata?.background === true;
 }
 
-// Демо-маппинг координат → один из 6 регионов (без tz-базы; грубые bounding-box).
-// Принятое решение — долготный: всё западнее −45° считается Северной Америкой,
-// восточнее 95° — Восточной Азией; внутри — уточнение по широте.
-// Координаты вне справочника → null (ничего не меняем).
+// Демо-маппинг координат → один из регионов таксономии v2 (ADR 0028) — грубые
+// bounding-box, без tz-базы. Порядок задаёт приоритет: специфичные области
+// (Кавказ, Средняя Азия) раньше перекрывающих их макрорегионов, catch-all
+// «Европа (ЕС и Север)» — после российской и балканской частей. Координаты вне
+// справочника → null (ничего не меняем). Столицы каждого региона — якорь теста.
 const COORD_BOXES = [
-  ['middle-east', 10, 45, 25, 70],
-  ['europe', 36, 72, -30, 40],
+  ['south-caucasus', 38, 44, 40, 51],
+  ['central-asia', 40, 56, 46, 88],
+  ['middle-east', 12, 42, 25, 63],
+  ['ukraine-moldova', 43, 53, 21, 41],
+  ['baltic', 54.2, 60, 20, 30],
+  ['balkans', 34, 47, 12, 30],
+  ['russia-belarus', 48, 82, 19, 180],
+  ['eu-north-europe', 36, 72, -25, 40],
   ['east-asia', -12, 55, 95, 180],
   ['south-asia', 5, 40, 60, 95],
   ['north-america', -60, 75, -180, -45],
@@ -61,6 +69,8 @@ let panelOpen = false;
 let activeOption = -1;      // активный пункт автокомплита
 let current = null;         // последний appState (для синхронизации панели)
 let lastTrigger = null;     // кнопка, открывшая панель (для возврата фокуса)
+let catalog = null;         // ленивый справочник городов/стран (js/geo.js) после загрузки
+let geoRequested = false;   // loadGeo запрошен (не повторяем попытку)
 
 function setDelta(el, value) {
   if (!el) return;
@@ -192,7 +202,11 @@ function paintActive(options) {
 function renderChips(state) {
   const host = panel.querySelector('[data-role="picker-chips"]');
   host.innerHTML = '';
-  for (const r of region.REGIONS) {
+  // Чипы — по набору отображаемой недели (v1 → 6, v2 → 12), а не по текущему:
+  // на старой неделе европейская «europe» остаётся в списке, но выбрать её нельзя
+  // (она вне текущей сетки — app.js покажет одноразовый тост).
+  const set = region.regionForTaxonomy(state.snapshot?.regions_taxonomy);
+  for (const r of set) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'chip';
@@ -203,11 +217,32 @@ function renderChips(state) {
   }
 }
 
+// Ленивый справочник (R16): грузим только при первом открытии пикера; ошибка
+// загрузки — тихий откат к встроенному CITIES (region.search без каталога).
+function ensureCatalog() {
+  if (catalog || geoRequested) return;
+  geoRequested = true;
+  loadGeo().then((c) => {
+    catalog = c;
+    const list = panel?.querySelector('[data-role="picker-list"]');
+    if (panelOpen && list && !list.hidden) renderList();
+  }, () => { /* тихий откат: поиск по встроенному CITIES */ });
+}
+
 function renderList() {
   const lang = current.lang;
   const input = panel.querySelector('[data-role="picker-input"]');
   const list = panel.querySelector('[data-role="picker-list"]');
-  const results = region.search(input.value);
+  const q = input.value;
+  // Справочник подключён: поиск идёт от двух символов (R17); пустой/короткий
+  // запрос — список скрыт, «ничего не найдено» не мелькает.
+  if (catalog && q.trim().length < 2) {
+    list.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    activeOption = -1;
+    return;
+  }
+  const results = region.search(q, catalog);
   list.innerHTML = '';
   activeOption = -1;
   if (!results.length) {
@@ -220,18 +255,34 @@ function renderList() {
     return;
   }
   results.forEach((c, i) => {
+    // regionId един: каталог несёт region_v2, офлайн-fallback — region.
+    const rid = c.region_v2 ?? c.region ?? null;
+    const rname = c.regionName?.[lang] ?? (rid ? region.get(rid)?.name?.[lang] : null);
     const li = document.createElement('li');
     li.setAttribute('role', 'option');
     li.setAttribute('aria-selected', 'false');
-    li.dataset.region = c.region;
     const b = document.createElement('button');
     b.type = 'button';
-    b.textContent = `${c.name[lang]} · ${c.regionName[lang]}`;
-    b.addEventListener('click', () => pick(c.region, c));
+    b.textContent = rname
+      ? `${c.name[lang]} · ${rname}`
+      : `${c.name[lang]} · ${t(lang, 'region.panel.noregion')}`;
+    if (rid) {
+      li.dataset.region = rid;
+      b.addEventListener('click', () => pick(rid, c.type === 'city' ? c : null));
+    } else {
+      // Страна вне разбиения — честная пометка, выбора нет (R15.2/R17.1).
+      b.disabled = true;
+    }
     li.appendChild(b);
     list.appendChild(li);
-    if (i === 0) activeOption = 0;
+    if (i === 0 && rid) activeOption = 0;
   });
+  if (results.broad) {
+    const hint = document.createElement('li');
+    hint.className = 'picker-broad';
+    hint.textContent = t(lang, 'region.panel.broad');
+    list.appendChild(hint);
+  }
   paintActive(listItems());
   list.hidden = false;
   input.setAttribute('aria-expanded', 'true');
@@ -253,6 +304,7 @@ function openPanel(state, trigger) {
   panelOpen = true;
   setTriggersExpanded(true);
   renderChips(state);
+  ensureCatalog();
   // Полный список городов не показываем до ввода: фокус в поле, список скрыт.
   const list = panel.querySelector('[data-role="picker-list"]');
   list.hidden = true;
@@ -373,8 +425,12 @@ export function render(appState) {
   const card = $('[data-role="region-card"]');
   const cta = $('[data-role="region-cta"]');
   const regId = appState.region;
-  if (!regId) {
-    // Нераспознанный пояс: нейтральный hero + CTA (R46.1).
+  // Подсветка личного региона — только если он есть в наборе отображаемой
+  // недели (R18/R10.2): на старой v1-неделе v2-регион не показываем как личный.
+  const weekSet = region.regionForTaxonomy(viewed?.regions_taxonomy);
+  const inWeek = !!regId && weekSet.some((r) => r.id === regId);
+  if (!inWeek) {
+    // Нераспознанный пояс / регион вне сетки недели: нейтральный hero + CTA.
     card.hidden = true;
     cta.hidden = false;
   } else {

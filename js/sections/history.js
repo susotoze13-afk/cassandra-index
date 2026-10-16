@@ -4,8 +4,8 @@
 // были правы / где неопределённость» (§8.4), список источников недели.
 // Плюс футер: «Следующая публикация» — ближайший вторник 12:00 UTC, показанный
 // в локальном времени через Intl (§9, R62.1).
-// Чистые швы (nextPublication, publicationLabel, methodologyNote, DEMO_REVIEWS,
-// reviewFor) — без DOM, тестируются.
+// Чистые швы (nextPublication, publicationLabel, methodologyNote, regionalGridNote,
+// DEMO_REVIEWS, reviewFor) — без DOM, тестируются.
 
 import { t, date } from '../i18n.js';
 import * as data from '../data.js';
@@ -49,6 +49,14 @@ export function publicationLabel(lang, d) {
 export function methodologyNote(lang, viewed, current) {
   if (!viewed || !current || viewed === current) return '';
   return t(lang, 'history.methodology.note', { viewed, current });
+}
+
+// ADR 0028: версии таксономии регионов различаются (v1 — 6 строк, v2 — 12);
+// смена сетки раскрывается заметкой рядом с methodologyNote. Пусто при
+// совпадении/отсутствии версий, непусто при расхождении. Дата — TAXONOMY_V2_FROM.
+export function regionalGridNote(lang, viewed, current) {
+  if (!viewed || !current || viewed === current) return '';
+  return t(lang, 'history.taxonomy.note', { date: date(lang, data.TAXONOMY_V2_FROM) });
 }
 
 // §8.4: демо-разборы недель — где ошиблись / где были правы / где неопределённость.
@@ -113,9 +121,16 @@ function sourceItem(lang, s) {
 function renderFooter(appState) {
   const host = document.querySelector('[data-role="footer-next"]');
   if (!host) return;
-  host.textContent = t(appState.lang, 'footer.next', {
+  host.textContent = '';
+  host.appendChild(document.createTextNode(t(appState.lang, 'footer.next', {
     when: publicationLabel(appState.lang, nextPublication()),
-  });
+  })));
+  // Атрибуция справочника GeoNames (ADR 0029, R19) — отдельной строкой в футере.
+  host.appendChild(document.createElement('br'));
+  const geo = document.createElement('span');
+  geo.className = 'footer-geo';
+  geo.textContent = t(appState.lang, 'footer.geo');
+  host.appendChild(geo);
 }
 
 export function render(appState) {
@@ -136,6 +151,12 @@ export function render(appState) {
   }).join('');
 
   const note = methodologyNote(lang, snapshot?.methodology, data.week(latest)?.methodology);
+  // ADR 0028: смена региональной сетки — заметка рядом; секция скрыта, шов дормантен.
+  const gridNote = regionalGridNote(
+    lang,
+    snapshot?.regions_taxonomy ?? '1.0',
+    data.week(latest)?.regions_taxonomy ?? '1.0',
+  );
   const review = reviewFor(week);
   const index = snapshot?.global?.index;
   const delta = snapshot?.global?.delta;
@@ -158,6 +179,7 @@ export function render(appState) {
       <span class="meta-item"><strong>${t(lang, 'history.methodology')}</strong>: ${escapeHtml(snapshot?.methodology ?? '—')}</span>
     </div>
     ${note ? `<p class="history-note">${escapeHtml(note)}</p>` : ''}
+    ${gridNote ? `<p class="history-note history-note--grid">${escapeHtml(gridNote)}</p>` : ''}
     ${review ? `
     <div class="history-review">
       <h3>${t(lang, 'history.review.title', { date: date(lang, review.week) })}</h3>
