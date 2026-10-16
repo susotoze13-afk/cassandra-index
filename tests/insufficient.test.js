@@ -111,9 +111,8 @@ test('chain: v2-неделя ведёт набор из 12 id; смещение 
     classification: { insufficient: false, dataState: 'published' },
   };
   const s1 = nextChainState(s0, res);
+  // Все двенадцать id ведут собственные значения недели — ни один не унаследовал
+  // смещение v1-региона 'europe' (61). Наблюдаемое свойство, а не остаточный ключ.
   for (const id of V2) assert.equal(s1.prevRegions[id], res.regions[id].index, id);
-  // Отклонение нового региона — собственное; v1-якорь europe не переносится.
-  assert.equal(s1.prevRegions['russia-belarus'], 80);
-  assert.equal(s1.prevRegions.europe, 61);
-  assert.notEqual(s1.prevRegions['russia-belarus'], s1.prevRegions.europe);
+  for (const id of V2) assert.notEqual(s1.prevRegions[id], s0.prevRegions.europe, `${id}: не наследует якорь v1`);
 });

@@ -5,8 +5,6 @@
 // <script>-тегами, ждёт загрузку, кэширует в памяти сессии; повторный вызов
 // отдаёт кэш. Поиск и резолв региона — чистые функции над каталогом.
 
-import { search } from './region.js';
-
 let cache = null;
 let loading = null;
 
@@ -52,11 +50,8 @@ export function resetGeoCache() {
   loading = null;
 }
 
-// Поиск по справочнику (префикс ru/en города/страны/региона, минимум 2 символа,
-// широкий → топ-20 + broad). Делегирует в js/region.js search(q, catalog).
-export function geoSearch(q, catalog) {
-  return search(q, catalog);
-}
+// Поиск по справочнику — единый вход region.search(q, catalog) (см. js/region.js):
+// отдельной обёртки здесь нет, поведение не дублируется.
 
 // resolveRegion(countryOrCity, catalog) -> {country, region_v2, region_v1, name}|null.
 // Принимает ISO2-код, объект-город ({country}) или строку-имя страны/города.

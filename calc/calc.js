@@ -317,17 +317,41 @@ export function weekPartFiles(taxonomy) {
 // v1-парити ходят сюда. Не менять: пин tests/week-combined.test.js.
 export const WEEK_PART_FILES = weekPartFiles('1.0');
 
-// Набор частей для чтения недели с диска: версия снапшота берётся из global.js
-// (поле regions_taxonomy, отсутствие = '1.0'). Определяется по наличию
-// v2-эксклюзивных region-* в переданных частях — контракт renderWeekCombined
-// (week, parts) сохранён.
-const V1_REGION_IDS = regionIdsFor('1.0');
-const V2_ONLY_REGION_IDS = regionIdsFor('2.0').filter((id) => !V1_REGION_IDS.includes(id));
+// Версия таксономии недели по её global-части: поле regions_taxonomy,
+// отсутствие = '1.0' (старые недели). Неизвестная версия — ошибка, а не
+// молчаливое приведение к v1.
+function taxonomyOfParts(parts) {
+  const g = parts && typeof parts === 'object' ? parts.global : undefined;
+  if (typeof g !== 'string') {
+    throw new Error('renderWeekCombined: нет части global — regions_taxonomy недели неизвестна');
+  }
+  const m = /regions_taxonomy\s*=\s*("(?:[^"\\]|\\.)*")/.exec(g);
+  if (!m) return '1.0';
+  let v;
+  try { v = JSON.parse(m[1]); } catch { v = null; }
+  if (v !== '1.0' && v !== '2.0') {
+    throw new Error(`renderWeekCombined: неизвестная regions_taxonomy ${JSON.stringify(v)}`);
+  }
+  return v;
+}
 
+// Набор частей для сборки недели: версия берётся из global-части, а не из
+// наличия v2-эксклюзивных region-* (R27). Набор и версия обязаны совпадать —
+// расхождение (лишняя/недостающая часть) даёт явную ошибку, не даунгрейд.
 function partOrder(parts) {
+  const taxonomy = taxonomyOfParts(parts);
+  const expected = weekPartFiles(taxonomy);
   const keys = parts && typeof parts === 'object' ? Object.keys(parts) : [];
-  const isV2 = V2_ONLY_REGION_IDS.some((id) => keys.includes(`region-${id}`));
-  return weekPartFiles(isV2 ? '2.0' : '1.0');
+  const miss = expected.filter((f) => !keys.includes(f));
+  const extra = keys.filter((k) => !expected.includes(k));
+  if (miss.length || extra.length) {
+    throw new Error(
+      `renderWeekCombined: набор частей не соответствует regions_taxonomy ${taxonomy}`
+      + (miss.length ? `; нет: ${miss.join(', ')}` : '')
+      + (extra.length ? `; лишние: ${extra.join(', ')}` : ''),
+    );
+  }
+  return expected;
 }
 
 

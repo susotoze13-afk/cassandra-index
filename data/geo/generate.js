@@ -3,9 +3,9 @@
 // (ADR 0029). Node stdlib, ноль зависимостей. Сеть — только здесь, один раз:
 // скачивает дамп GeoNames cities15000.zip и countryInfo.txt, распаковывает zip
 // встроенным минимальным zip-ридером (node:zlib inflateRawSync + разбор local
-// file header), фильтрует города по населению ≥ 50 000 и добавляет все столицы
-// (feature code PPLC) + 12 административных центров регионов из
-// data/regions/reference.json (taxonomies['2.0'].regions[].adminCenter).
+// file header), фильтрует города по населению ≥ 50 000 и добавляет столицы
+// суверенных стран (feature code PPLC, ISO 3166-1) + 12 административных центров
+// регионов из data/regions/reference.json (taxonomies['2.0'].regions[].adminCenter).
 //
 // Пишет два классических скрипта (работают и с file://, и ленивым <script>):
 //   data/geo/cities.js    → window.CI_GEO_CITIES    = [{name:{ru,en},country,region_v2,region_v1,pop}]
@@ -96,6 +96,40 @@ export const COUNTRY_RU = {
   YT: 'Майотта', ZA: 'ЮАР', ZM: 'Замбия', ZW: 'Зимбабве',
 };
 
+// ---------- Суверенные государства (ISO 3166-1 alpha-2) ----------
+// Столицы добавляются только по суверенным странам (R14): зависимые территории
+// (GL, HK, MO, PR, GU, …) в список не входят, даже если GeoNames метит их PPLC —
+// такой город останется лишь при населении ≥ 50000. Набор — государства-члены ООН
+// и наблюдатели (VA, PS); ISO 3166-1 его не различает от территорий, поэтому
+// список курируемый.
+export const SOVEREIGN_ISO = new Set((
+  'AF AL DZ AD AO AG AR AM AU AT AZ '
+  + 'BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI '
+  + 'CV KH CM CA CF TD CL CN CO KM CG CD CR CI HR CU CY CZ '
+  + 'DK DJ DM DO '
+  + 'EC EG SV GQ ER EE SZ ET '
+  + 'FJ FI FR '
+  + 'GA GM GE DE GH GR GD GT GN GW GY '
+  + 'HT HN HU '
+  + 'IS IN ID IR IQ IE IL IT '
+  + 'JM JP JO '
+  + 'KZ KE KI KP KR KW KG '
+  + 'LA LV LB LS LR LY LI LT LU '
+  + 'MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM '
+  + 'NA NR NP NL NZ NI NE NG MK NO '
+  + 'OM '
+  + 'PK PW PA PG PY PE PH PL PT '
+  + 'QA '
+  + 'RO RU RW '
+  + 'KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA SS ES LK SD SR SE CH SY '
+  + 'TJ TZ TH TL TG TO TT TN TR TM TV '
+  + 'UG UA AE GB US UY UZ '
+  + 'VU VE VN '
+  + 'YE '
+  + 'ZM ZW '
+  + 'VA PS'
+).split(' ').filter(Boolean));
+
 // ---------- Минимальный zip-ридер ----------
 
 // Первый файл архива: разбор local file header (0x04034b50) + inflateRawSync.
@@ -184,7 +218,9 @@ export function parseCityLine(line, ref) {
   const country = f[8];
   const pop = Number(f[14]) || 0;
   const adminIds = ref.adminCenters;
-  const isCapital = fcode === 'PPLC';
+  // Столица — PPLC только суверенного государства (R14); PPLC зависимых
+  // территорий за капитала не считается (остаётся правило населения).
+  const isCapital = fcode === 'PPLC' && SOVEREIGN_ISO.has(country);
   const isAdminCenter = adminIds.has(geonameid);
   if (!name || (!isCapital && !isAdminCenter && pop < MIN_POP)) return null;
   const override = ref.adminRu?.get(geonameid);
@@ -278,7 +314,7 @@ function banner() {
     '//   node data/geo/generate.js',
     '// Источник: GeoNames (https://www.geonames.org/), лицензия CC BY 4.0.',
     '// Дамп cities15000.zip + countryInfo.txt; фильтр: население ≥ 50000,',
-    '// все столицы (PPLC) и 12 административных центров регионов.',
+    '// столицы суверенных стран (PPLC) и 12 административных центров регионов.',
   ].join('\n');
 }
 

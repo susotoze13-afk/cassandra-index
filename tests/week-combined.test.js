@@ -92,6 +92,17 @@ test('renderWeekCombined: бросает при отсутствующей ил�
   assert.throws(() => renderWeekCombined(W, broken), /trend/);
 });
 
+test('renderWeekCombined: набор частей обязан соответствовать regions_taxonomy (явная ошибка, не даунгрейд)', () => {
+  // v1-декларация (или отсутствие поля), но в наборе — v2-эксклюзивный регион.
+  const extra = syntheticParts();
+  extra['region-balkans'] = PART('  s.regions["balkans"] = { "index": 1 };');
+  assert.throws(() => renderWeekCombined(W, extra), /regions_taxonomy|набор частей/);
+  // v2-декларация, но набор — v1-шестёрка.
+  const v1set = syntheticParts();
+  v1set.global = PART('  s.global = { "index": 42 };\n  s.regions_taxonomy = "2.0";');
+  assert.throws(() => renderWeekCombined(W, v1set), /regions_taxonomy|набор частей/);
+});
+
 test('WEEK_PART_FILES: 11 частей, regions до region-*, совпадает с порядком data/latest.js', () => {
   assert.equal(WEEK_PART_FILES.length, 11);
   const iRegions = WEEK_PART_FILES.indexOf('regions');

@@ -19,7 +19,8 @@ import {
   validate,
 } from '../calc/engine.js';
 import { PARAMS, list } from '../calc/params.js';
-import { regionIdsFor, TAXONOMY_V2_FROM } from '../js/data.js';
+import { regionIdsFor } from '../js/data.js';
+import { taxonomyForWeek } from '../calc/calc.js';
 
 // --- §4.2: скор драйвера ---
 
@@ -811,8 +812,8 @@ test('validate: все входы недель и якорей calc/input/**/*.j
   for (const f of files) {
     const dir = f.includes('-') && /^\d{4}/.test(f) ? INPUT_DIR : path.join(INPUT_DIR, 'anchors');
     const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));
-    // Whitelist регионов — по версии недели входа (граница TAXONOMY_V2_FROM).
-    const taxonomy = input.week >= TAXONOMY_V2_FROM ? '2.0' : '1.0';
+    // Whitelist регионов — по версии недели входа (та же граница, что в расчёте).
+    const taxonomy = taxonomyForWeek(input.week);
     assert.deepEqual(validate(input, PARAMS, regionIdsFor(taxonomy)), [], f);
   }
 });

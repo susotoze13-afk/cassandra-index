@@ -68,11 +68,13 @@ test('search: находит город по русскому и английс�
 });
 
 test('search: совпадение по имени региона, нет совпадений → пустой массив', () => {
-  assert.ok(search('Европа').every((c) => c.region === 'eu-north-europe'));
+  const evr = search('Европа');
+  assert.ok(evr.length > 0, '«Европа» должна находиться хотя бы раз');
+  assert.ok(evr.every((c) => c.region === 'eu-north-europe'));
   assert.ok(search('Балканы').some((c) => c.region === 'balkans'));
   assert.ok(search('Europe').some((c) => c.region === 'eu-north-europe'));
-  assert.deepEqual(search('вымышленныйгород'), []);
-  assert.deepEqual(search('zzzz'), []);
+  assert.deepEqual([...search('вымышленныйгород')], []);
+  assert.deepEqual([...search('zzzz')], []);
 });
 
 test('search: справочник городов не пуст и ссылается на регионы v2', () => {
@@ -369,6 +371,7 @@ test('search(q, catalog): широкий запрос → топ-20 по нас�
 
 test('search(q): без каталога — прежнее поведение по CITIES (graceful fallback)', () => {
   assert.ok(search('Москв').some((c) => c.region === 'russia-belarus'));
-  assert.deepEqual(search('zzzz'), []);
-  assert.equal(search('Москва').broad, undefined); // метаданные широкого запроса — только с каталогом
+  assert.deepEqual([...search('zzzz')], []);
+  assert.equal(search('zzzz').broad, false); // .broad — boolean и в fallback без каталога
+  assert.equal(search('Москва').broad, false);
 });

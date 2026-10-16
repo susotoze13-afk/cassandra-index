@@ -4,13 +4,16 @@
 // (2) синтетический v2-снапшот даёт витрину из двенадцати строк.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { validate, regionIdsFor } from '../js/data.js';
 import { loadSnapshotPart } from '../calc/calc.js';
 import { rankedRegions } from '../js/sections/regions.js';
 
-const WEEKS = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23',
-  '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27',
-  '2026-10-04', '2026-10-11'];
+// Канонический список недель — CI_WEEKS из data/latest.js (не литерал).
+const ROOT = path.resolve(import.meta.dirname, '..');
+const latestSrc = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
+const WEEKS = JSON.parse(latestSrc.match(/window\.CI_WEEKS = (\[[^\]]*\])/)[1]);
 
 // Снапшот недели из дисковых частей (как data.test.js): global.js несёт
 // скалярные поля + global, остальные части — свои ключи.
@@ -29,8 +32,8 @@ function loadFullSnapshot(date) {
   return snap;
 }
 
-test('сквозная: 11 недель v1 валидны и витрина — шесть строк (нет unavailable)', () => {
-  assert.equal(WEEKS.length, 11);
+test('сквозная: недели CI_WEEKS (v1) валидны и витрина — шесть строк (нет unavailable)', () => {
+  assert.ok(WEEKS.length > 0, 'CI_WEEKS пуст');
   for (const w of WEEKS) {
     const snap = loadFullSnapshot(w);
     const v = validate(snap);

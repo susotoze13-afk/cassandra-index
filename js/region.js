@@ -332,10 +332,15 @@ export const consent = {
   },
 };
 
+// Поиск региона по id в наборе — одна форма для get()/choose().
+function findById(list, id) {
+  return list.find((r) => r.id === id) ?? null;
+}
+
 // get(id) — поиск по ОБОИМ наборам (нужно для отрисовки старых недель v1 и
 // текущих v2). Для выбора региона см. current()/choose() — только текущий набор.
 export function get(id) {
-  return REGIONS_V2.find((r) => r.id === id) ?? REGIONS_V1.find((r) => r.id === id) ?? null;
+  return findById(REGIONS_V2, id) ?? findById(REGIONS_V1, id);
 }
 
 // id присутствует в текущем наборе (v2)? Устаревшее значение ('europe')
@@ -383,7 +388,7 @@ export function current() {
 // choose(id, { persist }) — persist=true пишет в localStorage, иначе выбор живёт в сессии.
 // Автосохранения нет: persist — только явное действие («Запомнить» в пикере).
 export function choose(id, { persist = false } = {}) {
-  const r = REGIONS_V2.find((x) => x.id === id);
+  const r = findById(REGIONS_V2, id);
   if (!r) return null;
   const ss = storage('session');
   if (ss) ss.setItem(SS_KEY, id);
@@ -401,17 +406,23 @@ export function choose(id, { persist = false } = {}) {
 // городов и стран плюс имена регионов текущей таксономии, минимум 2 символа;
 // широкий запрос (> 20 совпадений) → топ-20 по населению + флаг `broad` (подсказка
 // «уточните запрос» на стороне UI). Каждый результат несёт `region_v2`
-// (город/страна — из справочника, регион — свой id).
+// (город/страна — из справочника, регион — свой id) и свойство массива
+// `.broad: boolean` — всегда, в том числе в fallback без каталога (там false).
 export function search(q, catalog) {
   const s = (q ?? '').trim().toLowerCase();
   if (!catalog) {
-    if (!s) return CITIES.map((c) => ({ ...c, region_v2: c.region, regionName: get(c.region).name }));
     const out = [];
-    for (const c of CITIES) {
-      const region = get(c.region);
-      const hay = `${c.name.ru} ${c.name.en} ${region.name.ru} ${region.name.en}`.toLowerCase();
-      if (hay.includes(s)) out.push({ ...c, region_v2: c.region, regionName: region.name });
+    if (!s) {
+      for (const c of CITIES) out.push({ ...c, region_v2: c.region, regionName: get(c.region).name });
+    } else {
+      for (const c of CITIES) {
+        const region = get(c.region);
+        const hay = `${c.name.ru} ${c.name.en} ${region.name.ru} ${region.name.en}`.toLowerCase();
+        if (hay.includes(s)) out.push({ ...c, region_v2: c.region, regionName: region.name });
+      }
     }
+    // Контракт `.broad` — boolean в обеих ветках; офлайн-fallback не широкий.
+    out.broad = false;
     return out;
   }
 

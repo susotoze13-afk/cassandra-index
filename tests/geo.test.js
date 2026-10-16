@@ -6,7 +6,11 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import vm from 'node:vm';
-import { loadGeo, resetGeoCache, geoSearch, resolveRegion } from '../js/geo.js';
+import { deflateRawSync } from 'node:zlib';
+import { loadGeo, resetGeoCache, resolveRegion } from '../js/geo.js';
+import {
+  unzipFirstEntry, pickRuAlternate, parseCityLine, parseCountryInfo, buildRegionMaps, buildOutput, COUNTRY_RU,
+} from '../data/geo/generate.js';
 import { regionIdsFor } from '../js/data.js';
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -91,47 +95,8 @@ const CATALOG = {
   },
 };
 
-// Широкий каталог: >20 городов на префикс «Те».
-const WIDE = {
-  cities: Array.from({ length: 30 }, (_, i) => ({
-    name: { ru: `Тем${i}`, en: `Tem${i}` }, country: 'RU', region_v2: 'russia-belarus', region_v1: 'europe', pop: i * 1000,
-  })),
-  countries: {},
-};
-
-test('geoSearch: префикс по ru/en городов/стран/регионов, результат несёт region_v2', () => {
-  const ru = geoSearch('Моск', CATALOG);
-  assert.ok(ru.some((r) => r.type === 'city' && r.region_v2 === 'russia-belarus'));
-  const en = geoSearch('belgr', CATALOG);
-  assert.ok(en.some((r) => r.type === 'city' && r.region_v2 === 'balkans'));
-  const country = geoSearch('Гренланд', CATALOG);
-  assert.ok(country.some((r) => r.type === 'country' && r.region_v2 === null));
-  const region = geoSearch('Балканы', CATALOG);
-  assert.ok(region.some((r) => r.type === 'region' && r.region_v2 === 'balkans'));
-});
-
-test('geoSearch: минимум 2 символа — 1 символ даёт пусто', () => {
-  assert.deepEqual([...geoSearch('М', CATALOG)], []);
-  assert.deepEqual([...geoSearch('', CATALOG)], []);
-  assert.ok(geoSearch('Мо', CATALOG).length > 0);
-});
-
-test('geoSearch: широкий запрос → ровно топ-20 по населению + broad', () => {
-  const out = geoSearch('Те', WIDE);
-  assert.equal(out.length, 20);
-  assert.equal(out.broad, true);
-  // перечислены самые населённые, в порядке убывания
-  assert.equal(out[0].name.en, 'Tem29');
-  assert.equal(out[19].name.en, 'Tem10');
-  const narrow = geoSearch('Моск', CATALOG);
-  assert.equal(narrow.broad, false);
-});
-
-test('geoSearch: неизвестный ввод → пустой массив без broad', () => {
-  const out = geoSearch('zzzzzz', CATALOG);
-  assert.equal(out.length, 0);
-  assert.equal(out.broad, false);
-});
+// Поиск по справочнику (region.search) покрыт в tests/region.test.js — единый
+// вход; в js/geo.js обёртки нет.
 
 // ---------- resolveRegion: fallback город→страна→регион ----------
 
@@ -148,6 +113,122 @@ test('resolveRegion: страна вне разбиения → region_* null; �
   assert.equal(gl.region_v1, null);
   assert.equal(resolveRegion('Атлантида', CATALOG), null);
   assert.equal(resolveRegion('NZ', CATALOG), null); // нет в каталоге
+});
+
+// ---------- Швы генератора data/geo/generate.js (офлайн, синтетика) ----------
+
+// Минимальный zip с одним deflate-энтри (local file header + raw deflate).
+function makeZip(name, content) {
+  const nameBuf = Buffer.from(name, 'utf8');
+  const raw = Buffer.from(content, 'utf8');
+  const deflated = deflateRawSync(raw);
+  const header = Buffer.alloc(30);
+  header.writeUInt32LE(0x04034b50, 0);
+  header.writeUInt16LE(20, 4);
+  header.writeUInt16LE(0, 6);
+  header.writeUInt16LE(8, 8); // method: deflate
+  header.writeUInt16LE(0, 10);
+  header.writeUInt16LE(0, 12);
+  header.writeUInt32LE(0, 14);
+  header.writeUInt32LE(deflated.length, 18);
+  header.writeUInt32LE(raw.length, 22);
+  header.writeUInt16LE(nameBuf.length, 26);
+  header.writeUInt16LE(0, 28);
+  return Buffer.concat([header, nameBuf, deflated]);
+}
+
+test('unzipFirstEntry: минимальный zip → имя и содержимое', () => {
+  const { name, data } = unzipFirstEntry(makeZip('cities15000.txt', 'hello\tworld\n'));
+  assert.equal(name, 'cities15000.txt');
+  assert.equal(data.toString('utf8'), 'hello\tworld\n');
+  assert.throws(() => unzipFirstEntry(Buffer.from('not a zip')), /zip/);
+});
+
+test('pickRuAlternate: первый русский вариант, чужие кириллицы отвергаются', () => {
+  assert.equal(pickRuAlternate('Moscow,Москва'), 'Москва');
+  assert.equal(pickRuAlternate('Њу Јорк,New York'), null); // сербские ј — не русский алфавит
+  assert.equal(pickRuAlternate('Бейжің'), null); // казахские і/ң
+  assert.equal(pickRuAlternate('  ,  '), null);
+  assert.equal(pickRuAlternate(null), null);
+});
+
+// Строка cities15000.tsv: 0 id, 1 name, 3 alternates, 7 fcode, 8 country, 14 pop.
+function cityLine({ id = 1, name = 'Test', alt = '', fcode = 'PPL', country = 'RU', pop = 0 }) {
+  const f = new Array(19).fill('');
+  f[0] = String(id);
+  f[1] = name;
+  f[2] = name;
+  f[3] = alt;
+  f[7] = fcode;
+  f[8] = country;
+  f[14] = String(pop);
+  return f.join('\t');
+}
+
+const EMPTY_REF = { adminCenters: new Set(), adminRu: new Map() };
+
+test('parseCityLine: порог населения, столица только суверена, админцентр и ru-имя', () => {
+  assert.equal(parseCityLine(cityLine({ fcode: 'PPL', pop: 40000 }), EMPTY_REF), null);
+  assert.ok(parseCityLine(cityLine({ fcode: 'PPL', pop: 60000 }), EMPTY_REF));
+  // PPLC суверенного государства — даже при малом населении.
+  const cap = parseCityLine(cityLine({ fcode: 'PPLC', country: 'RU', pop: 1000 }), EMPTY_REF);
+  assert.ok(cap && cap.isCapital === true);
+  // PPLC зависимой территории (Гренландия) — не столица (R14) и ниже порога → null.
+  assert.equal(parseCityLine(cityLine({ fcode: 'PPLC', country: 'GL', pop: 1000 }), EMPTY_REF), null);
+  // Админцентр включается по geonamesId независимо от населения.
+  const admin = parseCityLine(cityLine({ id: 42, pop: 100 }), { adminCenters: new Set([42]), adminRu: new Map([[42, 'Куре']]) });
+  assert.ok(admin && admin.isAdminCenter === true && admin.name.ru === 'Куре');
+  // Русское имя — из alternatenames, иначе первичное.
+  assert.equal(parseCityLine(cityLine({ alt: 'Moscow,Москва', pop: 60000 }), EMPTY_REF).name.ru, 'Москва');
+  assert.equal(parseCityLine(cityLine({ name: 'Nowhere', pop: 60000 }), EMPTY_REF).name.ru, 'Nowhere');
+});
+
+test('parseCountryInfo: ISO2, EN из дампа, RU из таблицы, EU/мусор пропущены', () => {
+  const text = '# hdr\nEU\tEUU\t000\tEU\tEuropean Union\nDE\tDEU\t276\tGM\tGermany\nRUS\tRUS\t643\tRS\tRussia\nRU\tRUS\t643\tRS\tRussia\n';
+  const out = parseCountryInfo(text);
+  assert.deepEqual(Object.keys(out).sort(), ['DE', 'RU']);
+  assert.equal(out.DE.en, 'Germany');
+  assert.equal(out.DE.ru, COUNTRY_RU.DE);
+  assert.equal(out.RU.ru, COUNTRY_RU.RU);
+});
+
+const REF = {
+  taxonomies: {
+    '1.0': { regions: [
+      { id: 'europe', countries: ['RU', 'BY', 'DE'], adminCenter: { geonamesId: 1, city: { ru: 'Амстердам' } } },
+    ] },
+    '2.0': { regions: [
+      { id: 'russia-belarus', countries: ['RU', 'BY'], adminCenter: { geonamesId: 1, city: { ru: 'Москва' } } },
+      { id: 'eu-north-europe', countries: ['DE'], adminCenter: { geonamesId: 2, city: { ru: 'Брюссель' } } },
+    ] },
+  },
+};
+
+test('buildRegionMaps: страны обеих версий, админцентры и ru-имена из v2', () => {
+  const maps = buildRegionMaps(REF);
+  assert.deepEqual(maps.byCountry.RU, { v1: 'europe', v2: 'russia-belarus' });
+  assert.equal(maps.byCountry.DE.v2, 'eu-north-europe');
+  assert.equal(maps.byCountry.GL, undefined); // страна вне разбиения
+  assert.deepEqual([...maps.adminCenters].sort(), [1, 2]);
+  assert.equal(maps.adminRu.get(1), 'Москва');
+  assert.equal(maps.adminRu.get(2), 'Брюссель');
+});
+
+test('buildOutput: фильтр и сортировка городов, регион стран, null вне разбиения', () => {
+  const lines = [
+    cityLine({ id: 1, name: 'Moscow', alt: 'Moscow,Москва', fcode: 'PPLC', country: 'RU', pop: 12000000 }),
+    cityLine({ id: 20, name: 'Nuuk', fcode: 'PPLC', country: 'GL', pop: 18000 }),
+    cityLine({ id: 3, name: 'Small', fcode: 'PPL', country: 'DE', pop: 1000 }),
+    cityLine({ id: 4, name: 'Big', fcode: 'PPL', country: 'DE', pop: 90000 }),
+  ];
+  const countryText = 'DE\tDEU\t276\tGM\tGermany\nRU\tRUS\t643\tRS\tRussia\nGL\tGRL\t304\tGL\tGreenland\n';
+  const { cities, countries } = buildOutput(lines, countryText, REF);
+  assert.deepEqual(cities.map((c) => c.name.en), ['Moscow', 'Big']); // по населению убыв., не-столица GL отсеяна
+  assert.equal(cities[0].region_v2, 'russia-belarus');
+  assert.equal(cities[1].region_v2, 'eu-north-europe');
+  assert.equal(countries.RU.region_v2, 'russia-belarus');
+  assert.equal(countries.GL.region_v2, null); // вне разбиения
+  assert.equal(countries.GL.region_v1, null);
 });
 
 // ---------- Ленивый загрузчик (подменённая инъекция) ----------
