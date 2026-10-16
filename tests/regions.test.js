@@ -2,11 +2,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { rankedRegions, statusLabel } from '../js/sections/regions.js';
 
-// §4.6 — ranked-лист «Где риск изменился сильнее всего»: все 6 регионов,
-// порядок — по величине недельного изменения (|Δ|), при равенстве — рост выше снижения.
+// §4.6 — ranked-лист «Где риск изменился сильнее всего»: все регионы текущего
+// реестра, порядок — по величине недельного изменения (|Δ|), при равенстве — рост
+// выше снижения. Реестр сайта переведён на таксономию v2 (ADR 0028), поэтому id —
+// текущего набора.
 const DEMO = {
   regions: {
-    europe: { index: 74, delta: 5, status: 'very' },
+    balkans: { index: 74, delta: 5, status: 'very' },
     'east-asia': { index: 55, delta: 2, status: 'danger' },
     'middle-east': { index: 88, delta: 9, status: 'critical' },
     'north-america': { index: 41, delta: -1, status: 'danger' },
@@ -15,11 +17,11 @@ const DEMO = {
   },
 };
 
-test('rankedRegions: все 6 регионов, сортировка по |Δ|', () => {
+test('rankedRegions: все регионы набора, сортировка по |Δ|', () => {
   const rows = rankedRegions(DEMO);
   assert.equal(rows.length, 6);
   assert.deepEqual(rows.map((r) => r.id), [
-    'middle-east', 'europe', 'south-asia', 'east-asia', 'africa', 'north-america',
+    'middle-east', 'balkans', 'south-asia', 'east-asia', 'africa', 'north-america',
   ]);
   assert.deepEqual(rows.map((r) => r.delta), [9, 5, 4, 2, 1, -1]);
   // данные региона проходят в строку без потерь
@@ -31,7 +33,7 @@ test('rankedRegions: нет данных / битый регион — без п
   assert.deepEqual(rankedRegions(null), []);
   assert.deepEqual(rankedRegions({}), []);
   // регион без числового Δ не попадает в список
-  const broken = { regions: { europe: { index: 74, delta: 'x' } } };
+  const broken = { regions: { balkans: { index: 74, delta: 'x' } } };
   assert.deepEqual(rankedRegions(broken), []);
 });
 

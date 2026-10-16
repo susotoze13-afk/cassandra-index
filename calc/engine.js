@@ -515,8 +515,9 @@ export function regionalSignals(criteria, regionIds, params) {
 }
 
 // --- Валидация входного файла недели (calc/input/<неделя>.json) ---
-// Контракт для тасок 02/03. validate(input) -> массив строк ошибок с путями
-// полей; [] = вход валиден. Битый вход не считается (R01.2).
+// Контракт для тасок 02/03. validate(input, params, regionIds) -> массив строк
+// ошибок с путями полей; [] = вход валиден. regionIds — whitelist регионов
+// версии недели (по умолчанию REGION_IDS); битый вход не считается (R01.2).
 
 export const CRITERIA = {
   'D1.1': { driver: 'D1', dir: 'esc', scale: 'count' },
@@ -597,8 +598,11 @@ const SOURCE_TYPES = ['primary', 'secondary', 'OSINT'];
 //   } },
 //   driverConfidence?: { D1: { level: 'high'|'medium'|'low', reason?: string } }
 // }
-export function validate(input, params) {
+export function validate(input, params, regionIds) {
   const p = params || PARAMS;
+  // Whitelist регионов входа — по версии недели (вызывающий передаёт набор из
+  // regionIdsFor(taxonomy)); дефолт — текущий набор (REGION_IDS из js/data.js).
+  const whitelist = Array.isArray(regionIds) && regionIds.length ? regionIds : REGION_IDS;
   const clusters = Array.isArray(p.clusters) ? p.clusters : [];
   const severityValues = Array.isArray(p.severityValues) ? p.severityValues : [];
   const eventsMax = (typeof p.capCount === 'number' ? p.capCount : 0) * 2;
@@ -686,9 +690,9 @@ export function validate(input, params) {
         if (!Array.isArray(entry.regions) || entry.regions.some((r) => typeof r !== 'string' || r.length === 0)) {
           err(`${path}.regions`, 'ожидается массив непустых строк регионов');
         } else {
-          const unknown = entry.regions.filter((r) => !REGION_IDS.includes(r));
+          const unknown = entry.regions.filter((r) => !whitelist.includes(r));
           if (unknown.length) {
-            err(`${path}.regions`, `неизвестный регион: ${unknown.join(', ')} (whitelist: ${REGION_IDS.join(', ')})`);
+            err(`${path}.regions`, `неизвестный регион: ${unknown.join(', ')} (whitelist: ${whitelist.join(', ')})`);
           }
         }
       }

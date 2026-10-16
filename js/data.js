@@ -3,7 +3,35 @@
 // в данных + событие ci:datastate, не падение.
 
 export const DATA_STATES = ['published', 'updating', 'delayed', 'insufficient', 'unavailable'];
-export const REGION_IDS = ['europe', 'east-asia', 'middle-east', 'north-america', 'south-asia', 'africa'];
+
+// Наборы регионов по версии таксономии (ADR 0028). Порядок id — канонический
+// (совпадает с порядком регионов в data/regions/reference.json и в js/region.js;
+// пин-тест фиксирует тройное равенство). '1.0' — легаси-шестёрка, '2.0' — текущая
+// двенадцатка.
+export const REGION_TAXONOMIES = {
+  '1.0': ['europe', 'east-asia', 'middle-east', 'north-america', 'south-asia', 'africa'],
+  '2.0': [
+    'russia-belarus', 'ukraine-moldova', 'baltic', 'balkans', 'eu-north-europe',
+    'south-caucasus', 'central-asia', 'east-asia', 'middle-east', 'north-america',
+    'south-asia', 'africa',
+  ],
+};
+
+// Резолвер набора id по версии снапшота; отсутствие/неизвестная версия = '1.0'
+// (старые недели поля не несут).
+export function regionIdsFor(taxonomy = '1.0') {
+  return REGION_TAXONOMIES[taxonomy] ?? REGION_TAXONOMIES['1.0'];
+}
+
+// Версия текущего набора и дата переключения (неделя пилота). REGION_IDS —
+// псевдоним для обратной совместимости: сегодняшний расчётный пайплайн
+// публикует v1-шестёрку, поэтому псевдоним указывает на набор '1.0' (значение
+// константы не меняется — иначе существующая цепочка и `engine.validate` по
+// умолчанию сломались бы до перевода пайплайна на версию недели, таск 02).
+// Контракт и расчёт переходят на regionIdsFor(version).
+export const CURRENT_TAXONOMY = '2.0';
+export const TAXONOMY_V2_FROM = '2026-10-18';
+export const REGION_IDS = REGION_TAXONOMIES['1.0'];
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const LEVELS = ['high', 'medium', 'low'];
@@ -118,7 +146,13 @@ export function validate(snapshot) {
   if (!snapshot.regions || typeof snapshot.regions !== 'object') {
     errors.push('regions: object required');
   } else {
-    for (const id of REGION_IDS) {
+    // Набор регионов — по версии снапшота: поле regions_taxonomy опционально
+    // (старые недели его не несут = '1.0'); если есть — '1.0'|'2.0'.
+    const taxonomy = snapshot.regions_taxonomy ?? '1.0';
+    if (!Object.prototype.hasOwnProperty.call(REGION_TAXONOMIES, taxonomy)) {
+      errors.push("regions_taxonomy: must be one of 1.0, 2.0 (or absent = '1.0')");
+    }
+    for (const id of regionIdsFor(taxonomy)) {
       const r = snapshot.regions[id];
       if (!r || !isIndex(r.index) || !isDelta(r.delta)) {
         errors.push(`regions.${id}: { index: 0..100, delta: number } required`);

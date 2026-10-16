@@ -1,5 +1,11 @@
-// Справочник: 6 регионов + города для поиска (Решения по реализации п.5, п.6).
-export const REGIONS = [
+// js/region.js — справочник регионов: две таксономии (v1 — легаси для старых
+// недель, v2 — текущая, ADR 0028) + города для поиска.
+//
+// Порядок в REGIONS_V2 важен: detect() возвращает первый совпавший префикс,
+// поэтому специфичные пояса идут раньше catch-all 'Europe/'. Российские 'Asia/*'
+// стоят выше центральноазиатских.
+
+export const REGIONS_V1 = [
   {
     id: 'europe',
     name: { ru: 'Европа', en: 'Europe' },
@@ -47,14 +53,150 @@ export const REGIONS = [
   },
 ];
 
+// Текущая таксономия (ADR 0028): семь регионов вместо europe + пять макрорегионов.
+export const REGIONS_V2 = [
+  {
+    id: 'russia-belarus',
+    name: { ru: 'Россия и Беларусь', en: 'Russia and Belarus' },
+    city: { ru: 'Москва', en: 'Moscow' },
+    prefixes: [
+      'Europe/Moscow', 'Europe/Kaliningrad', 'Europe/Kirov', 'Europe/Samara', 'Europe/Astrakhan',
+      'Europe/Saratov', 'Europe/Ulyanovsk', 'Europe/Volgograd',
+      'Asia/Yekaterinburg', 'Asia/Omsk', 'Asia/Novosibirsk', 'Asia/Barnaul', 'Asia/Krasnoyarsk',
+      'Asia/Irkutsk', 'Asia/Chita', 'Asia/Yakutsk', 'Asia/Vladivostok', 'Asia/Magadan',
+      'Asia/Sakhalin', 'Asia/Kamchatka', 'Asia/Anadyr', 'Asia/Novokuznetsk', 'Asia/Tomsk',
+      'Asia/Ust-Nera', 'Asia/Srednekolymsk', 'Asia/Khandyga',
+      'Europe/Minsk',
+    ],
+  },
+  {
+    id: 'ukraine-moldova',
+    name: { ru: 'Украина и Молдова', en: 'Ukraine and Moldova' },
+    city: { ru: 'Киев', en: 'Kyiv' },
+    prefixes: ['Europe/Kyiv', 'Europe/Kiev', 'Europe/Chisinau', 'Europe/Uzhgorod', 'Europe/Zaporozhye'],
+  },
+  {
+    id: 'baltic',
+    name: { ru: 'Балтия', en: 'The Baltics' },
+    city: { ru: 'Рига', en: 'Riga' },
+    prefixes: ['Europe/Tallinn', 'Europe/Riga', 'Europe/Vilnius'],
+  },
+  {
+    id: 'balkans',
+    name: { ru: 'Балканы', en: 'The Balkans' },
+    city: { ru: 'Белград', en: 'Belgrade' },
+    prefixes: [
+      'Europe/Belgrade', 'Europe/Bucharest', 'Europe/Sofia', 'Europe/Zagreb', 'Europe/Ljubljana',
+      'Europe/Sarajevo', 'Europe/Skopje', 'Europe/Tirane', 'Europe/Podgorica', 'Europe/Athens',
+    ],
+  },
+  {
+    id: 'eu-north-europe',
+    name: { ru: 'Европа (ЕС и Север)', en: 'Europe (EU & North)' },
+    city: { ru: 'Брюссель', en: 'Brussels' },
+    // catch-all 'Europe/' — последним: всё европейское, не поймано выше.
+    prefixes: [
+      'Atlantic/Reykjavik', 'Atlantic/Azores', 'Atlantic/Madeira', 'Atlantic/Canary',
+      'Asia/Nicosia', 'Asia/Famagusta', 'Europe/',
+    ],
+  },
+  {
+    id: 'south-caucasus',
+    name: { ru: 'Южный Кавказ', en: 'South Caucasus' },
+    city: { ru: 'Тбилиси', en: 'Tbilisi' },
+    prefixes: ['Asia/Tbilisi', 'Asia/Yerevan', 'Asia/Baku'],
+  },
+  {
+    id: 'central-asia',
+    name: { ru: 'Средняя Азия', en: 'Central Asia' },
+    city: { ru: 'Алматы', en: 'Almaty' },
+    prefixes: [
+      'Asia/Almaty', 'Asia/Qostanay', 'Asia/Aqtobe', 'Asia/Aqtau', 'Asia/Atyrau', 'Asia/Oral',
+      'Asia/Qyzylorda', 'Asia/Tashkent', 'Asia/Samarkand', 'Asia/Ashgabat', 'Asia/Dushanbe', 'Asia/Bishkek',
+    ],
+  },
+  {
+    id: 'east-asia',
+    name: { ru: 'Восточная Азия', en: 'East Asia' },
+    city: { ru: 'Токио', en: 'Tokyo' },
+    prefixes: [
+      'Asia/Tokyo', 'Asia/Shanghai', 'Asia/Hong_Kong', 'Asia/Macau', 'Asia/Taipei',
+      'Asia/Seoul', 'Asia/Pyongyang', 'Asia/Singapore', 'Asia/Jakarta', 'Asia/Bangkok', 'Asia/Manila',
+    ],
+  },
+  {
+    id: 'middle-east',
+    name: { ru: 'Ближний Восток', en: 'Middle East' },
+    city: { ru: 'Бейрут', en: 'Beirut' },
+    prefixes: [
+      'Asia/Beirut', 'Asia/Damascus', 'Asia/Jerusalem', 'Asia/Riyadh', 'Asia/Dubai',
+      'Asia/Qatar', 'Asia/Kuwait', 'Asia/Baghdad', 'Asia/Tehran', 'Asia/Amman',
+    ],
+  },
+  {
+    id: 'north-america',
+    name: { ru: 'Северная Америка', en: 'North America' },
+    city: { ru: 'Вашингтон', en: 'Washington' },
+    prefixes: [
+      'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+      'America/Toronto', 'America/Vancouver', 'America/Mexico_City', 'America/Halifax', 'US/', 'Canada/',
+    ],
+  },
+  {
+    id: 'south-asia',
+    name: { ru: 'Южная Азия', en: 'South Asia' },
+    city: { ru: 'Нью-Дели', en: 'New Delhi' },
+    prefixes: ['Asia/Kolkata', 'Asia/Karachi', 'Asia/Kathmandu', 'Asia/Dhaka', 'Asia/Colombo', 'Asia/Kabul'],
+  },
+  {
+    id: 'africa',
+    name: { ru: 'Африка', en: 'Africa' },
+    city: { ru: 'Найроби', en: 'Nairobi' },
+    prefixes: ['Africa/'],
+  },
+];
+
+// Текущий набор (для detect/выбора); легаси — REGIONS_V1.
+export const REGIONS = REGIONS_V2;
+
+// Набор регионов по версии таксономии снапшота (ADR 0028). Согласовано с
+// regionIdsFor(taxonomy) из js/data.js: отсутствие/неизвестная версия = '1.0'.
+export function regionForTaxonomy(version) {
+  return version === '2.0' ? REGIONS_V2 : REGIONS_V1;
+}
+
 export const CITIES = [
-  { name: { ru: 'Амстердам', en: 'Amsterdam' }, region: 'europe' },
-  { name: { ru: 'Берлин', en: 'Berlin' }, region: 'europe' },
-  { name: { ru: 'Париж', en: 'Paris' }, region: 'europe' },
-  { name: { ru: 'Лондон', en: 'London' }, region: 'europe' },
-  { name: { ru: 'Варшава', en: 'Warsaw' }, region: 'europe' },
-  { name: { ru: 'Москва', en: 'Moscow' }, region: 'europe' },
-  { name: { ru: 'Киев', en: 'Kyiv' }, region: 'europe' },
+  { name: { ru: 'Москва', en: 'Moscow' }, region: 'russia-belarus' },
+  { name: { ru: 'Санкт-Петербург', en: 'Saint Petersburg' }, region: 'russia-belarus' },
+  { name: { ru: 'Минск', en: 'Minsk' }, region: 'russia-belarus' },
+  { name: { ru: 'Киев', en: 'Kyiv' }, region: 'ukraine-moldova' },
+  { name: { ru: 'Кишинёв', en: 'Chisinau' }, region: 'ukraine-moldova' },
+  { name: { ru: 'Рига', en: 'Riga' }, region: 'baltic' },
+  { name: { ru: 'Вильнюс', en: 'Vilnius' }, region: 'baltic' },
+  { name: { ru: 'Таллин', en: 'Tallinn' }, region: 'baltic' },
+  { name: { ru: 'Белград', en: 'Belgrade' }, region: 'balkans' },
+  { name: { ru: 'Бухарест', en: 'Bucharest' }, region: 'balkans' },
+  { name: { ru: 'София', en: 'Sofia' }, region: 'balkans' },
+  { name: { ru: 'Загреб', en: 'Zagreb' }, region: 'balkans' },
+  { name: { ru: 'Афины', en: 'Athens' }, region: 'balkans' },
+  { name: { ru: 'Любляна', en: 'Ljubljana' }, region: 'balkans' },
+  { name: { ru: 'Сараево', en: 'Sarajevo' }, region: 'balkans' },
+  { name: { ru: 'Тирана', en: 'Tirana' }, region: 'balkans' },
+  { name: { ru: 'Скопье', en: 'Skopje' }, region: 'balkans' },
+  { name: { ru: 'Брюссель', en: 'Brussels' }, region: 'eu-north-europe' },
+  { name: { ru: 'Амстердам', en: 'Amsterdam' }, region: 'eu-north-europe' },
+  { name: { ru: 'Берлин', en: 'Berlin' }, region: 'eu-north-europe' },
+  { name: { ru: 'Париж', en: 'Paris' }, region: 'eu-north-europe' },
+  { name: { ru: 'Лондон', en: 'London' }, region: 'eu-north-europe' },
+  { name: { ru: 'Варшава', en: 'Warsaw' }, region: 'eu-north-europe' },
+  { name: { ru: 'Тбилиси', en: 'Tbilisi' }, region: 'south-caucasus' },
+  { name: { ru: 'Ереван', en: 'Yerevan' }, region: 'south-caucasus' },
+  { name: { ru: 'Баку', en: 'Baku' }, region: 'south-caucasus' },
+  { name: { ru: 'Алматы', en: 'Almaty' }, region: 'central-asia' },
+  { name: { ru: 'Ташкент', en: 'Tashkent' }, region: 'central-asia' },
+  { name: { ru: 'Бишкек', en: 'Bishkek' }, region: 'central-asia' },
+  { name: { ru: 'Душанбе', en: 'Dushanbe' }, region: 'central-asia' },
+  { name: { ru: 'Ашхабад', en: 'Ashgabat' }, region: 'central-asia' },
   { name: { ru: 'Токио', en: 'Tokyo' }, region: 'east-asia' },
   { name: { ru: 'Пекин', en: 'Beijing' }, region: 'east-asia' },
   { name: { ru: 'Шанхай', en: 'Shanghai' }, region: 'east-asia' },
@@ -89,7 +231,7 @@ const SS_KEY = 'cassandra.region.session';
 
 // ---------- Версионированный справочник регионов (data/regions/reference.*) ----------
 // Канонический источник — data/regions/reference.json (ISO 3166-2, админцентры,
-// политика спорных территорий, версия методологии). Сайт читает его через
+// политика спорных территорий, версия таксономии). Сайт читает его через
 // data/regions/reference.js (window.CI_REGION_REF) — fetch на file:// невозможен.
 
 // Ссылка на справочник, если загрузчик не подключён (тесты, вне браузера).
@@ -190,14 +332,23 @@ export const consent = {
   },
 };
 
+// get(id) — поиск по ОБОИМ наборам (нужно для отрисовки старых недель v1 и
+// текущих v2). Для выбора региона см. current()/choose() — только текущий набор.
 export function get(id) {
-  return REGIONS.find((r) => r.id === id) ?? null;
+  return REGIONS_V2.find((r) => r.id === id) ?? REGIONS_V1.find((r) => r.id === id) ?? null;
+}
+
+// id присутствует в текущем наборе (v2)? Устаревшее значение ('europe')
+// считается отсутствующим — при выборе забывается, не ре-бакетится (ADR 0028).
+export function isCurrent(id) {
+  return REGIONS_V2.some((r) => r.id === id);
 }
 
 // Детект по IANA-префиксам часового пояса браузера; неизвестный пояс → null.
+// Итерирует текущий набор (v2) в объявленном порядке.
 export function detect(tz) {
   if (typeof tz !== 'string' || !tz) return null;
-  for (const r of REGIONS) {
+  for (const r of REGIONS_V2) {
     if (r.prefixes.some((p) => tz === p || tz.startsWith(p))) return r.id;
   }
   return null;
@@ -214,16 +365,17 @@ function storage(kind) {
 }
 
 // Выбор пользователя: localStorage (только при явном persist) → session → null.
+// Значение вне текущего набора (напр. устаревшее 'europe') игнорируется.
 export function current() {
   const ls = storage('local');
   if (ls) {
     const v = ls.getItem(LS_KEY);
-    if (v && get(v)) return v;
+    if (v && isCurrent(v)) return v;
   }
   const ss = storage('session');
   if (ss) {
     const v = ss.getItem(SS_KEY);
-    if (v && get(v)) return v;
+    if (v && isCurrent(v)) return v;
   }
   return null;
 }
@@ -231,7 +383,7 @@ export function current() {
 // choose(id, { persist }) — persist=true пишет в localStorage, иначе выбор живёт в сессии.
 // Автосохранения нет: persist — только явное действие («Запомнить» в пикере).
 export function choose(id, { persist = false } = {}) {
-  const r = get(id);
+  const r = REGIONS_V2.find((x) => x.id === id);
   if (!r) return null;
   const ss = storage('session');
   if (ss) ss.setItem(SS_KEY, id);

@@ -1,20 +1,38 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { REGIONS, CITIES, detect, search } from '../js/region.js';
+import { REGIONS, REGIONS_V1, REGIONS_V2, regionForTaxonomy, isCurrent, get, current, choose, CITIES, detect, search } from '../js/region.js';
+import { regionIdsFor, REGION_TAXONOMIES, CURRENT_TAXONOMY, TAXONOMY_V2_FROM } from '../js/data.js';
 
-test('detect: IANA-префиксы маппятся в 6 регионов', () => {
-  assert.equal(detect('Europe/Amsterdam'), 'europe');
-  assert.equal(detect('Europe/Moscow'), 'europe');
+test('detect: IANA-префиксы маппятся в 12 регионов v2 (специфичные раньше catch-all)', () => {
+  assert.equal(detect('Europe/Moscow'), 'russia-belarus');
+  assert.equal(detect('Asia/Novosibirsk'), 'russia-belarus'); // России Asia/* выше центральноазиатских
+  assert.equal(detect('Europe/Minsk'), 'russia-belarus');
+  assert.equal(detect('Europe/Kyiv'), 'ukraine-moldova');
+  assert.equal(detect('Europe/Riga'), 'baltic');
+  assert.equal(detect('Europe/Belgrade'), 'balkans');
+  assert.equal(detect('Europe/Athens'), 'balkans');
+  assert.equal(detect('Europe/Amsterdam'), 'eu-north-europe'); // catch-all 'Europe/'
+  assert.equal(detect('Europe/London'), 'eu-north-europe');
+  assert.equal(detect('Asia/Nicosia'), 'eu-north-europe'); // Кипр — в ЕС-корзине
+  assert.equal(detect('Asia/Tbilisi'), 'south-caucasus');
+  assert.equal(detect('Asia/Almaty'), 'central-asia');
+  assert.equal(detect('Asia/Tashkent'), 'central-asia');
   assert.equal(detect('Asia/Tokyo'), 'east-asia');
-  assert.equal(detect('Asia/Shanghai'), 'east-asia');
   assert.equal(detect('Asia/Beirut'), 'middle-east');
-  assert.equal(detect('Asia/Dubai'), 'middle-east');
   assert.equal(detect('America/New_York'), 'north-america');
-  assert.equal(detect('America/Los_Angeles'), 'north-america');
   assert.equal(detect('Asia/Kolkata'), 'south-asia');
-  assert.equal(detect('Asia/Kathmandu'), 'south-asia');
   assert.equal(detect('Africa/Nairobi'), 'africa');
-  assert.equal(detect('Africa/Cairo'), 'africa');
+});
+
+test('regionForTaxonomy: 1.0/отсутствие/неизвестное → шестёрка; 2.0 → двенадцатка', () => {
+  assert.deepEqual(regionForTaxonomy('1.0').map((r) => r.id), ['europe', 'east-asia', 'middle-east', 'north-america', 'south-asia', 'africa']);
+  assert.deepEqual(regionForTaxonomy('2.0'), REGIONS_V2);
+  assert.deepEqual(regionForTaxonomy(), REGIONS_V1);
+  assert.deepEqual(regionForTaxonomy(undefined), REGIONS_V1);
+  assert.deepEqual(regionForTaxonomy('9.9'), REGIONS_V1);
+  // 'europe' — легаси, в текущем наборе отсутствует
+  assert.equal(isCurrent('europe'), false);
+  assert.equal(isCurrent('balkans'), true);
 });
 
 test('detect: неизвестный/пустой пояс → null', () => {
@@ -25,9 +43,11 @@ test('detect: неизвестный/пустой пояс → null', () => {
   assert.equal(detect(null), null);
 });
 
-test('detect: каждый из 6 регионов имеет непустые префиксы', () => {
-  assert.equal(REGIONS.length, 6);
-  for (const r of REGIONS) {
+test('detect: каждый из 12 регионов v2 имеет непустые префиксы', () => {
+  assert.equal(REGIONS_V2.length, 12);
+  assert.equal(REGIONS_V1.length, 6);
+  assert.equal(REGIONS.length, 12); // REGIONS = текущий набор (alias)
+  for (const r of REGIONS_V2) {
     assert.ok(Array.isArray(r.prefixes) && r.prefixes.length > 0, `${r.id} has prefixes`);
     assert.ok(r.name.ru && r.name.en && r.city.ru && r.city.en, `${r.id} has names`);
   }
@@ -35,26 +55,30 @@ test('detect: каждый из 6 регионов имеет непустые �
 
 test('search: находит город по русскому и английскому имени', () => {
   const byRu = search('Москв');
-  assert.ok(byRu.some((c) => c.region === 'europe'));
+  assert.ok(byRu.some((c) => c.region === 'russia-belarus'));
   const byEn = search('moscow');
-  assert.ok(byEn.some((c) => c.region === 'europe'));
+  assert.ok(byEn.some((c) => c.region === 'russia-belarus'));
   assert.ok(search('Токио').some((c) => c.region === 'east-asia'));
   assert.ok(search('beirut').some((c) => c.region === 'middle-east'));
   assert.ok(search('NAIROBI').some((c) => c.region === 'africa'));
   assert.ok(search('Дели').some((c) => c.region === 'south-asia'));
+  assert.ok(search('Белград').some((c) => c.region === 'balkans'));
+  assert.ok(search('Тбилиси').some((c) => c.region === 'south-caucasus'));
+  assert.ok(search('Алматы').some((c) => c.region === 'central-asia'));
 });
 
 test('search: совпадение по имени региона, нет совпадений → пустой массив', () => {
-  assert.ok(search('Европа').every((c) => c.region === 'europe'));
-  assert.ok(search('Europe').some((c) => c.region === 'europe'));
+  assert.ok(search('Европа').every((c) => c.region === 'eu-north-europe'));
+  assert.ok(search('Балканы').some((c) => c.region === 'balkans'));
+  assert.ok(search('Europe').some((c) => c.region === 'eu-north-europe'));
   assert.deepEqual(search('вымышленныйгород'), []);
   assert.deepEqual(search('zzzz'), []);
 });
 
-test('search: справочник содержит ~30 городов', () => {
-  assert.ok(CITIES.length >= 28 && CITIES.length <= 40, `cities: ${CITIES.length}`);
+test('search: справочник городов не пуст и ссылается на регионы v2', () => {
+  assert.ok(CITIES.length >= 50, `cities: ${CITIES.length}`);
   for (const c of CITIES) {
-    assert.ok(c.name.ru && c.name.en && REGIONS.some((r) => r.id === c.region));
+    assert.ok(c.name.ru && c.name.en && REGIONS_V2.some((r) => r.id === c.region), `${c.name.ru} → ${c.region}`);
   }
 });
 
@@ -70,19 +94,92 @@ const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ref = JSON.parse(readFileSync(join(rootDir, 'data/regions/reference.json'), 'utf8'));
 const LADDER = ref.confidenceLadder; // { city: 80, region: 90, floor: 50 }
 
-test('reference: справочник валиден — 6 регионов, ISO, админцентры, политика, версия', () => {
-  assert.equal(ref.methodology, '1.0');
+test('reference: справочник валиден — две таксономии, ISO, админцентры, политика, версия', () => {
+  assert.equal(ref.taxonomy_version, '2.0');
   assert.ok(ref.disputedTerritories.includes('ISO 3166-2'));
-  assert.equal(ref.regions.length, 6);
-  for (const r of ref.regions) {
-    assert.ok(r.id && r.name.ru && r.name.en, `${r.id} has bilingual name`);
-    assert.ok(Array.isArray(r.countries) && r.countries.length > 0, `${r.id} has ISO codes`);
-    assert.ok(r.countries.every((c) => /^[A-Z]{2}$/.test(c)), `${r.id} codes are ISO 3166-1 alpha-2`);
-    assert.ok(r.adminCenter.city.ru && r.adminCenter.city.en, `${r.id} admin center`);
-    assert.ok(/^[A-Z]{2}-[A-Z0-9]{1,3}$/.test(r.adminCenter.iso3166_2), `${r.id} admin center ISO 3166-2`);
+  assert.equal(ref.taxonomies['1.0'].regions.length, 6);
+  assert.equal(ref.taxonomies['2.0'].regions.length, 12);
+  for (const version of ['1.0', '2.0']) {
+    for (const r of ref.taxonomies[version].regions) {
+      assert.ok(r.id && r.name.ru && r.name.en, `${version}/${r.id} has bilingual name`);
+      assert.ok(Array.isArray(r.countries) && r.countries.length > 0, `${version}/${r.id} has ISO codes`);
+      assert.ok(r.countries.every((c) => /^[A-Z]{2}$/.test(c)), `${version}/${r.id} codes are ISO 3166-1 alpha-2`);
+      assert.ok(r.adminCenter.city.ru && r.adminCenter.city.en, `${version}/${r.id} admin center`);
+      assert.ok(/^[A-Z]{2}-[A-Z0-9]{1,3}$/.test(r.adminCenter.iso3166_2), `${version}/${r.id} admin center ISO 3166-2`);
+    }
   }
+  // Набор id v2 совпадает с реестром сайта (REGIONS_V2) — справочник и реестр синхронны.
+  assert.deepEqual(ref.taxonomies['2.0'].regions.map((r) => r.id), REGIONS_V2.map((r) => r.id));
+  assert.deepEqual(ref.taxonomies['1.0'].regions.map((r) => r.id), REGIONS_V1.map((r) => r.id));
   // Пороги лестницы — ровно те же, что в PARAMS.ipConfidenceLadder (таск 01).
   assert.deepEqual(ref.confidenceLadder, PARAMS.ipConfidenceLadder);
+});
+
+// ---------- Таксономия v1/v2: резолверы контракта ↔ реестр ↔ справочник (ADR 0028) ----------
+
+test('regionIdsFor(v) ↔ regionForTaxonomy(v) ↔ reference.json — тройное равенство id', () => {
+  assert.deepEqual(Object.keys(REGION_TAXONOMIES), ['1.0', '2.0']);
+  assert.equal(CURRENT_TAXONOMY, '2.0');
+  assert.equal(TAXONOMY_V2_FROM, '2026-10-18');
+  // отсутствие версии/неизвестная версия = '1.0' (старые недели поля не несут)
+  assert.deepEqual(regionIdsFor(), regionIdsFor('1.0'));
+  assert.deepEqual(regionIdsFor('9.9'), regionIdsFor('1.0'));
+  for (const v of ['1.0', '2.0']) {
+    const fromResolver = regionIdsFor(v);
+    const fromRegistry = regionForTaxonomy(v).map((r) => r.id);
+    const fromReference = ref.taxonomies[v].regions.map((r) => r.id);
+    assert.deepEqual(fromResolver, fromRegistry, `taxonomy ${v}: js/data.js ↔ js/region.js`);
+    assert.deepEqual(fromResolver, fromReference, `taxonomy ${v}: js/data.js ↔ reference.json`);
+  }
+  // отсутствие/неизвестная версия — согласованно '1.0' в обоих резолверах
+  for (const v of [undefined, '9.9']) {
+    assert.deepEqual(regionIdsFor(v), regionForTaxonomy(v).map((r) => r.id), `taxonomy ${v}: js/data.js ↔ js/region.js`);
+    assert.deepEqual(regionIdsFor(v), regionIdsFor('1.0'));
+  }
+  assert.equal(regionIdsFor('1.0').length, 6);
+  assert.equal(regionIdsFor('2.0').length, 12);
+});
+
+// Разбиение строгое: каждый ISO ровно в одном регионе; спорные клетки решены
+// явными приоритетами (R03–R03.5). Ожидаемые клетки — из спецификации, не из кода.
+test('строгость v2: каждый ISO ровно в одном регионе; TR/CY/MT/GR-…/EE-… разрешены', () => {
+  const owner = new Map();
+  const dups = [];
+  for (const r of ref.taxonomies['2.0'].regions) {
+    for (const c of r.countries) {
+      if (owner.has(c)) dups.push(c);
+      else owner.set(c, r.id);
+    }
+  }
+  assert.deepEqual(dups, [], 'страна не может принадлежать двум регионам');
+  const at = (c) => owner.get(c) ?? null;
+  assert.equal(at('TR'), 'middle-east');
+  assert.equal(at('CY'), 'eu-north-europe');
+  assert.equal(at('MT'), 'eu-north-europe');
+  for (const c of ['GR', 'BG', 'RO', 'HR', 'SI']) assert.equal(at(c), 'balkans', `${c} → balkans`);
+  for (const c of ['EE', 'LV', 'LT']) assert.equal(at(c), 'baltic', `${c} → baltic`);
+  assert.equal(at('GL'), null, 'Гренландия вне разбиения');
+  assert.equal(at('XK'), null, 'Косово вне разбиения');
+});
+
+test('get/isCurrent: get ищет оба набора, isCurrent — только текущий', () => {
+  assert.equal(get('balkans').id, 'balkans');
+  assert.equal(get('europe').id, 'europe'); // v1 — нужен для отрисовки старых недель
+  assert.equal(get('atlantis'), null);
+  assert.equal(isCurrent('europe'), false);
+  assert.equal(isCurrent('balkans'), true);
+});
+
+test('current/choose: устаревшее "europe" забывается, выбор v2 сохраняется', () => {
+  const store = fakeStorage();
+  store.setItem('cassandra.region', 'europe'); // «хвост» старой таксономии
+  withLocalStorage(store, () => {
+    assert.equal(current(), null);          // значение вне текущего набора игнорируется
+    assert.equal(choose('europe'), null);   // устаревшее значение не выбирается
+    const r = choose('balkans', { persist: true });
+    assert.equal(r.id, 'balkans');
+    assert.equal(current(), 'balkans');     // выбор v2 читается обратно
+  });
 });
 
 test('reference: data/regions/reference.js зеркалит reference.json (грузится сайтом)', () => {

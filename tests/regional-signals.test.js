@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 
 import { regionalIndex, regionalSignals, validate } from '../calc/engine.js';
 import { PARAMS, list } from '../calc/params.js';
-import { REGION_IDS } from '../js/data.js';
+import { REGION_IDS, regionIdsFor } from '../js/data.js';
 
 // --- Диагностика брифа: у слепого региона дельта по построению равна глобальной ---
 // Задокументированное поведение §7, а не баг: delta = (gInternal + clamp(prevIndex −
@@ -207,6 +207,29 @@ test('validate (js/data.js): background не-boolean отклоняется', ()
   assert.ok(bad.errors.some((e) => e.includes('regions.europe.background')));
 });
 
+// Набор регионов снапшота — по версии (R07, ADR 0028): поле regions_taxonomy
+// опционально (отсутствие = '1.0'), но если есть — валидны только '1.0'|'2.0';
+// требуются ровно id своей версии, не единственная шестёрка.
+test('validate (js/data.js): набор регионов — по regions_taxonomy', () => {
+  const twelve = (extra) => Object.fromEntries(
+    regionIdsFor('2.0').map((id, i) => [id, { index: 50 + (i % 30), delta: i - 6, ...extra(id) }]),
+  );
+  // v1-снапшот без поля проходит
+  const v1 = validateSnapshot(snapshotWith(SIX_REGIONS(() => ({}))));
+  assert.equal(v1.ok, true, JSON.stringify(v1.errors));
+  // v2-снапшот с двенадцатью регионами проходит
+  const v2 = validateSnapshot({ ...snapshotWith(twelve(() => ({}))), regions_taxonomy: '2.0' });
+  assert.equal(v2.ok, true, JSON.stringify(v2.errors));
+  // v2 объявлен, а регионов шесть — отклонён (нет id набора 2.0)
+  const v2Six = validateSnapshot({ ...snapshotWith(SIX_REGIONS(() => ({}))), regions_taxonomy: '2.0' });
+  assert.equal(v2Six.ok, false);
+  assert.ok(v2Six.errors.some((e) => e.includes('regions.russia-belarus')));
+  // неизвестная версия — ошибка поля
+  const badVer = validateSnapshot({ ...snapshotWith(SIX_REGIONS(() => ({}))), regions_taxonomy: '9.9' });
+  assert.equal(badVer.ok, false);
+  assert.ok(badVer.errors.some((e) => e.includes('regions_taxonomy')));
+});
+
 // --- Валидация входа: whitelist регионов ---
 
 function inputWithRegions(regions) {
@@ -223,7 +246,8 @@ function inputWithRegions(regions) {
   };
 }
 
-test('validate: regions критерия — whitelist из 6 REGION_IDS, неизвестный id — понятная ошибка', () => {
+test('validate: regions критерия — whitelist по третьему параметру; дефолт — REGION_IDS', () => {
+  // Дефолт (без третьего параметра) — набор пайплайна (шестёрка v1).
   const good = validate(inputWithRegions(['europe', 'africa']));
   assert.deepEqual(good, []);
 
@@ -237,4 +261,12 @@ test('validate: regions критерия — whitelist из 6 REGION_IDS, неи
   assert.ok(notArray.some((e) => e.includes('criteria.D1.1.regions')));
   const emptyString = validate(inputWithRegions(['']));
   assert.ok(emptyString.some((e) => e.includes('criteria.D1.1.regions')));
+
+  // Явный whitelist версии недели: v1-id на v2-наборе — ошибка; v2-id — валиден.
+  const v2 = regionIdsFor('2.0');
+  const wrongForV2 = validate(inputWithRegions(['europe']), PARAMS, v2);
+  assert.equal(wrongForV2.length, 1);
+  assert.ok(wrongForV2[0].includes('europe'));
+  assert.ok(wrongForV2[0].includes('russia-belarus')); // ошибка называет переданный whitelist
+  assert.deepEqual(validate(inputWithRegions(['balkans']), PARAMS, v2), []);
 });
