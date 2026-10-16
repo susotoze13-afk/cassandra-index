@@ -226,7 +226,11 @@ function ensureCatalog() {
     catalog = c;
     const list = panel?.querySelector('[data-role="picker-list"]');
     if (panelOpen && list && !list.hidden) renderList();
-  }, () => { /* тихий откат: поиск по встроенному CITIES */ });
+  }, () => {
+    // Тихий откат: поиск по встроенному CITIES. Флаг снимаем — повторное
+    // открытие/ввод даёт вторую попытку подгрузки справочника за сессию.
+    geoRequested = false;
+  });
 }
 
 function renderList() {
@@ -234,9 +238,10 @@ function renderList() {
   const input = panel.querySelector('[data-role="picker-input"]');
   const list = panel.querySelector('[data-role="picker-list"]');
   const q = input.value;
-  // Справочник подключён: поиск идёт от двух символов (R17); пустой/короткий
-  // запрос — список скрыт, «ничего не найдено» не мелькает.
-  if (catalog && q.trim().length < 2) {
+  // R17: поиск идёт от двух символов — и со справочником, и в офлайн-fallback
+  // по встроенному CITIES. Пустой/короткий запрос — список скрыт, «ничего не
+  // найдено» не мелькает.
+  if (q.trim().length < 2) {
     list.hidden = true;
     input.setAttribute('aria-expanded', 'false');
     activeOption = -1;

@@ -42,11 +42,17 @@ test('privacy.html: цели ключей cassandra.region/consent, локали
   assert.ok(privacyHtml.includes('data-i18n'));
   assert.ok(privacyHtml.includes('js/i18n.js'));
   assert.ok(privacyHtml.includes('href="index.html"'));
-  // ноль внешних зависимостей: ни CDN, ни внешних скриптов/стилей. Внешняя
-  // ссылка-атрибуция GeoNames (R29i, CC BY 4.0) — обычный <a>, не подгружаемый
-  // ресурс; её наличие проверяем отдельно.
-  assert.ok(!/src="https?:\/\//.test(privacyHtml));
-  assert.ok(!/rel="stylesheet"[^>]*href="https?:\/\//.test(privacyHtml));
+  // ноль внешних зависимостей: ни CDN, ни внешних скриптов/стилей. Единственный
+  // разрешённый внешний URL — лицензия GeoNames (R29i, CC BY 4.0) как обычный
+  // <a>-анкор, не подгружаемый ресурс. Порядок атрибутов (href/rel/src) не важен,
+  // поэтому ловим сам внешний URL, а не шаблон тега.
+  const ALLOWED_EXTERNAL = new Set(['https://creativecommons.org/licenses/by/4.0/']);
+  const external = [...privacyHtml.matchAll(/\b(?:src|href)\s*=\s*"(https?:\/\/[^"]*)"/gi)]
+    .map((m) => m[1]);
+  const foreign = external.filter((u) => !ALLOWED_EXTERNAL.has(u));
+  assert.deepEqual(foreign, [], `privacy.html тянет внешние ресурсы: ${foreign.join(', ')}`);
+  // Ничего внешнее не подгружается как ресурс (script/link/img src).
+  assert.ok(!/\bsrc\s*=\s*"https?:\/\//i.test(privacyHtml));
   assert.ok(privacyHtml.includes('href="https://creativecommons.org/licenses/by/4.0/"'));
 });
 

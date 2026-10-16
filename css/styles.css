@@ -1051,6 +1051,13 @@ main {
   border-left: 4px solid var(--accent);
 }
 
+/* ADR 0028: на узких экранах витрина — до 12 строк. Личный регион пинится
+   вверху списка (flex order), остальные скроллятся. Текстовый бейдж «ваш регион»
+   и акцентная полоса (.is-personal) — отдельные сигналы: порядок не единственный. */
+.region-row--pinned {
+  order: -1;
+}
+
 .region-row-head {
   display: flex;
   align-items: center;

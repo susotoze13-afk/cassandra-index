@@ -5,6 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DICTS } from '../js/i18n.js';
+import { REGIONS_V1, REGIONS_V2 } from '../js/region.js';
 
 // Запрещённые слова и фразы (PRD §11.5 + R06): «вероятность», «шанс»,
 // «процент риска», «обратный отсчёт», «на пороге», «на грани»,
@@ -41,6 +42,21 @@ const FORBIDDEN = [
 export function lexiconHits(text) {
   if (typeof text !== 'string') return [];
   return FORBIDDEN.filter((f) => f.re.test(text)).map((f) => f.label);
+}
+
+// R04 — имена регионов нейтральны по географии, без блоковой лексики. Отдельный
+// список от FORBIDDEN: эти слова — запрет именно для НАЗВАНИЙ/заметок регионов,
+// а не для описательных наблюдений источников (там «союзники» встречается как
+// пересказ события и снимать его из снапшотов лексикон не должен).
+const R04_FORBIDDEN = [
+  { re: /коллективн[а-яё]*\s+запад/iu, label: 'коллективный Запад' },
+  { re: /зарубежь/iu, label: 'зарубежье' },
+  { re: /(?<![\p{L}])союзник/iu, label: 'союзники' },
+];
+
+export function r04Hits(text) {
+  if (typeof text !== 'string') return [];
+  return R04_FORBIDDEN.filter((f) => f.re.test(text)).map((f) => f.label);
 }
 
 // Сбор всех строковых значений объекта (тексты снапшота — вложенные {ru,en}).
@@ -112,6 +128,34 @@ test('тексты снапшотов 2026-08-02…2026-09-13: нет запре
       dirty.map(([s, hits]) => `${week}: «${s.slice(0, 60)}» → ${hits.join(', ')}`),
       []
     );
+  }
+});
+
+// R04 — имена регионов нейтральны по географии. Сканируем названия обеих
+// таксономий; отдельные тексты наблюдений снапшотов сюда не входят (см. R04_FORBIDDEN).
+test('R04: имена регионов без блоковой лексики', () => {
+  for (const set of [REGIONS_V1, REGIONS_V2]) {
+    for (const r of set) {
+      for (const lang of ['ru', 'en']) {
+        const hits = r04Hits(r.name[lang]);
+        assert.deepEqual(hits, [], `${r.id}.name.${lang}: ${hits.join(', ')}`);
+      }
+    }
+  }
+  // Инверсия: сканер обязан находить каждое запрещённое R04-слово (иначе мёртв).
+  assert.ok(r04Hits('коллективный Запад').length > 0);
+  assert.ok(r04Hits('ближнее зарубежье').length > 0);
+  assert.ok(r04Hits('союзники и партнёры').length > 0);
+  assert.deepEqual(r04Hits('Россия и Беларусь'), []);
+});
+
+// R04 — заметки о регионах и сетке (имена региона в словаре, подписи футера).
+test('R04: заметки о регионах/сетке в словаре без блоковой лексики', () => {
+  const keys = Object.keys(DICTS.ru)
+    .filter((k) => k.startsWith('region.') || k.startsWith('history.') || k.startsWith('footer.'));
+  for (const key of keys) {
+    const hits = r04Hits(DICTS.ru[key]);
+    assert.deepEqual(hits, [], `ru:${key}: ${hits.join(', ')}`);
   }
 });
 

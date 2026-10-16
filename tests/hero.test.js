@@ -46,9 +46,9 @@ test('refineRegionFromCoords: столицы двенадцати регионо
   assert.equal(refineRegionFromCoords(-1.29, 36.82), 'africa');          // Найроби
 });
 
-test('refineRegionFromCoords: v2-идентификаторы, устаревшая europe не возвращается', () => {
-  assert.notEqual(refineRegionFromCoords(55.75, 37.6), 'europe'); // Москва → russia-belarus
-  assert.notEqual(refineRegionFromCoords(52.37, 4.9), 'europe');  // Амстердам → eu-north-europe
+test('refineRegionFromCoords: возвращает v2-идентификаторы, не легаси europe', () => {
+  assert.equal(refineRegionFromCoords(55.75, 37.6), 'russia-belarus');   // Москва
+  assert.equal(refineRegionFromCoords(52.37, 4.9), 'eu-north-europe');   // Амстердам
 });
 
 test('refineRegionFromCoords: вне справочника — null, без изменений', () => {
