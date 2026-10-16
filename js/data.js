@@ -24,14 +24,12 @@ export function regionIdsFor(taxonomy = '1.0') {
 }
 
 // Версия текущего набора и дата переключения (неделя пилота). REGION_IDS —
-// псевдоним для обратной совместимости: сегодняшний расчётный пайплайн
-// публикует v1-шестёрку, поэтому псевдоним указывает на набор '1.0' (значение
-// константы не меняется — иначе существующая цепочка и `engine.validate` по
-// умолчанию сломались бы до перевода пайплайна на версию недели, таск 02).
-// Контракт и расчёт переходят на regionIdsFor(version).
+// псевдоним текущего набора (CURRENT_TAXONOMY, двенадцать id) для обратной
+// совместимости: контракт и расчёт недели ходят через regionIdsFor(версию
+// недели), а дефолт движка (engine.validate/regionalSignals) — текущий набор.
 export const CURRENT_TAXONOMY = '2.0';
 export const TAXONOMY_V2_FROM = '2026-10-18';
-export const REGION_IDS = REGION_TAXONOMIES['1.0'];
+export const REGION_IDS = REGION_TAXONOMIES[CURRENT_TAXONOMY];
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const LEVELS = ['high', 'medium', 'low'];

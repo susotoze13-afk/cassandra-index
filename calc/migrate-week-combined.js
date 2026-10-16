@@ -23,10 +23,10 @@ if (!weeks.length) {
 for (const week of weeks) {
   const parts = loadWeekParts(week);
   if (!parts) {
-    console.error(`${week}: пропуск — на диске нет всех 11 частей`);
+    console.error(`${week}: пропуск — на диске нет всех частей набора недели`);
     process.exitCode = 1;
     continue;
   }
   writeFileSync(path.join(ROOT, 'data', week, 'week.js'), renderWeekCombined(week, parts), 'utf8');
-  console.log(`${week}: week.js (от 11 дисковых частей)`);
+  console.log(`${week}: week.js (от ${Object.keys(parts).length} дисковых частей)`);
 }

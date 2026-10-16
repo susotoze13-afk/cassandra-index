@@ -26,7 +26,7 @@ import { PARAMS } from './params.js';
 import { aggregateDrivers, validate, regionalIndex, regionalSignals, CRITERIA, detectFlashTriggers } from './engine.js';
 import { buildDrivers } from './calibrate.js';
 import { sensitivityScore } from './sensitivity.js';
-import { validate as validateSnapshot, REGION_IDS } from '../js/data.js';
+import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import * as audit from './audit.js';
 
@@ -35,6 +35,13 @@ const ROOT = path.dirname(HERE);
 const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
 const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
 const RECALC_SET = new Set(RECALC_WEEKS);
+
+// Версия таксономии регионов недели (ADR 0028): неделя ≥ PARAMS.taxonomyV2From
+// считается набором '2.0' (двенадцать регионов), иначе '1.0' (шесть).
+// Версионируется отдельно от methodology — глобальный ряд тренда непрерывен.
+export function taxonomyForWeek(week) {
+  return week >= PARAMS.taxonomyV2From ? '2.0' : '1.0';
+}
 
 // --- Чтение файлов снапшота data/<week>/<file>.js через vm (без DOM) ---
 // Возвращает объект снапшота так, как его видит сайт в window.CI_DATA.
@@ -114,7 +121,7 @@ export function nextChainState(state, res) {
     next.prevPublished = res.global.index;
     next.prevWeek = res.week;
     next.recalcIndex[res.week] = res.global.index;
-    for (const id of REGION_IDS) next.prevRegions[id] = res.regions[id].index;
+    for (const id of regionIdsFor(taxonomyForWeek(res.week))) next.prevRegions[id] = res.regions[id].index;
   }
   next.sbLeft = res.sbLeft;
   next.sbReason = res.sbReason;
@@ -295,10 +302,34 @@ function header(week) {
 const FOOTER = '})();\n';
 const j = (v) => JSON.stringify(v, null, 2);
 
-// Части недели и их порядок в комбинированном файле — как порядок загрузки
-// document.write в data/latest.js: regions стоит до region-*, т.к. тела
-// region-*.js присваивают в s.regions[id] и предполагают созданный объект.
-export const WEEK_PART_FILES = ['global', 'regions', 'region-europe', 'region-east-asia', 'region-middle-east', 'region-north-america', 'region-south-asia', 'region-africa', 'trend', 'drivers', 'sources'];
+// Части недели по версии таксономии (R26). Порядок как у загрузчика
+// data/latest.js: regions стоит до region-*, т.к. тела region-*.js присваивают
+// в s.regions[id] и предполагают созданный объект.
+export function weekPartFiles(taxonomy) {
+  return [
+    'global', 'regions',
+    ...regionIdsFor(taxonomy).map((id) => `region-${id}`),
+    'trend', 'drivers', 'sources',
+  ];
+}
+
+// Обратная совместимость: v1-набор частей (11) — как исторически; сайт и
+// v1-парити ходят сюда. Не менять: пин tests/week-combined.test.js.
+export const WEEK_PART_FILES = weekPartFiles('1.0');
+
+// Набор частей для чтения недели с диска: версия снапшота берётся из global.js
+// (поле regions_taxonomy, отсутствие = '1.0'). Определяется по наличию
+// v2-эксклюзивных region-* в переданных частях — контракт renderWeekCombined
+// (week, parts) сохранён.
+const V1_REGION_IDS = regionIdsFor('1.0');
+const V2_ONLY_REGION_IDS = regionIdsFor('2.0').filter((id) => !V1_REGION_IDS.includes(id));
+
+function partOrder(parts) {
+  const keys = parts && typeof parts === 'object' ? Object.keys(parts) : [];
+  const isV2 = V2_ONLY_REGION_IDS.some((id) => keys.includes(`region-${id}`));
+  return weekPartFiles(isV2 ? '2.0' : '1.0');
+}
+
 
 // --- Комбинированный файл недели (week.js) ---
 // Единый IIFE, регистрирующий в window.CI_DATA.snapshots[week] те же поля,
@@ -306,7 +337,7 @@ export const WEEK_PART_FILES = ['global', 'regions', 'region-europe', 'region-ea
 // в одну обёртку. Контракт window.CI_DATA не меняется — сайт не замечает.
 // parts: {global: '<текст global.js>', ...} — полные тексты частей (строки).
 export function renderWeekCombined(week, parts) {
-  const bodies = WEEK_PART_FILES.map((f) => {
+  const bodies = partOrder(parts).map((f) => {
     const content = parts ? parts[f] : undefined;
     if (typeof content !== 'string') throw new Error(`week.js ${week}: нет части ${f}`);
     const lines = content.split('\n');
@@ -323,14 +354,18 @@ export function renderWeekCombined(week, parts) {
   return header(week) + bodies.join('\n') + '\n' + FOOTER;
 }
 
-// Чтение всех 11 частей недели с диска (для week.js после --write и миграции).
-// Возвращает {global: '<текст>', ...} по WEEK_PART_FILES; null, если недели
-// или какой-то части на диске нет.
+// Чтение частей недели с диска (для week.js после --write и миграции).
+// Сначала читается global.js — из него узнаётся regions_taxonomy недели, —
+// затем части своего набора (weekPartFiles). Возвращает {global: '<текст>', …}
+// по набору; null, если недели или какой-то части на диске нет.
 export function loadWeekParts(week) {
   const dir = path.join(ROOT, 'data', week);
   if (!existsSync(dir)) return null;
+  const globalSnap = loadSnapshotPart(week, 'global');
+  if (!globalSnap) return null;
+  const taxonomy = typeof globalSnap.regions_taxonomy === 'string' ? globalSnap.regions_taxonomy : '1.0';
   const parts = {};
-  for (const f of WEEK_PART_FILES) {
+  for (const f of weekPartFiles(taxonomy)) {
     const p = path.join(dir, `${f}.js`);
     if (!existsSync(p)) return null;
     parts[f] = readFileSync(p, 'utf8');
@@ -349,6 +384,7 @@ export function renderGlobal(week, snap, globalOut, meta) {
     `  s.published = ${JSON.stringify(snap.published)};`,
     `  s.through = ${JSON.stringify(week)};`,
     `  s.methodology = ${JSON.stringify(PARAMS.methodology)};`,
+    `  s.regions_taxonomy = ${JSON.stringify(taxonomyForWeek(week))};`,
     `  s.dataState = ${JSON.stringify(meta.dataState)};`,
     `  s.q = ${j(meta.q)};`,
     `  s.nullWeight = ${j(meta.nullWeight)};`,
@@ -381,7 +417,7 @@ export function renderTrend(week, trend) {
 }
 
 // --- Загрузка входа недели ---
-function loadInput(week) {
+function loadInput(week, regionIds) {
   const f = path.join(HERE, 'input', `${week}.json`);
   if (!existsSync(f)) return { errors: [`вход не найден: calc/input/${week}.json`] };
   let input;
@@ -390,7 +426,8 @@ function loadInput(week) {
   } catch (e) {
     return { errors: [`calc/input/${week}.json: не парсится JSON (${e.message})`] };
   }
-  const errors = validate(input);
+  // Whitelist регионов входа — по версии недели (regionIdsFor(taxonomyForWeek)).
+  const errors = validate(input, PARAMS, regionIds);
   if (!errors.length && input.sources !== undefined) {
     errors.push(...validateInputSources(input.sources, PARAMS));
   }
@@ -406,7 +443,8 @@ function loadInput(week) {
 // state: {prevInternal, prevPublished, prevRegions, sbLeft, sbReason} —
 // состояние недельного цикла (инерция и персистентность override живут тут).
 export function runWeek(week, state) {
-  const { input, errors } = loadInput(week);
+  const regionIds = regionIdsFor(taxonomyForWeek(week));
+  const { input, errors } = loadInput(week, regionIds);
   if (errors) return { week, errors };
 
   const drivers = buildDrivers(input, PARAMS);
@@ -432,9 +470,9 @@ export function runWeek(week, state) {
   // {index, delta, status, background}. Для insufficient-недели это расчётные
   // числа превью (публикация запрещена — число не уходит в global/trend, но
   // файлы регионов несут его для редакции).
-  const signals = regionalSignals(input.criteria, REGION_IDS, PARAMS);
+  const signals = regionalSignals(input.criteria, regionIds, PARAMS);
   const regions = {};
-  for (const id of REGION_IDS) {
+  for (const id of regionIds) {
     const r = regionalIndex(
       { index: g.index, internal: g.internal, delta: g.delta },
       {
@@ -578,6 +616,7 @@ async function writeWeek(res, state) {
     ...snap,
     global: globalOut,
     dataState: cls.dataState,
+    regions_taxonomy: taxonomyForWeek(week),
     q: meta.q,
     nullWeight: meta.nullWeight,
     coverage: meta.coverage,
@@ -589,7 +628,8 @@ async function writeWeek(res, state) {
   if (meta.incompleteCoverage) full.incompleteCoverage = true;
   full.trend = res.trend;
   full.regions = {};
-  for (const id of REGION_IDS) {
+  const weekRegionIds = regionIdsFor(taxonomyForWeek(week));
+  for (const id of weekRegionIds) {
     const prev = loadSnapshotPart(week, `region-${id}`);
     full.regions[id] = mergedRegion(
       prev && prev.regions ? prev.regions[id] : {},
@@ -627,7 +667,7 @@ async function writeWeek(res, state) {
     'trend.js': renderTrend(week, res.trend),
   };
   if (sourcesOut) files['sources.js'] = header(week) + `  s.sources = ${j(sourcesOut)};\n` + FOOTER;
-  for (const id of REGION_IDS) {
+  for (const id of weekRegionIds) {
     const prev = loadSnapshotPart(week, `region-${id}`);
     files[`region-${id}.js`] = renderRegionFile(
       week, id, prev ? prev.regions[id] : {}, res.regions[id].index, res.regions[id].delta, res.regions[id].status, res.regions[id].background,
@@ -754,7 +794,7 @@ async function main() {
     prevInternal: prevGlobal ? prevGlobal.global.index : null,
     prevPublished: prevGlobal ? prevGlobal.global.index : null,
     prevWeek: PREV_WEEK,
-    prevRegions: prevRegions ? Object.fromEntries(REGION_IDS.map((id) => [id, prevRegions.regions[id].index])) : {},
+    prevRegions: prevRegions ? Object.fromEntries(regionIdsFor(taxonomyForWeek(PREV_WEEK)).map((id) => [id, prevRegions.regions[id].index])) : {},
     recalcIndex: {},
     classification: {},
     sbLeft: 0,

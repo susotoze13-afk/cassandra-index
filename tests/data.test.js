@@ -1,7 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { validate, latest, week, listWeeks } from '../js/data.js';
+import { validate, latest, week, listWeeks, REGION_IDS, regionIdsFor, CURRENT_TAXONOMY } from '../js/data.js';
 import { loadSnapshotPart } from '../calc/calc.js';
+
+// Смысл псевдонима REGION_IDS — текущий набор (таск 02): контракт и расчёт
+// ушли на regionIdsFor(версия), а псевдоним указывает на CURRENT_TAXONOMY.
+test('REGION_IDS: псевдоним текущего набора (v2, двенадцать id, без europe)', () => {
+  assert.deepEqual(REGION_IDS, regionIdsFor(CURRENT_TAXONOMY));
+  assert.equal(REGION_IDS.length, 12);
+  assert.ok(!REGION_IDS.includes('europe'));
+  assert.ok(REGION_IDS.includes('russia-belarus'));
+});
 
 function validSnapshot() {
   return {

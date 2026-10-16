@@ -19,6 +19,7 @@ import {
   validate,
 } from '../calc/engine.js';
 import { PARAMS, list } from '../calc/params.js';
+import { regionIdsFor, TAXONOMY_V2_FROM } from '../js/data.js';
 
 // --- §4.2: скор драйвера ---
 
@@ -624,7 +625,7 @@ function validInput() {
       'D1.1': {
         value: 0.4, covered: true,
         sources: [{ url: 'https://example.org/a', date: '2026-09-10', cluster: 'D-satellite-osint' }],
-        regions: ['europe'],
+        regions: ['balkans'],
       },
       'D1.2': null,
       'D9.6b': { value: 0.67, covered: true, acyclic: true, sources: [{ url: 'https://example.org/b', date: '2026-09-11', cluster: 'E-field-osint' }] },
@@ -810,7 +811,9 @@ test('validate: все входы недель и якорей calc/input/**/*.j
   for (const f of files) {
     const dir = f.includes('-') && /^\d{4}/.test(f) ? INPUT_DIR : path.join(INPUT_DIR, 'anchors');
     const input = JSON.parse(readFileSync(path.join(dir, f), 'utf8'));
-    assert.deepEqual(validate(input, PARAMS), [], f);
+    // Whitelist регионов — по версии недели входа (граница TAXONOMY_V2_FROM).
+    const taxonomy = input.week >= TAXONOMY_V2_FROM ? '2.0' : '1.0';
+    assert.deepEqual(validate(input, PARAMS, regionIdsFor(taxonomy)), [], f);
   }
 });
 

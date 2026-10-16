@@ -7,7 +7,12 @@ import assert from 'node:assert/strict';
 
 import { regionalIndex, regionalSignals, validate } from '../calc/engine.js';
 import { PARAMS, list } from '../calc/params.js';
-import { REGION_IDS, regionIdsFor } from '../js/data.js';
+import { regionIdsFor } from '../js/data.js';
+
+// Набор v1 (шесть id) — таксономия демо-недель и цепочки 08-30…10-11. Смысл
+// псевдонима REGION_IDS — текущий набор (v2), поэтому исторические ожидания
+// этого файла берут v1 явно.
+const V1 = regionIdsFor('1.0');
 
 // --- Диагностика брифа: у слепого региона дельта по построению равна глобальной ---
 // Задокументированное поведение §7, а не баг: delta = (gInternal + clamp(prevIndex −
@@ -48,7 +53,7 @@ const MIXED_WEEK = {
 };
 
 test('regionalSignals: смешанная неделя — только регионы с атрибуцией, поля по §7', () => {
-  const out = regionalSignals(MIXED_WEEK, REGION_IDS, P);
+  const out = regionalSignals(MIXED_WEEK, V1, P);
   assert.deepEqual(Object.keys(out).sort(), ['africa', 'europe']);
 
   const eu = out.europe;
@@ -72,7 +77,7 @@ test('regionalSignals: смешанная неделя — только реги
 test('regionalSignals: пустой объект, если атрибуции нет', () => {
   const out = regionalSignals(
     { 'D1.1': { covered: true, value: 0.5 }, 'D1.2': null },
-    REGION_IDS,
+    V1,
     P,
   );
   assert.deepEqual(out, {});
@@ -86,14 +91,14 @@ test('regionalSignals: Д2/Д4 и Д9 (кроме Д9.3) не участвуют
       'D9.1': { covered: true, value: 1, regions: ['europe'] },
       'D9.5': { covered: true, value: 1, regions: ['europe'] },
     },
-    REGION_IDS,
+    V1,
     P,
   );
   assert.deepEqual(out, {});
   // Д9.3 — исключение §7 (транспорт и страхование атрибутируются регионально).
   const with93 = regionalSignals(
     { 'D9.3': { covered: true, value: 0.7, regions: ['europe'] } },
-    REGION_IDS,
+    V1,
     P,
   );
   assert.equal(with93.europe.nReg, 1);
@@ -102,7 +107,7 @@ test('regionalSignals: Д2/Д4 и Д9 (кроме Д9.3) не участвуют
 test('regionalSignals: сигнал с нулевым значением — объём данных, не деэскалация', () => {
   const out = regionalSignals(
     { 'D1.6': { covered: true, value: 0, regions: ['europe'] } },
-    REGION_IDS,
+    V1,
     P,
   );
   assert.equal(out.europe.nReg, 1);
@@ -191,7 +196,7 @@ function snapshotWith(regions) {
 }
 
 const SIX_REGIONS = (extra) => Object.fromEntries(
-  REGION_IDS.map((id, i) => [id, { index: 50 + i, delta: i - 3, ...extra(id) }]),
+  V1.map((id, i) => [id, { index: 50 + i, delta: i - 3, ...extra(id) }]),
 );
 
 test('validate (js/data.js): background опционален — true/false принимаются, отсутствие = false', () => {
@@ -246,27 +251,31 @@ function inputWithRegions(regions) {
   };
 }
 
-test('validate: regions критерия — whitelist по третьему параметру; дефолт — REGION_IDS', () => {
-  // Дефолт (без третьего параметра) — набор пайплайна (шестёрка v1).
-  const good = validate(inputWithRegions(['europe', 'africa']));
+test('validate: regions критерия — whitelist по третьему параметру; дефолт — текущий набор', () => {
+  // Дефолт (без третьего параметра) — текущий набор (v2, двенадцать id):
+  // v2-id валиден, устаревший v1-id 'europe' — нет.
+  const good = validate(inputWithRegions(['balkans', 'africa']));
   assert.deepEqual(good, []);
 
-  const unknown = validate(inputWithRegions(['europe', 'atlantis']));
+  const unknown = validate(inputWithRegions(['balkans', 'atlantis']));
   assert.equal(unknown.length, 1);
   assert.ok(unknown[0].includes('criteria.D1.1.regions'));
   assert.ok(unknown[0].includes('atlantis'));
-  assert.ok(unknown[0].includes('europe')); // в сообщении — полный whitelist
+  assert.ok(unknown[0].includes('balkans')); // в сообщении — полный whitelist
 
-  const notArray = validate(inputWithRegions('europe'));
+  const legacyEurope = validate(inputWithRegions(['europe']));
+  assert.equal(legacyEurope.length, 1);
+  assert.ok(legacyEurope[0].includes('europe'));
+
+  const notArray = validate(inputWithRegions('balkans'));
   assert.ok(notArray.some((e) => e.includes('criteria.D1.1.regions')));
   const emptyString = validate(inputWithRegions(['']));
   assert.ok(emptyString.some((e) => e.includes('criteria.D1.1.regions')));
 
-  // Явный whitelist версии недели: v1-id на v2-наборе — ошибка; v2-id — валиден.
-  const v2 = regionIdsFor('2.0');
-  const wrongForV2 = validate(inputWithRegions(['europe']), PARAMS, v2);
+  // Явный whitelist версии недели: v1-неделя принимает 'europe'; v2-неделя — нет.
+  const wrongForV2 = validate(inputWithRegions(['europe']), PARAMS, regionIdsFor('2.0'));
   assert.equal(wrongForV2.length, 1);
   assert.ok(wrongForV2[0].includes('europe'));
   assert.ok(wrongForV2[0].includes('russia-belarus')); // ошибка называет переданный whitelist
-  assert.deepEqual(validate(inputWithRegions(['balkans']), PARAMS, v2), []);
+  assert.deepEqual(validate(inputWithRegions(['europe', 'africa']), PARAMS, regionIdsFor('1.0')), []);
 });

@@ -10,7 +10,7 @@ import { sensitivityScore } from '../calc/sensitivity.js';
 import { aggregateDrivers } from '../calc/engine.js';
 import { buildDrivers } from '../calc/calibrate.js';
 import { loadSnapshotPart, runWeek, nextChainState } from '../calc/calc.js';
-import { validate, REGION_IDS } from '../js/data.js';
+import { validate, regionIdsFor } from '../js/data.js';
 import { PARAMS } from '../calc/params.js';
 
 const src = (domain, cluster) => ({ url: `https://${domain}/a`, date: '2026-10-01', cluster });
@@ -112,7 +112,7 @@ test('реальная неделя 2026-10-04: sensitivity защищает о�
     prevInternal: pg.global.index,
     prevPublished: pg.global.index,
     prevWeek: PREV_WEEK,
-    prevRegions: Object.fromEntries(REGION_IDS.map((id) => [id, pr.regions[id].index])),
+    prevRegions: Object.fromEntries(regionIdsFor('1.0').map((id) => [id, pr.regions[id].index])),
     recalcIndex: {}, classification: {}, sbLeft: 0, sbReason: null,
   };
   let res;

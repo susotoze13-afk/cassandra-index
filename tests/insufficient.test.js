@@ -7,7 +7,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { classifyPublication, nextChainState } from '../calc/calc.js';
 import { PARAMS } from '../calc/params.js';
-import { REGION_IDS } from '../js/data.js';
+import { regionIdsFor } from '../js/data.js';
+
+const V1 = regionIdsFor('1.0');
 
 // Девять драйверов; score — число либо null (драйвер не покрыт).
 function driversWith(nullIds) {
@@ -62,7 +64,7 @@ function chainState() {
     prevInternal: 0.42,
     prevPublished: 61,
     prevWeek: '2026-08-23',
-    prevRegions: Object.fromEntries(REGION_IDS.map((id) => [id, 61])),
+    prevRegions: Object.fromEntries(V1.map((id) => [id, 61])),
     recalcIndex: {},
     classification: {},
     sbLeft: 0,
@@ -74,7 +76,7 @@ function weekRes(week, insufficient, internal, index) {
   return {
     week,
     global: { internal, index },
-    regions: Object.fromEntries(REGION_IDS.map((id) => [id, { index: 62, delta: 1, status: 'tense' }])),
+    regions: Object.fromEntries(V1.map((id) => [id, { index: 62, delta: 1, status: 'tense' }])),
     classification: { insufficient, dataState: insufficient ? 'insufficient' : 'published' },
   };
 }
@@ -95,4 +97,23 @@ test('chain: insufficient-неделя не меняет prevInternal/prevPublis
   assert.equal(s2.recalcIndex['2026-09-06'], 63);
   assert.equal(s2.recalcIndex['2026-08-30'], undefined);
   assert.equal(s1.prevInternal, 0.42, 'исходное состояние не мутировано');
+});
+
+test('chain: v2-неделя ведёт набор из 12 id; смещение europe новым id не наследуется', () => {
+  const V2 = regionIdsFor('2.0');
+  const s0 = chainState(); // v1-шестёрка с europe = 61
+  const res = {
+    week: '2026-10-18',
+    global: { internal: 0.5, index: 70 },
+    regions: Object.fromEntries(
+      V2.map((id) => [id, { index: id === 'russia-belarus' ? 80 : 70, delta: 0, status: 'very' }]),
+    ),
+    classification: { insufficient: false, dataState: 'published' },
+  };
+  const s1 = nextChainState(s0, res);
+  for (const id of V2) assert.equal(s1.prevRegions[id], res.regions[id].index, id);
+  // Отклонение нового региона — собственное; v1-якорь europe не переносится.
+  assert.equal(s1.prevRegions['russia-belarus'], 80);
+  assert.equal(s1.prevRegions.europe, 61);
+  assert.notEqual(s1.prevRegions['russia-belarus'], s1.prevRegions.europe);
 });

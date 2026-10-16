@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 
-import { loadSnapshotPart, WEEK_PART_FILES } from '../calc/calc.js';
+import { loadSnapshotPart, WEEK_PART_FILES, loadWeekParts, renderWeekCombined } from '../calc/calc.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 
@@ -46,3 +46,12 @@ for (const week of WEEKS) {
     assert.deepStrictEqual(snapshotFromCombined(week), snapshotFromParts(week));
   });
 }
+
+// Migrate-week-combined идемпотентен: week.js на диске байт-в-байт равен
+// renderWeekCombined(loadWeekParts) — для 11 v1-недель содержимое не меняется.
+test('migrate идемпотентен: week.js = renderWeekCombined(loadWeekParts) для всех недель', () => {
+  for (const week of WEEKS) {
+    const disk = readFileSync(path.join(ROOT, 'data', week, 'week.js'), 'utf8');
+    assert.equal(renderWeekCombined(week, loadWeekParts(week)), disk, week);
+  }
+});

@@ -13,9 +13,9 @@ import { readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-import { loadSnapshotPart, collectSourceItems } from './calc.js';
+import { loadSnapshotPart, collectSourceItems, taxonomyForWeek } from './calc.js';
 import { checkSources } from './linkcheck.js';
-import { REGION_IDS } from '../js/data.js';
+import { regionIdsFor } from '../js/data.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
@@ -36,7 +36,7 @@ function loadSnapshot(week) {
   if (sources && Array.isArray(sources.sources)) snap.sources = sources.sources;
   const drivers = loadSnapshotPart(week, 'drivers');
   if (drivers && Array.isArray(drivers.drivers)) snap.drivers = drivers.drivers;
-  for (const id of REGION_IDS) {
+  for (const id of regionIdsFor(taxonomyForWeek(week))) {
     const part = loadSnapshotPart(week, `region-${id}`);
     if (part && part.regions && part.regions[id]) snap.regions[id] = part.regions[id];
   }
