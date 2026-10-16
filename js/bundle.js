@@ -36,14 +36,12 @@ function regionIdsFor(taxonomy = '1.0') {
 }
 
 // Версия текущего набора и дата переключения (неделя пилота). REGION_IDS —
-// псевдоним для обратной совместимости: сегодняшний расчётный пайплайн
-// публикует v1-шестёрку, поэтому псевдоним указывает на набор '1.0' (значение
-// константы не меняется — иначе существующая цепочка и `engine.validate` по
-// умолчанию сломались бы до перевода пайплайна на версию недели, таск 02).
-// Контракт и расчёт переходят на regionIdsFor(version).
+// псевдоним текущего набора (CURRENT_TAXONOMY, двенадцать id) для обратной
+// совместимости: контракт и расчёт недели ходят через regionIdsFor(версию
+// недели), а дефолт движка (engine.validate/regionalSignals) — текущий набор.
 const CURRENT_TAXONOMY = '2.0';
 const TAXONOMY_V2_FROM = '2026-10-18';
-const REGION_IDS = REGION_TAXONOMIES['1.0'];
+const REGION_IDS = REGION_TAXONOMIES[CURRENT_TAXONOMY];
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const LEVELS = ['high', 'medium', 'low'];
@@ -706,16 +704,65 @@ function choose(id, { persist = false } = {}) {
 }
 
 // Поиск по справочнику городов и названиям регионов; регистронезависимый.
-function search(q) {
+// Без каталога (catalog == null) — прежнее поведение по встроенному CITIES
+// (graceful fallback, тесты без сети). С переданным каталогом `{cities,countries}`
+// (ленивый справочник data/geo/*, ADR 0029) — префиксный матч по ru/en именам
+// городов и стран плюс имена регионов текущей таксономии, минимум 2 символа;
+// широкий запрос (> 20 совпадений) → топ-20 по населению + флаг `broad` (подсказка
+// «уточните запрос» на стороне UI). Каждый результат несёт `region_v2`
+// (город/страна — из справочника, регион — свой id).
+function search(q, catalog) {
   const s = (q ?? '').trim().toLowerCase();
-  if (!s) return CITIES.map((c) => ({ ...c, regionName: get(c.region).name }));
-  const out = [];
-  for (const c of CITIES) {
-    const region = get(c.region);
-    const hay = `${c.name.ru} ${c.name.en} ${region.name.ru} ${region.name.en}`.toLowerCase();
-    if (hay.includes(s)) out.push({ ...c, regionName: region.name });
+  if (!catalog) {
+    if (!s) return CITIES.map((c) => ({ ...c, region_v2: c.region, regionName: get(c.region).name }));
+    const out = [];
+    for (const c of CITIES) {
+      const region = get(c.region);
+      const hay = `${c.name.ru} ${c.name.en} ${region.name.ru} ${region.name.en}`.toLowerCase();
+      if (hay.includes(s)) out.push({ ...c, region_v2: c.region, regionName: region.name });
+    }
+    return out;
   }
-  return out;
+
+  const out = [];
+  if (s.length < 2) return out;
+
+  const startsWith = (name) => name.ru.toLowerCase().startsWith(s) || name.en.toLowerCase().startsWith(s);
+
+  for (const r of REGIONS_V2) {
+    if (startsWith(r.name)) {
+      out.push({ type: 'region', id: r.id, name: r.name, region_v2: r.id, region_v1: null, pop: 0, regionName: r.name });
+    }
+  }
+  for (const iso of Object.keys(catalog.countries ?? {})) {
+    const c = catalog.countries[iso];
+    if (startsWith(c.name)) {
+      out.push({
+        type: 'country', country: iso, name: c.name,
+        region_v2: c.region_v2 ?? null, region_v1: c.region_v1 ?? null, pop: 0,
+      });
+    }
+  }
+  for (const c of catalog.cities ?? []) {
+    if (startsWith(c.name)) {
+      out.push({
+        type: 'city', name: c.name, country: c.country,
+        region_v2: c.region_v2 ?? null, region_v1: c.region_v1 ?? null, pop: c.pop ?? 0,
+      });
+    }
+  }
+
+  // Регионы и страны — раньше городов (не тонут в широком запросе); внутри — по
+  // населению убыв., затем по EN-имени (детерминизм).
+  const priority = { region: 0, country: 1, city: 2 };
+  out.sort((a, b) => (priority[a.type] - priority[b.type])
+    || ((b.pop ?? 0) - (a.pop ?? 0))
+    || a.name.en.localeCompare(b.name.en));
+
+  const broad = out.length > 20;
+  const limited = broad ? out.slice(0, 20) : out;
+  limited.broad = broad;
+  return limited;
 }
 
 exports["REGIONS_V1"] = REGIONS_V1;

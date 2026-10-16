@@ -6,7 +6,7 @@
     "cities": "GeoNames",
     "mapping": "город → регион через GeoNames admin1_code, приведённый к ISO 3166-2"
   },
-  "cityImport": "Полный импорт городов GeoNames — при подключении edge-слоя; статический справочник городов/стран (ADR 0029) — отдельный слой data/geo/*.",
+  "cityImport": "Статический справочник городов/стран реализован (ADR 0029): data/geo/cities.js + countries.js, генератор data/geo/generate.js (GeoNames cities15000, ≥50000 + столицы + админцентры). Полный импорт GeoNames остаётся будущей оптимизацией edge-слоя.",
   "confidenceLadder": { "city": 80, "region": 90, "floor": 50 },
   "disputedTerritories": "Город отображается в регионе, определённом ISO 3166-2, с нейтральной формулировкой без политических утверждений. Contested-разметки в публичном интерфейсе нет.",
   "taxonomies": {

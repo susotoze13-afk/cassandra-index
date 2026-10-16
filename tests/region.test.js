@@ -325,3 +325,50 @@ test('consent: хранилище недоступно — статус null, gr
     if (prev !== undefined) globalThis.localStorage = prev;
   }
 });
+
+// ---------- Поиск по ленивому справочнику (search(q, catalog), ADR 0029) ----------
+
+const GEO_CATALOG = {
+  cities: [
+    { name: { ru: 'Москва', en: 'Moscow' }, country: 'RU', region_v2: 'russia-belarus', region_v1: 'europe', pop: 12000000 },
+    { name: { ru: 'Минск', en: 'Minsk' }, country: 'BY', region_v2: 'russia-belarus', region_v1: 'europe', pop: 2000000 },
+    { name: { ru: 'Белград', en: 'Belgrade' }, country: 'RS', region_v2: 'balkans', region_v1: 'europe', pop: 1300000 },
+    { name: { ru: 'Городок', en: 'Gorodok' }, country: 'GL', region_v2: null, region_v1: null, pop: 50000 },
+  ],
+  countries: {
+    RU: { name: { ru: 'Россия', en: 'Russia' }, region_v2: 'russia-belarus', region_v1: 'europe' },
+    GL: { name: { ru: 'Гренландия', en: 'Greenland' }, region_v2: null, region_v1: null },
+  },
+};
+
+test('search(q, catalog): префикс ru/en, страны/регионы, region_v2 в результате', () => {
+  assert.ok(search('Моск', GEO_CATALOG).some((r) => r.type === 'city' && r.region_v2 === 'russia-belarus'));
+  assert.ok(search('minsk', GEO_CATALOG).some((r) => r.type === 'city' && r.region_v2 === 'russia-belarus'));
+  assert.ok(search('Гренланд', GEO_CATALOG).some((r) => r.type === 'country' && r.region_v2 === null));
+  assert.ok(search('Балканы', GEO_CATALOG).some((r) => r.type === 'region' && r.region_v2 === 'balkans'));
+});
+
+test('search(q, catalog): минимум 2 символа, иначе пусто', () => {
+  assert.deepEqual(search('М', GEO_CATALOG), []);
+  assert.deepEqual(search('', GEO_CATALOG), []);
+  assert.ok(search('Бе', GEO_CATALOG).length > 0);
+});
+
+test('search(q, catalog): широкий запрос → топ-20 по населению + broad', () => {
+  const wide = {
+    cities: Array.from({ length: 25 }, (_, i) => ({
+      name: { ru: `Тест${i}`, en: `Test${i}` }, country: 'RU', region_v2: 'russia-belarus', region_v1: 'europe', pop: i,
+    })),
+    countries: {},
+  };
+  const out = search('Тест', wide);
+  assert.equal(out.length, 20);
+  assert.equal(out.broad, true);
+  assert.equal(out[0].name.en, 'Test24');
+});
+
+test('search(q): без каталога — прежнее поведение по CITIES (graceful fallback)', () => {
+  assert.ok(search('Москв').some((c) => c.region === 'russia-belarus'));
+  assert.deepEqual(search('zzzz'), []);
+  assert.equal(search('Москва').broad, undefined); // метаданные широкого запроса — только с каталогом
+});

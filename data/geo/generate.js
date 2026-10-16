@@ -1,0 +1,359 @@
+#!/usr/bin/env node
+// data/geo/generate.js — генератор статического справочника городов и стран
+// (ADR 0029). Node stdlib, ноль зависимостей. Сеть — только здесь, один раз:
+// скачивает дамп GeoNames cities15000.zip и countryInfo.txt, распаковывает zip
+// встроенным минимальным zip-ридером (node:zlib inflateRawSync + разбор local
+// file header), фильтрует города по населению ≥ 50 000 и добавляет все столицы
+// (feature code PPLC) + 12 административных центров регионов из
+// data/regions/reference.json (taxonomies['2.0'].regions[].adminCenter).
+//
+// Пишет два классических скрипта (работают и с file://, и ленивым <script>):
+//   data/geo/cities.js    → window.CI_GEO_CITIES    = [{name:{ru,en},country,region_v2,region_v1,pop}]
+//   data/geo/countries.js → window.CI_GEO_COUNTRIES = {ISO2:{name:{ru,en},region_v2,region_v1}}
+// Русские имена СТРАН — из курируемой таблицы ISO→RU ниже (объективные данные).
+// Русские имена ГОРОДОВ — первый кириллический вариант из колонки alternatenames
+// дампа, иначе первичное имя.
+//
+// Сырой дамп в репозиторий не едет: по умолчанию качается в системную временную
+// папку. Для офлайн-пересборки можно указать локальные файлы:
+//   node data/geo/generate.js --zip <cities15000.zip> [--country-info <countryInfo.txt>]
+//                                [--out data/geo]
+
+import { createWriteStream } from 'node:fs';
+import { mkdir, readFile, writeFile, rm } from 'node:fs/promises';
+import { get as httpsGet } from 'node:https';
+import { inflateRawSync } from 'node:zlib';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import { tmpdir } from 'node:os';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(HERE, '..', '..');
+const REFERENCE = join(ROOT, 'data', 'regions', 'reference.json');
+
+const CITIES_URL = 'https://download.geonames.org/export/dump/cities15000.zip';
+const COUNTRY_URL = 'https://download.geonames.org/export/dump/countryInfo.txt';
+const MIN_POP = 50000;
+
+// ---------- Курируемая таблица ISO 3166-1 alpha-2 → русское имя страны ----------
+// Объективные данные (не факт о пользователе). Дополнять точечно при жалобах.
+export const COUNTRY_RU = {
+  AD: 'Андорра', AE: 'ОАЭ', AF: 'Афганистан', AG: 'Антигуа и Барбуда', AI: 'Ангилья',
+  AL: 'Албания', AM: 'Армения', AO: 'Ангола', AQ: 'Антарктида', AR: 'Аргентина',
+  AS: 'Американское Самоа', AT: 'Австрия', AU: 'Австралия', AW: 'Аруба', AX: 'Аландские острова',
+  AZ: 'Азербайджан', BA: 'Босния и Герцеговина', BB: 'Барбадос', BD: 'Бангладеш',
+  BE: 'Бельгия', BF: 'Буркина-Фасо', BG: 'Болгария', BH: 'Бахрейн', BI: 'Бурунди',
+  BJ: 'Бенин', BL: 'Сен-Бартелеми', BM: 'Бермуды', BN: 'Бруней', BO: 'Боливия',
+  BQ: 'Бонайре, Синт-Эстатиус и Саба', BR: 'Бразилия', BS: 'Багамские Острова', BT: 'Бутан',
+  BV: 'Остров Буве', BW: 'Ботсвана', BY: 'Беларусь', BZ: 'Белиз', CA: 'Канада',
+  CC: 'Кокосовые острова', CD: 'ДР Конго', CF: 'Центральноафриканская Республика',
+  CG: 'Республика Конго', CH: 'Швейцария', CI: 'Кот-д’Ивуар', CK: 'Острова Кука',
+  CL: 'Чили', CM: 'Камерун', CN: 'Китай', CO: 'Колумбия', CR: 'Коста-Рика', CU: 'Куба',
+  CV: 'Кабо-Верде', CW: 'Кюрасао', CX: 'Остров Рождества', CY: 'Кипр', CZ: 'Чехия',
+  DE: 'Германия', DJ: 'Джибути', DK: 'Дания', DM: 'Доминика',
+  DO: 'Доминиканская Республика', DZ: 'Алжир', EC: 'Эквадор', EE: 'Эстония', EG: 'Египет',
+  EH: 'Западная Сахара', ER: 'Эритрея', ES: 'Испания', ET: 'Эфиопия', FI: 'Финляндия',
+  FJ: 'Фиджи', FK: 'Фолклендские острова', FM: 'Микронезия', FO: 'Фарерские острова',
+  FR: 'Франция', GA: 'Габон', GB: 'Великобритания', GD: 'Гренада', GE: 'Грузия',
+  GF: 'Французская Гвиана', GG: 'Гернси', GH: 'Гана', GI: 'Гибралтар', GL: 'Гренландия',
+  GM: 'Гамбия', GN: 'Гвинея', GP: 'Гваделупа', GQ: 'Экваториальная Гвинея', GR: 'Греция',
+  GS: 'Южная Георгия и Южные Сандвичевы острова', GT: 'Гватемала', GU: 'Гуам',
+  GW: 'Гвинея-Бисау', GY: 'Гайана', HK: 'Гонконг', HM: 'Остров Херд и острова Макдональд',
+  HN: 'Гондурас', HR: 'Хорватия', HT: 'Гаити', HU: 'Венгрия', ID: 'Индонезия',
+  IE: 'Ирландия', IL: 'Израиль', IM: 'Остров Мэн', IN: 'Индия',
+  IO: 'Британская территория в Индийском океане', IQ: 'Ирак', IR: 'Иран', IS: 'Исландия',
+  IT: 'Италия', JE: 'Джерси', JM: 'Ямайка', JO: 'Иордания', JP: 'Япония', KE: 'Кения',
+  KG: 'Киргизия', KH: 'Камбоджа', KI: 'Кирибати', KM: 'Коморы',
+  KN: 'Сент-Китс и Невис', KP: 'КНДР', KR: 'Республика Корея', KW: 'Кувейт',
+  KY: 'Острова Кайман', KZ: 'Казахстан', LA: 'Лаос', LB: 'Ливан', LC: 'Сент-Люсия',
+  LI: 'Лихтенштейн', LK: 'Шри-Ланка', LR: 'Либерия', LS: 'Лесото', LT: 'Литва',
+  LU: 'Люксембург', LV: 'Латвия', LY: 'Ливия', MA: 'Марокко', MC: 'Монако',
+  MD: 'Молдова', ME: 'Черногория', MF: 'Сен-Мартен', MG: 'Мадагаскар',
+  MH: 'Маршалловы Острова', MK: 'Северная Македония', ML: 'Мали', MM: 'Мьянма',
+  MN: 'Монголия', MO: 'Макао', MP: 'Северные Марианские острова', MQ: 'Мартиника',
+  MR: 'Мавритания', MS: 'Монтсеррат', MT: 'Мальта', MU: 'Маврикий', MV: 'Мальдивы',
+  MW: 'Малави', MX: 'Мексика', MY: 'Малайзия', MZ: 'Мозамбик', NA: 'Намибия',
+  NC: 'Новая Каледония', NE: 'Нигер', NF: 'Остров Норфолк', NG: 'Нигерия',
+  NI: 'Никарагуа', NL: 'Нидерланды', NO: 'Норвегия', NP: 'Непал', NR: 'Науру',
+  NU: 'Ниуэ', NZ: 'Новая Зеландия', OM: 'Оман', PA: 'Панама', PE: 'Перу',
+  PF: 'Французская Полинезия', PG: 'Папуа — Новая Гвинея', PH: 'Филиппины',
+  PK: 'Пакистан', PL: 'Польша', PM: 'Сен-Пьер и Микелон', PN: 'Острова Питкэрн',
+  PR: 'Пуэрто-Рико', PS: 'Палестина', PT: 'Португалия', PW: 'Палау', PY: 'Парагвай',
+  QA: 'Катар', RE: 'Реюньон', RO: 'Румыния', RS: 'Сербия', RU: 'Россия', RW: 'Руанда',
+  SA: 'Саудовская Аравия', SB: 'Соломоновы Острова', SC: 'Сейшельские Острова',
+  SD: 'Судан', SE: 'Швеция', SG: 'Сингапур', SH: 'Остров Святой Елены', SI: 'Словения',
+  SJ: 'Шпицберген и Ян-Майен', SK: 'Словакия', SL: 'Сьерра-Леоне', SM: 'Сан-Марино',
+  SN: 'Сенегал', SO: 'Сомали', SR: 'Суринам', SS: 'Южный Судан', ST: 'Сан-Томе и Принсипи',
+  SV: 'Сальвадор', SX: 'Синт-Мартен', SY: 'Сирия', SZ: 'Эсватини',
+  TC: 'Тёркс и Кайкос', TD: 'Чад', TF: 'Французские Южные территории', TG: 'Того',
+  TH: 'Таиланд', TJ: 'Таджикистан', TK: 'Токелау', TL: 'Восточный Тимор',
+  TM: 'Туркменистан', TN: 'Тунис', TO: 'Тонга', TR: 'Турция',
+  TT: 'Тринидад и Тобаго', TV: 'Тувалу', TW: 'Тайвань', TZ: 'Танзания', UA: 'Украина',
+  UG: 'Уганда', UM: 'Внешние малые острова США', US: 'США', UY: 'Уругвай',
+  UZ: 'Узбекистан', VA: 'Ватикан', VC: 'Сент-Винсент и Гренадины', VE: 'Венесуэла',
+  VG: 'Британские Виргинские острова', VI: 'Виргинские Острова США', VN: 'Вьетнам',
+  VU: 'Вануату', WF: 'Уоллис и Футуна', WS: 'Самоа', XK: 'Косово', YE: 'Йемен',
+  YT: 'Майотта', ZA: 'ЮАР', ZM: 'Замбия', ZW: 'Зимбабве',
+};
+
+// ---------- Минимальный zip-ридер ----------
+
+// Первый файл архива: разбор local file header (0x04034b50) + inflateRawSync.
+// Если размеры в local-заголовке нулевые (data descriptor), читаем central
+// directory (0x02014b50) из конца архива — так надёжнее.
+export function unzipFirstEntry(buf) {
+  const sig = buf.readUInt32LE(0);
+  if (sig !== 0x04034b50) throw new Error('не zip-архив: нет local file header');
+  const method = buf.readUInt16LE(8);
+  let compSize = buf.readUInt32LE(18);
+  const nameLen = buf.readUInt16LE(26);
+  const extraLen = buf.readUInt16LE(28);
+  const name = buf.toString('utf8', 30, 30 + nameLen);
+  let dataStart = 30 + nameLen + extraLen;
+  if (compSize === 0) {
+    const cd = centralEntry(buf, name);
+    compSize = cd.compSize;
+    dataStart = cd.localOffset + cd.headerLen;
+  }
+  const raw = buf.subarray(dataStart, dataStart + compSize);
+  const data = method === 0 ? raw : inflateRawSync(raw);
+  return { name, data };
+}
+
+// Ищет central directory entry по имени файла (EOCD → записи).
+function centralEntry(buf, wantName) {
+  // EOCD: сигнатура 0x06054b50, размер 22 байта (+ комментарий). Ищем с конца.
+  let eocd = -1;
+  for (let i = buf.length - 22; i >= 0 && i > buf.length - 66000; i -= 1) {
+    if (buf.readUInt32LE(i) === 0x06054b50) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error('zip: не найден EOCD');
+  let cdCount = buf.readUInt16LE(eocd + 10);
+  let ptr = buf.readUInt32LE(eocd + 16);
+  while (cdCount > 0) {
+    if (buf.readUInt32LE(ptr) !== 0x02014b50) throw new Error('zip: битая central directory');
+    const method = buf.readUInt16LE(ptr + 10);
+    const compSize = buf.readUInt32LE(ptr + 20);
+    const nameLen = buf.readUInt16LE(ptr + 28);
+    const extraLen = buf.readUInt16LE(ptr + 30);
+    const commentLen = buf.readUInt16LE(ptr + 32);
+    const localOffset = buf.readUInt32LE(ptr + 42);
+    const name = buf.toString('utf8', ptr + 46, ptr + 46 + nameLen);
+    if (name === wantName) {
+      const localNameLen = buf.readUInt16LE(localOffset + 26);
+      const localExtraLen = buf.readUInt16LE(localOffset + 28);
+      return { method, compSize, localOffset, headerLen: 30 + localNameLen + localExtraLen };
+    }
+    ptr += 46 + nameLen + extraLen + commentLen;
+    cdCount -= 1;
+  }
+  throw new Error(`zip: не найден файл '${wantName}'`);
+}
+
+// ---------- Разбор входов ----------
+
+const CYRILLIC_RE = /[\u0400-\u04FF]/;
+// Допустимы только буквы русского алфавита (А–Я, а–я, Ё/ё) и пунктуация/пробелы.
+// Так отсекаются варианты чужих кириллических алфавитов (сербские ј/њ/љ, казахские
+// ә/қ/ң, украинские і/ї, беларусские ў, осетинская æ), которые дают «Њу Јорк»,
+// «Бейжің», «Məskəү» вместо русского имени.
+const RUS_ONLY_RE = /^[\u0410-\u044F\u0401\u0451\s\-'.()]+$/;
+
+// Первый «чисто русский» по алфавиту вариант из alternatenames, иначе null.
+// Для 12 админцентров имя берётся из курируемой таблицы reference.json.
+export function pickRuAlternate(alternates) {
+  if (!alternates) return null;
+  for (const cand of alternates.split(',')) {
+    const t = cand.trim();
+    if (t && CYRILLIC_RE.test(t) && RUS_ONLY_RE.test(t)) return t;
+  }
+  return null;
+}
+
+// Строка cities15000.tsv → нормализованный город (или null, если не подходит).
+// 0 geonameid,1 name,2 asciiname,3 alternatenames,4 lat,5 lon,6 fclass,7 fcode,
+// 8 country,9 cc2,10 admin1,…,14 population,…
+export function parseCityLine(line, ref) {
+  if (!line || line.startsWith('#')) return null;
+  const f = line.split('\t');
+  if (f.length < 15) return null;
+  const geonameid = Number(f[0]);
+  const name = f[1];
+  const alternates = f[3];
+  const fcode = f[7];
+  const country = f[8];
+  const pop = Number(f[14]) || 0;
+  const adminIds = ref.adminCenters;
+  const isCapital = fcode === 'PPLC';
+  const isAdminCenter = adminIds.has(geonameid);
+  if (!name || (!isCapital && !isAdminCenter && pop < MIN_POP)) return null;
+  const override = ref.adminRu?.get(geonameid);
+  return {
+    geonameid,
+    name: { ru: override ?? pickRuAlternate(alternates) ?? name, en: name },
+    country,
+    pop,
+    isCapital,
+    isAdminCenter,
+  };
+}
+
+// countryInfo.txt → {iso2: {name:{ru,en}}}. EU (код без региона) пропускается.
+export function parseCountryInfo(text) {
+  const out = {};
+  for (const line of text.split('\n')) {
+    if (!line || line.startsWith('#')) continue;
+    const f = line.split('\t');
+    if (f.length < 5) continue;
+    const iso = f[0];
+    if (!/^[A-Z]{2}$/.test(iso)) continue;
+    if (iso === 'EU') continue;
+    out[iso] = { en: f[4], ru: COUNTRY_RU[iso] ?? f[4] };
+  }
+  return out;
+}
+
+// reference.json → {byCountry:{ISO2:{v1,v2}}, adminCenters:Set<geonameid>}
+export function buildRegionMaps(ref) {
+  const byCountry = {};
+  for (const version of ['1.0', '2.0']) {
+    const key = version === '2.0' ? 'v2' : 'v1';
+    for (const r of ref.taxonomies[version].regions) {
+      for (const c of r.countries) {
+        byCountry[c] = byCountry[c] ?? {};
+        byCountry[c][key] = r.id;
+      }
+    }
+  }
+  const adminCenters = new Set();
+  const adminRu = new Map();
+  for (const r of ref.taxonomies['2.0'].regions) {
+    if (r.adminCenter?.geonamesId) {
+      adminCenters.add(r.adminCenter.geonamesId);
+      if (r.adminCenter.city?.ru) adminRu.set(r.adminCenter.geonamesId, r.adminCenter.city.ru);
+    }
+  }
+  return { byCountry, adminCenters, adminRu };
+}
+
+// Формирует выходные структуры из строк дампа.
+export function buildOutput(cityLines, countryInfoText, ref) {
+  const { byCountry, adminCenters, adminRu } = buildRegionMaps(ref);
+  const seen = new Set();
+  const cities = [];
+  for (const line of cityLines) {
+    const c = parseCityLine(line, { adminCenters, adminRu });
+    if (!c || seen.has(c.geonameid)) continue;
+    seen.add(c.geonameid);
+    const map = byCountry[c.country] ?? {};
+    cities.push({
+      name: c.name,
+      country: c.country,
+      region_v2: map.v2 ?? null,
+      region_v1: map.v1 ?? null,
+      pop: c.pop,
+    });
+  }
+  // Порядок — по населению убыв., затем по EN-имени (детерминизм + топ-20).
+  cities.sort((a, b) => (b.pop - a.pop) || a.name.en.localeCompare(b.name.en));
+
+  const countries = {};
+  const parsed = parseCountryInfo(countryInfoText);
+  for (const iso of Object.keys(parsed).sort()) {
+    const map = byCountry[iso] ?? {};
+    countries[iso] = {
+      name: parsed[iso],
+      region_v2: map.v2 ?? null,
+      region_v1: map.v1 ?? null,
+    };
+  }
+  return { cities, countries };
+}
+
+// ---------- Вывод ----------
+
+function banner() {
+  return [
+    '// СГЕНЕРИРОВАН data/geo/generate.js — не править вручную. Пересборка:',
+    '//   node data/geo/generate.js',
+    '// Источник: GeoNames (https://www.geonames.org/), лицензия CC BY 4.0.',
+    '// Дамп cities15000.zip + countryInfo.txt; фильтр: население ≥ 50000,',
+    '// все столицы (PPLC) и 12 административных центров регионов.',
+  ].join('\n');
+}
+
+function renderScript(globalName, value) {
+  return `${banner()}\nwindow.${globalName} = ${JSON.stringify(value)};\n`;
+}
+
+// ---------- Сеть (однократная загрузка) ----------
+
+function download(url, dest) {
+  return new Promise((resolve, reject) => {
+    httpsGet(url, (res) => {
+      if (res.statusCode !== 200) {
+        res.resume();
+        reject(new Error(`HTTP ${res.statusCode} для ${url}`));
+        return;
+      }
+      const file = createWriteStream(dest);
+      res.pipe(file);
+      file.on('finish', () => file.close(() => resolve(dest)));
+      file.on('error', reject);
+    }).on('error', reject);
+  });
+}
+
+function parseArgs(argv) {
+  const args = { zip: null, countryInfo: null, out: HERE };
+  for (let i = 0; i < argv.length; i += 1) {
+    if (argv[i] === '--zip') args.zip = argv[++i];
+    else if (argv[i] === '--country-info') args.countryInfo = argv[++i];
+    else if (argv[i] === '--out') args.out = argv[++i];
+  }
+  return args;
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const ref = JSON.parse(await readFile(REFERENCE, 'utf8'));
+  let tmpZip = args.zip;
+  let tmpCountry = args.countryInfo;
+  const cleanup = [];
+  if (!tmpZip) {
+    tmpZip = join(tmpdir(), `ci-cities15000-${Date.now()}.zip`);
+    console.log(`Скачиваю ${CITIES_URL} → ${tmpZip}`);
+    await download(CITIES_URL, tmpZip);
+    cleanup.push(tmpZip);
+  }
+  if (!tmpCountry) {
+    tmpCountry = join(tmpdir(), `ci-countryInfo-${Date.now()}.txt`);
+    console.log(`Скачиваю ${COUNTRY_URL} → ${tmpCountry}`);
+    await download(COUNTRY_URL, tmpCountry);
+    cleanup.push(tmpCountry);
+  }
+
+  const zipBuf = await readFile(tmpZip);
+  const { name: entryName, data } = unzipFirstEntry(zipBuf);
+  console.log(`Распакован '${entryName}' (${data.length} байт)`);
+  const cityLines = data.toString('utf8').split('\n');
+  const countryText = await readFile(tmpCountry, 'utf8');
+
+  const { cities, countries } = buildOutput(cityLines, countryText, ref);
+  await mkdir(args.out, { recursive: true });
+  await writeFile(join(args.out, 'cities.js'), renderScript('CI_GEO_CITIES', cities));
+  await writeFile(join(args.out, 'countries.js'), renderScript('CI_GEO_COUNTRIES', countries));
+
+  const nullRegions = cities.filter((c) => c.region_v2 === null).length;
+  console.log(`cities.js: ${cities.length} городов (${nullRegions} без региона v2)`);
+  console.log(`countries.js: ${Object.keys(countries).length} стран`);
+  for (const f of cleanup) await rm(f, { force: true });
+}
+
+// Запуск CLI только при прямом вызове (не при импорте тестами).
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  main().catch((err) => {
+    console.error(err.message);
+    process.exit(1);
+  });
+}

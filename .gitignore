@@ -9,5 +9,11 @@ __pycache__/
 # Скрейп-дампы чужих изданий: содержат PII авторов и сторонний трекинг.
 # В git остаются только производные черновики (calc/input/drafts/*.json).
 calc/input/drafts/texts-*/
+# Сырой дамп GeoNames (data/geo/generate.js качает его во временную папку; в
+# репозиторий едут только сгенерированные data/geo/*.js и сам генератор).
+data/geo/*.zip
+data/geo/*.txt
+data/geo/cities15000.*
+data/geo/countryInfo.*
 
 .vscode/
