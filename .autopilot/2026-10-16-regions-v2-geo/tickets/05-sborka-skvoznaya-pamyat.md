@@ -1,8 +1,8 @@
 # 05 — Сборка, сквозная проверка, лексикон, память
 
-**Требования:** R22(verify), R27(финал), R28, R30i, R24(verify)
+**Требования:** R04, R24, R27, R28, R30i
 **Blocked by:** 02, 04
-**Зона:** `js/bundle.js` · `js/bundle-privacy.js` · `tests/` · `AGENTS.md`
+**Зона:** `js/bundle.js` · `js/bundle-privacy.js` · `css/styles.css` · `js/sections/hero.js` · `tests/`
 **Волна:** 4
 **Status:** pending
 
@@ -32,5 +32,19 @@
 - [ ] Сквозная проверка: страница грузится на данных 11 недель v1 (шесть регионов)
       без ошибок консоли и без `unavailable`; v2-синтетика рендерится двенадцатью.
 - [ ] `node --test` — весь набор зелёный (число зафиксировать).
-- [ ] `AGENTS.md`: таксономия v2, `regions_taxonomy`, справочник `data/geo/*`,
-      граница версий — между маркерами автопилота.
+- [ ] Память `AGENTS.md` НЕ трогать — её обновляет оркестратор.
+
+## Доводка по находкам ревью (неблокирующие; закрыть здесь)
+
+- [ ] CSS: добавить правило для `.region-row--pinned` (пин личного региона вверху
+      витрины — `order`/`sticky`) в `css/styles.css`; класс уже проставляется в
+      `js/sections/regions.js`.
+- [ ] `js/sections/hero.js`: сбрасывать `geoRequested` при ошибке `loadGeo`
+      (повторная попытка подгрузки справочника за сессию возможна).
+- [ ] `js/sections/hero.js`: порог «≥2 символа» применять и в fallback без каталога
+      (по `CITIES`), а не только при загруженном справочнике.
+- [ ] `tests/hero.test.js`: пинить v2-идентификатор (`russia-belarus`/`eu-north-europe`),
+      а не `notEqual(..., 'europe')` (вакуумно при null).
+- [ ] `tests/privacy.test.js`: вернуть строгий запрет внешних ресурсов с явным
+      allowlist одного URL лицензии GeoNames (текущий регэксп не ловит обычный порядок
+      `<link href rel="stylesheet">`).

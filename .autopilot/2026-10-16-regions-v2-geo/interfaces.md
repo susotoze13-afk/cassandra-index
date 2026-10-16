@@ -32,7 +32,7 @@
 |---|---|---|---|
 | `js/data.js` | контракт снапшота, наборы id по версии | `regionIdsFor(taxonomy)`, `CURRENT_TAXONOMY`, `REGION_IDS`, `TAXONOMY_V2_FROM`, `validate(snapshot)`, `week/latest/listWeeks` | разбор версии, схему полей |
 | `js/region.js` | реестр двух таксономий, личный регион, согласие | `REGIONS_V1`, `REGIONS_V2`, `REGIONS`, `regionForTaxonomy(v)`, `detect/current/choose/isCurrent/get`, `search(q, catalog?)` | storage-ключи, consent, порядок префиксов |
-| `js/geo.js` *(новый)* | ленивая загрузка `data/geo/*` | `loadGeo() -> Promise<{cities,countries}>`, `geoSearch(q, catalog)`, `resolveRegion(countryOrCity, catalog)` | инъекцию `<script>`, кэш, разбор `window.CI_GEO_*` |
+| `js/geo.js` *(новый)* | ленивая загрузка `data/geo/*` | `loadGeo() -> Promise<{cities,countries}>`, `resolveRegion(countryOrCity, catalog)` | инъекцию `<script>`, кэш, разбор `window.CI_GEO_*` |
 | `js/sections/regions.js` | ранжированный список недели | `rankedRegions(snapshot)`, `render(appState)` | порядок и разметку строк |
 | `js/sections/hero.js` | пикер (чипы + поиск), персональная карточка | `isBackgroundRegion`, `refineRegionFromCoords`, `render` | DOM панели, тосты, геолокацию |
 | `js/sections/history.js` | футер, заметки о версии | `methodologyNote`, `regionalGridNote(lang, viewed, current)`, `nextPublication` | разметку секции |
@@ -42,8 +42,8 @@
 
 **Швы для тестов** (поведение проверяется только здесь — чистые функции без
 DOM/сети): `regionIdsFor`+`validate` (data.js); `regionForTaxonomy`/`detect`/
-`search` с инъекцией каталога (region.js); `geoSearch`/`resolveRegion` над
-инъекцией (geo.js); `regionalGridNote` (history.js); `rankedRegions` (regions.js);
+`search` с инъекцией каталога (region.js); `resolveRegion` над инъекцией (geo.js);
+`regionalGridNote` (history.js); `rankedRegions` (regions.js);
 `weekPartFiles`/`renderWeekCombined`/`loadWeekParts`/`regionalSignals`/`validate`
 (calc). Ленивый `loadGeo` тестируется с подменённой инъекцией — без сети.
 
@@ -72,3 +72,55 @@ DOM/сети): `regionIdsFor`+`validate` (data.js); `regionForTaxonomy`/`detect`
   этого сменить смысл псевдонима на текущий набор.
 - `tests/regions.test.js` тронут минимально (ожидание `'europe'`→`'balkans'`); таск 04
   переведёт `rankedRegions` на `regionForTaxonomy` и перекроет это.
+
+## Из таска 02 — расчёт по версии
+
+- `calc/calc.js`: `taxonomyForWeek(week) -> '1.0'|'2.0'` (граница `PARAMS.taxonomyV2From`);
+  `weekPartFiles(taxonomy) -> string[]` (v1 = 11, v2 = 17 частей); `WEEK_PART_FILES == weekPartFiles('1.0')`;
+  `loadWeekParts(week)` читает `global.js` → узнаёт `regions_taxonomy` → читает части своего набора;
+  `renderGlobal` пишет `s.regions_taxonomy`; `renderWeekCombined(week, parts)` — контракт прежний
+  (набор выводится по v2-эксклюзивным `region-*` в parts).
+- **`js/data.js`: `REGION_IDS` теперь = текущий набор (v2, 12)** (смысл флипнут).
+- `calc/check-sources.js`: обход region-файлов по версии недели.
+- `node calc/migrate-week-combined.js` идемпотентен; `data/` не изменился.
+
+## Из таска 03 — справочник
+
+- `data/geo/generate.js`: CLI `node data/geo/generate.js [--zip <p>] [--country-info <p>] [--out <dir>]`;
+  экспорт-швы `unzipFirstEntry(buf)`, `pickRuAlternate(s)`, `parseCityLine(line,ref)`,
+  `parseCountryInfo(text)`, `buildRegionMaps(ref)`, `buildOutput(...)`, `COUNTRY_RU`.
+- `data/geo/cities.js` → `window.CI_GEO_CITIES = [{name:{ru,en},country,region_v2,region_v1,pop}]`;
+  `data/geo/countries.js` → `window.CI_GEO_COUNTRIES = {ISO2:{name:{ru,en},region_v2,region_v1}}`.
+- `js/geo.js`: `loadGeo(inject?) -> Promise<{cities,countries}>`,
+  `resolveRegion(countryOrCity, catalog) -> {country,region_v2,region_v1,name}|null`, `resetGeoCache()`
+  (поиск идёт через `region.search(q, catalog)` — единый вход; `geoSearch` удалён таском 06).
+- `js/region.js`: `search(q, catalog?)` — при каталоге результат `[{type:'city'|'country'|'region',
+  name,country?,region_v2,region_v1,pop}]` + свойство массива `.broad:boolean`; без каталога — прежний `CITIES`.
+- Дампы GeoNames (`*.zip`/`*.txt`) в `.gitignore`; коммитятся только вывод и генератор.
+- **ВНИМАНИЕ (таск 05):** `js/bundle.js` пересобирался в волне 2 при параллельной правке `js/data.js`
+  таском 02 — таск 05 обязан пересобрать бандл и подтвердить консистентность.
+
+## Из таска 04 — сайт (регионы по версии, пикер, футер)
+
+- `js/sections/regions.js`: `rankedRegions(snapshot)` и `render` берут набор через
+  `regionForTaxonomy(snapshot.regions_taxonomy)` — 6 строк (v1) / 12 (v2).
+- `js/sections/hero.js`: `refineRegionFromCoords(lat,lon)` → v2-id (или null); пикер при первом
+  открытии грузит `js/geo.js` и ищет через `region.search(q, catalog)`; личный регион пиннится
+  классом `.region-row--pinned` (раскладку `order` добавляет CSS).
+- `js/sections/history.js`: `regionalGridNote(lang, viewed, current)` — '' при совпадении версий,
+  иначе строка с датой `TAXONOMY_V2_FROM`; в футере — строка атрибуции GeoNames.
+- i18n (RU): `region.panel.broad`, `region.panel.noregion`, `region.toast.stale`,
+  `history.taxonomy.note`, `footer.geo`, `privacy.geodata.h`, `privacy.geodata.text`.
+- `privacy.html`: ссылка-анкор на CC BY 4.0 GeoNames; пин `privacy.test.js` сужен: внешние
+  `src=`/`stylesheet` по-прежнему запрещены, разрешён только `<a>`-анкор лицензии.
+
+## Из таска 06 — доводка (обновления контрактов)
+
+- `calc/calc.js`: `renderWeekCombined`/`partOrder` берут версию из `regions_taxonomy` global-части;
+  рассинхрон набора и версии → явная ошибка (не молчаливый даунгрейд).
+- `js/region.js`: приватный `findById(list,id)` (дубль устранён); `search` несёт `.broad:boolean`
+  в обеих ветках (fallback без каталога → `false`).
+- `js/geo.js`: **`geoSearch` УДАЛЁН** — единый вход поиска `region.search(q, catalog)` (замена
+  прежнего решения из таска 03).
+- `data/geo/generate.js`: `SOVEREIGN_ISO` (Set, 195 ISO2); столица = `PPLC && SOVEREIGN_ISO.has(country)`;
+  `data/geo/*.js` перегенерированы (12417 городов, 252 страны).
