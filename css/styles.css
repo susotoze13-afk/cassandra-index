@@ -327,12 +327,31 @@ main {
   font-size: 13px;
 }
 
+/* На узком экране пометка занимает всю строку под именем региона — иначе
+   сжимается в узкую колонку из одних слов и выталкивает Δ и chevron. */
+@media (max-width: 480px) {
+  .region-row-head {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .region-background {
+    flex-basis: 100%;
+    /* после переноса на свою строку не выталкивает chevron за собой:
+       order больше дефолтного 0 — chevron остаётся на первой строке */
+    order: 4;
+  }
+}
+
 .region-unavailable {
   color: var(--text-secondary);
 }
 
 /* CTA при нераспознанном часовом поясе: primary-кнопка акцентного цвета */
 .cta-btn {
+  /* fallback-CTA в ячейке сетки hero: кнопка по размеру контента, а не
+     натянутая на всю колонку плита (align/justify — от stretch по умолчанию). */
+  justify-self: start;
+  align-self: center;
   background: var(--accent);
   color: var(--text-on-accent);
   border: none;

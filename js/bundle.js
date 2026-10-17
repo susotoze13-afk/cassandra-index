@@ -3057,7 +3057,9 @@ function buildDetails(lang, facts) {
   list.className = 'trust-clusters';
   for (const [id, count] of facts.clusterCounts) {
     const li = document.createElement('li');
-    li.textContent = `${clusterLabel(lang, id)}: ${count}`;
+    // NBSP перед числом: счётчик не сиротой на второй строке, если метка
+    // не влезает в колонку сетки — переносится целиком.
+    li.textContent = `${clusterLabel(lang, id)}:\u00A0${count}`;
     list.appendChild(li);
   }
   wrap.appendChild(list);
