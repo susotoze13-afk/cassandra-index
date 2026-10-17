@@ -1,7 +1,7 @@
 window.STATE =
 {
   "slug": "trust-panel-levels",
-  "dir": "2026-10-17-trust-panel-levels--wip",
+  "dir": "2026-10-17-trust-panel-levels",
   "title": "Витрина доверия и ступени уровней (ADR 0033)",
   "mode": "full",
   "depth": "normal",
@@ -11,8 +11,8 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-10-17T13:33:30+03:00",
-  "updatedAt": "2026-10-17T14:14:06+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-10-17T14:22:15+03:00",
+  "finishedAt": "2026-10-17T14:22:15+03:00",
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-10-17T13:33:30+03:00", "finishedAt": "2026-10-17T13:34:45+03:00" },
     { "id": "manifest",  "status": "done", "startedAt": "2026-10-17T13:34:45+03:00", "finishedAt": "2026-10-17T13:35:41+03:00" },
@@ -21,7 +21,7 @@ window.STATE =
     { "id": "plan",      "status": "done", "startedAt": "2026-10-17T13:41:13+03:00", "finishedAt": "2026-10-17T13:43:06+03:00", "note": "ярус T1 — 2 таска; волны 1 и 2 последовательно (js/data.js и js/sections/* делят пересобираемый js/bundle.js — параллель невозможна); interfaces.md засеян до первого таска" },
     { "id": "build",     "status": "done", "startedAt": "2026-10-17T13:43:06+03:00", "finishedAt": "2026-10-17T14:03:52+03:00", "note": "3 из 3 тасков готовы (T01, T02, T03 — T03 из трияжа отложенных замечаний)" },
     { "id": "review",    "status": "done", "startedAt": "2026-10-17T13:46:00+03:00", "finishedAt": "2026-10-17T14:14:06+03:00", "note": "каждый таск — независимый ревьюер по осям Manifest/Spec и Craft; блокирующих находок нет" },
-    { "id": "final",     "status": "active", "startedAt": "2026-10-17T14:14:06+03:00" }
+    { "id": "final",     "status": "done", "startedAt": "2026-10-17T14:14:06+03:00", "finishedAt": "2026-10-17T14:22:15+03:00", "note": "слепая приёмка G4 — расхождений нет; память AGENTS.md обновлена; каталог переименован без --wip" }
   ],
   "requirements": {
     "total": 23, "done": 16, "inTicket": 0, "inSpec": 0,
@@ -71,7 +71,7 @@ window.STATE =
       "startedAt": "2026-10-17T14:06:56+03:00",
       "finishedAt": "2026-10-17T14:14:06+03:00",
       "tests": "node --test → 446 passed / 0 fail (до таска 443)",
-      "commit": "pending",
+      "commit": "53fdaa3",
       "retries": 0,
       "repairs": 1,
       "repairFindings": ["комментарий trust-секции ссылался на несуществующее правило родителя и писал «=44px» вместо «≥44px»"],
@@ -80,7 +80,7 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": "node --test → 434 passed / 0 fail (после таска 01)",
+  "tests": "node --test → 446 passed / 0 fail (после таска 03; 45 файлов)",
   "debt": {
     "placeholders": [
       { "where": "docs/metrics-journal.md", "what": "три baseline-цифры CF Analytics (#TBD#) — факт владельца" }
@@ -93,7 +93,7 @@ window.STATE =
     "emptyEnv": []
   },
   "additions": [],
-  "coverage": null,
+  "coverage": { "found": 3, "fixed": 3, "deferred": 0 },
   "concerns": [
     { "axis": "craft", "where": "css/styles.css:2000", "what": "комментарий новой trust-секции записан битой кодировкой (кириллица → «?»)", "status": "fixed", "ticket": "03" },
     { "axis": "craft", "where": "tests/trust.test.js:39", "what": "набор стоял только на trustFacts; порядок пяти фактов, «н/д» методологии и гейт sensitivity≥порога не проверялись", "status": "fixed", "ticket": "03" },
@@ -102,5 +102,9 @@ window.STATE =
     { "axis": "craft", "where": "js/sections/trust.js", "what": "модуль написан до первого прогона тестов (не строгий red-first)", "status": "dropped", "why": "процессная заметка исполнителя, кода не касается" }
   ],
   "reviewers": { "manifestSpec": "ses_eb685095affeeEr3xI1AmImfd7", "craft": "ses_eb685095affdI6bZGpmUPneqEq" },
-  "blind": null
+  "blind": {
+    "run": true,
+    "drift": [],
+    "note": "независимый проверяющий (бриф + репозиторий, без spec/манифеста/тасков): фаза 1 ADR 0033 подтверждена как реализованная; O7/O8/O9 и секция ступеней (фаза 2) ожидаемо не реализованы (deferred/placeholder); три _TBD_ metrics-journal на месте как метки владельца. Живой прогон в браузере недоступен в среде — работоспособность подтверждена зелёными тестами 446/0 и соответствием закоммиченного бандла исходникам"
+  }
 }

@@ -50,8 +50,9 @@ privacy.html              политика приватности
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
-                          region (две таксономии v1/v2 + поиск), render, sections/* (8
-                          зарегистрированных секций, на странице видимых 7 — history скрыта),
+                          region (две таксономии v1/v2 + поиск), render, sections/* (9
+                          зарегистрированных секций, на странице видимых 8 — history скрыта;
+                          trust — витрина доверия, ADR 0033),
                           geo (ленивый справочник городов/стран), share, demo, ui, criteria,
                           analytics (Cloudflare Web Analytics, beacon после согласия),
                           sections/feedback (форма обратной связи)
@@ -128,10 +129,12 @@ data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчи�
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
                           (по одному запросу на неделю вместо 11 частей)
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0032;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0033;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
+                          0033 — витрина доверия (секция trust) и поле coverageCriteria
+                          (фаза 1) + секция ступеней levels (фаза 2, тексты автора),
                           два параллельных ряда + новые прогонов recalc-3months-publish,
                           source-selection-hardening 0019/0020, region-delta-market-criterion
                           0021 (рыночный критерий D4.6 → методология 3.0 — РЕАЛИЗОВАНО
@@ -149,14 +152,19 @@ docs/llm-pilot-journal.md аудиторский след пилота маши�
                           09-27/09-20, критерии успеха, решение о форвард-пилоте)
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21; доп. 2026-10-11 —
                           ввод D4.6, methodology 3.0, k = 1.95 подтверждён)
+docs/metrics-journal.md   аудиторский след продуктовых метрик ADR 0033 (доля share-переходов,
+                          брендовые запросы, регулярность визита): baseline-таблица (заполняет
+                          владелец вручную из Cloudflare Web Analytics) + правила ведения
+                          (срез раз в неделю, дельта от baseline, окно 12 недель)
 docs/articles/            черновики статей для внешних площадок и пакеты публикаций:
                           habr-idea-d.md (источник + рабочие заметки) → habr-post-final.md
                           (тело без заметок, doc-ссылки на GitHub) + habr-publish-package.md
                           (поля редактора Habr, карта картинок, чек-лист); то же для vc-*
                           и pikabu-*; скриншоты — docs/articles/img/. Сама публикация — вручную (внешнее действие)
-docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2),
-                          всё решённое — в архиве «Решено» (v1.2)
-tests/*.test.js           44 файла, node --test
+docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
+                          всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
+                          тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
+tests/*.test.js           45 файлов, node --test
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -199,7 +207,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `ignoredRegionalAttribution` (R01.2 — сортированные id Д2/Д4/Д9-кроме-D9.3 с непустой
   `regions[]`; поле `ignoredAttribution` в выводе runWeek, предупреждение об игноре ADR 0022),
   `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js;
-  пишет `s.regions_taxonomy` недели),
+  пишет `s.regions_taxonomy` недели и, при заданном `meta.coverageCriteria`,
+  `s.coverageCriteria = {covered, total}` — покрытие критериев недели R05/R06, ADR 0033;
+  `writeWeek` кладёт его в meta из `res.coverage.criteria/totalCriteria`),
   `renderRegions`/`renderRegionFile` (числа пересчёта + флаг background + drivers/confidence из прежнего файла);
   комбинированный снапшот: `weekPartFiles(taxonomy)` (v1 = 11 / v2 = 17 частей,
   `regions` до `region-*`), `WEEK_PART_FILES = weekPartFiles('1.0')` (обратная совместимость),
@@ -238,7 +248,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   регион (индекс отражает глобальный фон), trend ровно 12 точек (value:null только с
   methodology), ровно 3 драйвера,
   источники по isSource), `validateQuality` (q/nullWeight/confidence/coverage/preview/
-  recalc, неделя insufficient обязана нести полный пакет непубликации);
+  recalc, опциональный `coverageCriteria: {covered:int≥0, total:int>0, covered≤total}`
+  (покрытых критериев из 46, ADR 0033; старые недели без него валидны), неделя
+  insufficient обязана нести полный пакет непубликации);
   `week/latest/listWeeks`; битый снапшот → `unavailable` + событие.
 - `js/region.js` — реестр двух таксономий: `REGIONS_V1` (6 легаси-регионов) и `REGIONS_V2`
   (12 текущих), `REGIONS = REGIONS_V2`, `regionForTaxonomy(version)` ('2.0' → V2, иначе V1);
@@ -291,10 +303,24 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   заметка с датой `TAXONOMY_V2_FROM`), `DEMO_REVIEWS`, `reviewFor`. В футере — строка
   атрибуции GeoNames (`footer.geo`, «© GeoNames, CC BY 4.0», ADR 0029). Тесты модуля
   (tests/history.test.js) сохранены.
+- `js/sections/trust.js` — секция «Витрина доверия» (ADR 0033, регистрируется в
+  js/render.js как 'trust' сразу под hero; хост `<div class="section-body"
+  data-section="trust">` в `<section class="section trust-section">`): компактная
+  строка-факт «46 критериев · N источников · M независимых кластеров · S слепой регион ·
+  методология X.Y», клик раскрывает детали (распределение по кластерам, доля
+  `state_affiliated`, «не покрыто N критериев», строка чувствительности). Чистый шов
+  `trustFacts(snapshot)` → объект|null (null без снапшота/глобального индекса); критерии —
+  из статического js/criteria.js, источники/кластеры/слепые регионы (`background === true`
+  по набору `regionForTaxonomy`) /методология/`coverageCriteria`/`sensitivity` — из
+  снапшота; `factsLine(lang, facts)` (5 фактов, порядок ADR), `showSensitivity(s)` и
+  константа `TRUST_SENSITIVITY_THRESHOLD = 5` (= `PARAMS.sensitivityThreshold`, сайт calc/
+  не читает). Ключи i18n `trust.*` (в т.ч. `trust.cluster.A-mainstream`…`F-financial`).
+  Стили — `.trust-section`/`.trust-row`/`.trust-details-*` в css/styles.css. Тесты:
+  tests/trust.test.js.
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
   список 46 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
-- `js/sections/feedback.js` — секция «Обратная связь» (8-я, зарегистрирована в js/render.js):
+- `js/sections/feedback.js` — секция «Обратная связь» (9-я, зарегистрирована в js/render.js):
   форма шлёт POST JSON на FormSubmit (`formsubmit.co/ajax/Zasik2008@yandex.ru` — внешний
   сервис, бэкенда у сайта нет). Антиспам чистыми швами: `honeypotCheck` (3 скрытых поля),
   `timingCheck`/`timingToken` (мин. 2 c + подпись по соли модуля), `rateLimit` (бэкофф
@@ -326,7 +352,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (document.write ТОЛЬКО комбинированных `data/<week>/week.js` — 11 запросов вместо
   121 частей; измеренный эффект локально: 127→17 запросов, DCL ~5 с → ~0,14 с;
   fetch на file:// невозможен, поэтому document.write) → `js/app.js` init → `render.renderAll`
-  по 8 зарегистрированным секциям (на странице видимых 7: «История и источники»
+  по 9 зарегистрированным секциям (на странице видимых 8: «История и источники»
   скрыта — её render при отсутствии хоста обновляет только футер «Следующая
   публикация»). Секции регионов/hero выбирают набор по `regions_taxonomy` недели
   (`regionForTaxonomy`), `js/geo.js` грузится лениво при первом открытии пикера
@@ -337,7 +363,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `nextChainState`/`renderGlobal`/`renderRegionFile`/`renderWeekCombined`/`loadWeekParts`/
   `weekPartFiles`/`taxonomyForWeek` из calc.js (синтетические данные)
   + чистые модули сайта (i18n, risk, region — `regionForTaxonomy`/`search` с инъекцией
-  каталога, data — `regionIdsFor`/`validate`, geo — `resolveRegion`/`loadGeo` с инъекцией).
+  каталога, data — `regionIdsFor`/`validate`, geo — `resolveRegion`/`loadGeo` с инъекцией,
+  sections/trust — `trustFacts`/`factsLine`/`showSensitivity`).
   CLI — тонкая обвязка.
 - Схема источника R55 (во всех 11 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
@@ -379,7 +406,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (44 файла, 424 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (45 файлов, 446 passed / 0 fail — подтверждено прогоном
 2026-10-17). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -411,7 +438,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 `tests/week-combined-parity.test.js` (паритет week.js ↔ дисковые части для всех 11 недель)
 и `tests/latest-loader.test.js` (latest.js грузит только week.js); meta-CSP обеих
 страниц пинит `tests/csp.test.js` (разрешение static.cloudflareinsights.com осознанно —
-живой js/analytics.js, beacon только после согласия).
+живой js/analytics.js, beacon только после согласия);
+панель доверия: `tests/trust.test.js` (чистый `trustFacts` — пять фактов, слепые регионы
+по набору недели, битая/отсутствующая `coverageCriteria` → null, `factsLine`,
+`showSensitivity` с границей 5, `TRUST_SENSITIVITY_THRESHOLD = 5`; тексты `trust.*`/`share.*`
+без темы «инфошум ≠ реальные действия» — R11).
 
 ## Подводные камни
 
@@ -498,6 +529,10 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   включительно), не защищённое поле; защищено только published.
 - Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
   слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
+- `coverageCriteria` (ADR 0033) — опциональное поле quality-блока снапшота; его несёт
+  только неделя, пересчитанная после правки (дисковые недели — без него; `week.js`
+  переносит поле verbatim при миграции/паритете). Панель доверия показывает «н/д» при
+  отсутствии/битой форме (`trustFacts.coverage = null`), не падает.
 - D2 (ядерная сфера) может не иметь сигналов в окне недели — приём проекта: переносить
   D2.1–D2.5 из предыдущей недели (их источники старше окна) при явном раскрытии в
   `driverConfidence`, иначе D2 = 1/5 → `insufficient`; так сделано в 09-27 и 10-04 —
