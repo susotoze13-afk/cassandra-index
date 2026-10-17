@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-10-17T13:33:30+03:00",
-  "updatedAt": "2026-10-17T13:50:46+03:00",
+  "updatedAt": "2026-10-17T14:03:52+03:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-10-17T13:33:30+03:00", "finishedAt": "2026-10-17T13:34:45+03:00" },
@@ -19,12 +19,12 @@ window.STATE =
     { "id": "briefing",  "status": "skipped", "startedAt": "2026-10-17T13:35:41+03:00", "finishedAt": "2026-10-17T13:35:41+03:00", "note": "полный автомат — самобрифинг; решения за пользователя помечены ASSUMPTION в manifest.md, вопросов не задавалось; адверсариальный проход не запускался (глубина обычная)" },
     { "id": "spec",      "status": "done", "startedAt": "2026-10-17T13:35:41+03:00", "finishedAt": "2026-10-17T13:41:13+03:00", "note": "спецификация + независимая проверка покрытия (отдельный агент по брифу и spec, без манифеста): расхождений по существу нет, отмеченные пункты — мета-конфигурация запуска, зафиксировано в spec §Примечания" },
     { "id": "plan",      "status": "done", "startedAt": "2026-10-17T13:41:13+03:00", "finishedAt": "2026-10-17T13:43:06+03:00", "note": "ярус T1 — 2 таска; волны 1 и 2 последовательно (js/data.js и js/sections/* делят пересобираемый js/bundle.js — параллель невозможна); interfaces.md засеян до первого таска" },
-    { "id": "build",     "status": "active", "startedAt": "2026-10-17T13:43:06+03:00", "note": "1 из 2 тасков готов (T01); волна 2 (T02) — следующим" },
+    { "id": "build",     "status": "done", "startedAt": "2026-10-17T13:43:06+03:00", "finishedAt": "2026-10-17T14:03:52+03:00", "note": "2 из 2 тасков готовы (T01, T02); неблокирующие craft-замечания — в concerns" },
     { "id": "review",    "status": "pending" },
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 23, "done": 4, "inTicket": 12, "inSpec": 0,
+    "total": 23, "done": 16, "inTicket": 0, "inSpec": 0,
     "placeholder": 1, "deferred": 6, "dropped": 0
   },
   "tickets": [
@@ -39,7 +39,7 @@ window.STATE =
       "startedAt": "2026-10-17T13:44:04+03:00",
       "finishedAt": "2026-10-17T13:50:46+03:00",
       "tests": "node --test → 434 passed / 0 fail (до таска 431)",
-      "commit": "pending",
+      "commit": "7f98293",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -51,7 +51,11 @@ window.STATE =
       "blockedBy": ["01"],
       "wave": 2,
       "zone": ["js/sections/trust.js", "js/render.js", "js/i18n.js", "js/share.js", "index.html", "css/styles.css", "tests/trust.test.js", "tests/share.test.js"],
-      "status": "pending",
+      "status": "done",
+      "startedAt": "2026-10-17T13:52:10+03:00",
+      "finishedAt": "2026-10-17T14:03:52+03:00",
+      "tests": "node --test → 443 passed / 0 fail (до таска 434)",
+      "commit": "pending",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -72,7 +76,13 @@ window.STATE =
   },
   "additions": [],
   "coverage": null,
-  "concerns": [],
+  "concerns": [
+    { "axis": "craft", "where": "css/styles.css:2000", "what": "комментарий новой trust-секции записан битой кодировкой (кириллица → «?»/«�», «§1» → «�1»); на правила не влияет", "status": "open" },
+    { "axis": "craft", "where": "js/sections/trust.js:70", "what": "validCoverage заново реализует правило формы coverageCriteria, уже живущее в js/data.js:244 (Reinvention) — у правила должно быть одно место", "status": "open" },
+    { "axis": "craft", "where": "js/sections/trust.js:18", "what": "TRUST_SENSITIVITY_THRESHOLD=5 дублирует приватный SENSITIVITY_DISPLAY_THRESHOLD=5 в js/sections/states.js:62 — один клиентский порог на оба места", "status": "open" },
+    { "axis": "craft", "where": "tests/trust.test.js:39", "what": "набор стоит только на trustFacts; порядок пяти фактов, «н/д» методологии и гейт sensitivity≥порога в неэкспортируемых factsLine/buildDetails не проверяются", "status": "open" },
+    { "axis": "craft", "where": "js/sections/trust.js", "what": "модуль написан до первого прогона тестов (не строгий red-first), отмечено исполнителем", "status": "open" }
+  ],
   "reviewers": { "manifestSpec": "ses_eb685095affeeEr3xI1AmImfd7", "craft": "ses_eb685095affdI6bZGpmUPneqEq" },
   "blind": null
 }

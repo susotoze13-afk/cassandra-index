@@ -1996,3 +1996,68 @@ main {
   line-height: 1;
   cursor: pointer;
 }
+
+/* ---------- ??????? ??????? (ADR 0033 §1, ???? 1) ---------- */
+/* ??????-???? — ?????????? ??????????? ?????? (surface/border, ?? ??? ?????);
+   ???? ?????????? ??????. ???-???? =44px ???? ?????????? min-height ??????. */
+.trust-section {
+  padding: 20px 0;
+}
+
+.trust-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trust-row:hover {
+  border-color: var(--accent-line);
+  color: var(--text);
+}
+
+.trust-details-body {
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.trust-details-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trust-clusters {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 4px 16px;
+}
+
+.trust-affiliated,
+.trust-coverage,
+.trust-sensitive {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.trust-sensitive {
+  color: var(--state-danger);
+}

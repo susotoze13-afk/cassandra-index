@@ -32,6 +32,16 @@ test('cardLayout RU: все элементы образца, язык = язык
   assert.equal(items[5].text, 'Оценка риска на основе открытых данных. Не официальный прогноз.');
 });
 
+// R09 (ADR 0033 §5): карточка несёт уровень (kind 'index' со status) и дельту
+// недели (kind 'delta') — «люди рекомендуют конкретику».
+test('cardLayout: уровень (index.status) и дельта недели (delta) присутствуют (R09)', () => {
+  const items = cardLayout('ru', SNAPSHOT, null);
+  const index = items.find((i) => i.kind === 'index');
+  const delta = items.find((i) => i.kind === 'delta');
+  assert.ok(index && typeof index.status === 'string' && index.status !== '');
+  assert.ok(delta && typeof delta.text === 'string' && delta.text.includes('ЗА НЕДЕЛЮ'));
+});
+
 test('cardLayout: только регион, без города (R80)', () => {
   const items = cardLayout('ru', SNAPSHOT, 'europe');
   const regionItem = items.find((i) => i.kind === 'region');

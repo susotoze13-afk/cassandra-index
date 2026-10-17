@@ -1,5 +1,5 @@
 // js/bundle.js — СГЕНЕРИРОВАН build.js, не править вручную.
-// Исходники: js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/geo.js, js/sections/states.js, js/sections/hero.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/criteria.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
+// Исходники: js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/geo.js, js/sections/states.js, js/sections/hero.js, js/criteria.js, js/sections/trust.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
 (function () {
 'use strict';
 const modules = {};
@@ -1105,6 +1105,25 @@ const DICTS = {
     'share.button': 'Поделиться',
     'share.region': 'Ваш регион: {name} · {index} / 100',
     'share.announce': 'Карточка снапшота скачана',
+    // Витрина доверия (ADR 0033 §1, фаза 1): пять фактов строки и детали раскрытия.
+    'trust.title': 'На чём стоит индекс',
+    'trust.na': 'н/д',
+    'trust.fact.criteria': '{n} {n, plural, one{критерий} few{критерия} many{критериев} other{критериев}}',
+    'trust.fact.sources': '{n} {n, plural, one{источник} few{источника} many{источников} other{источников}}',
+    'trust.fact.clusters': '{n} {n, plural, one{независимый кластер} few{независимых кластера} many{независимых кластеров} other{независимых кластеров}}',
+    'trust.fact.blind': '{n} {n, plural, one{слепой регион} few{слепых региона} many{слепых регионов} other{слепых регионов}}',
+    'trust.fact.methodology': 'методология {version}',
+    'trust.details.clusters': 'Источники по кластерам',
+    'trust.cluster.A-mainstream': 'Мейнстрим-агентства (A)',
+    'trust.cluster.B-state-media': 'Гос/госфинансируемые СМИ (B)',
+    'trust.cluster.C-registries': 'Аналитические реестры (C)',
+    'trust.cluster.D-satellite-osint': 'Спутниковые OSINT (D)',
+    'trust.cluster.E-field-osint': 'Полевые OSINT (E)',
+    'trust.cluster.F-financial': 'Финансовые данные (F)',
+    'trust.details.affiliated': '{count} из {total} — гос/госфинансируемые, помечены честно',
+    'trust.details.coverage': 'не покрыто {n} {n, plural, one{критерий} few{критерия} many{критериев} other{критериев}} — нет подтверждающих сигналов в окне недели',
+    'trust.details.coverage.na': 'Покрытие критериев: н/д',
+    'trust.details.sensitive': 'индекс чувствителен к одному из доменов (Δ {delta} п.п.)',
     'footer.nav': 'Сервисные ссылки',
     'feedback.title': 'Обратная связь',
     'feedback.topic.label': 'Тема',
@@ -2485,6 +2504,623 @@ exports["refineRegionFromCoords"] = refineRegionFromCoords;
 exports["render"] = render;
 return exports;
 }]);
+factories.push(["js/criteria.js", function (exports) {
+// Статический список 46 критериев D1.1–D9.7 для раздела «Методология» (R05).
+// Данные по METHODOLOGY.md §4: сжатые названия и описания наблюдаемого сигнала,
+// без формул, шкал и порогов — расчётная часть методологии в публичный UI не
+// выносится. Порядок позиций совпадает с engine.CRITERIA (calc/engine.js);
+// рассинхрон страхует тест-паритет tests/methodology-criteria.test.js.
+// Сайт не импортирует calc/ (конвенция) — список дублируется здесь намеренно.
+
+const CRITERIA_LIST = [
+  {
+    id: 'D1.1',
+    driver: 'D1',
+    name: { ru: 'Перемещения войск и военных колонн', en: 'Troop and military column movements' },
+    desc: {
+      ru: 'Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.',
+      en: 'Ground transfers, railway echelons and sealifts of troops near the theatre of operations or borders.',
+    },
+  },
+  {
+    id: 'D1.2',
+    driver: 'D1',
+    name: { ru: 'Учения необычного масштаба', en: 'Exercises of unusual scale' },
+    desc: {
+      ru: 'Анонсированные и фактические учения, необычные по масштабу, близости к границе или одновременности на нескольких фронтах.',
+      en: 'Announced and actual exercises unusual in scale, proximity to borders, or simultaneity across several fronts.',
+    },
+  },
+  {
+    id: 'D1.3',
+    driver: 'D1',
+    name: { ru: 'Наращивание военной логистики', en: 'Military logistics build-up' },
+    desc: {
+      ru: 'Склады боеприпасов, топливные резервы, развёртывание полевых госпиталей, мостов и переправ.',
+      en: 'Ammunition depots, fuel reserves, and deployment of field hospitals, bridges and crossings.',
+    },
+  },
+  {
+    id: 'D1.4',
+    driver: 'D1',
+    name: { ru: 'Актуальные боевые действия', en: 'Active hostilities' },
+    desc: {
+      ru: 'Обстрелы, авиаудары, пограничные инциденты и попытки прорыва; вторжение или открытие нового театра учитываются как наиболее тяжёлые события.',
+      en: 'Shelling, airstrikes, border incidents and breakthrough attempts; an invasion or a new theatre counts among the most severe events.',
+    },
+  },
+  {
+    id: 'D1.5',
+    driver: 'D1',
+    name: { ru: 'Развёртывание стратегических систем', en: 'Deployment of strategic systems' },
+    desc: {
+      ru: 'Переброска ПВО, надводных групп, подводных сил и ядерной инфраструктуры; ядерная риторика учитывается отдельным драйвером.',
+      en: 'Deployment of air defence, surface groups, submarines and nuclear infrastructure; nuclear rhetoric is tracked by a separate driver.',
+    },
+  },
+  {
+    id: 'D1.6',
+    driver: 'D1',
+    name: { ru: 'Разведение сил', en: 'Drawdown of forces' },
+    desc: {
+      ru: 'Подтверждённое разведение войск, вывод из позиций и сокращение активности.',
+      en: 'Confirmed troop drawdowns, withdrawal from positions and reduced activity.',
+    },
+  },
+  {
+    id: 'D2.1',
+    driver: 'D2',
+    name: { ru: 'Публичные ядерные угрозы', en: 'Public nuclear threats' },
+    desc: {
+      ru: 'Явные заявления о применении ядерного оружия на уровне глав государств и министров обороны или иностранных дел.',
+      en: 'Explicit statements about nuclear weapons use by heads of state and ministers of defence or foreign affairs.',
+    },
+  },
+  {
+    id: 'D2.2',
+    driver: 'D2',
+    name: { ru: 'Смена доктрины и договоров', en: 'Doctrine and treaty shifts' },
+    desc: {
+      ru: 'Изменения ядерной доктрины, выход из договоров по контролю над вооружениями, приостановка участия в механизмах уведомления.',
+      en: 'Changes to nuclear doctrine, withdrawal from arms-control treaties, suspension of notification mechanisms.',
+    },
+  },
+  {
+    id: 'D2.3',
+    driver: 'D2',
+    name: { ru: 'Технические ядерные сигналы', en: 'Technical nuclear signals' },
+    desc: {
+      ru: 'Учения стратегических сил, подвижки ракетных комплексов, подготовка полигонов, смена режима дежурств.',
+      en: 'Strategic force exercises, movements of missile systems, test-site preparations, changes in duty rotations.',
+    },
+  },
+  {
+    id: 'D2.4',
+    driver: 'D2',
+    name: { ru: 'Повышение готовности ядерных сил', en: 'Raised nuclear readiness' },
+    desc: {
+      ru: 'Публичные заявления о переводе ядерных сил на особый режим.',
+      en: 'Public announcements of moving nuclear forces to a special readiness regime.',
+    },
+  },
+  {
+    id: 'D2.5',
+    driver: 'D2',
+    name: { ru: 'Отход от ядерной риторики', en: 'Step back from nuclear rhetoric' },
+    desc: {
+      ru: 'Отказ от ядерных угроз, подтверждённое возвращение сил к штатному режиму, восстановление договорных механизмов.',
+      en: 'Renunciation of nuclear threats, confirmed return of forces to normal posture, restoration of treaty mechanisms.',
+    },
+  },
+  {
+    id: 'D3.1',
+    driver: 'D3',
+    name: { ru: 'Разрыв дипломатических отношений', en: 'Breakdown of diplomatic relations' },
+    desc: {
+      ru: 'Разрыв или понижение отношений, массовая высылка дипломатов, закрытие посольств.',
+      en: 'Rupture or downgrading of relations, mass expulsions of diplomats, embassy closures.',
+    },
+  },
+  {
+    id: 'D3.2',
+    driver: 'D3',
+    name: { ru: 'Ультиматумы', en: 'Ultimatums' },
+    desc: {
+      ru: 'Публично заявленные несовместимые требования сторон конфликта.',
+      en: 'Publicly stated incompatible demands by the parties to the conflict.',
+    },
+  },
+  {
+    id: 'D3.3',
+    driver: 'D3',
+    name: { ru: 'Санкции и международно-правовые решения', en: 'Sanctions and legal measures' },
+    desc: {
+      ru: 'Новые пакеты санкций, резолюции, признание сторон конфликта террористическими и подобные решения.',
+      en: 'New sanctions packages, resolutions, designations of parties as terrorist and similar measures.',
+    },
+  },
+  {
+    id: 'D3.4',
+    driver: 'D3',
+    name: { ru: 'Переговоры и посредничество', en: 'Talks and mediation' },
+    desc: {
+      ru: 'Возобновление или запуск переговоров, посредничество третьих стран и организаций.',
+      en: 'Resumption or launch of negotiations, mediation by third countries and organisations.',
+    },
+  },
+  {
+    id: 'D3.5',
+    driver: 'D3',
+    name: { ru: 'Гуманитарные договорённости', en: 'Humanitarian arrangements' },
+    desc: {
+      ru: 'Договорённости о коридорах, обменах пленными и доступе инспекций.',
+      en: 'Arrangements on corridors, prisoner exchanges and inspection access.',
+    },
+  },
+  {
+    id: 'D4.1',
+    driver: 'D4',
+    name: { ru: 'Новые санкции и контрсанкции', en: 'New sanctions and countersanctions' },
+    desc: {
+      ru: 'Ограничения на экспорт энергоносителей и критичных товаров; само решение об ограничениях учитывается дипломатическим драйвером.',
+      en: 'Restrictions on exports of energy and critical goods; the decision itself is tracked by the diplomatic driver.',
+    },
+  },
+  {
+    id: 'D4.2',
+    driver: 'D4',
+    name: { ru: 'Военные расходы', en: 'Military spending' },
+    desc: {
+      ru: 'Экстренные бюджетные ассигнования и переход экономики на военные рельсы по открытым бюджетам и официальным решениям.',
+      en: 'Emergency budget allocations and a shift of the economy onto a war footing, per open budgets and official decisions.',
+    },
+  },
+  {
+    id: 'D4.3',
+    driver: 'D4',
+    name: { ru: 'Разрыв цепочек поставок', en: 'Supply chain disruption' },
+    desc: {
+      ru: 'Перебои с критичными ресурсами: редкие металлы, микроэлектроника, компоненты оборонной промышленности.',
+      en: 'Disruptions in critical resources: rare metals, microelectronics, defence industry components.',
+    },
+  },
+  {
+    id: 'D4.4',
+    driver: 'D4',
+    name: { ru: 'Конфискации и блокировка торговли', en: 'Asset seizures and trade blockage' },
+    desc: {
+      ru: 'Конфискации и национализация активов конфликтующих сторон, блокировка торговых путей.',
+      en: 'Seizures and nationalisation of the parties’ assets, blockage of trade routes.',
+    },
+  },
+  {
+    id: 'D4.5',
+    driver: 'D4',
+    name: { ru: 'Снятие экономических ограничений', en: 'Easing of economic restrictions' },
+    desc: {
+      ru: 'Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.',
+      en: 'Lifting of restrictions, restoration of trade ties, humanitarian economic exemptions.',
+    },
+  },
+  {
+    id: 'D4.6',
+    driver: 'D4',
+    name: { ru: 'Стресс на финансовых и сырьевых рынках', en: 'Financial and commodity market stress' },
+    desc: {
+      ru: 'Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.',
+      en: 'Commodity exchanges, bond and equity markets react to escalation earlier than other signals: index sell-offs, spikes in oil and gold prices, widening credit spreads.',
+    },
+  },
+  {
+    id: 'D5.1',
+    driver: 'D5',
+    name: { ru: 'Эскалация военной риторики', en: 'Escalation of war rhetoric' },
+    desc: {
+      ru: 'Переход к языку неизбежности и дегуманизации противника в официальных государственных СМИ и заявлениях.',
+      en: 'A shift to the language of inevitability and dehumanisation of the enemy in official state media and statements.',
+    },
+  },
+  {
+    id: 'D5.2',
+    driver: 'D5',
+    name: { ru: 'Кибероперации', en: 'Cyber operations' },
+    desc: {
+      ru: 'Подтверждённые атаки на критическую инфраструктуру — энергетику, связь, транспорт, госорганы — с атрибуцией конфликтующей стороной.',
+      en: 'Confirmed attacks on critical infrastructure — power, communications, transport, government — attributed to a party to the conflict.',
+    },
+  },
+  {
+    id: 'D5.3',
+    driver: 'D5',
+    name: { ru: 'Дезинформационные кампании', en: 'Disinformation campaigns' },
+    desc: {
+      ru: 'Координированные кампании, разворачиваемые в преддверии военных действий, по отчётам проверенных аналитических центров.',
+      en: 'Coordinated campaigns rolled out ahead of hostilities, per reports of vetted analytical centres.',
+    },
+  },
+  {
+    id: 'D5.4',
+    driver: 'D5',
+    name: { ru: 'Снижение пропаганды', en: 'Easing of propaganda' },
+    desc: {
+      ru: 'Снижение уровня военной пропаганды, закрытие каналов разжигания, публичные опровержения эскалационных нарративов.',
+      en: 'Lower levels of war propaganda, closure of incitement channels, public denials of escalatory narratives.',
+    },
+  },
+  {
+    id: 'D6.1',
+    driver: 'D6',
+    name: { ru: 'Военное положение и мобилизация', en: 'Martial law and mobilisation' },
+    desc: {
+      ru: 'Введение или расширение военного положения, мобилизационные законы, скрытая мобилизация по подтверждённым данным.',
+      en: 'Introduction or expansion of martial law, mobilisation laws, covert mobilisation per confirmed data.',
+    },
+  },
+  {
+    id: 'D6.2',
+    driver: 'D6',
+    name: { ru: 'Эвакуация населения', en: 'Evacuation of population' },
+    desc: {
+      ru: 'Эвакуация из приграничных и прифронтовых зон, создание убежищ, учения гражданской обороны необычного масштаба.',
+      en: 'Evacuation from border and frontline areas, construction of shelters, civil defence drills of unusual scale.',
+    },
+  },
+  {
+    id: 'D6.3',
+    driver: 'D6',
+    name: { ru: 'Военная переориентация экономики', en: 'Military reorientation of the economy' },
+    desc: {
+      ru: 'Военные госзаказы, ограничение выезда для военнообязанных.',
+      en: 'Military state orders, exit restrictions for military-age citizens.',
+    },
+  },
+  {
+    id: 'D6.4',
+    driver: 'D6',
+    name: { ru: 'Отмена мобилизационных мер', en: 'Rollback of mobilisation measures' },
+    desc: {
+      ru: 'Отмена мобилизационных мер, возвращение гражданских режимов, возвращение эвакуированных.',
+      en: 'Cancellation of mobilisation measures, return of civilian regimes and of evacuees.',
+    },
+  },
+  {
+    id: 'D7.1',
+    driver: 'D7',
+    name: { ru: 'Вовлечение новых государств', en: 'Entry of new states' },
+    desc: {
+      ru: 'Прямое военное вовлечение новых государств: ввод войск, поставки оружия с эскалационным эффектом, базирование.',
+      en: 'Direct military entry of new states: troop deployments, arms deliveries with an escalatory effect, basing.',
+    },
+  },
+  {
+    id: 'D7.2',
+    driver: 'D7',
+    name: { ru: 'Атаки за пределами театра', en: 'Attacks beyond the theatre' },
+    desc: {
+      ru: 'Атаки на объекты за пределами основного театра: торговые суда, трубопроводы, дипмиссии, инфраструктура третьих стран.',
+      en: 'Attacks on objects outside the main theatre: merchant ships, pipelines, diplomatic missions, third countries’ infrastructure.',
+    },
+  },
+  {
+    id: 'D7.3',
+    driver: 'D7',
+    name: { ru: 'Новые фронты', en: 'New fronts' },
+    desc: {
+      ru: 'Открытие новых фронтов или театров в соседних регионах.',
+      en: 'Opening of new fronts or theatres in neighbouring regions.',
+    },
+  },
+  {
+    id: 'D7.4',
+    driver: 'D7',
+    name: { ru: 'Выход третьих сторон', en: 'Withdrawal of third parties' },
+    desc: {
+      ru: 'Выход третьих сторон из конфликта, прекращение поставок, закрытие базирования.',
+      en: 'Withdrawal of third parties from the conflict, cessation of supplies, closure of basing.',
+    },
+  },
+  {
+    id: 'D8.1',
+    driver: 'D8',
+    name: { ru: 'Прекращение огня', en: 'Ceasefire' },
+    desc: {
+      ru: 'Прекращение огня или перемирие, соблюдаемое в течение всего окна без нарушений.',
+      en: 'A ceasefire or truce observed throughout the window without violations.',
+    },
+  },
+  {
+    id: 'D8.2',
+    driver: 'D8',
+    name: { ru: 'Мирные договорённости', en: 'Peace arrangements' },
+    desc: {
+      ru: 'Подписанные мирные договорённости, разведение сил и тяжёлого вооружения по верифицируемым схемам.',
+      en: 'Signed peace arrangements, verified drawdown schemes for forces and heavy weapons.',
+    },
+  },
+  {
+    id: 'D8.3',
+    driver: 'D8',
+    name: { ru: 'Наблюдение и верификация', en: 'Monitoring and verification' },
+    desc: {
+      ru: 'Международное наблюдение: миссии, инспекции, мониторинг соблюдения режимов.',
+      en: 'International monitoring: missions, inspections, verification of compliance.',
+    },
+  },
+  {
+    id: 'D8.4',
+    driver: 'D8',
+    name: { ru: 'Снижение интенсивности событий', en: 'Sustained drop in event intensity' },
+    desc: {
+      ru: 'Устойчивое снижение числа эскалационных инцидентов на протяжении нескольких недель подряд без нарушения режимов.',
+      en: 'A sustained decline in the number of escalation incidents over several consecutive weeks without regime violations.',
+    },
+  },
+  {
+    id: 'D9.1',
+    driver: 'D9',
+    name: { ru: 'Медицинская подготовка', en: 'Medical preparation' },
+    desc: {
+      ru: 'Необычные закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков.',
+      en: 'Unusual procurements of wound-care medicines, blood and plasma stockpiles, expansion of hospital bed capacity, accelerated training of military medics.',
+    },
+  },
+  {
+    id: 'D9.2',
+    driver: 'D9',
+    name: { ru: 'Финансовая изоляция', en: 'Financial isolation' },
+    desc: {
+      ru: 'Капитальные ограничения, отзыв активов из-за рубежа, приостановка выплат по внешнему долгу, военные займы, запреты на экспорт продовольствия и топлива.',
+      en: 'Capital controls, repatriation of assets from abroad, suspension of external debt payments, war loans, bans on food and fuel exports.',
+    },
+  },
+  {
+    id: 'D9.3',
+    driver: 'D9',
+    name: { ru: 'Транспорт и страхование', en: 'Transport and insurance' },
+    desc: {
+      ru: 'Рост военных страховых надбавок, отзыв страхового покрытия, массовая отмена авиарейсов, закрытие воздушного пространства, военные приоритеты на железных дорогах, изъятие подвижного состава.',
+      en: 'Rising war-risk insurance premiums, withdrawal of coverage, mass flight cancellations, airspace closures, military priorities on railways, requisition of rolling stock.',
+    },
+  },
+  {
+    id: 'D9.4',
+    driver: 'D9',
+    name: { ru: 'Стратегическое накопление', en: 'Strategic stockpiling' },
+    desc: {
+      ru: 'Аномальные закупки в госрезервы, круглосуточные режимы предприятий оборонной промышленности, мобилизационные заказы гражданским заводам, накопление топлива вблизи театра.',
+      en: 'Abnormal state reserve purchases, round-the-clock shifts at defence plants, mobilisation orders to civilian factories, fuel stockpiling near the theatre.',
+    },
+  },
+  {
+    id: 'D9.5',
+    driver: 'D9',
+    name: { ru: 'Кадровые и мобилизационные меры', en: 'Personnel and mobilisation measures' },
+    desc: {
+      ru: 'Изменение возраста и категорий призыва, расширение списков военнообязанных, ограничения выезда для отдельных категорий специалистов, изменения законов о военной службе без объявления мобилизации.',
+      en: 'Changes to draft age and categories, expanded military registers, exit restrictions for select categories of specialists, changes to military service laws without declared mobilisation.',
+    },
+  },
+  {
+    id: 'D9.6a',
+    driver: 'D9',
+    name: { ru: 'Информационный суверенитет', en: 'Information sovereignty' },
+    desc: {
+      ru: 'Усиление цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО и оборудования в критичных отраслях, «подогревка» госСМИ и военно-патриотические кампании, постановка помех спутниковой навигации.',
+      en: 'Tighter censorship and internet filtering, drills for autonomy from the global network, replacement of imported software and equipment in critical sectors, stoking of state media and military-patriotic campaigns, satellite navigation jamming.',
+    },
+  },
+  {
+    id: 'D9.6b',
+    driver: 'D9',
+    name: { ru: 'Эвакуация элит и активов', en: 'Evacuation of elites and assets' },
+    desc: {
+      ru: 'Вывоз семей дипломатов и чиновников, отзыв студентов и специалистов из-за рубежа, эвакуация музейных ценностей и архивов, перебазирование командных пунктов и правительственных резервов.',
+      en: 'Evacuation of diplomats’ and officials’ families, recall of students and specialists from abroad, removal of museum collections and archives, relocation of command posts and government reserves.',
+    },
+  },
+  {
+    id: 'D9.7',
+    driver: 'D9',
+    name: { ru: 'Снятие «тихих» мер', en: 'Lifting of quiet measures' },
+    desc: {
+      ru: 'Отмена капитального контроля, возвращение дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам, возвращение эвакуированных коллекций.',
+      en: 'Lifting of capital controls, return of diplomats’ families, resumption of statistics publication, return of plants to civilian regimes, return of evacuated collections.',
+    },
+  },
+];
+
+exports["CRITERIA_LIST"] = CRITERIA_LIST;
+return exports;
+}]);
+factories.push(["js/sections/trust.js", function (exports) {
+const { t } = __ci_require("js/i18n.js");
+const region = __ci_require("js/region.js");
+const { CRITERIA_LIST } = __ci_require("js/criteria.js");
+// Секция «Витрина доверия» (регистрируется в js/render.js как 'trust'):
+// компактная строка-факт сразу под hero — 46 критериев · N источников ·
+// M независимых кластеров · S слепой регион · методология X.Y. Клик раскрывает
+// честные детали: распределение источников по кластерам, долю гос/госфинансируемых
+// СМИ (нейтрально), число непокрытых критериев и — только при заметном значении —
+// строку чувствительности индекса. Числа берутся из уже загруженного снапшота
+// недели (calc/ не читается, ничего не пересчитывается); единственное, что сайт
+// добавляет своего, — общее число критериев из статического js/criteria.js.
+// Чистый шов trustFacts(snapshot) — без DOM, тестируется.
+
+
+// Порог показа строки чувствительности, п.п. — равен PARAMS.sensitivityThreshold
+// (calc/params.js); сайт не читает calc/, константа зашита с комментарием
+// (как в js/sections/states.js).
+const TRUST_SENSITIVITY_THRESHOLD = 5;
+
+// trustFacts(snapshot) → объект | null. null — если снапшота или глобального
+// индекса нет (недоступный/insufficient снапшот → секция пуста).
+// Критериев — статический список (сайт его знает); источники/кластеры/слепые
+// регионы/методология — из снапшота; coverage — из snapshot.coverageCriteria
+// (нет/битая форма → null); sensitivity — из snapshot.sensitivity.
+function trustFacts(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') return null;
+  if (snapshot.global == null) return null;
+
+  const sources = Array.isArray(snapshot.sources) ? snapshot.sources : [];
+
+  const counts = new Map();
+  for (const s of sources) {
+    const id = s && typeof s.cluster_id === 'string' ? s.cluster_id : null;
+    if (!id) continue;
+    counts.set(id, (counts.get(id) ?? 0) + 1);
+  }
+  const clusterCounts = [...counts.entries()].sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0]));
+
+  const affiliatedCount = sources.filter((s) => s && s.state_affiliated === true).length;
+
+  const set = region.regionForTaxonomy(snapshot.regions_taxonomy);
+  const regions = snapshot.regions && typeof snapshot.regions === 'object' ? snapshot.regions : {};
+  const blindRegions = set.filter((r) => regions[r.id]?.background === true).length;
+
+  const coverage = validCoverage(snapshot.coverageCriteria);
+  const sensitivity =
+    typeof snapshot.sensitivity === 'number' && Number.isFinite(snapshot.sensitivity)
+      ? snapshot.sensitivity
+      : null;
+  const methodology =
+    typeof snapshot.methodology === 'string' && snapshot.methodology !== ''
+      ? snapshot.methodology
+      : null;
+
+  return {
+    criteriaTotal: CRITERIA_LIST.length,
+    sources: sources.length,
+    clusters: clusterCounts.length,
+    blindRegions,
+    methodology,
+    coverage,
+    sensitivity,
+    clusterCounts,
+    affiliated: { count: affiliatedCount, total: sources.length },
+  };
+}
+
+// coverageCriteria валиден только как { covered:int >= 0, total:int > 0, covered <= total };
+// иначе (нет поля, битая форма) — null → «н/д».
+function validCoverage(cc) {
+  if (!cc || typeof cc !== 'object' || Array.isArray(cc)) return null;
+  const ok =
+    Number.isInteger(cc.covered) && cc.covered >= 0 &&
+    Number.isInteger(cc.total) && cc.total > 0 &&
+    cc.covered <= cc.total;
+  return ok ? { covered: cc.covered, total: cc.total } : null;
+}
+
+// ---------- DOM ----------
+
+const DETAILS_ID = 'trust-details';
+
+// Название кластера происхождения (A–F, provenance-matrix): перевод по id;
+// неизвестный id показываем как есть, не роняем строку.
+function clusterLabel(lang, id) {
+  const key = `trust.cluster.${id}`;
+  const label = t(lang, key);
+  return label === key ? id : label;
+}
+
+function factsLine(lang, facts) {
+  return [
+    t(lang, 'trust.fact.criteria', { n: facts.criteriaTotal }),
+    t(lang, 'trust.fact.sources', { n: facts.sources }),
+    t(lang, 'trust.fact.clusters', { n: facts.clusters }),
+    t(lang, 'trust.fact.blind', { n: facts.blindRegions }),
+    facts.methodology ? t(lang, 'trust.fact.methodology', { version: facts.methodology }) : t(lang, 'trust.na'),
+  ].join(' · ');
+}
+
+function buildDetails(lang, facts) {
+  const wrap = document.createElement('div');
+  wrap.className = 'trust-details-body';
+  wrap.id = DETAILS_ID;
+
+  const clusterHead = document.createElement('h3');
+  clusterHead.className = 'trust-details-title';
+  clusterHead.textContent = t(lang, 'trust.details.clusters');
+  wrap.appendChild(clusterHead);
+
+  const list = document.createElement('ul');
+  list.className = 'trust-clusters';
+  for (const [id, count] of facts.clusterCounts) {
+    const li = document.createElement('li');
+    li.textContent = `${clusterLabel(lang, id)}: ${count}`;
+    list.appendChild(li);
+  }
+  wrap.appendChild(list);
+
+  const affiliated = document.createElement('p');
+  affiliated.className = 'trust-affiliated';
+  affiliated.textContent = t(lang, 'trust.details.affiliated', {
+    count: facts.affiliated.count,
+    total: facts.affiliated.total,
+  });
+  wrap.appendChild(affiliated);
+
+  const coverage = document.createElement('p');
+  coverage.className = 'trust-coverage';
+  if (facts.coverage) {
+    coverage.textContent = t(lang, 'trust.details.coverage', {
+      n: facts.coverage.total - facts.coverage.covered,
+    });
+  } else {
+    coverage.textContent = t(lang, 'trust.details.coverage.na');
+  }
+  wrap.appendChild(coverage);
+
+  // Строка чувствительности — только при заметном значении (≥ порога).
+  if (facts.sensitivity !== null && facts.sensitivity >= TRUST_SENSITIVITY_THRESHOLD) {
+    const sensitive = document.createElement('p');
+    sensitive.className = 'trust-sensitive';
+    sensitive.textContent = t(lang, 'trust.details.sensitive', { delta: facts.sensitivity });
+    wrap.appendChild(sensitive);
+  }
+
+  return wrap;
+}
+
+function render(appState) {
+  if (typeof document === 'undefined') return;
+  const host = document.querySelector('[data-section="trust"]');
+  if (!host) return;
+
+  host.textContent = '';
+  const facts = trustFacts(appState?.snapshot);
+  if (!facts) return; // пустой/недоступный снапшот → секция пуста, без исключений
+
+  const lang = appState.lang ?? 'ru';
+  const panel = document.createElement('div');
+  panel.className = 'trust-panel';
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'trust-row';
+  toggle.dataset.role = 'trust-toggle';
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', DETAILS_ID);
+  toggle.textContent = factsLine(lang, facts);
+
+  const details = buildDetails(lang, facts);
+  details.hidden = true;
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    details.hidden = expanded;
+  });
+
+  panel.append(toggle, details);
+  host.appendChild(panel);
+}
+
+exports["TRUST_SENSITIVITY_THRESHOLD"] = TRUST_SENSITIVITY_THRESHOLD;
+exports["trustFacts"] = trustFacts;
+exports["render"] = render;
+return exports;
+}]);
 factories.push(["js/sections/drivers.js", function (exports) {
 const { t, date } = __ci_require("js/i18n.js");
 const { el } = __ci_require("js/ui.js");
@@ -3789,434 +4425,6 @@ exports["reviewFor"] = reviewFor;
 exports["render"] = render;
 return exports;
 }]);
-factories.push(["js/criteria.js", function (exports) {
-// Статический список 46 критериев D1.1–D9.7 для раздела «Методология» (R05).
-// Данные по METHODOLOGY.md §4: сжатые названия и описания наблюдаемого сигнала,
-// без формул, шкал и порогов — расчётная часть методологии в публичный UI не
-// выносится. Порядок позиций совпадает с engine.CRITERIA (calc/engine.js);
-// рассинхрон страхует тест-паритет tests/methodology-criteria.test.js.
-// Сайт не импортирует calc/ (конвенция) — список дублируется здесь намеренно.
-
-const CRITERIA_LIST = [
-  {
-    id: 'D1.1',
-    driver: 'D1',
-    name: { ru: 'Перемещения войск и военных колонн', en: 'Troop and military column movements' },
-    desc: {
-      ru: 'Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.',
-      en: 'Ground transfers, railway echelons and sealifts of troops near the theatre of operations or borders.',
-    },
-  },
-  {
-    id: 'D1.2',
-    driver: 'D1',
-    name: { ru: 'Учения необычного масштаба', en: 'Exercises of unusual scale' },
-    desc: {
-      ru: 'Анонсированные и фактические учения, необычные по масштабу, близости к границе или одновременности на нескольких фронтах.',
-      en: 'Announced and actual exercises unusual in scale, proximity to borders, or simultaneity across several fronts.',
-    },
-  },
-  {
-    id: 'D1.3',
-    driver: 'D1',
-    name: { ru: 'Наращивание военной логистики', en: 'Military logistics build-up' },
-    desc: {
-      ru: 'Склады боеприпасов, топливные резервы, развёртывание полевых госпиталей, мостов и переправ.',
-      en: 'Ammunition depots, fuel reserves, and deployment of field hospitals, bridges and crossings.',
-    },
-  },
-  {
-    id: 'D1.4',
-    driver: 'D1',
-    name: { ru: 'Актуальные боевые действия', en: 'Active hostilities' },
-    desc: {
-      ru: 'Обстрелы, авиаудары, пограничные инциденты и попытки прорыва; вторжение или открытие нового театра учитываются как наиболее тяжёлые события.',
-      en: 'Shelling, airstrikes, border incidents and breakthrough attempts; an invasion or a new theatre counts among the most severe events.',
-    },
-  },
-  {
-    id: 'D1.5',
-    driver: 'D1',
-    name: { ru: 'Развёртывание стратегических систем', en: 'Deployment of strategic systems' },
-    desc: {
-      ru: 'Переброска ПВО, надводных групп, подводных сил и ядерной инфраструктуры; ядерная риторика учитывается отдельным драйвером.',
-      en: 'Deployment of air defence, surface groups, submarines and nuclear infrastructure; nuclear rhetoric is tracked by a separate driver.',
-    },
-  },
-  {
-    id: 'D1.6',
-    driver: 'D1',
-    name: { ru: 'Разведение сил', en: 'Drawdown of forces' },
-    desc: {
-      ru: 'Подтверждённое разведение войск, вывод из позиций и сокращение активности.',
-      en: 'Confirmed troop drawdowns, withdrawal from positions and reduced activity.',
-    },
-  },
-  {
-    id: 'D2.1',
-    driver: 'D2',
-    name: { ru: 'Публичные ядерные угрозы', en: 'Public nuclear threats' },
-    desc: {
-      ru: 'Явные заявления о применении ядерного оружия на уровне глав государств и министров обороны или иностранных дел.',
-      en: 'Explicit statements about nuclear weapons use by heads of state and ministers of defence or foreign affairs.',
-    },
-  },
-  {
-    id: 'D2.2',
-    driver: 'D2',
-    name: { ru: 'Смена доктрины и договоров', en: 'Doctrine and treaty shifts' },
-    desc: {
-      ru: 'Изменения ядерной доктрины, выход из договоров по контролю над вооружениями, приостановка участия в механизмах уведомления.',
-      en: 'Changes to nuclear doctrine, withdrawal from arms-control treaties, suspension of notification mechanisms.',
-    },
-  },
-  {
-    id: 'D2.3',
-    driver: 'D2',
-    name: { ru: 'Технические ядерные сигналы', en: 'Technical nuclear signals' },
-    desc: {
-      ru: 'Учения стратегических сил, подвижки ракетных комплексов, подготовка полигонов, смена режима дежурств.',
-      en: 'Strategic force exercises, movements of missile systems, test-site preparations, changes in duty rotations.',
-    },
-  },
-  {
-    id: 'D2.4',
-    driver: 'D2',
-    name: { ru: 'Повышение готовности ядерных сил', en: 'Raised nuclear readiness' },
-    desc: {
-      ru: 'Публичные заявления о переводе ядерных сил на особый режим.',
-      en: 'Public announcements of moving nuclear forces to a special readiness regime.',
-    },
-  },
-  {
-    id: 'D2.5',
-    driver: 'D2',
-    name: { ru: 'Отход от ядерной риторики', en: 'Step back from nuclear rhetoric' },
-    desc: {
-      ru: 'Отказ от ядерных угроз, подтверждённое возвращение сил к штатному режиму, восстановление договорных механизмов.',
-      en: 'Renunciation of nuclear threats, confirmed return of forces to normal posture, restoration of treaty mechanisms.',
-    },
-  },
-  {
-    id: 'D3.1',
-    driver: 'D3',
-    name: { ru: 'Разрыв дипломатических отношений', en: 'Breakdown of diplomatic relations' },
-    desc: {
-      ru: 'Разрыв или понижение отношений, массовая высылка дипломатов, закрытие посольств.',
-      en: 'Rupture or downgrading of relations, mass expulsions of diplomats, embassy closures.',
-    },
-  },
-  {
-    id: 'D3.2',
-    driver: 'D3',
-    name: { ru: 'Ультиматумы', en: 'Ultimatums' },
-    desc: {
-      ru: 'Публично заявленные несовместимые требования сторон конфликта.',
-      en: 'Publicly stated incompatible demands by the parties to the conflict.',
-    },
-  },
-  {
-    id: 'D3.3',
-    driver: 'D3',
-    name: { ru: 'Санкции и международно-правовые решения', en: 'Sanctions and legal measures' },
-    desc: {
-      ru: 'Новые пакеты санкций, резолюции, признание сторон конфликта террористическими и подобные решения.',
-      en: 'New sanctions packages, resolutions, designations of parties as terrorist and similar measures.',
-    },
-  },
-  {
-    id: 'D3.4',
-    driver: 'D3',
-    name: { ru: 'Переговоры и посредничество', en: 'Talks and mediation' },
-    desc: {
-      ru: 'Возобновление или запуск переговоров, посредничество третьих стран и организаций.',
-      en: 'Resumption or launch of negotiations, mediation by third countries and organisations.',
-    },
-  },
-  {
-    id: 'D3.5',
-    driver: 'D3',
-    name: { ru: 'Гуманитарные договорённости', en: 'Humanitarian arrangements' },
-    desc: {
-      ru: 'Договорённости о коридорах, обменах пленными и доступе инспекций.',
-      en: 'Arrangements on corridors, prisoner exchanges and inspection access.',
-    },
-  },
-  {
-    id: 'D4.1',
-    driver: 'D4',
-    name: { ru: 'Новые санкции и контрсанкции', en: 'New sanctions and countersanctions' },
-    desc: {
-      ru: 'Ограничения на экспорт энергоносителей и критичных товаров; само решение об ограничениях учитывается дипломатическим драйвером.',
-      en: 'Restrictions on exports of energy and critical goods; the decision itself is tracked by the diplomatic driver.',
-    },
-  },
-  {
-    id: 'D4.2',
-    driver: 'D4',
-    name: { ru: 'Военные расходы', en: 'Military spending' },
-    desc: {
-      ru: 'Экстренные бюджетные ассигнования и переход экономики на военные рельсы по открытым бюджетам и официальным решениям.',
-      en: 'Emergency budget allocations and a shift of the economy onto a war footing, per open budgets and official decisions.',
-    },
-  },
-  {
-    id: 'D4.3',
-    driver: 'D4',
-    name: { ru: 'Разрыв цепочек поставок', en: 'Supply chain disruption' },
-    desc: {
-      ru: 'Перебои с критичными ресурсами: редкие металлы, микроэлектроника, компоненты оборонной промышленности.',
-      en: 'Disruptions in critical resources: rare metals, microelectronics, defence industry components.',
-    },
-  },
-  {
-    id: 'D4.4',
-    driver: 'D4',
-    name: { ru: 'Конфискации и блокировка торговли', en: 'Asset seizures and trade blockage' },
-    desc: {
-      ru: 'Конфискации и национализация активов конфликтующих сторон, блокировка торговых путей.',
-      en: 'Seizures and nationalisation of the parties’ assets, blockage of trade routes.',
-    },
-  },
-  {
-    id: 'D4.5',
-    driver: 'D4',
-    name: { ru: 'Снятие экономических ограничений', en: 'Easing of economic restrictions' },
-    desc: {
-      ru: 'Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.',
-      en: 'Lifting of restrictions, restoration of trade ties, humanitarian economic exemptions.',
-    },
-  },
-  {
-    id: 'D4.6',
-    driver: 'D4',
-    name: { ru: 'Стресс на финансовых и сырьевых рынках', en: 'Financial and commodity market stress' },
-    desc: {
-      ru: 'Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.',
-      en: 'Commodity exchanges, bond and equity markets react to escalation earlier than other signals: index sell-offs, spikes in oil and gold prices, widening credit spreads.',
-    },
-  },
-  {
-    id: 'D5.1',
-    driver: 'D5',
-    name: { ru: 'Эскалация военной риторики', en: 'Escalation of war rhetoric' },
-    desc: {
-      ru: 'Переход к языку неизбежности и дегуманизации противника в официальных государственных СМИ и заявлениях.',
-      en: 'A shift to the language of inevitability and dehumanisation of the enemy in official state media and statements.',
-    },
-  },
-  {
-    id: 'D5.2',
-    driver: 'D5',
-    name: { ru: 'Кибероперации', en: 'Cyber operations' },
-    desc: {
-      ru: 'Подтверждённые атаки на критическую инфраструктуру — энергетику, связь, транспорт, госорганы — с атрибуцией конфликтующей стороной.',
-      en: 'Confirmed attacks on critical infrastructure — power, communications, transport, government — attributed to a party to the conflict.',
-    },
-  },
-  {
-    id: 'D5.3',
-    driver: 'D5',
-    name: { ru: 'Дезинформационные кампании', en: 'Disinformation campaigns' },
-    desc: {
-      ru: 'Координированные кампании, разворачиваемые в преддверии военных действий, по отчётам проверенных аналитических центров.',
-      en: 'Coordinated campaigns rolled out ahead of hostilities, per reports of vetted analytical centres.',
-    },
-  },
-  {
-    id: 'D5.4',
-    driver: 'D5',
-    name: { ru: 'Снижение пропаганды', en: 'Easing of propaganda' },
-    desc: {
-      ru: 'Снижение уровня военной пропаганды, закрытие каналов разжигания, публичные опровержения эскалационных нарративов.',
-      en: 'Lower levels of war propaganda, closure of incitement channels, public denials of escalatory narratives.',
-    },
-  },
-  {
-    id: 'D6.1',
-    driver: 'D6',
-    name: { ru: 'Военное положение и мобилизация', en: 'Martial law and mobilisation' },
-    desc: {
-      ru: 'Введение или расширение военного положения, мобилизационные законы, скрытая мобилизация по подтверждённым данным.',
-      en: 'Introduction or expansion of martial law, mobilisation laws, covert mobilisation per confirmed data.',
-    },
-  },
-  {
-    id: 'D6.2',
-    driver: 'D6',
-    name: { ru: 'Эвакуация населения', en: 'Evacuation of population' },
-    desc: {
-      ru: 'Эвакуация из приграничных и прифронтовых зон, создание убежищ, учения гражданской обороны необычного масштаба.',
-      en: 'Evacuation from border and frontline areas, construction of shelters, civil defence drills of unusual scale.',
-    },
-  },
-  {
-    id: 'D6.3',
-    driver: 'D6',
-    name: { ru: 'Военная переориентация экономики', en: 'Military reorientation of the economy' },
-    desc: {
-      ru: 'Военные госзаказы, ограничение выезда для военнообязанных.',
-      en: 'Military state orders, exit restrictions for military-age citizens.',
-    },
-  },
-  {
-    id: 'D6.4',
-    driver: 'D6',
-    name: { ru: 'Отмена мобилизационных мер', en: 'Rollback of mobilisation measures' },
-    desc: {
-      ru: 'Отмена мобилизационных мер, возвращение гражданских режимов, возвращение эвакуированных.',
-      en: 'Cancellation of mobilisation measures, return of civilian regimes and of evacuees.',
-    },
-  },
-  {
-    id: 'D7.1',
-    driver: 'D7',
-    name: { ru: 'Вовлечение новых государств', en: 'Entry of new states' },
-    desc: {
-      ru: 'Прямое военное вовлечение новых государств: ввод войск, поставки оружия с эскалационным эффектом, базирование.',
-      en: 'Direct military entry of new states: troop deployments, arms deliveries with an escalatory effect, basing.',
-    },
-  },
-  {
-    id: 'D7.2',
-    driver: 'D7',
-    name: { ru: 'Атаки за пределами театра', en: 'Attacks beyond the theatre' },
-    desc: {
-      ru: 'Атаки на объекты за пределами основного театра: торговые суда, трубопроводы, дипмиссии, инфраструктура третьих стран.',
-      en: 'Attacks on objects outside the main theatre: merchant ships, pipelines, diplomatic missions, third countries’ infrastructure.',
-    },
-  },
-  {
-    id: 'D7.3',
-    driver: 'D7',
-    name: { ru: 'Новые фронты', en: 'New fronts' },
-    desc: {
-      ru: 'Открытие новых фронтов или театров в соседних регионах.',
-      en: 'Opening of new fronts or theatres in neighbouring regions.',
-    },
-  },
-  {
-    id: 'D7.4',
-    driver: 'D7',
-    name: { ru: 'Выход третьих сторон', en: 'Withdrawal of third parties' },
-    desc: {
-      ru: 'Выход третьих сторон из конфликта, прекращение поставок, закрытие базирования.',
-      en: 'Withdrawal of third parties from the conflict, cessation of supplies, closure of basing.',
-    },
-  },
-  {
-    id: 'D8.1',
-    driver: 'D8',
-    name: { ru: 'Прекращение огня', en: 'Ceasefire' },
-    desc: {
-      ru: 'Прекращение огня или перемирие, соблюдаемое в течение всего окна без нарушений.',
-      en: 'A ceasefire or truce observed throughout the window without violations.',
-    },
-  },
-  {
-    id: 'D8.2',
-    driver: 'D8',
-    name: { ru: 'Мирные договорённости', en: 'Peace arrangements' },
-    desc: {
-      ru: 'Подписанные мирные договорённости, разведение сил и тяжёлого вооружения по верифицируемым схемам.',
-      en: 'Signed peace arrangements, verified drawdown schemes for forces and heavy weapons.',
-    },
-  },
-  {
-    id: 'D8.3',
-    driver: 'D8',
-    name: { ru: 'Наблюдение и верификация', en: 'Monitoring and verification' },
-    desc: {
-      ru: 'Международное наблюдение: миссии, инспекции, мониторинг соблюдения режимов.',
-      en: 'International monitoring: missions, inspections, verification of compliance.',
-    },
-  },
-  {
-    id: 'D8.4',
-    driver: 'D8',
-    name: { ru: 'Снижение интенсивности событий', en: 'Sustained drop in event intensity' },
-    desc: {
-      ru: 'Устойчивое снижение числа эскалационных инцидентов на протяжении нескольких недель подряд без нарушения режимов.',
-      en: 'A sustained decline in the number of escalation incidents over several consecutive weeks without regime violations.',
-    },
-  },
-  {
-    id: 'D9.1',
-    driver: 'D9',
-    name: { ru: 'Медицинская подготовка', en: 'Medical preparation' },
-    desc: {
-      ru: 'Необычные закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков.',
-      en: 'Unusual procurements of wound-care medicines, blood and plasma stockpiles, expansion of hospital bed capacity, accelerated training of military medics.',
-    },
-  },
-  {
-    id: 'D9.2',
-    driver: 'D9',
-    name: { ru: 'Финансовая изоляция', en: 'Financial isolation' },
-    desc: {
-      ru: 'Капитальные ограничения, отзыв активов из-за рубежа, приостановка выплат по внешнему долгу, военные займы, запреты на экспорт продовольствия и топлива.',
-      en: 'Capital controls, repatriation of assets from abroad, suspension of external debt payments, war loans, bans on food and fuel exports.',
-    },
-  },
-  {
-    id: 'D9.3',
-    driver: 'D9',
-    name: { ru: 'Транспорт и страхование', en: 'Transport and insurance' },
-    desc: {
-      ru: 'Рост военных страховых надбавок, отзыв страхового покрытия, массовая отмена авиарейсов, закрытие воздушного пространства, военные приоритеты на железных дорогах, изъятие подвижного состава.',
-      en: 'Rising war-risk insurance premiums, withdrawal of coverage, mass flight cancellations, airspace closures, military priorities on railways, requisition of rolling stock.',
-    },
-  },
-  {
-    id: 'D9.4',
-    driver: 'D9',
-    name: { ru: 'Стратегическое накопление', en: 'Strategic stockpiling' },
-    desc: {
-      ru: 'Аномальные закупки в госрезервы, круглосуточные режимы предприятий оборонной промышленности, мобилизационные заказы гражданским заводам, накопление топлива вблизи театра.',
-      en: 'Abnormal state reserve purchases, round-the-clock shifts at defence plants, mobilisation orders to civilian factories, fuel stockpiling near the theatre.',
-    },
-  },
-  {
-    id: 'D9.5',
-    driver: 'D9',
-    name: { ru: 'Кадровые и мобилизационные меры', en: 'Personnel and mobilisation measures' },
-    desc: {
-      ru: 'Изменение возраста и категорий призыва, расширение списков военнообязанных, ограничения выезда для отдельных категорий специалистов, изменения законов о военной службе без объявления мобилизации.',
-      en: 'Changes to draft age and categories, expanded military registers, exit restrictions for select categories of specialists, changes to military service laws without declared mobilisation.',
-    },
-  },
-  {
-    id: 'D9.6a',
-    driver: 'D9',
-    name: { ru: 'Информационный суверенитет', en: 'Information sovereignty' },
-    desc: {
-      ru: 'Усиление цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО и оборудования в критичных отраслях, «подогревка» госСМИ и военно-патриотические кампании, постановка помех спутниковой навигации.',
-      en: 'Tighter censorship and internet filtering, drills for autonomy from the global network, replacement of imported software and equipment in critical sectors, stoking of state media and military-patriotic campaigns, satellite navigation jamming.',
-    },
-  },
-  {
-    id: 'D9.6b',
-    driver: 'D9',
-    name: { ru: 'Эвакуация элит и активов', en: 'Evacuation of elites and assets' },
-    desc: {
-      ru: 'Вывоз семей дипломатов и чиновников, отзыв студентов и специалистов из-за рубежа, эвакуация музейных ценностей и архивов, перебазирование командных пунктов и правительственных резервов.',
-      en: 'Evacuation of diplomats’ and officials’ families, recall of students and specialists from abroad, removal of museum collections and archives, relocation of command posts and government reserves.',
-    },
-  },
-  {
-    id: 'D9.7',
-    driver: 'D9',
-    name: { ru: 'Снятие «тихих» мер', en: 'Lifting of quiet measures' },
-    desc: {
-      ru: 'Отмена капитального контроля, возвращение дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам, возвращение эвакуированных коллекций.',
-      en: 'Lifting of capital controls, return of diplomats’ families, resumption of statistics publication, return of plants to civilian regimes, return of evacuated collections.',
-    },
-  },
-];
-
-exports["CRITERIA_LIST"] = CRITERIA_LIST;
-return exports;
-}]);
 factories.push(["js/sections/methodology.js", function (exports) {
 const { t } = __ci_require("js/i18n.js");
 const risk = __ci_require("js/risk.js");
@@ -4731,6 +4939,7 @@ return exports;
 factories.push(["js/render.js", function (exports) {
 const { t } = __ci_require("js/i18n.js");
 const { render: heroRender } = __ci_require("js/sections/hero.js");
+const { render: trustRender } = __ci_require("js/sections/trust.js");
 const { render: driversRender } = __ci_require("js/sections/drivers.js");
 const { render: trendRender } = __ci_require("js/sections/trend.js");
 const { render: regionsRender } = __ci_require("js/sections/regions.js");
@@ -4745,6 +4954,7 @@ const { render: feedbackRender } = __ci_require("js/sections/feedback.js");
 
 const SECTIONS = [
   'hero',
+  'trust',
   'regions',
   'trend',
   'drivers',
@@ -4758,6 +4968,7 @@ const registry = new Map();
 
 // Секция hero — первая; остальные регистрируют свои таски.
 registerSection('hero', heroRender);
+registerSection('trust', trustRender);
 registerSection('drivers', driversRender);
 registerSection('trend', trendRender);
 registerSection('regions', regionsRender);

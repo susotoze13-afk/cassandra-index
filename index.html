@@ -111,6 +111,13 @@
       <p class="sr-only" data-role="a11y-live" aria-live="polite"></p>
     </section>
 
+    <!-- Витрина доверия (ADR 0033 §1, фаза 1): компактная строка-факт под hero,
+         раскрытие деталей по клику — наполняет js/sections/trust.js. -->
+    <section class="section trust-section" aria-labelledby="trust-title">
+      <h2 id="trust-title" class="sr-only" data-i18n="trust.title">На чём стоит индекс</h2>
+      <div class="section-body" data-section="trust"></div>
+    </section>
+
     <!-- Критический режим (§6): спокойная плашка от данных (≥81) — наполняет states.js. -->
     <div data-role="critical-panel" hidden></div>
 
