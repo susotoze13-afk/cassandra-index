@@ -9,7 +9,8 @@ import vm from 'node:vm';
 import { deflateRawSync } from 'node:zlib';
 import { loadGeo, resetGeoCache, resolveRegion } from '../js/geo.js';
 import {
-  unzipFirstEntry, pickRuAlternate, parseCityLine, parseCountryInfo, buildRegionMaps, buildOutput, COUNTRY_RU,
+  unzipFirstEntry, pickRuAlternate, translitRu, normAscii, levenshtein,
+  citiesJsonToLines, ruLabelsToMap, parseCityLine, parseCountryInfo, buildRegionMaps, buildOutput, COUNTRY_RU,
 } from '../data/geo/generate.js';
 import { regionIdsFor } from '../js/data.js';
 
@@ -144,12 +145,89 @@ test('unzipFirstEntry: минимальный zip → имя и содержим
   assert.throws(() => unzipFirstEntry(Buffer.from('not a zip')), /zip/);
 });
 
-test('pickRuAlternate: первый русский вариант, чужие кириллицы отвергаются', () => {
-  assert.equal(pickRuAlternate('Moscow,Москва'), 'Москва');
-  assert.equal(pickRuAlternate('Њу Јорк,New York'), null); // сербские ј — не русский алфавит
-  assert.equal(pickRuAlternate('Бейжің'), null); // казахские і/ң
-  assert.equal(pickRuAlternate('  ,  '), null);
-  assert.equal(pickRuAlternate(null), null);
+test('translitRu/normAscii/levenshtein: таблица, нормализация, дистанция', () => {
+  assert.equal(translitRu('Санкт-Петербург'), 'sankt-peterburg');
+  assert.equal(translitRu('Щёлково'), 'shchelkovo'); // ё→e, щ→shch
+  assert.equal(normAscii("Saint Petersburg'"), 'saintpetersburg');
+  assert.equal(normAscii('Nizhniy Novgorod'), 'nizhniynovgorod');
+  assert.equal(levenshtein('abc', 'abc'), 0);
+  assert.equal(levenshtein('abc', 'abd'), 1);
+  assert.equal(levenshtein('', 'abcd'), 4);
+});
+
+test('pickRuAlternate: ближайший по транслиту к asciiname, чужие кириллицы отвергаются', () => {
+  assert.equal(pickRuAlternate('Moscow,Москва', 'Moscow'), 'Москва');
+  assert.equal(pickRuAlternate('Њу Јорк,New York', 'New York'), null); // сербские ј — не русский алфавит
+  assert.equal(pickRuAlternate('Бейжің', 'Beijing'), null); // казахские і/ң
+  assert.equal(pickRuAlternate('  ,  ', 'X'), null);
+  assert.equal(pickRuAlternate(null, 'X'), null);
+  assert.equal(pickRuAlternate(null, null), null);
+});
+
+// Реальные строки из дампа: первым в alternatenames идёт историческое или
+// национально-меньшинственное имя — выбирать надо современное русское.
+test('pickRuAlternate: исторические имена проигрывают современному имени', () => {
+  assert.equal(pickRuAlternate('Виль Сибиркар,Новониколаевск,Новосибирск', 'Novosibirsk'), 'Новосибирск');
+  const spb = pickRuAlternate('Бетъырбух,Ленинград,Санкт-Петербург,Петербург', 'Saint Petersburg');
+  assert.ok(spb === 'Санкт-Петербург' || spb === 'Петербург', `СПб: ${spb}`);
+  assert.equal(pickRuAlternate('Горький,Нижний Новгород', 'Nizhniy Novgorod'), 'Нижний Новгород');
+  assert.equal(pickRuAlternate('Оуфа,Уфа', 'Ufa'), 'Уфа');
+  assert.equal(pickRuAlternate('Молотов,Пермь', "Perm'"), 'Пермь');
+  assert.equal(pickRuAlternate('Ставрополь,Тольятти', 'Tolyatti'), 'Тольятти');
+});
+
+// Равная дистанция (часто оба exact-match): без ъ побеждает более ранний
+// кандидат; архаичные формы с ъ («Новосибирьскъ», «Омьскъ») отодвигаются назад.
+test('pickRuAlternate: при равной дистанции ъ проигрывает, иначе порядок дампа', () => {
+  assert.equal(pickRuAlternate('Казан,Казань', 'Kazan'), 'Казан');
+  assert.equal(pickRuAlternate('Тюмен,Тюмень', "Tyumen'"), 'Тюмен');
+  assert.equal(pickRuAlternate('Перм,Пермь', "Perm'"), 'Перм');
+  assert.equal(pickRuAlternate('Новосибирьскъ,Новосибирск', 'Novosibirsk'), 'Новосибирск');
+  assert.equal(pickRuAlternate('Омьскъ,Омск', 'Omsk'), 'Омск');
+});
+
+// Экспорт зеркала opendatasoft (те же данные GeoNames) → те же TSV-колонки,
+// что у дампа cities15000: конвертер — шов, дальше работает parseCityLine.
+test('citiesJsonToLines: JSON-запись → колонки дампа, dedupe по geoname_id', () => {
+  const record = {
+    geoname_id: '1496747', name: 'Novosibirsk', ascii_name: 'Novosibirsk',
+    alternate_names: ['Виль Сибиркар', 'Новониколаевск', 'Новосибирск'],
+    feature_class: 'P', feature_code: 'PPLA2', country_code: 'RU',
+    cou_name_en: 'Russia', country_code_2: null,
+    admin1_code: '54', admin2_code: '', admin3_code: null, admin4_code: '',
+    population: 1620000, elevation: null, dem: 150, timezone: 'Asia/Novosibirsk',
+    modification_date: '2024-01-01', label_en: 'Novosibirsk',
+    coordinates: { lon: 82.9346, lat: 55.0415 },
+  };
+  const noAlts = {
+    ...record, geoname_id: '499099', name: 'Tolyatti', ascii_name: 'Tolyatti',
+    alternate_names: null, population: 700000, modification_date: '2024-02-02',
+  };
+  const lines = citiesJsonToLines([record, { ...record }, noAlts, { geoname_id: '' }]);
+  assert.equal(lines.length, 2, 'дедуп по geoname_id, пустой id пропущен');
+  const f = lines[0].split('\t');
+  assert.equal(f.length, 19, 'точная колоночная разметка дампа');
+  assert.equal(f[0], '1496747');
+  assert.equal(f[1], 'Novosibirsk');
+  assert.equal(f[2], 'Novosibirsk');
+  assert.equal(f[3], 'Виль Сибиркар,Новониколаевск,Новосибирск');
+  assert.equal(f[4], '55.0415');
+  assert.equal(f[5], '82.9346');
+  assert.equal(f[7], 'PPLA2');
+  assert.equal(f[8], 'RU');
+  assert.equal(f[9], ''); // country_code_2: null → пусто
+  assert.equal(f[10], '54');
+  assert.equal(f[12], ''); // admin3_code: null → пусто
+  assert.equal(f[14], '1620000');
+  assert.equal(f[15], ''); // elevation: null → пусто
+  // Сквозной прогон через parseCityLine: та же логика, что у дампа.
+  const parsed = parseCityLine(lines[0], EMPTY_REF);
+  assert.ok(parsed);
+  assert.equal(parsed.name.ru, 'Новосибирск'); // новая эвристика, не «Виль Сибиркар»
+  assert.equal(parsed.pop, 1620000);
+  const noAltsF = lines[1].split('\t');
+  assert.equal(noAltsF[3], ''); // alternate_names: null → пустая строка
+  assert.equal(parseCityLine(lines[1], EMPTY_REF).name.ru, 'Tolyatti');
 });
 
 // Строка cities15000.tsv: 0 id, 1 name, 3 alternates, 7 fcode, 8 country, 14 pop.
@@ -229,6 +307,34 @@ test('buildOutput: фильтр и сортировка городов, реги
   assert.equal(countries.RU.region_v2, 'russia-belarus');
   assert.equal(countries.GL.region_v2, null); // вне разбиения
   assert.equal(countries.GL.region_v1, null);
+});
+
+// ---------- Лейблы Wikidata (--ru-labels) ----------
+
+test('ruLabelsToMap: ключи Number, значения trim, пустые отброшены', () => {
+  const map = ruLabelsToMap('{"1496747":" Новосибирск ","499099":"","123":"   "}');
+  assert.equal(map.get(1496747), 'Новосибирск');
+  assert.ok(!map.has(499099), 'пустое значение отброшено');
+  assert.ok(!map.has(123), 'значение из пробелов отброшено');
+  assert.throws(() => ruLabelsToMap('not json'), /JSON/);
+});
+
+test('buildOutput: ru-имя — adminRu, затем Wikidata, затем эвристика', () => {
+  const lines = [
+    // id 1 — админцентр из REF: курируемое «Москва» бьёт и Wikidata, и эвристику.
+    cityLine({ id: 1, name: 'Moscow', alt: 'Москва-хак', fcode: 'PPLC', country: 'RU', pop: 12000000 }),
+    // id 4 — эвристика дала бы «Казан» (первый в списке), Wikidata даёт «Казань».
+    cityLine({ id: 4, name: 'Kazan', alt: 'Казан,Казань', fcode: 'PPL', country: 'RU', pop: 1100000 }),
+    // id 5 — записи в Wikidata нет: эвристика как раньше («Уфа»).
+    cityLine({ id: 5, name: 'Ufa', alt: 'Оуфа,Уфа', fcode: 'PPL', country: 'RU', pop: 1100000 }),
+  ];
+  const countryText = 'RU\tRUS\t643\tRS\tRussia\n';
+  const ruLabels = new Map([[1, 'Москва-викидата'], [4, 'Казань']]);
+  const { cities } = buildOutput(lines, countryText, REF, ruLabels);
+  const byEn = new Map(cities.map((c) => [c.name.en, c]));
+  assert.equal(byEn.get('Moscow').name.ru, 'Москва', 'adminRu сильнее Wikidata');
+  assert.equal(byEn.get('Kazan').name.ru, 'Казань', 'Wikidata сильнее эвристики');
+  assert.equal(byEn.get('Ufa').name.ru, 'Уфа', 'без записи в Map — эвристика');
 });
 
 // ---------- Ленивый загрузчик (подменённая инъекция) ----------

@@ -23,7 +23,7 @@
 | Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
-| Пересборка справочника geo | `node data/geo/generate.js [--zip <p>] [--country-info <p>] [--out <dir>]` — качает GeoNames (сеть только здесь), пишет `data/geo/cities.js` + `countries.js`; без `--zip` берёт дамп из системного temp |
+| Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
 | Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
 
@@ -108,7 +108,7 @@ data/regions/             source of truth таксономии: reference.json (
                           + зеркало reference.js (window.CI_REGION_REF)
 data/geo/                 статический справочник (ADR 0029): generate.js (генератор/CLI,
                           сеть только здесь), cities.js (window.CI_GEO_CITIES, pop ≥ 50k +
-                          столицы PPLC суверенных стран + 12 админцентров, ~12 417 городов),
+                          столицы PPLC суверенных стран + 12 админцентров, ~12 414 городов),
                           countries.js (window.CI_GEO_COUNTRIES, 252 ISO2); дамп GeoNames
                           (*.zip/*.txt) в .gitignore — коммитятся только генератор и вывод
 data/<YYYY-MM-DD>/        11 недель: 08-02…08-23 — непересчитываемая демо-история
@@ -254,11 +254,20 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   → `{country, region_v2, region_v1, name}|null`, страна вне разбиения → region_*:null);
   `resetGeoCache()`. Поиск здесь не дублируется — `region.search(q, catalog)`.
 - `data/geo/generate.js` — генератор справочника (ADR 0029, сеть только здесь): CLI
-  `node data/geo/generate.js [--zip <p>] [--country-info <p>] [--out <dir>]`; экспорт-швы
+  `node data/geo/generate.js [--zip <p> | --cities-json <p>] [--country-info <p>]
+  [--ru-labels <p>] [--out <dir>]` (`--zip` и `--cities-json` взаимоисключающи;
+  `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org
+  недоступен, записи конвертируются в TSV-разметку дампа швом `citiesJsonToLines`;
+  `--ru-labels` — JSON {geonameid: RU-имя} из Wikidata, шов `ruLabelsToMap`);
+  экспорт-швы
   `unzipFirstEntry`, `pickRuAlternate`, `parseCityLine`, `parseCountryInfo`, `buildRegionMaps`,
   `buildOutput`, `COUNTRY_RU` (курируемая ISO2→RU), `SOVEREIGN_ISO` (195 суверенных);
-  столица = feature code PPLC суверенной страны; фильтр pop ≥ 50k. Пишет `cities.js`
-  (~12 417) и `countries.js` (252 ISO2). Дамп GeoNames в .gitignore.
+  столица = feature code PPLC суверенной страны; фильтр pop ≥ 50k. RU-имя города:
+  `ref.adminRu` (админцентры) → `ref.ruLabels` (Wikidata) → `pickRuAlternate`
+  (кириллический кандидат с минимальным Левенштейном между его транслитерацией
+  и asciiname — иначе попадают исторические/меньшинственные имена вроде
+  «Молотов»/«Виль Сибиркар»). Пишет `cities.js`
+  (~12 414) и `countries.js` (252 ISO2). Дамп GeoNames в .gitignore.
 - `js/sections/regions.js` (секция «Что это значит для моего региона?») — `rankedRegions
   (snapshot)` берёт набор `region.regionForTaxonomy(snapshot.regions_taxonomy)` (6/12 строк),
   сортировка по |Δ|; `render` пиннит личный регион классом `.region-row--pinned`, слепой
@@ -466,8 +475,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 - Справочник geo: `data/geo/*.js` НЕ в бандле и НЕ подключены в index.html — инжектятся
   лениво при первом открытии пикера (`js/geo.js`), поэтому при отсутствии сети/файла поиск
   тихо откатывается на встроенный `CITIES` (region.search без каталога). Перегенерация
-  требует сети и дампа GeoNames (в .gitignore); RU-имена городов — эвристика (первый
-  кириллический alternate), стран — курируемая `COUNTRY_RU`. Атрибуция GeoNames — `footer.geo`
+  требует сети и дампа GeoNames (в .gitignore; при недоступности
+  download.geonames.org — `--cities-json` из зеркала opendatasoft) или зеркала;
+  RU-имена городов — Wikidata-лейблы (`--ru-labels`), fallback — эвристика
+  Левенштейн-транслитерации в `pickRuAlternate`, стран — курируемая `COUNTRY_RU`.
+  Атрибуция GeoNames — `footer.geo`
   + `privacy.html` (ссылка CC BY 4.0), пин tests/privacy.test.js (разрешён только `<a>`-анкор).
 - Новая неделя требует редакционного сида ДО `--write`: `data/<неделя>/drivers.js`
   (ровно 3 драйвера по контракту) и `region-*.js` (по 2 драйвера на регион) — иначе

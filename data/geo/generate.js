@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // data/geo/generate.js — генератор статического справочника городов и стран
 // (ADR 0029). Node stdlib, ноль зависимостей. Сеть — только здесь, один раз:
-// скачивает дамп GeoNames cities15000.zip и countryInfo.txt, распаковывает zip
+// скачивает дамп GeoNames cities15000.zip и countryInfo.txt (либо берёт
+// экспорт зеркала opendatasoft через --cities-json вместо zip), распаковывает zip
 // встроенным минимальным zip-ридером (node:zlib inflateRawSync + разбор local
 // file header), фильтрует города по населению ≥ 50 000 и добавляет столицы
 // суверенных стран (feature code PPLC, ISO 3166-1) + 12 административных центров
@@ -11,13 +12,20 @@
 //   data/geo/cities.js    → window.CI_GEO_CITIES    = [{name:{ru,en},country,region_v2,region_v1,pop}]
 //   data/geo/countries.js → window.CI_GEO_COUNTRIES = {ISO2:{name:{ru,en},region_v2,region_v1}}
 // Русские имена СТРАН — из курируемой таблицы ISO→RU ниже (объективные данные).
-// Русские имена ГОРОДОВ — первый кириллический вариант из колонки alternatenames
-// дампа, иначе первичное имя.
+// Русские имена ГОРОДОВ — по приоритету: курируемые админцентры reference.json,
+// затем лейблы Wikidata (--ru-labels, ~58% городов), затем «чисто русский»
+// вариант из alternatenames, чей транслит ближе всего к asciiname (Левенштейн):
+// первым в дампе часто идёт историческое имя («Горький», «Молотов») — оно
+// проигрывает современному.
 //
 // Сырой дамп в репозиторий не едет: по умолчанию качается в системную временную
 // папку. Для офлайн-пересборки можно указать локальные файлы:
 //   node data/geo/generate.js --zip <cities15000.zip> [--country-info <countryInfo.txt>]
-//                                [--out data/geo]
+//                                [--ru-labels <ru-labels.json>] [--out data/geo]
+// Альтернативный вход городов — экспорт зеркала opendatasoft (те же данные
+// GeoNames, запись JSON, alternate_names массивом):
+//   node data/geo/generate.js --cities-json <cities.json> [--ru-labels <path>]
+//                                [--country-info <path>] [--out data/geo]
 
 import { createWriteStream } from 'node:fs';
 import { mkdir, readFile, writeFile, rm } from 'node:fs/promises';
@@ -193,15 +201,84 @@ const CYRILLIC_RE = /[\u0400-\u04FF]/;
 // «Бейжің», «Məskəү» вместо русского имени.
 const RUS_ONLY_RE = /^[\u0410-\u044F\u0401\u0451\s\-'.()]+$/;
 
-// Первый «чисто русский» по алфавиту вариант из alternatenames, иначе null.
-// Для 12 админцентров имя берётся из курируемой таблицы reference.json.
-export function pickRuAlternate(alternates) {
+// Явная таблица транслитерации ru→lat (без ГОСТ/ICU — только для сравнения
+// с asciiname, поэтому достаточно инъективности по согласным/гласным).
+const RU_TO_LAT = {
+  а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z',
+  и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r',
+  с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh',
+  щ: 'shch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya',
+};
+
+// Транслитерация русской строки по RU_TO_LAT; не-кириллица проходит как есть.
+export function translitRu(s) {
+  let out = '';
+  for (const ch of s.toLowerCase()) out += RU_TO_LAT[ch] ?? ch;
+  return out;
+}
+
+// Нормализация для сравнения: lowercase, остаются только a-z
+// (пробелы, дефисы, апострофы, точки убираются с обеих сторон).
+export function normAscii(s) {
+  return s.toLowerCase().replace(/[^a-z]/g, '');
+}
+
+// Классическое расстояние Левенштейна (O(n·m), строки короткие).
+export function levenshtein(a, b) {
+  if (a === b) return 0;
+  const m = a.length;
+  const n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  let prev = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i += 1) {
+    const cur = [i];
+    for (let j = 1; j <= n; j += 1) {
+      cur[j] = Math.min(
+        prev[j] + 1,
+        cur[j - 1] + 1,
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+    }
+    prev = cur;
+  }
+  return prev[n];
+}
+
+// Лексикографическое сравнение ключей покомпонентно (числа, не строки).
+function keyLess(a, b) {
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return a[i] < b[i];
+  }
+  return false;
+}
+
+// Русское имя города из alternatenames: берётся «чисто русский» кандидат
+// (CYRILLIC_RE + RUS_ONLY_RE), чей транслит ближе всего к asciiname по
+// Левенштейну. Так исторические и национально-меньшинственные имена
+// («Горький», «Молотов», «Бетъырбух») проигрывают современному русскому
+// имени («Нижний Новгород», «Пермь», «Санкт-Петербург»). При равной
+// дистанции архаичные формы с ъ («Новосибирьскъ», «Лондонъ») отодвигаются
+// назад, затем побеждает более ранний кандидат. Дистанция 0 всегда бьёт
+// любую ненулевую, как и раньше. Нет валидных кандидатов — null (тогда имя —
+// primary). Приоритет полного выбора имени в parseCityLine: курируемые
+// админцентры reference.json → лейблы Wikidata (--ru-labels) → эта эвристика.
+export function pickRuAlternate(alternates, asciiname) {
   if (!alternates) return null;
+  const target = asciiname ? normAscii(asciiname) : '';
+  let best = null;
+  let bestKey = null;
+  let index = 0;
   for (const cand of alternates.split(',')) {
     const t = cand.trim();
-    if (t && CYRILLIC_RE.test(t) && RUS_ONLY_RE.test(t)) return t;
+    index += 1;
+    if (!t || !CYRILLIC_RE.test(t) || !RUS_ONLY_RE.test(t)) continue;
+    const dist = target ? levenshtein(normAscii(translitRu(t)), target) : 0;
+    // Ключ выбора: дистанция asc; без ъ раньше; раньше в списке.
+    const key = [dist, t.includes('ъ') ? 1 : 0, index];
+    if (!bestKey || keyLess(key, bestKey)) { best = t; bestKey = key; }
   }
-  return null;
+  return best;
 }
 
 // Строка cities15000.tsv → нормализованный город (или null, если не подходит).
@@ -214,6 +291,7 @@ export function parseCityLine(line, ref) {
   const geonameid = Number(f[0]);
   const name = f[1];
   const alternates = f[3];
+  const asciiname = f[2];
   const fcode = f[7];
   const country = f[8];
   const pop = Number(f[14]) || 0;
@@ -223,15 +301,72 @@ export function parseCityLine(line, ref) {
   const isCapital = fcode === 'PPLC' && SOVEREIGN_ISO.has(country);
   const isAdminCenter = adminIds.has(geonameid);
   if (!name || (!isCapital && !isAdminCenter && pop < MIN_POP)) return null;
-  const override = ref.adminRu?.get(geonameid);
+  // Приоритет русского имени: курируемые админцентры reference.json, затем
+  // лейблы Wikidata (--ru-labels), затем эвристика pickRuAlternate, затем primary.
+  const override = ref.adminRu?.get(geonameid) ?? ref.ruLabels?.get(geonameid);
   return {
     geonameid,
-    name: { ru: override ?? pickRuAlternate(alternates) ?? name, en: name },
+    name: { ru: override ?? pickRuAlternate(alternates, asciiname) ?? name, en: name },
     country,
     pop,
     isCapital,
     isAdminCenter,
   };
+}
+
+// Экспорт зеркала opendatasoft (те же данные GeoNames, запись JSON) →
+// строки в ТОЧНОЙ колоночной разметке дампа cities15000.tsv
+// (0 geonameid,1 name,2 asciiname,3 alternatenames,4 lat,5 lon,6 fclass,
+// 7 fcode,8 country,9 cc2,10 admin1,11 admin2,12 admin3,13 admin4,
+// 14 population,15 elevation,16 dem,17 timezone,18 modification_date),
+// чтобы дальше работал тот же parseCityLine — ноль расхождения логики.
+// alternate_names (null|string[]) — через запятую; отсутствующие числовые —
+// 0/пусто по аналогии с дампом; дедуп по geoname_id (источники пересекаются).
+export function citiesJsonToLines(records) {
+  const seen = new Set();
+  const lines = [];
+  for (const r of records ?? []) {
+    const id = String(r.geoname_id ?? '');
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    const f = new Array(19).fill('');
+    f[0] = id;
+    f[1] = r.name ?? '';
+    f[2] = r.ascii_name ?? '';
+    f[3] = Array.isArray(r.alternate_names) ? r.alternate_names.join(',') : '';
+    f[4] = r.coordinates?.lat != null ? String(r.coordinates.lat) : '';
+    f[5] = r.coordinates?.lon != null ? String(r.coordinates.lon) : '';
+    f[6] = r.feature_class ?? '';
+    f[7] = r.feature_code ?? '';
+    f[8] = r.country_code ?? '';
+    f[9] = r.country_code_2 ?? '';
+    f[10] = r.admin1_code != null ? String(r.admin1_code) : '';
+    f[11] = r.admin2_code != null ? String(r.admin2_code) : '';
+    f[12] = r.admin3_code != null ? String(r.admin3_code) : '';
+    f[13] = r.admin4_code != null ? String(r.admin4_code) : '';
+    f[14] = String(r.population ?? 0);
+    f[15] = r.elevation != null ? String(r.elevation) : '';
+    f[16] = r.dem != null ? String(r.dem) : '';
+    f[17] = r.timezone ?? '';
+    f[18] = r.modification_date ?? '';
+    lines.push(f.join('\t'));
+  }
+  return lines;
+}
+
+// JSON-объект {geoname_id строкой: "русское имя"} — русские лейблы Wikidata
+// (качество выше эвристики; покрывает ~58% городов) → Map<Number,string>.
+// Ключи нормализуются в Number, значения trim, пустые и нечисловые отброшены.
+export function ruLabelsToMap(text) {
+  const raw = JSON.parse(text);
+  const map = new Map();
+  for (const [k, v] of Object.entries(raw)) {
+    const id = Number(k);
+    const label = typeof v === 'string' ? v.trim() : '';
+    if (!Number.isInteger(id) || !label) continue;
+    map.set(id, label);
+  }
+  return map;
 }
 
 // countryInfo.txt → {iso2: {name:{ru,en}}}. EU (код без региона) пропускается.
@@ -272,13 +407,15 @@ export function buildRegionMaps(ref) {
   return { byCountry, adminCenters, adminRu };
 }
 
-// Формирует выходные структуры из строк дампа.
-export function buildOutput(cityLines, countryInfoText, ref) {
+// Формирует выходные структуры из строк дампа. ruLabels (Map<Number,string>
+// из ruLabelsToMap) опциональна и кладётся в тот же ref, что уходит в
+// parseCityLine — приоритет имени там: adminRu → ruLabels → эвристика.
+export function buildOutput(cityLines, countryInfoText, ref, ruLabels = null) {
   const { byCountry, adminCenters, adminRu } = buildRegionMaps(ref);
   const seen = new Set();
   const cities = [];
   for (const line of cityLines) {
-    const c = parseCityLine(line, { adminCenters, adminRu });
+    const c = parseCityLine(line, { adminCenters, adminRu, ruLabels });
     if (!c || seen.has(c.geonameid)) continue;
     seen.add(c.geonameid);
     const map = byCountry[c.country] ?? {};
@@ -341,11 +478,16 @@ function download(url, dest) {
 }
 
 function parseArgs(argv) {
-  const args = { zip: null, countryInfo: null, out: HERE };
+  const args = { zip: null, citiesJson: null, ruLabels: null, countryInfo: null, out: HERE };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--zip') args.zip = argv[++i];
+    else if (argv[i] === '--cities-json') args.citiesJson = argv[++i];
+    else if (argv[i] === '--ru-labels') args.ruLabels = argv[++i];
     else if (argv[i] === '--country-info') args.countryInfo = argv[++i];
     else if (argv[i] === '--out') args.out = argv[++i];
+  }
+  if (args.zip && args.citiesJson) {
+    throw new Error('нельзя задать одновременно --zip и --cities-json');
   }
   return args;
 }
@@ -353,14 +495,25 @@ function parseArgs(argv) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const ref = JSON.parse(await readFile(REFERENCE, 'utf8'));
-  let tmpZip = args.zip;
   let tmpCountry = args.countryInfo;
   const cleanup = [];
-  if (!tmpZip) {
-    tmpZip = join(tmpdir(), `ci-cities15000-${Date.now()}.zip`);
-    console.log(`Скачиваю ${CITIES_URL} → ${tmpZip}`);
-    await download(CITIES_URL, tmpZip);
-    cleanup.push(tmpZip);
+  let cityLines;
+  if (args.citiesJson) {
+    const records = JSON.parse(await readFile(args.citiesJson, 'utf8'));
+    cityLines = citiesJsonToLines(records);
+    console.log(`Загружено ${cityLines.length} записей из ${args.citiesJson}`);
+  } else {
+    let tmpZip = args.zip;
+    if (!tmpZip) {
+      tmpZip = join(tmpdir(), `ci-cities15000-${Date.now()}.zip`);
+      console.log(`Скачиваю ${CITIES_URL} → ${tmpZip}`);
+      await download(CITIES_URL, tmpZip);
+      cleanup.push(tmpZip);
+    }
+    const zipBuf = await readFile(tmpZip);
+    const { name: entryName, data } = unzipFirstEntry(zipBuf);
+    console.log(`Распакован '${entryName}' (${data.length} байт)`);
+    cityLines = data.toString('utf8').split('\n');
   }
   if (!tmpCountry) {
     tmpCountry = join(tmpdir(), `ci-countryInfo-${Date.now()}.txt`);
@@ -369,13 +522,12 @@ async function main() {
     cleanup.push(tmpCountry);
   }
 
-  const zipBuf = await readFile(tmpZip);
-  const { name: entryName, data } = unzipFirstEntry(zipBuf);
-  console.log(`Распакован '${entryName}' (${data.length} байт)`);
-  const cityLines = data.toString('utf8').split('\n');
   const countryText = await readFile(tmpCountry, 'utf8');
+  const ruLabels = args.ruLabels
+    ? ruLabelsToMap(await readFile(args.ruLabels, 'utf8'))
+    : null;
 
-  const { cities, countries } = buildOutput(cityLines, countryText, ref);
+  const { cities, countries } = buildOutput(cityLines, countryText, ref, ruLabels);
   await mkdir(args.out, { recursive: true });
   await writeFile(join(args.out, 'cities.js'), renderScript('CI_GEO_CITIES', cities));
   await writeFile(join(args.out, 'countries.js'), renderScript('CI_GEO_COUNTRIES', countries));
