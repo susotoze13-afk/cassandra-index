@@ -21,6 +21,12 @@ const LIST_KEYS = {
   conflicts: ['method.conflicts.1', 'method.conflicts.2', 'method.conflicts.3'],
   failures: ['method.failures.1', 'method.failures.2', 'method.failures.3'],
   fpfn: ['method.fpfn.1', 'method.fpfn.2', 'method.fpfn.3'],
+  definition: [
+    'method.definition.1',
+    'method.definition.2',
+    'method.definition.3',
+    'method.definition.4',
+  ],
 };
 
 // Якоря порогов — ключи словаря в порядке risk.SCALE; сами диапазоны выводятся
@@ -104,6 +110,18 @@ function list(lang, keys) {
   return `<ul>${keys.map((k) => `<li>${t(lang, k)}</li>`).join('')}</ul>`;
 }
 
+// Термин из заголовка сайта («глобальный военный конфликт») обязан быть
+// определён до описания модели: иначе состояние «Опасно» легко прочитать как
+// констатацию идущей войны. DOM — createElement + textContent.
+function definitionBlock(lang) {
+  const block = el('div', 'method-block');
+  block.appendChild(el('h3', '', t(lang, 'method.definition.title')));
+  for (const key of LIST_KEYS.definition) {
+    block.appendChild(el('p', '', t(lang, key)));
+  }
+  return block;
+}
+
 export function render(appState) {
   if (typeof document === 'undefined') return;
   const host = document.querySelector('[data-section="methodology"]');
@@ -161,4 +179,6 @@ export function render(appState) {
   // ищет посетитель раздела (R05); прочие блоки методологии — после него.
   const anchor = host.querySelector('.method-block');
   host.insertBefore(criteriaBlock(lang), anchor?.nextSibling ?? null);
+  // Определение термина — самый первый блок раздела.
+  host.insertBefore(definitionBlock(lang), host.firstChild);
 }

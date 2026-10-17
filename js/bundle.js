@@ -1158,6 +1158,11 @@ const DICTS = {
     'history.review.right': 'Где были правы',
     'history.review.uncertain': 'Где неопределённость',
     'history.sources.title': 'Источники недели',
+    'method.definition.title': 'Что такое «глобальный военный конфликт»',
+    'method.definition.1': 'Глобальный военный конфликт — это война, которая охватывает несколько регионов мира сразу и в которую напрямую втянуты крупные державы. Отдельная война или несколько локальных конфликтов — ещё не глобальный конфликт.',
+    'method.definition.2': 'Слово «глобальный» в названии индекса означает охват: модель собирает сигналы по всему миру и по всем девяти направлениям сразу. Оно не означает, что все страны уже воюют.',
+    'method.definition.3': 'Индекс не устанавливает факт войны и не имеет отметки, после которой объявляет глобальный конфликт начавшимся. Он показывает, насколько текущая комбинация сигналов похожа на опасные периоды прошлого.',
+    'method.definition.4': 'Поэтому состояния «Опасно», «Очень опасно» и «Критически опасно» описывают уровень риска, а не подтверждают, что глобальный военный конфликт уже идёт. Факт войны устанавливают по событиям: кто с кем воюет, на скольких театрах и какие государства вовлечены напрямую.',
     'method.measures.title': 'Что модель измеряет',
     'method.measures.1': 'Состояние риска глобального конфликта по подтверждённым открытым сигналам — включая косвенные индикаторы подготовки. Значение 0–100 — индекс аномальности относительно базовой линии мирного времени (ориентир — 2010–2019 годы): мера схожести текущей комбинации сигналов с историческими кризисами, а не прогноз будущего.',
     'method.criteria.title': 'Полный перечень критериев',
@@ -4225,6 +4230,12 @@ const LIST_KEYS = {
   conflicts: ['method.conflicts.1', 'method.conflicts.2', 'method.conflicts.3'],
   failures: ['method.failures.1', 'method.failures.2', 'method.failures.3'],
   fpfn: ['method.fpfn.1', 'method.fpfn.2', 'method.fpfn.3'],
+  definition: [
+    'method.definition.1',
+    'method.definition.2',
+    'method.definition.3',
+    'method.definition.4',
+  ],
 };
 
 // Якоря порогов — ключи словаря в порядке risk.SCALE; сами диапазоны выводятся
@@ -4308,6 +4319,18 @@ function list(lang, keys) {
   return `<ul>${keys.map((k) => `<li>${t(lang, k)}</li>`).join('')}</ul>`;
 }
 
+// Термин из заголовка сайта («глобальный военный конфликт») обязан быть
+// определён до описания модели: иначе состояние «Опасно» легко прочитать как
+// констатацию идущей войны. DOM — createElement + textContent.
+function definitionBlock(lang) {
+  const block = el('div', 'method-block');
+  block.appendChild(el('h3', '', t(lang, 'method.definition.title')));
+  for (const key of LIST_KEYS.definition) {
+    block.appendChild(el('p', '', t(lang, key)));
+  }
+  return block;
+}
+
 function render(appState) {
   if (typeof document === 'undefined') return;
   const host = document.querySelector('[data-section="methodology"]');
@@ -4365,6 +4388,8 @@ function render(appState) {
   // ищет посетитель раздела (R05); прочие блоки методологии — после него.
   const anchor = host.querySelector('.method-block');
   host.insertBefore(criteriaBlock(lang), anchor?.nextSibling ?? null);
+  // Определение термина — самый первый блок раздела.
+  host.insertBefore(definitionBlock(lang), host.firstChild);
 }
 
 exports["thresholdRanges"] = thresholdRanges;

@@ -1,6 +1,21 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { thresholdRanges } from '../js/sections/methodology.js';
+import { DICTS } from '../js/i18n.js';
+
+// Определение термина из заголовка сайта — обязательный блок раздела
+// «Методология»: пользователь не должен читать «Опасно» как «война идёт».
+test('определение «глобальный военный конфликт» есть в словаре и не пустое', () => {
+  const dict = DICTS.ru;
+  assert.equal(typeof dict['method.definition.title'], 'string');
+  assert.ok(dict['method.definition.title'].trim().length > 0);
+  for (let n = 1; n <= 4; n += 1) {
+    const key = `method.definition.${n}`;
+    assert.equal(typeof dict[key], 'string', `${key} отсутствует`);
+    assert.ok(dict[key].trim().length > 0, `${key} пустой`);
+  }
+  assert.equal(dict['method.definition.5'], undefined, 'пунктов должно быть ровно четыре');
+});
 
 // Диапазоны якорей §10: ожидания взяты из текста спецификации шкалы, не из кода
 // под тестом — таблица методологии обязана выводиться из risk.SCALE (таск 11).
