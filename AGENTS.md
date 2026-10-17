@@ -643,6 +643,24 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   форвард-прогона. Известные мелкие дефекты: :129 `Array.isArray(it)` вместо
   `Array.isArray(it.review)`, :116–118 else-if глотает вторую ошибку схемы (value вместе
   с events при отклонённых весах) — неблокирующие, чинить отдельным таском.
+- CSS-дизайн прогона site-design-revisions (2026-10-17, ADR 0033): `.cta-btn`
+  (fallback-CTA в ячейке сетки hero) без `justify-self: start; align-self: center`
+  растягивается на всю ячейку (align/justify stretch по умолчанию) в плиту; кнопка —
+  по размеру контента. ≤480px: `.region-background` в ranked-строке без
+  `flex-basis:100%` + `order:4` (`.region-row-head` получил `flex-wrap`) сжималась
+  в узкую колонку из слов и выталкивала chevron. `js/sections/trust.js`: счётчик
+  кластера — `` `${label}:\u00A0${count}` `` (NBSP после «Label:»), иначе число
+  переносится сиротой на вторую строку в сетке `.trust-clusters`.
+- Скриншотная верификация (headless Chrome; грабли прогона site-design-revisions):
+  `--headless --screenshot --window-size=360` обрезает текст компонентов артефактно
+  (мнимое «переполнение», которого нет в реальном рендере) — надёжен CDP:
+  `Emulation.setDeviceMetricsOverride` + `Page.captureScreenshot`. Страница сбрасывает
+  `window.scrollY` в 0 (рендер-цикл после согласий) — скролл для скриншота не работает;
+  `captureBeyondViewport: true` + `clip` по координатам getBoundingClientRect. Два
+  последовательных баннера согласия (регион → аналитика) закрываются кликом по кнопкам
+  «Согласен»/«Не разрешать» перед скриншотами. Программный `focus()` не матчит
+  `:focus-visible` (и `focus({focusVisible:true})` не работает) — диспетчеризовать
+  реальный Tab через `Input.dispatchKeyEvent`.
 
 ## Как здесь работает Autopilot
 
