@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-10-17T13:33:30+03:00",
-  "updatedAt": "2026-10-17T14:03:52+03:00",
+  "updatedAt": "2026-10-17T14:14:06+03:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-10-17T13:33:30+03:00", "finishedAt": "2026-10-17T13:34:45+03:00" },
@@ -19,9 +19,9 @@ window.STATE =
     { "id": "briefing",  "status": "skipped", "startedAt": "2026-10-17T13:35:41+03:00", "finishedAt": "2026-10-17T13:35:41+03:00", "note": "полный автомат — самобрифинг; решения за пользователя помечены ASSUMPTION в manifest.md, вопросов не задавалось; адверсариальный проход не запускался (глубина обычная)" },
     { "id": "spec",      "status": "done", "startedAt": "2026-10-17T13:35:41+03:00", "finishedAt": "2026-10-17T13:41:13+03:00", "note": "спецификация + независимая проверка покрытия (отдельный агент по брифу и spec, без манифеста): расхождений по существу нет, отмеченные пункты — мета-конфигурация запуска, зафиксировано в spec §Примечания" },
     { "id": "plan",      "status": "done", "startedAt": "2026-10-17T13:41:13+03:00", "finishedAt": "2026-10-17T13:43:06+03:00", "note": "ярус T1 — 2 таска; волны 1 и 2 последовательно (js/data.js и js/sections/* делят пересобираемый js/bundle.js — параллель невозможна); interfaces.md засеян до первого таска" },
-    { "id": "build",     "status": "done", "startedAt": "2026-10-17T13:43:06+03:00", "finishedAt": "2026-10-17T14:03:52+03:00", "note": "2 из 2 тасков готовы (T01, T02); неблокирующие craft-замечания — в concerns" },
-    { "id": "review",    "status": "pending" },
-    { "id": "final",     "status": "pending" }
+    { "id": "build",     "status": "done", "startedAt": "2026-10-17T13:43:06+03:00", "finishedAt": "2026-10-17T14:03:52+03:00", "note": "3 из 3 тасков готовы (T01, T02, T03 — T03 из трияжа отложенных замечаний)" },
+    { "id": "review",    "status": "done", "startedAt": "2026-10-17T13:46:00+03:00", "finishedAt": "2026-10-17T14:14:06+03:00", "note": "каждый таск — независимый ревьюер по осям Manifest/Spec и Craft; блокирующих находок нет" },
+    { "id": "final",     "status": "active", "startedAt": "2026-10-17T14:14:06+03:00" }
   ],
   "requirements": {
     "total": 23, "done": 16, "inTicket": 0, "inSpec": 0,
@@ -55,9 +55,27 @@ window.STATE =
       "startedAt": "2026-10-17T13:52:10+03:00",
       "finishedAt": "2026-10-17T14:03:52+03:00",
       "tests": "node --test → 443 passed / 0 fail (до таска 434)",
-      "commit": "pending",
+      "commit": "37ff4e0",
       "retries": 0,
       "repairs": 0,
+      "handoffs": 0
+    },
+    {
+      "id": "03",
+      "title": "Чистка секции trust: кодировка комментария и тесты строки фактов",
+      "requirements": ["R02", "R08"],
+      "blockedBy": ["02"],
+      "wave": 3,
+      "zone": ["js/sections/trust.js", "css/styles.css", "tests/trust.test.js"],
+      "status": "done",
+      "startedAt": "2026-10-17T14:06:56+03:00",
+      "finishedAt": "2026-10-17T14:14:06+03:00",
+      "tests": "node --test → 446 passed / 0 fail (до таска 443)",
+      "commit": "pending",
+      "retries": 0,
+      "repairs": 1,
+      "repairFindings": ["комментарий trust-секции ссылался на несуществующее правило родителя и писал «=44px» вместо «≥44px»"],
+      "files": ["js/sections/trust.js", "css/styles.css", "tests/trust.test.js", "js/bundle.js"],
       "handoffs": 0
     }
   ],
@@ -77,11 +95,11 @@ window.STATE =
   "additions": [],
   "coverage": null,
   "concerns": [
-    { "axis": "craft", "where": "css/styles.css:2000", "what": "комментарий новой trust-секции записан битой кодировкой (кириллица → «?»/«�», «§1» → «�1»); на правила не влияет", "status": "open" },
-    { "axis": "craft", "where": "js/sections/trust.js:70", "what": "validCoverage заново реализует правило формы coverageCriteria, уже живущее в js/data.js:244 (Reinvention) — у правила должно быть одно место", "status": "open" },
-    { "axis": "craft", "where": "js/sections/trust.js:18", "what": "TRUST_SENSITIVITY_THRESHOLD=5 дублирует приватный SENSITIVITY_DISPLAY_THRESHOLD=5 в js/sections/states.js:62 — один клиентский порог на оба места", "status": "open" },
-    { "axis": "craft", "where": "tests/trust.test.js:39", "what": "набор стоит только на trustFacts; порядок пяти фактов, «н/д» методологии и гейт sensitivity≥порога в неэкспортируемых factsLine/buildDetails не проверяются", "status": "open" },
-    { "axis": "craft", "where": "js/sections/trust.js", "what": "модуль написан до первого прогона тестов (не строгий red-first), отмечено исполнителем", "status": "open" }
+    { "axis": "craft", "where": "css/styles.css:2000", "what": "комментарий новой trust-секции записан битой кодировкой (кириллица → «?»)", "status": "fixed", "ticket": "03" },
+    { "axis": "craft", "where": "tests/trust.test.js:39", "what": "набор стоял только на trustFacts; порядок пяти фактов, «н/д» методологии и гейт sensitivity≥порога не проверялись", "status": "fixed", "ticket": "03" },
+    { "axis": "craft", "where": "js/sections/trust.js:70", "what": "validCoverage заново реализует правило формы coverageCriteria (js/data.js:244)", "status": "report", "why": "сайт по архитектуре не читает calc/; правило продублировано осознанно — объединение через модули отдельный рефактор" },
+    { "axis": "craft", "where": "js/sections/trust.js:18", "what": "TRUST_SENSITIVITY_THRESHOLD=5 дублирует приватный SENSITIVITY_DISPLAY_THRESHOLD=5 (js/sections/states.js:62)", "status": "report", "why": "сайт не читает calc/params.js; объединение констант между секциями — отдельный рефактор" },
+    { "axis": "craft", "where": "js/sections/trust.js", "what": "модуль написан до первого прогона тестов (не строгий red-first)", "status": "dropped", "why": "процессная заметка исполнителя, кода не касается" }
   ],
   "reviewers": { "manifestSpec": "ses_eb685095affeeEr3xI1AmImfd7", "craft": "ses_eb685095affdI6bZGpmUPneqEq" },
   "blind": null

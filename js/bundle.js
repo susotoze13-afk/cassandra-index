@@ -3033,6 +3033,16 @@ function factsLine(lang, facts) {
   ].join(' · ');
 }
 
+// Решение о показе строки чувствительности — чистый шов без DOM (R08):
+// true только при числовом значении не ниже порога; null/отсутствие → false.
+function showSensitivity(sensitivity) {
+  return (
+    typeof sensitivity === 'number' &&
+    Number.isFinite(sensitivity) &&
+    sensitivity >= TRUST_SENSITIVITY_THRESHOLD
+  );
+}
+
 function buildDetails(lang, facts) {
   const wrap = document.createElement('div');
   wrap.className = 'trust-details-body';
@@ -3072,7 +3082,7 @@ function buildDetails(lang, facts) {
   wrap.appendChild(coverage);
 
   // Строка чувствительности — только при заметном значении (≥ порога).
-  if (facts.sensitivity !== null && facts.sensitivity >= TRUST_SENSITIVITY_THRESHOLD) {
+  if (showSensitivity(facts.sensitivity)) {
     const sensitive = document.createElement('p');
     sensitive.className = 'trust-sensitive';
     sensitive.textContent = t(lang, 'trust.details.sensitive', { delta: facts.sensitivity });
@@ -3118,6 +3128,8 @@ function render(appState) {
 
 exports["TRUST_SENSITIVITY_THRESHOLD"] = TRUST_SENSITIVITY_THRESHOLD;
 exports["trustFacts"] = trustFacts;
+exports["factsLine"] = factsLine;
+exports["showSensitivity"] = showSensitivity;
 exports["render"] = render;
 return exports;
 }]);

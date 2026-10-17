@@ -88,7 +88,7 @@ function clusterLabel(lang, id) {
   return label === key ? id : label;
 }
 
-function factsLine(lang, facts) {
+export function factsLine(lang, facts) {
   return [
     t(lang, 'trust.fact.criteria', { n: facts.criteriaTotal }),
     t(lang, 'trust.fact.sources', { n: facts.sources }),
@@ -96,6 +96,16 @@ function factsLine(lang, facts) {
     t(lang, 'trust.fact.blind', { n: facts.blindRegions }),
     facts.methodology ? t(lang, 'trust.fact.methodology', { version: facts.methodology }) : t(lang, 'trust.na'),
   ].join(' · ');
+}
+
+// Решение о показе строки чувствительности — чистый шов без DOM (R08):
+// true только при числовом значении не ниже порога; null/отсутствие → false.
+export function showSensitivity(sensitivity) {
+  return (
+    typeof sensitivity === 'number' &&
+    Number.isFinite(sensitivity) &&
+    sensitivity >= TRUST_SENSITIVITY_THRESHOLD
+  );
 }
 
 function buildDetails(lang, facts) {
@@ -137,7 +147,7 @@ function buildDetails(lang, facts) {
   wrap.appendChild(coverage);
 
   // Строка чувствительности — только при заметном значении (≥ порога).
-  if (facts.sensitivity !== null && facts.sensitivity >= TRUST_SENSITIVITY_THRESHOLD) {
+  if (showSensitivity(facts.sensitivity)) {
     const sensitive = document.createElement('p');
     sensitive.className = 'trust-sensitive';
     sensitive.textContent = t(lang, 'trust.details.sensitive', { delta: facts.sensitivity });

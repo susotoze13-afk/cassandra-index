@@ -5,7 +5,7 @@
 // спецификации/ADR, не из кода под тестом.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { trustFacts, TRUST_SENSITIVITY_THRESHOLD } from '../js/sections/trust.js';
+import { trustFacts, factsLine, showSensitivity, TRUST_SENSITIVITY_THRESHOLD } from '../js/sections/trust.js';
 import { DICTS } from '../js/i18n.js';
 import { CRITERIA_LIST } from '../js/criteria.js';
 
@@ -75,6 +75,39 @@ test('trustFacts: слепые регионы считаются по набор
     },
   };
   assert.equal(trustFacts(snap).blindRegions, 3);
+});
+
+// R02: строка показывает ровно пять фактов в порядке ADR —
+// критерии · источники · кластеры · слепой регион · методология.
+// Ожидаемая строка разобрана вручную по словарю (46 → many, 4/3/2 → few),
+// не собрана тем же вызовом t(), что и код под тестом.
+test('factsLine: ровно пять фактов в порядке ADR', () => {
+  const parts = factsLine('ru', trustFacts(SNAP)).split(' · ');
+  assert.equal(parts.length, 5);
+  assert.deepEqual(parts, [
+    '46 критериев',
+    '4 источника',
+    '3 независимых кластера',
+    '2 слепых региона',
+    'методология 3.0',
+  ]);
+});
+
+// R02.1: отсутствующая методология → «н/д» (i18n `trust.na`), строка не рушится.
+test('factsLine: отсутствующая методология → «н/д», строка остаётся из пяти фактов', () => {
+  const parts = factsLine('ru', trustFacts({ ...SNAP, methodology: null })).split(' · ');
+  assert.equal(parts.length, 5);
+  assert.equal(parts[4], 'н/д');
+});
+
+// R08: решение о показе строки чувствительности — чистый шов без DOM;
+// граница: 4.99 — нет строки, 5 — есть.
+test('showSensitivity: граница 4.99 — нет, 5 — есть; null/0 — нет', () => {
+  assert.equal(showSensitivity(4.99), false);
+  assert.equal(showSensitivity(5), true);
+  assert.equal(showSensitivity(5.3), true);
+  assert.equal(showSensitivity(0), false);
+  assert.equal(showSensitivity(null), false);
 });
 
 test('trustFacts: null без снапшота или без глобального индекса', () => {
