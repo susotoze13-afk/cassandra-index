@@ -418,6 +418,9 @@ export function renderGlobal(week, snap, globalOut, meta) {
   if (meta.preview) lines.push(`  s.preview = ${j(meta.preview)};`);
   if (meta.incompleteCoverage) lines.push('  s.incompleteCoverage = true;');
   if (typeof meta.sensitivity === 'number') lines.push(`  s.sensitivity = ${j(meta.sensitivity)};`);
+  // Покрытие критериев недели (R05/R06): { covered, total } — опционально,
+  // сериализуется только когда посчитано (старые недели поля не несут).
+  if (meta.coverageCriteria) lines.push(`  s.coverageCriteria = ${j(meta.coverageCriteria)};`);
   lines.push(`  s.recalc = ${j(meta.recalc)};`);
   return header(week) + lines.join('\n') + '\n' + FOOTER;
 }
@@ -628,6 +631,10 @@ async function writeWeek(res, state) {
     nullWeight: round4(cls.nullWeight),
     coverage: { coveredDrivers: cls.coveredDrivers, totalDrivers: cls.totalDrivers },
     confidence: cls.confidence,
+    // Покрытие критериев недели (R05/R06/R18): числа уже посчитаны в runWeek
+    // (res.coverage.criteria/totalCriteria — критерии с covered:true из общего
+    // числа критериев движка). До правки уходили только в строку аудита.
+    coverageCriteria: { covered: res.coverage.criteria, total: res.coverage.totalCriteria },
     ...(cls.insufficient
       ? { preview: { index: res.global.index, internal: round3(res.global.internal) } }
       : {}),
@@ -645,6 +652,7 @@ async function writeWeek(res, state) {
     nullWeight: meta.nullWeight,
     coverage: meta.coverage,
     confidence: meta.confidence,
+    coverageCriteria: meta.coverageCriteria,
     ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
     recalc,
   };

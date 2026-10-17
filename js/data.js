@@ -239,6 +239,17 @@ function validateQuality(snapshot, errors) {
       Number.isInteger(c.totalDrivers) && c.totalDrivers > 0;
     if (!ok) errors.push('coverage: { coveredDrivers: int >= 0, totalDrivers: int > 0 }');
   }
+  // Покрытие критериев недели (R05/R06/R18): { covered: int >= 0, total: int > 0,
+  // covered <= total }. Поле опционально — недели, записанные до правки, валидны.
+  if (snapshot.coverageCriteria !== undefined) {
+    const cc = snapshot.coverageCriteria;
+    const ok =
+      !!cc && typeof cc === 'object' && !Array.isArray(cc) &&
+      Number.isInteger(cc.covered) && cc.covered >= 0 &&
+      Number.isInteger(cc.total) && cc.total > 0 &&
+      cc.covered <= cc.total;
+    if (!ok) errors.push('coverageCriteria: { covered: int >= 0, total: int > 0, covered <= total }');
+  }
   if (snapshot.preview !== undefined) {
     const p = snapshot.preview;
     if (!p || !isIndex(p.index) || !isDelta(p.internal)) {

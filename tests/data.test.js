@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { validate, latest, week, listWeeks, REGION_IDS, regionIdsFor, CURRENT_TAXONOMY } from '../js/data.js';
-import { loadSnapshotPart } from '../calc/calc.js';
+import { loadSnapshotPart, renderGlobal } from '../calc/calc.js';
 
 // Смысл псевдонима REGION_IDS — текущий набор (таск 02): контракт и расчёт
 // ушли на regionIdsFor(версия), а псевдоним указывает на CURRENT_TAXONOMY.
@@ -229,6 +229,61 @@ test('validate: insufficient без preview/q/coverage/confidence — ошибк
   assert.equal(validate(badCoverage).ok, false);
 });
 
+// --- coverageCriteria (таск 01, R05/R06/R18/R22i): опциональное поле quality-блока ---
+
+test('validate: coverageCriteria принимается опционально; битые формы отклоняются', () => {
+  // Поле задано корректно — валидно; covered ровно total допустимо.
+  const good = validSnapshot();
+  good.coverageCriteria = { covered: 31, total: 46 };
+  assert.deepEqual(validate(good).errors, []);
+
+  const full = validSnapshot();
+  full.coverageCriteria = { covered: 46, total: 46 };
+  assert.equal(validate(full).ok, true);
+
+  // Поле отсутствует — старые недели остаются валидными.
+  const absent = validSnapshot();
+  assert.equal(validate(absent).ok, true);
+
+  // Битые формы — по одной.
+  const cases = [
+    { name: 'не объект', value: 31 },
+    { name: 'массив', value: [] },
+    { name: 'covered не целое', value: { covered: 3.5, total: 46 } },
+    { name: 'covered отрицательный', value: { covered: -1, total: 46 } },
+    { name: 'total === 0', value: { covered: 0, total: 0 } },
+    { name: 'total отрицательный', value: { covered: 1, total: -5 } },
+    { name: 'covered > total', value: { covered: 47, total: 46 } },
+    { name: 'нет total', value: { covered: 3 } },
+    { name: 'нет covered', value: { total: 46 } },
+  ];
+  for (const c of cases) {
+    const s = validSnapshot();
+    s.coverageCriteria = c.value;
+    const v = validate(s);
+    assert.equal(v.ok, false, `должна отклониться форма: ${c.name}`);
+    assert.ok(v.errors.some((e) => e.includes('coverageCriteria')), `ошибка должна упоминать coverageCriteria: ${c.name}`);
+  }
+});
+
+test('renderGlobal: сериализует s.coverageCriteria только когда поле задано', () => {
+  const snap = { published: '2026-09-13', methodology: '1.0' };
+  const baseMeta = {
+    dataState: 'published', q: 1, nullWeight: 0,
+    coverage: { coveredDrivers: 9, totalDrivers: 9 }, confidence: 'full',
+    recalc: { at: '2026-09-14T00:00:00.000Z', reason: 'r' },
+  };
+  const withCriteria = renderGlobal('2026-09-13', snap, { index: 43, delta: 1 }, {
+    ...baseMeta, coverageCriteria: { covered: 31, total: 46 },
+  });
+  assert.ok(withCriteria.includes('s.coverageCriteria'), withCriteria);
+  assert.ok(withCriteria.includes('"covered": 31'), withCriteria);
+  assert.ok(withCriteria.includes('"total": 46'), withCriteria);
+
+  const without = renderGlobal('2026-09-13', snap, { index: 43, delta: 1 }, baseMeta);
+  assert.ok(!without.includes('s.coverageCriteria'), without);
+});
+
 test('validate: trend точки с methodology валидны; value:null только с methodology', () => {
   const withMethodology = validSnapshot();
   withMethodology.trend = withMethodology.trend.map((p, i) =>
@@ -281,6 +336,19 @@ test('диск: демо-неделя 2026-08-23 валидна прежней �
   const v = validate(loadFullSnapshot('2026-08-23'));
   assert.deepEqual(v.errors, []);
   assert.equal(v.ok, true);
+});
+
+// coverageCriteria — опциональное поле (таск 01): дисковые недели записаны без
+// него и обязаны остаться валидными; поле появится на следующем штатном
+// пересчёте, не в этом прогоне.
+test('диск: все 11 недель без coverageCriteria по-прежнему проходят validate', () => {
+  const WEEKS = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30',
+    '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
+  for (const w of WEEKS) {
+    const v = validate(loadFullSnapshot(w));
+    assert.deepEqual(v.errors, [], `${w}: ${v.errors.join('; ')}`);
+    assert.equal(v.ok, true, w);
+  }
 });
 
 test('диск: пересчитанная 2026-09-13 — published с полным покрытием', () => {
