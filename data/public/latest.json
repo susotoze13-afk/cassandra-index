@@ -3,11 +3,11 @@
   "schema_version": 1,
   "site": "https://cassindex.ru",
   "license": {
-    "name": null,
-    "url": null,
-    "attribution": "Cassandra Index — https://cassindex.ru",
-    "note": "Условия переиспользования данных не заданы владельцем проекта; атрибуция обязательна.",
-    "placeholder": true
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
   },
   "week": {
     "week": "2026-10-18",

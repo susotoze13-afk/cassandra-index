@@ -178,7 +178,12 @@ test('buildDataset: schema, schema_version, site, license, weeks по поряд
   assert.equal(PUBLIC_SCHEMA_VERSION, 1);
   assert.equal(ds.site, 'https://cassindex.ru');
   assert.equal(typeof ds.license, 'object');
+  assert.equal(ds.license.name, 'CC BY 4.0');
+  assert.equal(ds.license.url, 'https://creativecommons.org/licenses/by/4.0/legalcode');
+  assert.equal(ds.license.placeholder, false);
   assert.ok(ds.license && typeof ds.license.attribution === 'string' && ds.license.attribution);
+  assert.ok(ds.license.attribution.includes('https://cassindex.ru'),
+    'атрибуция обязана называть сайт проекта');
   assert.deepEqual(ds.weeks.map((w) => w.week), weeks);
 });
 

@@ -49,14 +49,16 @@ const PUBLIC_SCHEMA = 'cassandra-index-public';
 const CHANGELOG_SCHEMA = 'cassandra-index-changelog';
 const SITE = 'https://cassindex.ru';
 
-// Условия переиспользования данных владельцем ещё не заданы: поле есть (R11),
-// но лицензия не выдумывается — name/url null, атрибуция обязательна.
+// Данные публичного слоя распространяются под CC BY 4.0 (LICENSE-DATA в корне).
+// Форма конверта заморожена (interfaces.md §3): name/url заполнены, `placeholder`
+// снят — машинный потребитель видит разрешение, а не дыру. Атрибуция обязательна:
+// обязательна ссылка на проект и лицензию, дата/версия недели уже лежат рядом.
 const LICENSE = {
-  name: null,
-  url: null,
-  attribution: 'Cassandra Index — https://cassindex.ru',
-  note: 'Условия переиспользования данных не заданы владельцем проекта; атрибуция обязательна.',
-  placeholder: true,
+  name: 'CC BY 4.0',
+  url: 'https://creativecommons.org/licenses/by/4.0/legalcode',
+  attribution: 'Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0',
+  note: 'Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.',
+  placeholder: false,
 };
 
 const CSV_COLUMNS = [

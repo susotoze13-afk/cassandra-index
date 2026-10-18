@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Если вы используете Cassandra Index, цитируйте его по этим метаданным."
+title: "Cassandra Index"
+version: "1.0.0"
+date-released: "2026-10-18"
+url: "https://cassindex.ru"
+repository-code: "https://github.com/susotoze13-afk/cassandra-index"
+license: "CC-BY-4.0"
+type: dataset
+authors:
+  - name: "Cassandra Index"
+abstract: "Cassandra Index — публичная еженедельная оценка уровня и направления риска глобального военного конфликта по открытым данным. Число от 0 до 100 упорядочивает недели по уровню риска; шкала порядковая, индекс не предсказывает дату войны и не является вероятностью войны."
+keywords:
+  - "conflict risk"
+  - "open data"
+  - "weekly index"
+  - "risk index"
+  - "cassandra index"

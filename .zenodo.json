@@ -1,0 +1,26 @@
+{
+  "upload_type": "dataset",
+  "title": "Cassandra Index — еженедельный индекс риска глобального военного конфликта",
+  "description": "Cassandra Index — публичная еженедельная оценка уровня и направления риска глобального военного конфликта по открытым данным: индекс 0–100, состояние, региональные значения и покрытие критериев. Шкала порядковая: индекс упорядочивает недели по уровню риска, не предсказывает дату войны и не является вероятностью войны.",
+  "creators": [
+    {
+      "name": "Cassandra Index"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "publication_date": "2026-10-18",
+  "keywords": [
+    "conflict risk",
+    "open data",
+    "weekly index",
+    "risk index"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://cassindex.ru",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    }
+  ]
+}
