@@ -514,6 +514,15 @@ export function regionalIndex(global, region, params) {
 //     сигнал с value 0 тоже считается — это зафиксированное наблюдение, а не
 //     отсутствие данных); «независимость» на уровне недели гарантируют ворота
 //     validateSourceIndependence (calc.js), а не эта функция;
+//   - запись с intersection: true (§4.1.5, ADR 0046) — вторичный учёт уже
+//     посчитанного события: региональной моделью она не считается вообще —
+//     ни сигналом (nReg), ни потоком недели (знаменатель eDyn), ни членом
+//     гипотетических прогонов iWith/iWithout. Иначе повторное событие сдвигало
+//     бы индексы регионов при неизменном глобальном скоре. Регион, у которого
+//     все сигналы — пересечения, остаётся без сигналов (nReg = 0 → слепая
+//     ветка background:true), а не получает фантомный сдвиг. Покрытие недели
+//     это не меняет: счётчик покрытых критериев живёт в calc/calc.js и считает
+//     по covered;
 //   - Д2 и Д4, а также Д9 кроме Д9.3, в агрегацию не входят: §7 относит их
 //     эффект к экспозиции региона, а не к дублированию сигнала;
 //   - hasDeescSignals — есть покрытый сигнал региона по критерию с
@@ -541,6 +550,11 @@ export function regionalSignals(criteria, regionIds, params) {
   let nCovered = 0;
   for (const [id, entry] of Object.entries(map)) {
     if (!entry || entry.covered !== true) continue;
+    // §4.1.5 (ADR 0046): пересечение — вторичный учёт посчитанного события.
+    // Региональная модель его не видит совсем (сигнал, поток, гипотетика) —
+    // прогон равен прогону без записи; глобальный скор и покрытие недели
+    // считают её отдельно (buildDriversCore / coverageOf).
+    if (entry.intersection === true) continue;
     nCovered += 1;
     if (!eligible(id) || !Array.isArray(entry.regions)) continue;
     for (const rid of entry.regions) {
@@ -557,7 +571,7 @@ export function regionalSignals(criteria, regionIds, params) {
     for (const { id, entry } of signals) withMap[id] = entry;
     const withoutMap = {};
     for (const [id, entry] of Object.entries(map)) {
-      if (entry && entry.covered === true && !signals.some((s) => s.id === id)) {
+      if (entry && entry.covered === true && entry.intersection !== true && !signals.some((s) => s.id === id)) {
         withoutMap[id] = entry;
       }
     }

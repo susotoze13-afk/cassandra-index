@@ -8,9 +8,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { buildDriversCore, driverScore, d8Strength, aggregateD9, D9_SUBGROUPS, validate } from '../calc/engine.js';
+import {
+  buildDriversCore, driverScore, d8Strength, aggregateD9, D9_SUBGROUPS, validate, regionalSignals,
+} from '../calc/engine.js';
 import { PARAMS } from '../calc/params.js';
 import { collectIntersections, coverageOf, printWeek, runWeek, loadSnapshotPart, nextChainState } from '../calc/calc.js';
+import { computeWeek } from '../calc/week-step.js';
 import { regionIdsFor } from '../js/data.js';
 
 // --- Перенос флага в запись критерия драйвера ---
@@ -260,6 +263,101 @@ test('runWeek: реальная неделя без флагов возвращ�
   assert.deepEqual(res.intersections, [], 'в архиве флага нет — список пуст');
   assert.ok(Array.isArray(res.intersections));
   Object.assign(state, nextChainState(state, res));
+});
+
+// --- §7: региональная модель не считает пересечения (R05/R10i) ---
+// Тот же принцип, что и у глобального скора: критерий с intersection: true —
+// вторичный учёт уже посчитанного события, поэтому в региональную модель он не
+// входит ни сигналом (nReg), ни потоком недели (знаменатель eDyn). Иначе
+// повторное событие сдвигало бы индексы регионов при неизменном глобальном.
+const V1 = regionIdsFor('1.0');
+
+// --- regionalSignals: запись с флагом = отсутствие записи ---
+test('regionalSignals: пересечение не даёт сигналов и не входит в региональное покрытие', () => {
+  const absent = {
+    'D1.1': { value: 0.8, covered: true, regions: ['europe'] },
+    'D1.2': { value: 0.6, covered: true, regions: ['europe'] },
+    'D1.3': { value: 0.2, covered: true },                       // глобальный сигнал
+    'D5.1': { value: 0.9, covered: true, regions: ['africa'] },
+    'D1.4': { value: 0.4, covered: true, regions: ['south-asia'] },
+  };
+  const flagged = {
+    ...absent,
+    'D1.2': { ...absent['D1.2'], intersection: true },
+    'D1.4': { ...absent['D1.4'], intersection: true },
+  };
+  const out = regionalSignals(flagged, V1, PARAMS);
+  // Ручной счёт: покрыто 3 считаемых критерия (D1.1, D1.3, D5.1).
+  // Europe: 1 сигнал (D1.1), доля в потоке 1/3.
+  assert.equal(out.europe.nReg, 1, 'D1.2 с флагом не сигнал');
+  assert.equal(out.europe.eDyn, 1 / 3, 'знаменатель eDyn — только считаемые записи');
+  assert.equal(out.africa.nReg, 1);
+  assert.equal(out.africa.eDyn, 1 / 3);
+  assert.equal('south-asia' in out, false, 'регион без считаемых сигналов не появляется');
+  // Сравнение с прогоном, где записи просто нет: флаг — полный эквивалент.
+  const without = { ...absent };
+  delete without['D1.2'];
+  delete without['D1.4'];
+  assert.deepEqual(out, regionalSignals(without, V1, PARAMS));
+});
+
+// --- computeWeek: региональные индексы недели не двигаются флагом ---
+// Синтетическая неделя v1: D1.2 — единственный сигнал south-asia, на нём флаг.
+// Прогон с флагом обязан совпасть с прогоном без записи по всем регионам и
+// глобальному индексу/дельте/q; отличается только счётчик покрытия недели
+// (данные собраны — критерий остаётся покрытым, R02.1). Fixture держит покрытие
+// Д1 выше порога 50 % в обоих прогонах (D1.1/D1.3/D1.4): глобальное правило
+// «пересечение покрыто для порога» (§4.2, F1) иначе сдвинуло бы и глобальный
+// скор — сравнение регионов проверяло бы не тот шов.
+function weekWithFlag(intersection) {
+  const flagged = {
+    week: '2026-09-13',
+    criteria: {
+      'D1.1': { value: 0.8, covered: true, regions: ['europe'] },
+      'D1.2': { value: 0.6, covered: true, regions: ['south-asia'] },
+      'D1.3': { value: 0.2, covered: true },
+      'D1.4': { value: 0.4, covered: true },
+      'D5.1': { value: 0.9, covered: true, regions: ['africa'] },
+    },
+  };
+  if (intersection === null) {
+    delete flagged.criteria['D1.2']; // прогон «записи нет»
+    return flagged;
+  }
+  flagged.criteria['D1.2'] = { ...flagged.criteria['D1.2'], intersection };
+  return flagged;
+}
+const CHAIN_STATE = {
+  prevInternal: 40,
+  prevPublished: 45,
+  prevRegions: { europe: 54, 'south-asia': 38, africa: 52 },
+  sbLeft: 0,
+  sbReason: null,
+};
+
+test('computeWeek: флаг на атрибутированном критерии не меняет региональные индексы', () => {
+  const withFlag = computeWeek(weekWithFlag(true), CHAIN_STATE);
+  const absent = computeWeek(weekWithFlag(null), CHAIN_STATE);
+  assert.deepEqual(withFlag.regions, absent.regions, 'регионы считаются как без записи');
+  assert.equal(withFlag.global.index, absent.global.index);
+  assert.equal(withFlag.global.delta, absent.global.delta);
+  assert.equal(withFlag.global.internal, absent.global.internal);
+  assert.equal(withFlag.global.q, absent.global.q);
+  // Покрытие недели — наоборот, сохраняет запись: она собрана, просто не считается.
+  const covFlag = coverageOf(weekWithFlag(true).criteria);
+  const covAbsent = coverageOf(weekWithFlag(null).criteria);
+  assert.equal(covFlag.criteria, covAbsent.criteria + 1);
+  assert.ok(!covFlag.uncovered.includes('D1.2'));
+});
+
+// --- Граница слепоты: все сигналы региона — пересечения ---
+test('computeWeek: регион, у которого все сигналы — пересечения, становится слепым', () => {
+  const withFlag = computeWeek(weekWithFlag(true), CHAIN_STATE);
+  const absent = computeWeek(weekWithFlag(null), CHAIN_STATE);
+  assert.equal(withFlag.regions['south-asia'].background, true, 'фантомного сдвига нет — регион слепой');
+  assert.equal(withFlag.regions['south-asia'].index, absent.regions['south-asia'].index);
+  assert.equal(withFlag.regions.europe.background, false, 'считаемый сигнал региона остаётся');
+  assert.equal(withFlag.regions.africa.background, false);
 });
 
 test('printWeek: строка пересечений только при непустом списке', () => {
