@@ -14,7 +14,12 @@
   },
   "criteria": {
     "D1.1": {
-      "value": 0.8,
+      "events": [
+        1,
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -47,7 +52,11 @@
       ]
     },
     "D1.4": {
-      "value": 0.6,
+      "events": [
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -94,7 +103,11 @@
       "note": "Советские ядерные силы приведены в повышенную готовность в период учений"
     },
     "D2.3": {
-      "value": 1,
+      "events": [
+        2,
+        2,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -118,7 +131,12 @@
     },
     "D2.5": null,
     "D3.1": {
-      "value": 0.8,
+      "events": [
+        1,
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -140,7 +158,12 @@
       ]
     },
     "D3.3": {
-      "value": 0.8,
+      "events": [
+        1,
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -154,7 +177,10 @@
     "D3.4": null,
     "D3.5": null,
     "D4.1": {
-      "value": 0.4,
+      "events": [
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -187,7 +213,11 @@
       ]
     },
     "D4.4": {
-      "value": 0.6,
+      "events": [
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -221,7 +251,12 @@
       ]
     },
     "D5.2": {
-      "value": 0.8,
+      "events": [
+        1,
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -280,7 +315,12 @@
     },
     "D6.4": null,
     "D7.1": {
-      "value": 0.8,
+      "events": [
+        1,
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {
@@ -291,7 +331,11 @@
       ]
     },
     "D7.2": {
-      "value": 0.6,
+      "events": [
+        1,
+        1,
+        1
+      ],
       "covered": true,
       "sources": [
         {

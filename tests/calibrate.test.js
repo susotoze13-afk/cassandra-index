@@ -417,4 +417,125 @@ test('calibrateSeverity: синтетическая цепочка — базо�
   assert.deepEqual(SEVERITY_CTX0_DEFAULT, { prevInternal: null, prevPublished: null, prevRegions: {} });
 });
 
+// ---------------- events[] в якорях (ADR 0039) ----------------
+
+// Значения, точно представимые как min(1, Σsev / capCount) при весах §7.3
+// (0.2/0.5/1/2): Σsev = value·5 ∈ {1, 2, 3, 4, 5}. Значения 0.33/0.67 суммой
+// весов не представляются, 0 — пустым списком не считается.
+const REPRESENTABLE = new Set([0.2, 0.4, 0.6, 0.8, 1]);
+
+// Ожидание снято с якорей ДО правки (HEAD 1193088): профиль → критерий →
+// прежнее `value`. Событийные критерии обязаны воспроизводить эти значения
+// в точности (сравнение по каждому критерию, не на глаз).
+const ANCHOR_EVENT_VALUES = Object.freeze({
+  'able-archer-1983': Object.freeze({
+    'D1.1': 0.8, 'D1.4': 0.6, 'D2.3': 1, 'D3.1': 0.8, 'D3.3': 0.8,
+    'D4.1': 0.4, 'D4.4': 0.6, 'D5.2': 0.8, 'D7.1': 0.8, 'D7.2': 0.6,
+  }),
+  'crimea-2014': Object.freeze({
+    'D1.1': 0.4, 'D1.4': 0.4, 'D2.3': 0.4, 'D3.1': 0.4, 'D3.3': 0.4,
+    'D4.1': 0.4, 'D4.4': 0.2, 'D5.2': 0.4, 'D7.1': 0.4, 'D7.2': 0.4,
+  }),
+  'cuban-1962': Object.freeze({
+    'D1.1': 1, 'D1.4': 1, 'D2.3': 1, 'D3.1': 1, 'D3.3': 1,
+    'D4.1': 1, 'D4.4': 1, 'D5.2': 1, 'D7.1': 1, 'D7.2': 1,
+  }),
+  'feb2022': Object.freeze({
+    'D1.1': 1, 'D1.4': 1, 'D2.3': 0.8, 'D3.1': 0.8, 'D3.3': 0.8,
+    'D4.1': 0.8, 'D4.4': 0.8, 'D5.2': 0.8, 'D7.1': 0.8, 'D7.2': 0.6,
+  }),
+  'georgia-2008': Object.freeze({
+    'D1.4': 0.6, 'D2.3': 0.6, 'D3.1': 0.6, 'D3.3': 0.6, 'D4.1': 0.6,
+    'D4.4': 0.6, 'D5.2': 0.6, 'D7.1': 0.6, 'D7.2': 0.4,
+  }),
+  'iraq-2003': Object.freeze({
+    'D1.1': 0.8, 'D1.4': 0.6, 'D2.3': 0.2, 'D3.1': 0.6, 'D3.3': 0.4,
+    'D4.1': 0.4, 'D4.4': 0.6, 'D5.2': 0.6, 'D7.1': 0.6, 'D7.2': 0.2,
+  }),
+  'kargil-1999': Object.freeze({
+    'D1.4': 0.6, 'D2.3': 0.2, 'D3.1': 0.4, 'D3.3': 0.4, 'D4.1': 0.4,
+    'D4.4': 0.2, 'D5.2': 0.4, 'D7.1': 0.4, 'D7.2': 0.2,
+  }),
+  'proxy-sanctions-2018': Object.freeze({
+    'D1.1': 0.2, 'D1.4': 0.6, 'D2.3': 0.6, 'D3.1': 0.2, 'D3.3': 0.2,
+    'D4.1': 0.2, 'D4.4': 0.2, 'D5.2': 0.4, 'D7.1': 0.6, 'D7.2': 0.2,
+  }),
+  'routine-2010s': Object.freeze({
+    'D1.1': 0.2, 'D1.4': 0.2, 'D2.3': 0.2, 'D3.1': 0.2, 'D3.3': 0.2,
+    'D5.2': 0.2, 'D7.1': 0.2,
+  }),
+  'yom-kippur-1973': Object.freeze({
+    'D1.4': 0.6, 'D2.3': 0.4, 'D3.1': 0.6, 'D3.3': 0.6, 'D4.1': 0.6,
+    'D4.4': 0.6, 'D5.2': 0.4, 'D7.1': 0.6,
+  }),
+});
+
+test('anchors: events[] только там, где min(1, Σsev / capCount) точно равно прежнему value', () => {
+  let total = 0;
+  for (const { meta, input } of loadAnchors(ANCHORS_DIR)) {
+    const expected = ANCHOR_EVENT_VALUES[meta.id] || {};
+    let withEvents = 0;
+    for (const [id, entry] of Object.entries(input.criteria)) {
+      if (!entry) continue;
+      const scale = CRITERIA[id].scale;
+      if (Array.isArray(entry.events)) {
+        assert.equal(scale, 'count', `${meta.id}/${id}: события только на счётной шкале (§7.3)`);
+        assert.ok(!('value' in entry), `${meta.id}/${id}: value убран — иначе normalizeCriterion молча выберет events`);
+        assert.ok(entry.events.length > 0, `${meta.id}/${id}: непустой список событий`);
+        assert.ok(
+          entry.events.length <= PARAMS.capCount * 2,
+          `${meta.id}/${id}: не более ${PARAMS.capCount * 2} событий`,
+        );
+        for (const sev of entry.events) {
+          assert.ok(PARAMS.severityValues.includes(sev), `${meta.id}/${id}: вес ${sev} вне severityValues`);
+        }
+        const value = Math.min(1, entry.events.reduce((a, b) => a + b, 0) / PARAMS.capCount);
+        assert.ok(Number.isFinite(expected[id]), `${meta.id}/${id}: events у критерия, которого не было в ожидании`);
+        assert.ok(
+          Math.abs(value - expected[id]) < 1e-12,
+          `${meta.id}/${id}: события дают ${value}, прежнее value ${expected[id]}`,
+        );
+        withEvents += 1;
+      } else {
+        assert.ok(!(id in expected), `${meta.id}/${id}: прежнее value ${expected[id]} точно представимо, а events нет`);
+        if (scale === 'count') {
+          // Счётный критерий без событий обязан быть на значении, которое
+          // суммой весов не воспроизводится (0, 0.67) — иначе события потеряны.
+          assert.ok(!REPRESENTABLE.has(entry.value), `${meta.id}/${id}: value ${entry.value} точно представимо — ожидались events`);
+        } else {
+          // ordinal/binary (включая Д4/esc и D4.6): шкала не счётная, value
+          // обязателен контрактом validate, события сюда не добавляются.
+          assert.equal(entry.events, undefined, `${meta.id}/${id}: не-счётная шкала остаётся на value`);
+          assert.equal(typeof entry.value, 'number', `${meta.id}/${id}: не-счётная шкала несёт value`);
+        }
+      }
+    }
+    for (const id of Object.keys(expected)) {
+      assert.ok(input.criteria[id], `${meta.id}/${id}: критерий с ожидаемыми events исчез`);
+    }
+    assert.equal(withEvents, Object.keys(expected).length, `${meta.id}: число критериев с events`);
+    total += withEvents;
+  }
+  assert.equal(total, 93, '93 счётных критерия с точно представимым значением во всех 10 якорях');
+});
+
+test('anchors: индекс каждого профиля не сдвинулся от замены value на events', () => {
+  const expected = {
+    'able-archer-1983': 81,
+    'crimea-2014': 50,
+    'cuban-1962': 99,
+    'feb2022': 91,
+    'georgia-2008': 69,
+    'iraq-2003': 72,
+    'kargil-1999': 51,
+    'proxy-sanctions-2018': 33,
+    'routine-2010s': 8,
+    'yom-kippur-1973': 73,
+  };
+  for (const { meta, input } of loadAnchors(ANCHORS_DIR)) {
+    // Индексы сняты прогоном runAnchor до правки якорей (k = 1.95).
+    assert.equal(runAnchor(input, PARAMS).result.index, expected[meta.id], meta.id);
+  }
+});
+
 
