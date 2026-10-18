@@ -11,6 +11,7 @@ import { loadGeo, resetGeoCache, resolveRegion } from '../js/geo.js';
 import {
   unzipFirstEntry, pickRuAlternate, translitRu, normAscii, levenshtein,
   citiesJsonToLines, ruLabelsToMap, parseCityLine, parseCountryInfo, buildRegionMaps, buildOutput, COUNTRY_RU,
+  CAPITAL_OVERRIDES,
 } from '../data/geo/generate.js';
 import { regionIdsFor } from '../js/data.js';
 
@@ -60,7 +61,7 @@ test('cities.js: админцентры включены с курируемым
   }
 });
 
-test('countries.js: ISO2→{name:{ru,en},region_*}, страны вне разбиения → null', () => {
+test('countries.js: ISO2→{name:{ru,en},region_*,capital}, страны вне разбиения → null', () => {
   const countries = loadDataScript('countries.js', 'CI_GEO_COUNTRIES');
   const isos = Object.keys(countries);
   assert.ok(isos.length > 200, `countries: ${isos.length}`);
@@ -70,13 +71,31 @@ test('countries.js: ISO2→{name:{ru,en},region_*}, страны вне разб
     assert.ok(c.name.ru && c.name.en, `${iso} names`);
     assert.ok(c.region_v2 === null || V2.has(c.region_v2), `${iso} region_v2`);
     assert.ok(c.region_v1 === null || V1.has(c.region_v1), `${iso} region_v1`);
+    // Столица — всегда поле; null допустим (территории без PPLC).
+    assert.ok('capital' in c, `${iso} capital field`);
+    if (c.capital !== null) {
+      assert.ok(c.capital.ru && c.capital.en, `${iso} capital names`);
+    }
   }
   assert.equal(countries.RU.region_v2, 'russia-belarus');
   assert.equal(countries.RU.region_v1, 'europe');
+  // Объекты из vm-контекста — сверяем поля, не прототип.
+  assert.equal(countries.RU.capital.ru, 'Москва');
+  assert.equal(countries.RU.capital.en, 'Moscow');
+  assert.equal(countries.US.capital.ru, 'Вашингтон');
+  assert.equal(countries.US.capital.en, 'Washington');
   // Страна вне разбиения — регион не выдумывается (R15.2).
   assert.equal(countries.GL.region_v2, null);
   assert.equal(countries.GL.region_v1, null);
   assert.equal(countries.AQ.region_v2, null);
+  // Курируемые фактические столицы без суверенной PPLC (см. CAPITAL_OVERRIDES).
+  for (const [iso, capital] of Object.entries(CAPITAL_OVERRIDES)) {
+    assert.equal(countries[iso].capital.ru, capital.ru, `${iso} override ru`);
+    assert.equal(countries[iso].capital.en, capital.en, `${iso} override en`);
+  }
+  // IL/PS: город-столица — политический выбор, не делаем (UI покажет страну).
+  assert.equal(countries.IL.capital, null);
+  assert.equal(countries.PS.capital, null);
 });
 
 // ---------- Фикстура-каталог для поиска (инъекция, без сети) ----------
@@ -292,7 +311,7 @@ test('buildRegionMaps: страны обеих версий, админцент�
   assert.equal(maps.adminRu.get(2), 'Брюссель');
 });
 
-test('buildOutput: фильтр и сортировка городов, регион стран, null вне разбиения', () => {
+test('buildOutput: фильтр и сортировка городов, регион и столица стран, null вне разбиения', () => {
   const lines = [
     cityLine({ id: 1, name: 'Moscow', alt: 'Moscow,Москва', fcode: 'PPLC', country: 'RU', pop: 12000000 }),
     cityLine({ id: 20, name: 'Nuuk', fcode: 'PPLC', country: 'GL', pop: 18000 }),
@@ -305,8 +324,12 @@ test('buildOutput: фильтр и сортировка городов, реги
   assert.equal(cities[0].region_v2, 'russia-belarus');
   assert.equal(cities[1].region_v2, 'eu-north-europe');
   assert.equal(countries.RU.region_v2, 'russia-belarus');
+  assert.deepEqual(countries.RU.capital, { ru: 'Москва', en: 'Moscow' }); // PPLC суверена
+  assert.equal(countries.DE.capital, null); // столицы в фикстуре нет
   assert.equal(countries.GL.region_v2, null); // вне разбиения
   assert.equal(countries.GL.region_v1, null);
+  // PPLC зависимой территории (R14) столицей не считается.
+  assert.equal(countries.GL.capital, null);
 });
 
 // ---------- Лейблы Wikidata (--ru-labels) ----------

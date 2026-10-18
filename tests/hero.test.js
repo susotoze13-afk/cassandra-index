@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { formatDelta, deltaArrow, refineRegionFromCoords, isBackgroundRegion } from '../js/sections/hero.js';
+import {
+  formatDelta, deltaArrow, refineRegionFromCoords, isBackgroundRegion, displayedPlace,
+} from '../js/sections/hero.js';
 
 // §4.2.3 — изменение со знаком и стрелкой; значения не только цветом (§12).
 test('formatDelta: знак у числа', () => {
@@ -44,6 +46,20 @@ test('refineRegionFromCoords: столицы двенадцати регионо
   assert.equal(refineRegionFromCoords(40.71, -74.0), 'north-america');   // Нью-Йорк
   assert.equal(refineRegionFromCoords(19.08, 72.88), 'south-asia');      // Мумбаи
   assert.equal(refineRegionFromCoords(-1.29, 36.82), 'africa');          // Найроби
+});
+
+// Место в блоке регионального индекса: выбор страны даёт её столицу, город —
+// сам себя, чип/геолокация — админцентр региона. Страна без столицы (IL/PS)
+// показывает название страны, а не чужой админцентр.
+test('displayedPlace: столица выбранной страны, город, админцентр региона', () => {
+  const reg = { id: 'eu-north-europe', city: { ru: 'Брюссель', en: 'Brussels' } };
+  const chosen = (name) => ({ name, region: 'eu-north-europe' });
+  assert.equal(displayedPlace(reg, chosen({ ru: 'Берлин', en: 'Berlin' }), 'ru'), 'Берлин');
+  assert.equal(displayedPlace(reg, chosen({ ru: 'Берлин', en: 'Berlin' }), 'en'), 'Berlin');
+  assert.equal(displayedPlace(reg, chosen({ ru: 'Израиль', en: 'Israel' }), 'ru'), 'Израиль');
+  assert.equal(displayedPlace(reg, null, 'ru'), 'Брюссель');
+  // Выбор принадлежит другому региону — не подставляем чужое место.
+  assert.equal(displayedPlace(reg, { name: { ru: 'Токио', en: 'Tokyo' }, region: 'east-asia' }, 'ru'), 'Брюссель');
 });
 
 test('refineRegionFromCoords: возвращает v2-идентификаторы, не легаси europe', () => {

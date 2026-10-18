@@ -10,7 +10,11 @@
 //
 // Пишет два классических скрипта (работают и с file://, и ленивым <script>):
 //   data/geo/cities.js    → window.CI_GEO_CITIES    = [{name:{ru,en},country,region_v2,region_v1,pop}]
-//   data/geo/countries.js → window.CI_GEO_COUNTRIES = {ISO2:{name:{ru,en},region_v2,region_v1}}
+//   data/geo/countries.js → window.CI_GEO_COUNTRIES = {ISO2:{name:{ru,en},region_v2,region_v1,capital}}
+// capital — {ru,en} столицы суверенного государства (PPLC) или курируемая запись
+// CAPITAL_OVERRIDES для фактических столиц без PPLC в GeoNames; иначе null.
+// Сайт показывает столицу в блоке регионального индекса, когда регион выбран
+// поиском страны (исключения IL/PS — название страны, см. hero.js).
 // Русские имена СТРАН — из курируемой таблицы ISO→RU ниже (объективные данные).
 // Русские имена ГОРОДОВ — по приоритету: курируемые админцентры reference.json,
 // затем лейблы Wikidata (--ru-labels, ~58% городов), затем «чисто русский»
@@ -137,6 +141,19 @@ export const SOVEREIGN_ISO = new Set((
   + 'ZM ZW '
   + 'VA PS'
 ).split(' ').filter(Boolean));
+
+// ---------- Курируемые столицы без PPLC в GeoNames ----------
+// У четырёх суверенных/зависимых образований, входящих в разбиение регионов v2,
+// GeoNames не помечает столицу кодом PPLC (или это не суверенная страна, чей
+// PPLC не добавляется по R14). Столицы фактически бесспорны — фиксируем здесь,
+// а не ручной картой на все 152 страны. Для IL/PS капитал намеренно не задан:
+// статус города — политический выбор, UI показывает название страны.
+export const CAPITAL_OVERRIDES = {
+  HK: { ru: 'Гонконг', en: 'Hong Kong' },
+  MO: { ru: 'Макао', en: 'Macao' },
+  TW: { ru: 'Тайбэй', en: 'Taipei' },
+  EH: { ru: 'Эль-Аюн', en: 'El Aaiún' },
+};
 
 // ---------- Минимальный zip-ридер ----------
 
@@ -414,10 +431,15 @@ export function buildOutput(cityLines, countryInfoText, ref, ruLabels = null) {
   const { byCountry, adminCenters, adminRu } = buildRegionMaps(ref);
   const seen = new Set();
   const cities = [];
+  const capitals = {};
   for (const line of cityLines) {
     const c = parseCityLine(line, { adminCenters, adminRu, ruLabels });
     if (!c || seen.has(c.geonameid)) continue;
     seen.add(c.geonameid);
+    // Столица страны — первая (единственная) PPLC суверена; имя — тем же
+    // приоритетом, что у города (adminRu → ruLabels → эвристика), поэтому
+    // совпадает с записью города в cities.js.
+    if (c.isCapital && !capitals[c.country]) capitals[c.country] = c.name;
     const map = byCountry[c.country] ?? {};
     cities.push({
       name: c.name,
@@ -438,6 +460,7 @@ export function buildOutput(cityLines, countryInfoText, ref, ruLabels = null) {
       name: parsed[iso],
       region_v2: map.v2 ?? null,
       region_v1: map.v1 ?? null,
+      capital: capitals[iso] ?? CAPITAL_OVERRIDES[iso] ?? null,
     };
   }
   return { cities, countries };

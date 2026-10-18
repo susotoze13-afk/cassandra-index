@@ -117,7 +117,7 @@ export function init() {
     analytics.maybeInit();
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
-      const { id, persist } = e.detail ?? {};
+      const { id, persist, place } = e.detail ?? {};
       if (!id) return;
       // Устаревшее (вне текущей сетки) значение — забываем, один раз предупреждаем.
       if (!region.isCurrent(id)) {
@@ -129,8 +129,10 @@ export function init() {
       renderApp(next);
       const reg = region.get(id);
       const rdata = next.snapshot?.regions?.[id];
+      // Место — ровно то, что отрисовано в карточке: город/столица страны из
+      // поиска либо админцентр региона (чипы, геолокация, перезагрузка).
       announce(next.lang, 'a11y.region.changed', {
-        city: reg.city[next.lang],
+        city: place?.[next.lang] ?? reg.city[next.lang],
         region: reg.name[next.lang],
         index: rdata ? rdata.index : '—',
       });

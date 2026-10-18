@@ -338,8 +338,11 @@ const GEO_CATALOG = {
     { name: { ru: 'Городок', en: 'Gorodok' }, country: 'GL', region_v2: null, region_v1: null, pop: 50000 },
   ],
   countries: {
-    RU: { name: { ru: 'Россия', en: 'Russia' }, region_v2: 'russia-belarus', region_v1: 'europe' },
-    GL: { name: { ru: 'Гренландия', en: 'Greenland' }, region_v2: null, region_v1: null },
+    RU: {
+      name: { ru: 'Россия', en: 'Russia' }, region_v2: 'russia-belarus', region_v1: 'europe',
+      capital: { ru: 'Москва', en: 'Moscow' },
+    },
+    GL: { name: { ru: 'Гренландия', en: 'Greenland' }, region_v2: null, region_v1: null, capital: null },
   },
 };
 
@@ -348,6 +351,13 @@ test('search(q, catalog): префикс ru/en, страны/регионы, reg
   assert.ok(search('minsk', GEO_CATALOG).some((r) => r.type === 'city' && r.region_v2 === 'russia-belarus'));
   assert.ok(search('Гренланд', GEO_CATALOG).some((r) => r.type === 'country' && r.region_v2 === null));
   assert.ok(search('Балканы', GEO_CATALOG).some((r) => r.type === 'region' && r.region_v2 === 'balkans'));
+});
+
+test('search(q, catalog): результат-страна несёт столицу; без столицы — null', () => {
+  const ru = search('Росс', GEO_CATALOG).find((r) => r.type === 'country' && r.country === 'RU');
+  assert.deepEqual(ru.capital, { ru: 'Москва', en: 'Moscow' });
+  const gl = search('Гренланд', GEO_CATALOG).find((r) => r.type === 'country' && r.country === 'GL');
+  assert.equal(gl.capital, null);
 });
 
 test('search(q, catalog): минимум 2 символа, иначе пусто', () => {

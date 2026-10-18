@@ -726,8 +726,9 @@ function choose(id, { persist = false } = {}) {
 // городов и стран плюс имена регионов текущей таксономии, минимум 2 символа;
 // широкий запрос (> 20 совпадений) → топ-20 по населению + флаг `broad` (подсказка
 // «уточните запрос» на стороне UI). Каждый результат несёт `region_v2`
-// (город/страна — из справочника, регион — свой id) и свойство массива
-// `.broad: boolean` — всегда, в том числе в fallback без каталога (там false).
+// (город/страна — из справочника, регион — свой id), страна — ещё и `capital`
+// `{ru,en}|null` (ADR 0029: PPLC суверена или курируемое исключение), и свойство
+// массива `.broad: boolean` — всегда, в том числе в fallback без каталога (там false).
 function search(q, catalog) {
   const s = (q ?? '').trim().toLowerCase();
   if (!catalog) {
@@ -762,6 +763,9 @@ function search(q, catalog) {
       out.push({
         type: 'country', country: iso, name: c.name,
         region_v2: c.region_v2 ?? null, region_v1: c.region_v1 ?? null, pop: 0,
+        // Столица — для блока регионального индекса; null у стран без PPLC
+        // (IL/PS — политический выбор не делаем, UI покажет название страны).
+        capital: c.capital ?? null,
       });
     }
   }
@@ -1551,7 +1555,8 @@ return exports;
 factories.push(["js/geo.js", function (exports) {
 // js/geo.js — ленивая загрузка статического справочника городов и стран
 // (ADR 0029). Данные — два классических скрипта data/geo/cities.js и
-// countries.js (window.CI_GEO_*): работают с file://, в бандл не входят и в
+// countries.js (window.CI_GEO_*; запись страны несёт `capital: {ru,en}|null`
+// для блока регионального индекса): работают с file://, в бандл не входят и в
 // index.html статически не подключены. Первый вызов loadGeo() инжектит их
 // <script>-тегами, ждёт загрузку, кэширует в памяти сессии; повторный вызов
 // отдаёт кэш. Поиск и резолв региона — чистые функции над каталогом.
@@ -2044,6 +2049,15 @@ function isBackgroundRegion(rdata) {
   return rdata?.background === true;
 }
 
+// Место в строке города: выбранный город/столица (если он относится к этому
+// региону) или админцентр региона. Чистый шов — тестируется без DOM.
+// Для страны со столицей chosen.name = capital, без столицы (IL/PS) — название
+// страны: регион выбран верно, чужой админцентр не подставляется.
+function displayedPlace(reg, chosen, lang) {
+  if (chosen && chosen.region === reg.id) return chosen.name[lang];
+  return reg.city[lang];
+}
+
 // Демо-маппинг координат → один из регионов таксономии v2 (ADR 0028) — грубые
 // bounding-box, без tz-базы. Порядок задаёт приоритет: специфичные области
 // (Кавказ, Средняя Азия) раньше перекрывающих их макрорегионов, catch-all
@@ -2073,8 +2087,8 @@ function refineRegionFromCoords(lat, lon) {
   return null;
 }
 
-// Состояние модуля: город из автокомплита живёт в сессии модуля (сигнатуры region.js не трогаем).
-let chosenCity = null;      // { name: {ru,en}, region: id } — после выбора города в поиске
+// Состояние модуля: место из автокомплита живёт в сессии модуля (сигнатуры region.js не трогаем).
+let chosenPlace = null;     // { name: {ru,en}, region: id } — город из поиска или столица выбранной страны
 let panel = null;           // построенный DOM панели (переживает перерендеры)
 let panelOpen = false;
 let activeOption = -1;      // активный пункт автокомплита
@@ -2284,7 +2298,14 @@ function renderList() {
       : `${c.name[lang]} · ${t(lang, 'region.panel.noregion')}`;
     if (rid) {
       li.dataset.region = rid;
-      b.addEventListener('click', () => pick(rid, c.type === 'city' ? c : null));
+      // Город — сам себя; страна — свою столицу (нет столицы → название страны);
+      // регион из списка — без места (админцентр региона).
+      const place = c.type === 'city'
+        ? { name: c.name }
+        : c.type === 'country'
+          ? { name: c.capital ?? c.name }
+          : null;
+      b.addEventListener('click', () => pick(rid, place));
     } else {
       // Страна вне разбиения — честная пометка, выбора нет (R15.2/R17.1).
       b.disabled = true;
@@ -2304,11 +2325,13 @@ function renderList() {
   input.setAttribute('aria-expanded', 'true');
 }
 
-function pick(id, city) {
-  chosenCity = city ? { name: city.name, region: id } : null;
+function pick(id, place) {
+  chosenPlace = place ? { name: place.name, region: id } : null;
   const persist = panel.querySelector('[data-role="picker-remember"]').getAttribute('aria-checked') === 'true';
   closePanel(false);
-  document.dispatchEvent(new CustomEvent('ci:regionchange', { detail: { id, persist } }));
+  document.dispatchEvent(new CustomEvent('ci:regionchange', {
+    detail: { id, persist, place: chosenPlace?.name ?? null },
+  }));
 }
 
 function openPanel(state, trigger) {
@@ -2453,8 +2476,7 @@ function render(appState) {
     card.hidden = false;
     cta.hidden = true;
     const reg = region.get(regId);
-    const cityName = chosenCity && chosenCity.region === regId ? chosenCity.name[lang] : reg.city[lang];
-    $('[data-role="region-city"]').textContent = cityName;
+    $('[data-role="region-city"]').textContent = displayedPlace(reg, chosenPlace, lang);
     $('[data-role="region-name"]').textContent = reg.name[lang];
     const stats = $('[data-role="region-stats"]');
     const rdata = snapshot?.regions?.[regId];
@@ -2483,8 +2505,9 @@ function render(appState) {
       un.textContent = t(lang, 'region.unavailable');
       card.style.setProperty('--region-tone', 'var(--text-muted)');
     }
-    // Приписка — только после выбора города в поиске (История 9); чипы и геолокация — без неё.
-    $('[data-role="region-note"]').hidden = !chosenCity;
+    // Приписка — после выбора места в поиске: города или страны (её столицы);
+    // чипы и геолокация — без неё.
+    $('[data-role="region-note"]').hidden = !chosenPlace;
   }
 
   if (panel && panelOpen) syncPanel(appState);
@@ -2500,6 +2523,7 @@ function render(appState) {
 exports["formatDelta"] = formatDelta;
 exports["deltaArrow"] = deltaArrow;
 exports["isBackgroundRegion"] = isBackgroundRegion;
+exports["displayedPlace"] = displayedPlace;
 exports["refineRegionFromCoords"] = refineRegionFromCoords;
 exports["render"] = render;
 return exports;
@@ -5289,7 +5313,7 @@ function init() {
     analytics.maybeInit();
     // Выбор региона из панели hero: запоминание — только по явному «Запомнить» (R49.1).
     document.addEventListener('ci:regionchange', (e) => {
-      const { id, persist } = e.detail ?? {};
+      const { id, persist, place } = e.detail ?? {};
       if (!id) return;
       // Устаревшее (вне текущей сетки) значение — забываем, один раз предупреждаем.
       if (!region.isCurrent(id)) {
@@ -5301,8 +5325,10 @@ function init() {
       renderApp(next);
       const reg = region.get(id);
       const rdata = next.snapshot?.regions?.[id];
+      // Место — ровно то, что отрисовано в карточке: город/столица страны из
+      // поиска либо админцентр региона (чипы, геолокация, перезагрузка).
       announce(next.lang, 'a11y.region.changed', {
-        city: reg.city[next.lang],
+        city: place?.[next.lang] ?? reg.city[next.lang],
         region: reg.name[next.lang],
         index: rdata ? rdata.index : '—',
       });

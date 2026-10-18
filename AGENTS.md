@@ -130,7 +130,8 @@ data/regions/             source of truth таксономии: reference.json (
 data/geo/                 статический справочник (ADR 0029): generate.js (генератор/CLI,
                           сеть только здесь), cities.js (window.CI_GEO_CITIES, pop ≥ 50k +
                           столицы PPLC суверенных стран + 12 админцентров, ~12 414 городов),
-                          countries.js (window.CI_GEO_COUNTRIES, 252 ISO2); дамп GeoNames
+                          countries.js (window.CI_GEO_COUNTRIES, 252 ISO2, у каждой записи
+                          capital {ru,en}|null — столица для блока регионального индекса); дамп GeoNames
                           (*.zip/*.txt) в .gitignore — коммитятся только генератор и вывод
 data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчитываемая демо-история
                           (methodology "1.0"), 08-30…10-18 — пересчитанные published
@@ -308,8 +309,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `--ru-labels` — JSON {geonameid: RU-имя} из Wikidata, шов `ruLabelsToMap`);
   экспорт-швы
   `unzipFirstEntry`, `pickRuAlternate`, `parseCityLine`, `parseCountryInfo`, `buildRegionMaps`,
-  `buildOutput`, `COUNTRY_RU` (курируемая ISO2→RU), `SOVEREIGN_ISO` (195 суверенных);
-  столица = feature code PPLC суверенной страны; фильтр pop ≥ 50k. RU-имя города:
+  `buildOutput`, `COUNTRY_RU` (курируемая ISO2→RU), `SOVEREIGN_ISO` (195 суверенных),
+  `CAPITAL_OVERRIDES` (4 фактические столицы без суверенной PPLC: HK/MO/TW/EH;
+  для IL/PS capital = null — город-столица политический выбор, UI показывает страну);
+  столица = feature code PPLC суверенной страны (`capital` записи страны в
+  `countries.js`, RU-имя тем же приоритетом, что у города); фильтр pop ≥ 50k. RU-имя города:
   `ref.adminRu` (админцентры) → `ref.ruLabels` (Wikidata) → `pickRuAlternate`
   (кириллический кандидат с минимальным Левенштейном между его транслитерацией
   и asciiname — иначе попадают исторические/меньшинственные имена вроде
@@ -328,6 +332,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (--text-muted) в hero, ranked-строке и раскрытой карточке. Пикер: чипы — по набору
   отображаемой недели (`regionForTaxonomy`), при первом открытии лениво грузит `js/geo.js`
   (`loadGeo`) и ищет через `region.search(q, catalog)`; личный регион пиннится вверху.
+  Выбор страны в поиске подставляет в строку города её столицу (`capital` записи
+  страны; у IL/PS столицы нет — показывается название страны), выбор города — сам
+  город, чип/геолокация — админцентр региона: чистый шов `displayedPlace(reg, chosen,
+  lang)`; строка сессионная (в localStorage персистится только регион), `region.note`
+  виден после выбора места, a11y-анонс `a11y.region.changed` берёт отрисованное место.
 - `js/criteria.js` — статический `CRITERIA_LIST` (46 критериев: id, драйвер, RU/EN название
   и описание; порядок = Object.keys(engine.CRITERIA), паритет пинит tests/methodology-criteria.test.js).
 - `js/sections/history.js` — модуль скрытой секции «История и источники»: регистрация 'history'

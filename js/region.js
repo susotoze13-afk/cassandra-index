@@ -406,8 +406,9 @@ export function choose(id, { persist = false } = {}) {
 // городов и стран плюс имена регионов текущей таксономии, минимум 2 символа;
 // широкий запрос (> 20 совпадений) → топ-20 по населению + флаг `broad` (подсказка
 // «уточните запрос» на стороне UI). Каждый результат несёт `region_v2`
-// (город/страна — из справочника, регион — свой id) и свойство массива
-// `.broad: boolean` — всегда, в том числе в fallback без каталога (там false).
+// (город/страна — из справочника, регион — свой id), страна — ещё и `capital`
+// `{ru,en}|null` (ADR 0029: PPLC суверена или курируемое исключение), и свойство
+// массива `.broad: boolean` — всегда, в том числе в fallback без каталога (там false).
 export function search(q, catalog) {
   const s = (q ?? '').trim().toLowerCase();
   if (!catalog) {
@@ -442,6 +443,9 @@ export function search(q, catalog) {
       out.push({
         type: 'country', country: iso, name: c.name,
         region_v2: c.region_v2 ?? null, region_v1: c.region_v1 ?? null, pop: 0,
+        // Столица — для блока регионального индекса; null у стран без PPLC
+        // (IL/PS — политический выбор не делаем, UI покажет название страны).
+        capital: c.capital ?? null,
       });
     }
   }
