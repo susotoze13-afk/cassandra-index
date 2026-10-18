@@ -1,0 +1,51 @@
+{
+  "source": {
+    "id": "crisiswatch",
+    "name": "CrisisWatch (International Crisis Group)",
+    "url": "https://www.crisisgroup.org/crisiswatch",
+    "data_url": "https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026",
+    "retrieved": "2026-10-18",
+    "as_of": "2026-09",
+    "license": "International Crisis Group, CrisisWatch — условия использования на crisisgroup.org",
+    "construct": "Число стран, где ситуация ухудшилась по оценке ICG за месяц (CrisisWatch Trends); improved/resolution — для полноты картины.",
+    "granularity": "month"
+  },
+  "series": [
+    {
+      "month": "2026-04",
+      "deteriorated": 0,
+      "improved": 0,
+      "resolution": 0
+    },
+    {
+      "month": "2026-05",
+      "deteriorated": 5,
+      "improved": 0,
+      "resolution": 0
+    },
+    {
+      "month": "2026-06",
+      "deteriorated": 5,
+      "improved": 1,
+      "resolution": 0
+    },
+    {
+      "month": "2026-07",
+      "deteriorated": 17,
+      "improved": 1,
+      "resolution": 0
+    },
+    {
+      "month": "2026-08",
+      "deteriorated": 4,
+      "improved": 1,
+      "resolution": 0
+    },
+    {
+      "month": "2026-09",
+      "deteriorated": 5,
+      "improved": 0,
+      "resolution": 0
+    }
+  ]
+}

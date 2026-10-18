@@ -1,0 +1,125 @@
+{
+  "source": {
+    "id": "acled",
+    "name": "ACLED — события политического насилия",
+    "url": "https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59",
+    "data_url": "https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59/resource/political-violence-events-and-fatalities.xlsx",
+    "retrieved": "2026-10-18",
+    "as_of": "2026-10-09",
+    "license": "ACLED Terms of Use (атрибуция обязательна); зеркало HDX",
+    "construct": "Число зафиксированных событий политического насилия за месяц (все типы, глобально) и число погибших; лист Non_HRP.",
+    "granularity": "month"
+  },
+  "series": [
+    {
+      "month": "2025-01",
+      "events": 5208,
+      "fatalities": 3435
+    },
+    {
+      "month": "2025-02",
+      "events": 4865,
+      "fatalities": 3147
+    },
+    {
+      "month": "2025-03",
+      "events": 5481,
+      "fatalities": 3439
+    },
+    {
+      "month": "2025-04",
+      "events": 5252,
+      "fatalities": 3218
+    },
+    {
+      "month": "2025-05",
+      "events": 5333,
+      "fatalities": 3243
+    },
+    {
+      "month": "2025-06",
+      "events": 5400,
+      "fatalities": 3933
+    },
+    {
+      "month": "2025-07",
+      "events": 5159,
+      "fatalities": 3125
+    },
+    {
+      "month": "2025-08",
+      "events": 5096,
+      "fatalities": 2983
+    },
+    {
+      "month": "2025-09",
+      "events": 4782,
+      "fatalities": 3139
+    },
+    {
+      "month": "2025-10",
+      "events": 4890,
+      "fatalities": 3311
+    },
+    {
+      "month": "2025-11",
+      "events": 4403,
+      "fatalities": 2962
+    },
+    {
+      "month": "2025-12",
+      "events": 4176,
+      "fatalities": 2808
+    },
+    {
+      "month": "2026-01",
+      "events": 4718,
+      "fatalities": 7962
+    },
+    {
+      "month": "2026-02",
+      "events": 4790,
+      "fatalities": 3032
+    },
+    {
+      "month": "2026-03",
+      "events": 8813,
+      "fatalities": 4121
+    },
+    {
+      "month": "2026-04",
+      "events": 5926,
+      "fatalities": 3030
+    },
+    {
+      "month": "2026-05",
+      "events": 4872,
+      "fatalities": 3236
+    },
+    {
+      "month": "2026-06",
+      "events": 5645,
+      "fatalities": 2818
+    },
+    {
+      "month": "2026-07",
+      "events": 6373,
+      "fatalities": 3392
+    },
+    {
+      "month": "2026-08",
+      "events": 6427,
+      "fatalities": 3086
+    },
+    {
+      "month": "2026-09",
+      "events": 6123,
+      "fatalities": 3282
+    },
+    {
+      "month": "2026-10",
+      "events": 2286,
+      "fatalities": 1159
+    }
+  ]
+}

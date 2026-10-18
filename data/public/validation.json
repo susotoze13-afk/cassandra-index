@@ -1,0 +1,307 @@
+{
+  "schema": "cassandra-index-validation",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "methodology": "3.0",
+  "weeks": [
+    "2026-08-30",
+    "2026-09-06",
+    "2026-09-13",
+    "2026-09-20",
+    "2026-09-27",
+    "2026-10-04",
+    "2026-10-11",
+    "2026-10-18"
+  ],
+  "thresholds": {
+    "min_pairs": 6,
+    "preliminary_below": 20,
+    "lags": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ]
+  },
+  "comparators": [
+    {
+      "id": "gpr",
+      "title": "Geopolitical Risk Index (GPR)",
+      "granularity": "week",
+      "construct": {
+        "ru": "Доля газетных публикаций о геополитических рисках (война, терроризм, давление), взвешенная по частотности публикаций; дневной индекс GPRD."
+      },
+      "provenance": {
+        "name": "Geopolitical Risk Index (GPR)",
+        "url": "https://www.matteoiacoviello.com/gpr.htm",
+        "data_url": "https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls",
+        "retrieved": "2026-10-18",
+        "as_of": "2026-10-13",
+        "license": "Caldara & Iacoviello, GPR — условия использования на странице источника (matteoiacoviello.com/gpr.htm)"
+      },
+      "overlap": {
+        "periods": 7,
+        "from": "2026-08-30",
+        "to": "2026-10-11"
+      },
+      "levels": {
+        "n": 7,
+        "pearson": -0.148,
+        "spearman": 0.126,
+        "p_permutation": 0.7421,
+        "status": "preliminary"
+      },
+      "deltas": {
+        "n": 6,
+        "pearson": -0.599,
+        "spearman": -0.638,
+        "p_permutation": 0.2314,
+        "status": "preliminary"
+      },
+      "direction": {
+        "hits": 1,
+        "total": 6,
+        "skipped": 0,
+        "rate": 0.167,
+        "status": "descriptive"
+      },
+      "lead_lag": {
+        "by_lag": [
+          {
+            "lag": -2,
+            "n": 4,
+            "pearson": null
+          },
+          {
+            "lag": -1,
+            "n": 5,
+            "pearson": null
+          },
+          {
+            "lag": 0,
+            "n": 6,
+            "pearson": -0.599
+          },
+          {
+            "lag": 1,
+            "n": 5,
+            "pearson": null
+          },
+          {
+            "lag": 2,
+            "n": 4,
+            "pearson": null
+          }
+        ],
+        "best_lag": 0,
+        "best": -0.599,
+        "status": "preliminary"
+      },
+      "discrepancies": [
+        {
+          "period": "2026-10-11",
+          "index_delta": 10,
+          "external_delta": -26.45
+        },
+        {
+          "period": "2026-10-04",
+          "index_delta": -1,
+          "external_delta": 7.22
+        },
+        {
+          "period": "2026-09-27",
+          "index_delta": -9,
+          "external_delta": 13.49
+        },
+        {
+          "period": "2026-09-13",
+          "index_delta": 1,
+          "external_delta": -4.52
+        },
+        {
+          "period": "2026-09-06",
+          "index_delta": -9,
+          "external_delta": 22.36
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "acled",
+      "title": "ACLED — события политического насилия",
+      "granularity": "month",
+      "construct": {
+        "ru": "Число зафиксированных событий политического насилия за месяц (все типы, глобально) и число погибших; лист Non_HRP."
+      },
+      "provenance": {
+        "name": "ACLED — события политического насилия",
+        "url": "https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59",
+        "data_url": "https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59/resource/political-violence-events-and-fatalities.xlsx",
+        "retrieved": "2026-10-18",
+        "as_of": "2026-10-09",
+        "license": "ACLED Terms of Use (атрибуция обязательна); зеркало HDX"
+      },
+      "overlap": {
+        "periods": 3,
+        "from": "2026-08",
+        "to": "2026-10"
+      },
+      "levels": {
+        "n": 3,
+        "pearson": null,
+        "spearman": null,
+        "p_permutation": null,
+        "status": "insufficient"
+      },
+      "deltas": {
+        "n": 2,
+        "pearson": null,
+        "spearman": null,
+        "p_permutation": null,
+        "status": "insufficient"
+      },
+      "direction": {
+        "hits": 1,
+        "total": 2,
+        "skipped": 0,
+        "rate": 0.5,
+        "status": "descriptive"
+      },
+      "lead_lag": {
+        "by_lag": [
+          {
+            "lag": -2,
+            "n": 0,
+            "pearson": null
+          },
+          {
+            "lag": -1,
+            "n": 1,
+            "pearson": null
+          },
+          {
+            "lag": 0,
+            "n": 2,
+            "pearson": null
+          },
+          {
+            "lag": 1,
+            "n": 1,
+            "pearson": null
+          },
+          {
+            "lag": 2,
+            "n": 0,
+            "pearson": null
+          }
+        ],
+        "best_lag": null,
+        "best": null,
+        "status": "insufficient"
+      },
+      "discrepancies": [
+        {
+          "period": "2026-10",
+          "index_delta": 8.33,
+          "external_delta": -3837
+        }
+      ],
+      "note": "Пересечение короче порога: 3 пар при минимуме 6; коэффициент не публикуется."
+    },
+    {
+      "id": "crisiswatch",
+      "title": "CrisisWatch (International Crisis Group)",
+      "granularity": "month",
+      "construct": {
+        "ru": "Число стран, где ситуация ухудшилась по оценке ICG за месяц (CrisisWatch Trends); improved/resolution — для полноты картины."
+      },
+      "provenance": {
+        "name": "CrisisWatch (International Crisis Group)",
+        "url": "https://www.crisisgroup.org/crisiswatch",
+        "data_url": "https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026",
+        "retrieved": "2026-10-18",
+        "as_of": "2026-09",
+        "license": "International Crisis Group, CrisisWatch — условия использования на crisisgroup.org"
+      },
+      "overlap": {
+        "periods": 2,
+        "from": "2026-08",
+        "to": "2026-09"
+      },
+      "levels": {
+        "n": 2,
+        "pearson": null,
+        "spearman": null,
+        "p_permutation": null,
+        "status": "insufficient"
+      },
+      "deltas": {
+        "n": 1,
+        "pearson": null,
+        "spearman": null,
+        "p_permutation": null,
+        "status": "insufficient"
+      },
+      "direction": {
+        "hits": 0,
+        "total": 1,
+        "skipped": 0,
+        "rate": 0,
+        "status": "insufficient"
+      },
+      "lead_lag": {
+        "by_lag": [
+          {
+            "lag": -2,
+            "n": 0,
+            "pearson": null
+          },
+          {
+            "lag": -1,
+            "n": 0,
+            "pearson": null
+          },
+          {
+            "lag": 0,
+            "n": 1,
+            "pearson": null
+          },
+          {
+            "lag": 1,
+            "n": 0,
+            "pearson": null
+          },
+          {
+            "lag": 2,
+            "n": 0,
+            "pearson": null
+          }
+        ],
+        "best_lag": null,
+        "best": null,
+        "status": "insufficient"
+      },
+      "discrepancies": [
+        {
+          "period": "2026-09",
+          "index_delta": -4,
+          "external_delta": 1
+        }
+      ],
+      "note": "Пересечение короче порога: 2 пар при минимуме 6; коэффициент не публикуется."
+    }
+  ],
+  "summary": {
+    "comparators": 3,
+    "with_coefficients": 1,
+    "insufficient": 2
+  }
+}
