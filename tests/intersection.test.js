@@ -8,7 +8,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { buildDriversCore, driverScore, d8Strength, aggregateD9, validate } from '../calc/engine.js';
+import { buildDriversCore, driverScore, d8Strength, aggregateD9, D9_SUBGROUPS, validate } from '../calc/engine.js';
 import { PARAMS } from '../calc/params.js';
 import { collectIntersections, coverageOf, printWeek, runWeek, loadSnapshotPart, nextChainState } from '../calc/calc.js';
 import { regionIdsFor } from '../js/data.js';
@@ -157,6 +157,24 @@ test('driverScore и d8Strength: все покрытые — пересечен�
     'D8.2': { value: 0.5, covered: true, intersection: true },
   }, {}, PARAMS).find((d) => d.id === 'D8');
   assert.equal(d8.score, 0);
+});
+
+// Граничный случай Д9 — один в один с Д1–Д8: все покрытые подгруппы помечены
+// пересечением. Данные собраны (подгруппы покрыты), считаемых членов нет →
+// `{score: 0, signaling: 0}`, как если бы скор драйвера обнулился отсутствием
+// нового сигнала. `null` здесь означал бы слепоту, которой нет.
+test('aggregateD9: все покрытые подгруппы — пересечения → {score: 0, signaling: 0}', () => {
+  const flagged = aggregateD9([
+    { id: 'D9.1', score: 0.8, intersection: true },
+    { id: 'D9.2', score: 0.2, intersection: true },
+    { id: 'D9.4', score: 1, intersection: true },
+  ], PARAMS);
+  assert.equal(flagged.score, 0, 'обнуление, не null');
+  assert.equal(flagged.signaling, 0);
+  assert.deepEqual(flagged.corr, {}, 'короборации у выбывших нет');
+  // Отличие от «ни одной покрытой подгруппы»: там данных нет и остаётся null.
+  const blind = aggregateD9(D9_SUBGROUPS.map((id) => ({ id, score: null })), PARAMS);
+  assert.equal(blind.score, null);
 });
 
 // --- Валидация входа ---

@@ -82,9 +82,12 @@ export function d8Strength(criteria, coverageThreshold = PARAMS.coverageThreshol
 // --- §4.3: драйвер Д9 — иерархическая агрегация с короборацией ---
 // subgroups: массив {id, score: null|0..1, acyclic?: bool, rejected?: bool,
 // intersection?: bool}. Подгруппа с intersection: true — вторичный учёт уже
-// посчитанного события (§4.1.5, ADR 0046): полный эквивалент отсутствия
-// сигнала — не входит ни в среднее, ни в короборацию, ни в счётчик сигналящих
-// подгрупп. Иначе повторное событие двигало бы скор соседних через корреляцию.
+// посчитанного события (§4.1.5, ADR 0046): не входит ни в среднее, ни в
+// короборацию, ни в счётчик сигналящих подгрупп — иначе повторное событие
+// двигало бы скор соседних через корреляцию. Пока считаемые подгруппы
+// остаются, это эквивалент их отсутствия; на границе «все покрытые подгруппы —
+// пересечения» результат 0 (данные собраны, нового сигнала нет), а null
+// остаётся только для слепоты — когда покрытых подгрупп нет вообще.
 // corr_g (§4.3.2): 1.0 — подтверждено ≥ 2 другими сигналящими подгруппами
 // (для Д9.6b достаточно 1); 0.5 — одна соседняя (частичное подтверждение);
 // 0.0 — ациклические без ≥ 3 подгрупп или отклонённая по независимости.
@@ -95,16 +98,25 @@ export const D9_SUBGROUPS = ['D9.1', 'D9.2', 'D9.3', 'D9.4', 'D9.5', 'D9.6a', 'D
 
 export function aggregateD9(subgroups, params) {
   const p = params || {};
-  const list = (Array.isArray(subgroups) ? subgroups : []).filter(
-    (s) => s && D9_SUBGROUPS.includes(s.id) && s.intersection !== true,
+  const eligible = (Array.isArray(subgroups) ? subgroups : []).filter(
+    (s) => s && D9_SUBGROUPS.includes(s.id),
   );
-  if (list.length === 0) return { score: null, signaling: 0, corr: {} };
-  const covered = list.filter((s) => typeof s.score === 'number' && Number.isFinite(s.score));
+  // Единственная точка исключения пересечений (§4.1.5, ADR 0046): подгруппа с
+  // флагом выпадает целиком — из среднего, короборации и счётчика сигналящих.
+  const counted = eligible.filter((s) => s.intersection !== true);
+  const covered = counted.filter((s) => typeof s.score === 'number' && Number.isFinite(s.score));
   // Порог покрытия 50 % (§4.2) здесь не применяем: подгруппы Д9 — композитные
   // критерии (§4.3.8), а короборация (§4.3.2) по построению работает на кластерах
   // из 1–3 подгрупп. Покрытие Д9 отражается через уверенность драйвера (§5.1).
   if (covered.length === 0) {
-    return { score: null, signaling: 0, corr: {} };
+    // Граничный случай: собраны только пересечения — данных нет, но подгруппы
+    // были покрыты, поэтому сигнал 0, а не null (слепым Д9 не стал).
+    const onlyIntersections = eligible.some(
+      (s) => s.intersection === true && typeof s.score === 'number' && Number.isFinite(s.score),
+    );
+    return onlyIntersections
+      ? { score: 0, signaling: 0, corr: {} }
+      : { score: null, signaling: 0, corr: {} };
   }
   const signaling = covered.filter((s) => s.score > 0 && !s.rejected);
   const corr = {};
@@ -131,13 +143,12 @@ export function aggregateD9(subgroups, params) {
     }
     corr[s.id] = others >= 2 ? 1 : 0.5;
   }
-  // Среднее Д9 считает только не-пересечения (§4.1.5): подгруппа с флагом
-  // выпадает целиком — из среднего, короборации и счётчика сигналящих.
-  const counted = covered.filter((s) => s.intersection !== true);
-  const w = counted.length ? 1 / counted.length : 0;
+  // Среднее и счётчик сигналящих идут по тем же считаемым подгруппам, что и
+  // короборация: пересечения уже выбыли выше, второй фильтр не нужен.
+  const w = 1 / covered.length;
   let s9 = 0;
-  for (const s of counted) s9 += w * s.score * corr[s.id];
-  const nSignaling = counted.filter((s) => s.score * corr[s.id] > 0).length;
+  for (const s of covered) s9 += w * s.score * corr[s.id];
+  const nSignaling = covered.filter((s) => s.score * corr[s.id] > 0).length;
   return { score: clamp(s9, 0, 1), signaling: nSignaling, corr };
 }
 
