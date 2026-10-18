@@ -5,7 +5,13 @@
 // спецификации/ADR, не из кода под тестом.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { trustFacts, factsLine, showSensitivity, TRUST_SENSITIVITY_THRESHOLD } from '../js/sections/trust.js';
+import {
+  trustFacts,
+  quotedSources,
+  factsLine,
+  showSensitivity,
+  TRUST_SENSITIVITY_THRESHOLD,
+} from '../js/sections/trust.js';
 import { DICTS } from '../js/i18n.js';
 import { CRITERIA_LIST } from '../js/criteria.js';
 
@@ -77,6 +83,68 @@ test('trustFacts: quoted — источники с ≥1 цитатой, total �
   assert.equal(factsLine('ru', f).split(' · ').length, 5);
   // Недели без поля quotes — 0 из N, не падение.
   assert.deepEqual(trustFacts(SNAP).quoted, { count: 0, total: 4 });
+});
+
+// R05i: список «источники с цитатами» для раскрытия витрины — чистый шов без DOM.
+// Фикстура разобрана вручную: 2 цитаты у c.example, по одной у a.example и b.example,
+// у d.example — пустой массив и отсутствие поля → порядок C, A, B.
+test('quotedSources: только источники с цитатами, порядок — цитат по убыванию, затем домен', () => {
+  const snap = {
+    ...SNAP,
+    sources: [
+      {
+        domain: 'b.example', url: 'https://b.example/1', title: { ru: 'Б', en: 'B' },
+        quotes: [{ criterion: 'D1.4', text: 'Фрагмент Б' }],
+      },
+      {
+        domain: 'a.example', url: 'https://a.example/1', title: { ru: 'А', en: 'A' },
+        quotes: [{ criterion: 'D3.1', text: 'Фрагмент А' }],
+      },
+      { domain: 'd.example', url: 'https://d.example/1', title: { ru: 'Г', en: 'D' }, quotes: [] },
+      { domain: 'd.example', url: 'https://d.example/2', title: { ru: 'Д', en: 'E' } },
+      {
+        domain: 'c.example', url: 'https://c.example/1', title: { ru: 'В', en: 'C' },
+        quotes: [
+          { criterion: 'D5.1', text: 'Фрагмент В1' },
+          { criterion: 'D9.1', text: 'Фрагмент В2' },
+        ],
+      },
+    ],
+  };
+  const list = quotedSources(snap);
+  assert.equal(list.length, 3);
+  assert.deepEqual(list.map((s) => s.url), [
+    'https://c.example/1',
+    'https://a.example/1',
+    'https://b.example/1',
+  ]);
+  assert.deepEqual(list[0].title, { ru: 'В', en: 'C' });
+  assert.deepEqual(list[0].quotes, [
+    { criterion: 'D5.1', text: 'Фрагмент В1' },
+    { criterion: 'D9.1', text: 'Фрагмент В2' },
+  ]);
+  // Список проходит в факты — buildDetails рисует его из facts, а не из снапшота.
+  assert.deepEqual(trustFacts(snap).quotedSources, list);
+});
+
+// R05i.2: цитат нет ни у одного источника → пустой список, блок не рисуется;
+// битые элементы (нет text / пустой text) не дают пустой подписи.
+test('quotedSources: пустой случай → []', () => {
+  assert.deepEqual(quotedSources(null), []);
+  assert.deepEqual(quotedSources(undefined), []);
+  assert.deepEqual(quotedSources({}), []);
+  assert.deepEqual(quotedSources(SNAP), []);
+  assert.deepEqual(quotedSources({ sources: [{ quotes: 'нет' }, { quotes: [] }] }), []);
+  assert.deepEqual(
+    quotedSources({
+      sources: [{
+        domain: 'x.example', url: 'https://x.example/1', title: { ru: 'Х', en: 'X' },
+        quotes: [{ criterion: 'D1.1' }, { criterion: 'D1.2', text: '   ' }],
+      }],
+    }),
+    []
+  );
+  assert.deepEqual(trustFacts(SNAP).quotedSources, []);
 });
 
 test('trustFacts: слепые регионы считаются по набору недели (v2 — 12 id)', () => {
@@ -177,11 +245,12 @@ test('i18n: ключи пяти фактов и «н/д» существуют',
     'trust.fact.blind', 'trust.fact.methodology', 'trust.na',
     'trust.details.clusters', 'trust.details.affiliated',
     'trust.details.coverage', 'trust.details.coverage.na', 'trust.details.sensitive',
-    'trust.details.quotes', 'sources.quote.label',
+    'trust.details.quotes', 'trust.details.quotedSources', 'sources.quote.label',
     'trust.title',
   ]) {
     assert.equal(typeof DICTS.ru[key], 'string', `нет ключа ${key}`);
   }
   assert.equal(DICTS.ru['trust.details.quotes'], 'С цитатой: {n} из {total}');
+  assert.equal(DICTS.ru['trust.details.quotedSources'], 'Источники с цитатами');
   assert.equal(DICTS.ru['sources.quote.label'], 'Цитата');
 });

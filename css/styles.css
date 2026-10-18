@@ -1775,6 +1775,31 @@ main {
   font-weight: 600;
 }
 
+/* Чипы направления и типа шкалы (ADR 0041): публичная часть методологии,
+   формулы агрегации и пороги остаются закрытыми. */
+.method-criteria-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 2px 58px;
+}
+
+.method-criteria-chip {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .method-criteria-meta {
+    margin-left: 0;
+  }
+}
+
 .method-criteria-desc {
   color: var(--text-secondary);
 }
@@ -2106,6 +2131,7 @@ main {
 .trust-affiliated,
 .trust-coverage,
 .trust-quoted,
+.trust-sensitivity,
 .trust-sensitive {
   margin: 0 0 6px;
   font-size: 14px;
@@ -2113,4 +2139,69 @@ main {
 
 .trust-sensitive {
   color: var(--state-danger);
+}
+
+/* R05i: блок «Источники с цитатами» в раскрытии витрины. Название источника —
+   обычный текст, цитата — blockquote без внешних отступов (сброс браузерного
+   margin), критерий — mono secondary. Цвета — токены, контраст ≥ 4.5:1. */
+.trust-quoted-title {
+  margin-top: 14px;
+}
+
+.trust-quoted-sources {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.trust-quoted-source-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trust-quote-list {
+  margin: 0;
+  padding: 0 0 0 12px;
+  list-style: none;
+  border-left: 2px solid var(--border);
+}
+
+.trust-quote + .trust-quote {
+  margin-top: 8px;
+}
+
+.trust-quote-label {
+  margin: 0 0 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.trust-quote-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Непокрытые критерии по драйверам (ADR 0041): сводка + id, без стены текста. */
+.trust-uncovered-title {
+  margin: 4px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trust-uncovered {
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
 }

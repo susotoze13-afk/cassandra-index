@@ -64,22 +64,107 @@ export function trustFacts(snapshot) {
     blindRegions,
     methodology,
     coverage,
+    // ADR 0045: непокрытые id по драйверам — только когда снапшот несёт
+    // coverageCriteria.uncovered (forward-only; иначе «н/д»).
+    uncoveredByDriver: coverage?.uncovered ? groupUncovered(coverage.uncovered) : null,
     sensitivity,
     clusterCounts,
     affiliated: { count: affiliatedCount, total: sources.length },
     quoted: { count: quotedCount, total: sources.length },
+    // R05i: список для блока «Источники с цитатами» (пустой → блок не рисуется).
+    quotedSources: quotedSources(snapshot),
   };
 }
 
-// coverageCriteria валиден только как { covered:int >= 0, total:int > 0, covered <= total };
-// иначе (нет поля, битая форма) — null → «н/д».
+// Группировка непокрытых id по драйверам в порядке статического списка:
+// [{driver, total, ids}]. Драйверы без дыр в результат не попадают.
+function groupUncovered(uncovered) {
+  const byId = new Set(uncovered);
+  const groups = new Map();
+  for (const c of CRITERIA_LIST) {
+    let g = groups.get(c.driver);
+    if (!g) {
+      g = { driver: c.driver, total: 0, ids: [] };
+      groups.set(c.driver, g);
+    }
+    g.total += 1;
+    if (byId.has(c.id)) g.ids.push(c.id);
+  }
+  return [...groups.values()].filter((g) => g.ids.length > 0);
+}
+
+// coverageCriteria валиден только как { covered:int >= 0, total:int > 0,
+// covered <= total, uncovered?: string[] }; иначе (нет поля, битая форма) —
+// null → «н/д». Битый uncovered счётчики покрытия не роняет — он игнорируется.
 function validCoverage(cc) {
   if (!cc || typeof cc !== 'object' || Array.isArray(cc)) return null;
   const ok =
     Number.isInteger(cc.covered) && cc.covered >= 0 &&
     Number.isInteger(cc.total) && cc.total > 0 &&
     cc.covered <= cc.total;
-  return ok ? { covered: cc.covered, total: cc.total } : null;
+  if (!ok) return null;
+  const uncoveredOk =
+    Array.isArray(cc.uncovered) &&
+    cc.uncovered.every((id) => typeof id === 'string' && id !== '');
+  return {
+    covered: cc.covered,
+    total: cc.total,
+    ...(uncoveredOk ? { uncovered: cc.uncovered } : {}),
+  };
+}
+
+// R05i: источники, подкреплённые хотя бы одной цитатой, — список для раскрытия
+// витрины. Не зависит от того, попал ли источник в драйвер или регион: у недели
+// 09-27 URL цитат не совпадают с источниками драйверов, и аккордеон их не видит.
+// Порядок — по числу цитат (больше — выше), затем по домену и url; пустой
+// результат означает «блока нет» (buildDetails его не рисует).
+export function quotedSources(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') return [];
+  const sources = Array.isArray(snapshot.sources) ? snapshot.sources : [];
+  const out = [];
+  for (const s of sources) {
+    if (!s || !Array.isArray(s.quotes)) continue;
+    const quotes = s.quotes
+      .filter((q) => q && typeof q.text === 'string' && q.text.trim() !== '')
+      .map((q) => ({
+        criterion: typeof q.criterion === 'string' ? q.criterion : '',
+        text: q.text,
+      }));
+    if (quotes.length === 0) continue;
+    out.push({
+      title: sourceTitle(s.title),
+      url: typeof s.url === 'string' ? s.url : '',
+      quotes,
+      // Служебное поле только для сортировки; наружу не показывается.
+      domain: sourceDomain(s),
+    });
+  }
+  out.sort(
+    (a, b) =>
+      (b.quotes.length - a.quotes.length) ||
+      a.domain.localeCompare(b.domain) ||
+      a.url.localeCompare(b.url)
+  );
+  // domain — только ключ сортировки, в публичной форме ({title, url, quotes}) его нет.
+  return out.map((s) => ({ title: s.title, url: s.url, quotes: s.quotes }));
+}
+
+function sourceDomain(s) {
+  if (typeof s.domain === 'string' && s.domain !== '') return s.domain;
+  const url = typeof s.url === 'string' ? s.url : '';
+  return url.replace(/^[a-z]+:\/\//i, '').split('/')[0];
+}
+
+// title{ru,en} по контракту js/data.js; строковая форма — только для терпимости
+// к синтетике, в снапшотах её нет.
+function sourceTitle(title) {
+  if (title && typeof title === 'object' && !Array.isArray(title)) {
+    return {
+      ru: typeof title.ru === 'string' ? title.ru : '',
+      en: typeof title.en === 'string' ? title.en : '',
+    };
+  }
+  return { ru: typeof title === 'string' ? title : '', en: '' };
 }
 
 // ---------- DOM ----------
@@ -92,6 +177,13 @@ function clusterLabel(lang, id) {
   const key = `trust.cluster.${id}`;
   const label = t(lang, key);
   return label === key ? id : label;
+}
+
+// Название источника по языку страницы (title{ru,en}); пустое — '' (вызывающий
+// подставит url). Отдельная функция, чтобы buildDetails не знал формы title.
+function sourceTitleFor(lang, title) {
+  if (!title || typeof title !== 'object') return '';
+  return title[lang] || title.ru || title.en || '';
 }
 
 export function factsLine(lang, facts) {
@@ -152,6 +244,54 @@ function buildDetails(lang, facts) {
   });
   wrap.appendChild(quoted);
 
+  // R05i: «Источники с цитатами» — название источника по языку, под ним каждая
+  // цитата с подписью и id критерия. Блока нет, если цитат нет ни у одного.
+  const quotedList = facts.quotedSources ?? [];
+  if (quotedList.length > 0) {
+    const quotedHead = document.createElement('h3');
+    quotedHead.className = 'trust-details-title trust-quoted-title';
+    quotedHead.textContent = t(lang, 'trust.details.quotedSources');
+    wrap.appendChild(quotedHead);
+
+    const sourcesList = document.createElement('ul');
+    sourcesList.className = 'trust-quoted-sources';
+    for (const src of quotedList) {
+      const item = document.createElement('li');
+      item.className = 'trust-quoted-source';
+
+      const name = document.createElement('p');
+      name.className = 'trust-quoted-source-title';
+      // Название — по языку страницы; пустое название → url, а не пустая строка.
+      name.textContent = sourceTitleFor(lang, src.title) || src.url;
+      item.appendChild(name);
+
+      const quotes = document.createElement('ul');
+      quotes.className = 'trust-quote-list';
+      for (const q of src.quotes) {
+        const quote = document.createElement('li');
+        quote.className = 'trust-quote';
+
+        const label = document.createElement('p');
+        label.className = 'trust-quote-label';
+        // Подпись «Цитата» из словаря, id критерия — рядом, mono-стилем.
+        label.textContent = q.criterion
+          ? `${t(lang, 'sources.quote.label')} · ${q.criterion}`
+          : t(lang, 'sources.quote.label');
+        quote.appendChild(label);
+
+        const text = document.createElement('blockquote');
+        text.className = 'trust-quote-text';
+        text.textContent = q.text;
+        quote.appendChild(text);
+
+        quotes.appendChild(quote);
+      }
+      item.appendChild(quotes);
+      sourcesList.appendChild(item);
+    }
+    wrap.appendChild(sourcesList);
+  }
+
   const coverage = document.createElement('p');
   coverage.className = 'trust-coverage';
   if (facts.coverage) {
@@ -163,7 +303,46 @@ function buildDetails(lang, facts) {
   }
   wrap.appendChild(coverage);
 
-  // Строка чувствительности — только при заметном значении (≥ порога).
+  // ADR 0045: где именно дыры — сводка по драйверам с id. Поля нет (старые
+  // недели) → блок не рисуется, выше остаётся честное «н/д» или счётчик.
+  if (facts.coverage?.uncovered) {
+    const uncoveredHead = document.createElement('h3');
+    uncoveredHead.className = 'trust-details-title trust-uncovered-title';
+    uncoveredHead.textContent = t(lang, 'trust.details.coverage.drivers');
+    wrap.appendChild(uncoveredHead);
+
+    const uncoveredList = document.createElement('ul');
+    uncoveredList.className = 'trust-uncovered';
+    if (facts.uncoveredByDriver.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = t(lang, 'trust.details.coverage.all');
+      uncoveredList.appendChild(li);
+    } else {
+      for (const g of facts.uncoveredByDriver) {
+        const li = document.createElement('li');
+        li.textContent = t(lang, 'trust.details.coverage.driver', {
+          title: t(lang, `method.criteria.driver.${g.driver.toLowerCase()}`),
+          n: g.ids.length,
+          total: g.total,
+          ids: g.ids.join(', '),
+        });
+        uncoveredList.appendChild(li);
+      }
+    }
+    wrap.appendChild(uncoveredList);
+  }
+
+  // ADR 0045: число чувствительности — всегда (0 честно, отсутствие поля «н/д»);
+  // порог 5 управляет только предупреждением ниже.
+  const sensitivity = document.createElement('p');
+  sensitivity.className = 'trust-sensitivity';
+  sensitivity.textContent =
+    typeof facts.sensitivity === 'number'
+      ? t(lang, 'trust.details.sensitivity', { delta: facts.sensitivity })
+      : t(lang, 'trust.details.sensitivity.na');
+  wrap.appendChild(sensitivity);
+
+  // Строка-предупреждение — только при заметном значении (≥ порога).
   if (showSensitivity(facts.sensitivity)) {
     const sensitive = document.createElement('p');
     sensitive.className = 'trust-sensitive';
