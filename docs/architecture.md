@@ -65,6 +65,9 @@
   форвардный файл уронил бы сетку `k`.
 - Факт (`observedCluster`) живёт в таблице `docs/calibration-journal.md`, не в файле;
   порядок «файл раньше записи» проверяется по `git log` (автоматических ворот нет).
+  Публичный журнал (`calc/ledger.js` → `data/public/forecast-ledger.json`, ADR 0064)
+  сверяет те же якоря с фактом и проверяет порядок по git, но запись недели не
+  блокирует: нарушение видно как `verified: false`.
 - Параметры `k`, веса, `severityValues`, пороги §9 заморожены до 8 строк таблицы.
 - На 2026-10-18 файлов нет ни одного; каталог содержит только 10 модельных якорей.
 
@@ -154,10 +157,15 @@
 data/<week>/{global,regions,trend,drivers,sources,region-*}.js
   └─ loadWeekParts / renderWeekCombined (calc/week-step.js)
        └─ loadSnapshotFromDisk + validate (js/data.js)        ← единственный вход обеих веток
-            ├─ calc/public-export.js ─ datasetOf / buildDataset ─┬─ data/public/index.json
+            ├─ calc/contributions.js ─ analyseWeek / buildWaterfall
+            │    (driver_breakdown, waterfall, what_would_change; вход — calc/input/<week>.json)
+            │       └─ calc/public-export.js ─ datasetOf / buildDataset ─┬─ data/public/index.json
             │                                                    ├─ data/public/latest.json
+            │                                                    ├─ data/public/weeks/<week>.json
             │                                                    ├─ data/public/cassandra-index.csv
             │                                                    ├─ data/public/trend.svg
+            │                                                    ├─ data/public/{regions,criteria,methodology}.json
+            │                                                    ├─ data/public/schema/v1/*.json
             │                                                    └─ changelog.json + changelog.html
             │                                                       (из calc/changelog-entries.js)
             └─ calc/digest.js ─ buildDigest(snapshot, {site, prev, chartUrl})
@@ -172,8 +180,11 @@ calc/digest-send.js --preview ─ sendPreview ─ Telegram Bot API в чат р�
 ```
 
 `datasetOf` — узкая проекция (индекс, дельта, состояние, `q`, покрытие, регионы,
-precursor, вклад драйверов, сводка источников, тренд); части снапшота в публичный
-формат не копируются целиком. `data/public/*`, `digest.html`, `changelog.html` —
+precursor, редакционные драйверы, сводка источников, тренд) плюс необязательная
+модельная развёртка (ADR 0062: `driver_breakdown`, `waterfall`, `what_would_change`);
+части снапшота в публичный формат не копируются целиком. Развёртку считает
+`calc/contributions.js` из архивных входов `calc/input/<week>.json`, справочники и
+JSON Schema — `calc/public-contract.js`; контракт описан в `docs/api.md`. `data/public/*`, `digest.html`, `changelog.html` —
 производные: ручная правка затирается следующей сборкой, а расхождение ловят
 `tests/public-export.test.js`, `tests/changelog.test.js`, `tests/digest.test.js`.
 
@@ -214,3 +225,52 @@ precursor, вклад драйверов, сводка источников, т�
   бандла, без JS, с инлайн-текстом; `robots.txt`/`sitemap.xml` их перечисляют, а
   `tests/site-pages.test.js` требует, чтобы каждая страница корня была в `cp`-строке
   `deploy.yml` — иначе она просто не публикуется.
+
+## 11. Публичная валидация и журнал прогнозов
+
+Третья ветка производных: внешние ряды → сравнение с индексом → статический JSON
+и страница. Снапшот недели не меняется, расчёт индекса не участвует.
+
+### Поток данных
+
+```
+calc/backtest-fixtures/{gpr,acled,crisiswatch}.json   ← офлайн-фикстуры, правит редактор
+  └─ calc/backtest.js ─ loadFixtures / alignWeekly / alignMonthly / cassandraSeries
+       └─ buildValidation ─┬─ data/public/validation.json
+                           │    (cassandra-index-validation, schema_version 1)
+                           └─ calc/validation-page.js ─ validation.html
+calc/ledger.js ─ buildLedger ─ data/public/forecast-ledger.json
+                    │            (cassandra-index-forecast-ledger, schema_version 1)
+                    └─ validation.html, раздел #ledger
+```
+
+`node calc/backtest.js --write` пишет все три файла — `data/public/validation.json`,
+`data/public/forecast-ledger.json` и `validation.html` — и в сеть не ходит: вход
+только диск (`data/<week>/week.js`, `calc/backtest-fixtures/`, якоря
+`calc/input/anchors/forward-*.json`). Без `--write` CLI печатает сводку, диск не
+трогает. Вывод детерминирован: timestamp внутри файлов нет, повторная запись даёт
+те же байты.
+
+### Границы
+
+| Модуль | Владеет | Не знает |
+|---|---|---|
+| `calc/backtest.js` | выравниванием рядов, статистикой, сборкой `validation.json`, CLI | `validation.html`, журнала |
+| `calc/validation-page.js` | разметкой `validation.html`, экранированием, текстами страницы | чтения фикстур, git |
+| `calc/ledger.js` | правилом «ожидание → факт», чтением якорей, git-проверкой, `forecast-ledger.json` | внешних рядов, страницы |
+| `calc/backtest-fixtures/*.json` | значениями и провенансом внешних рядов | логики |
+
+### Инварианты
+
+- Ряд индекса для сравнения — только опубликованные недели `PARAMS.methodology`
+  (3.0); демо-недели 1.0 исключены. GPR выравнивается по окну `[W−6, W]`
+  (нужно ≥ 4 дня), месячные ряды — по среднему индекса за месяц.
+- Ниже `MIN_PAIRS = 6` пар коэффициент не публикуется: `value: null`,
+  `status: 'insufficient'`, на странице — «—» с причиной. До 19 пар —
+  `preliminary`.
+- Журнал: `baseline` — наивный benchmark (кластер прошлой недели + `flat`),
+  `editor` — якоря ADR 0049 с git-проверкой порядка; промахи публикуются списком,
+  ретроспективные записи запрещены, при недоступной истории — `verified: null`.
+- `data/public/validation.json`, `data/public/forecast-ledger.json`,
+  `validation.html` — производные, руками не правятся; расхождение ловят
+  `tests/backtest.test.js`, `tests/ledger.test.js`, `tests/validation-page.test.js`.
