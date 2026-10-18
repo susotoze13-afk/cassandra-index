@@ -1,0 +1,529 @@
+{
+  "group": "02",
+  "window": { "from": "2026-10-12", "to": "2026-10-18" },
+  "criteria": {
+    "D2.1": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://tasnimnews.ir/en/news/2026/10/12/3720781/eslami-condemns-us-nuclear-threat-against-iran", "date": "2026-10-12", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.arabtimesonline.com/news/trump-rules-out-nuclear-weapons-against-iran-but-pickaxe-mountain-strike-remains-possible/", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Публичная ядерная риторика на высшем уровне: Иран осуждает ядерную угрозу США; обсуждение возможного ядерного удара по Ирану при сохранении удара по Pickaxe Mountain как опции.",
+      "regions": ["middle-east"]
+    },
+    "D2.2": {
+      "covered": true,
+      "value": 0,
+      "sources": [
+        { "url": "https://tass.com/politics/2203555", "date": "2026-10-17", "cluster": "B-state-media", "type": "primary", "state_affiliated": true }
+      ],
+      "note": "Смены доктрины и выхода из договоров в окне нет: Москва называет «ядерный ноль» контрпродуктивным, новых решений по контролю над вооружениями не принято.",
+      "regions": ["russia-belarus"]
+    },
+    "D2.3": {
+      "covered": true,
+      "events": [1.0, 1.0, 0.5],
+      "sources": [
+        { "url": "https://www.forcesnews.com/nato/unity-and-resolve-natos-nuclear-exercise-steadfast-noon-begins-italy", "date": "2026-10-13", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.channelnewsasia.com/east-asia/north-korea-tests-submarine-launched-strategic-cruise-missiles-6460706", "date": "2026-10-14", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://rt-english.com/russia/647240-russian-submarine-fire-drill", "date": "2026-10-15", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Технические ядерные сигналы: старт ядерных учений НАТО Steadfast Noon в Италии 13.10; первый за три года пуск КНДР стратегических крылатых ракет с подлодки 14.10; ракетные стрельбы российской атомной подлодки 15.10.",
+      "regions": ["europe", "east-asia"]
+    },
+    "D2.4": {
+      "covered": false,
+      "note": "Публичных заявлений о переводе ядерных сил на особый режим готовности в окне нет."
+    },
+    "D2.5": {
+      "covered": true,
+      "value": 1,
+      "sources": [
+        { "url": "https://www.yahoo.com/news/politics/articles/trump-rules-using-nuclear-bomb-102112946.html", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.samaa.tv/2087358549-trump-rules-out-nuclear-strike-pezeshkian-says-iran-won-t-surrender", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Отход от ядерной риторики: Трамп публично исключил применение ядерного оружия против Ирана; Тегеране заявляет, что не капитулирует, но не грозит ядерным ответом.",
+      "regions": ["north-america", "middle-east"]
+    },
+    "D3.1": {
+      "covered": false,
+      "note": "Фактического разрыва или понижения дипломатических отношений в окне не зафиксировано; призывы к высылке посла КНР на Филиппинах — риторика парламентариев, а не решение."
+    },
+    "D3.2": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://nypost.com/2026/10/13/world-news/nato-warns-russia-we-will-break-forces-destroy-anything-and-everything-if-you-attack/", "date": "2026-10-13", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.theweek.in/news/middle-east/2026/10/14/this-is-how-iran-prepares-to-counter-us-attack-captured-or-killed.html", "date": "2026-10-14", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Ультиматумы: командование НАТО обещает ответ силой «за линией фронта» на агрессию России; Иран заявляет о подготовке к отражению удара США.",
+      "regions": ["europe", "middle-east"]
+    },
+    "D3.3": {
+      "covered": true,
+      "events": [2.0, 1.0],
+      "sources": [
+        { "url": "https://www.brusselstimes.com/2357495/largest-eu-sanctions-package-yet-adds-1569-to-russia-military-blacklist", "date": "2026-10-12", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://iranwire.com/en/features/158950-us-targets-iranian-linked-offshore-banks-and-oil-networks-in-new-sanctions-round/", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Санкции и правовые решения: ЕС принял крупнейший пакет санкций против РФ (1 569 записей в военном чёрном списке); США ввели санкции против 16 физлиц и 10 организаций, связанных с Ираном.",
+      "regions": ["russia-belarus", "middle-east"]
+    },
+    "D3.4": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.trtworld.com/article/c2841d38185a", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.tehrantimes.com/news/531178/Lavrov-to-visit-Tehran-on-Monday-for-talks-with-Araghchi", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.straitstimes.com/world/europe/from-hospital-pope-leo-pushes-putin-for-ceasefire-in-contested-ukraine-city", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Переговоры и посредничество: Ливан подтвердил трёхсторонние переговоры с Израилем при содействии США; Лавров летит в Тегеран; папа Римский из больницы призвал Путина к прекращению огня.",
+      "regions": ["middle-east", "russia-belarus"]
+    },
+    "D3.5": {
+      "covered": true,
+      "events": [1.0],
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-release-159-detainees-in-sanaa-icrc/4092084", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-release-159-people-under-amnesty-under-icrc-watch", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Гуманитарная договорённость: хуситы освободили 159 задержанных в Сане под наблюдением МККК.",
+      "regions": ["middle-east"]
+    },
+    "D4.1": {
+      "covered": true,
+      "events": [2.0, 1.0],
+      "sources": [
+        { "url": "https://safety4sea.com/eu-adopts-largest-ever-sanctions-package-targeting-russia/", "date": "2026-10-13", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.theepochtimes.com/world/eu-seeks-new-trade-powers-as-deficit-with-china-widens-6105278", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Новые санкции и контрсанкции: пакет ЕС бьёт по цепочке поставок ракет и дронов РФ; ЕС ищет новые торговые полномочия из-за рекордного дефицита с Китаем.",
+      "regions": ["russia-belarus", "europe"]
+    },
+    "D4.2": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://breakingdefense.com/2026/10/hegseth-uses-ausa-spotlight-to-highlight-autonomy-generational-defense-investment/", "date": "2026-10-14", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/turkiye/turkiye-raises-defense-equipment-procurement-by-229-in-2027/4091132", "date": "2026-10-16", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Военные расходы: Хегсет на AUSA анонсировал «поколенческие» оборонные инвестиции; Турция увеличила закупки вооружений на 229 % в бюджете 2027 года.",
+      "regions": ["north-america", "middle-east"]
+    },
+    "D4.3": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://breakingdefense.com/2026/10/as-critical-mineral-deadline-looms-army-expects-to-feel-some-impact/", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.businesstoday.com.my/2026/10/15/china-seeks-reciprocal-eu-cooperation-on-rare-earth-export-license/", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Разрыв цепочек поставок: армия США ожидает влияния ограничений на критичные минералы с января; Китай требует от ЕС взаимности по экспортным лицензиям на редкозёмы.",
+      "regions": ["north-america", "east-asia"]
+    },
+    "D4.4": {
+      "covered": true,
+      "events": [2.0, 1.0, 1.0],
+      "sources": [
+        { "url": "https://www.qatar-tribune.com/article/259630/front/second-oil-tanker-burns-in-strait-of-hormuz-after-hitting-naval-mine", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.tbsnews.net/worldbiz/middle-east/two-oil-tankers-catch-fire-after-striking-mines-strait-hormuz-irgc-1576151", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://eadaily.com/en/news/2026/10/18/the-oil-terminal-caught-fire-in-st-petersburg-after-the-drone-attack", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Блокировка торговых путей и инфраструктуры: два супертанкера подорвались на минах в Ормузском проливе; дроновая атака подожгла нефтетерминал в Санкт-Петербурге.",
+      "regions": ["middle-east", "russia-belarus"]
+    },
+    "D4.5": {
+      "covered": true,
+      "events": [1.0, 0.5],
+      "sources": [
+        { "url": "https://www.cnn.com/2026/10/16/europe/us-ukraine-russia-sanctions-intl-hnk", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.firstpost.com/business/findia-us-trade-deal-first-phase-finalised-legal-drafting-underway-14053110.html", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Снятие экономических ограничений: Трамп подписал указ об отсрочке новых санкций против РФ (вызвав критику Конгресса); США и Индия завершили первую фазу торгового соглашения.",
+      "regions": ["russia-belarus", "south-asia"]
+    },
+    "D4.6": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.cnbctv18.com/market/commodities/crude-oil-prices-brent-wti-why-are-rates-rising-explained-saudi-houthis-hormuz-iran-us-russia-ukraine-20013997.htm", "date": "2026-10-16", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://discoveryalert.com/news/brent-oil-price-110-hormuz-saudi-russia-october-2026/", "date": "2026-10-17", "cluster": "F-financial", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Стресс на сырьевых рынках: Brent впервые с мая превысил $110, US crude — выше $100 на фоне рисков Ормузского пролива, Саудовской Аравии и России.",
+      "regions": ["middle-east"]
+    }
+  },
+  "driverConfidence": {
+    "D2": { "level": "medium", "reason": "Покрыто 4/5 критериев (D2.4 без сигналов): учения/пуски подтверждены двумя независимыми кластерами, доктринальных изменений нет." },
+    "D3": { "level": "medium", "reason": "Покрыто 4/5 (D3.1 без фактического разрыва отношений): санкции, ультиматумы и переговоры подтверждены независимыми источниками." },
+    "D4": { "level": "high", "reason": "Покрыто 6/6: санкции, бюджеты, цепочки поставок, блокада путей, снятие ограничений и рыночный стресс перекрёстно подтверждены." }
+  },
+  "regions": [
+    {
+      "region": "middle-east",
+      "observation": {
+        "ru": "Ормузский пролив: два супертанкера подорвались на минах 17.10, Brent превысил $110; параллельно Иран ведёт ядерную риторику с США, а хуситы освободили 159 задержанных под наблюдением МККК.",
+        "en": "Strait of Hormuz: two supertankers hit mines on 17 Oct, Brent topped $110; in parallel Iran trades nuclear rhetoric with the US while the Houthis released 159 detainees under ICRC watch."
+      },
+      "why": {
+        "ru": "Ближний Восток даёт эскалационные сигналы сразу в Д2 (ядерная риторика), Д3 (санкции, ультиматумы, переговоры) и Д4 (блокада торгового пути, стресс нефтяного рынка).",
+        "en": "The Middle East supplies escalating signals across D2 (nuclear rhetoric), D3 (sanctions, ultimatums, talks) and D4 (trade-route blockage, oil-market stress)."
+      },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.qatar-tribune.com/article/259630/front/second-oil-tanker-burns-in-strait-of-hormuz-after-hitting-naval-mine", "date": "2026-10-17", "cluster": "A-mainstream" },
+        { "url": "https://tasnimnews.ir/en/news/2026/10/12/3720781/eslami-condemns-us-nuclear-threat-against-iran", "date": "2026-10-12", "cluster": "B-state-media" }
+      ]
+    },
+    {
+      "region": "russia-belarus",
+      "observation": {
+        "ru": "Крупнейший пакет санкций ЕС против РФ 12.10; Вашингтон отсрочил новые санкции указом Трампа; дроны атаковали нефтетерминал в Санкт-Петербурге 18.10, а российская атомная подлодка провела ракетные стрельбы.",
+        "en": "The EU's largest sanctions package on Russia on 12 Oct; Washington deferred new sanctions via a Trump order; drones struck a St Petersburg oil terminal on 18 Oct while a Russian nuclear submarine ran missile drills."
+      },
+      "why": {
+        "ru": "Россия — узел пересечения Д2 (ядерные/доктринальные сигналы), Д3 (санкции и переговоры) и Д4 (санкции, снятие ограничений, блокировка инфраструктуры).",
+        "en": "Russia is the intersection node for D2 (nuclear/doctrinal signals), D3 (sanctions and talks) and D4 (sanctions, easing, infrastructure blockage)."
+      },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.brusselstimes.com/2357495/largest-eu-sanctions-package-yet-adds-1569-to-russia-military-blacklist", "date": "2026-10-12", "cluster": "A-mainstream" },
+        { "url": "https://eadaily.com/en/news/2026/10/18/the-oil-terminal-caught-fire-in-st-petersburg-after-the-drone-attack", "date": "2026-10-18", "cluster": "B-state-media" }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "tasnimnews-eslami-nuclear-threat-2026-10-12",
+      "title": { "ru": "Ислами осудил ядерную угрозу США против Ирана", "en": "Eslami Condemns US Nuclear Threat against Iran" },
+      "domain": "tasnimnews.ir",
+      "url": "https://tasnimnews.ir/en/news/2026/10/12/3720781/eslami-condemns-us-nuclear-threat-against-iran",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "arabtimesonline-trump-rules-out-nuclear-2026-10-16",
+      "title": { "ru": "Трамп исключил применение ядерного оружия против Ирана, но удар по Pickaxe Mountain остаётся возможным", "en": "Trump Rules Out Nuclear Weapons Against Iran, But Pickaxe Mountain Strike Remains Possible" },
+      "domain": "arabtimesonline.com",
+      "url": "https://www.arabtimesonline.com/news/trump-rules-out-nuclear-weapons-against-iran-but-pickaxe-mountain-strike-remains-possible/",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-nuclear-zero-postnikov-2026-10-17",
+      "title": { "ru": "Россия считает идею «короткого пути к ядерному нулю» контрпродуктивной — дипломат Постников", "en": "Russia views idea of shortcut to 'nuclear zero' as counterproductive — diplomat Postnikov" },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2203555",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "primary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "forcesnews-steadfast-noon-italy-2026-10-13",
+      "title": { "ru": "Единство и решимость: ядерные учения НАТО Steadfast Noon начались в Италии", "en": "Unity and resolve: NATO's nuclear exercise Steadfast Noon begins in Italy" },
+      "domain": "forcesnews.com",
+      "url": "https://www.forcesnews.com/nato/unity-and-resolve-natos-nuclear-exercise-steadfast-noon-begins-italy",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "channelnewsasia-nk-slcms-2026-10-14",
+      "title": { "ru": "КНДР испытала два типа стратегических крылатых ракет подводного базирования", "en": "North Korea test-fires two types of submarine-launched strategic cruise missiles" },
+      "domain": "channelnewsasia.com",
+      "url": "https://www.channelnewsasia.com/east-asia/north-korea-tests-submarine-launched-strategic-cruise-missiles-6460706",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "rt-english-russian-submarine-drill-2026-10-15",
+      "title": { "ru": "Российская атомная подлодка отработала ракетные стрельбы", "en": "Russian nuclear submarine conducts missile firing drill" },
+      "domain": "rt-english.com",
+      "url": "https://rt-english.com/russia/647240-russian-submarine-fire-drill",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "yahoo-trump-nuclear-bomb-iran-2026-10-16",
+      "title": { "ru": "Трамп исключил применение ядерной бомбы против Ирана: почему это важно", "en": "Trump rules out using a nuclear bomb on Iran: Why that matters" },
+      "domain": "yahoo.com",
+      "url": "https://www.yahoo.com/news/politics/articles/trump-rules-using-nuclear-bomb-102112946.html",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "samaa-trump-nuclear-strike-2026-10-15",
+      "title": { "ru": "Трамп исключил ядерный удар, Пезешкиан заявил, что Иран не сдастся", "en": "Trump rules out nuclear strike, Pezeshkian says Iran won't surrender" },
+      "domain": "samaa.tv",
+      "url": "https://www.samaa.tv/2087358549-trump-rules-out-nuclear-strike-pezeshkian-says-iran-won-t-surrender",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "nypost-nato-warns-russia-2026-10-13",
+      "title": { "ru": "НАТО предупреждает Россию: «мы сломаем» силы и уничтожим «всё и вся» при нападении", "en": "NATO warns Russia: 'We will break' forces, destroy 'anything and everything' if you attack" },
+      "domain": "nypost.com",
+      "url": "https://nypost.com/2026/10/13/world-news/nato-warns-russia-we-will-break-forces-destroy-anything-and-everything-if-you-attack/",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "theweek-iran-counter-us-attack-2026-10-14",
+      "title": { "ru": "Так Иран готовится отражать атаку США: «захваченные или убитые»", "en": "This is how Iran prepares to counter US attack: 'Boots on the ground'" },
+      "domain": "theweek.in",
+      "url": "https://www.theweek.in/news/middle-east/2026/10/14/this-is-how-iran-prepares-to-counter-us-attack-captured-or-killed.html",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "brusselstimes-eu-sanctions-1569-2026-10-12",
+      "title": { "ru": "Крупнейший пакет санкций ЕС: 1 569 записей в военном чёрном списке России", "en": "Largest EU sanctions package yet adds 1,569 to Russia military blacklist" },
+      "domain": "brusselstimes.com",
+      "url": "https://www.brusselstimes.com/2357495/largest-eu-sanctions-package-yet-adds-1569-to-russia-military-blacklist",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "iranwire-us-sanctions-iran-2026-10-15",
+      "title": { "ru": "США атакуют иранские офшорные банки и нефтяные сети новым раундом санкций", "en": "US Targets Iranian-Linked Offshore Banks and Oil Networks in New Sanctions Round" },
+      "domain": "iranwire.com",
+      "url": "https://iranwire.com/en/features/158950-us-targets-iranian-linked-offshore-banks-and-oil-networks-in-new-sanctions-round/",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "trtworld-lebanon-israel-talks-2026-10-17",
+      "title": { "ru": "Ливан примет участие в трёхсторонних переговорах с Израилем при поддержке США — Аун", "en": "Lebanon to take part in US-backed trilateral talks with Israel: Aoun" },
+      "domain": "trtworld.com",
+      "url": "https://www.trtworld.com/article/c2841d38185a",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tehrantimes-lavrov-tehran-2026-10-17",
+      "title": { "ru": "Лавров посетит Тегеран в понедельник для переговоров с Арагчи", "en": "Lavrov to visit Tehran on Monday for talks with Araghchi" },
+      "domain": "tehrantimes.com",
+      "url": "https://www.tehrantimes.com/news/531178/Lavrov-to-visit-Tehran-on-Monday-for-talks-with-Araghchi",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "straitstimes-pope-putin-ceasefire-2026-10-16",
+      "title": { "ru": "Из больницы папа Римский призвал Путина к прекращению огня в спорном городе Украины", "en": "From hospital, Pope Leo pushes Putin for ceasefire in contested Ukraine city" },
+      "domain": "straitstimes.com",
+      "url": "https://www.straitstimes.com/world/europe/from-hospital-pope-leo-pushes-putin-for-ceasefire-in-contested-ukraine-city",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-houthis-release-159-2026-10-17",
+      "title": { "ru": "Хуситы Йемена освободили 159 задержанных в Сане — МККК", "en": "Yemen's Houthis release 159 detainees in Sanaa: ICRC" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-release-159-detainees-in-sanaa-icrc/4092084",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "middleeasteye-houthis-release-159-2026-10-17",
+      "title": { "ru": "Хуситы освободили 159 человек по амнистии под наблюдением МККК", "en": "Houthis release 159 people under an amnesty under ICRC watch" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-release-159-people-under-amnesty-under-icrc-watch",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "safety4sea-eu-sanctions-russia-2026-10-13",
+      "title": { "ru": "ЕС принял крупнейший в истории пакет санкций против России", "en": "EU adopts largest-ever sanctions package targeting Russia" },
+      "domain": "safety4sea.com",
+      "url": "https://safety4sea.com/eu-adopts-largest-ever-sanctions-package-targeting-russia/",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "theepochtimes-eu-china-trade-2026-10-16",
+      "title": { "ru": "ЕС ищет новые торговые полномочия на фоне расширения дефицита с Китаем", "en": "EU Seeks New Trade Powers as Deficit With China Widens" },
+      "domain": "theepochtimes.com",
+      "url": "https://www.theepochtimes.com/world/eu-seeks-new-trade-powers-as-deficit-with-china-widens-6105278",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "breakingdefense-hegseth-ausa-2026-10-14",
+      "title": { "ru": "Хегсет на AUSA продвигает автономность и «поколенческие» оборонные инвестиции", "en": "Hegseth uses AUSA spotlight to push autonomy, 'generational' defense investment" },
+      "domain": "breakingdefense.com",
+      "url": "https://breakingdefense.com/2026/10/hegseth-uses-ausa-spotlight-to-highlight-autonomy-generational-defense-investment/",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-turkiye-defense-229-2026-10-16",
+      "title": { "ru": "Турция увеличила закупки вооружений на 229 % в 2027 году", "en": "Türkiye raises defense equipment procurement by 229% in 2027" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/turkiye/turkiye-raises-defense-equipment-procurement-by-229-in-2027/4091132",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "breakingdefense-critical-minerals-2026-10-15",
+      "title": { "ru": "На фоне приближения срока по критичным минералам армия США ожидает «некоторого влияния»", "en": "As critical mineral deadline looms, Army expects to feel 'some impact'" },
+      "domain": "breakingdefense.com",
+      "url": "https://breakingdefense.com/2026/10/as-critical-mineral-deadline-looms-army-expects-to-feel-some-impact/",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "businesstoday-my-china-rare-earth-eu-2026-10-15",
+      "title": { "ru": "Китай требует взаимного сотрудничества ЕС по экспортным лицензиям на редкозёмы", "en": "China Seeks Reciprocal EU Cooperation On Rare Earth Export License" },
+      "domain": "businesstoday.com.my",
+      "url": "https://www.businesstoday.com.my/2026/10/15/china-seeks-reciprocal-eu-cooperation-on-rare-earth-export-license/",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "qatar-tribune-hormuz-tanker-mine-2026-10-17",
+      "title": { "ru": "Второй нефтяной танкер горит в Ормузском проливе после подрыва на морской мине", "en": "Second oil tanker burns in Strait of Hormuz after hitting naval mine" },
+      "domain": "qatar-tribune.com",
+      "url": "https://www.qatar-tribune.com/article/259630/front/second-oil-tanker-burns-in-strait-of-hormuz-after-hitting-naval-mine",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tbsnews-hormuz-tankers-mines-2026-10-17",
+      "title": { "ru": "Два нефтяных танкера загорелись после подрыва на минах в Ормузском проливе — КСИР", "en": "Two oil tankers catch fire after striking mines in Strait of Hormuz: IRGC" },
+      "domain": "tbsnews.net",
+      "url": "https://www.tbsnews.net/worldbiz/middle-east/two-oil-tankers-catch-fire-after-striking-mines-strait-hormuz-irgc-1576151",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "eadaily-st-petersburg-oil-terminal-2026-10-18",
+      "title": { "ru": "Нефтетерминал в Санкт-Петербурге загорелся после дроновой атаки", "en": "The oil terminal caught fire in St. Petersburg after the drone attack" },
+      "domain": "eadaily.com",
+      "url": "https://eadaily.com/en/news/2026/10/18/the-oil-terminal-caught-fire-in-st-petersburg-after-the-drone-attack",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnn-trump-waives-russia-sanctions-2026-10-16",
+      "title": { "ru": "Трамп отсрочил санкции против России до их вступления в силу, вызвав критику", "en": "Trump waives Russia-related sanctions before they kick in, prompting backlash" },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/10/16/europe/us-ukraine-russia-sanctions-intl-hnk",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "firstpost-india-us-trade-deal-2026-10-15",
+      "title": { "ru": "Сделка Индии и США: первая фаза завершена, идёт юридическая проработка", "en": "India-US trade deal: First phase finalised, legal drafting underway" },
+      "domain": "firstpost.com",
+      "url": "https://www.firstpost.com/business/findia-us-trade-deal-first-phase-finalised-legal-drafting-underway-14053110.html",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "cnbctv18-brent-110-explained-2026-10-16",
+      "title": { "ru": "Объяснение: почему Brent впервые превысил $110", "en": "Explained: What led to Brent crude prices crossing $110 for the first time" },
+      "domain": "cnbctv18.com",
+      "url": "https://www.cnbctv18.com/market/commodities/crude-oil-prices-brent-wti-why-are-rates-rising-explained-saudi-houthis-hormuz-iran-us-russia-ukraine-20013997.htm",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "discoveryalert-brent-110-2026-10-17",
+      "title": { "ru": "Нефть Brent достигла $110: риски Ормуза, Саудовской Аравии и России накапливаются", "en": "Brent Oil Price Hits $110 as Hormuz, Saudi and Russia Risks Stack Up" },
+      "domain": "discoveryalert.com",
+      "url": "https://discoveryalert.com/news/brent-oil-price-110-hormuz-saudi-russia-october-2026/",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    }
+  ]
+}
