@@ -58,6 +58,11 @@ test('KINDS: фиксированный набор видов записи', () 
   assert.deepEqual(KINDS, ['methodology', 'taxonomy', 'schema', 'field', 'fix', 'product']);
 });
 
-test('CHANGELOG: даты не в будущем относительно даты сборки', () => {
-  for (const e of CHANGELOG) assert.ok(e.date <= '2026-10-18', `будущая дата: ${e.date}`);
+test('CHANGELOG: дата — календарная YYYY-MM-DD, без верхней границы «сегодня»', () => {
+  for (const e of CHANGELOG) {
+    assert.match(e.date, /^\d{4}-\d{2}-\d{2}$/, `формат даты: ${e.date}`);
+    const parsed = new Date(`${e.date}T00:00:00Z`);
+    assert.ok(!Number.isNaN(parsed.getTime()), `не дата: ${e.date}`);
+    assert.equal(parsed.toISOString().slice(0, 10), e.date, `не календарная дата: ${e.date}`);
+  }
 });

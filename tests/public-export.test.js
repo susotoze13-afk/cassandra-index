@@ -318,7 +318,11 @@ test('CLI --write с битым снапшотом: код 1, неделя и va
     `window.CI_WEEKS = ["${week}"];\nwindow.CI_LATEST = "${week}";\n`,
   );
   const globalFile = path.join(dir, 'data', week, 'global.js');
-  writeFileSync(globalFile, readFileSync(globalFile, 'utf8').replace('"index": 64', '"index": 999'));
+  // Портим структуру, а не конкретное значение: индекс недели меняется, тип
+  // поля — нет. Замена «64 → 999» пережила бы только текущую неделю.
+  const broken = readFileSync(globalFile, 'utf8').replace(/("index":\s*)-?\d+/, '$1"не число"');
+  assert.notEqual(broken, readFileSync(globalFile, 'utf8'), 'фикстура не испорчена: index не найден');
+  writeFileSync(globalFile, broken);
   const run = spawnSync(process.execPath, ['calc/public-export.js', '--root', dir, '--write'], {
     cwd: ROOT, encoding: 'utf8',
   });
@@ -330,10 +334,12 @@ test('CLI --write с битым снапшотом: код 1, неделя и va
 });
 
 test('CLI без --write: печатает сводку и не меняет файлы', () => {
+  const { weeks } = readLatestWeeks(readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8'));
+  const last = weeks[weeks.length - 1];
   const before = readFileSync(path.join(ROOT, 'data', 'public', 'index.json'));
   const run = spawnSync(process.execPath, ['calc/public-export.js'], { cwd: ROOT, encoding: 'utf8' });
   assert.equal(run.status, 0, run.stderr);
-  assert.match(run.stdout, /2026-10-18/);
+  assert.match(run.stdout, new RegExp(last), 'сводка называет последнюю неделю из CI_WEEKS');
   assert.match(run.stdout, /недел/i);
   const after = readFileSync(path.join(ROOT, 'data', 'public', 'index.json'));
   assert.ok(before.equals(after), 'печать не пишет файлы');
@@ -388,5 +394,29 @@ test('паритет: публичные файлы не добавляют не
   const latestJs = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
   assert.ok(!latestJs.includes('data/public'), 'latest.js не грузит публичный слой');
   assert.ok(latestJs.includes("/week.js"), 'latest.js грузит week.js');
-  assert.equal(weeks.length, 12);
+  // Форма списка, а не «сегодняшняя длина»: новая неделя не должна красить тест.
+  assert.ok(Array.isArray(weeks) && weeks.length > 0, 'в CI_WEEKS нет ни одной недели');
+  for (const week of weeks) assert.match(week, /^\d{4}-\d{2}-\d{2}$/, `не дата недели: ${week}`);
+  assert.equal(new Set(weeks).size, weeks.length, 'в CI_WEEKS дубли недель');
+  assert.deepEqual(weeks, weeks.slice().sort(), 'CI_WEEKS не по возрастанию');
+  assert.equal(index.weeks.length, weeks.length, 'публичный слой покрывает не все недели CI_WEEKS');
+});
+
+test('weekly-calc.yml: публичный слой пересобирается до тестов, иначе паритет гасит автопубликацию', () => {
+  const workflow = readFileSync(
+    path.join(ROOT, '.github', 'workflows', 'weekly-calc.yml'),
+    'utf8',
+  );
+  const at = (needle) => {
+    const i = workflow.indexOf(needle);
+    assert.notEqual(i, -1, `weekly-calc.yml: нет шага «${needle}»`);
+    return i;
+  };
+  const publicExport = at('node calc/public-export.js --write');
+  const digestExport = at('node calc/digest-export.js --write');
+  const tests = at('node --test');
+  assert.ok(publicExport < tests, 'public-export --write должен идти до node --test');
+  assert.ok(digestExport < tests, 'digest-export --write должен идти до node --test');
+  // Генерируемые страницы пишутся в рабочее дерево и уезжают тем же коммитом.
+  assert.ok(at('git add -A') > tests, 'сгенерированные файлы должны попасть в коммит');
 });

@@ -92,10 +92,60 @@ jobs:
           git commit -m "дайджест недели $WEEK"
           git push origin master
 
+      # Порядок шагов здесь — часть защиты от повторного поста: отметка о
+      # намерении уходит в master ДО первого запроса. Успешный пост с
+      # отклонённым пушем иначе повторился бы на следующем прогоне.
+      - name: Отметить отправку до запроса (резерв)
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          WEEK: ${{ steps.week.outputs.value }}
+          RUN_ID: ${{ github.run_id }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DIGEST_EMAIL_ENDPOINT: ${{ secrets.DIGEST_EMAIL_ENDPOINT }}
+          DIGEST_EMAIL_TOKEN: ${{ secrets.DIGEST_EMAIL_TOKEN }}
+          DIGEST_EMAIL_FROM: ${{ secrets.DIGEST_EMAIL_FROM }}
+          DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ] && [ -z "$DIGEST_EMAIL_ENDPOINT" ]; then
+            echo "::notice::Секреты дайджеста не заданы — отправка и отметка пропущены"
+            exit 0
+          fi
+          node calc/digest-send.js --reserve --week "$WEEK" --run-id "$RUN_ID"
+
+      - name: Зафиксировать отметку в master (до отправки)
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          WEEK: ${{ steps.week.outputs.value }}
+        run: |
+          if [ ! -f data/digest/sent.json ]; then
+            echo "::notice::sent.json не создан — фиксировать нечего"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/digest/sent.json
+          if git diff --cached --quiet; then
+            echo "::notice::Нет изменений в sent.json — коммит не требуется"
+            exit 0
+          fi
+          git commit -m "дайджест: отправка недели $WEEK зарезервирована"
+          for attempt in 1 2 3; do
+            if git push origin master; then
+              exit 0
+            fi
+            echo "::warning::push отметки не прошёл (попытка $attempt) — подтягиваю master"
+            git pull --rebase --autostash origin master || true
+            sleep 5
+          done
+          echo "::error::Отметка не зафиксирована в master — отправка отменена, чтобы не постить дважды"
+          exit 1
+
       - name: Отправить выпуск
         if: steps.gate.outputs.skip == 'false'
         env:
           WEEK: ${{ steps.week.outputs.value }}
+          RUN_ID: ${{ github.run_id }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DIGEST_EMAIL_ENDPOINT: ${{ secrets.DIGEST_EMAIL_ENDPOINT }}
@@ -107,10 +157,12 @@ jobs:
             echo "::notice::Секреты дайджеста не заданы — шаг отправки пропущен"
             exit 0
           fi
-          node calc/digest-send.js --send --week "$WEEK"
+          node calc/digest-send.js --send --week "$WEEK" --run-id "$RUN_ID"
 
-      - name: Записать sent.json
-        if: steps.gate.outputs.skip == 'false'
+      - name: Отметить доставленные каналы
+        # always(): сбой отправки тоже надо зафиксировать — снятый резерв даёт
+        # следующий прогон, а не тихую потерю канала.
+        if: always() && steps.gate.outputs.skip == 'false'
         run: |
           if [ ! -f data/digest/sent.json ]; then
             echo "::notice::sent.json не изменился — коммит не требуется"
@@ -123,8 +175,18 @@ jobs:
             echo "::notice::Нет изменений в sent.json — коммит не требуется"
             exit 0
           fi
-          git commit -m "дайджест: отправка отмечена в sent.json"
-          git push origin master
+          git commit -m "дайджест: доставленные каналы отмечены в sent.json"
+          # Резерв уже в master: неудачный push здесь дубля не даёт (следующий
+          # прогон увидит резерв чужого прогона и не станет постить сам).
+          for attempt in 1 2 3; do
+            if git push origin master; then
+              exit 0
+            fi
+            echo "::warning::push sent.json не прошёл (попытка $attempt)"
+            git pull --rebase --autostash origin master || true
+            sleep 5
+          done
+          echo "::warning::sent.json не уехал в master — повтора не будет, канал останется в резерве"
 
       # push от GITHUB_TOKEN не триггерит другие workflow — деплой запускается
       # явно (как в weekly-calc.yml), иначе архив выпуска не доезжает до сайта.

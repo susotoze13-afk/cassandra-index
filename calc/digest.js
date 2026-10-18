@@ -96,19 +96,21 @@ function regionNames(taxonomy) {
 
 // Три региона по величине недельного изменения: |delta| убыванием, затем
 // индекс убыванием, затем id — порядок детерминирован, а не «как в объекте».
+// Слепой регион (background: true) в рейтинг не входит: у него дельта по
+// построению равна глобальной, и это фон, а не региональное изменение.
 function topRegions(snapshot, limit) {
   const taxonomy = typeof snapshot.regions_taxonomy === 'string' ? snapshot.regions_taxonomy : '1.0';
   const names = regionNames(taxonomy);
   const rows = [];
   for (const [id, r] of Object.entries(snapshot.regions || {})) {
     if (!r || typeof r !== 'object') continue;
+    if (r.background === true) continue;
     if (!isNum(r.index) && !isNum(r.delta)) continue;
     rows.push({
       id,
       name: names.get(id) || id,
       index: isNum(r.index) ? r.index : null,
       delta: isNum(r.delta) ? r.delta : null,
-      background: r.background === true,
     });
   }
   rows.sort((a, b) => {
@@ -124,9 +126,6 @@ function topRegions(snapshot, limit) {
 }
 
 function regionFigure(region) {
-  if (region.background) {
-    return `${region.name} — ${region.index} (региональных данных недостаточно)`;
-  }
   if (isNum(region.index) && isNum(region.delta)) {
     return `${region.name} — ${region.index} (${signed(region.delta)})`;
   }

@@ -6,8 +6,13 @@
 //   - --send отправляет только те каналы, чьи переменные окружения заданы;
 //     частично заданный канал — ошибка до первого запроса (опечатка в имени
 //     переменной не должна превращаться в «канал не настроен»);
-//   - уже отправленная неделя пропускается без сети и без ненулевого кода;
-//   - ошибка канала — код 1, sent.json не обновляется;
+//   - отметка отправки — пара «неделя + канал»: доставленный канал (telegram)
+//     не мешает доотправке недостающего (email) и не повторяется сам;
+//   - --reserve --run-id <id> фиксирует намерение до запроса: workflow пишет и
+//     пушит его ДО отправки, поэтому сбой пуша после успешного поста не даёт
+//     повторного поста на следующем прогоне; чужой run-id без ручного разбора
+//     не переотправляется;
+//   - ошибка канала — код 1; успешные каналы при этом уже записаны;
 //   - ни одно значение секрета не попадает в вывод, файл или сообщение об
 //     ошибке: только имена переменных окружения.
 //
@@ -28,7 +33,7 @@ import { readLatestWeeks } from './prepare-week.js';
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 export const SENT_SCHEMA = 'cassandra-index-digest-sent';
-export const SENT_SCHEMA_VERSION = 1;
+export const SENT_SCHEMA_VERSION = 2;
 export const SENT_FILE = 'sent.json';
 export const SENT_DIR = 'data/digest';
 export const CHANNELS = ['telegram', 'email'];
@@ -120,8 +125,11 @@ export async function sendEmail(fetchImpl, cfg, message) {
   return { ok: response.ok === true, status: response.status };
 }
 
-// deliver(digest, cfg, {fetchImpl}) → {sent, skipped, errors}.
-// cfg = {telegram: {...}, email: {...}, sentWeeks: [...]}.
+// deliver(digest, cfg, {fetchImpl, runId}) → {sent, skipped, errors}.
+// cfg = {telegram: {...}, email: {...}, sentWeeks: [...], sentChannels: [...],
+//        pending: {channel: runId}}. sentWeeks — легаси «неделя отправлена
+// целиком»; sentChannels — доставленные каналы этой недели; pending — каналы,
+// зарезервированные до запроса (свой runId — отправляем, чужой — пропускаем).
 export async function deliver(digest, cfg = {}, deps = {}) {
   const fetchImpl = deps.fetchImpl || globalThis.fetch;
   const week = digest && digest.week;
@@ -135,9 +143,20 @@ export async function deliver(digest, cfg = {}, deps = {}) {
     throw new Error('deliver: нет fetchImpl (нужен Node 18+ или инъекция)');
   }
 
+  const done = new Set(Array.isArray(cfg.sentChannels) ? cfg.sentChannels : []);
+  const pending = cfg.pending && typeof cfg.pending === 'object' ? cfg.pending : {};
+  const runId = typeof deps.runId === 'string' ? deps.runId : null;
+
   const errors = [];
   const channels = [];
+  const skipped = [];
   for (const channel of CHANNELS) {
+    // Канал уже доставлен или зарезервирован другим прогоном: запроса нет.
+    if (done.has(channel)) { skipped.push(channel); continue; }
+    if (typeof pending[channel] === 'string' && pending[channel] !== runId) {
+      skipped.push(channel);
+      continue;
+    }
     const missing = missingOf(channel, cfg[channel]);
     if (missing.length === 0) channels.push(channel);
     else if (missing.length < REQUIRED[channel].length) {
@@ -149,13 +168,15 @@ export async function deliver(digest, cfg = {}, deps = {}) {
     }
   }
   if (channels.length === 0 && errors.length === 0) {
+    // Часть каналов уже доставлена — отправлять нечего, это не ошибка.
+    if (skipped.length > 0) return { sent: [], skipped, errors };
     errors.push({
       channel: 'all',
       message: `нет секретов дайджеста: ${CHANNELS
         .flatMap((channel) => REQUIRED[channel].map((r) => r.env)).join(', ')}`,
     });
   }
-  if (errors.length) return { sent: [], skipped: [], errors };
+  if (errors.length) return { sent: [], skipped, errors };
 
   const secrets = CHANNELS.map((channel) => cfg[channel] && cfg[channel].token);
   const sent = [];
@@ -170,43 +191,164 @@ export async function deliver(digest, cfg = {}, deps = {}) {
       errors.push({ channel, message: `${channel}: ${redact(e && e.message ? e.message : e, secrets)}` });
     }
   }
-  return { sent, skipped: [], errors };
+  return { sent, skipped, errors };
 }
 
-// readSent(dir) → недели, уже отправленные (по возрастанию).
-export function readSent(dir) {
+// readState(dir) → {channels: Map<week, Set>, pending: Map<week, Map<channel, runId>>}.
+// Старая форма {weeks: ["2026-10-18"]} читается как «неделя доставлена целиком»:
+// формат совместим назад, а пишется всегда текущая версия схемы.
+function readState(dir) {
+  const state = { channels: new Map(), pending: new Map() };
   const file = path.join(dir, SENT_FILE);
-  if (!existsSync(file)) return [];
+  if (!existsSync(file)) return state;
   const data = JSON.parse(readFileSync(file, 'utf8'));
-  const weeks = Array.isArray(data && data.weeks) ? data.weeks : [];
-  return weeks.filter((week) => typeof week === 'string' && DATE_RE.test(week));
+  const legacy = Array.isArray(data && data.weeks) ? data.weeks : [];
+  for (const week of legacy) {
+    if (typeof week !== 'string' || !DATE_RE.test(week)) continue;
+    state.channels.set(week, new Set(CHANNELS));
+  }
+  const channels = data && typeof data.channels === 'object' ? data.channels : {};
+  for (const [week, list] of Object.entries(channels)) {
+    if (!DATE_RE.test(week) || !Array.isArray(list)) continue;
+    const set = state.channels.get(week) || new Set();
+    for (const channel of list) if (CHANNELS.includes(channel)) set.add(channel);
+    state.channels.set(week, set);
+  }
+  const pending = data && typeof data.pending === 'object' ? data.pending : {};
+  for (const [week, claims] of Object.entries(pending)) {
+    if (!DATE_RE.test(week) || !claims || typeof claims !== 'object') continue;
+    const map = new Map();
+    for (const [channel, runId] of Object.entries(claims)) {
+      if (CHANNELS.includes(channel) && typeof runId === 'string' && runId) map.set(channel, runId);
+    }
+    if (map.size) state.pending.set(week, map);
+  }
+  return state;
 }
 
-// writeSent(dir, week) → обновлённый список недель. Идемпотентно: повтор не
-// дублирует дату.
-export function writeSent(dir, week) {
-  if (typeof week !== 'string' || !DATE_RE.test(week)) {
-    throw new Error('writeSent: неделя должна быть датой YYYY-MM-DD');
+function writeState(dir, state) {
+  const weeks = Array.from(state.channels.keys()).sort();
+  const channels = {};
+  for (const week of weeks) {
+    const list = CHANNELS.filter((channel) => state.channels.get(week).has(channel));
+    if (list.length) channels[week] = list;
   }
-  const weeks = Array.from(new Set([...readSent(dir), week])).sort();
-  mkdirSync(dir, { recursive: true });
+  const pending = {};
+  for (const week of Array.from(state.pending.keys()).sort()) {
+    const claims = state.pending.get(week);
+    const entry = {};
+    for (const channel of CHANNELS) {
+      if (claims.has(channel)) entry[channel] = claims.get(channel);
+    }
+    if (Object.keys(entry).length) pending[week] = entry;
+  }
   const body = {
     schema: SENT_SCHEMA,
     schema_version: SENT_SCHEMA_VERSION,
-    weeks,
+    // weeks — прежняя форма: недели, доставленные во все каналы.
+    weeks: weeks.filter((week) => CHANNELS.every((channel) => state.channels.get(week).has(channel))),
+    channels,
   };
+  if (Object.keys(pending).length) body.pending = pending;
+  mkdirSync(dir, { recursive: true });
   writeFileSync(path.join(dir, SENT_FILE), `${JSON.stringify(body, null, 2)}\n`, 'utf8');
-  return weeks;
+}
+
+// readSent(dir) → недели, доставленные целиком (по возрастанию). Прежняя форма
+// с одним списком недель читается так же.
+export function readSent(dir) {
+  const state = readState(dir);
+  return Array.from(state.channels.entries())
+    .filter(([, set]) => CHANNELS.every((channel) => set.has(channel)))
+    .map(([week]) => week)
+    .sort();
+}
+
+// readSentChannels(dir, week) → доставленные каналы недели, в порядке CHANNELS.
+export function readSentChannels(dir, week) {
+  const set = readState(dir).channels.get(week);
+  if (!set) return [];
+  return CHANNELS.filter((channel) => set.has(channel));
+}
+
+// writeSent(dir, week, channels = CHANNELS) → обновлённые недели. Идемпотентно:
+// повтор не дублирует ни дату, ни канал. Намерение «отправить» (reserve) сюда
+// не пишется — только факт доставки.
+export function writeSent(dir, week, channels = CHANNELS) {
+  if (typeof week !== 'string' || !DATE_RE.test(week)) {
+    throw new Error('writeSent: неделя должна быть датой YYYY-MM-DD');
+  }
+  const list = Array.isArray(channels) ? channels.filter((c) => CHANNELS.includes(c)) : [];
+  if (list.length === 0) throw new Error('writeSent: нужен хотя бы один канал из telegram/email');
+  const state = readState(dir);
+  const set = state.channels.get(week) || new Set();
+  for (const channel of list) set.add(channel);
+  state.channels.set(week, set);
+  state.pending.delete(week);
+  writeState(dir, state);
+  return readSent(dir);
+}
+
+// reserveSent(dir, week, channels, runId) → каналы, зарезервированные этим
+// прогоном. Уже доставленные и уже зарезервированные каналы не трогаются.
+export function reserveSent(dir, week, channels, runId) {
+  if (typeof week !== 'string' || !DATE_RE.test(week)) {
+    throw new Error('reserveSent: неделя должна быть датой YYYY-MM-DD');
+  }
+  if (typeof runId !== 'string' || !runId) throw new Error('reserveSent: нужен runId');
+  const list = (Array.isArray(channels) ? channels : []).filter((c) => CHANNELS.includes(c));
+  if (list.length === 0) return [];
+  const state = readState(dir);
+  const done = state.channels.get(week) || new Set();
+  const claims = state.pending.get(week) || new Map();
+  const reserved = [];
+  for (const channel of list) {
+    if (done.has(channel) || claims.has(channel)) continue;
+    claims.set(channel, runId);
+    reserved.push(channel);
+  }
+  if (reserved.length) {
+    state.pending.set(week, claims);
+    writeState(dir, state);
+  }
+  return reserved;
+}
+
+// readPending(dir, week) → {channel: runId} — зарезервированные каналы недели.
+export function readPending(dir, week) {
+  const claims = readState(dir).pending.get(week);
+  const out = {};
+  if (claims) for (const [channel, runId] of claims) out[channel] = runId;
+  return out;
+}
+
+// clearPending(dir, week, channels) — снимает резерв (доставка не состоялась:
+// повтор возможен, дубля нет). Файл переписывается даже опустевшим: иначе на
+// диске остался бы прежний резерв и канал не отправился бы никогда.
+export function clearPending(dir, week, channels) {
+  const state = readState(dir);
+  const claims = state.pending.get(week);
+  if (!claims) return;
+  for (const channel of Array.isArray(channels) ? channels : []) claims.delete(channel);
+  if (claims.size === 0) state.pending.delete(week);
+  writeState(dir, state);
 }
 
 // --- CLI ---
 
 function parseArgs(argv) {
-  const out = { send: false, week: null, root: ROOT };
+  const out = {
+    send: false, reserve: false, week: null, root: ROOT, runId: 'manual',
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--send') out.send = true;
-    else if (arg === '--week') {
+    else if (arg === '--reserve') out.reserve = true;
+    else if (arg === '--run-id') {
+      i += 1;
+      if (!argv[i]) throw new Error('--run-id требует идентификатор прогона');
+      out.runId = argv[i];
+    } else if (arg === '--week') {
       i += 1;
       if (!argv[i] || !DATE_RE.test(argv[i])) throw new Error('--week требует дату YYYY-MM-DD');
       out.week = argv[i];
@@ -216,6 +358,7 @@ function parseArgs(argv) {
       out.root = path.resolve(argv[i]);
     } else throw new Error(`неизвестный аргумент: ${arg}`);
   }
+  if (out.send && out.reserve) throw new Error('--send и --reserve взаимоисключающие');
   return out;
 }
 
@@ -258,19 +401,13 @@ export async function runDigestSend(options = {}) {
     chartUrl: present(env.DIGEST_CHART_URL) ? env.DIGEST_CHART_URL : undefined,
   });
 
-  if (!args.send) {
+  if (!args.send && !args.reserve) {
     out.write(`${digest.subject}\n\n${digest.text}\n`);
     out.write('dry-run: ничего не отправлено (для отправки — --send)\n');
     return 0;
   }
 
-  const already = readSent(sentDir);
-  if (already.includes(week)) {
-    out.write(`неделя ${week} уже отправлена (${SENT_DIR}/${SENT_FILE}) — пропуск\n`);
-    return 0;
-  }
-
-  const cfg = {
+  const channelConfig = {
     telegram: { token: env.TELEGRAM_BOT_TOKEN, chatId: env.TELEGRAM_CHAT_ID },
     email: {
       endpoint: env.DIGEST_EMAIL_ENDPOINT,
@@ -278,17 +415,55 @@ export async function runDigestSend(options = {}) {
       from: env.DIGEST_EMAIL_FROM,
       to: env.DIGEST_EMAIL_TO,
     },
-    sentWeeks: already,
   };
-  const result = await deliver(digest, cfg, { fetchImpl });
+  const configured = CHANNELS
+    .filter((channel) => missingOf(channel, channelConfig[channel]).length === 0);
+
+  // Резерв до запроса: workflow пушит его в master, поэтому падение пуша после
+  // успешного поста уже не может привести к повторному посту.
+  if (args.reserve) {
+    if (configured.length === 0) {
+      out.write(`секреты дайджеста не заданы — резервировать нечего (${SENT_DIR}/${SENT_FILE})\n`);
+      return 0;
+    }
+    const reserved = reserveSent(sentDir, week, configured, args.runId);
+    if (reserved.length === 0) {
+      out.write(`неделя ${week}: все настроенные каналы уже доставлены или зарезервированы — `
+        + `пропуск\n`);
+      return 0;
+    }
+    out.write(`зарезервировано до отправки: ${reserved.join(', ')} (неделя ${week}, `
+      + `прогон ${args.runId})\n`);
+    return 0;
+  }
+
+  const sentChannels = readSentChannels(sentDir, week);
+  const pending = readPending(sentDir, week);
+  const cfg = {
+    ...channelConfig,
+    sentChannels,
+    pending,
+  };
+  const result = await deliver(digest, cfg, { fetchImpl, runId: args.runId });
+
+  if (result.sent.length) writeSent(sentDir, week, result.sent);
+  // Резерв провалившегося канала снимается: доставки не было, повтор — не дубль.
+  const failed = result.errors.map((error) => error.channel).filter((channel) => CHANNELS.includes(channel));
+  if (failed.length) clearPending(sentDir, week, failed);
+
   if (result.errors.length) {
     for (const error of result.errors) {
       err.write(`ошибка канала ${error.channel}: ${error.message}\n`);
     }
-    err.write(`неделя ${week} не считается отправленной\n`);
+    if (result.sent.length) err.write(`уже доставлено и записано: ${result.sent.join(', ')}\n`);
+    err.write(`неделя ${week} не считается отправленной целиком\n`);
     return 1;
   }
-  writeSent(sentDir, week);
+  if (result.sent.length === 0) {
+    out.write(`неделя ${week} уже отправлена (${SENT_DIR}/${SENT_FILE}) — пропуск`
+      + `${result.skipped.length ? `: ${result.skipped.join(', ')}` : ''}\n`);
+    return 0;
+  }
   out.write(`отправлено (${result.sent.join(', ')}): неделя ${week}; `
     + `записано в ${SENT_DIR}/${SENT_FILE}\n`);
   return 0;

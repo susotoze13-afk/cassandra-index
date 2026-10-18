@@ -87,6 +87,12 @@ jobs:
           WEEK: ${{ steps.week.outputs.value }}
         run: node calc/calc.js --write "$WEEK"
 
+      - name: Пересборка публичного слоя и архива выпусков
+        if: steps.gate.outputs.skip == 'false'
+        run: |
+          node calc/public-export.js --write
+          node calc/digest-export.js --write
+
       - name: Тесты
         if: steps.gate.outputs.skip == 'false'
         run: node --test
