@@ -8,10 +8,13 @@
 
 import { t } from '../i18n.js';
 import { el } from '../ui.js';
+import { PRECURSOR_SUBGROUPS } from '../data.js';
 
-// Число подгрупп Д9 (§4.3.8: иерархическая агрегация по восьми подгруппам);
-// паритет с engine.D9_SUBGROUPS пинит tests/precursor-ui.test.js.
-export const PRECURSOR_SUBGROUPS = 8;
+// Число подгрупп Д9 (§4.3.8: иерархическая агрегация по восьми подгруппам).
+// Единственный источник числа — js/data.js (контракт снапшота); отсюда его
+// берут проверка формы и подпись «из N». Паритет с engine.D9_SUBGROUPS пинит
+// tests/precursor-ui.test.js.
+export { PRECURSOR_SUBGROUPS };
 
 // precursorFacts(snapshot) → { value, signaling, total } | null. null — если
 // снапшота/глобального индекса нет, неделя не published (R11.1), поля нет или
@@ -65,7 +68,8 @@ export function render(appState) {
 
   const row = el('div', 'precursor-row');
   row.appendChild(el('div', 'precursor-value', t(lang, 'precursor.value', { value: facts.value })));
-  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.signals', { n: facts.signaling })));
+  row.appendChild(el('p', 'precursor-note',
+    t(lang, 'precursor.signals', { n: facts.signaling, total: PRECURSOR_SUBGROUPS })));
   if (showsNoSignals(facts)) {
     row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.none')));
   }

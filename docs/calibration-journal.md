@@ -525,12 +525,13 @@ k = 1.95 подтверждён на 10 якорях (7 select + 3 verify) с д
 1. До расчёта и записи недели редактор кладёт
    `calc/input/anchors/forward-<неделя>.json` со схемой
    `{week, expectedCluster, rationale, author, committedAt, sources[]}`
-   (`calc/forward-anchors.js` — валидатор). `expectedCluster` — из словаря
-   пяти состояний §9 плюс `unknown`: `calm`, `tense`, `dangerous`,
-   `very-dangerous`, `critically-dangerous`, `unknown`. Не знает — пишет
-   `unknown` и причину в `rationale`; это законная запись, а не пропуск.
-   Верхний диапазон §9 (97–100) в словарь форвардной разметки не входит:
-   ожидание для него не фиксируется.
+   (`calc/forward-anchors.js` — валидатор). `expectedCluster` — идентификаторы
+   шкалы сайта (`SCALE` в `js/risk.js`), один к одному, плюс `unknown`:
+   `calm` (0–20), `tense` (21–40), `danger` (41–60), `very` (61–80),
+   `critical` (81–96), `extreme` (97–100) и `unknown`. Верхний диапазон 97–100
+   входит в словарь состоянием `extreme`: ожидание для него фиксируется
+   наравне с остальными. Не знает — пишет `unknown` и причину в `rationale`;
+   это законная запись, а не пропуск.
 2. После публикации недели в таблицу вносится факт: `observedCluster` —
    состояние по опубликованному индексу и порогам §9. Файл ожидания после
    коммита **не редактируется**: пре-регистрация и факт живут раздельно.
@@ -538,6 +539,26 @@ k = 1.95 подтверждён на 10 якорях (7 select + 3 verify) с д
    `git log -- calc/input/anchors/forward-<неделя>.json` и
    `git log -- data/<неделя>`. Автоматических ворот нет — это редакционная
    процедура, а не проверка кода.
+
+Пример файла, который проходит `validateForwardAnchor` без ошибок:
+
+<!-- forward-anchor-example -->
+```json
+{
+  "week": "2026-10-25",
+  "expectedCluster": "tense",
+  "rationale": "В окне недели — учения и жёсткая риторика, прямых ударов и новых фронтов нет",
+  "author": "editor-in-chief",
+  "committedAt": "2026-10-20T08:00:00Z",
+  "sources": [
+    { "url": "https://example.org/week-2026-10-25/overview" }
+  ]
+}
+```
+
+Поля обязательны все; `sources` может быть пустым массивом, но каждая запись
+обязана нести непустой `url`. Для `unknown` непустой `rationale` — причина
+отказа, а не пропуск поля.
 
 | week | expectedCluster | observedCluster | match | date |
 |---|---|---|---|---|

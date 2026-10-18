@@ -14,10 +14,15 @@ import {
   showsNoSignals,
   PRECURSOR_SUBGROUPS,
 } from '../js/sections/precursor.js';
+import { PRECURSOR_SUBGROUPS as CONTRACT_SUBGROUPS } from '../js/data.js';
 import { D9_SUBGROUPS } from '../calc/engine.js';
 import { DICTS } from '../js/i18n.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+// Спецификация §4.3.8 (история 13): подгрупп Д9 — восемь. Единственное место,
+// где число записано в тесте; всё остальное сверяется с этим ожиданием.
+const TOTAL = 8;
 
 // Синтетический опубликованный снапшот: значение 42 %, 3 сигналящие подгруппы.
 function snap(extra = {}) {
@@ -33,20 +38,20 @@ function snap(extra = {}) {
 }
 
 test('precursorFacts: опубликованная неделя с полем → value/signaling/total', () => {
-  assert.deepEqual(precursorFacts(snap()), { value: 42, signaling: 3, total: 8 });
+  assert.deepEqual(precursorFacts(snap()), { value: 42, signaling: 3, total: TOTAL });
   // Границы контракта (js/data.js validateQuality) — включительно.
   assert.deepEqual(
     precursorFacts(snap({ precursor: { value: 0, signalingSubgroups: 0 } })),
-    { value: 0, signaling: 0, total: 8 }
+    { value: 0, signaling: 0, total: TOTAL }
   );
   assert.deepEqual(
-    precursorFacts(snap({ precursor: { value: 100, signalingSubgroups: 8 } })),
-    { value: 100, signaling: 8, total: 8 }
+    precursorFacts(snap({ precursor: { value: 100, signalingSubgroups: TOTAL } })),
+    { value: 100, signaling: TOTAL, total: TOTAL }
   );
   // Лишние ключи контракт игнорирует — блок тоже.
   assert.deepEqual(
     precursorFacts(snap({ precursor: { value: 7, signalingSubgroups: 1, note: 'x' } })),
-    { value: 7, signaling: 1, total: 8 }
+    { value: 7, signaling: 1, total: TOTAL }
   );
 });
 
@@ -70,7 +75,7 @@ test('precursorFacts: битая форма поля → null (сайт не п�
     { value: 42, signalingSubgroups: '3' },
     { value: 42, signalingSubgroups: 2.5 },
     { value: 42, signalingSubgroups: -1 },
-    { value: 42, signalingSubgroups: 9 },
+    { value: 42, signalingSubgroups: TOTAL + 1 },
   ];
   for (const precursor of broken) {
     assert.equal(precursorFacts(snap({ precursor })), null, JSON.stringify(precursor));
@@ -78,16 +83,21 @@ test('precursorFacts: битая форма поля → null (сайт не п�
 });
 
 test('showsNoSignals: пометка только при value = 0 и signaling = 0', () => {
-  assert.equal(showsNoSignals({ value: 0, signaling: 0, total: 8 }), true);
+  assert.equal(showsNoSignals({ value: 0, signaling: 0, total: TOTAL }), true);
   // R10: signaling = 0 при ненулевом значении пометку не включает.
-  assert.equal(showsNoSignals({ value: 50, signaling: 0, total: 8 }), false);
-  assert.equal(showsNoSignals({ value: 0, signaling: 2, total: 8 }), false);
+  assert.equal(showsNoSignals({ value: 50, signaling: 0, total: TOTAL }), false);
+  assert.equal(showsNoSignals({ value: 0, signaling: 2, total: TOTAL }), false);
   assert.equal(showsNoSignals(null), false);
 });
 
-test('PRECURSOR_SUBGROUPS равен числу подгрупп Д9 в движке (§4.3.8)', () => {
-  assert.equal(PRECURSOR_SUBGROUPS, 8);
-  assert.equal(PRECURSOR_SUBGROUPS, D9_SUBGROUPS.length);
+test('число подгрупп: один источник, паритет с движком (§4.3.8)', () => {
+  // Смена числа подгрупп в движке обязана давать красный тест, а не тихую
+  // ложь в подписи «из N»: сайт и контракт сверяются с D9_SUBGROUPS.length.
+  assert.equal(D9_SUBGROUPS.length, TOTAL);
+  assert.equal(PRECURSOR_SUBGROUPS, TOTAL);
+  // Граница контракта снапшота (js/data.js) — тот же источник числа.
+  assert.equal(CONTRACT_SUBGROUPS, TOTAL);
+  assert.equal(PRECURSOR_SUBGROUPS, CONTRACT_SUBGROUPS);
 });
 
 test('i18n: ключи блока, плейсхолдеры и запрет цифр в подписи', () => {
@@ -103,7 +113,13 @@ test('i18n: ключи блока, плейсхолдеры и запрет ци
   assert.equal(ru['precursor.none'], 'сигналов нет');
   assert.ok(ru['precursor.value'].includes('{value}'), 'precursor.value без {value}');
   assert.ok(ru['precursor.signals'].includes('{n, plural,'), 'precursor.signals без плюрализации {n}');
-  assert.ok(ru['precursor.signals'].includes('из 8'), 'precursor.signals без «из 8»');
+  // Число подгрупп — не литерал в тексте: подпись получает его плейсхолдером
+  // {total} из единственного источника (js/data.js PRECURSOR_SUBGROUPS).
+  assert.ok(ru['precursor.signals'].includes('из {total}'), 'precursor.signals без «из {total}»');
+  assert.ok(
+    !/\d/.test(ru['precursor.signals'].replace(/Д9/g, '')),
+    'в precursor.signals не должно быть числа подгрупп литералом',
+  );
   assert.equal(ru['precursor.note'], 'доля сигналов Д9, не сравнимо с индексом');
   assert.ok(ru['precursor.note'].includes('не сравнимо с индексом'), 'подпись без оговорки');
   // Цифра — только id драйвера «Д9»: числовых значений в подписи быть не должно.
@@ -170,7 +186,12 @@ test('CSS: классы блока, одна колонка и никаких с
   assert.ok(!/--state-/.test(scope), 'в блоке нет статусных цветов');
 });
 
-test('js/sections/precursor.js: DOM без innerHTML', () => {
+test('js/sections/precursor.js: DOM без innerHTML, подпись получает {total}', () => {
   const src = readFileSync(join(root, 'js/sections/precursor.js'), 'utf8');
   assert.ok(!src.includes('innerHTML'), 'секция не собирает DOM строками');
+  // Текст «из N» собирается из того же PRECURSOR_SUBGROUPS, что и контракт:
+  // проверяем именно вызов подписи, а не любое упоминание константы в файле.
+  const signalsLine = src.split('\n').find((l) => l.includes("'precursor.signals'"));
+  assert.ok(signalsLine, 'render не рендерит precursor.signals');
+  assert.match(signalsLine, /total:\s*PRECURSOR_SUBGROUPS/, 'render не передаёт {total} в подпись');
 });

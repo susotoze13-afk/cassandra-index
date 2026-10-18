@@ -13,7 +13,7 @@ window.STATE =
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "baseCommit": "1a8a2c7",
   "startedAt": "2026-10-18T20:01:41+03:00",
-  "updatedAt": "2026-10-18T20:19:54+03:00",
+  "updatedAt": "2026-10-18T20:24:42+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -43,16 +43,20 @@ window.STATE =
     },
     {
       "id": "plan",
-      "status": "active",
-      "startedAt": "2026-10-18T20:01:57+03:00"
+      "status": "done",
+      "startedAt": "2026-10-18T20:01:57+03:00",
+      "finishedAt": "2026-10-18T20:20:26+03:00"
     },
     {
       "id": "build",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-10-18T20:20:32+03:00",
+      "finishedAt": "2026-10-18T20:20:32+03:00"
     },
     {
       "id": "review",
-      "status": "pending"
+      "status": "active",
+      "startedAt": "2026-10-18T20:20:26+03:00"
     },
     {
       "id": "final",
@@ -61,8 +65,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 22,
-    "done": 15,
-    "inTicket": 5,
+    "done": 20,
+    "inTicket": 0,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 1,
@@ -93,10 +97,10 @@ window.STATE =
       "review": "нет",
       "model": "обычная",
       "status": "done",
-      "retries": 0,
-      "repairs": 0,
       "startedAt": "2026-10-18T20:02:14+03:00",
       "finishedAt": "2026-10-18T20:05:56+03:00",
+      "retries": 0,
+      "repairs": 0,
       "tests": {
         "passed": 545,
         "failed": 0
@@ -132,10 +136,10 @@ window.STATE =
       "review": "да — фундамент",
       "model": "сильная",
       "status": "done",
-      "retries": 0,
-      "repairs": 0,
       "startedAt": "2026-10-18T20:05:56+03:00",
       "finishedAt": "2026-10-18T20:10:28+03:00",
+      "retries": 0,
+      "repairs": 0,
       "tests": {
         "passed": 560,
         "failed": 0
@@ -169,17 +173,53 @@ window.STATE =
       ],
       "review": "да — публичная поверхность",
       "model": "обычная",
-      "status": "repair",
+      "status": "done",
+      "startedAt": "2026-10-18T20:10:29+03:00",
+      "finishedAt": "2026-10-18T20:20:25+03:00",
       "retries": 0,
       "repairs": 1,
-      "startedAt": "2026-10-18T20:10:29+03:00",
       "repairFindings": [
         "подпись под процентом: вернуть «доля сигналов Д9, не сравнимо с индексом»"
-      ]
+      ],
+      "tests": {
+        "passed": 571,
+        "failed": 0
+      },
+      "commit": "60e4e70"
+    },
+    {
+      "id": "F1",
+      "title": "Ремонт ветки: один словарь кластеров, пины контракта и числа",
+      "requirements": [
+        "R01",
+        "R12",
+        "R15"
+      ],
+      "blockedBy": [],
+      "wave": 4,
+      "zone": [
+        "docs/calibration-journal.md",
+        "calc/forward-anchors.js",
+        "tests/forward-anchors.test.js",
+        "tests/precursor.test.js",
+        "calc/calc.js",
+        "js/i18n.js",
+        "js/sections/precursor.js",
+        "js/data.js",
+        "js/bundle.js",
+        "js/bundle-privacy.js",
+        "tests/precursor-ui.test.js"
+      ],
+      "review": "да — ремонт ветки",
+      "model": "сильная",
+      "status": "in-progress",
+      "retries": 0,
+      "repairs": 0,
+      "startedAt": "2026-10-18T20:24:42+03:00"
     }
   ],
   "tests": {
-    "passed": 560,
+    "passed": 571,
     "failed": 0
   },
   "debt": {
@@ -230,9 +270,14 @@ window.STATE =
     "2026-10-18T20:16:50+03:00",
     "2026-10-18T20:19:24+03:00",
     "2026-10-18T20:19:53+03:00",
-    "2026-10-18T20:19:54+03:00"
+    "2026-10-18T20:19:54+03:00",
+    "2026-10-18T20:20:25+03:00",
+    "2026-10-18T20:20:26+03:00",
+    "2026-10-18T20:20:32+03:00",
+    "2026-10-18T20:24:41+03:00",
+    "2026-10-18T20:24:42+03:00"
   ],
-  "rev": 23,
+  "rev": 30,
   "waiting": null,
   "waits": [],
   "log": [
@@ -389,6 +434,56 @@ window.STATE =
       "k": "add",
       "key": "report",
       "n": 1
+    },
+    {
+      "t": "2026-10-18T20:20:25+03:00",
+      "k": "ticket",
+      "ids": [
+        "03"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 571,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-18T20:20:26+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T20:20:32+03:00",
+      "k": "stage",
+      "id": "build",
+      "act": "done"
+    },
+    {
+      "t": "2026-10-18T20:20:32+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T20:24:41+03:00",
+      "k": "tickets",
+      "n": 4
+    },
+    {
+      "t": "2026-10-18T20:24:41+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": true,
+      "problems": 0
+    },
+    {
+      "t": "2026-10-18T20:24:42+03:00",
+      "k": "ticket",
+      "ids": [
+        "F1"
+      ],
+      "act": "start"
     }
   ],
   "reqList": [
@@ -410,7 +505,7 @@ window.STATE =
     {
       "id": "R04",
       "text": "«3–4 предложения в секции «Методология» (через js/i18n.js + node build.js)»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R05",
@@ -436,17 +531,17 @@ window.STATE =
     {
       "id": "R09",
       "text": "«закрывает расхождение «документация ↔ интерфейс», даёт leading-индикатор»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R10",
       "text": "«блок «Косвенные предвестники (Д9)» между hero и витриной доверия; скрыт, если неделя не published или D9 = null; при nSub = 0 — 0 % с пометкой «сигналов нет»»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R11",
       "text": "«round(s9·100) %, подпись «доля сигналов Д9, не сравнимо с индексом», «N сигналящих подгрупп из 8», дисклеймер §4.3.6»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R12",
@@ -496,7 +591,7 @@ window.STATE =
     {
       "id": "R21i",
       "text": "Ворота прогона: node --test и node build.js зелёные; бандлы коммитятся",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R22i",
@@ -521,7 +616,7 @@ window.STATE =
     },
     "G3": {
       "ok": true,
-      "at": "2026-10-18T20:01:59+03:00",
+      "at": "2026-10-18T20:24:41+03:00",
       "problems": 0
     }
   },

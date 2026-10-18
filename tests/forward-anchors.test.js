@@ -3,8 +3,14 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 import { CLUSTERS, validateForwardAnchor } from '../calc/forward-anchors.js';
+import { SCALE } from '../js/risk.js';
+
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function valid() {
   return {
@@ -17,9 +23,12 @@ function valid() {
   };
 }
 
-test('CLUSTERS: шесть состояний js/risk.js плюс unknown', () => {
-  assert.deepEqual(CLUSTERS, ['calm', 'tense', 'danger', 'very', 'critical', 'extreme', 'unknown']);
-  assert.equal(CLUSTERS.length, 7);
+test('CLUSTERS: id из SCALE js/risk.js плюс unknown', () => {
+  // Ожидание — из шкалы сайта (идентификаторы состояний), не из литерала:
+  // любое расхождение словаря якорей со шкалой — красный тест.
+  assert.deepEqual(CLUSTERS, [...SCALE.map((s) => s.id), 'unknown']);
+  assert.equal(CLUSTERS.length, SCALE.length + 1);
+  assert.equal(CLUSTERS.at(-1), 'unknown');
 });
 
 test('validateForwardAnchor: корректный файл принимается, пустой sources допустим', () => {
@@ -120,4 +129,46 @@ test('validateForwardAnchor: sources — массив объектов с неп
   const missing = valid();
   delete missing.sources;
   assert.ok(validateForwardAnchor(missing).some((e) => e.includes('sources')));
+});
+
+// Журнал калибровки — человеческий источник перечня кластеров и примера файла:
+// оба обязаны совпадать с кодом (R01, R15), иначе редактор пишет по устаревшей
+// инструкции и файл молча не проходит валидатор.
+function journal() {
+  return readFileSync(path.join(ROOT, 'docs', 'calibration-journal.md'), 'utf8');
+}
+
+function forwardSection() {
+  const text = journal();
+  const start = text.indexOf('## Форвардный журнал');
+  const end = text.indexOf('## Честная оговорка про якоря', start);
+  assert.ok(start > -1 && end > start, 'в журнале нет раздела «Форвардный журнал»');
+  return text.slice(start, end);
+}
+
+test('журнал: перечень expectedCluster совпадает с CLUSTERS', () => {
+  const section = forwardSection();
+  for (const id of CLUSTERS) {
+    assert.ok(section.includes(`\`${id}\``), `в журнале нет кластера ${id}`);
+  }
+  // Устаревшие имена состояний не должны остаться ни в одном виде.
+  for (const stale of ['`dangerous`', '`very-dangerous`', '`critically-dangerous`']) {
+    assert.ok(!section.includes(stale), `в журнале устаревший кластер ${stale}`);
+  }
+});
+
+test('журнал: пример файла проходит validateForwardAnchor без ошибок', () => {
+  const text = journal();
+  const marker = '<!-- forward-anchor-example -->';
+  const at = text.indexOf(marker);
+  assert.ok(at > -1, 'в журнале нет примера файла форвардного якоря');
+  const rest = text.slice(at + marker.length);
+  const open = rest.indexOf('```json');
+  const close = rest.indexOf('```', open + '```json'.length);
+  assert.ok(open > -1 && close > open, 'пример не в блоке ```json');
+  let example;
+  assert.doesNotThrow(() => {
+    example = JSON.parse(rest.slice(open + '```json'.length, close));
+  });
+  assert.deepEqual(validateForwardAnchor(example), []);
 });

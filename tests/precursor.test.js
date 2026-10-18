@@ -62,6 +62,31 @@ test('runWeek: кладёт precursor рядом с sensitivity и совпад�
   assert.deepEqual(res.precursor, expected);
 });
 
+test('10-18: реальное значение слоя закреплено как {value: 50, signalingSubgroups: 4}', () => {
+  // Регрессионный пин недели 10-18: слой считается из её входа, а не берётся
+  // с диска (в data/ поля ещё нет — R13, история не перезаписана).
+  const res = runWeek('2026-10-18', { prevRegions: {}, classification: {}, recalcIndex: {} });
+  assert.deepEqual(res.precursor, { value: 50, signalingSubgroups: 4 });
+});
+
+test('writeWeek: precursor попадает в meta (значит, и в global.js)', () => {
+  // У writeWeek нет инъекции записи: вызов писал бы в data/. Сторож — по
+  // исходнику calc.js, как паритеты разметки в tests/page-structure.test.js.
+  // Пропажа строки означает, что поле из global.js исчезнет молча.
+  const src = readFileSync(path.join(ROOT, 'calc', 'calc.js'), 'utf8');
+  const metaAt = src.indexOf('const meta = {');
+  const fullAt = src.indexOf('const full = {');
+  assert.ok(metaAt > -1 && fullAt > metaAt, 'не найдены блоки meta/full в writeWeek');
+  const metaBlock = src.slice(metaAt, fullAt);
+  assert.match(
+    metaBlock,
+    /precursor:\s*res\.precursor/,
+    'в meta нет precursor — поле не дойдёт до renderGlobal',
+  );
+  const fullBlock = src.slice(fullAt, src.indexOf('\n  if (meta.preview) full.preview', fullAt));
+  assert.match(fullBlock, /precursor:\s*res\.precursor/, 'в full нет precursor');
+});
+
 test('renderGlobal: пишет s.precursor только когда поле задано', () => {
   const snap = { published: '2026-10-18', methodology: '3.0' };
   const meta = {

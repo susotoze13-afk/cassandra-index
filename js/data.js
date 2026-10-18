@@ -37,6 +37,15 @@ export const CURRENT_TAXONOMY = '2.0';
 export const TAXONOMY_V2_FROM = '2026-10-18';
 export const REGION_IDS = REGION_TAXONOMIES[CURRENT_TAXONOMY];
 
+// Число подгрупп Д9 (§4.3.8) — единственный источник числа на сайте: отсюда
+// его берут контракт снапшота (validateQuality ниже), секция precursor
+// (js/sections/precursor.js) и подпись «из N» (i18n-ключ precursor.signals
+// получает его плейсхолдером {total}). Сайт не читает calc/, поэтому зеркало
+// движка (calc/engine.js D9_SUBGROUPS.length) — паритет пинит
+// tests/precursor-ui.test.js: смена числа в движке даёт красный тест,
+// а не тихую ложь в подписи.
+export const PRECURSOR_SUBGROUPS = 8;
+
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const LEVELS = ['high', 'medium', 'low'];
 
@@ -312,16 +321,22 @@ function validateQuality(snapshot, errors) {
   }
 
   // Публичный слой Д9 (§4.3.6, R07/R12): { value: int 0..100,
-  // signalingSubgroups: int 0..8 }. Поле опционально — недели до внедрения и
-  // непересчитанная история 08-30…10-18 валидны без него; лишние ключи
-  // игнорируются, битая форма — ошибка контракта.
+  // signalingSubgroups: int 0..PRECURSOR_SUBGROUPS }. Поле опционально — недели
+  // до внедрения и непересчитанная история 08-30…10-18 валидны без него; лишние
+  // ключи игнорируются, битая форма — ошибка контракта. Верхняя граница — из
+  // единственного источника PRECURSOR_SUBGROUPS (паритет с движком в тесте).
   if (snapshot.precursor !== undefined) {
     const p = snapshot.precursor;
     const ok =
       !!p && typeof p === 'object' && !Array.isArray(p) &&
       Number.isInteger(p.value) && p.value >= 0 && p.value <= 100 &&
-      Number.isInteger(p.signalingSubgroups) && p.signalingSubgroups >= 0 && p.signalingSubgroups <= 8;
-    if (!ok) errors.push('precursor: { value: int 0..100, signalingSubgroups: int 0..8 }');
+      Number.isInteger(p.signalingSubgroups) && p.signalingSubgroups >= 0 &&
+      p.signalingSubgroups <= PRECURSOR_SUBGROUPS;
+    if (!ok) {
+      errors.push(
+        `precursor: { value: int 0..100, signalingSubgroups: int 0..${PRECURSOR_SUBGROUPS} }`,
+      );
+    }
   }
 
   if (snapshot.dataState === 'insufficient') {

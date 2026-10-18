@@ -570,6 +570,15 @@ const CURRENT_TAXONOMY = '2.0';
 const TAXONOMY_V2_FROM = '2026-10-18';
 const REGION_IDS = REGION_TAXONOMIES[CURRENT_TAXONOMY];
 
+// Число подгрупп Д9 (§4.3.8) — единственный источник числа на сайте: отсюда
+// его берут контракт снапшота (validateQuality ниже), секция precursor
+// (js/sections/precursor.js) и подпись «из N» (i18n-ключ precursor.signals
+// получает его плейсхолдером {total}). Сайт не читает calc/, поэтому зеркало
+// движка (calc/engine.js D9_SUBGROUPS.length) — паритет пинит
+// tests/precursor-ui.test.js: смена числа в движке даёт красный тест,
+// а не тихую ложь в подписи.
+const PRECURSOR_SUBGROUPS = 8;
+
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const LEVELS = ['high', 'medium', 'low'];
 
@@ -845,16 +854,22 @@ function validateQuality(snapshot, errors) {
   }
 
   // Публичный слой Д9 (§4.3.6, R07/R12): { value: int 0..100,
-  // signalingSubgroups: int 0..8 }. Поле опционально — недели до внедрения и
-  // непересчитанная история 08-30…10-18 валидны без него; лишние ключи
-  // игнорируются, битая форма — ошибка контракта.
+  // signalingSubgroups: int 0..PRECURSOR_SUBGROUPS }. Поле опционально — недели
+  // до внедрения и непересчитанная история 08-30…10-18 валидны без него; лишние
+  // ключи игнорируются, битая форма — ошибка контракта. Верхняя граница — из
+  // единственного источника PRECURSOR_SUBGROUPS (паритет с движком в тесте).
   if (snapshot.precursor !== undefined) {
     const p = snapshot.precursor;
     const ok =
       !!p && typeof p === 'object' && !Array.isArray(p) &&
       Number.isInteger(p.value) && p.value >= 0 && p.value <= 100 &&
-      Number.isInteger(p.signalingSubgroups) && p.signalingSubgroups >= 0 && p.signalingSubgroups <= 8;
-    if (!ok) errors.push('precursor: { value: int 0..100, signalingSubgroups: int 0..8 }');
+      Number.isInteger(p.signalingSubgroups) && p.signalingSubgroups >= 0 &&
+      p.signalingSubgroups <= PRECURSOR_SUBGROUPS;
+    if (!ok) {
+      errors.push(
+        `precursor: { value: int 0..100, signalingSubgroups: int 0..${PRECURSOR_SUBGROUPS} }`,
+      );
+    }
   }
 
   if (snapshot.dataState === 'insufficient') {
@@ -875,6 +890,7 @@ exports["regionIdsFor"] = regionIdsFor;
 exports["CURRENT_TAXONOMY"] = CURRENT_TAXONOMY;
 exports["TAXONOMY_V2_FROM"] = TAXONOMY_V2_FROM;
 exports["REGION_IDS"] = REGION_IDS;
+exports["PRECURSOR_SUBGROUPS"] = PRECURSOR_SUBGROUPS;
 exports["latest"] = latest;
 exports["listWeeks"] = listWeeks;
 exports["week"] = week;
@@ -1707,7 +1723,7 @@ const DICTS = {
     // подписи: подпись — про смысл, а не про конкретное число.
     'precursor.title': 'Косвенные предвестники (Д9)',
     'precursor.value': '{value} %',
-    'precursor.signals': '{n} {n, plural, one{сигналящая подгруппа} few{сигналящие подгруппы} many{сигналящих подгрупп} other{сигналящих подгрупп}} из 8',
+    'precursor.signals': '{n} {n, plural, one{сигналящая подгруппа} few{сигналящие подгруппы} many{сигналящих подгрупп} other{сигналящих подгрупп}} из {total}',
     'precursor.none': 'сигналов нет',
     'precursor.note': 'доля сигналов Д9, не сравнимо с индексом',
     'precursor.disclaimer': 'Косвенные индикаторы, не подтверждено прямыми наблюдениями.',
@@ -3124,6 +3140,7 @@ return exports;
 factories.push(["js/sections/precursor.js", function (exports) {
 const { t } = __ci_require("js/i18n.js");
 const { el } = __ci_require("js/ui.js");
+const { PRECURSOR_SUBGROUPS } = __ci_require("js/data.js");
 // js/sections/precursor.js — блок «Косвенные предвестники (Д9)» между hero и
 // витриной доверия (§4.3.6 METHODOLOGY, ADR 0047): доля сигналов Д9 без потолка
 // §4.3.5, число сигналящих подгрупп и честные оговорки — «не сравнимо с
@@ -3133,9 +3150,10 @@ const { el } = __ci_require("js/ui.js");
 // или битая форма поля — блока нет вовсе (R10). Чистый шов precursorFacts.
 
 
-// Число подгрупп Д9 (§4.3.8: иерархическая агрегация по восьми подгруппам);
-// паритет с engine.D9_SUBGROUPS пинит tests/precursor-ui.test.js.
-const PRECURSOR_SUBGROUPS = 8;
+// Число подгрупп Д9 (§4.3.8: иерархическая агрегация по восьми подгруппам).
+// Единственный источник числа — js/data.js (контракт снапшота); отсюда его
+// берут проверка формы и подпись «из N». Паритет с engine.D9_SUBGROUPS пинит
+// tests/precursor-ui.test.js.
 
 // precursorFacts(snapshot) → { value, signaling, total } | null. null — если
 // снапшота/глобального индекса нет, неделя не published (R11.1), поля нет или
@@ -3189,7 +3207,8 @@ function render(appState) {
 
   const row = el('div', 'precursor-row');
   row.appendChild(el('div', 'precursor-value', t(lang, 'precursor.value', { value: facts.value })));
-  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.signals', { n: facts.signaling })));
+  row.appendChild(el('p', 'precursor-note',
+    t(lang, 'precursor.signals', { n: facts.signaling, total: PRECURSOR_SUBGROUPS })));
   if (showsNoSignals(facts)) {
     row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.none')));
   }
