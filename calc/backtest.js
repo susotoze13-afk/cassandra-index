@@ -28,6 +28,8 @@ import path from 'node:path';
 import { PARAMS } from './params.js';
 import { readLatestWeeks } from './prepare-week.js';
 import { loadSnapshotFromDisk } from './public-export.js';
+import { writeLedger } from './ledger.js';
+import { VALIDATION_PAGE_FILE, renderValidationPage } from './validation-page.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const FIXTURES_DIR = path.join(ROOT, 'calc', 'backtest-fixtures');
@@ -527,13 +529,18 @@ const jsonText = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
 // writeValidation({rootDir, weeks, loadSnapshot, fixturesDir}) — сначала собирает
 // JSON в памяти, потом пишет: битая фикстура не оставляет полузаписанного файла.
+// T03: рядом с validation.json пишутся журнал прогнозов (writeLedger) и
+// статическая validation.html. → {files, validation, ledger}
 export function writeValidation({ rootDir, weeks, loadSnapshot, fixturesDir = FIXTURES_DIR }) {
   const root = rootDir || ROOT;
   const validation = buildValidation({ weeks, loadSnapshot, fixturesDir });
   const file = path.join(root, 'data', 'public', 'validation.json');
   mkdirSync(path.dirname(file), { recursive: true });
   writeFileSync(file, jsonText(validation), 'utf8');
-  return { files: [file], validation };
+  const { file: ledgerFile, ledger } = writeLedger({ rootDir: root, weeks, loadSnapshot });
+  const pageFile = path.join(root, VALIDATION_PAGE_FILE);
+  writeFileSync(pageFile, renderValidationPage(validation, ledger), 'utf8');
+  return { files: [file, ledgerFile, pageFile], validation, ledger };
 }
 
 // --- CLI ---

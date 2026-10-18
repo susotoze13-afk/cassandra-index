@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Валидация и журнал прогнозов — Cassandra Index</title>
+  <meta name="description" content="Сравнение недельного индекса Cassandra с GPR, ACLED и CrisisWatch: коэффициенты, расхождения, лаги и журнал прогнозов с попаданиями и промахами.">
+  <link rel="canonical" href="https://cassindex.ru/validation.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Валидация и журнал прогнозов — Cassandra Index">
+  <meta property="og:description" content="Сравнение недельного индекса Cassandra с GPR, ACLED и CrisisWatch: коэффициенты, расхождения, лаги и журнал прогнозов с попаданиями и промахами.">
+  <meta property="og:url" content="https://cassindex.ru/validation.html">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="blog/">Блог</a>
+        <a href="how-to-read.html">Как читать индекс</a>
+        <a href="compare.html">Сравнение</a>
+        <a href="changelog.html">История изменений</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Валидация и журнал прогнозов</h1>
+    <p class="doc-lede">Страница показывает, сходится ли недельный индекс Cassandra с независимыми измерениями конфликтности: GPR, ACLED и CrisisWatch. Здесь же — журнал прогнозов с попаданиями и промахами и раздел о том, чего это сравнение не доказывает.</p>
+    <p class="doc-meta">Все числа — производная <a href="data/public/validation.json">validation.json</a> и <a href="data/public/forecast-ledger.json">forecast-ledger.json</a>; руками файлы не правятся.</p>
+
+    <section id="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Сводка</h2>
+      <p class="doc-lede">Недельный индекс Cassandra сравнивается с тремя независимыми рядами: GPR, ACLED и CrisisWatch. Ниже — пересечение по периодам, коэффициенты, совпадение направления, лаги и расхождения. Всё пересобирается из офлайн-фикстур одной командой, поэтому числа на странице воспроизводимы.</p>
+      <p class="doc-meta">Методология: 3.0; недель в ряду: 8 (2026-08-30 — 2026-10-18); компараторов: 3; с коэффициентами: 1; без коэффициентов: 2.</p>
+      <p class="doc-meta">Минимум пар для публикации коэффициента: 6; при 6—19 парах значение помечается «предварительно». Ниже порога коэффициент не рассчитывается: в таблице стоит «—» и причина.</p>
+    </section>
+
+    <section id="comparators" aria-labelledby="comparators-title">
+      <h2 id="comparators-title">Компараторы</h2>
+      <p>Три независимых ряда и статус сравнения по каждому. Подробности — в разделах ниже.</p>
+    <table class="doc-table">
+      <thead><tr><th>Ряд</th><th>Пересечение</th><th>Уровни</th><th>Дельты</th><th>Направление</th><th>Лаг</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#gpr">Geopolitical Risk Index (GPR)</a></td><td>7</td><td>предварительно</td><td>предварительно</td><td>17 %</td><td>сдвиг 0</td></tr>
+        <tr><td><a href="#acled">ACLED — события политического насилия</a></td><td>3</td><td>не рассчитывается</td><td>не рассчитывается</td><td>50 %</td><td>не рассчитывается</td></tr>
+        <tr><td><a href="#crisiswatch">CrisisWatch (International Crisis Group)</a></td><td>2</td><td>не рассчитывается</td><td>не рассчитывается</td><td>не рассчитывается</td><td>не рассчитывается</td></tr>
+      </tbody>
+    </table>
+    </section>
+
+
+    <section id="gpr" aria-labelledby="gpr-title">
+      <h2 id="gpr-title">Geopolitical Risk Index (GPR)</h2>
+      <p>Доля газетных публикаций о геополитических рисках (война, терроризм, давление), взвешенная по частотности публикаций; дневной индекс GPRD.</p>
+      <p class="doc-meta">Пересечение: 7 периодов, 2026-08-30 — 2026-10-11; гранулярность: неделя.</p>
+      <div class="doc-source">
+      <p>Источник: <a href="https://www.matteoiacoviello.com/gpr.htm">Geopolitical Risk Index (GPR)</a>; данные: <a href="https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls">ссылка на ряд</a>; получено 2026-10-18; по состоянию на 2026-10-13.</p>
+      <p>Условия: Caldara &amp; Iacoviello, GPR — условия использования на странице источника (matteoiacoviello.com/gpr.htm).</p>
+      </div>
+      <h3>Метрики</h3>
+      <table class="doc-table">
+        <thead><tr><th>Ряд</th><th>n</th><th>Пирсон</th><th>Спирмен</th><th>p (перестановки)</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td>Уровни</td><td>7</td><td>-0.15</td><td>0.13</td><td>0.742</td><td>предварительно</td></tr>
+          <tr><td>Дельты</td><td>6</td><td>-0.60</td><td>-0.64</td><td>0.231</td><td>предварительно</td></tr>
+        </tbody>
+      </table>
+      <p>Совпадение знаков первых разностей: <strong>17 %</strong> (1 из 6, пропущено 0). Статус: описательно.</p>
+      <h3>Лаг</h3>
+      <p class="doc-meta">Кросс-корреляция первых разностей при сдвигах −2…+2; положительный сдвиг означает, что внешний ряд опережает индекс.</p>
+      <table class="doc-table">
+        <thead><tr><th>Сдвиг</th><th>n</th><th>Пирсон</th></tr></thead>
+        <tbody>
+          <tr><td>-2</td><td>4</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>-1</td><td>5</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>0</td><td>6</td><td>-0.60</td></tr>
+          <tr><td>1</td><td>5</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>2</td><td>4</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+        </tbody>
+      </table>
+      <p>Наибольший по модулю коэффициент — при сдвиге 0 (-0.60). Статус: предварительно.</p>
+      <h3>Расхождения</h3>
+      <p class="doc-meta">Периоды, где знаки первых разностей разошлись (обе дельты ненулевые).</p>
+      <table class="doc-table">
+        <thead><tr><th>Период</th><th>Δ индекса</th><th>Δ внешнего ряда</th></tr></thead>
+        <tbody>
+          <tr><td>2026-10-11</td><td>+10</td><td>-26.45</td></tr>
+          <tr><td>2026-10-04</td><td>-1</td><td>+7.22</td></tr>
+          <tr><td>2026-09-27</td><td>-9</td><td>+13.49</td></tr>
+          <tr><td>2026-09-13</td><td>+1</td><td>-4.52</td></tr>
+          <tr><td>2026-09-06</td><td>-9</td><td>+22.36</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="acled" aria-labelledby="acled-title">
+      <h2 id="acled-title">ACLED — события политического насилия</h2>
+      <p>Число зафиксированных событий политического насилия за месяц (все типы, глобально) и число погибших; лист Non_HRP.</p>
+      <p class="doc-meta">Пересечение: 3 периодов, 2026-08 — 2026-10; гранулярность: месяц.</p>
+      <div class="doc-source">
+      <p>Источник: <a href="https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59">ACLED — события политического насилия</a>; данные: <a href="https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59/resource/political-violence-events-and-fatalities.xlsx">ссылка на ряд</a>; получено 2026-10-18; по состоянию на 2026-10-09.</p>
+      <p>Условия: ACLED Terms of Use (атрибуция обязательна); зеркало HDX.</p>
+      </div>
+      <h3>Метрики</h3>
+      <table class="doc-table">
+        <thead><tr><th>Ряд</th><th>n</th><th>Пирсон</th><th>Спирмен</th><th>p (перестановки)</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td>Уровни</td><td>3</td><td>— <span class="doc-meta">пар 3 — меньше порога 6</span></td><td>—</td><td>—</td><td>не рассчитывается</td></tr>
+          <tr><td>Дельты</td><td>2</td><td>— <span class="doc-meta">пар 2 — меньше порога 6</span></td><td>—</td><td>—</td><td>не рассчитывается</td></tr>
+        </tbody>
+      </table>
+      <p>Совпадение знаков первых разностей: <strong>50 %</strong> (1 из 2, пропущено 0). Статус: описательно.</p>
+      <h3>Лаг</h3>
+      <p class="doc-meta">Кросс-корреляция первых разностей при сдвигах −2…+2; положительный сдвиг означает, что внешний ряд опережает индекс.</p>
+      <table class="doc-table">
+        <thead><tr><th>Сдвиг</th><th>n</th><th>Пирсон</th></tr></thead>
+        <tbody>
+          <tr><td>-2</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>-1</td><td>1</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>0</td><td>2</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>1</td><td>1</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>2</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+        </tbody>
+      </table>
+      <p>Наилучший сдвиг не рассчитывается: — (пар меньше порога 6).</p>
+      <h3>Расхождения</h3>
+      <p class="doc-meta">Периоды, где знаки первых разностей разошлись (обе дельты ненулевые).</p>
+      <table class="doc-table">
+        <thead><tr><th>Период</th><th>Δ индекса</th><th>Δ внешнего ряда</th></tr></thead>
+        <tbody>
+          <tr><td>2026-10</td><td>+8.33</td><td>-3837</td></tr>
+        </tbody>
+      </table>
+      <div class="doc-note"><p>Пересечение короче порога: 3 пар при минимуме 6; коэффициент не публикуется.</p></div>
+      <h3 id="acled-conflict-index">Почему сравнение идёт по данным о событиях, а не по Conflict Index</h3>
+      <p>Conflict Index — страновой композит, который ACLED публикует раз в полгода; машинного доступа к нему нет, а пересечения с восемью неделями методологии 3.0 (с 30 августа по 18 октября 2026 года) не возникает. Поэтому сравнение идёт по помесячным данным ACLED о событиях политического насилия: число событий за месяц против среднего индекса по неделям этого месяца. Это разные конструкты — счёт произошедших событий и сводная оценка состояния риска, — и сходимость таких рядов не подтверждает правильность индекса.</p>
+    </section>
+
+    <section id="crisiswatch" aria-labelledby="crisiswatch-title">
+      <h2 id="crisiswatch-title">CrisisWatch (International Crisis Group)</h2>
+      <p>Число стран, где ситуация ухудшилась по оценке ICG за месяц (CrisisWatch Trends); improved/resolution — для полноты картины.</p>
+      <p class="doc-meta">Пересечение: 2 периодов, 2026-08 — 2026-09; гранулярность: месяц.</p>
+      <div class="doc-source">
+      <p>Источник: <a href="https://www.crisisgroup.org/crisiswatch">CrisisWatch (International Crisis Group)</a>; данные: <a href="https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026">ссылка на ряд</a>; получено 2026-10-18; по состоянию на 2026-09.</p>
+      <p>Условия: International Crisis Group, CrisisWatch — условия использования на crisisgroup.org.</p>
+      </div>
+      <h3>Метрики</h3>
+      <table class="doc-table">
+        <thead><tr><th>Ряд</th><th>n</th><th>Пирсон</th><th>Спирмен</th><th>p (перестановки)</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td>Уровни</td><td>2</td><td>— <span class="doc-meta">пар 2 — меньше порога 6</span></td><td>—</td><td>—</td><td>не рассчитывается</td></tr>
+          <tr><td>Дельты</td><td>1</td><td>— <span class="doc-meta">пар 1 — меньше порога 6</span></td><td>—</td><td>—</td><td>не рассчитывается</td></tr>
+        </tbody>
+      </table>
+      <p>Совпадение знаков первых разностей: — — пар меньше двух, показатель не рассчитывается (попаданий 0, пар 1, пропущено 0).</p>
+      <h3>Лаг</h3>
+      <p class="doc-meta">Кросс-корреляция первых разностей при сдвигах −2…+2; положительный сдвиг означает, что внешний ряд опережает индекс.</p>
+      <table class="doc-table">
+        <thead><tr><th>Сдвиг</th><th>n</th><th>Пирсон</th></tr></thead>
+        <tbody>
+          <tr><td>-2</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>-1</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>0</td><td>1</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>1</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+          <tr><td>2</td><td>0</td><td>— <span class="doc-meta">пар меньше порога</span></td></tr>
+        </tbody>
+      </table>
+      <p>Наилучший сдвиг не рассчитывается: — (пар меньше порога 6).</p>
+      <h3>Расхождения</h3>
+      <p class="doc-meta">Периоды, где знаки первых разностей разошлись (обе дельты ненулевые).</p>
+      <table class="doc-table">
+        <thead><tr><th>Период</th><th>Δ индекса</th><th>Δ внешнего ряда</th></tr></thead>
+        <tbody>
+          <tr><td>2026-09</td><td>-4</td><td>+1</td></tr>
+        </tbody>
+      </table>
+      <div class="doc-note"><p>Пересечение короче порога: 2 пар при минимуме 6; коэффициент не публикуется.</p></div>
+    </section>
+
+    <section id="limits" aria-labelledby="limits-title">
+      <h2 id="limits-title">Что это не доказывает</h2>
+      <p class="doc-lede">Сходимость с внешними рядами — проверка, а не доказательство правильности индекса. Ниже три причины, почему сравнение нельзя читать как оценку точности.</p>
+      <section id="limits-constructs" aria-labelledby="limits-constructs-title">
+        <h3 id="limits-constructs-title">Разные конструкты</h3>
+        <p>Индекс Cassandra — сводная оценка уровня и направления риска по девяти драйверам. GPR считает долю газетных публикаций о геополитических рисках, ACLED — число зафиксированных событий политического насилия, CrisisWatch — экспертные страновые оценки ухудшения ситуации. Ряды измеряют разное; совпадение или расхождение не говорит, какой из них «прав».</p>
+      </section>
+      <section id="limits-windows" aria-labelledby="limits-windows-title">
+        <h3 id="limits-windows-title">Разные окна</h3>
+        <p>Индекс недельный, GPR дневной и сводится к окну [W−6, W], ACLED и CrisisWatch месячные и сравниваются со средним индекса по неделям месяца. Полугодовой Conflict Index ACLED и страновые срезы в сравнение не входят: у них другая периодичность и другой уровень агрегации. К этому добавляется сдвиг публикации: внешний ряд за период становится известен позже, чем закрывается неделя индекса.</p>
+      </section>
+      <section id="limits-revisions" aria-labelledby="limits-revisions-title">
+        <h3 id="limits-revisions-title">Ревизии данных</h3>
+        <p>Внешние ряды пересматриваются задним числом: уточняются события, меняются страновые оценки, обновляются исторические значения GPR. Наши снапшоты недель не пересчитываются после публикации — это зафиксированная запись. Поэтому коэффициент, пересчитанный на новой версии внешнего ряда, может отличаться от опубликованного раньше, хотя индекс не менялся.</p>
+      </section>
+    </section>
+
+    <section id="ledger" aria-labelledby="ledger-title">
+      <h2 id="ledger-title">Журнал прогнозов</h2>
+      <p class="doc-lede">Журнал показывает, сбываются ли заявленные ожидания: ожидание, факт, попадание или промах. Промахи перечислены полностью и не спрятаны в раскрывающийся блок. Baseline — наивный benchmark, а не прогноз проекта; редакционные записи — отдельный блок.</p>
+      <p class="doc-meta">Правило baseline: ожидание = кластер прошлой опубликованной недели и направление flat. Мёртвая зона направления: ±2 пункта индекса. Baseline: записей 7, кластер 6/7, направление 2/7. Редакционные: записей 0, ожидают факта 0. Промахов всего: 6.</p>
+      <div class="ledger-block ledger-baseline">
+        <h3>Наивный benchmark (baseline)</h3>
+        <p>Это не прогноз проекта: правило механически повторяет кластер прошлой опубликованной недели и ожидает направление «без изменения». Оно восстановимо из опубликованных снапшотов, поэтому задним числом его нельзя подкрутить, но записью в git до публикации недели оно не является.</p>
+        <p class="doc-meta">Наивный benchmark по опубликованным неделям цепочки.</p>
+      <table class="doc-table">
+        <thead><tr><th>Неделя</th><th>Ожидание: кластер</th><th>Ожидание: направление</th><th>Факт: индекс</th><th>Факт: кластер</th><th>Факт: направление</th><th>Итог</th></tr></thead>
+        <tbody>
+          <tr><td>2026-09-06</td><td>опасный</td><td>без изменения</td><td>42</td><td>опасный</td><td>снижение</td><td>кластер: попадание; направление: промах</td></tr>
+          <tr><td>2026-09-13</td><td>опасный</td><td>без изменения</td><td>43</td><td>опасный</td><td>без изменения</td><td>кластер: попадание; направление: попадание</td></tr>
+          <tr><td>2026-09-20</td><td>опасный</td><td>без изменения</td><td>56</td><td>опасный</td><td>рост</td><td>кластер: попадание; направление: промах</td></tr>
+          <tr><td>2026-09-27</td><td>опасный</td><td>без изменения</td><td>47</td><td>опасный</td><td>снижение</td><td>кластер: попадание; направление: промах</td></tr>
+          <tr><td>2026-10-04</td><td>опасный</td><td>без изменения</td><td>46</td><td>опасный</td><td>без изменения</td><td>кластер: попадание; направление: попадание</td></tr>
+          <tr><td>2026-10-11</td><td>опасный</td><td>без изменения</td><td>56</td><td>опасный</td><td>рост</td><td>кластер: попадание; направление: промах</td></tr>
+          <tr><td>2026-10-18</td><td>опасный</td><td>без изменения</td><td>64</td><td>очень высокий</td><td>рост</td><td>кластер: промах; направление: промах</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="ledger-block ledger-editor">
+        <h3>Редакционные прогнозы</h3>
+        <p>Форвардные якоря редактора из <code>calc/input/anchors/forward-&lt;неделя&gt;.json</code>. Коммит добавления якоря должен быть не позже коммита добавления опубликованной недели — это проверяется по истории git; при недоступной истории так и сказано, а не выдаётся за подтверждение.</p>
+        <p>Записей нет: редакционных форвардных якорей пока не добавлено. Baseline выше показан отдельно и прогнозом проекта не является.</p>
+      </div>
+      <div class="ledger-misses">
+        <h3>Промахи</h3>
+        <p>Промахи показаны наравне с попаданиями: каждая запись с несовпавшим ожиданием перечислена здесь.</p>
+        <table class="doc-table">
+          <thead><tr><th>Неделя</th><th>Тип записи</th><th>Поле</th><th>Ожидание</th><th>Факт</th></tr></thead>
+          <tbody>
+            <tr><td>2026-09-06</td><td>baseline</td><td>направление</td><td>без изменения</td><td>снижение</td></tr>
+            <tr><td>2026-09-20</td><td>baseline</td><td>направление</td><td>без изменения</td><td>рост</td></tr>
+            <tr><td>2026-09-27</td><td>baseline</td><td>направление</td><td>без изменения</td><td>снижение</td></tr>
+            <tr><td>2026-10-11</td><td>baseline</td><td>направление</td><td>без изменения</td><td>рост</td></tr>
+            <tr><td>2026-10-18</td><td>baseline</td><td>кластер</td><td>опасный</td><td>очень высокий</td></tr>
+            <tr><td>2026-10-18</td><td>baseline</td><td>направление</td><td>без изменения</td><td>рост</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-title">
+      <h2 id="method-title">Метод</h2>
+      <p>Команда <code>node calc/backtest.js --write</code> собирает <code>data/public/validation.json</code>, <code>data/public/forecast-ledger.json</code> и эту страницу из офлайн-фикстур. Сеть не используется.</p>
+      <p>Фикстуры лежат в <code>calc/backtest-fixtures/</code>: <code>gpr.json</code> (дневной ряд), <code>acled.json</code> и <code>crisiswatch.json</code> (месячные ряды) с провенансом в каждом файле; порядок обновления описан в <code>calc/backtest-fixtures/README.md</code>. Пересборка повторяется байт в байт: даты генерации в файлы не пишутся.</p>
+      <p>Метрики считаются собственными функциями: Пирсон, Спирмен со средними рангами, перестановочный тест на детерминированном генераторе (2000 итераций, фиксированный seed), согласие знаков первых разностей и кросс-корреляция при сдвигах −2…+2.</p>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">Источники рядов</h2>
+      <ul>
+        <li><a href="https://www.matteoiacoviello.com/gpr.htm">Geopolitical Risk Index (GPR)</a>; <a href="https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls">данные</a>; по состоянию на 2026-10-13; Caldara &amp; Iacoviello, GPR — условия использования на странице источника (matteoiacoviello.com/gpr.htm).</li>
+        <li><a href="https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59">ACLED — события политического насилия</a>; <a href="https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59/resource/political-violence-events-and-fatalities.xlsx">данные</a>; по состоянию на 2026-10-09; ACLED Terms of Use (атрибуция обязательна); зеркало HDX.</li>
+        <li><a href="https://www.crisisgroup.org/crisiswatch">CrisisWatch (International Crisis Group)</a>; <a href="https://www.crisisgroup.org/crisiswatch/september-trends-and-october-alerts-2026">данные</a>; по состоянию на 2026-09; International Crisis Group, CrisisWatch — условия использования на crisisgroup.org.</li>
+      </ul>
+      <p class="doc-links">Машинные файлы: <a href="data/public/validation.json">validation.json</a> <a href="data/public/forecast-ledger.json">forecast-ledger.json</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="blog/">Блог</a>
+      <a href="how-to-read.html">Как читать индекс</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="changelog.html">История изменений</a>
+      <a href="data/public/validation.json">Данные (JSON)</a>
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
