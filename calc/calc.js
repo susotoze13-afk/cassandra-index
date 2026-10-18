@@ -66,6 +66,31 @@ export function ignoredRegionalAttribution(criteria) {
   return out.sort();
 }
 
+// --- §4.1.5 (ADR 0046): критерии с пересечением — в отчёт прогона ---
+// Критерий входа с `intersection: true` — вторичный учёт события, уже
+// посчитанного под главным критерием. Движок его видит (покрытие не падает),
+// но не считает; отчёт называет id, чтобы флаг не был молчаливым.
+export function collectIntersections(criteria) {
+  const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
+  return Object.entries(map)
+    .filter(([, entry]) => entry && entry.intersection === true)
+    .map(([id]) => id)
+    .sort();
+}
+
+// --- Покрытие критериев недели (ADR 0033/0045) ---
+// Считается по `covered === true`, независимо от `intersection`: порог
+// достаточности данных — про собранные наблюдения, а не про их вклад в скор
+// (§4.1.5, ADR 0046). Критерий с пересечением покрыт и в uncovered не попадает.
+export function coverageOf(criteria) {
+  const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
+  return {
+    criteria: Object.values(map).filter((c) => c && c.covered === true).length,
+    totalCriteria: Object.keys(CRITERIA).length,
+    uncovered: Object.keys(CRITERIA).filter((id) => !(map[id] && map[id].covered === true)),
+  };
+}
+
 // --- Строгая валидация top-level sources входа (R55) ---
 // Полная схема: id/title{ru,en}/domain/url/publication_date/accessed_date/
 // source_type(primary|secondary|OSINT)/cluster_id (whitelist)/state_affiliated
@@ -486,6 +511,10 @@ export function runWeek(week, state) {
     flash: detectFlashTriggers(input.criteria, PARAMS) ? flashDetails(input.criteria, PARAMS) : [],
     core: checkCoreSources(input, PARAMS),
     ignoredAttribution: ignoredRegionalAttribution(input.criteria),
+    // §4.1.5 (ADR 0046): id критериев с intersection: true — отсортированные,
+    // чтобы редактор видел, что флаг принят, а не проигнорирован. Снапшот
+    // не меняется: поле живёт только в отчёте прогона.
+    intersections: collectIntersections(input.criteria),
     // История источников (ADR 0040): долг недели (слепые критерии с причиной
     // not-collected) и предупреждения схемы — rejected[] и обязательность
     // blindReasons с PARAMS.blindReasonFrom. Всё warning, запись не блокирует.
@@ -495,16 +524,12 @@ export function runWeek(week, state) {
       ...validateRejected(input),
     ],
     coverage: {
-      criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
-      totalCriteria: Object.keys(CRITERIA).length,
-      drivers: classification.coveredDrivers,
       // ADR 0045: id непокрытых критериев в порядке движка (не алфавитном) —
       // сайт группирует их по драйверам без пересортировки. Покрытый критерий —
       // только entry.covered === true; null и отсутствие ключа одинаково слепы.
-      uncovered: (() => {
-        const criteria = input.criteria && typeof input.criteria === 'object' ? input.criteria : {};
-        return Object.keys(CRITERIA).filter((id) => !(criteria[id] && criteria[id].covered === true));
-      })(),
+      // §4.1.5 (ADR 0046): intersection на счётчик не влияет.
+      ...coverageOf(input.criteria),
+      drivers: classification.coveredDrivers,
     },
   };
 }
@@ -706,7 +731,8 @@ export async function writeWeek(res, state) {
 }
 
 // --- Печать ---
-function printWeek(res, writeMode, writeRejected = false) {
+// Экспортируется ради теста отчётных строк (R12i): чистый форматтер, DOM и сети нет.
+export function printWeek(res, writeMode, writeRejected = false) {
   const lines = [];
   if (res.errors && res.errors.length) {
     lines.push(`=== ${res.week} === ОШИБКА`);
@@ -727,6 +753,11 @@ function printWeek(res, writeMode, writeRejected = false) {
   lines.push(pubLine);
   lines.push(`internal: ${g.internal.toFixed(3)}  q: ${g.q.toFixed(3)}  ` +
     `покрытие: критериев ${res.coverage.criteria}/${res.coverage.totalCriteria}, драйверов ${res.coverage.drivers}/9`);
+  // §4.1.5 (ADR 0046): пересечения называются только когда они есть — иначе
+  // строка шумит в каждой неделе.
+  if (Array.isArray(res.intersections) && res.intersections.length) {
+    lines.push(`пересечения: ${res.intersections.length} (${res.intersections.join(', ')})`);
+  }
   lines.push(`structuralBreak: ${g.structuralBreak.active ? `АКТИВЕН (${g.structuralBreak.reason})` : 'нет'}`);
   lines.push(`sensitivity: ${res.sensitivity === null ? 'н/д (нет источников)' : `${res.sensitivity} п.п.`} (порог ${PARAMS.sensitivityThreshold} — пометка на сайте, таск 06)`);
   if (res.flash.length) {

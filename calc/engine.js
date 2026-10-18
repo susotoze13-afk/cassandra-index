@@ -27,18 +27,29 @@ export function stateOf(index, params) {
 }
 
 // --- §4.2: скор драйвера ---
-// criteria: массив {dir: 'esc'|'deesc', value: 0..1, covered: bool}.
+// criteria: массив {dir: 'esc'|'deesc', value: 0..1, covered: bool,
+// intersection?: bool}.
 // Возвращает sᵢ ∈ [0,1] или null (доля покрытых критериев < coverageThreshold
 // или ни один критерий не покрыт). Непокрытый критерий исключается из
 // нормировки, а не засчитывается как ноль.
+// Критерий с intersection: true — вторичный учёт уже посчитанного события
+// (§4.1.5, ADR 0046): он виден порогу покрытия драйвера как собранное
+// наблюдение (covered/total), но не входит ни в числитель E, ни в знаменатель N
+// скора — ровно как если бы его вклад был нулевым. Покрытие недели считается
+// по covered (calc/calc.js), поэтому честная запись пересечения не превращает
+// критерий в слепой и не может перевести драйвер в null.
+// Если все покрытые критерии — пересечения, порог покрыт, но считаемых членов
+// нет: eTerm = bTerm = 0 → скор 0 (нового сигнала нет), а не null.
 export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = PARAMS.coverageThreshold) {
   const list = Array.isArray(criteria) ? criteria : [];
   const total = list.length;
   if (total === 0) return null;
   const covered = list.filter((c) => c && c.covered === true);
   if (covered.length / total < coverageThreshold) return null;
-  const esc = covered.filter((c) => c.dir === 'esc');
-  const deesc = covered.filter((c) => c.dir === 'deesc');
+  // Скор считает только не-пересечения; порог выше — по всем покрытым.
+  const counted = covered.filter((c) => c.intersection !== true);
+  const esc = counted.filter((c) => c.dir === 'esc');
+  const deesc = counted.filter((c) => c.dir === 'deesc');
   const sum = (arr) => arr.reduce((acc, c) => acc + (Number(c.value) || 0), 0);
   const nE = esc.length;   // N_E,i — максимум по покрытым эск. критериям
   const nB = deesc.length; // N_B,i — по покрытым деэск. критериям
@@ -49,22 +60,31 @@ export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = 
 }
 
 // --- §4.2: драйвер Д8 — сила деэскалации d₈ ---
-// criteria: массив {value: 0..1, covered: bool} (все критерии Д8 деэскалационные,
-// включая Д8.4 из независимого счётчика интенсивности).
-// d₈ = clamp(E₈/N₈_cov, 0, 1); null при покрытии ниже порога (N₈_cov = 0
-// тогда же: 0 покрытых из N ≥ 1 всегда ниже положительного порога).
+// criteria: массив {value: 0..1, covered: bool, intersection?: bool} (все
+// критерии Д8 деэскалационные, включая Д8.4 из независимого счётчика
+// интенсивности). Пересечение (§4.1.5) остаётся покрытым для порога, но не
+// входит в среднее d₈: повторное событие не двигает силу деэскалации.
+// d₈ = clamp(E₈/N₈_cov, 0, 1); null при покрытии ниже порога (положительного).
+// Если все покрытые критерии — пересечения, порог покрыт, а среднее пусто:
+// возврат 0 (нового сигнала нет), а не null — покрытие не потеряно.
 export function d8Strength(criteria, coverageThreshold = PARAMS.coverageThreshold) {
   const list = Array.isArray(criteria) ? criteria : [];
   const total = list.length;
   if (total === 0) return null;
   const covered = list.filter((c) => c && c.covered === true);
   if (covered.length / total < coverageThreshold) return null;
-  const mean = covered.reduce((acc, c) => acc + (Number(c.value) || 0), 0) / covered.length;
+  const counted = covered.filter((c) => c.intersection !== true);
+  if (counted.length === 0) return 0; // все покрытые — пересечения: новый сигнал 0
+  const mean = counted.reduce((acc, c) => acc + (Number(c.value) || 0), 0) / counted.length;
   return clamp(mean, 0, 1);
 }
 
 // --- §4.3: драйвер Д9 — иерархическая агрегация с короборацией ---
-// subgroups: массив {id, score: null|0..1, acyclic?: bool, rejected?: bool}.
+// subgroups: массив {id, score: null|0..1, acyclic?: bool, rejected?: bool,
+// intersection?: bool}. Подгруппа с intersection: true — вторичный учёт уже
+// посчитанного события (§4.1.5, ADR 0046): полный эквивалент отсутствия
+// сигнала — не входит ни в среднее, ни в короборацию, ни в счётчик сигналящих
+// подгрупп. Иначе повторное событие двигало бы скор соседних через корреляцию.
 // corr_g (§4.3.2): 1.0 — подтверждено ≥ 2 другими сигналящими подгруппами
 // (для Д9.6b достаточно 1); 0.5 — одна соседняя (частичное подтверждение);
 // 0.0 — ациклические без ≥ 3 подгрупп или отклонённая по независимости.
@@ -76,7 +96,7 @@ export const D9_SUBGROUPS = ['D9.1', 'D9.2', 'D9.3', 'D9.4', 'D9.5', 'D9.6a', 'D
 export function aggregateD9(subgroups, params) {
   const p = params || {};
   const list = (Array.isArray(subgroups) ? subgroups : []).filter(
-    (s) => s && D9_SUBGROUPS.includes(s.id),
+    (s) => s && D9_SUBGROUPS.includes(s.id) && s.intersection !== true,
   );
   if (list.length === 0) return { score: null, signaling: 0, corr: {} };
   const covered = list.filter((s) => typeof s.score === 'number' && Number.isFinite(s.score));
@@ -111,10 +131,13 @@ export function aggregateD9(subgroups, params) {
     }
     corr[s.id] = others >= 2 ? 1 : 0.5;
   }
-  const w = 1 / covered.length; // равные веса подгрупп, нормировка по покрытым
+  // Среднее Д9 считает только не-пересечения (§4.1.5): подгруппа с флагом
+  // выпадает целиком — из среднего, короборации и счётчика сигналящих.
+  const counted = covered.filter((s) => s.intersection !== true);
+  const w = counted.length ? 1 / counted.length : 0;
   let s9 = 0;
-  for (const s of covered) s9 += w * s.score * corr[s.id];
-  const nSignaling = covered.filter((s) => s.score * corr[s.id] > 0).length;
+  for (const s of counted) s9 += w * s.score * corr[s.id];
+  const nSignaling = counted.filter((s) => s.score * corr[s.id] > 0).length;
   return { score: clamp(s9, 0, 1), signaling: nSignaling, corr };
 }
 
@@ -133,48 +156,56 @@ export function buildDriversCore(criteriaIn, confidenceLevels, params) {
       .filter(([, meta]) => meta.driver === driver)
       .map(([id, meta]) => ({ id, meta, entry: map[id] || null }));
   const level = (d) => ((conf[d] || {}).level) || 'medium';
+  // §4.1.5 (ADR 0046): флаг пересечения переносится в запись критерия драйвера
+  // только когда он истинен; иначе ключа нет — потребители, читающие
+  // {value, covered}, не меняются.
+  const flagOf = (entry) => (entry && entry.intersection === true ? { intersection: true } : {});
   const drivers = [];
   for (let i = 1; i <= 7; i++) {
     const id = `D${i}`;
-    const criteria = entriesOf(id).map(({ entry, meta }) => ({
+    const criteria = entriesOf(id).map(({ id: cid, entry, meta }) => ({
+      id: cid,
       dir: meta.dir,
       value: entry ? normalizeCriterion(entry, p) : 0,
       covered: !!entry && entry.covered === true,
+      ...flagOf(entry),
     }));
     drivers.push({
       id,
       score: driverScore(criteria, p.alpha, p.coverageThreshold),
       confidence: level(id),
+      criteria,
     });
   }
   const d8Entries = entriesOf('D8');
+  const d8Criteria = d8Entries.map(({ id, entry }) => ({
+    id,
+    value: entry ? normalizeCriterion(entry, p) : 0,
+    covered: !!entry && entry.covered === true,
+    ...flagOf(entry),
+  }));
   drivers.push({
     id: 'D8',
-    score: d8Strength(
-      d8Entries.map(({ entry }) => ({
-        value: entry ? normalizeCriterion(entry, p) : 0,
-        covered: !!entry && entry.covered === true,
-      })),
-      p.coverageThreshold,
-    ),
+    score: d8Strength(d8Criteria, p.coverageThreshold),
     confidence: level('D8'),
+    criteria: d8Criteria,
     breakValue: d8Entries.find(({ id }) => id === 'D8.2' && map['D8.2'] && map['D8.2'].covered === true)
       ? map['D8.2'].value
       : 0,
   });
-  const d9 = aggregateD9(
-    entriesOf('D9').map(({ id, entry }) => ({
-      id,
-      score: entry && entry.covered === true ? normalizeCriterion(entry, p) : null,
-      acyclic: !!entry && entry.acyclic === true,
-      rejected: !!entry && entry.rejected === true,
-    })),
-    p,
-  );
+  const d9Criteria = entriesOf('D9').map(({ id, entry }) => ({
+    id,
+    score: entry && entry.covered === true ? normalizeCriterion(entry, p) : null,
+    acyclic: !!entry && entry.acyclic === true,
+    rejected: !!entry && entry.rejected === true,
+    ...flagOf(entry),
+  }));
+  const d9 = aggregateD9(d9Criteria, p);
   drivers.push({
     id: 'D9',
     score: d9.score,
     confidence: level('D9'),
+    criteria: d9Criteria,
     signalingSubgroups: d9.signaling,
   });
   return drivers;
@@ -614,6 +645,10 @@ const SOURCE_TYPES = ['primary', 'secondary', 'OSINT'];
 //     acyclic?: bool,                    // ациклический подкритерий Д9 (§4.3.3)
 //     rejected?: bool,                   // отклонён по независимости источников
 //     flash_origin?: bool,               // наблюдение — источник Flash-алерта
+//     intersection?: bool,               // вторичный учёт события, уже посчитанного
+//                                        // под главным критерием (§4.1.5, ADR 0046):
+//                                        // движок видит, но не считает; только true
+//                                        // на покрытом критерии
 //   } },
 //   driverConfidence?: { D1: { level: 'high'|'medium'|'low', reason?: string } }
 // }
@@ -649,6 +684,14 @@ export function validate(input, params, regionIds) {
       if (typeof entry !== 'object' || Array.isArray(entry)) {
         err(path, 'ожидается null или объект сигнала');
         continue;
+      }
+      // §4.1.5 (ADR 0046): флаг пересечения — строго boolean и только на
+      // покрытом критерии; иначе это способ «выключить» критерий, для чего
+      // уже есть null (слепой критерий).
+      if (entry.intersection !== undefined && typeof entry.intersection !== 'boolean') {
+        err(`${path}.intersection`, 'ожидается boolean');
+      } else if (entry.intersection === true && entry.covered !== true) {
+        err(`${path}.intersection`, 'допускается только на покрытом критерии (covered: true)');
       }
       if (entry.covered !== true) {
         err(path, 'непокрытый критерий должен быть null, не объектом');
