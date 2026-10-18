@@ -1,9 +1,9 @@
 window.STATE =
 {
   "version": 2,
-  "slug": "public-data-digest-seo",
-  "dir": "2026-10-18-public-data-digest-seo",
-  "title": "Страница «Как читать индекс», публичные данные с changelog, еженедельный дайджест и SEO-страницы",
+  "slug": "license-and-citation",
+  "dir": "2026-10-18-license-and-citation--wip",
+  "title": "Лицензирование, цитирование и границы публичного ядра",
   "mode": "full",
   "depth": "normal",
   "tier": "T2",
@@ -11,532 +11,287 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "baseCommit": "97bd12c",
-  "startedAt": "2026-10-18T20:42:30+03:00",
-  "updatedAt": "2026-10-18T21:32:23+03:00",
-  "finishedAt": "2026-10-18T21:32:11+03:00",
+  "baseCommit": null,
+  "startedAt": "2026-10-18T21:45:17+03:00",
+  "updatedAt": "2026-10-18T21:50:32+03:00",
+  "finishedAt": null,
   "stages": [
     {
       "id": "preflight",
       "status": "done",
-      "startedAt": "2026-10-18T20:42:30+03:00",
-      "finishedAt": "2026-10-18T20:43:23+03:00"
+      "startedAt": "2026-10-18T21:45:17+03:00",
+      "finishedAt": "2026-10-18T21:45:31+03:00"
     },
     {
       "id": "manifest",
       "status": "done",
-      "startedAt": "2026-10-18T20:43:23+03:00",
-      "finishedAt": "2026-10-18T20:44:00+03:00"
+      "startedAt": "2026-10-18T21:45:31+03:00",
+      "finishedAt": "2026-10-18T21:46:43+03:00"
     },
     {
       "id": "briefing",
-      "status": "skipped",
-      "startedAt": "2026-10-18T20:43:45+03:00",
-      "finishedAt": "2026-10-18T20:43:45+03:00",
-      "note": "полный автомат — самобрифинг"
+      "status": "done",
+      "startedAt": "2026-10-18T21:46:43+03:00",
+      "finishedAt": "2026-10-18T21:46:44+03:00"
     },
     {
       "id": "spec",
       "status": "done",
-      "startedAt": "2026-10-18T20:44:00+03:00",
-      "finishedAt": "2026-10-18T21:12:43+03:00"
+      "startedAt": "2026-10-18T21:46:44+03:00",
+      "finishedAt": "2026-10-18T21:49:43+03:00"
     },
     {
       "id": "plan",
-      "status": "done",
-      "startedAt": "2026-10-18T21:12:43+03:00",
-      "finishedAt": "2026-10-18T21:12:43+03:00"
+      "status": "active",
+      "startedAt": "2026-10-18T21:49:43+03:00"
     },
     {
       "id": "build",
-      "status": "done",
-      "startedAt": "2026-10-18T21:12:50+03:00",
-      "finishedAt": "2026-10-18T21:12:50+03:00"
+      "status": "pending"
     },
     {
       "id": "review",
-      "status": "done",
-      "startedAt": "2026-10-18T21:12:43+03:00",
-      "finishedAt": "2026-10-18T21:26:20+03:00"
+      "status": "pending"
     },
     {
       "id": "final",
-      "status": "done",
-      "startedAt": "2026-10-18T21:26:20+03:00",
-      "finishedAt": "2026-10-18T21:32:11+03:00"
+      "status": "pending"
     }
   ],
   "requirements": {
-    "total": 28,
-    "done": 25,
-    "inTicket": 0,
+    "total": 19,
+    "done": 0,
+    "inTicket": 19,
     "inSpec": 0,
-    "placeholder": 3,
+    "placeholder": 0,
     "deferred": 0,
     "dropped": 0
   },
   "tickets": [
     {
       "id": "01",
-      "title": "Публичные данные: JSON, CSV, changelog",
+      "title": "Правовая рамка: лицензии, NOTICE, торговая марка",
       "requirements": [
-        "R09",
-        "R09.1",
-        "R09.2",
-        "R10",
-        "R11",
-        "R12",
-        "R13",
-        "R14",
-        "R15i",
-        "R16i",
-        "A02"
+        "R01",
+        "R01i",
+        "R02",
+        "R02i",
+        "R03",
+        "R03i",
+        "R05",
+        "R05i",
+        "R08i",
+        "R10i"
       ],
       "blockedBy": [],
       "wave": 1,
       "zone": [
-        "calc/public-export.js",
-        "calc/changelog-entries.js",
-        "data/public/",
-        "changelog.html",
-        "tests/public-export.test.js",
-        "tests/changelog.test.js"
+        "LICENSE",
+        "LICENSE-DATA",
+        "LICENSE-DOCS",
+        "NOTICE",
+        "TRADEMARK.md",
+        "tests/licensing.test.js"
       ],
       "review": "да — фундамент",
       "model": "сильная",
-      "status": "done",
-      "startedAt": "2026-10-18T20:49:53+03:00",
-      "finishedAt": "2026-10-18T21:00:41+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 615,
-        "failed": 0
-      },
-      "commit": "4da1c2f"
+      "repairs": 0
     },
     {
       "id": "02",
-      "title": "«Как читать индекс» и страницы сравнения",
+      "title": "Версия, цитирование и лицензия публичного слоя",
       "requirements": [
-        "R01",
-        "R02",
-        "R03",
+        "R02i",
         "R04",
-        "R05",
-        "R06",
-        "R07",
-        "R08",
-        "R15i",
-        "R23i",
-        "R24",
-        "R24.1",
-        "R25",
-        "R26",
-        "R27",
-        "R28",
-        "A01"
-      ],
-      "blockedBy": [],
-      "wave": 2,
-      "zone": [
-        "index.html",
-        "how-to-read.html",
-        "compare.html",
-        "compare-war-monitor.html",
-        "compare-acled.html",
-        "compare-crisiswatch.html",
-        "css/styles.css",
-        "js/i18n.js",
-        "js/sections/feedback.js",
-        "js/bundle.js",
-        "js/bundle-privacy.js",
-        "tests/seo-pages.test.js",
-        "tests/lexicon.test.js"
-      ],
-      "review": "да — публичная поверхность",
-      "model": "сильная",
-      "status": "done",
-      "startedAt": "2026-10-18T20:49:53+03:00",
-      "finishedAt": "2026-10-18T21:00:42+03:00",
-      "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 615,
-        "failed": 0
-      },
-      "commit": "c2c305b"
-    },
-    {
-      "id": "03",
-      "title": "Недельный дайджест: текст, доставка, архив",
-      "requirements": [
-        "R17",
-        "R17.1",
-        "R18",
-        "R19",
-        "R19.1",
-        "R20",
-        "R21",
-        "R22i",
-        "A03",
-        "A03.1"
+        "R04i",
+        "R04i",
+        "R09",
+        "R09i",
+        "R10i"
       ],
       "blockedBy": [
         "01"
       ],
       "wave": 2,
       "zone": [
-        "calc/digest.js",
-        "calc/digest-page.js",
-        "calc/digest-export.js",
-        "calc/digest-send.js",
-        ".github/workflows/weekly-digest.yml",
-        ".env.example",
-        "data/public/digest/",
-        "data/digest/sent.json",
-        "digest.html",
-        "tests/digest.test.js",
-        "tests/digest-send.test.js"
+        "VERSION",
+        "CITATION.cff",
+        ".zenodo.json",
+        "calc/public-export.js",
+        "tests/public-export.test.js",
+        "tests/citation.test.js",
+        "how-to-read.html",
+        "data/public/"
       ],
-      "review": "да — секреты и сообщения третьим лицам",
+      "review": "да — фундамент",
       "model": "сильная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:00:55+03:00",
-      "finishedAt": "2026-10-18T21:09:47+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 640,
-        "failed": 0
-      },
-      "commit": "dae5a03"
+      "repairs": 0
+    },
+    {
+      "id": "03",
+      "title": "README, вклад, безопасность и DCO",
+      "requirements": [
+        "R06",
+        "R06i",
+        "R06i",
+        "R07",
+        "R07i",
+        "R07i",
+        "R09i",
+        "R10i"
+      ],
+      "blockedBy": [
+        "01"
+      ],
+      "wave": 2,
+      "zone": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "tools/",
+        "tests/dco.test.js",
+        "tests/governance.test.js",
+        ".github/workflows/dco.yml"
+      ],
+      "review": "нет",
+      "model": "обычная",
+      "status": "pending",
+      "retries": 0,
+      "repairs": 0
     },
     {
       "id": "04",
-      "title": "Публикация: sitemap, robots, deploy и сквозные проверки",
+      "title": "Граница публичного ядра и коммерческого модуля",
       "requirements": [
-        "R14",
-        "R27",
-        "R27.1",
-        "R13",
-        "R07"
+        "R08",
+        "R08i",
+        "R08i"
+      ],
+      "blockedBy": [
+        "01"
+      ],
+      "wave": 2,
+      "zone": [
+        "docs/adr/0056-*.md",
+        "docs/repo-boundaries.md"
+      ],
+      "review": "нет",
+      "model": "обычная",
+      "status": "pending",
+      "retries": 0,
+      "repairs": 0
+    },
+    {
+      "id": "05",
+      "title": "Память проекта: рамка в AGENTS.md и CONTEXT.md",
+      "requirements": [
+        "R10i"
       ],
       "blockedBy": [
         "01",
         "02",
-        "03"
+        "03",
+        "04"
       ],
-      "wave": 3,
+      "wave": 5,
       "zone": [
-        "sitemap.xml",
-        "robots.txt",
-        ".github/workflows/deploy.yml",
-        ".github/workflows/weekly-digest.yml",
-        "tests/site-pages.test.js"
+        "AGENTS.md",
+        "CONTEXT.md",
+        ".autopilot/PROGRESS.md"
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:09:48+03:00",
-      "finishedAt": "2026-10-18T21:12:42+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 650,
-        "failed": 0
-      },
-      "commit": "4b51695"
-    },
-    {
-      "id": "F1",
-      "title": "Ремонт ветки: хрупкие пины, автопрогон, дайджест и a11y",
-      "requirements": [
-        "R16i",
-        "R17.1",
-        "R20",
-        "R21",
-        "R18",
-        "R19",
-        "R08"
-      ],
-      "blockedBy": [],
-      "wave": 4,
-      "zone": [
-        "tests/public-export.test.js",
-        "tests/digest.test.js",
-        "tests/seo-pages.test.js",
-        "tests/changelog.test.js",
-        ".github/workflows/weekly-calc.yml",
-        ".github/workflows/weekly-digest.yml",
-        "calc/digest.js",
-        "calc/digest-send.js",
-        "css/styles.css"
-      ],
-      "review": "да — ремонт ветки",
-      "model": "сильная",
-      "status": "done",
-      "retries": 0,
-      "repairs": 0,
-      "startedAt": "2026-10-18T21:16:34+03:00",
-      "finishedAt": "2026-10-18T21:26:19+03:00",
-      "tests": {
-        "passed": 660,
-        "failed": 0
-      },
-      "commit": "60b53ee"
+      "repairs": 0
     }
   ],
-  "tests": {
-    "passed": 660,
-    "failed": 0
-  },
+  "tests": null,
   "debt": {
     "placeholders": [],
     "assumptions": [
-      "email-доставка — HTTP-адаптер к провайдеру (endpoint+token в секретах): SMTP-клиента без зависимостей нет",
-      "список адресов дайджеста — секрет репозитория; самостоятельной подписки без бэкенда нет, заявка идёт через существующую форму",
-      "график в дайджесте — ссылка на SVG-кривую и текстовый тренд: PNG без зависимостей не собрать",
-      "SEO-страницы держат текст в разметке, а не в i18n — иначе поисковик и читатель без JS не увидят текста",
-      "ни одного реального сообщения в этой сборке не отправляется; первый живой выпуск — за пользователем"
+      "Правообладатель в LICENSE — 'Cassandra Index contributors': юридическое имя владельца не передано",
+      "Версия проекта — корневой VERSION (semver), сверяется с CITATION.cff тестом",
+      "LICENSE-DATA покрывает data/**; LICENSE-DOCS — docs/**, корневые *.md и текст статических страниц",
+      "Контакт безопасности — Zasik2008@yandex.ru, уже опубликован в форме обратной связи",
+      "Zenodo: готовятся метаданные и процедура, выпуск DOI остаётся за владельцем",
+      "Разделение репозиториев: здесь public core, коммерческий модуль — отдельный репозиторий владельца",
+      "DCO-проверка в CI — только actions/checkout с существующим пином SHA, сторонних action нет"
     ],
     "emptyEnv": []
   },
-  "additions": [
-    "compare.html — хаб сравнений, ради R24",
-    "trend.svg — кривая 12 точек для встраивания и дайджеста, ради R09",
-    "digest.html — публичный архив выпусков, ради R17"
-  ],
+  "additions": [],
   "coverage": {
     "found": 3,
     "fixed": 3,
     "deferred": 0,
     "items": [
-      "R10 — добавлен полный URL CSV (data/public/cassandra-index.csv)",
-      "R17/R18/R19 — уточнено: пайплайн доставки собирается целиком, живой выпуск — действие владельца",
-      "R29i → A03: архив дайджеста — добавление к R17, не требование брифа",
-      "процессные слова брифа (исполнить навык, состояние в .autopilot/, не спрашивать) — не продуктовые требования, в спецификацию не входят"
+      "R08 — дописана процедура переноса модуля в отдельный репозиторий",
+      "R09 — upload_type зафиксирован как dataset, DOI прописан в CITATION.cff",
+      "R06.1 — добавлен список запрещённых действий в SECURITY.md"
     ]
   },
-  "concerns": [
-    "calc/public-export.js — changelog.json берёт schema_version публичной схемы, нужна своя константа",
-    "calc/public-export.js:281 — trend.svg соединяет точки методологий 1.0 и 3.0 линией, сайт такие точки не показывает",
-    "calc/public-export.js:397 — regex s.regions_taxonomy ломается при смене renderGlobal, тихий фолбэк на дату",
-    "calc/public-export.js — флаг --root не объявлен в interfaces.md (тестовый шов)",
-    "tests/public-export.test.js:391 — пин weeks.length === 12 упадёт на первой новой неделе",
-    "tests/public-export.test.js:321 — замена \" index\\:",
-    "64",
-    "зависит",
-    "от",
-    "текущего",
-    "значения",
-    "global.js tests/public-export.test.js:378",
-    "—",
-    "«паритет",
-    "с",
-    "week.js»",
-    "сравнивает",
-    "datasetOf",
-    "тем",
-    "же",
-    "снапшотом,",
-    "файл",
-    "не",
-    "читается tests/changelog.test.js:62",
-    "верхняя",
-    "дата",
-    "2026-10-18",
-    "упадёт",
-    "при",
-    "новой",
-    "записи .github/workflows/weekly-calc.yml",
-    "public-export",
-    "в",
-    "автопрогоне:",
-    "новая",
-    "неделя",
-    "уронит",
-    "паритетный",
-    "тест",
-    "и",
-    "остановит",
-    "автопубликацию css/styles.css:2376-2478",
-    "русские",
-    "комментарии",
-    "побиты",
-    "серии",
-    "?,",
-    "вернуть",
-    "кириллицу css/styles.css:2434,2476",
-    ".doc-meta/.doc-figure-note",
-    "на",
-    "4.01:1",
-    "3.69:1",
-    "ниже",
-    "4.5:1 compare-acled.html:62",
-    "«рейтинг",
-    "стран»",
-    "у",
-    "Conflict",
-    "Index",
-    "нет",
-    "источнике compare-crisiswatch.html:42",
-    "«до",
-    "50",
-    "ситуаций»",
-    "вместо",
-    "«50+»",
-    "из",
-    "desk",
-    "research spec",
-    "§5",
-    "обещан",
-    "видимый",
-    "FAQ,",
-    "ни",
-    "одной",
-    "странице",
-    "его",
-    "нет css/styles.css:2471",
-    ".doc-figure-value--state",
-    "жёстко",
-    "класса",
-    "состояния how-to-read.html:107",
-    "«отправьте",
-    "адрес",
-    "через",
-    "форму»,",
-    "но",
-    "поля",
-    "адреса",
-    "форме",
-    "нет index.html",
-    "подвал",
-    "три",
-    "страницы",
-    "сравнения",
-    "достижимы",
-    "только",
-    "хаб",
-    "calc/digest-send.js:160-174 — отметка отправки только недельная: при падении второго канала первый дублируется при повторе; хранить пары неделя+канал",
-    ".github/workflows/weekly-digest.yml:92-124 — отправка раньше коммита sent.json: срыв git push даёт дубль в публичный канал",
-    "tests/digest.test.js:106-108 — экранирование проверено юнитом, а не сквозь buildDigest (html/telegram с <script> в источнике)",
-    "calc/digest.js:176-180 — в «сильнее всего изменились» попадают регионы без числовой delta (печатается «—»)",
-    "calc/digest.js:203-216 — пятый пункт и строка «Регионы: …» дублируют одни и те же числа",
-    "calc/digest-send.js:291 — неделя помечается отправленной целиком при одном канале: email позже уже не уйдёт",
-    "tests/seo-pages.test.js:167 — дата проверки фактов 2026-10-18 всё ещё пинится литералом",
-    "tests/changelog.test.js — снята проверка «дата не в будущем», запись 2099 пройдёт",
-    "tests/seo-pages.test.js:213 — тест утверждает контраст --text-muted < 4.5, то есть пинит дефект токена"
-  ],
-  "blind": {
-    "checked": 28,
-    "matched": 28,
-    "mismatches": [
-      "R18/R19 — доставка не проверена end-to-end: нет секретов; заглушка видна (placeholder), расхождением не считаю"
-    ]
-  },
+  "concerns": [],
+  "blind": null,
   "beats": [
-    "2026-10-18T20:42:30+03:00",
-    "2026-10-18T20:43:22+03:00",
-    "2026-10-18T20:43:23+03:00",
-    "2026-10-18T20:43:45+03:00",
-    "2026-10-18T20:43:46+03:00",
-    "2026-10-18T20:43:47+03:00",
-    "2026-10-18T20:43:48+03:00",
-    "2026-10-18T20:44:00+03:00",
-    "2026-10-18T20:48:27+03:00",
-    "2026-10-18T20:49:27+03:00",
-    "2026-10-18T20:49:28+03:00",
-    "2026-10-18T20:49:37+03:00",
-    "2026-10-18T20:49:53+03:00",
-    "2026-10-18T20:56:14+03:00",
-    "2026-10-18T21:00:41+03:00",
-    "2026-10-18T21:00:42+03:00",
-    "2026-10-18T21:00:54+03:00",
-    "2026-10-18T21:00:55+03:00",
-    "2026-10-18T21:07:18+03:00",
-    "2026-10-18T21:09:47+03:00",
-    "2026-10-18T21:09:48+03:00",
-    "2026-10-18T21:12:42+03:00",
-    "2026-10-18T21:12:43+03:00",
-    "2026-10-18T21:12:50+03:00",
-    "2026-10-18T21:12:51+03:00",
-    "2026-10-18T21:16:26+03:00",
-    "2026-10-18T21:16:34+03:00",
-    "2026-10-18T21:26:19+03:00",
-    "2026-10-18T21:26:20+03:00",
-    "2026-10-18T21:28:07+03:00",
-    "2026-10-18T21:32:11+03:00",
-    "2026-10-18T21:32:22+03:00",
-    "2026-10-18T21:32:23+03:00"
+    "2026-10-18T21:45:17+03:00",
+    "2026-10-18T21:45:31+03:00",
+    "2026-10-18T21:46:32+03:00",
+    "2026-10-18T21:46:43+03:00",
+    "2026-10-18T21:46:44+03:00",
+    "2026-10-18T21:47:07+03:00",
+    "2026-10-18T21:49:34+03:00",
+    "2026-10-18T21:49:43+03:00",
+    "2026-10-18T21:49:44+03:00",
+    "2026-10-18T21:50:31+03:00",
+    "2026-10-18T21:50:32+03:00"
   ],
-  "rev": 42,
+  "rev": 12,
   "waiting": null,
   "waits": [],
   "log": [
     {
-      "t": "2026-10-18T20:42:30+03:00",
+      "t": "2026-10-18T21:45:17+03:00",
       "k": "init"
     },
     {
-      "t": "2026-10-18T20:43:23+03:00",
+      "t": "2026-10-18T21:45:31+03:00",
       "k": "stage",
       "id": "manifest",
       "act": "start"
     },
     {
-      "t": "2026-10-18T20:43:45+03:00",
+      "t": "2026-10-18T21:46:43+03:00",
       "k": "stage",
       "id": "briefing",
-      "act": "skip",
-      "note": "полный автомат — самобрифинг"
+      "act": "start"
     },
     {
-      "t": "2026-10-18T20:43:45+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T20:43:46+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T20:43:47+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T20:43:47+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T20:43:48+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T20:44:00+03:00",
+      "t": "2026-10-18T21:46:44+03:00",
       "k": "gate",
       "g": "G1",
-      "ok": true,
-      "open": 0,
-      "total": 29
+      "ok": false,
+      "open": 19,
+      "total": 19
     },
     {
-      "t": "2026-10-18T20:44:00+03:00",
+      "t": "2026-10-18T21:46:44+03:00",
       "k": "stage",
       "id": "spec",
       "act": "start"
     },
     {
-      "t": "2026-10-18T20:48:27+03:00",
+      "t": "2026-10-18T21:47:07+03:00",
+      "k": "add",
+      "key": "debt.assumptions",
+      "n": 7
+    },
+    {
+      "t": "2026-10-18T21:49:34+03:00",
       "k": "gate",
       "g": "G2",
       "ok": true,
@@ -545,401 +300,145 @@ window.STATE =
       "deferred": 0
     },
     {
-      "t": "2026-10-18T20:49:27+03:00",
+      "t": "2026-10-18T21:49:43+03:00",
+      "k": "stage",
+      "id": "plan",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T21:49:44+03:00",
       "k": "tier",
       "v": "T2"
     },
     {
-      "t": "2026-10-18T20:49:28+03:00",
-      "k": "tickets",
-      "n": 4
-    },
-    {
-      "t": "2026-10-18T20:49:28+03:00",
-      "k": "gate",
-      "g": "G3",
-      "ok": true,
-      "problems": 0
-    },
-    {
-      "t": "2026-10-18T20:49:53+03:00",
-      "k": "ticket",
-      "ids": [
-        "01",
-        "02"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T20:56:14+03:00",
-      "k": "ticket",
-      "ids": [
-        "01",
-        "02"
-      ],
-      "act": "review"
-    },
-    {
-      "t": "2026-10-18T21:00:41+03:00",
-      "k": "ticket",
-      "ids": [
-        "01"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 615,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:00:42+03:00",
-      "k": "ticket",
-      "ids": [
-        "02"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 615,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:00:54+03:00",
-      "k": "add",
-      "key": "concerns",
-      "n": 116
-    },
-    {
-      "t": "2026-10-18T21:00:55+03:00",
-      "k": "add",
-      "key": "report",
-      "n": 1
-    },
-    {
-      "t": "2026-10-18T21:00:55+03:00",
-      "k": "ticket",
-      "ids": [
-        "03"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:07:18+03:00",
-      "k": "ticket",
-      "ids": [
-        "03"
-      ],
-      "act": "review"
-    },
-    {
-      "t": "2026-10-18T21:09:47+03:00",
-      "k": "add",
-      "key": "concerns",
-      "n": 6
-    },
-    {
-      "t": "2026-10-18T21:09:47+03:00",
-      "k": "ticket",
-      "ids": [
-        "03"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 640,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:09:48+03:00",
-      "k": "ticket",
-      "ids": [
-        "04"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:12:42+03:00",
-      "k": "ticket",
-      "ids": [
-        "04"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 650,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:12:43+03:00",
-      "k": "stage",
-      "id": "review",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:12:50+03:00",
-      "k": "stage",
-      "id": "build",
-      "act": "done"
-    },
-    {
-      "t": "2026-10-18T21:12:51+03:00",
-      "k": "stage",
-      "id": "review",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:16:26+03:00",
+      "t": "2026-10-18T21:50:31+03:00",
       "k": "tickets",
       "n": 5
     },
     {
-      "t": "2026-10-18T21:16:26+03:00",
+      "t": "2026-10-18T21:50:32+03:00",
       "k": "gate",
       "g": "G3",
       "ok": true,
       "problems": 0
-    },
-    {
-      "t": "2026-10-18T21:16:34+03:00",
-      "k": "ticket",
-      "ids": [
-        "F1"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:26:19+03:00",
-      "k": "ticket",
-      "ids": [
-        "F1"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 660,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:26:20+03:00",
-      "k": "add",
-      "key": "concerns",
-      "n": 3
-    },
-    {
-      "t": "2026-10-18T21:26:20+03:00",
-      "k": "stage",
-      "id": "final",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:28:07+03:00",
-      "k": "gate",
-      "g": "G4",
-      "ok": false,
-      "checked": 28,
-      "matched": 28
-    },
-    {
-      "t": "2026-10-18T21:32:11+03:00",
-      "k": "tests",
-      "passed": 660,
-      "failed": 0
-    },
-    {
-      "t": "2026-10-18T21:32:11+03:00",
-      "k": "finish",
-      "result": "Публичный слой индекса: страница «Как читать индекс», JSON/CSV/trend.svg с changelog, недельный дайджест с архивом и доставкой, SEO-страницы сравнения с War Monitor/ACLED/CrisisWatch"
-    },
-    {
-      "t": "2026-10-18T21:32:22+03:00",
-      "k": "add",
-      "key": "additions",
-      "n": 3
-    },
-    {
-      "t": "2026-10-18T21:32:23+03:00",
-      "k": "add",
-      "key": "report",
-      "n": 4
     }
   ],
   "reqList": [
     {
       "id": "R01",
-      "text": "«страница «Как читать индекс»»",
-      "status": "done"
+      "text": "«Добавить LICENSE (Apache-2.0) для кода.»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R01i",
+      "text": "(подразумевается) лицензия должна быть машинночитаемой и не спорить с уже лежащим в репозитории сторонним кодом",
+      "status": "in-ticket"
     },
     {
       "id": "R02",
-      "text": "«страница «Как читать индекс»»",
-      "status": "done"
+      "text": "«Добавить LICENSE-DATA (CC BY 4.0) и LICENSE-DOCS (CC BY 4.0).»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R02i",
+      "text": "(подразумевается) публичный слой данных обязан объявлять ту же лицензию, что LICENSE-DATA, а не null",
+      "status": "in-ticket"
     },
     {
       "id": "R03",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Добавить NOTICE с атрибуцией GeoNames и сторонних данных.»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R03i",
+      "text": "(подразумевается) NOTICE не перелицензирует чужие тексты источников и не приписывает их проекту",
+      "status": "in-ticket"
     },
     {
       "id": "R04",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Добавить CITATION.cff и правило цитирования: «Cassandra Index, версия, дата, URL».»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R04i",
+      "text": "(подразумевается) «версия» должна откуда-то браться, иначе правило цитирования невыполнимо",
+      "status": "in-ticket"
     },
     {
       "id": "R05",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Добавить TRADEMARK.md: название и логотип — не под open-source лицензией; форк обязан называться иначе.»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R05i",
+      "text": "(подразумевается) TRADEMARK.md обязан назвать, что именно защищено и что разрешено (номинативное упоминание, «based on»)",
+      "status": "in-ticket"
     },
     {
       "id": "R06",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Добавить CONTRIBUTING.md и SECURITY.md; для вкладов — DCO, а не тяжёлый CLA.»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R06i",
+      "text": "(подразумевается) SECURITY.md нужен живой приватный канал и окно ответа, иначе он бесполезен",
+      "status": "in-ticket"
     },
     {
       "id": "R07",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Добавить README.md с одной фразой: «Официальный источник — cassindex.ru; форки не являются официальными».»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R07i",
+      "text": "(подразумевается) README — первая страница репозитория: что это, как запустить, какие лицензии где",
+      "status": "in-ticket"
     },
     {
       "id": "R08",
-      "text": "«Как читать индекс»",
-      "status": "done"
+      "text": "«Развести public core и будущий commercial module по разным репозиториям.»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R08i",
+      "text": "(подразумевается) граница должна быть записана решением, иначе первый же коммерческий файл приедет сюда",
+      "status": "in-ticket"
     },
     {
       "id": "R09",
-      "text": "«публичный JSON/CSV»",
-      "status": "done"
+      "text": "«По желанию — DOI через Zenodo на релизы, чтобы индекс цитировали как датасет.»",
+      "status": "in-ticket"
     },
     {
-      "id": "R10",
-      "text": "«публичный JSON/CSV»",
-      "status": "done"
+      "id": "R09i",
+      "text": "(подразумевается) метаданные Zenodo должны быть готовы до первого релиза, иначе DOI выдадут с мусорным описанием",
+      "status": "in-ticket"
     },
     {
-      "id": "R11",
-      "text": "«публичный JSON/CSV»",
-      "status": "done"
-    },
-    {
-      "id": "R12",
-      "text": "«+ changelog»",
-      "status": "done"
-    },
-    {
-      "id": "R13",
-      "text": "«+ changelog»",
-      "status": "done"
-    },
-    {
-      "id": "R14",
-      "text": "«публичный JSON/CSV»",
-      "status": "done"
-    },
-    {
-      "id": "R15i",
-      "text": "(подразумевается) «публичный»",
-      "status": "placeholder",
-      "why": "условия переиспользования: как ссылаться и что нельзя приписывать"
-    },
-    {
-      "id": "R16i",
-      "text": "(подразумевается) публичные данные",
-      "status": "done"
-    },
-    {
-      "id": "R17",
-      "text": "«еженедельный Telegram/email-дайджест»",
-      "status": "done"
-    },
-    {
-      "id": "R18",
-      "text": "«еженедельный Telegram/email-дайджест»",
-      "status": "placeholder",
-      "why": "доставка в Telegram-канал"
-    },
-    {
-      "id": "R19",
-      "text": "«еженедельный Telegram/email-дайджест»",
-      "status": "placeholder",
-      "why": "доставка на email-адреса из списка"
-    },
-    {
-      "id": "R20",
-      "text": "«еженедельный Telegram/email-дайджест»",
-      "status": "done"
-    },
-    {
-      "id": "R21",
-      "text": "«еженедельный»",
-      "status": "done"
-    },
-    {
-      "id": "R22i",
-      "text": "(подразумевается) Telegram/email",
-      "status": "done"
-    },
-    {
-      "id": "R23i",
-      "text": "«email-дайджест»",
-      "status": "done"
-    },
-    {
-      "id": "R24",
-      "text": "«SEO-страницы против War Monitor»",
-      "status": "done"
-    },
-    {
-      "id": "R25",
-      "text": "«против … ACLED»",
-      "status": "done"
-    },
-    {
-      "id": "R26",
-      "text": "«против … CrisisWatch»",
-      "status": "done"
-    },
-    {
-      "id": "R27",
-      "text": "«SEO-страницы»",
-      "status": "done"
-    },
-    {
-      "id": "R28",
-      "text": "«SEO-страницы против …»",
-      "status": "done"
+      "id": "R10i",
+      "text": "(подразумевается) всё перечисленное выше не должно тихо исчезнуть при следующей правке",
+      "status": "in-ticket"
     }
   ],
   "gates": {
     "G1": {
-      "ok": true,
-      "at": "2026-10-18T20:44:00+03:00",
-      "open": 0,
-      "total": 29
+      "ok": false,
+      "at": "2026-10-18T21:46:44+03:00",
+      "open": 19,
+      "total": 19
     },
     "G2": {
       "ok": true,
-      "at": "2026-10-18T20:48:27+03:00",
+      "at": "2026-10-18T21:49:34+03:00",
       "found": 3,
       "fixed": 3,
       "deferred": 0
     },
     "G3": {
       "ok": true,
-      "at": "2026-10-18T21:16:26+03:00",
+      "at": "2026-10-18T21:50:32+03:00",
       "problems": 0
-    },
-    "G4": {
-      "ok": false,
-      "at": "2026-10-18T21:28:07+03:00",
-      "checked": 28,
-      "matched": 28
     }
   },
-  "result": "Публичный слой индекса: страница «Как читать индекс», JSON/CSV/trend.svg с changelog, недельный дайджест с архивом и доставкой, SEO-страницы сравнения с War Monitor/ACLED/CrisisWatch",
-  "report": [
-    "Параллельная сессия в том же рабочем дереве коммитом 9d0f708 втянула половину таска 02 и затем перезаписала index.html/css/i18n их старой копией — изменения восстановлены из HEAD, потерянных правок нет",
-    "trend.svg проводит одну линию через демо-недели 1.0 и 3.0 — сайт такие точки на тренде не показывает",
-    "changelog.html и index.html без canonical/OG (у новых SEO-страниц они есть)",
-    "how-to-read.html показывает пример недели 2026-10-18 и не перегенерируется — нужен либо генератор, либо пометка «пример»",
-    "лицензия публичных данных не выбрана: в index.json license.name/url = null, placeholder"
-  ]
+  "result": null
 }
