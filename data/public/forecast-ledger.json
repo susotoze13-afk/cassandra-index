@@ -1,0 +1,214 @@
+{
+  "schema": "cassandra-index-forecast-ledger",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "rule": {
+    "cluster": "шкала js/risk.js (SCALE)",
+    "direction": {
+      "deadband": 2,
+      "values": [
+        "down",
+        "flat",
+        "up"
+      ]
+    },
+    "baseline": "ожидание = кластер прошлой опубликованной недели и направление flat"
+  },
+  "entries": [
+    {
+      "week": "2026-09-06",
+      "kind": "baseline",
+      "committedAt": "2026-08-30",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 42,
+      "actualCluster": "danger",
+      "actualDelta": -9,
+      "actualDirection": "down",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "miss"
+      }
+    },
+    {
+      "week": "2026-09-13",
+      "kind": "baseline",
+      "committedAt": "2026-09-06",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 43,
+      "actualCluster": "danger",
+      "actualDelta": 1,
+      "actualDirection": "flat",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "hit"
+      }
+    },
+    {
+      "week": "2026-09-20",
+      "kind": "baseline",
+      "committedAt": "2026-09-13",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 56,
+      "actualCluster": "danger",
+      "actualDelta": 13,
+      "actualDirection": "up",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "miss"
+      }
+    },
+    {
+      "week": "2026-09-27",
+      "kind": "baseline",
+      "committedAt": "2026-09-20",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 47,
+      "actualCluster": "danger",
+      "actualDelta": -9,
+      "actualDirection": "down",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "miss"
+      }
+    },
+    {
+      "week": "2026-10-04",
+      "kind": "baseline",
+      "committedAt": "2026-09-27",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 46,
+      "actualCluster": "danger",
+      "actualDelta": -1,
+      "actualDirection": "flat",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "hit"
+      }
+    },
+    {
+      "week": "2026-10-11",
+      "kind": "baseline",
+      "committedAt": "2026-10-04",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 56,
+      "actualCluster": "danger",
+      "actualDelta": 10,
+      "actualDirection": "up",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "miss"
+      }
+    },
+    {
+      "week": "2026-10-18",
+      "kind": "baseline",
+      "committedAt": "2026-10-11",
+      "verified": true,
+      "expectedCluster": "danger",
+      "expectedDirection": "flat",
+      "actualIndex": 64,
+      "actualCluster": "very",
+      "actualDelta": 8,
+      "actualDirection": "up",
+      "outcome": {
+        "cluster": "miss",
+        "direction": "miss"
+      }
+    }
+  ],
+  "summary": {
+    "baseline": {
+      "entries": 7,
+      "cluster": {
+        "hits": 6,
+        "total": 7
+      },
+      "direction": {
+        "hits": 2,
+        "total": 7
+      },
+      "pending": {
+        "cluster": 0,
+        "direction": 0
+      }
+    },
+    "editor": {
+      "entries": 0,
+      "cluster": {
+        "hits": 0,
+        "total": 0
+      },
+      "direction": {
+        "hits": 0,
+        "total": 0
+      },
+      "pending": {
+        "cluster": 0,
+        "direction": 0
+      }
+    }
+  },
+  "misses": [
+    {
+      "week": "2026-09-06",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "down"
+    },
+    {
+      "week": "2026-09-20",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "up"
+    },
+    {
+      "week": "2026-09-27",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "down"
+    },
+    {
+      "week": "2026-10-11",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "up"
+    },
+    {
+      "week": "2026-10-18",
+      "kind": "baseline",
+      "field": "cluster",
+      "expected": "danger",
+      "actual": "very"
+    },
+    {
+      "week": "2026-10-18",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "up"
+    }
+  ]
+}
