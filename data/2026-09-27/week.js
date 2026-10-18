@@ -8,6 +8,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.published = "2026-09-27";
   s.through = "2026-09-27";
   s.methodology = "3.0";
+  s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 0.9071;
   s.nullWeight = 0.0929;
@@ -17,8 +18,12 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.sensitivity = 2.8;
+  s.coverageCriteria = {
+  "covered": 27,
+  "total": 46
+};
   s.recalc = {
-  "at": "2026-10-12T19:38:34.072Z",
+  "at": "2026-10-18T14:02:38.929Z",
   "reason": "Еженедельный пересчёт",
   "previous": 47,
   "methodologyBefore": "3.0",
@@ -1033,7 +1038,17 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D1.5",
+        "text": "Amid growing Russian drone incursions into Polish airspace, APS is playing a role in the Warsaw's $4bn San programme to build an \"anti-drone wall\" to protect the country's eastern flank."
+      },
+      {
+        "criterion": "D6.3",
+        "text": "The government has pledged to channel almost 90% of it to domestic industry – led by Polska Grupa Zbrojeniowa (PGZ), the state-owned defence conglomerate."
+      }
+    ]
   },
   {
     "id": "guardian-russia-attack-nato-danish-intelligence",
@@ -1145,7 +1160,13 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D3.3",
+        "text": "All Iraqi airports enforced the US ban this week, resulting in major disruption at the airport serving the holy city of Najaf, the main destination in Iraq for Iranian flights."
+      }
+    ]
   },
   {
     "id": "aa-oman-hormuz-navigation",
@@ -1173,7 +1194,13 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D1.6",
+        "text": "US-led coalition forces are scheduled to withdraw from facilities in Iraq's Kurdistan region by 30 September under an agreement between Baghdad and Washington to wind down the coalition mission."
+      }
+    ]
   },
   {
     "id": "aa-iraq-us-dollar-cash-shipments",
@@ -1187,7 +1214,13 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "B-state-media",
-    "state_affiliated": true
+    "state_affiliated": true,
+    "quotes": [
+      {
+        "criterion": "D4.5",
+        "text": "Baghdad has reached an understanding with the US to resume dollar cash shipments to Iraq after a months-long suspension, an Iraqi government spokesman said on Saturday."
+      }
+    ]
   },
   {
     "id": "aa-australia-openai-anthropic-senate",
@@ -1229,7 +1262,13 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "B-state-media",
-    "state_affiliated": true
+    "state_affiliated": true,
+    "quotes": [
+      {
+        "criterion": "D4.4",
+        "text": "In recent weeks, the Houthis have made dramatic territorial gains against the government forces, seizing the strategic Red Sea coastal city of Mocha and expanding their control over the Bab al-Mandeb strait, a global maritime chokepoint connecting Europe to Asia."
+      }
+    ]
   },
   {
     "id": "aj-iran-shifts-trade-caspian",
@@ -1257,7 +1296,13 @@ s.drivers = [
     "accessed_date": "2026-09-27",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D8.3",
+        "text": "The survey team -- comprising South Korean troops, the UNC's Military Armistice Commission and relevant investigative agencies -- inspected the area using mine detectors and conducted route-clearance operations in the DMZ"
+      }
+    ]
   },
   {
     "id": "aljazeera-iran-war-live-hormuz",

@@ -8,6 +8,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.published = "2026-09-20";
   s.through = "2026-09-20";
   s.methodology = "3.0";
+  s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 1;
   s.nullWeight = 0;
@@ -17,8 +18,12 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.sensitivity = 1.6;
+  s.coverageCriteria = {
+  "covered": 43,
+  "total": 46
+};
   s.recalc = {
-  "at": "2026-10-12T19:24:11.448Z",
+  "at": "2026-10-18T13:48:51.352Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "3.0",

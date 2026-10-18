@@ -8,6 +8,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.published = "2026-09-20";
   s.through = "2026-09-20";
   s.methodology = "3.0";
+  s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 1;
   s.nullWeight = 0;
@@ -17,8 +18,12 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.sensitivity = 1.6;
+  s.coverageCriteria = {
+  "covered": 43,
+  "total": 46
+};
   s.recalc = {
-  "at": "2026-10-12T19:24:11.448Z",
+  "at": "2026-10-18T13:48:51.352Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "3.0",
@@ -1214,7 +1219,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "B-state-media",
-    "state_affiliated": true
+    "state_affiliated": true,
+    "quotes": [
+      {
+        "criterion": "D2.3",
+        "text": "СМИ: ракета, запущенная КНДР в сторону Японского моря, была баллистической"
+      }
+    ]
   },
   {
     "id": "www-pravda-com-ua-eng-german-consulate-closes-8054035",
@@ -1354,7 +1365,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D3.5",
+        "text": "По информации Саралиева, обмен прошел в пункте пропуска «Новая Гута» на белорусско-украинской границе. Россия передала 252 тела погибших военнослужащих, Украина — 23. Факт обмена подтвердил и украинский координационный штаб. Там уточнили, что возвращению тел погибших содействовал Международный Комитет Красного Креста."
+      }
+    ]
   },
   {
     "id": "www-reuters-com-trump-signs-russia-sanctions-bill",
@@ -1410,7 +1427,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D7.1",
+        "text": "The State Department approved a potential $2.68 billion sale of air defense equipment to Ukraine on Friday."
+      }
+    ]
   },
   {
     "id": "www-garant-ru-ukaz-661-ot-17-09-2026",
@@ -1480,7 +1503,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "primary",
     "cluster_id": "B-state-media",
-    "state_affiliated": true
+    "state_affiliated": true,
+    "quotes": [
+      {
+        "criterion": "D5.2",
+        "text": "Более 1 тыс. волн DDoS-атак было зафиксировано на задействованную в организации голосования на выборах в РФ инфраструктуру, более 120 - на дистанционное электронное голосование (ДЭГ), заявила председатель ЦИК РФ Элла Памфилова."
+      }
+    ]
   },
   {
     "id": "therecord-media-russia-cyberattacks-during-election",
@@ -1648,7 +1677,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D4.1",
+        "text": "Правительство приняло решение продлить запрет на экспорт дизельного топлива для производителей до конца октября 2026 г."
+      }
+    ]
   },
   {
     "id": "www-interfax-ru-diesel-export-ban-1116328",
@@ -1690,7 +1725,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D1.4",
+        "text": "На фоне самой массированной атаки беспилотников на Москву аэропорты столичного авиаузла перенесли и отменили часть рейсов. В общей сложности задержано было более 400 рейсов."
+      }
+    ]
   },
   {
     "id": "www-kommersant-ru-sulfuric-acid-export-ban-8954462",
@@ -1718,7 +1759,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "B-state-media",
-    "state_affiliated": true
+    "state_affiliated": true,
+    "quotes": [
+      {
+        "criterion": "D4.1",
+        "text": "Правительство РФ ввело временное ограничение на экспорт серной кислоты. Соответствующее постановление премьер-министр Михаил Мишустин подписал 12 сентября."
+      }
+    ]
   },
   {
     "id": "news-ru-mobilnyj-internet-15-sentyabrya",
@@ -2012,7 +2059,13 @@ s.drivers = [
     "accessed_date": "2026-09-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
-    "state_affiliated": false
+    "state_affiliated": false,
+    "quotes": [
+      {
+        "criterion": "D3.1",
+        "text": "The Russian Consulate General in Bonn is set to cease operations on September 18. Germany has also terminated the agreement allowing the Russian House cultural center to operate in Berlin."
+      }
+    ]
   },
   {
     "id": "unn-ua-germany-expels-150-diplomats-leipzig",
