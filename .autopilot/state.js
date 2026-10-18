@@ -1,74 +1,66 @@
 window.STATE =
 {
   "version": 2,
-  "slug": "license-and-citation",
-  "dir": "2026-10-18-license-and-citation",
-  "title": "Лицензирование, цитирование и границы публичного ядра",
+  "slug": "public-validation-backtest",
+  "dir": "2026-10-18-public-validation-backtest--wip",
+  "title": "Публичная валидация: бэктест с внешними индексами и журнал прогнозов",
   "mode": "full",
   "depth": "normal",
   "tier": "T2",
   "briefFile": "2026-10-18-brief.md",
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
-  "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "baseCommit": "867aa61",
-  "startedAt": "2026-10-18T21:45:17+03:00",
-  "updatedAt": "2026-10-18T22:15:33+03:00",
-  "finishedAt": "2026-10-18T22:15:33+03:00",
+  "skillDir": "C:\\Users\\1\\.agents\\skills\\autopilot",
+  "baseCommit": null,
+  "startedAt": "2026-10-18T22:48:01+03:00",
+  "updatedAt": "2026-10-18T23:00:25+03:00",
+  "finishedAt": null,
   "stages": [
     {
       "id": "preflight",
       "status": "done",
-      "startedAt": "2026-10-18T21:45:17+03:00",
-      "finishedAt": "2026-10-18T21:45:31+03:00"
+      "startedAt": "2026-10-18T22:48:01+03:00",
+      "finishedAt": "2026-10-18T22:48:31+03:00"
     },
     {
       "id": "manifest",
       "status": "done",
-      "startedAt": "2026-10-18T21:45:31+03:00",
-      "finishedAt": "2026-10-18T21:46:43+03:00"
+      "startedAt": "2026-10-18T22:48:31+03:00",
+      "finishedAt": "2026-10-18T22:57:38+03:00"
     },
     {
       "id": "briefing",
-      "status": "done",
-      "startedAt": "2026-10-18T21:46:43+03:00",
-      "finishedAt": "2026-10-18T21:46:44+03:00"
+      "status": "skipped",
+      "startedAt": "2026-10-18T22:57:43+03:00",
+      "finishedAt": "2026-10-18T22:57:43+03:00",
+      "note": "полный автомат — самобрифинг"
     },
     {
       "id": "spec",
-      "status": "done",
-      "startedAt": "2026-10-18T21:46:44+03:00",
-      "finishedAt": "2026-10-18T21:49:43+03:00"
+      "status": "active",
+      "startedAt": "2026-10-18T22:57:38+03:00"
     },
     {
       "id": "plan",
-      "status": "done",
-      "startedAt": "2026-10-18T21:49:43+03:00",
-      "finishedAt": "2026-10-18T21:50:40+03:00"
+      "status": "pending"
     },
     {
       "id": "build",
-      "status": "done",
-      "startedAt": "2026-10-18T21:50:40+03:00",
-      "finishedAt": "2026-10-18T22:02:38+03:00"
+      "status": "pending"
     },
     {
       "id": "review",
-      "status": "done",
-      "startedAt": "2026-10-18T22:02:38+03:00",
-      "finishedAt": "2026-10-18T22:12:02+03:00"
+      "status": "pending"
     },
     {
       "id": "final",
-      "status": "done",
-      "startedAt": "2026-10-18T22:12:02+03:00",
-      "finishedAt": "2026-10-18T22:15:33+03:00"
+      "status": "pending"
     }
   ],
   "requirements": {
-    "total": 19,
-    "done": 19,
-    "inTicket": 0,
+    "total": 28,
+    "done": 0,
+    "inTicket": 28,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -77,671 +69,424 @@ window.STATE =
   "tickets": [
     {
       "id": "01",
-      "title": "Правовая рамка: лицензии, NOTICE, торговая марка",
+      "title": "Журнал прогнозов и механический baseline",
       "requirements": [
-        "R01",
-        "R01i",
-        "R02",
-        "R02i",
-        "R03",
-        "R03i",
-        "R05",
-        "R05i",
-        "R08i",
-        "R10i"
+        "R16",
+        "R16.1",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R21.1",
+        "R22",
+        "R24",
+        "R24.1",
+        "R28i",
+        "A01"
       ],
       "blockedBy": [],
       "wave": 1,
       "zone": [
-        "LICENSE",
-        "LICENSE-DATA",
-        "LICENSE-DOCS",
-        "NOTICE",
-        "TRADEMARK.md",
-        "tests/licensing.test.js"
+        "calc/ledger.js",
+        "tests/ledger.test.js",
+        "data/public/forecast-ledger.json"
       ],
-      "review": "да — фундамент",
+      "review": "да — фундамент (публичная схема журнала)",
       "model": "сильная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:50:44+03:00",
-      "finishedAt": "2026-10-18T21:56:18+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 667,
-        "failed": 0
-      },
-      "commit": "6cdfa51"
+      "repairs": 0
     },
     {
       "id": "02",
-      "title": "Версия, цитирование и лицензия публичного слоя",
+      "title": "Бэктест: фикстуры, метрики, validation.json",
       "requirements": [
-        "R02i",
+        "R02",
+        "R03",
+        "R03.1",
         "R04",
-        "R04i",
-        "R04i",
+        "R05",
+        "R05.1",
+        "R06",
+        "R07",
+        "R08",
         "R09",
-        "R09i",
-        "R10i"
+        "R14",
+        "R14.1",
+        "R15"
       ],
-      "blockedBy": [
-        "01"
-      ],
-      "wave": 2,
+      "blockedBy": [],
+      "wave": 1,
       "zone": [
-        "VERSION",
-        "CITATION.cff",
-        ".zenodo.json",
-        "calc/public-export.js",
-        "tests/public-export.test.js",
-        "tests/citation.test.js",
-        "how-to-read.html",
-        "data/public/"
+        "calc/backtest.js",
+        "calc/backtest-fixtures/**",
+        "tests/backtest.test.js"
       ],
-      "review": "да — фундамент",
+      "review": "да — фундамент (публичная схема и статистика)",
       "model": "сильная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:56:24+03:00",
-      "finishedAt": "2026-10-18T21:59:24+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      },
-      "commit": "135475b"
+      "repairs": 0
     },
     {
       "id": "03",
-      "title": "README, вклад, безопасность и DCO",
+      "title": "Страница validation.html",
       "requirements": [
-        "R06",
-        "R06i",
-        "R06i",
-        "R07",
-        "R07i",
-        "R07i",
-        "R09i",
-        "R10i"
-      ],
-      "blockedBy": [
-        "01"
-      ],
-      "wave": 2,
-      "zone": [
-        "README.md",
-        "CONTRIBUTING.md",
-        "SECURITY.md",
-        "tools/",
-        "tests/dco.test.js",
-        "tests/governance.test.js",
-        ".github/workflows/dco.yml"
-      ],
-      "review": "нет",
-      "model": "обычная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:56:24+03:00",
-      "finishedAt": "2026-10-18T21:59:28+03:00",
-      "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      },
-      "commit": "a3b62b1"
-    },
-    {
-      "id": "04",
-      "title": "Граница публичного ядра и коммерческого модуля",
-      "requirements": [
-        "R08",
-        "R08i",
-        "R08i"
-      ],
-      "blockedBy": [
-        "01"
-      ],
-      "wave": 2,
-      "zone": [
-        "docs/adr/0056-*.md",
-        "docs/repo-boundaries.md"
-      ],
-      "review": "нет",
-      "model": "обычная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:56:24+03:00",
-      "finishedAt": "2026-10-18T21:59:32+03:00",
-      "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      },
-      "commit": "4957b9f"
-    },
-    {
-      "id": "05",
-      "title": "Память проекта: рамка в AGENTS.md и CONTEXT.md",
-      "requirements": [
-        "R10i"
+        "R01",
+        "R03.1",
+        "R04",
+        "R09",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R23",
+        "R24",
+        "R26i"
       ],
       "blockedBy": [
         "01",
-        "02",
-        "03",
-        "04"
+        "02"
       ],
-      "wave": 5,
+      "wave": 2,
       "zone": [
-        "CONTEXT.md",
-        ".autopilot/PROGRESS.md",
-        ".autopilot/2026-10-18-license-and-citation--wip/agents-section.md"
+        "calc/validation-page.js",
+        "validation.html",
+        "tests/validation-page.test.js"
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "done",
-      "startedAt": "2026-10-18T21:59:36+03:00",
-      "finishedAt": "2026-10-18T22:02:33+03:00",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "tests": {
-        "passed": 698,
-        "failed": 0
-      },
-      "commit": "307222f"
+      "repairs": 0
     },
     {
-      "id": "F1",
-      "title": "Ремонт ветки: одна область применения, один APPENDIX, номер ADR и пины",
+      "id": "04",
+      "title": "Публикация: deploy, sitemap, llms, навигация, NOTICE",
       "requirements": [
-        "R01",
-        "R01i",
-        "R02",
-        "R02i",
-        "R03",
-        "R05",
-        "R08",
-        "R10i"
+        "R25i",
+        "R27i",
+        "R23"
       ],
-      "blockedBy": [],
-      "wave": 6,
+      "blockedBy": [
+        "03"
+      ],
+      "wave": 3,
       "zone": [
-        "LICENSE",
-        "LICENSE-DATA",
-        "LICENSE-DOCS",
-        "README.md",
-        "CONTRIBUTING.md",
-        "tests/licensing.test.js",
-        "tools/check-dco.js",
-        "tests/dco.test.js",
-        "docs/adr/",
-        "docs/repo-boundaries.md"
+        "deploy.yml",
+        "index.html",
+        "blog-build.js",
+        "sitemap.xml",
+        "llms.txt"
       ],
-      "review": "да — ремонт ветки",
-      "model": "сильная",
-      "status": "done",
+      "review": "нет",
+      "model": "обычная",
+      "status": "pending",
       "retries": 0,
-      "repairs": 0,
-      "startedAt": "2026-10-18T22:05:11+03:00",
-      "finishedAt": "2026-10-18T22:11:47+03:00",
-      "tests": {
-        "passed": 701,
-        "failed": 0
-      },
-      "commit": "14eb8de"
+      "repairs": 0
+    },
+    {
+      "id": "05",
+      "title": "",
+      "requirements": [
+        "R26i",
+        "R27i",
+        "R28i"
+      ],
+      "blockedBy": [
+        "03"
+      ],
+      "wave": 3,
+      "zone": [
+        "docs/adr/0062-*.md",
+        "docs/adr/0063-*.md",
+        "docs/architecture.md"
+      ],
+      "review": "нет",
+      "model": "обычная",
+      "status": "pending",
+      "retries": 0,
+      "repairs": 0
     }
   ],
-  "tests": {
-    "passed": 701,
-    "failed": 0
-  },
+  "tests": null,
   "debt": {
     "placeholders": [],
-    "assumptions": [
-      "Правообладатель в LICENSE — 'Cassandra Index contributors': юридическое имя владельца не передано",
-      "Версия проекта — корневой VERSION (semver), сверяется с CITATION.cff тестом",
-      "LICENSE-DATA покрывает data/**; LICENSE-DOCS — docs/**, корневые *.md и текст статических страниц",
-      "Контакт безопасности — Zasik2008@yandex.ru, уже опубликован в форме обратной связи",
-      "Zenodo: готовятся метаданные и процедура, выпуск DOI остаётся за владельцем",
-      "Разделение репозиториев: здесь public core, коммерческий модуль — отдельный репозиторий владельца",
-      "DCO-проверка в CI — только actions/checkout с существующим пином SHA, сторонних action нет"
-    ],
+    "assumptions": [],
     "emptyEnv": []
   },
   "additions": [],
   "coverage": {
     "found": 3,
-    "fixed": 3,
-    "deferred": 0,
+    "fixed": 1,
+    "deferred": 2,
     "items": [
-      "R08 — дописана процедура переноса модуля в отдельный репозиторий",
-      "R09 — upload_type зафиксирован как dataset, DOI прописан в CITATION.cff",
-      "R06.1 — добавлен список запрещённых действий в SECURITY.md"
+      "R03 — сравнение именно с ACLED Conflict Index отложено: композит полугодовой и страновой, машинного доступа нет (D01), на странице раскрыто",
+      "R21 — иммутабельность baseline не в git до публикации: baseline переклассифицирован в benchmark A01, требование R21 закрывается редакционными записями"
     ]
   },
-  "concerns": [
-    "LICENSE:204-238 — канонический APPENDIX оставлен незаполненным, ниже второй заполненный; утверждение о границах приложения неверно",
-    "LICENSE:210 против LICENSE-DOCS:13-16 — HTML/CSS целиком под Apache против текста страниц под CC BY: одни байты в двух лицензиях",
-    "LICENSE — нет labeled-раздела «Область применения», которого R02ii требует у каждого файла лицензии",
-    "tests/licensing.test.js:36 — пинит число строк copyright вместо «есть заполненная строка и заполненное приложение»",
-    "tests/licensing.test.js:39,65 — дословность держится на пороге длины файла, а не на точном каноническом сегменте",
-    "tests/licensing.test.js:57 — includes('Geo') слишком слаб для утверждения про дампы GeoNames",
-    "tests/licensing.test.js:100 — версия 1.17.0 захардкожена вместо чтения из package/package.json"
-  ],
-  "blind": {
-    "checked": 9,
-    "matched": 7,
-    "mismatches": [
-      "R08 «развести public core и commercial module по разным репозиториям» — граница записана (ADR 0057 + docs/repo-boundaries.md), второго репозитория нет: создание — внешнее действие владельца",
-      "R09 «DOI через Zenodo» — метаданные и процедура готовы, самого DOI нет: нужен аккаунт и релиз"
-    ]
-  },
+  "concerns": [],
+  "blind": null,
   "beats": [
-    "2026-10-18T21:45:17+03:00",
-    "2026-10-18T21:45:31+03:00",
-    "2026-10-18T21:46:32+03:00",
-    "2026-10-18T21:46:43+03:00",
-    "2026-10-18T21:46:44+03:00",
-    "2026-10-18T21:47:07+03:00",
-    "2026-10-18T21:49:34+03:00",
-    "2026-10-18T21:49:43+03:00",
-    "2026-10-18T21:49:44+03:00",
-    "2026-10-18T21:50:31+03:00",
-    "2026-10-18T21:50:32+03:00",
-    "2026-10-18T21:50:39+03:00",
-    "2026-10-18T21:50:40+03:00",
-    "2026-10-18T21:50:44+03:00",
-    "2026-10-18T21:54:11+03:00",
-    "2026-10-18T21:56:15+03:00",
-    "2026-10-18T21:56:18+03:00",
-    "2026-10-18T21:56:24+03:00",
-    "2026-10-18T21:59:24+03:00",
-    "2026-10-18T21:59:28+03:00",
-    "2026-10-18T21:59:32+03:00",
-    "2026-10-18T21:59:36+03:00",
-    "2026-10-18T22:02:33+03:00",
-    "2026-10-18T22:02:38+03:00",
-    "2026-10-18T22:05:10+03:00",
-    "2026-10-18T22:05:11+03:00",
-    "2026-10-18T22:11:47+03:00",
-    "2026-10-18T22:11:53+03:00",
-    "2026-10-18T22:12:02+03:00",
-    "2026-10-18T22:14:11+03:00",
-    "2026-10-18T22:15:32+03:00",
-    "2026-10-18T22:15:33+03:00"
+    "2026-10-18T22:48:01+03:00",
+    "2026-10-18T22:48:31+03:00",
+    "2026-10-18T22:57:38+03:00",
+    "2026-10-18T22:57:39+03:00",
+    "2026-10-18T22:57:43+03:00",
+    "2026-10-18T22:59:58+03:00",
+    "2026-10-18T23:00:01+03:00",
+    "2026-10-18T23:00:06+03:00",
+    "2026-10-18T23:00:24+03:00",
+    "2026-10-18T23:00:25+03:00"
   ],
-  "rev": 33,
+  "rev": 14,
   "waiting": null,
   "waits": [],
   "log": [
     {
-      "t": "2026-10-18T21:45:17+03:00",
+      "t": "2026-10-18T22:48:01+03:00",
       "k": "init"
     },
     {
-      "t": "2026-10-18T21:45:31+03:00",
+      "t": "2026-10-18T22:48:31+03:00",
       "k": "stage",
       "id": "manifest",
       "act": "start"
     },
     {
-      "t": "2026-10-18T21:46:43+03:00",
-      "k": "stage",
-      "id": "briefing",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:46:44+03:00",
+      "t": "2026-10-18T22:57:38+03:00",
       "k": "gate",
       "g": "G1",
-      "ok": false,
-      "open": 19,
-      "total": 19
+      "ok": true,
+      "open": 0,
+      "total": 28
     },
     {
-      "t": "2026-10-18T21:46:44+03:00",
+      "t": "2026-10-18T22:57:38+03:00",
       "k": "stage",
       "id": "spec",
       "act": "start"
     },
     {
-      "t": "2026-10-18T21:47:07+03:00",
-      "k": "add",
-      "key": "debt.assumptions",
-      "n": 7
-    },
-    {
-      "t": "2026-10-18T21:49:34+03:00",
+      "t": "2026-10-18T22:57:39+03:00",
       "k": "gate",
       "g": "G2",
       "ok": true,
       "found": 3,
-      "fixed": 3,
-      "deferred": 0
+      "fixed": 1,
+      "deferred": 2
     },
     {
-      "t": "2026-10-18T21:49:43+03:00",
+      "t": "2026-10-18T22:57:43+03:00",
       "k": "stage",
-      "id": "plan",
-      "act": "start"
+      "id": "briefing",
+      "act": "skip",
+      "note": "полный автомат — самобрифинг"
     },
     {
-      "t": "2026-10-18T21:49:44+03:00",
-      "k": "tier",
-      "v": "T2"
-    },
-    {
-      "t": "2026-10-18T21:50:31+03:00",
+      "t": "2026-10-18T22:59:58+03:00",
       "k": "tickets",
       "n": 5
     },
     {
-      "t": "2026-10-18T21:50:32+03:00",
+      "t": "2026-10-18T23:00:01+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": false,
+      "problems": 1
+    },
+    {
+      "t": "2026-10-18T23:00:01+03:00",
+      "k": "tier",
+      "v": "T2"
+    },
+    {
+      "t": "2026-10-18T23:00:06+03:00",
+      "k": "tickets",
+      "n": 5
+    },
+    {
+      "t": "2026-10-18T23:00:06+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": false,
+      "problems": 3
+    },
+    {
+      "t": "2026-10-18T23:00:24+03:00",
+      "k": "tickets",
+      "n": 5
+    },
+    {
+      "t": "2026-10-18T23:00:25+03:00",
       "k": "gate",
       "g": "G3",
       "ok": true,
       "problems": 0
-    },
-    {
-      "t": "2026-10-18T21:50:40+03:00",
-      "k": "stage",
-      "id": "build",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:50:44+03:00",
-      "k": "ticket",
-      "ids": [
-        "01"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:54:11+03:00",
-      "k": "ticket",
-      "ids": [
-        "01"
-      ],
-      "act": "review"
-    },
-    {
-      "t": "2026-10-18T21:56:15+03:00",
-      "k": "add",
-      "key": "concerns",
-      "n": 7
-    },
-    {
-      "t": "2026-10-18T21:56:18+03:00",
-      "k": "ticket",
-      "ids": [
-        "01"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 667,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:56:24+03:00",
-      "k": "ticket",
-      "ids": [
-        "02",
-        "03",
-        "04"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T21:59:24+03:00",
-      "k": "ticket",
-      "ids": [
-        "02"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:59:28+03:00",
-      "k": "ticket",
-      "ids": [
-        "03"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:59:32+03:00",
-      "k": "ticket",
-      "ids": [
-        "04"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 685,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T21:59:36+03:00",
-      "k": "ticket",
-      "ids": [
-        "05"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T22:02:33+03:00",
-      "k": "ticket",
-      "ids": [
-        "05"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 698,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T22:02:38+03:00",
-      "k": "stage",
-      "id": "review",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T22:05:10+03:00",
-      "k": "tickets",
-      "n": 6
-    },
-    {
-      "t": "2026-10-18T22:05:11+03:00",
-      "k": "ticket",
-      "ids": [
-        "F1"
-      ],
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T22:11:47+03:00",
-      "k": "ticket",
-      "ids": [
-        "F1"
-      ],
-      "act": "done",
-      "tests": {
-        "passed": 701,
-        "failed": 0
-      }
-    },
-    {
-      "t": "2026-10-18T22:11:53+03:00",
-      "k": "add",
-      "key": "report",
-      "n": 6
-    },
-    {
-      "t": "2026-10-18T22:12:02+03:00",
-      "k": "stage",
-      "id": "final",
-      "act": "start"
-    },
-    {
-      "t": "2026-10-18T22:14:11+03:00",
-      "k": "gate",
-      "g": "G4",
-      "ok": false,
-      "checked": 9,
-      "matched": 7
-    },
-    {
-      "t": "2026-10-18T22:15:32+03:00",
-      "k": "tests",
-      "passed": 701,
-      "failed": 0
-    },
-    {
-      "t": "2026-10-18T22:15:33+03:00",
-      "k": "finish",
-      "result": "Правовая рамка: лицензии по типу материала, NOTICE и торговая марка, VERSION и CITATION.cff, README, вклад под DCO, SECURITY и граница репозиториев"
     }
   ],
   "reqList": [
     {
       "id": "R01",
-      "text": "«Добавить LICENSE (Apache-2.0) для кода.»",
-      "status": "done"
-    },
-    {
-      "id": "R01i",
-      "text": "(подразумевается) лицензия должна быть машинночитаемой и не спорить с уже лежащим в репозитории сторонним кодом",
-      "status": "done"
+      "text": "«Сделайте страницу validation.html»",
+      "status": "in-ticket"
     },
     {
       "id": "R02",
-      "text": "«Добавить LICENSE-DATA (CC BY 4.0) и LICENSE-DOCS (CC BY 4.0).»",
-      "status": "done"
-    },
-    {
-      "id": "R02i",
-      "text": "(подразумевается) публичный слой данных обязан объявлять ту же лицензию, что LICENSE-DATA, а не null",
-      "status": "done"
+      "text": "«data/public/validation.json»",
+      "status": "in-ticket"
     },
     {
       "id": "R03",
-      "text": "«Добавить NOTICE с атрибуцией GeoNames и сторонних данных.»",
-      "status": "done"
-    },
-    {
-      "id": "R03i",
-      "text": "(подразумевается) NOTICE не перелицензирует чужие тексты источников и не приписывает их проекту",
-      "status": "done"
+      "text": "«сравнение уровня … с ACLED Conflict Index, CrisisWatch и GPR»",
+      "status": "in-ticket"
     },
     {
       "id": "R04",
-      "text": "«Добавить CITATION.cff и правило цитирования: «Cassandra Index, версия, дата, URL».»",
-      "status": "done"
-    },
-    {
-      "id": "R04i",
-      "text": "(подразумевается) «версия» должна откуда-то браться, иначе правило цитирования невыполнимо",
-      "status": "done"
+      "text": "«сравнение … направления индекса с ACLED Conflict Index, CrisisWatch и GPR»",
+      "status": "in-ticket"
     },
     {
       "id": "R05",
-      "text": "«Добавить TRADEMARK.md: название и логотип — не под open-source лицензией; форк обязан называться иначе.»",
-      "status": "done"
-    },
-    {
-      "id": "R05i",
-      "text": "(подразумевается) TRADEMARK.md обязан назвать, что именно защищено и что разрешено (номинативное упоминание, «based on»)",
-      "status": "done"
+      "text": "«корреляция уровней»",
+      "status": "in-ticket"
     },
     {
       "id": "R06",
-      "text": "«Добавить CONTRIBUTING.md и SECURITY.md; для вкладов — DCO, а не тяжёлый CLA.»",
-      "status": "done"
-    },
-    {
-      "id": "R06i",
-      "text": "(подразумевается) SECURITY.md нужен живой приватный канал и окно ответа, иначе он бесполезен",
-      "status": "done"
+      "text": "«корреляция … дельт»",
+      "status": "in-ticket"
     },
     {
       "id": "R07",
-      "text": "«Добавить README.md с одной фразой: «Официальный источник — cassindex.ru; форки не являются официальными».»",
-      "status": "done"
-    },
-    {
-      "id": "R07i",
-      "text": "(подразумевается) README — первая страница репозитория: что это, как запустить, какие лицензии где",
-      "status": "done"
+      "text": "«direction hit rate»",
+      "status": "in-ticket"
     },
     {
       "id": "R08",
-      "text": "«Развести public core и будущий commercial module по разным репозиториям.»",
-      "status": "done"
-    },
-    {
-      "id": "R08i",
-      "text": "(подразумевается) граница должна быть записана решением, иначе первый же коммерческий файл приедет сюда",
-      "status": "done"
+      "text": "«lead/lag»",
+      "status": "in-ticket"
     },
     {
       "id": "R09",
-      "text": "«По желанию — DOI через Zenodo на релизы, чтобы индекс цитировали как датасет.»",
-      "status": "done"
+      "text": "«расхождения»",
+      "status": "in-ticket"
     },
     {
-      "id": "R09i",
-      "text": "(подразумевается) метаданные Zenodo должны быть готовы до первого релиза, иначе DOI выдадут с мусорным описанием",
-      "status": "done"
+      "id": "R10",
+      "text": "«отдельный раздел «что это не доказывает»»",
+      "status": "in-ticket"
     },
     {
-      "id": "R10i",
-      "text": "(подразумевается) всё перечисленное выше не должно тихо исчезнуть при следующей правке",
-      "status": "done"
+      "id": "R11",
+      "text": "«разные конструкты»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R12",
+      "text": "«разные окна»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R13",
+      "text": "«ревизии данных»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R14",
+      "text": "«воспроизводимый скрипт calc/backtest.js»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R15",
+      "text": "«с офлайн-фикстурами»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R16",
+      "text": "«Нужен публичный журнал»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R17",
+      "text": "«дата»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R18",
+      "text": "«ожидаемое состояние/кластер»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R19",
+      "text": "«фактическое состояние»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R20",
+      "text": "«попадание/промах»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R21",
+      "text": "«immutable: запись фиксируется в git до публикации недели»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R22",
+      "text": "«отдельный forecast-ledger.json»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R23",
+      "text": "«таблица в validation.html или calibration-journal.md»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R24",
+      "text": "«обязательно публикуйте промахи, а не только попадания»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R25i",
+      "text": "(подразумевается) страница публикуется: deploy.yml, навигация, sitemap.xml, llms.txt",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R26i",
+      "text": "(подразумевается) validation.json — производный файл, пересобирается CLI и пинится тестом",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R27i",
+      "text": "(подразумевается) значения ACLED / CrisisWatch / GPR имеют провенанс (URL, дата среза, лицензия) и лежат офлайн-фикстурой",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R28i",
+      "text": "(подразумевается) журнал считается из форвардных якорей и опубликованного индекса, а не вводится задним числом",
+      "status": "in-ticket"
     }
   ],
   "gates": {
     "G1": {
-      "ok": false,
-      "at": "2026-10-18T21:46:44+03:00",
-      "open": 19,
-      "total": 19
+      "ok": true,
+      "at": "2026-10-18T22:57:38+03:00",
+      "open": 0,
+      "total": 28
     },
     "G2": {
       "ok": true,
-      "at": "2026-10-18T21:49:34+03:00",
+      "at": "2026-10-18T22:57:39+03:00",
       "found": 3,
-      "fixed": 3,
-      "deferred": 0
+      "fixed": 1,
+      "deferred": 2
     },
     "G3": {
       "ok": true,
-      "at": "2026-10-18T21:50:32+03:00",
+      "at": "2026-10-18T23:00:25+03:00",
       "problems": 0
-    },
-    "G4": {
-      "ok": false,
-      "at": "2026-10-18T22:14:11+03:00",
-      "checked": 9,
-      "matched": 7
     }
   },
-  "result": "Правовая рамка: лицензии по типу материала, NOTICE и торговая марка, VERSION и CITATION.cff, README, вклад под DCO, SECURITY и граница репозиториев",
-  "report": [
-    ".github/workflows/dco.yml — проверка DCO исполняет скрипт из самого PR: автор может ослабить свой же гейт; надёжнее гонять копию из базовой ветки",
-    "how-to-read.html — версия 1.0.0 зашита в статику и сверяется тестом с VERSION: релиз правит файл вручную",
-    "CITATION.cff — одно поле license CC-BY-4.0 объявляет весь репозиторий, хотя код под Apache-2.0",
-    "SECURITY.md — окно первого ответа 72 часа выбрано исполнителем; владельцу подтвердить или снять",
-    "CONTRIBUTING.md — опечатка в ссылке: раздел «Как цитировать» находится в README",
-    "tests/licensing.test.js — проверка запрещённых каталогов требует git в PATH (в остальных случаях тест пропускается)"
-  ]
+  "result": null
 }

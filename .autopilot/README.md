@@ -57,3 +57,4 @@
 | 2026-10-18 | `2026-10-18-intersection-global-boundary` | сдан | Флаг intersection: покрыт, но не считается (глобально и по регионам); §4.1.5 и §1.2 отвечают первыми; ADR 0046 |
 | 2026-10-18 | `2026-10-18-public-data-digest-seo` | сдан | Публичный слой индекса: страница «Как читать индекс», JSON/CSV/trend.svg с changelog, недельный дайджест с архивом и доставкой, SEO-страницы сравнения с War Monitor/ACLED/CrisisWatch |
 | 2026-10-18 | `2026-10-18-license-and-citation` | сдан | Правовая рамка: лицензии по типу материала, NOTICE и торговая марка, VERSION и CITATION.cff, README, вклад под DCO, SECURITY и граница репозиториев |
+| 2026-10-18 | `2026-10-18-public-validation-backtest--wip` | в работе | — |
