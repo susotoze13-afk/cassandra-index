@@ -78,10 +78,12 @@ export function writeLedger({ rootDir, weeks, loadSnapshot, anchorsDir, gitProbe
     "outcome": { "cluster": "hit", "direction": "miss" }
   }],
   "summary": {
-    "baseline": { "entries": 7, "cluster": { "hits": 7, "total": 7 },
-                  "direction": { "hits": 2, "total": 7 } },
+    "baseline": { "entries": 7, "cluster": { "hits": 6, "total": 7 },
+                  "direction": { "hits": 2, "total": 7 },
+                  "pending": { "cluster": 0, "direction": 0 } },
     "editor":   { "entries": 0, "cluster": { "hits": 0, "total": 0 },
-                  "direction": { "hits": 0, "total": 0 }, "pending": 0 }
+                  "direction": { "hits": 0, "total": 0 },
+                  "pending": { "cluster": 0, "direction": 0 } }
   },
   "misses": [{ "week": "2026-09-06", "kind": "baseline", "field": "direction",
                "expected": "flat", "actual": "down" }]
@@ -127,8 +129,9 @@ export function loadFixtures(dir)           // {gpr, acled, crisiswatch}
 export function cassandraSeries({ weeks, loadSnapshot }) // {weekly, monthly}
 export function buildValidation({ weeks, loadSnapshot, fixturesDir })
 export function writeValidation({ rootDir, weeks, loadSnapshot, fixturesDir })
-// → пишет data/public/validation.json, data/public/forecast-ledger.json, validation.html
-//   и возвращает { files }
+// T02: пишет data/public/validation.json и возвращает { files, validation }.
+// T03 добавляет в эту же запись data/public/forecast-ledger.json (через writeLedger)
+// и validation.html; тест «файл записан» проверяет наличие пути в files, а не их число.
 ```
 
 Форма `validation.json`:
