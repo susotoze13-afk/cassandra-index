@@ -441,7 +441,14 @@ export function regionalIndex(global, region, params) {
     }
   }
   const index = roundHalfUp(internal);
-  const prevIndex = typeof r.prevIndex === 'number' ? r.prevIndex : null;
+  // ADR 0038: регион без собственной истории (id, впервые появившийся в
+  // таксономии v2) стартует от прошлого глобального фона — по ADR 0028 он и
+  // стоял на этом фоне, пока своих данных не было. Без подстановки дельта
+  // была бы null, а контракт js/data.js требует число (первая неделя с
+  // сигналами не записалась бы).
+  const prevIndex = typeof r.prevIndex === 'number'
+    ? r.prevIndex
+    : (typeof r.prevGlobal === 'number' ? r.prevGlobal : null);
   return {
     index,
     state: stateOf(index, p),

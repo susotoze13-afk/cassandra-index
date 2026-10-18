@@ -35,6 +35,35 @@ test('regionalIndex: дельта слепого региона по постр�
   assert.equal(eu.delta, g.index - 61);
 });
 
+// --- ADR 0038: регион без истории стартует от прошлого глобального фона ---
+// Регион с сигналами (nReg > 0), но без prevIndex (первая неделя нового id
+// таксономии v2) обязан получить числовую дельту index − prevGlobal, а не null:
+// иначе контракт js/data.js отклонит запись недели.
+const SIGNAL_REGION = {
+  nReg: 3, eStruct: 0.5, eDyn: 0.3, hasDeescSignals: false, iWith: 78, iWithout: 66,
+};
+
+test('regionalIndex: регион с сигналами без prevIndex получает дельту от prevGlobal (ADR 0038)', () => {
+  const g = { index: 64, internal: 64.4, delta: 8 };
+  const r = regionalIndex(g, { ...SIGNAL_REGION, prevGlobal: 56 }, PARAMS);
+  assert.equal(r.background, false);
+  assert.equal(typeof r.delta, 'number');
+  assert.equal(r.delta, r.index - 56);
+});
+
+test('regionalIndex: регион со своей историей считает дельту от prevIndex, а не от глобала', () => {
+  const g = { index: 64, internal: 64.4, delta: 8 };
+  const r = regionalIndex(g, { ...SIGNAL_REGION, prevIndex: 40, prevGlobal: 56 }, PARAMS);
+  assert.equal(r.delta, r.index - 40);
+});
+
+test('regionalIndex: слепая ветка при отсутствии prevIndex не меняется — дельта равна глобальной', () => {
+  const g = { index: 64, internal: 64.4, delta: 8 };
+  const r = regionalIndex(g, { nReg: 0, prevGlobal: 56 }, PARAMS);
+  assert.equal(r.background, true);
+  assert.equal(r.delta, g.delta);
+});
+
 // --- regionalSignals ---
 
 // Ручной прогон: params с единственным весом D1 (остальные драйверы вне

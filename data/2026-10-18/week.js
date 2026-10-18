@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-18"] = window.CI_DATA.snapshots["2026-10-18"] || {};
   s.global = {
-  "index": 62,
-  "delta": 6
+  "index": 63,
+  "delta": 7
 };
   s.published = "2026-10-18";
   s.through = "2026-10-18";
@@ -23,92 +23,92 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "total": 46
 };
   s.recalc = {
-  "at": "2026-10-18T07:51:01.565Z",
+  "at": "2026-10-18T12:45:49.483Z",
   "reason": "Еженедельный пересчёт",
-  "previous": null,
+  "previous": 64,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
 };
   s.regions = {
   "russia-belarus": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 56,
+    "delta": 0,
+    "status": "danger",
+    "background": false
   },
   "ukraine-moldova": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 57,
+    "delta": 1,
+    "status": "danger",
+    "background": false
   },
   "baltic": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 59,
+    "delta": 3,
+    "status": "danger",
+    "background": false
   },
   "balkans": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "eu-north-europe": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 59,
+    "delta": 3,
+    "status": "danger",
+    "background": false
   },
   "south-caucasus": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "central-asia": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "east-asia": {
-    "index": 68,
-    "delta": 6,
+    "index": 61,
+    "delta": -1,
     "status": "very",
-    "background": true
+    "background": false
   },
   "middle-east": {
-    "index": 70,
-    "delta": 3,
+    "index": 71,
+    "delta": 4,
     "status": "very",
     "background": false
   },
   "north-america": {
-    "index": 58,
-    "delta": 6,
-    "status": "danger",
-    "background": true
+    "index": 61,
+    "delta": 9,
+    "status": "very",
+    "background": false
   },
   "south-asia": {
-    "index": 60,
-    "delta": 6,
+    "index": 59,
+    "delta": 5,
     "status": "danger",
-    "background": true
+    "background": false
   },
   "africa": {
-    "index": 59,
-    "delta": 6,
-    "status": "danger",
-    "background": true
+    "index": 61,
+    "delta": 8,
+    "status": "very",
+    "background": false
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 62,
-  "delta": 6,
-  "status": "very",
-  "background": true,
+  "index": 56,
+  "delta": 0,
+  "status": "danger",
+  "background": false,
   "confidence": "high",
   "drivers": [
     {
@@ -226,10 +226,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 62,
-  "delta": 6,
-  "status": "very",
-  "background": true,
+  "index": 57,
+  "delta": 1,
+  "status": "danger",
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -333,10 +333,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 62,
-  "delta": 6,
-  "status": "very",
-  "background": true,
+  "index": 59,
+  "delta": 3,
+  "status": "danger",
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -426,10 +426,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 62,
-  "delta": 6,
+  "index": 61,
+  "delta": 5,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -519,10 +519,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 62,
-  "delta": 6,
-  "status": "very",
-  "background": true,
+  "index": 59,
+  "delta": 3,
+  "status": "danger",
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -612,10 +612,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 62,
-  "delta": 6,
+  "index": 61,
+  "delta": 5,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -719,10 +719,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 62,
-  "delta": 6,
+  "index": 61,
+  "delta": 5,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -812,10 +812,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 68,
-  "delta": 6,
+  "index": 61,
+  "delta": -1,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -919,8 +919,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 70,
-  "delta": 3,
+  "index": 71,
+  "delta": 4,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1054,10 +1054,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 58,
-  "delta": 6,
-  "status": "danger",
-  "background": true,
+  "index": 61,
+  "delta": 9,
+  "status": "very",
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -1161,10 +1161,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 60,
-  "delta": 6,
+  "index": 59,
+  "delta": 5,
   "status": "danger",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -1254,10 +1254,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 59,
-  "delta": 6,
-  "status": "danger",
-  "background": true,
+  "index": 61,
+  "delta": 8,
+  "status": "very",
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -1400,7 +1400,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-10-18",
-    "value": 62,
+    "value": 63,
     "methodology": "3.0"
   }
 ];
@@ -2400,6 +2400,246 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "lithuania-drone-xinhua",
+    "title": {
+      "ru": "Латвия сняла воздушную тревогу в трёх самоуправлениях",
+      "en": "Latvia lifts air threat alert for 3 municipalities"
+    },
+    "domain": "english.news.cn",
+    "url": "https://english.news.cn/20261018/6ac1ff5d597c49b3925eae495974b62c/c.html",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Тревога в Латвии объявлена после обнаружения неопознанного объекта в балтийском воздушном пространстве."
+  },
+  {
+    "id": "lithuania-drone-yahoo",
+    "title": {
+      "ru": "Литва сообщила о повреждениях после входа неопознанного дрона в воздушное пространство",
+      "en": "Lithuania reports damage caused by unidentified drone that entered its airspace"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/world/articles/lithuania-reports-damage-caused-unidentified-110000268.html",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Дрон вошёл в воздушное пространство Литвы, объявлена тревога, закрыт аэропорт Каунаса."
+  },
+  {
+    "id": "moldova-drones-fakti",
+    "title": {
+      "ru": "Пять российских дронов упали в Молдове менее чем за сутки",
+      "en": "Five Russian drones crashed in Moldova in less than 24 hours"
+    },
+    "domain": "fakti.bg",
+    "url": "https://fakti.bg/en/world/1091179-pet-ruski-drona-padnaha-v-moldova-za-po-malko-ot-denonoshtie",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Падение дронов на территории Молдовы — пограничный инцидент, связанный с ударами по Украине."
+  },
+  {
+    "id": "sudan-nyala-anadolu",
+    "title": {
+      "ru": "Удары суданской армии нанесли тяжёлые потери RSF в Ньяле (Дарфур) — региональные власти",
+      "en": "Sudanese army strikes inflict heavy losses on RSF in Darfur's Nyala: Regional government"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/middle-east/sudanese-army-strikes-inflict-heavy-losses-on-rsf-in-darfur-s-nyala-regional-government/4092539",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Боевые действия в Дарфуре: удары по позициям RSF в Ньяле."
+  },
+  {
+    "id": "sudan-kordofan-tamazuj",
+    "title": {
+      "ru": "Дроны ударили по кустарному золотому прииску в Южном Кордофане",
+      "en": "Drones hit gold mining site in South Kordofan"
+    },
+    "domain": "radiotamazuj.org",
+    "url": "https://www.radiotamazuj.org/en/news/article/drones-hit-gold-mining-site-in-south-kordofan",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "E-field-osint",
+    "state_affiliated": false,
+    "notes": "Удар дронов по прииску в Южном Кордофане — продолжение боевых действий в Судане."
+  },
+  {
+    "id": "pakistan-afghan-clash-moneycontrol",
+    "title": {
+      "ru": "Пакистан и афганские талибы обменялись тяжёлым огнём на линии Дюранда: 7 военных убиты",
+      "en": "Pakistan, Afghan Taliban exchange heavy fire along Durand Line; 7 soldiers killed amid fresh tensions"
+    },
+    "domain": "moneycontrol.com",
+    "url": "https://www.moneycontrol.com/world/2-pakistan-afghan-taliban-exchange-heavy-fire-along-durand-line-7-soldiers-killed-amid-fresh-tensions-article-14054587.html",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Пограничный бой на линии Дюранда — пограничный инцидент с боевыми потерями."
+  },
+  {
+    "id": "pakistan-balochistan-arabnews",
+    "title": {
+      "ru": "Пакистан сообщил о восьми уничтоженных боевиках в Белуджистане",
+      "en": "Pakistan says eight militants killed in operations in restive Balochistan province"
+    },
+    "domain": "arabnews.pk",
+    "url": "https://www.arabnews.pk/pakistan/pakistan-says-eight-militants-killed-in-operations-in-restive-balochistan-province-3004523",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Контртеррористические операции в Белуджистане в отчётном окне."
+  },
+  {
+    "id": "pakistan-iran-trade-arabnews",
+    "title": {
+      "ru": "Пакистан приостановил торговлю с Ираном из-за проблем безопасности: тысячи контейнеров застряли",
+      "en": "Pakistan suspends trade with Iran over security concerns, stranding thousands of containers"
+    },
+    "domain": "arabnews.pk",
+    "url": "https://www.arabnews.pk/pakistan/pakistan-suspends-trade-with-iran-over-security-concerns-stranding-thousands-of-containers-3004477",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Приостановка трансграничной торговли и закрытие КПП — риск транспортного канала."
+  },
+  {
+    "id": "pakistan-iran-border-minutemirror",
+    "title": {
+      "ru": "Торговля Пакистана и Ирана остановлена — КПП Тафтан закрыт",
+      "en": "Pakistan-Iran trade halted as Taftan border shuts"
+    },
+    "domain": "minutemirror.com.pk",
+    "url": "https://minutemirror.com.pk/pakistan-iran-trade-halted-as-taftan-border-shuts-646723/",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Закрытие КПП Тафтан останавливает грузопоток между Пакистаном и Ираном."
+  },
+  {
+    "id": "schmidt-dodik-6yka",
+    "title": {
+      "ru": "Шмидт предупреждает: Додик может попытаться отделить Республику Сербскую — территориальная целостность БиГ не обсуждается",
+      "en": "Schmidt warns: Dodik could attempt secession of Republika Srpska - Bosnia's territorial integrity is not up for discussion"
+    },
+    "domain": "6yka.com",
+    "url": "https://6yka.com/bih/schmidt-upozorava-dodik-bi-mogao-pokusati-otcjepljenje-srpske-teritorijalni-integritet-bih-nije-na-diskusiji/",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Высокий представитель предупреждает о попытке отделения Республики Сербской — ультимативное предупреждение."
+  },
+  {
+    "id": "rubio-central-asia-usnews",
+    "title": {
+      "ru": "Рубио направляется в Центральную Азию, пока другие чиновники США работают в горячих точках",
+      "en": "Rubio heads to Central Asia as some wonder if he's keeping the most pressing matters at a distance"
+    },
+    "domain": "usnews.com",
+    "url": "https://www.usnews.com/news/politics/articles/2026-10-18/rubio-heads-to-central-asia-as-some-wonder-if-hes-keeping-the-most-pressing-matters-at-a-distance",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Визит госсекретаря США в Центральную Азию — дипломатический трек недели."
+  },
+  {
+    "id": "central-asia-security-presstv",
+    "title": {
+      "ru": "В Москве прошла конференция по безопасности в Центральной Азии и Афганистане",
+      "en": "Moscow hosts conference on security in Central Asia, Afghanistan"
+    },
+    "domain": "presstv.co.uk",
+    "url": "https://www.presstv.co.uk/Detail/2026/10/17/778559/Moscow-hosts-conference-on-security-in-Central-Asia,-Afghanistan",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Конференция по региональной безопасности с участием центральноазиатских государств."
+  },
+  {
+    "id": "armenia-kyrgyzstan-armenpress",
+    "title": {
+      "ru": "Опубликовано совместное заявление премьер-министра Армении и президента Кыргызстана",
+      "en": "Joint statement signed by Armenian Prime Minister and Kyrgyz President published"
+    },
+    "domain": "armenpress.am",
+    "url": "https://armenpress.am/en/article/1263137",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Совместное заявление Еревана и Бишкека — межгосударственные переговоры."
+  },
+  {
+    "id": "baku-cica-jpost",
+    "title": {
+      "ru": "Герцог встретился с главой МИД Бахрейна на саммите CICA в Азербайджане",
+      "en": "Isaac Herzog meets with Bahrain foreign minister at CICA summit hosted by Azerbaijan"
+    },
+    "domain": "jpost.com",
+    "url": "https://www.jpost.com/middle-east/article-912023",
+    "publication_date": "2026-10-18",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Дипломатическая встреча на саммите CICA в Баку — переговорный трек Южного Кавказа."
+  },
+  {
+    "id": "dprk-torpedo-qazinform",
+    "title": {
+      "ru": "КНДР испытала новую торпеду с ИИ-наведением — ЦТАК",
+      "en": "North Korea tests new AI-powered precision-guided torpedo: KCNA"
+    },
+    "domain": "qazinform.com",
+    "url": "https://qazinform.com/news/north-korea-tests-new-ai-powered-precision-guided-torpedo-kcna-dd68a0",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Испытание новой подводной торпедной системы КНДР."
+  },
+  {
+    "id": "dprk-torpedo-star",
+    "title": {
+      "ru": "Новую торпедную систему испытали",
+      "en": "New torpedo weapon system put to the test"
+    },
+    "domain": "thestar.com.my",
+    "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/10/18/new-torpedo-weapon-system-put-to-the-test",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Подтверждение испытания КНДР независимым изданием."
   }
 ];
 })();

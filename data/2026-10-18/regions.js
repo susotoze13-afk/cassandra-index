@@ -3,76 +3,76 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-10-18"] = window.CI_DATA.snapshots["2026-10-18"] || {};
   s.regions = {
   "russia-belarus": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 56,
+    "delta": 0,
+    "status": "danger",
+    "background": false
   },
   "ukraine-moldova": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 57,
+    "delta": 1,
+    "status": "danger",
+    "background": false
   },
   "baltic": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 59,
+    "delta": 3,
+    "status": "danger",
+    "background": false
   },
   "balkans": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "eu-north-europe": {
-    "index": 62,
-    "delta": 6,
-    "status": "very",
-    "background": true
+    "index": 59,
+    "delta": 3,
+    "status": "danger",
+    "background": false
   },
   "south-caucasus": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "central-asia": {
-    "index": 62,
-    "delta": 6,
+    "index": 61,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "east-asia": {
-    "index": 68,
-    "delta": 6,
+    "index": 61,
+    "delta": -1,
     "status": "very",
-    "background": true
+    "background": false
   },
   "middle-east": {
-    "index": 70,
-    "delta": 3,
+    "index": 71,
+    "delta": 4,
     "status": "very",
     "background": false
   },
   "north-america": {
-    "index": 58,
-    "delta": 6,
-    "status": "danger",
-    "background": true
+    "index": 61,
+    "delta": 9,
+    "status": "very",
+    "background": false
   },
   "south-asia": {
-    "index": 60,
-    "delta": 6,
+    "index": 59,
+    "delta": 5,
     "status": "danger",
-    "background": true
+    "background": false
   },
   "africa": {
-    "index": 59,
-    "delta": 6,
-    "status": "danger",
-    "background": true
+    "index": 61,
+    "delta": 8,
+    "status": "very",
+    "background": false
   }
 };
 })();
