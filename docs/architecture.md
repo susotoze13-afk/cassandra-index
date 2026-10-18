@@ -166,6 +166,9 @@ data/<week>/{global,regions,trend,drivers,sources,region-*}.js
                  └─ calc/digest-send.js ─ deliver ─┬─ Telegram Bot API (sendMessage)
                                                    └─ HTTP-эндпоинт письма (POST JSON)
                                                       └─ data/digest/sent.json (реестр)
+
+calc/digest-send.js --preview ─ sendPreview ─ Telegram Bot API в чат редактора
+                                  (TELEGRAM_EDITOR_CHAT_ID; sent.json не трогается)
 ```
 
 `datasetOf` — узкая проекция (индекс, дельта, состояние, `q`, покрытие, регионы,
@@ -200,6 +203,11 @@ precursor, вклад драйверов, сводка источников, т�
 - Идемпотентность доставки — пара «неделя+канал»: `--reserve` пишет `pending` до
   отправки, `--send` пропускает занятые каналы и снимает `pending` только по успешным;
   легаси-форма `sent.json` `{weeks:[...]}` читается как «оба канала отправлены».
+- Публикация дайджеста — после одобрения редактора: `weekly-digest.yml` разделён на
+  `prepare` (выпуск, архив, превью в чат редактора) и `publish` (job с
+  `environment: digest-approval` и required reviewer). Резерв `sent.json` пишется
+  только в `publish`, то есть после одобрения; environment настраивается в
+  репозитории, файл workflow его не создаёт.
 - Секреты не покидают процесс: в stderr — только имя переменной, значения вырезаются
   `redact` из любых сообщений.
 - Статические страницы (`how-to-read.html`, `compare*.html`, `articles.html`) — вне

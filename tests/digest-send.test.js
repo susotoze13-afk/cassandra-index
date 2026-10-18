@@ -11,7 +11,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 import {
-  sendTelegram, sendEmail, deliver, readSent, writeSent, runDigestSend,
+  sendTelegram, sendPreview, sendEmail, deliver, readSent, writeSent, runDigestSend,
 } from '../calc/digest-send.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -95,6 +95,35 @@ test('sendEmail: без эндпоинта бросает с именем пер
   );
 });
 
+test('sendPreview: черновик в чат редактора, а не в канал', async () => {
+  const { calls, impl } = recorder(200);
+  const editor = {
+    token: TELEGRAM.token,
+    chatId: '555000111',
+    approvalUrl: 'https://github.com/o/r/actions/runs/42',
+  };
+  const result = await sendPreview(impl, editor, digest);
+
+  assert.deepEqual(result, { ok: true, status: 200 });
+  assert.equal(calls.length, 1);
+  const body = JSON.parse(calls[0].init.body);
+  assert.equal(body.chat_id, editor.chatId);
+  assert.match(body.text, /Черновик выпуска/);
+  assert.match(body.text, /после одобрения/);
+  assert.ok(body.text.includes(digest.telegram));
+  assert.ok(body.text.includes(editor.approvalUrl));
+  assert.match(body.text, /Одобрить в GitHub Actions/);
+});
+
+test('sendPreview: без чата редактора — имя переменной, без запроса', async () => {
+  const { calls, impl } = recorder(200);
+  await assert.rejects(
+    () => sendPreview(impl, { token: TELEGRAM.token }, digest),
+    /TELEGRAM_EDITOR_CHAT_ID/,
+  );
+  assert.equal(calls.length, 0);
+});
+
 test('deliver: оба канала отправлены', async () => {
   const { calls, impl } = recorder(200);
   const result = await deliver(digest, { telegram: TELEGRAM, email: EMAIL, sentWeeks: [] }, { fetchImpl: impl });
@@ -173,6 +202,90 @@ test('CLI dry-run: печатает выпуск, ничего не отправ
     assert.match(result.out, /64 из 100/);
     assert.equal(calls.length, 0);
     assert.equal(existsSync(path.join(tmp, 'sent.json')), false);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('CLI --preview: черновик редактору, sent.json не создан', async () => {
+  const tmp = mkdtempSync(path.join(os.tmpdir(), 'ci-sent-'));
+  try {
+    const { calls, impl } = recorder(200);
+    const result = await cli({
+      argv: ['--preview', '--week', WEEK],
+      env: {
+        TELEGRAM_BOT_TOKEN: TELEGRAM.token,
+        TELEGRAM_EDITOR_CHAT_ID: '555000111',
+      },
+      sentDir: tmp,
+      fetchImpl: impl,
+    });
+    assert.equal(result.code, 0);
+    assert.equal(calls.length, 1);
+    const body = JSON.parse(calls[0].init.body);
+    assert.equal(body.chat_id, '555000111');
+    assert.match(result.out, /одобрени/);
+    assert.equal(existsSync(path.join(tmp, 'sent.json')), false);
+    assert.doesNotMatch(`${result.out}${result.err}`, new RegExp(TELEGRAM.token));
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('CLI --preview без чата редактора: код 0, тихий пропуск без запроса', async () => {
+  const tmp = mkdtempSync(path.join(os.tmpdir(), 'ci-sent-'));
+  try {
+    const { calls, impl } = recorder(200);
+    const result = await cli({
+      argv: ['--preview', '--week', WEEK],
+      env: { TELEGRAM_BOT_TOKEN: TELEGRAM.token },
+      sentDir: tmp,
+      fetchImpl: impl,
+    });
+    assert.equal(result.code, 0);
+    assert.equal(calls.length, 0);
+    assert.match(result.out, /TELEGRAM_EDITOR_CHAT_ID/);
+    assert.equal(existsSync(path.join(tmp, 'sent.json')), false);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('CLI --preview: ошибка HTTP — код 1, sent.json не тронут', async () => {
+  const tmp = mkdtempSync(path.join(os.tmpdir(), 'ci-sent-'));
+  try {
+    const { impl } = recorder(403);
+    const result = await cli({
+      argv: ['--preview', '--week', WEEK],
+      env: {
+        TELEGRAM_BOT_TOKEN: TELEGRAM.token,
+        TELEGRAM_EDITOR_CHAT_ID: '555000111',
+      },
+      sentDir: tmp,
+      fetchImpl: impl,
+    });
+    assert.equal(result.code, 1);
+    assert.match(result.err, /403/);
+    assert.equal(existsSync(path.join(tmp, 'sent.json')), false);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('CLI --preview несовместим с --send/--reserve', async () => {
+  const tmp = mkdtempSync(path.join(os.tmpdir(), 'ci-sent-'));
+  try {
+    const { calls, impl } = recorder(200);
+    await assert.rejects(
+      () => cli({
+        argv: ['--preview', '--send', '--week', WEEK],
+        env: {},
+        sentDir: tmp,
+        fetchImpl: impl,
+      }),
+      /несовместим/,
+    );
+    assert.equal(calls.length, 0);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
@@ -263,7 +376,7 @@ test('CLI --send: повтор недели — код 0, skipped, без зап
   }
 });
 
-test('weekly-digest.yml: понедельник, dispatch, шаги генерации/отправки/записи, SHA-пиннинг', () => {
+test('weekly-digest.yml: понедельник, dispatch, превью, одобрение, отправка, SHA-пиннинг', () => {
   const workflow = readFileSync(
     path.join(ROOT, '.github', 'workflows', 'weekly-digest.yml'),
     'utf8',
@@ -272,6 +385,11 @@ test('weekly-digest.yml: понедельник, dispatch, шаги генера
   assert.match(workflow, /cron: '[0-9*\/, -]+ \* \* 1'/);
   assert.match(workflow, /workflow_dispatch:/);
   assert.match(workflow, /node calc\/digest-export\.js --write/);
+  // Превью редактору — до одобрения; отправка — в отдельном job с environment.
+  assert.match(workflow, /node calc\/digest-send\.js --preview/);
+  assert.match(workflow, /TELEGRAM_EDITOR_CHAT_ID/);
+  assert.match(workflow, /needs: prepare/);
+  assert.match(workflow, /environment:\s*\n\s*name: digest-approval/);
   assert.match(workflow, /node calc\/digest-send\.js --send/);
   assert.match(workflow, /data\/digest\/sent\.json/);
   assert.match(workflow, /github-actions\[bot\]/);
@@ -291,6 +409,7 @@ test('.env.example: только имена переменных дайджес�
   assert.deepEqual(lines, [
     'TELEGRAM_BOT_TOKEN=',
     'TELEGRAM_CHAT_ID=',
+    'TELEGRAM_EDITOR_CHAT_ID=',
     'DIGEST_EMAIL_ENDPOINT=',
     'DIGEST_EMAIL_TOKEN=',
     'DIGEST_EMAIL_FROM=',

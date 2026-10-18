@@ -27,7 +27,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 import { loadSnapshotFromDisk } from './public-export.js';
-import { buildDigest } from './digest.js';
+import { buildDigest, escapeHtml } from './digest.js';
 import { readLatestWeeks } from './prepare-week.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -97,6 +97,23 @@ export async function sendTelegram(fetchImpl, cfg, text) {
     }),
   });
   return { ok: response.ok === true, status: response.status };
+}
+
+// sendPreview(fetchImpl, {token, chatId, approvalUrl}, digest) → {ok, status}.
+// Черновик выпуска уходит редактору ДО одобрения: тот же telegram-текст, что
+// уйдёт в канал, но в отдельный чат (TELEGRAM_EDITOR_CHAT_ID). sent.json этот
+// режим не трогает — превью не является доставкой. approvalUrl (ссылка на
+// прогон) — необязательная строка «где одобрить».
+export async function sendPreview(fetchImpl, cfg, digest) {
+  const config = cfg || {};
+  if (!present(config.token)) throw new Error('не задан TELEGRAM_BOT_TOKEN');
+  if (!present(config.chatId)) throw new Error('не задан TELEGRAM_EDITOR_CHAT_ID');
+  let text = '<b>Черновик выпуска — публикация после одобрения редактора</b>\n\n'
+    + digest.telegram;
+  if (present(config.approvalUrl)) {
+    text += `\n\n<a href="${escapeHtml(config.approvalUrl)}">Одобрить в GitHub Actions</a>`;
+  }
+  return sendTelegram(fetchImpl, { token: config.token, chatId: config.chatId }, text);
 }
 
 // sendEmail(fetchImpl, {endpoint, token, from, to}, {subject, text, html})
@@ -338,12 +355,13 @@ export function clearPending(dir, week, channels) {
 
 function parseArgs(argv) {
   const out = {
-    send: false, reserve: false, week: null, root: ROOT, runId: 'manual',
+    send: false, reserve: false, preview: false, week: null, root: ROOT, runId: 'manual',
   };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--send') out.send = true;
     else if (arg === '--reserve') out.reserve = true;
+    else if (arg === '--preview') out.preview = true;
     else if (arg === '--run-id') {
       i += 1;
       if (!argv[i]) throw new Error('--run-id требует идентификатор прогона');
@@ -359,6 +377,9 @@ function parseArgs(argv) {
     } else throw new Error(`неизвестный аргумент: ${arg}`);
   }
   if (out.send && out.reserve) throw new Error('--send и --reserve взаимоисключающие');
+  if (out.preview && (out.send || out.reserve)) {
+    throw new Error('--preview несовместим с --send/--reserve: превью — не доставка');
+  }
   return out;
 }
 
@@ -401,9 +422,39 @@ export async function runDigestSend(options = {}) {
     chartUrl: present(env.DIGEST_CHART_URL) ? env.DIGEST_CHART_URL : undefined,
   });
 
-  if (!args.send && !args.reserve) {
+  if (!args.send && !args.reserve && !args.preview) {
     out.write(`${digest.subject}\n\n${digest.text}\n`);
     out.write('dry-run: ничего не отправлено (для отправки — --send)\n');
+    return 0;
+  }
+
+  // Превью редактору — до одобрения публикации. Недостающая пара секретов —
+  // тихий пропуск (как и отсутствие секретов в workflow), а не красный фейл:
+  // превью не обязательный канал доставки.
+  if (args.preview) {
+    const token = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_EDITOR_CHAT_ID;
+    if (!present(token) || !present(chatId)) {
+      out.write('превью не отправлено: не задан TELEGRAM_EDITOR_CHAT_ID '
+        + '(или TELEGRAM_BOT_TOKEN) — пропуск\n');
+      return 0;
+    }
+    try {
+      const result = await sendPreview(fetchImpl, {
+        token,
+        chatId,
+        approvalUrl: env.DIGEST_APPROVAL_URL,
+      }, digest);
+      if (!result.ok) {
+        err.write(`превью не доставлено: HTTP ${result.status}\n`);
+        return 1;
+      }
+    } catch (e) {
+      err.write(`превью не доставлено: ${redact(e && e.message ? e.message : e, [token])}\n`);
+      return 1;
+    }
+    out.write(`превью отправлено редактору (неделя ${week}); `
+      + 'публикация — после одобрения в GitHub Actions (environment digest-approval)\n');
     return 0;
   }
 

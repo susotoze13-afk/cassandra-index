@@ -11,8 +11,15 @@ on:
         type: string
 
 # Выпуск и архив — производные снапшота недели, они коммитятся в master и
-# уезжают на сайт обычным deploy.yml по push. Отправка — отдельный шаг: без
-# секретов он завершается notice-skip, а не красным фейлом.
+# уезжают на сайт обычным deploy.yml по push. Отправка — отдельный job, который
+# ждёт одобрения редактора (GitHub Environment с required reviewer) и только
+# потом резервирует и отправляет каналы. Без секретов шаги завершаются
+# notice-skip, а не красным фейлом.
+#
+# ВАЖНО: пауза на одобрение обеспечивается настройкой репозитория, а не этим
+# файлом. Environment `digest-approval` должен существовать с required reviewer
+# (см. AGENTS.md, «Публикация» / «Окружение»). Если environment не настроен,
+# GitHub создаст его пустым — и job отправки пройдёт без подтверждения.
 permissions:
   contents: write
   # gh workflow run — push от GITHUB_TOKEN не порождает deploy.yml
@@ -24,8 +31,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  digest:
+  # Подготовка: выпуск, архив и превью редактору. Ничего не отправляет в
+  # каналы и не пишет sent.json — до одобрения публикация не начинается.
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      week: ${{ steps.week.outputs.value }}
+      skip: ${{ steps.gate.outputs.skip }}
     steps:
       # Actions закреплены по полному SHA (тот же пиннинг, что в deploy.yml и
       # weekly-calc.yml; обновления — через .github/dependabot.yml).
@@ -92,13 +104,53 @@ jobs:
           git commit -m "дайджест недели $WEEK"
           git push origin master
 
+      # Превью уходит в отдельный чат редактора (TELEGRAM_EDITOR_CHAT_ID) ДО
+      # одобрения: тот же текст, что уйдёт в канал. sent.json не меняется.
+      # Не заданы секреты превью — тихий skip, одобрение всё равно доступно по
+      # диффу digest.html.
+      - name: Превью редактору
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          WEEK: ${{ steps.week.outputs.value }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_EDITOR_CHAT_ID: ${{ secrets.TELEGRAM_EDITOR_CHAT_ID }}
+          # Ссылка «где одобрить» прямо в превью: job publish ждёт ревьюера.
+          DIGEST_APPROVAL_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_EDITOR_CHAT_ID" ]; then
+            echo "::notice::Превью не отправлено: не заданы TELEGRAM_BOT_TOKEN/TELEGRAM_EDITOR_CHAT_ID"
+            exit 0
+          fi
+          node calc/digest-send.js --preview --week "$WEEK"
+
+  # Отправка: job висит на environment с required reviewer — workflow
+  # останавливается здесь и продолжается только после одобрения редактора.
+  publish:
+    needs: prepare
+    if: needs.prepare.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+    environment:
+      name: digest-approval
+      url: https://cassindex.ru/digest.html
+    steps:
+      # master, а не SHA запуска: job подготовки уже закоммитил выпуск, и
+      # резерв/отметка должны лечь поверх него, иначе push отклоняется.
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: master
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
       # Порядок шагов здесь — часть защиты от повторного поста: отметка о
       # намерении уходит в master ДО первого запроса. Успешный пост с
       # отклонённым пушем иначе повторился бы на следующем прогоне.
       - name: Отметить отправку до запроса (резерв)
-        if: steps.gate.outputs.skip == 'false'
         env:
-          WEEK: ${{ steps.week.outputs.value }}
+          WEEK: ${{ needs.prepare.outputs.week }}
           RUN_ID: ${{ github.run_id }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -114,9 +166,8 @@ jobs:
           node calc/digest-send.js --reserve --week "$WEEK" --run-id "$RUN_ID"
 
       - name: Зафиксировать отметку в master (до отправки)
-        if: steps.gate.outputs.skip == 'false'
         env:
-          WEEK: ${{ steps.week.outputs.value }}
+          WEEK: ${{ needs.prepare.outputs.week }}
         run: |
           if [ ! -f data/digest/sent.json ]; then
             echo "::notice::sent.json не создан — фиксировать нечего"
@@ -142,9 +193,8 @@ jobs:
           exit 1
 
       - name: Отправить выпуск
-        if: steps.gate.outputs.skip == 'false'
         env:
-          WEEK: ${{ steps.week.outputs.value }}
+          WEEK: ${{ needs.prepare.outputs.week }}
           RUN_ID: ${{ github.run_id }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -162,7 +212,7 @@ jobs:
       - name: Отметить доставленные каналы
         # always(): сбой отправки тоже надо зафиксировать — снятый резерв даёт
         # следующий прогон, а не тихую потерю канала.
-        if: always() && steps.gate.outputs.skip == 'false'
+        if: always()
         run: |
           if [ ! -f data/digest/sent.json ]; then
             echo "::notice::sent.json не изменился — коммит не требуется"
@@ -191,7 +241,6 @@ jobs:
       # push от GITHUB_TOKEN не триггерит другие workflow — деплой запускается
       # явно (как в weekly-calc.yml), иначе архив выпуска не доезжает до сайта.
       - name: Запустить деплой
-        if: steps.gate.outputs.skip == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run deploy.yml --ref master
