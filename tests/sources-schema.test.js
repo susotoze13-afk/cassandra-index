@@ -6,9 +6,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { validate } from '../js/data.js';
+import { CRITERIA } from '../calc/engine.js';
+import { QUOTES_PER_SOURCE_MAX } from '../calc/quotes.js';
 
 const WEEKS = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23',
-  '2026-08-30', '2026-09-06', '2026-09-13'];
+  '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27'];
 const PARTS = ['global', 'regions', 'region-europe', 'region-east-asia',
   'region-middle-east', 'region-north-america', 'region-south-asia',
   'region-africa', 'trend', 'drivers', 'sources'];
@@ -40,7 +42,7 @@ function* allSources(week) {
   for (const drv of (snap.drivers ?? [])) yield* (drv.sources ?? []);
 }
 
-// R55/миграция: источники sources.js и drivers.js всех демо-недель — новая схема.
+// R55-миграция: источники sources.js и drivers.js всех демо-недель — новая схема.
 test('мигрированные источники: 9 обязательных полей новой схемы, легаси date удалено', () => {
   let count = 0;
   for (const week of WEEKS) {
@@ -51,6 +53,14 @@ test('мигрированные источники: 9 обязательных 
         assert.ok(ok(src[field]), `${week}: ${src.url ?? src.id} — поле ${field}`);
       }
       assert.equal(src.date, undefined, `${week}: ${src.id} — легаси-поле date не удалено`);
+      // quotes — опциональное поле (R01): если есть, то список {criterion, text}.
+      if (src.quotes !== undefined) {
+        assert.ok(Array.isArray(src.quotes), `${week}: ${src.id} — quotes обязан быть массивом`);
+        for (const q of src.quotes) {
+          assert.ok(typeof q?.criterion === 'string' && q.criterion !== '', `${week}: ${src.id} — quotes[].criterion`);
+          assert.ok(typeof q?.text === 'string' && q.text.trim() !== '', `${week}: ${src.id} — quotes[].text`);
+        }
+      }
     }
   }
   assert.ok(count >= 60, `ожидали демо-источники, нашли ${count}`);
@@ -113,6 +123,23 @@ test('validate: запись новой схемы без cluster_id откло�
   assert.ok(v.errors.some((e) => e.includes('drivers[0].sources')));
 });
 
+// R01/R01.2: цитата ссылается на критерий из 46, кириллица и латиница текста
+// сохраняются дословно; на источник не больше лимита цитат. Отсутствие поля —
+// норма (десять недель без корпуса), поэтому проверка только для тех, у кого оно есть.
+test('quotes: критерий из 46, текст непустой, не больше лимита на источник', () => {
+  const ids = new Set(Object.keys(CRITERIA));
+  for (const week of WEEKS) {
+    for (const src of (snapshots[week].sources ?? [])) {
+      if (src.quotes === undefined) continue;
+      assert.ok(src.quotes.length <= QUOTES_PER_SOURCE_MAX, `${week}: ${src.id} — цитат больше лимита`);
+      for (const q of src.quotes) {
+        assert.ok(ids.has(q.criterion), `${week}: ${src.id} — критерий ${q.criterion} вне 46`);
+        assert.match(q.text, /[A-Za-zА-Яа-яЁё]/, `${week}: ${src.id} — текст цитаты потерян`);
+      }
+    }
+  }
+});
+
 // ADR 0040: origin — опциональное строковое поле R55-записи (происхождение:
 // собрано в неделю или добавлено задним числом). Тип проверяется той же веткой
 // опциональных полей; enum — соглашение, не ворота (см. ADR).
@@ -133,7 +160,7 @@ test('R55: origin источника — допустимое строковое
 // ADR 0040: новые top-level поля входа (blindReasons, rejected, legacy_skeleton)
 // не ломают контракт — движок читает только известные ключи.
 test('вход с полями ADR 0040 проходит engine.validate', async () => {
-  const { validate: validateInput, CRITERIA } = await import('../calc/engine.js');
+  const { validate: validateInput } = await import('../calc/engine.js');
   const criteria = {};
   for (const id of Object.keys(CRITERIA)) criteria[id] = null;
   const errors = validateInput({

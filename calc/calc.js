@@ -32,6 +32,7 @@ import {
   taxonomyForWeek,
 } from './week-step.js';
 import { sensitivityScore } from './sensitivity.js';
+import { validateQuotes, verifyQuotes } from './quotes.js';
 import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import { weekDebt, validateRejected, validateBlindReasons, weeksGenitive } from './history-debt.js';
@@ -68,8 +69,9 @@ export function ignoredRegionalAttribution(criteria) {
 // --- Строгая валидация top-level sources входа (R55) ---
 // Полная схема: id/title{ru,en}/domain/url/publication_date/accessed_date/
 // source_type(primary|secondary|OSINT)/cluster_id (whitelist)/state_affiliated
-// + опциональные author/archive_url/archive_date/confidence/notes,
-// origin (ADR 0040: collected-in-week|editorial-backfill).
+// + опциональные author/archive_url/archive_date/confidence/notes и quotes
+// (форма {criterion, text} — calc/quotes.js), origin (ADR 0040:
+// collected-in-week|editorial-backfill).
 // Ошибка — запись недели не производится.
 const SOURCE_OPTIONALS = ['author', 'archive_url', 'archive_date', 'confidence', 'notes', 'origin'];
 
@@ -97,6 +99,9 @@ export function validateInputSources(sources, params = PARAMS) {
       if (s[f] !== undefined && typeof s[f] !== 'string') errors.push(`${pfx}.${f}: string`);
     }
   });
+  // Цитаты источника (R01): форма {criterion, text}, criterion из 46, лимиты.
+  // Отсутствие поля quotes — валидно (десять недель из двенадцати без него).
+  errors.push(...validateQuotes(sources, Object.keys(CRITERIA)));
   return errors;
 }
 
@@ -394,6 +399,9 @@ function loadInput(week, regionIds) {
   // Whitelist регионов входа — по версии недели (regionIdsFor(taxonomyForWeek)).
   const errors = validate(input, PARAMS, regionIds);
   if (!errors.length && input.sources !== undefined) {
+    // Только форма (R01) — дословность цитат проверяется на записи, в writeWeek:
+    // корпус текстов не лежит в репозитории (.gitignore), и чтение недели
+    // (печать, тесты цепочки) не должно требовать файлов, которых нет.
     errors.push(...validateInputSources(input.sources, PARAMS));
   }
   // Ворота независимости (R01, §4.1.2): покрытый критерий ≥ даты ворот
@@ -495,8 +503,10 @@ export function runWeek(week, state) {
 }
 
 // --- Запись числовых файлов недели ---
-// Ворота ссылок (R03) раньше всего: собранный в памяти снапшот (числа из
-// расчёта, защищённые поля — из уже опубликованных файлов) прогоняется через
+// Ворота записи по порядку: дословность цитат (R03i) — цитата обязана найтись
+// в корпусе текстов недели, иначе отказ без единого записанного байта; затем
+// ворота ссылок (R03) — собранный в памяти снапшот (числа из расчёта,
+// защищённые поля — из уже опубликованных файлов) прогоняется через
 // linkcheck.checkSources; при любом broken — отказ без записи. Затем
 // самопроверка контрактом validate из js/data.js; при провале диск не трогаем.
 // После успешной записи — append-записи в audit: recalc (пересчёт) и, при
@@ -530,7 +540,7 @@ function recalcDiff(snap, globalOut, meta) {
   return diff;
 }
 
-async function writeWeek(res, state) {
+export async function writeWeek(res, state) {
   const week = res.week;
   const snap = loadSnapshotPart(week, 'global') || {};
   const cls = res.classification;
@@ -598,6 +608,19 @@ async function writeWeek(res, state) {
   else {
     const p = loadSnapshotPart(week, 'sources');
     if (p) full.sources = p.sources;
+  }
+  // Ворота дословности цитат (R03i) — до ворот ссылок и до любой записи:
+  // цитата ищется в корпусе текстов этой недели
+  // (calc/input/drafts/texts-<неделя>/<id>.txt) той же нормализацией, что у
+  // пилота Jev. Нет корпуса/фрагмента — неделя не пишется, ошибка называет
+  // источник и критерий. Источники без quotes корпус не читают вовсе; чтение
+  // недели (печать, тесты) сюда не доходит — корпус в репозитории не лежит.
+  const quotesOut = verifyQuotes(
+    Array.isArray(res.sources) ? res.sources : [],
+    path.join(HERE, 'input', 'drafts', `texts-${week}`),
+  );
+  if (quotesOut.errors.length) {
+    return { ok: false, stage: 'quotes', quotes: quotesOut };
   }
   // Ворота ссылок (R03): собранный снапшот прогоняется через
   // linkcheck.checkSources ДО контрактной самопроверки и до любой записи;
@@ -785,7 +808,10 @@ async function main() {
         failed = true;
         writeRejected = true;
         if (check.stage === 'links') out.push(...formatLinkGateFailure(check.report));
-        else out.push(`  ЗАПИСЬ ОТКЛОНЕНА контрактом data.js: ${check.errors.join('; ')}`);
+        else if (check.stage === 'quotes') {
+          out.push('  ЗАПИСЬ ОТКЛОНЕНА проверкой цитат: дословно не подтверждены (диск не тронут):');
+          for (const e of check.quotes.errors) out.push(`    ${e}`);
+        } else out.push(`  ЗАПИСЬ ОТКЛОНЕНА контрактом data.js: ${check.errors.join('; ')}`);
       } else if (check.report.blocked.length) {
         out.push(...formatLinkBlockedWarning(check.report));
       }
