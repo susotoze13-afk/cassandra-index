@@ -361,8 +361,8 @@ export function renderGlobal(week, snap, globalOut, meta) {
   if (meta.preview) lines.push(`  s.preview = ${j(meta.preview)};`);
   if (meta.incompleteCoverage) lines.push('  s.incompleteCoverage = true;');
   if (typeof meta.sensitivity === 'number') lines.push(`  s.sensitivity = ${j(meta.sensitivity)};`);
-  // Покрытие критериев недели (R05/R06): { covered, total } — опционально,
-  // сериализуется только когда посчитано (старые недели поля не несут).
+  // Покрытие критериев недели (R05/R06, ADR 0045): { covered, total, uncovered } —
+  // опционально, сериализуется только когда посчитано (старые недели поля не несут).
   if (meta.coverageCriteria) lines.push(`  s.coverageCriteria = ${j(meta.coverageCriteria)};`);
   lines.push(`  s.recalc = ${j(meta.recalc)};`);
   return header(week) + lines.join('\n') + '\n' + FOOTER;
@@ -498,6 +498,13 @@ export function runWeek(week, state) {
       criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
       totalCriteria: Object.keys(CRITERIA).length,
       drivers: classification.coveredDrivers,
+      // ADR 0045: id непокрытых критериев в порядке движка (не алфавитном) —
+      // сайт группирует их по драйверам без пересортировки. Покрытый критерий —
+      // только entry.covered === true; null и отсутствие ключа одинаково слепы.
+      uncovered: (() => {
+        const criteria = input.criteria && typeof input.criteria === 'object' ? input.criteria : {};
+        return Object.keys(CRITERIA).filter((id) => !(criteria[id] && criteria[id].covered === true));
+      })(),
     },
   };
 }
@@ -563,7 +570,12 @@ export async function writeWeek(res, state) {
     // Покрытие критериев недели (R05/R06/R18): числа уже посчитаны в runWeek
     // (res.coverage.criteria/totalCriteria — критерии с covered:true из общего
     // числа критериев движка). До правки уходили только в строку аудита.
-    coverageCriteria: { covered: res.coverage.criteria, total: res.coverage.totalCriteria },
+    // ADR 0045: uncovered — id слепых критериев в порядке движка, additive-поле.
+    coverageCriteria: {
+      covered: res.coverage.criteria,
+      total: res.coverage.totalCriteria,
+      uncovered: res.coverage.uncovered,
+    },
     ...(cls.insufficient
       ? { preview: { index: res.global.index, internal: round3(res.global.internal) } }
       : {}),

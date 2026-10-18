@@ -2,6 +2,12 @@
 // указатель latest, схема validate. Битый/отсутствующий снапшот → «Model unavailable»
 // в данных + событие ci:datastate, не падение.
 
+// Статический перечень 46 критериев — для проверки id в coverageCriteria.uncovered
+// (ADR 0045). Импорт сайтовый (criteria.js без зависимостей), calc/ не читается.
+import { CRITERIA_LIST } from './criteria.js';
+
+const CRITERIA_IDS = new Set(CRITERIA_LIST.map((c) => c.id));
+
 export const DATA_STATES = ['published', 'updating', 'delayed', 'insufficient', 'unavailable'];
 
 // Наборы регионов по версии таксономии (ADR 0028). Порядок id — канонический
@@ -252,16 +258,27 @@ function validateQuality(snapshot, errors) {
       Number.isInteger(c.totalDrivers) && c.totalDrivers > 0;
     if (!ok) errors.push('coverage: { coveredDrivers: int >= 0, totalDrivers: int > 0 }');
   }
-  // Покрытие критериев недели (R05/R06/R18): { covered: int >= 0, total: int > 0,
-  // covered <= total }. Поле опционально — недели, записанные до правки, валидны.
+  // Покрытие критериев недели (R05/R06/R18, ADR 0045): { covered: int >= 0,
+  // total: int > 0, covered <= total, uncovered?: string[] }. Поле опционально —
+  // недели, записанные до правки, валидны. uncovered, если есть, перечисляет
+  // ровно total − covered известных id без дублей.
   if (snapshot.coverageCriteria !== undefined) {
     const cc = snapshot.coverageCriteria;
-    const ok =
+    let ok =
       !!cc && typeof cc === 'object' && !Array.isArray(cc) &&
       Number.isInteger(cc.covered) && cc.covered >= 0 &&
       Number.isInteger(cc.total) && cc.total > 0 &&
       cc.covered <= cc.total;
-    if (!ok) errors.push('coverageCriteria: { covered: int >= 0, total: int > 0, covered <= total }');
+    if (ok && cc.uncovered !== undefined) {
+      ok =
+        Array.isArray(cc.uncovered) &&
+        cc.uncovered.every((id) => typeof id === 'string' && CRITERIA_IDS.has(id)) &&
+        new Set(cc.uncovered).size === cc.uncovered.length &&
+        cc.uncovered.length === cc.total - cc.covered;
+    }
+    if (!ok) {
+      errors.push('coverageCriteria: { covered: int >= 0, total: int > 0, covered <= total, uncovered?: string[] }');
+    }
   }
   if (snapshot.preview !== undefined) {
     const p = snapshot.preview;

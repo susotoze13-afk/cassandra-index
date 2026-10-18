@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { CRITERIA } from '../calc/engine.js';
 import { CRITERIA_LIST } from '../js/criteria.js';
 import { criteriaModel } from '../js/sections/methodology.js';
+import { DICTS } from '../js/i18n.js';
 
 // R05.1: список критериев на сайте гарантированно совпадает с тем, что считает
 // движок. Паритет импортом обоих модулей: одни и те же 46 id в том же порядке.
@@ -20,6 +21,18 @@ test('CRITERIA_LIST: драйвер каждого критерия совпад
   }
 });
 
+// ADR 0045: шкала и направление публичны — значит, они обязаны совпадать с
+// движком так же строго, как driver. Значения — из фиксированных наборов
+// engine.CRITERIA (scale: count|ordinal|binary, dir: esc|deesc).
+test('CRITERIA_LIST: scale и dir совпадают с engine.CRITERIA и лежат в допустимых наборах', () => {
+  for (const c of CRITERIA_LIST) {
+    assert.equal(c.scale, CRITERIA[c.id].scale, `scale mismatch for ${c.id}`);
+    assert.equal(c.dir, CRITERIA[c.id].dir, `dir mismatch for ${c.id}`);
+    assert.ok(['count', 'ordinal', 'binary'].includes(c.scale), `${c.id}: неизвестная шкала ${c.scale}`);
+    assert.ok(['esc', 'deesc'].includes(c.dir), `${c.id}: неизвестное направление ${c.dir}`);
+  }
+});
+
 // R05: у каждого критерия — название и описание наблюдаемого сигнала на обоих
 // языках (бриф: «название и короткое описание наблюдаемого сигнала (RU/EN)»).
 test('CRITERIA_LIST: name и desc непустые на RU и EN у всех 46 позиций', () => {
@@ -34,10 +47,11 @@ test('CRITERIA_LIST: name и desc непустые на RU и EN у всех 46 
   }
 });
 
-// R05: «без формул» — ни одна строка модуля не содержит знаков равенства,
+// R05: «без формул» — ни одна строка name/desc не содержит знаков равенства,
 // функций вида f(x)/w(x), пороговых шкал и служебных ссылок на разделы.
-// Шаблоны — из брифа тасска и §4 METHODOLOGY (где формулы и шкалы живут),
-// а не из кода под тестом.
+// Шаблоны — из брифа тасска и §4 METHODOLOGY (где формулы живут), а не из кода
+// под тестом. Шкала и направление вынесены в поля scale/dir (ADR 0045) и на
+// текст критерия не влияют.
 const FORMULA_RE = [
   { re: /=/, label: 'знак равенства' },
   { re: /(?<![\p{L}])[fw]\s*\(/iu, label: 'функция f()/w()' },
@@ -95,8 +109,40 @@ test('criteriaModel: заголовки драйверов — из RU-слов�
   }
 });
 
-// R05 (история 8): ни одной формулы и в выводе модели рендера.
-test('criteriaModel: вывод модели не содержит формул, шкал и порогов', () => {
+// ADR 0045: модель рендера несёт scale/dir, а их подписи живут в словаре.
+// Подписи — без чисел: числовая шкала (0–1, CAP) остаётся закрытой.
+test('criteriaModel: scale/dir у всех позиций, подписи из словаря и без чисел', () => {
+  const seenScale = new Set();
+  const seenDir = new Set();
+  for (const g of criteriaModel('ru')) {
+    for (const item of g.items) {
+      assert.ok(['count', 'ordinal', 'binary'].includes(item.scale), `${item.id}: scale ${item.scale}`);
+      assert.ok(['esc', 'deesc'].includes(item.dir), `${item.id}: dir ${item.dir}`);
+      seenScale.add(item.scale);
+      seenDir.add(item.dir);
+    }
+  }
+  assert.deepEqual([...seenScale].sort(), ['binary', 'count', 'ordinal']);
+  assert.deepEqual([...seenDir].sort(), ['deesc', 'esc']);
+
+  for (const scale of seenScale) {
+    const key = `method.criteria.scale.${scale}`;
+    const label = DICTS.ru[key];
+    assert.equal(typeof label, 'string', `нет ключа ${key}`);
+    assert.ok(label.trim().length > 0, `пустой ключ ${key}`);
+    assert.ok(!/\d/.test(label), `${key} содержит число: ${label}`);
+  }
+  for (const dir of seenDir) {
+    const key = `method.criteria.dir.${dir}`;
+    const label = DICTS.ru[key];
+    assert.equal(typeof label, 'string', `нет ключа ${key}`);
+    assert.ok(label.trim().length > 0, `пустой ключ ${key}`);
+    assert.ok(!/\d/.test(label), `${key} содержит число: ${label}`);
+  }
+});
+
+// R05 (история 8): ни одной формулы и в текстах вывода модели рендера.
+test('criteriaModel: тексты не содержат формул и порогов', () => {
   const failures = [];
   for (const lang of ['ru']) {
     for (const g of criteriaModel(lang)) {

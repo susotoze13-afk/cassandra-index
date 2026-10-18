@@ -221,6 +221,38 @@ test('trustFacts: битая форма coverageCriteria → null, не искл
   assert.equal(trustFacts({ ...SNAP, coverageCriteria: { covered: 1, total: 0 } }).coverage, null);
 });
 
+// ADR 0045: uncovered — id слепых критериев, сгруппированные по драйверам
+// в порядке статического списка; счётчики покрытия битым списком не ломаются.
+test('trustFacts: uncovered по драйверам в порядке списка; битый uncovered игнорируется', () => {
+  const f = trustFacts({
+    ...SNAP,
+    coverageCriteria: { covered: 43, total: 46, uncovered: ['D5.2', 'D1.2', 'D1.6'] },
+  });
+  assert.deepEqual(f.coverage, { covered: 43, total: 46, uncovered: ['D5.2', 'D1.2', 'D1.6'] });
+  assert.deepEqual(f.uncoveredByDriver, [
+    { driver: 'D1', total: 6, ids: ['D1.2', 'D1.6'] },
+    { driver: 'D5', total: 4, ids: ['D5.2'] },
+  ]);
+
+  // Нет поля — нет групп (старые недели): null, а не пустой массив.
+  assert.equal(trustFacts(SNAP).uncoveredByDriver, null);
+
+  // Битая форма списка → счётчики остаются, групп нет.
+  const broken = trustFacts({
+    ...SNAP,
+    coverageCriteria: { covered: 45, total: 46, uncovered: [42] },
+  });
+  assert.deepEqual(broken.coverage, { covered: 45, total: 46 });
+  assert.equal(broken.uncoveredByDriver, null);
+
+  // Полное покрытие — валидный пустой список.
+  const full = trustFacts({
+    ...SNAP,
+    coverageCriteria: { covered: 46, total: 46, uncovered: [] },
+  });
+  assert.deepEqual(full.uncoveredByDriver, []);
+});
+
 // R08/R18: порог = PARAMS.sensitivityThreshold (calc/params.js), сайт calc/ не читает.
 test('TRUST_SENSITIVITY_THRESHOLD = 5 (= PARAMS.sensitivityThreshold)', () => {
   assert.equal(TRUST_SENSITIVITY_THRESHOLD, 5);
@@ -245,6 +277,9 @@ test('i18n: ключи пяти фактов и «н/д» существуют',
     'trust.fact.blind', 'trust.fact.methodology', 'trust.na',
     'trust.details.clusters', 'trust.details.affiliated',
     'trust.details.coverage', 'trust.details.coverage.na', 'trust.details.sensitive',
+    'trust.details.coverage.drivers', 'trust.details.coverage.driver',
+    'trust.details.coverage.all', 'trust.details.sensitivity',
+    'trust.details.sensitivity.na',
     'trust.details.quotes', 'trust.details.quotedSources', 'sources.quote.label',
     'trust.title',
   ]) {

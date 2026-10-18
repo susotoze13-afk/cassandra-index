@@ -1,14 +1,17 @@
 // Статический список 46 критериев D1.1–D9.7 для раздела «Методология» (R05).
 // Данные по METHODOLOGY.md §4: сжатые названия и описания наблюдаемого сигнала,
-// без формул, шкал и порогов — расчётная часть методологии в публичный UI не
-// выносится. Порядок позиций совпадает с engine.CRITERIA (calc/engine.js);
-// рассинхрон страхует тест-паритет tests/methodology-criteria.test.js.
+// тип шкалы (scale: count|ordinal|binary) и направление (dir: esc|deesc, ADR 0045).
+// Формулы агрегации, веса, CAP и пороги в публичный UI не выносятся — эта граница
+// раскрытия зафиксирована в ADR 0045. Порядок позиций совпадает с engine.CRITERIA
+// (calc/engine.js); рассинхрон страхует тест-паритет tests/methodology-criteria.test.js.
 // Сайт не импортирует calc/ (конвенция) — список дублируется здесь намеренно.
 
 export const CRITERIA_LIST = [
   {
     id: 'D1.1',
     driver: 'D1',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Перемещения войск и военных колонн', en: 'Troop and military column movements' },
     desc: {
       ru: 'Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.',
@@ -18,6 +21,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D1.2',
     driver: 'D1',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Учения необычного масштаба', en: 'Exercises of unusual scale' },
     desc: {
       ru: 'Анонсированные и фактические учения, необычные по масштабу, близости к границе или одновременности на нескольких фронтах.',
@@ -27,6 +32,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D1.3',
     driver: 'D1',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Наращивание военной логистики', en: 'Military logistics build-up' },
     desc: {
       ru: 'Склады боеприпасов, топливные резервы, развёртывание полевых госпиталей, мостов и переправ.',
@@ -36,6 +43,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D1.4',
     driver: 'D1',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Актуальные боевые действия', en: 'Active hostilities' },
     desc: {
       ru: 'Обстрелы, авиаудары, пограничные инциденты и попытки прорыва; вторжение или открытие нового театра учитываются как наиболее тяжёлые события.',
@@ -45,6 +54,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D1.5',
     driver: 'D1',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Развёртывание стратегических систем', en: 'Deployment of strategic systems' },
     desc: {
       ru: 'Переброска ПВО, надводных групп, подводных сил и ядерной инфраструктуры; ядерная риторика учитывается отдельным драйвером.',
@@ -54,6 +65,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D1.6',
     driver: 'D1',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Разведение сил', en: 'Drawdown of forces' },
     desc: {
       ru: 'Подтверждённое разведение войск, вывод из позиций и сокращение активности.',
@@ -63,6 +76,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D2.1',
     driver: 'D2',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Публичные ядерные угрозы', en: 'Public nuclear threats' },
     desc: {
       ru: 'Явные заявления о применении ядерного оружия на уровне глав государств и министров обороны или иностранных дел.',
@@ -72,6 +87,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D2.2',
     driver: 'D2',
+    scale: 'binary',
+    dir: 'esc',
     name: { ru: 'Смена доктрины и договоров', en: 'Doctrine and treaty shifts' },
     desc: {
       ru: 'Изменения ядерной доктрины, выход из договоров по контролю над вооружениями, приостановка участия в механизмах уведомления.',
@@ -81,6 +98,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D2.3',
     driver: 'D2',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Технические ядерные сигналы', en: 'Technical nuclear signals' },
     desc: {
       ru: 'Учения стратегических сил, подвижки ракетных комплексов, подготовка полигонов, смена режима дежурств.',
@@ -90,6 +109,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D2.4',
     driver: 'D2',
+    scale: 'binary',
+    dir: 'esc',
     name: { ru: 'Повышение готовности ядерных сил', en: 'Raised nuclear readiness' },
     desc: {
       ru: 'Публичные заявления о переводе ядерных сил на особый режим.',
@@ -99,6 +120,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D2.5',
     driver: 'D2',
+    scale: 'binary',
+    dir: 'deesc',
     name: { ru: 'Отход от ядерной риторики', en: 'Step back from nuclear rhetoric' },
     desc: {
       ru: 'Отказ от ядерных угроз, подтверждённое возвращение сил к штатному режиму, восстановление договорных механизмов.',
@@ -108,6 +131,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D3.1',
     driver: 'D3',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Разрыв дипломатических отношений', en: 'Breakdown of diplomatic relations' },
     desc: {
       ru: 'Разрыв или понижение отношений, массовая высылка дипломатов, закрытие посольств.',
@@ -117,6 +142,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D3.2',
     driver: 'D3',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Ультиматумы', en: 'Ultimatums' },
     desc: {
       ru: 'Публично заявленные несовместимые требования сторон конфликта.',
@@ -126,6 +153,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D3.3',
     driver: 'D3',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Санкции и международно-правовые решения', en: 'Sanctions and legal measures' },
     desc: {
       ru: 'Новые пакеты санкций, резолюции, признание сторон конфликта террористическими и подобные решения.',
@@ -135,6 +164,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D3.4',
     driver: 'D3',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Переговоры и посредничество', en: 'Talks and mediation' },
     desc: {
       ru: 'Возобновление или запуск переговоров, посредничество третьих стран и организаций.',
@@ -144,6 +175,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D3.5',
     driver: 'D3',
+    scale: 'count',
+    dir: 'deesc',
     name: { ru: 'Гуманитарные договорённости', en: 'Humanitarian arrangements' },
     desc: {
       ru: 'Договорённости о коридорах, обменах пленными и доступе инспекций.',
@@ -153,6 +186,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.1',
     driver: 'D4',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Новые санкции и контрсанкции', en: 'New sanctions and countersanctions' },
     desc: {
       ru: 'Ограничения на экспорт энергоносителей и критичных товаров; само решение об ограничениях учитывается дипломатическим драйвером.',
@@ -162,6 +197,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.2',
     driver: 'D4',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Военные расходы', en: 'Military spending' },
     desc: {
       ru: 'Экстренные бюджетные ассигнования и переход экономики на военные рельсы по открытым бюджетам и официальным решениям.',
@@ -171,6 +208,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.3',
     driver: 'D4',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Разрыв цепочек поставок', en: 'Supply chain disruption' },
     desc: {
       ru: 'Перебои с критичными ресурсами: редкие металлы, микроэлектроника, компоненты оборонной промышленности.',
@@ -180,6 +219,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.4',
     driver: 'D4',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Конфискации и блокировка торговли', en: 'Asset seizures and trade blockage' },
     desc: {
       ru: 'Конфискации и национализация активов конфликтующих сторон, блокировка торговых путей.',
@@ -189,6 +230,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.5',
     driver: 'D4',
+    scale: 'count',
+    dir: 'deesc',
     name: { ru: 'Снятие экономических ограничений', en: 'Easing of economic restrictions' },
     desc: {
       ru: 'Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.',
@@ -198,6 +241,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D4.6',
     driver: 'D4',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Стресс на финансовых и сырьевых рынках', en: 'Financial and commodity market stress' },
     desc: {
       ru: 'Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.',
@@ -207,6 +252,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D5.1',
     driver: 'D5',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Эскалация военной риторики', en: 'Escalation of war rhetoric' },
     desc: {
       ru: 'Переход к языку неизбежности и дегуманизации противника в официальных государственных СМИ и заявлениях.',
@@ -216,6 +263,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D5.2',
     driver: 'D5',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Кибероперации', en: 'Cyber operations' },
     desc: {
       ru: 'Подтверждённые атаки на критическую инфраструктуру — энергетику, связь, транспорт, госорганы — с атрибуцией конфликтующей стороной.',
@@ -225,6 +274,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D5.3',
     driver: 'D5',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Дезинформационные кампании', en: 'Disinformation campaigns' },
     desc: {
       ru: 'Координированные кампании, разворачиваемые в преддверии военных действий, по отчётам проверенных аналитических центров.',
@@ -234,6 +285,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D5.4',
     driver: 'D5',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Снижение пропаганды', en: 'Easing of propaganda' },
     desc: {
       ru: 'Снижение уровня военной пропаганды, закрытие каналов разжигания, публичные опровержения эскалационных нарративов.',
@@ -243,6 +296,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D6.1',
     driver: 'D6',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Военное положение и мобилизация', en: 'Martial law and mobilisation' },
     desc: {
       ru: 'Введение или расширение военного положения, мобилизационные законы, скрытая мобилизация по подтверждённым данным.',
@@ -252,6 +307,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D6.2',
     driver: 'D6',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Эвакуация населения', en: 'Evacuation of population' },
     desc: {
       ru: 'Эвакуация из приграничных и прифронтовых зон, создание убежищ, учения гражданской обороны необычного масштаба.',
@@ -261,6 +318,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D6.3',
     driver: 'D6',
+    scale: 'binary',
+    dir: 'esc',
     name: { ru: 'Военная переориентация экономики', en: 'Military reorientation of the economy' },
     desc: {
       ru: 'Военные госзаказы, ограничение выезда для военнообязанных.',
@@ -270,6 +329,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D6.4',
     driver: 'D6',
+    scale: 'binary',
+    dir: 'deesc',
     name: { ru: 'Отмена мобилизационных мер', en: 'Rollback of mobilisation measures' },
     desc: {
       ru: 'Отмена мобилизационных мер, возвращение гражданских режимов, возвращение эвакуированных.',
@@ -279,6 +340,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D7.1',
     driver: 'D7',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Вовлечение новых государств', en: 'Entry of new states' },
     desc: {
       ru: 'Прямое военное вовлечение новых государств: ввод войск, поставки оружия с эскалационным эффектом, базирование.',
@@ -288,6 +351,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D7.2',
     driver: 'D7',
+    scale: 'count',
+    dir: 'esc',
     name: { ru: 'Атаки за пределами театра', en: 'Attacks beyond the theatre' },
     desc: {
       ru: 'Атаки на объекты за пределами основного театра: торговые суда, трубопроводы, дипмиссии, инфраструктура третьих стран.',
@@ -297,6 +362,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D7.3',
     driver: 'D7',
+    scale: 'binary',
+    dir: 'esc',
     name: { ru: 'Новые фронты', en: 'New fronts' },
     desc: {
       ru: 'Открытие новых фронтов или театров в соседних регионах.',
@@ -306,6 +373,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D7.4',
     driver: 'D7',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Выход третьих сторон', en: 'Withdrawal of third parties' },
     desc: {
       ru: 'Выход третьих сторон из конфликта, прекращение поставок, закрытие базирования.',
@@ -315,6 +384,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D8.1',
     driver: 'D8',
+    scale: 'binary',
+    dir: 'deesc',
     name: { ru: 'Прекращение огня', en: 'Ceasefire' },
     desc: {
       ru: 'Прекращение огня или перемирие, соблюдаемое в течение всего окна без нарушений.',
@@ -324,6 +395,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D8.2',
     driver: 'D8',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Мирные договорённости', en: 'Peace arrangements' },
     desc: {
       ru: 'Подписанные мирные договорённости, разведение сил и тяжёлого вооружения по верифицируемым схемам.',
@@ -333,6 +406,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D8.3',
     driver: 'D8',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Наблюдение и верификация', en: 'Monitoring and verification' },
     desc: {
       ru: 'Международное наблюдение: миссии, инспекции, мониторинг соблюдения режимов.',
@@ -342,6 +417,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D8.4',
     driver: 'D8',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Снижение интенсивности событий', en: 'Sustained drop in event intensity' },
     desc: {
       ru: 'Устойчивое снижение числа эскалационных инцидентов на протяжении нескольких недель подряд без нарушения режимов.',
@@ -351,6 +428,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.1',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Медицинская подготовка', en: 'Medical preparation' },
     desc: {
       ru: 'Необычные закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков.',
@@ -360,6 +439,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.2',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Финансовая изоляция', en: 'Financial isolation' },
     desc: {
       ru: 'Капитальные ограничения, отзыв активов из-за рубежа, приостановка выплат по внешнему долгу, военные займы, запреты на экспорт продовольствия и топлива.',
@@ -369,6 +450,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.3',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Транспорт и страхование', en: 'Transport and insurance' },
     desc: {
       ru: 'Рост военных страховых надбавок, отзыв страхового покрытия, массовая отмена авиарейсов, закрытие воздушного пространства, военные приоритеты на железных дорогах, изъятие подвижного состава.',
@@ -378,6 +461,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.4',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Стратегическое накопление', en: 'Strategic stockpiling' },
     desc: {
       ru: 'Аномальные закупки в госрезервы, круглосуточные режимы предприятий оборонной промышленности, мобилизационные заказы гражданским заводам, накопление топлива вблизи театра.',
@@ -387,6 +472,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.5',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Кадровые и мобилизационные меры', en: 'Personnel and mobilisation measures' },
     desc: {
       ru: 'Изменение возраста и категорий призыва, расширение списков военнообязанных, ограничения выезда для отдельных категорий специалистов, изменения законов о военной службе без объявления мобилизации.',
@@ -396,6 +483,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.6a',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Информационный суверенитет', en: 'Information sovereignty' },
     desc: {
       ru: 'Усиление цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО и оборудования в критичных отраслях, «подогревка» госСМИ и военно-патриотические кампании, постановка помех спутниковой навигации.',
@@ -405,6 +494,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.6b',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'esc',
     name: { ru: 'Эвакуация элит и активов', en: 'Evacuation of elites and assets' },
     desc: {
       ru: 'Вывоз семей дипломатов и чиновников, отзыв студентов и специалистов из-за рубежа, эвакуация музейных ценностей и архивов, перебазирование командных пунктов и правительственных резервов.',
@@ -414,6 +505,8 @@ export const CRITERIA_LIST = [
   {
     id: 'D9.7',
     driver: 'D9',
+    scale: 'ordinal',
+    dir: 'deesc',
     name: { ru: 'Снятие «тихих» мер', en: 'Lifting of quiet measures' },
     desc: {
       ru: 'Отмена капитального контроля, возвращение дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам, возвращение эвакуированных коллекций.',

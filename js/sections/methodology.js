@@ -4,8 +4,8 @@
 // обоснование порогов историческими якорями и версия методологии (R66);
 // открытые вопросы PRD §19 + v1.3, перенесённые документально (R85).
 // Метафора часов нигде не используется (R79). Контент статичен — из словаря
-// i18n; числовые параметры и формулы в публичный UI не выносятся (PRD §8.1,
-// внутренние скоринги остаются в закрытой части методологии).
+// i18n; формулы агрегации, веса, CAP и пороги в публичный UI не выносятся —
+// публичны тип шкалы и направление критерия (ADR 0045).
 
 import { t } from '../i18n.js';
 import * as risk from '../risk.js';
@@ -67,14 +67,31 @@ export function criteriaModel(lang) {
       };
       groups.push(group);
     }
-    group.items.push({ id: c.id, name: c.name[lang], desc: c.desc[lang] });
+    group.items.push({
+      id: c.id,
+      name: c.name[lang],
+      desc: c.desc[lang],
+      // Шкала и направление — только идентификаторы; подписи берёт рендер из
+      // словаря (ADR 0045). Здесь чисел нет: диапазоны и CAP закрыты.
+      scale: c.scale,
+      dir: c.dir,
+    });
   }
   return groups;
 }
 
+// Чипы «направление» и «тип шкалы» — публичная часть методологии (ADR 0045):
+// сама формула агрегации, веса и пороги остаются закрытыми.
+function criteriaMetaNode(lang, item) {
+  const meta = el('div', 'method-criteria-meta');
+  meta.appendChild(el('span', 'method-criteria-chip', t(lang, `method.criteria.dir.${item.dir}`)));
+  meta.appendChild(el('span', 'method-criteria-chip', t(lang, `method.criteria.scale.${item.scale}`)));
+  return meta;
+}
+
 // Сворачиваемая группа драйвера: <details>/<summary> — нативная a11y
 // (клавиатура и скринридер без скриптов). DOM только createElement + textContent.
-function criteriaGroupNode(group) {
+function criteriaGroupNode(group, lang) {
   const details = el('details', 'method-criteria-group');
   const summary = el('summary', 'method-criteria-summary');
   summary.appendChild(el('span', 'method-criteria-driver', group.title));
@@ -87,6 +104,7 @@ function criteriaGroupNode(group) {
     head.appendChild(el('span', 'method-criteria-id', item.id));
     head.appendChild(el('span', 'method-criteria-name', item.name));
     li.appendChild(head);
+    li.appendChild(criteriaMetaNode(lang, item));
     li.appendChild(el('div', 'method-criteria-desc', item.desc));
     ul.appendChild(li);
   }
@@ -94,14 +112,14 @@ function criteriaGroupNode(group) {
   return details;
 }
 
-// Блок «Полный перечень критериев» для раздела (R05). Сигналы — без формул,
-// шкал и порогов: это принципиально зафиксировано в js/criteria.js и его тесте.
+// Блок «Полный перечень критериев» для раздела (R05). Сигналы — без формул
+// агрегации и порогов; тип шкалы и направление критерия публичны (ADR 0045).
 function criteriaBlock(lang) {
   const block = el('div', 'method-block');
   block.appendChild(el('h3', '', t(lang, 'method.criteria.title')));
   block.appendChild(el('p', '', t(lang, 'method.criteria.intro')));
   for (const group of criteriaModel(lang)) {
-    block.appendChild(criteriaGroupNode(group));
+    block.appendChild(criteriaGroupNode(group, lang));
   }
   return block;
 }

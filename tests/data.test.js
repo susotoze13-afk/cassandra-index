@@ -270,6 +270,16 @@ test('validate: coverageCriteria принимается опционально; 
   full.coverageCriteria = { covered: 46, total: 46 };
   assert.equal(validate(full).ok, true);
 
+  // ADR 0045: uncovered опционален, но если есть — длина ровно total − covered,
+  // id только из 46, без дублей.
+  const withIds = validSnapshot();
+  withIds.coverageCriteria = { covered: 44, total: 46, uncovered: ['D1.2', 'D5.2'] };
+  assert.deepEqual(validate(withIds).errors, []);
+
+  const allCovered = validSnapshot();
+  allCovered.coverageCriteria = { covered: 46, total: 46, uncovered: [] };
+  assert.deepEqual(validate(allCovered).errors, []);
+
   // Поле отсутствует — старые недели остаются валидными.
   const absent = validSnapshot();
   assert.equal(validate(absent).ok, true);
@@ -285,6 +295,11 @@ test('validate: coverageCriteria принимается опционально; 
     { name: 'covered > total', value: { covered: 47, total: 46 } },
     { name: 'нет total', value: { covered: 3 } },
     { name: 'нет covered', value: { total: 46 } },
+    { name: 'uncovered не массив', value: { covered: 44, total: 46, uncovered: 'D1.2' } },
+    { name: 'uncovered неизвестный id', value: { covered: 44, total: 46, uncovered: ['D1.2', 'D99.9'] } },
+    { name: 'uncovered дубль', value: { covered: 44, total: 46, uncovered: ['D1.2', 'D1.2'] } },
+    { name: 'uncovered длина не та', value: { covered: 44, total: 46, uncovered: ['D1.2'] } },
+    { name: 'uncovered не строка', value: { covered: 44, total: 46, uncovered: ['D1.2', 7] } },
   ];
   for (const c of cases) {
     const s = validSnapshot();
