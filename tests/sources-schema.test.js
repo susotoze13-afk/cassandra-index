@@ -112,3 +112,36 @@ test('validate: запись новой схемы без cluster_id откло�
   assert.equal(v.ok, false);
   assert.ok(v.errors.some((e) => e.includes('drivers[0].sources')));
 });
+
+// ADR 0040: origin — опциональное строковое поле R55-записи (происхождение:
+// собрано в неделю или добавлено задним числом). Тип проверяется той же веткой
+// опциональных полей; enum — соглашение, не ворота (см. ADR).
+test('R55: origin источника — допустимое строковое поле, тип проверяется', async () => {
+  const { validateInputSources } = await import('../calc/calc.js');
+  const base = {
+    id: 'x', title: { ru: 'Т', en: 'T' }, domain: 'example.com',
+    url: 'https://example.com/a', publication_date: '2026-10-09',
+    accessed_date: '2026-10-11', source_type: 'secondary',
+    cluster_id: 'A-mainstream', state_affiliated: false,
+  };
+  assert.deepEqual(validateInputSources([{ ...base, origin: 'editorial-backfill' }]), []);
+  assert.deepEqual(validateInputSources([{ ...base, origin: 'collected-in-week' }]), []);
+  const bad = validateInputSources([{ ...base, origin: 42 }]);
+  assert.ok(bad.some((e) => e.includes('origin')), 'нестроковый origin должен отклоняться');
+});
+
+// ADR 0040: новые top-level поля входа (blindReasons, rejected, legacy_skeleton)
+// не ломают контракт — движок читает только известные ключи.
+test('вход с полями ADR 0040 проходит engine.validate', async () => {
+  const { validate: validateInput, CRITERIA } = await import('../calc/engine.js');
+  const criteria = {};
+  for (const id of Object.keys(CRITERIA)) criteria[id] = null;
+  const errors = validateInput({
+    week: '2026-10-25',
+    criteria,
+    blindReasons: { 'D1.1': 'not-collected', 'D1.2': 'searched-none' },
+    rejected: [{ url: 'https://example.com/b', date: '2026-10-20', reason: 'weak' }],
+    legacy_skeleton: false,
+  });
+  assert.deepEqual(errors, []);
+});

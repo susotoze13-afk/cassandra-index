@@ -24,6 +24,7 @@
 | Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
+| Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
 | Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
@@ -94,14 +95,30 @@ calc/prepare-week.js      механика новой недели для weekly
                           тесты недель-списков не дублируют regex: tests/weeklists-agreement.test.js)
                           + CLI [--write]; тесты tests/prepare-week.test.js
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
+calc/history-debt.js      долг истории источников (ADR 0040), чистый модуль: weekDebt/
+                          debtReport/debtLine (критерий-недели с причиной not-collected),
+                          backfillTasks (окно PARAMS.backfillWindow от недели первого
+                          покрытия по PARAMS.backfillCriteria), validateRejected и
+                          validateBlindReasons (warning, не ворота), enum-ы
+                          BLIND_REASONS/ORIGINS/REJECT_REASONS;
+                          тесты tests/history-debt.test.js
+calc/backfill-report.js   CLI долга истории: сводка + чек-лист дозабора
+                          [--window N] [--weeks a,b]; только чтение и печать
+                          (источники собирает человек, governance §10.1);
+                          тесты tests/backfill-report.test.js
 calc/migrate-week-combined.js  идемпотентная разовая миграция: `data/<week>/week.js`
                           из дисковых частей той же функцией, что и calc.js --write
                           (renderWeekCombined + loadWeekParts из calc.js)
 calc/input/<неделя>.json  входные сигналы недели: 46 критериев D1..D9 ({value, covered,
-                          sources}, слепые — covered:false с аттестацией), R55-источники
+                          sources}; слепой критерий — null), R55-источники
                           (top-level, 20–82 записи/неделя), driverConfidence; покрытие
                           27–43/46; критерий может нести опциональную региональную
-                          атрибуцию `regions: string[]` (§4.1.9)
+                          атрибуцию `regions: string[]` (§4.1.9). Поля ADR 0040:
+                          `blindReasons{id: not-collected|searched-none|gate-failed}`
+                          (обязательны с PARAMS.blindReasonFrom), `rejected[]`
+                          (url+date+reason отбракованных), `legacy_skeleton: true` у
+                          ранних недель-скелетов 08-30/09-06/09-13; у источника —
+                          `origin: collected-in-week|editorial-backfill`
 calc/input/drafts/        пилот Jev: черновики `<неделя>.llm-draft.json` (schema_version 2,
                           append-only), корпус текстов `texts-<неделя>/<source_id>.txt`
                           (предоставляет человек), сырой вход пилота `pilot-llm-<неделя>.json`
@@ -147,7 +164,10 @@ docs/adr/                 зафиксированные архитектурн�
                           calc/classify.js, схема черновика v2; 0037 — еженедельная
                           аналитическая рубрика; 0038 — дельта региона без истории
                           считается от прошлого глобального фона; полное региональное
-                          покрытие недели 10-18)
+                          покрытие недели 10-18; 0040 — история источников: причина
+                          слепоты (blindReasons), реестр отбраковки (rejected[]),
+                          происхождение записи (origin) и окно дозабора N = 4; база
+                          данных не подключается — хранения достаточно)
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
                           D1…D9 (текст документа ещё говорит «45» — под 46/3.0 не
                           обновлён):
@@ -194,6 +214,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал);
   `PARAMS.methodology = '3.0'` — единственный источник версии перевыпуска
   (renderGlobal берёт её отсюда; `published` — защищённое поле из прежнего снапшота).
+  ADR 0040: `blindReasonFrom` (`2026-10-25` — с этой недели причина слепоты
+  обязательна), `backfillWindow` (4) и `backfillCriteria` (39 id: esc ∪
+  Д1/Д3/Д5/Д6/Д7) — процедура дозабора при смене методологии; паритет списка
+  с правилом пинит `tests/history-debt.test.js`.
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
   маппинг в calibrate.js не дублируется).
@@ -213,6 +237,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   `validateInputSources` (строгая схема R55, cluster_id по whitelist PARAMS.clusters),
   `ignoredRegionalAttribution` (R01.2 — сортированные id Д2/Д4/Д9-кроме-D9.3 с непустой
   `regions[]`; поле `ignoredAttribution` в выводе runWeek, предупреждение об игноре ADR 0022),
+  история источников (ADR 0040): `runWeek` кладёт в результат `debt: weekDebt(week, input)`
+  и `schemaWarnings` (`validateBlindReasons` + `validateRejected`), `printWeek` печатает
+  строку «долг истории: N критерий-недель …» и эти предупреждения — всё warning, запись
+  не блокируется;
   `renderGlobal` (through = дата недели — конвенция таска 05, тест tests/through.test.js;
   пишет `s.regions_taxonomy` недели и, при заданном `meta.coverageCriteria`,
   `s.coverageCriteria = {covered, total}` — покрытие критериев недели R05/R06, ADR 0033;
@@ -431,6 +459,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель и
 региональный охват africa/south-asia — см. подводные камни); схема источников R55:
 `tests/sources-schema.test.js`;
+долг истории источников (ADR 0040): `tests/history-debt.test.js` (enum-ы, паритет
+`PARAMS.backfillCriteria` с правилом esc ∪ Д1/Д3/Д5/Д6/Д7, окно от недели первого
+покрытия, `validateRejected`/`validateBlindReasons` — warning) и
+`tests/backfill-report.test.js` (отчёт на синтетике и на реальных входах; CLI
+не пишет файлы);
 insufficient-публикация (classifyPublication, nextChainState): `tests/insufficient.test.js`;
 through-конвенция: `tests/through.test.js`; список критериев (паритет criteria.js ↔
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
@@ -545,7 +578,19 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищено только published.
 - Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
-  слепые критерии — `covered:false` с аттестацией, null-значений вместо covered-флага нет.
+  слепой критерий — `criteria[id] = null` (формы `covered:false` во входах нет,
+  прежняя формулировка этого файла была неверна). Начиная с недели `PARAMS.blindReasonFrom`
+  (`2026-10-25`) причина слепоты фиксируется `blindReasons[id]` (ADR 0040);
+  у архивных недель поле отсутствует и трактуется как `unknown` — задним числом
+  причины не приписываются (forward-only для схемы).
+- **База данных не нужна** (ADR 0040): источники прошлых недель хранятся в
+  `calc/input/<week>.json` + `data/<week>/sources.js` + git, и по истории
+  `calc/input/` они только прибывали. Боль была не в хранилище, а в покрытии:
+  слепой критерий той недели не собирали вообще. Не предлагать БД как решение
+  «нет истории источников» — лечится `blindReasons`/`rejected[]`/дозабором.
+  Долг истории считается по причине `not-collected` и печатается только в
+  консоль (`calc/history-debt.js`), в `data/` не публикуется; окно дозабора —
+  4 недели **назад от недели первого покрытия** критерия, а не от «сегодня».
 - `coverageCriteria` (ADR 0033) — опциональное поле quality-блока снапшота; его несёт
   только неделя, пересчитанная после правки — на диске это **одна 10-18** (27/46;
   `grep coverageCriteria data/*/global.js`), 10-04/10-11 пересчитывались раньше и поля

@@ -188,10 +188,10 @@
       "value": 0.67,
       "covered": true,
       "sources": [
-        { "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html", "date": "2026-10-09", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.energyconnects.com/news/gas-lng/2026/october/iran-ramps-up-ship-attacks-in-hormuz-as-oil-gas-flows-rise/", "date": "2026-10-07", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
-        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+        { "url": "https://www.cnbc.com/2026/10/09/iran-war-strait-hormuz-tanker-attack-oil.html", "date": "2026-10-09", "origin": "editorial-backfill", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.energyconnects.com/news/gas-lng/2026/october/iran-ramps-up-ship-attacks-in-hormuz-as-oil-gas-flows-rise/", "date": "2026-10-07", "origin": "editorial-backfill", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://foreignpolicy.com/2026/10/09/diesel-crisis-oil-fuel-refineries-iran-ukraine-war/", "date": "2026-10-09", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/europe/eu-china-at-trade-crossroads-amid-strict-market-access-plans-threatening-new-trade-war/4082551", "date": "2026-10-08", "origin": "editorial-backfill", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
     "D5.1": {

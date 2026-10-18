@@ -1,5 +1,6 @@
 {
   "week": "2026-09-06",
+  "legacy_skeleton": true,
   "params": "calc/params.js",
   "criteria": {
     "D1.1": {
@@ -206,8 +207,8 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://commodity-board.com/%D1%80%D0%BE%D1%81%D1%81%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B4%D0%BB%D0%B5%D0%B2%D0%B0%D0%B5%D1%82-%D0%B7%D0%B0%D0%BF%D1%80%D0%B5%D1%82-%D0%BD%D0%B0-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B8%D0%B7%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D0%BE%D0%BF%D0%BB%D0%B8%D0%B2%D0%B0-%D0%B4%D0%BE-30-%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8F-2026-%D0%B3%D0%BE%D0%B4%D0%B0", "date": "2026-09-01", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
-        { "url": "https://marketpower.pro/publications/vlasti-rossii-prodlili-zapret-na-eksport-dizelnogo-topliva-do-30-sentiabria", "date": "2026-09-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+        { "url": "https://commodity-board.com/%D1%80%D0%BE%D1%81%D1%81%D0%B8%D1%8F-%D0%BF%D1%80%D0%BE%D0%B4%D0%BB%D0%B5%D0%B2%D0%B0%D0%B5%D1%82-%D0%B7%D0%B0%D0%BF%D1%80%D0%B5%D1%82-%D0%BD%D0%B0-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82-%D0%B4%D0%B8%D0%B7%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D0%BE%D0%BF%D0%BB%D0%B8%D0%B2%D0%B0-%D0%B4%D0%BE-30-%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8F-2026-%D0%B3%D0%BE%D0%B4%D0%B0", "date": "2026-09-01", "origin": "editorial-backfill", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://marketpower.pro/publications/vlasti-rossii-prodlili-zapret-na-eksport-dizelnogo-topliva-do-30-sentiabria", "date": "2026-09-03", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ]
     },
     "D5.1": {

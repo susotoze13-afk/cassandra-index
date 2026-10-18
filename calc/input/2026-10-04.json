@@ -267,9 +267,9 @@
       "value": 0.67,
       "covered": true,
       "sources": [
-        { "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency", "date": "2026-10-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517", "date": "2026-10-03", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html", "date": "2026-10-03", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+        { "url": "https://www.straitstimes.com/world/325-million-barrels-of-oil-from-strategic-reserves-released-says-international-energy-agency", "date": "2026-10-03", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517", "date": "2026-10-03", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://english.news.cn/20261003/6e3415aa91444ece9a916428366a799f/c.html", "date": "2026-10-03", "origin": "editorial-backfill", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
     "D4.5": null,

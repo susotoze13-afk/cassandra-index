@@ -1,5 +1,6 @@
 {
   "week": "2026-08-30",
+  "legacy_skeleton": true,
   "params": "calc/params.js",
   "criteria": {
     "D1.1": {
@@ -191,9 +192,9 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.akm.ru/eng/comments/bspb-market-monitoring-august-24-2026/", "date": "2026-08-24", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html", "date": "2026-08-28", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports", "date": "2026-08-25", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+        { "url": "https://www.akm.ru/eng/comments/bspb-market-monitoring-august-24-2026/", "date": "2026-08-24", "origin": "editorial-backfill", "cluster": "F-financial", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.lemonde.fr/en/international/article/2026/08/28/ukraine-s-black-sea-port-blockade-strangles-grain-exports_6756947_4.html", "date": "2026-08-28", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.world-grain.com/articles/23138-escalating-war-stalling-black-sea-grain-exports", "date": "2026-08-25", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ]
     },
     "D5.1": {

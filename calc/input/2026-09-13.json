@@ -1,5 +1,6 @@
 {
   "week": "2026-09-13",
+  "legacy_skeleton": true,
   "params": "calc/params.js",
   "criteria": {
     "D1.1": {
@@ -174,8 +175,8 @@
       "value": 0.67,
       "covered": true,
       "sources": [
-        { "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020", "date": "2026-09-12", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.mentoday.ru/life/news/08-09-2026/ceny-ustakanilis-ocheredi-na-azs-sokrashchayutsya-chto-proishodit-s-benzinom-v-regionah-i-chto-budet-osenyu/", "date": "2026-09-08", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+        { "url": "https://sergeytereshkin.co.uk/publications/oil-and-gas-news-saturday-12-september-2026-brent-ends-week-above-100-diesel-in-usa-over-6-iea-reports-largest-demand-decline-since-2020", "date": "2026-09-12", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.mentoday.ru/life/news/08-09-2026/ceny-ustakanilis-ocheredi-na-azs-sokrashchayutsya-chto-proishodit-s-benzinom-v-regionah-i-chto-budet-osenyu/", "date": "2026-09-08", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ]
     },
     "D5.1": {

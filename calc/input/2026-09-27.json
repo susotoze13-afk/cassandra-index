@@ -310,9 +310,9 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.theguardian.com/business/2026/sep/27/londons-investment-bankers-lawyers-paid-more-than-1bn", "date": "2026-09-27", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491", "date": "2026-09-27", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
-        { "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz", "date": "2026-09-27", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+        { "url": "https://www.theguardian.com/business/2026/sep/27/londons-investment-bankers-lawyers-paid-more-than-1bn", "date": "2026-09-27", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/middle-east/iraq-us-agree-to-resume-dollar-cash-shipments/4070491", "date": "2026-09-27", "origin": "editorial-backfill", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.aljazeera.com/economy/2026/9/27/can-iran-shift-trade-north-to-caspian-sea-as-war-impairs-strait-of-hormuz", "date": "2026-09-27", "origin": "editorial-backfill", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
     "D4.4": null,

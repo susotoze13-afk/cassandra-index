@@ -34,6 +34,7 @@ import {
 import { sensitivityScore } from './sensitivity.js';
 import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
+import { weekDebt, validateRejected, validateBlindReasons, weeksGenitive } from './history-debt.js';
 import * as audit from './audit.js';
 
 // Швы шага недели реэкспортируются для обратной совместимости: тесты и
@@ -67,9 +68,10 @@ export function ignoredRegionalAttribution(criteria) {
 // --- Строгая валидация top-level sources входа (R55) ---
 // Полная схема: id/title{ru,en}/domain/url/publication_date/accessed_date/
 // source_type(primary|secondary|OSINT)/cluster_id (whitelist)/state_affiliated
-// + опциональные author/archive_url/archive_date/confidence/notes.
+// + опциональные author/archive_url/archive_date/confidence/notes,
+// origin (ADR 0040: collected-in-week|editorial-backfill).
 // Ошибка — запись недели не производится.
-const SOURCE_OPTIONALS = ['author', 'archive_url', 'archive_date', 'confidence', 'notes'];
+const SOURCE_OPTIONALS = ['author', 'archive_url', 'archive_date', 'confidence', 'notes', 'origin'];
 
 export function validateInputSources(sources, params = PARAMS) {
   if (!Array.isArray(sources)) return ['sources: must be an array'];
@@ -476,6 +478,14 @@ export function runWeek(week, state) {
     flash: detectFlashTriggers(input.criteria, PARAMS) ? flashDetails(input.criteria, PARAMS) : [],
     core: checkCoreSources(input, PARAMS),
     ignoredAttribution: ignoredRegionalAttribution(input.criteria),
+    // История источников (ADR 0040): долг недели (слепые критерии с причиной
+    // not-collected) и предупреждения схемы — rejected[] и обязательность
+    // blindReasons с PARAMS.blindReasonFrom. Всё warning, запись не блокирует.
+    debt: weekDebt(week, input),
+    schemaWarnings: [
+      ...validateBlindReasons(input, PARAMS),
+      ...validateRejected(input),
+    ],
     coverage: {
       criteria: Object.values(input.criteria || {}).filter((c) => c && c.covered === true).length,
       totalCriteria: Object.keys(CRITERIA).length,
@@ -702,6 +712,14 @@ function printWeek(res, writeMode, writeRejected = false) {
       `(Д2/Д4/Д9 кроме Д9.3, ADR 0022): ${res.ignoredAttribution.join(', ')}`,
     );
   }
+  // ADR 0040: долг истории недели и предупреждения схемы входа (warning).
+  if (res.debt) {
+    const b = res.debt.byReason;
+    lines.push(`долг истории: ${res.debt.debt} критерий-недель (not-collected ${b['not-collected']}, ` +
+      `searched-none ${b['searched-none']}, gate-failed ${b['gate-failed']}, unknown ${b.unknown})` +
+      `${res.debt.legacySkeleton ? ' — ранний скелет' : ''} — окно дозабора ${PARAMS.backfillWindow} ${weeksGenitive(PARAMS.backfillWindow)}`);
+  }
+  for (const w of (res.schemaWarnings || [])) lines.push(`предупреждение: ${w}`);
   const nSignaled = Object.values(res.regions).filter((r) => !r.background).length;
   lines.push(`regions (фоновые, nReg=0 → сохранено последнее региональное отклонение от глобального фона; с сигналами: ${nSignaled}):`);
   for (const [id, r] of Object.entries(res.regions)) {

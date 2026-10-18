@@ -446,9 +446,9 @@
       "value": 0.33,
       "covered": true,
       "sources": [
-        { "url": "https://www.reuters.com/business/londons-marine-insurers-widen-black-sea-high-risk-zone-shipping-attacks-surge-2026-09-18/", "date": "2026-09-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.vedomosti.ru/business/articles/2026/09/15/1229127-pravitelstvo-prodlit-zapret", "date": "2026-09-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
-        { "url": "https://www.interfax.ru/business/1116328", "date": "2026-09-16", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+        { "url": "https://www.reuters.com/business/londons-marine-insurers-widen-black-sea-high-risk-zone-shipping-attacks-surge-2026-09-18/", "date": "2026-09-18", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.vedomosti.ru/business/articles/2026/09/15/1229127-pravitelstvo-prodlit-zapret", "date": "2026-09-15", "origin": "editorial-backfill", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.interfax.ru/business/1116328", "date": "2026-09-16", "origin": "editorial-backfill", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ]
     },
     "D5.1": {
