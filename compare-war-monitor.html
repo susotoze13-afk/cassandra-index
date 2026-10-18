@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Cassandra Index и War Monitor: чем отличаются</title>
+  <meta name="description" content="Cassandra Index и War Monitor: что общего у недельного индекса и карты конфликтов реального времени, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <link rel="canonical" href="https://cassindex.ru/compare-war-monitor.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Cassandra Index и War Monitor: чем отличаются">
+  <meta property="og:description" content="Cassandra Index и War Monitor: что общего у недельного индекса и карты конфликтов реального времени, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <meta property="og:url" content="https://cassindex.ru/compare-war-monitor.html">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="how-to-read.html">Как читать индекс</a>
+        <a href="compare.html">Сравнение</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Cassandra Index и War Monitor: чем отличаются</h1>
+    <p class="doc-lede">Оба проекта дают публичную оценку конфликтного риска и не берут за это плату. Разница — в единице наблюдения, ритме и способе получить число. Ниже — что общего, чем мы отличаемся и чего у нас нет.</p>
+    <p class="doc-meta">Факты о War Monitor проверены 2026-10-18 по открытому описанию проекта. Методология и данные Cassandra Index — по состоянию на неделю 18 октября 2026 года.</p>
+
+    <section aria-labelledby="what-title">
+      <h2 id="what-title">Что это</h2>
+      <p>War Monitor — бесплатная карта глобального конфликта и риска войны в реальном времени. По описанию проекта, он собирает более 100 открытых источников (среди них ACLED, UCDP, GDELT, HAPI/HDX и новостные ленты), показывает военные полёты, корабли, базы, рыночные и кибер-индикаторы, а также катастрофы. У него есть индекс CII от 0 до 100 по странам, глобальный уровень угрозы от 1 до 10 и ежедневный брифинг.</p>
+      <div class="doc-source">
+        <p>Источник: War Monitor, <a href="https://warmonit.com/ru/">warmonit.com/ru</a>. Проверено 2026-10-18.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="common-title">
+      <h2 id="common-title">Что общего</h2>
+      <ul>
+        <li>Оба проекта бесплатны и открыты без регистрации, оба работают на русском языке.</li>
+        <li>Оба отвечают на вопрос «насколько опасно», а не только пересказывают новости.</li>
+        <li>Оба используют открытые источники и не являются официальным прогнозом правительства или международной организации.</li>
+        <li>Оба дают числовую шкалу: у War Monitor — CII по странам и глобальный уровень угрозы, у Cassandra — индекс от 0 до 100 для мира и 12 регионов.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="diff-title">
+      <h2 id="diff-title">Чем отличаемся</h2>
+      <ul>
+        <li><strong>Единица наблюдения.</strong> War Monitor строится вокруг стран и слоёв на карте. Cassandra считает один глобальный индекс и 12 региональных — без разбивки по каждой стране.</li>
+        <li><strong>Ритм.</strong> War Monitor обновляется в реальном времени и выпускает ежедневный брифинг. Cassandra считает неделю в фиксированном окне и публикует один снапшот в неделю, поэтому её число — не «сейчас», а итог недели.</li>
+        <li><strong>Способ получить число.</strong> War Monitor агрегирует источники и AI-сводки; методика CII описана кратко. Cassandra публикует 46 критериев, 9 драйверов, детерминированный расчёт, версию методологии, снапшоты и машиночитаемые данные.</li>
+        <li><strong>Форма ответа.</strong> War Monitor показывает, что происходит и где. Cassandra объясняет, почему уровень изменился: три драйвера недели, вклад каждого и региональная дельта.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="missing-title">
+      <h2 id="missing-title">Чего у нас нет</h2>
+      <ul>
+        <li>Карты конфликтов и слоёв: полётов, судов, баз, катастроф.</li>
+        <li>Обновления в реальном времени и ежедневного брифинга.</li>
+        <li>Индекса по каждой стране — только 12 регионов.</li>
+        <li>Такого объёма источников и новостного потока.</li>
+      </ul>
+      <p>Мы не ранжируем проекты: у карты и недельного индекса разные задачи. Если нужен поток событий и география — это к War Monitor; если нужен объяснимый уровень и направление за неделю — это к Cassandra.</p>
+    </section>
+
+    <p class="doc-links"><a href="compare.html">Все сравнения</a> <a href="how-to-read.html">Как читать индекс</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="how-to-read.html">Как читать индекс</a>
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

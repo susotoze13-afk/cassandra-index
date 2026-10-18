@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Как читать индекс — Cassandra Index</title>
+  <meta name="description" content="Что означает число Cassandra Index, что изменилось на неделе 18 октября 2026 года, чего индекс не означает и как на него ссылаться.">
+  <link rel="canonical" href="https://cassindex.ru/how-to-read.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Как читать индекс — Cassandra Index">
+  <meta property="og:description" content="Что означает число Cassandra Index, что изменилось на неделе 18 октября 2026 года, чего индекс не означает и как на него ссылаться.">
+  <meta property="og:url" content="https://cassindex.ru/how-to-read.html">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="compare.html">Сравнение</a>
+        <a href="digest.html">Дайджест</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Как читать индекс</h1>
+    <p class="doc-lede">Cassandra Index — недельная оценка уровня и направления риска глобального военного конфликта по открытым данным. Число от 0 до 100 упорядочивает недели по уровню риска. Оно не называет дату и не предсказывает событие.</p>
+
+    <section aria-labelledby="week-title">
+      <h2 id="week-title">Неделя 18 октября 2026 года</h2>
+      <div class="doc-keyfigures">
+        <div class="doc-figure">
+          <span class="doc-figure-label">Мировой индекс</span>
+          <strong class="doc-figure-value">64</strong>
+          <span class="doc-figure-note">из 100</span>
+        </div>
+        <div class="doc-figure">
+          <span class="doc-figure-label">Изменение за неделю</span>
+          <strong class="doc-figure-value">+8</strong>
+          <span class="doc-figure-note">пунктов к прошлой неделе</span>
+        </div>
+        <div class="doc-figure">
+          <span class="doc-figure-label">Состояние</span>
+          <strong class="doc-figure-value doc-figure-value--state">Очень опасно</strong>
+          <span class="doc-figure-note">диапазон 61–80</span>
+        </div>
+      </div>
+      <p><strong>Почему:</strong> в окне недели сработали все три главных драйвера — минирование Ормузского пролива и расширение войны на Красное море, новый пакет санкций ЕС и ядерные учения НАТО, а также отсрочка части санкций США при ударах дронов по тылу РФ. Покрытие недели — 34 критерия из 46: индекс описывает то, что подтверждено открытыми источниками, и не подставляет числа там, где сигналов нет.</p>
+    </section>
+
+    <section aria-labelledby="scale-title">
+      <h2 id="scale-title">Шкала порядковая, а не линейка</h2>
+      <p>Шкала индекса <strong>порядковая</strong>: число упорядочивает недели по уровню риска, а границы состояний прокалиброваны на исторических эпизодах и модельных якорях. Диапазоны: 0–20 — спокойно, 21–40 — напряжённо, 41–60 — опасно, 61–80 — очень опасно, 81–96 — критически опасно, 97–100 — экстремальная угроза.</p>
+      <p>Расстояние между числами — не измеренная величина, а <strong>соглашение модели</strong>: разница между 50 и 60 не означает то же изменение, что между 80 и 90. Читать имеет смысл положение недели относительно границ состояний и направление движения, а не разность двух значений. Поэтому рядом с числом всегда стоят состояние и дельта.</p>
+    </section>
+
+    <section aria-labelledby="not-title">
+      <h2 id="not-title">Чего индекс не означает</h2>
+      <ul>
+        <li>Не называет дату начала войны и не отвечает на вопрос, случится ли конкретное событие.</li>
+        <li>Не прогноз для страны или города: региональное число — контекст, а не предупреждение об атаке.</li>
+        <li>Не заменяет сообщения источников, полевую работу и решения организаций.</li>
+        <li>Не претендует на полноту: часть критериев в окне недели остаётся без подтверждающих сигналов, и это видно в покрытии.</li>
+        <li>Не официальная позиция правительства или международной организации — это независимая оценка, и она может быть ошибочной.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="drivers-title">
+      <h2 id="drivers-title">Три драйвера недели</h2>
+      <p>Каждую неделю публикуются три главных драйвера: что произошло, почему это влияет на риск и насколько уверенно это подтверждено. Вклад драйвера — «высокий» или «средний» — вес внутри недели, а не сравнение с другими неделями.</p>
+      <ol>
+        <li><strong>Ормузский пролив заминирован, война расширяется на Красное море.</strong> Подрывы танкеров, обстрел судов у Йемена и возвращение ОАЭ в йеменскую войну бьют по энергетике и географии вовлечения одновременно.</li>
+        <li><strong>ЕС ввёл крупнейший пакет санкций, НАТО начала ядерные учения.</strong> Экономическое давление и демонстрация ядерной готовности складываются в один сигнал эскалации.</li>
+        <li><strong>Санкционный маятник: США отсрочили ограничения, дроны ударили по тылу РФ.</strong> Смягчение одного канала компенсируется расширением другого, поэтому направление недели — рост.</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="regions-title">
+      <h2 id="regions-title">Регионы и слепой регион</h2>
+      <p>Индекс считается для мира и для 12 регионов. Региональное число отвечает на тот же вопрос в границах региона: насколько высок уровень и куда он движется. На неделе 18 октября 2026 самый высокий региональный индекс — у Ближнего Востока (71), самый большой рост — у Северной Америки (+11).</p>
+      <p><strong>Слепой регион</strong> — регион, по которому в окне недели нет ни одного подтверждённого сигнала. Его число отражает глобальный фон, а не региональное наблюдение, поэтому сайт показывает пометку вместо региональной дельты. На этой неделе покрыты все 12 регионов, слепых нет; в других неделях они встречаются, и это честно видно в данных.</p>
+    </section>
+
+    <section aria-labelledby="cite-title">
+      <h2 id="cite-title">Как цитировать</h2>
+      <p>Формулировка: «Cassandra Index, неделя 18 октября 2026 года: 64 из 100, состояние „очень опасно“, изменение за неделю +8 пунктов, методология 3.0».</p>
+      <ul>
+        <li>Всегда указывайте дату недели: индекс пересчитывается, и число без даты теряет смысл.</li>
+        <li>Не приписывайте индексу того, чего он не означает: не называйте его прогнозом даты, оценкой того, случится ли событие, или официальной позицией.</li>
+        <li>При переиспользовании укажите источник «Cassandra Index, cassindex.ru» и дату недели.</li>
+      </ul>
+      <p>Машинное чтение: <a href="data/public/index.json">index.json</a> — все недели с версией схемы, <a href="data/public/cassandra-index.csv">cassandra-index.csv</a> — тот же ряд строками «неделя × область». Изменения методологии, таксономии и полей — в <a href="changelog.html">истории изменений</a>.</p>
+    </section>
+
+    <section aria-labelledby="digest-title">
+      <h2 id="digest-title">Дайджест</h2>
+      <p>Раз в неделю выходит короткий дайджест: пять пунктов, три региона и ссылка на кривую. Подписка — заявкой: отправьте адрес через <a href="index.html#feedback">форму обратной связи</a> и выберите тему «Подписка на дайджест». Список адресов ведёт владелец проекта вручную, в репозиторий он не попадает.</p>
+    </section>
+
+    <section aria-labelledby="more-title">
+      <h2 id="more-title">Что почитать дальше</h2>
+      <ul class="doc-links">
+        <li><a href="compare-war-monitor.html">Cassandra и War Monitor</a></li>
+        <li><a href="compare-acled.html">Cassandra и ACLED</a></li>
+        <li><a href="compare-crisiswatch.html">Cassandra и CrisisWatch</a></li>
+        <li><a href="index.html#methodology">Методология на главной</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="digest.html">Дайджест</a>
+      <a href="changelog.html">История изменений</a>
+      <a href="data/public/index.json">Данные (JSON)</a>
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

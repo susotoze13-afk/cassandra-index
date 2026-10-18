@@ -14,7 +14,7 @@ import { t } from '../i18n.js';
 import { el } from '../ui.js';
 
 // Белый список тем и лимиты — константы модуля (единственный источник).
-export const FEEDBACK_TOPICS = ['wish', 'remark', 'question'];
+export const FEEDBACK_TOPICS = ['wish', 'remark', 'question', 'digest'];
 export const MIN_MESSAGE = 5;
 export const MAX_MESSAGE = 4000;
 export const TIMING_MIN_MS = 2000;

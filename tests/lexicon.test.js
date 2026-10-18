@@ -4,6 +4,8 @@
 // Список — константа теста (единственный источник списка запрета).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { DICTS } from '../js/i18n.js';
 import { REGIONS_V1, REGIONS_V2 } from '../js/region.js';
 
@@ -172,3 +174,33 @@ test('R53: H1 утвердительный (без вопроса и обрат�
     assert.deepEqual(lexiconHits(title), []);
   }
 });
+
+// Статические SEO-страницы (таск 02): текст в разметке, а не в словаре, поэтому
+// сканируем видимый текст HTML с диска — тот же список запрета (PRD §11.5).
+const ROOT = path.resolve(import.meta.dirname, '..');
+const HTML_PAGES = [
+  'how-to-read.html',
+  'compare.html',
+  'compare-war-monitor.html',
+  'compare-acled.html',
+  'compare-crisiswatch.html',
+];
+
+function htmlToText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;/gi, ' ')
+    .replace(/\s+/g, ' ');
+}
+
+test('статические SEO-страницы: нет запрещённой лексики', () => {
+  for (const file of HTML_PAGES) {
+    const text = htmlToText(readFileSync(path.join(ROOT, file), 'utf8'));
+    const hits = lexiconHits(text);
+    assert.deepEqual(hits, [], `${file} содержит запретную лексику: ${hits.join(', ')}`);
+  }
+});
+

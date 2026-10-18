@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Cassandra Index и CrisisWatch: чем отличаются</title>
+  <meta name="description" content="Cassandra Index и CrisisWatch: что общего у недельного индекса и месячного трекера конфликтов, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <link rel="canonical" href="https://cassindex.ru/compare-crisiswatch.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Cassandra Index и CrisisWatch: чем отличаются">
+  <meta property="og:description" content="Cassandra Index и CrisisWatch: что общего у недельного индекса и месячного трекера конфликтов, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <meta property="og:url" content="https://cassindex.ru/compare-crisiswatch.html">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="how-to-read.html">Как читать индекс</a>
+        <a href="compare.html">Сравнение</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Cassandra Index и CrisisWatch: чем отличаются</h1>
+    <p class="doc-lede">CrisisWatch — эталон публичного раннего предупреждения о конфликтах. Cassandra решает соседнюю задачу иначе: не месячный обзор ситуаций, а недельный числовой индекс с открытой формулой. Ниже — честно о границах обоих.</p>
+    <p class="doc-meta">Факты о CrisisWatch проверены 2026-10-18 по открытому описанию проекта. Методология и данные Cassandra Index — по состоянию на неделю 18 октября 2026 года.</p>
+
+    <section aria-labelledby="what-title">
+      <h2 id="what-title">Что это</h2>
+      <p>CrisisWatch — глобальный трекер конфликтов International Crisis Group (организация основана в 1995 году). Проект бесплатно публикует месячный обзор: более 70 конфликтов и кризисов, до 50 ситуаций в режиме наблюдения, оценку «ухудшилось / улучшилось / без изменений», прогнозный блок On the Horizon на 3–6 месяцев, карту, PDF-выпуски и архив с 2003 года. Подписка на алерты и поиск по базе также открыты.</p>
+      <div class="doc-source">
+        <p>Источник: CrisisWatch / International Crisis Group, <a href="https://www.crisisgroup.org/crisiswatch">crisisgroup.org/crisiswatch</a>. Проверено 2026-10-18.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="common-title">
+      <h2 id="common-title">Что общего</h2>
+      <ul>
+        <li>Оба проекта бесплатны и общедоступны, без платного ядра.</li>
+        <li>Оба занимаются ранним предупреждением о конфликтах, а не пересказом новостей.</li>
+        <li>Оба следят за миром целиком, а не за одним регионом.</li>
+        <li>Оба отделяют оценку от официальной позиции и не выдают её за прогноз правительства.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="diff-title">
+      <h2 id="diff-title">Чем отличаемся</h2>
+      <ul>
+        <li><strong>Ритм.</strong> CrisisWatch выходит раз в месяц. Cassandra считает неделю в фиксированном окне и публикует снапшот каждую неделю — чаще, но с меньшей глубиной по каждой ситуации.</li>
+        <li><strong>Форма.</strong> CrisisWatch — качественный обзор с редакционными оценками и стрелками динамики. Cassandra — числовой индекс от 0 до 100, 46 критериев и 9 драйверов с детерминированным расчётом.</li>
+        <li><strong>Единица наблюдения.</strong> У CrisisWatch — более 70 конфликтов и кризисов, у каждого своя история. У Cassandra — глобальный фон и 12 регионов, без досье по каждой ситуации.</li>
+        <li><strong>Предупреждение.</strong> On the Horizon смотрит на 3–6 месяцев вперёд. Cassandra показывает состояние и направление на прошедшей неделе и не называет дат будущих событий.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="missing-title">
+      <h2 id="missing-title">Чего у нас нет</h2>
+      <ul>
+        <li>Полевой сети аналитиков и редакционных миссий.</li>
+        <li>Страновых досье и отчётов по отдельным конфликтам.</li>
+        <li>Прогнозного блока на 3–6 месяцев и PDF-выпусков.</li>
+        <li>Архива с 2003 года и подписки на алерты.</li>
+      </ul>
+      <p>Мы не утверждаем, что наш подход точнее: это разные инструменты. CrisisWatch даёт глубину и контекст по каждой ситуации; Cassandra — частый, воспроизводимый и объяснимый уровень риска за неделю.</p>
+    </section>
+
+    <p class="doc-links"><a href="compare.html">Все сравнения</a> <a href="how-to-read.html">Как читать индекс</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="how-to-read.html">Как читать индекс</a>
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Cassandra Index и ACLED: чем отличаются</title>
+  <meta name="description" content="Cassandra Index и ACLED: что общего у недельного индекса риска и базы конфликтных событий, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <link rel="canonical" href="https://cassindex.ru/compare-acled.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Cassandra Index и ACLED: чем отличаются">
+  <meta property="og:description" content="Cassandra Index и ACLED: что общего у недельного индекса риска и базы конфликтных событий, чем отличаются и чего у нас нет. Проверено 2026-10-18.">
+  <meta property="og:url" content="https://cassindex.ru/compare-acled.html">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="how-to-read.html">Как читать индекс</a>
+        <a href="compare.html">Сравнение</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Cassandra Index и ACLED: чем отличаются</h1>
+    <p class="doc-lede">ACLED — один из самых строгих источников данных о конфликтах, и Cassandra использует открытые данные того же поля. Но проекты отвечают на разные вопросы: ACLED фиксирует произошедшее, Cassandra оценивает уровень и направление риска.</p>
+    <p class="doc-meta">Факты об ACLED проверены 2026-10-18 по открытому описанию проекта. Методология и данные Cassandra Index — по состоянию на неделю 18 октября 2026 года.</p>
+
+    <section aria-labelledby="what-title">
+      <h2 id="what-title">Что это</h2>
+      <p>ACLED — независимый глобальный монитор насильственных конфликтов и протестов. Проект публикует события с географической привязкой, Conflict Index по четырём индикаторам (смертоносность, опасность для гражданских, географическая диффузия, число вооружённых групп), Conflict Watchlist, региональные мониторы и тематические обзоры. Бесплатный аккаунт myACLED открывает часть данных и экспорт; отдельные витрины ограничены, коммерческие условия обсуждаются со специалистами.</p>
+      <div class="doc-source">
+        <p>Источник: ACLED, <a href="https://acleddata.com/">acleddata.com</a>. Проверено 2026-10-18.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="common-title">
+      <h2 id="common-title">Что общего</h2>
+      <ul>
+        <li>Оба проекта глобальны и работают с открытыми источниками.</li>
+        <li>Оба публикуют числовой индекс и методологию, на которую можно сослаться.</li>
+        <li>Оба отделяют оценку от официальной позиции и не выдают её за прогноз правительства.</li>
+        <li>Оба дают исследователю и журналисту материал для цитирования.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="diff-title">
+      <h2 id="diff-title">Чем отличаемся</h2>
+      <ul>
+        <li><strong>Что измеряется.</strong> ACLED фиксирует уже произошедшие насильственные события и протесты. Cassandra оценивает состояние и направление риска эскалации и не считает события.</li>
+        <li><strong>Форма индекса.</strong> Conflict Index — срез по четырём индикаторам и рейтинг стран. Cassandra — недельный ряд: один индекс, 9 драйверов и 12 регионов на одной шкале от 0 до 100.</li>
+        <li><strong>Данные.</strong> У ACLED — событийная база с геокодированием, экспортом и многолетней историей. У Cassandra — недельные снапшоты, JSON и CSV с версией схемы и 12-недельный тренд.</li>
+        <li><strong>Аудитория и язык.</strong> ACLED — англоязычный экспертный продукт с частично ограниченными витринами. Cassandra — русскоязычная публичная страница без регистрации и без платного контура.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="missing-title">
+      <h2 id="missing-title">Чего у нас нет</h2>
+      <ul>
+        <li>Событийной базы с географической привязкой и фильтрами.</li>
+        <li>API и инструментов экспорта для исследователей.</li>
+        <li>Страновых срезов и региональных мониторов по отдельным конфликтам.</li>
+        <li>Многолетней истории событий и тематических отчётов.</li>
+      </ul>
+      <p>Мы не сравниваем точность подходов: у событийной базы и недельного индекса разные задачи. ACLED отвечает, что произошло и где; Cassandra — насколько высок уровень риска и куда он движется за неделю.</p>
+    </section>
+
+    <p class="doc-links"><a href="compare.html">Все сравнения</a> <a href="how-to-read.html">Как читать индекс</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="how-to-read.html">Как читать индекс</a>
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
