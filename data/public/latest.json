@@ -1,0 +1,191 @@
+{
+  "schema": "cassandra-index-public",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": null,
+    "url": null,
+    "attribution": "Cassandra Index — https://cassindex.ru",
+    "note": "Условия переиспользования данных не заданы владельцем проекта; атрибуция обязательна.",
+    "placeholder": true
+  },
+  "week": {
+    "week": "2026-10-18",
+    "published": "2026-10-18",
+    "through": "2026-10-18",
+    "methodology": "3.0",
+    "regions_taxonomy": "2.0",
+    "data_state": "published",
+    "index": 64,
+    "delta": 8,
+    "state": "very",
+    "q": 1,
+    "confidence": "full",
+    "coverage_criteria": {
+      "covered": 34,
+      "total": 46
+    },
+    "regions": [
+      {
+        "id": "russia-belarus",
+        "index": 56,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "ukraine-moldova",
+        "index": 58,
+        "delta": 2,
+        "background": false
+      },
+      {
+        "id": "baltic",
+        "index": 61,
+        "delta": 5,
+        "background": false
+      },
+      {
+        "id": "balkans",
+        "index": 63,
+        "delta": 7,
+        "background": false
+      },
+      {
+        "id": "eu-north-europe",
+        "index": 61,
+        "delta": 5,
+        "background": false
+      },
+      {
+        "id": "south-caucasus",
+        "index": 61,
+        "delta": 5,
+        "background": false
+      },
+      {
+        "id": "central-asia",
+        "index": 63,
+        "delta": 7,
+        "background": false
+      },
+      {
+        "id": "east-asia",
+        "index": 61,
+        "delta": -1,
+        "background": false
+      },
+      {
+        "id": "middle-east",
+        "index": 71,
+        "delta": 4,
+        "background": false
+      },
+      {
+        "id": "north-america",
+        "index": 63,
+        "delta": 11,
+        "background": false
+      },
+      {
+        "id": "south-asia",
+        "index": 60,
+        "delta": 6,
+        "background": false
+      },
+      {
+        "id": "africa",
+        "index": 63,
+        "delta": 10,
+        "background": false
+      }
+    ],
+    "precursor": null,
+    "precursor_present": false,
+    "drivers": [
+      {
+        "label": {
+          "ru": "Ормузский пролив заминирован, война расширяется на Красное море",
+          "en": "The Strait of Hormuz is mined and the war spreads to the Red Sea"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "ЕС ввёл крупнейший пакет санкций, НАТО начала ядерные учения",
+          "en": "The EU adopted its largest sanctions package as NATO began nuclear drills"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "Санкционный маятник: США отсрочили ограничения, дроны ударили по тылу РФ",
+          "en": "Sanctions pendulum: the US deferred restrictions as drones struck Russia’s rear"
+        },
+        "contribution": "high"
+      }
+    ],
+    "sources": {
+      "count": 88,
+      "clusters": 5,
+      "state_affiliated": 30
+    },
+    "trend": [
+      {
+        "date": "2026-08-02",
+        "value": 64
+      },
+      {
+        "date": "2026-08-09",
+        "value": 65
+      },
+      {
+        "date": "2026-08-16",
+        "value": 66
+      },
+      {
+        "date": "2026-08-23",
+        "value": 67
+      },
+      {
+        "date": "2026-08-30",
+        "value": 51,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-09-06",
+        "value": 42,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-09-13",
+        "value": 43,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-09-20",
+        "value": 56,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-09-27",
+        "value": 47,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-10-04",
+        "value": 46,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-10-11",
+        "value": 56,
+        "methodology": "3.0"
+      },
+      {
+        "date": "2026-10-18",
+        "value": 64,
+        "methodology": "3.0"
+      }
+    ]
+  }
+}

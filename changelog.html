@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не отдаёт заголовки. Страница статическая, без скриптов. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>История изменений — Cassandra Index</title>
+  <meta name="description" content="Что и когда менялось в методологии, таксономии и полях Cassandra Index.">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="privacy-page">
+
+  <header class="privacy-top">
+    <a class="privacy-back" href="index.html">← На главную</a>
+  </header>
+
+  <main>
+    <h1>История изменений</h1>
+    <p>Что и когда менялось в методологии, таксономии регионов, схеме публичных данных и полях снапшота. Машинночитаемая копия — <a href="data/public/changelog.json">changelog.json</a>.</p>
+
+  <article class="changelog-entry">
+    <h2>Таксономия регионов 2.0: двенадцать регионов</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · таксономия</p>
+    <p>Недели начиная с 2026-10-18 считаются набором 2.0 (двенадцать регионов); более ранние недели остаются набором 1.0 (шесть регионов). Версия таксономии версионируется отдельно от методологии: глобальный ряд не рвётся.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0028-region-taxonomy-v2.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
+    <h2>Публичный экспорт данных, схема 1</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · схема данных</p>
+    <p>Появились data/public/index.json, latest.json, cassandra-index.csv и trend.svg. Каждый файл несёт поле schema и schema_version; числа — производная от снапшотов недель, отдельного расчёта нет.</p>
+  </article>
+  <article class="changelog-entry">
+    <h2>Поле precursor в снапшоте недели</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · поле</p>
+    <p>Слой Д9 публикуется отдельным полем precursor {value, signaling_subgroups} и в индекс не входит. Поле forward-only: его отсутствие означает, что слой не публиковался, а не ноль сигналов.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0047-precursor-risk-d9-forward-only.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
+    <h2>Цитаты источников в поле quotes</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · поле</p>
+    <p>Запись источника может нести quotes [{criterion, text}] — дословную цитату, привязанную к критерию. Дословность проверяется при записи недели, а не при чтении.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0041-quotes-in-source-record.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
+    <h2>Поле intersection во входе недели</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · поле</p>
+    <p>Критерий с intersection: true считается покрытым, но не входит в скор драйвера: событие уже учтено другим критерием. Публичный снапшот и версия методологии от этого поля не меняются.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0046-intersection-field-in-week-input.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
+    <h2>Методология 3.0: рыночный стресс-критерий D4.6</h2>
+    <p class="changelog-meta"><time datetime="2026-10-11">2026-10-11</time> · версия 3.0 · методология</p>
+    <p>В драйвер Д4 добавлен критерий D4.6 «стресс рынков» с порядковой шкалой 0 / 0,33 / 0,67 / 1. Цепочка недель 2026-08-30 … 2026-10-18 перевыпущена под версией 3.0, k = 1,95 подтверждён на якорях.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0021-market-criterion-methodology-3.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  </main>
+
+</body>
+</html>

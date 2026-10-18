@@ -1,0 +1,392 @@
+// Публичный слой данных (таск 01): проекция снапшота, JSON/CSV/SVG,
+// changelog-страница, запись и CLI. Тесты идут через публичные швы
+// calc/public-export.js; диск читается только в паритетной проверке.
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  readFileSync, writeFileSync, mkdirSync, existsSync, mkdtempSync, rmSync, cpSync,
+} from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import os from 'node:os';
+import path from 'node:path';
+
+import {
+  PUBLIC_SCHEMA_VERSION,
+  datasetOf,
+  buildDataset,
+  toCsv,
+  toTrendSvg,
+  renderChangelogPage,
+  writePublicData,
+  loadSnapshotFromDisk,
+} from '../calc/public-export.js';
+import { CHANGELOG, sortedDesc, validateChangelog } from '../calc/changelog-entries.js';
+import { validate, regionIdsFor } from '../js/data.js';
+import { readLatestWeeks } from '../calc/prepare-week.js';
+
+const ROOT = path.resolve(import.meta.dirname, '..');
+
+const WEEK_DATES = [
+  '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23',
+  '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20',
+  '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18',
+];
+
+const HEADER = 'schema,schema_version,week,published,through,methodology,'
+  + 'regions_taxonomy,data_state,scope,index,delta,state,q,confidence,'
+  + 'coverage_covered,coverage_total,background';
+
+function source(id, cluster, affiliated) {
+  return {
+    id,
+    title: { ru: `Источник ${id}`, en: `Source ${id}` },
+    domain: 'example.org',
+    url: `https://example.org/${id}`,
+    publication_date: '2026-10-18',
+    accessed_date: '2026-10-18',
+    source_type: 'secondary',
+    cluster_id: cluster,
+    state_affiliated: affiliated,
+  };
+}
+
+function snapshotFor(week, opts = {}) {
+  const taxonomy = opts.taxonomy ?? '2.0';
+  const ids = regionIdsFor(taxonomy);
+  const regions = {};
+  ids.forEach((id, i) => {
+    regions[id] = { index: 30 + i, delta: i - 2, background: i === 0, status: 'tense' };
+  });
+  const snap = {
+    published: week,
+    through: week,
+    methodology: '3.0',
+    regions_taxonomy: taxonomy,
+    dataState: opts.dataState ?? 'published',
+    global: opts.global === undefined ? { index: 64, delta: 8 } : opts.global,
+    q: 1,
+    nullWeight: 0,
+    coverage: { coveredDrivers: 9, totalDrivers: 9 },
+    confidence: 'full',
+    coverageCriteria: { covered: 34, total: 46, uncovered: ['D1.6'] },
+    regions,
+    trend: WEEK_DATES.map((date, i) => {
+      const point = { date, value: 40 + i };
+      if (i >= 4) point.methodology = '3.0';
+      return point;
+    }),
+    drivers: ['Д1', 'Д2', 'Д3'].map((id) => ({
+      label: { ru: `Драйвер ${id}`, en: `Driver ${id}` },
+      contribution: 'high',
+      confidence: 'high',
+      sources: [source(`s-${id}-1`, 'A-mainstream', false), source(`s-${id}-2`, 'B-state-media', true)],
+    })),
+    sources: [
+      source('s1', 'A-mainstream', false),
+      source('s2', 'B-state-media', true),
+      source('s3', 'A-mainstream', false),
+    ],
+  };
+  if (opts.precursor !== undefined) snap.precursor = opts.precursor;
+  return snap;
+}
+
+function byWeek(weeks, opts = {}) {
+  const map = new Map(weeks.map((w) => [w, snapshotFor(w, opts)]));
+  return (w) => {
+    const snap = map.get(w);
+    if (!snap) throw new Error(`нет снапшота ${w}`);
+    return snap;
+  };
+}
+
+function tempDir(t) {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'ci-public-'));
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
+  return dir;
+}
+
+// --- Проекция ---
+
+test('datasetOf: поля недели, state из stateOf, 12 регионов, precursor null', () => {
+  const week = '2026-10-18';
+  const p = datasetOf(snapshotFor(week), week);
+  assert.equal(p.week, week);
+  assert.equal(p.published, week);
+  assert.equal(p.through, week);
+  assert.equal(p.methodology, '3.0');
+  assert.equal(p.regions_taxonomy, '2.0');
+  assert.equal(p.data_state, 'published');
+  assert.equal(p.index, 64);
+  assert.equal(p.delta, 8);
+  assert.equal(p.state, 'very');
+  assert.equal(p.q, 1);
+  assert.equal(p.confidence, 'full');
+  assert.deepEqual(p.coverage_criteria, { covered: 34, total: 46 });
+  assert.equal(p.regions.length, 12);
+  assert.deepEqual(p.regions[0], {
+    id: 'russia-belarus', index: 30, delta: -2, background: true,
+  });
+  assert.equal(p.precursor, null);
+  assert.equal(p.precursor_present, false);
+  assert.deepEqual(p.sources, { count: 3, clusters: 2, state_affiliated: 1 });
+  assert.equal(p.drivers.length, 3);
+  assert.equal(p.drivers[0].label.ru, 'Драйвер Д1');
+  assert.equal(p.drivers[0].contribution, 'high');
+  assert.equal(p.trend.length, 12);
+  assert.equal(p.trend[11].value, 51);
+  assert.equal(p.trend[11].methodology, '3.0');
+});
+
+test('datasetOf: state идёт по шкале движка, а не второй таблице', () => {
+  const state = (index) => datasetOf(snapshotFor('2026-10-18', { global: { index, delta: 0 } }), '2026-10-18').state;
+  assert.equal(state(20), 'calm');
+  assert.equal(state(21), 'tense');
+  assert.equal(state(60), 'danger');
+  assert.equal(state(61), 'very');
+  assert.equal(state(80), 'very');
+  assert.equal(state(81), 'critical');
+  assert.equal(state(96), 'critical');
+  assert.equal(state(97), 'extreme');
+});
+
+test('datasetOf: precursor публикуется, когда поле есть', () => {
+  const snap = snapshotFor('2026-10-18', { precursor: { value: 50, signalingSubgroups: 4 } });
+  const p = datasetOf(snap, '2026-10-18');
+  assert.deepEqual(p.precursor, { value: 50, signaling_subgroups: 4 });
+  assert.equal(p.precursor_present, true);
+});
+
+test('datasetOf: insufficient-неделя не падает (index/delta/state = null)', () => {
+  const p = datasetOf(
+    snapshotFor('2026-10-18', { dataState: 'insufficient', global: null }),
+    '2026-10-18',
+  );
+  assert.equal(p.index, null);
+  assert.equal(p.delta, null);
+  assert.equal(p.state, null);
+  assert.equal(p.data_state, 'insufficient');
+});
+
+// --- Конверт ---
+
+test('buildDataset: schema, schema_version, site, license, weeks по порядку', () => {
+  const weeks = ['2026-10-11', '2026-10-18'];
+  const ds = buildDataset(weeks, byWeek(weeks));
+  assert.equal(ds.schema, 'cassandra-index-public');
+  assert.equal(ds.schema_version, PUBLIC_SCHEMA_VERSION);
+  assert.equal(PUBLIC_SCHEMA_VERSION, 1);
+  assert.equal(ds.site, 'https://cassindex.ru');
+  assert.equal(typeof ds.license, 'object');
+  assert.ok(ds.license && typeof ds.license.attribution === 'string' && ds.license.attribution);
+  assert.deepEqual(ds.weeks.map((w) => w.week), weeks);
+});
+
+// --- CSV ---
+
+test('toCsv: фиксированная шапка, неделя × область, без запятых и CRLF', () => {
+  const weeks = ['2026-10-11', '2026-10-18'];
+  const ds = buildDataset(weeks, (w) => snapshotFor(w, { taxonomy: w === '2026-10-11' ? '1.0' : '2.0' }));
+  const csv = toCsv(ds);
+  assert.ok(!csv.startsWith('\uFEFF'), 'CSV без BOM');
+  assert.ok(!csv.includes('\r'), 'CSV без CRLF');
+  const lines = csv.split('\n');
+  assert.equal(lines[lines.length - 1], '', 'файл завершается \\n');
+  lines.pop();
+  assert.equal(lines[0], HEADER);
+  assert.equal(lines.length, 1 + (1 + 6) + (1 + 12));
+  const cols = HEADER.split(',').length;
+  for (const line of lines) {
+    assert.equal(line.split(',').length, cols, `строка не по шапке: ${line.slice(0, 40)}`);
+  }
+  const globalRow = lines[1].split(',');
+  assert.equal(globalRow[0], 'cassandra-index-public');
+  assert.equal(globalRow[1], '1');
+  assert.equal(globalRow[2], '2026-10-11');
+  assert.equal(globalRow[8], 'global');
+  assert.equal(globalRow[9], '64');
+  assert.equal(globalRow[10], '8');
+  assert.equal(globalRow[11], 'very');
+  assert.equal(globalRow[14], '34');
+  assert.equal(globalRow[15], '46');
+  assert.equal(globalRow[16], 'false');
+  // Первая неделя — таксономия 1.0, её первый регион — europe (v1-набор).
+  const firstRegion = lines[2].split(',');
+  assert.equal(firstRegion[2], '2026-10-11');
+  assert.equal(firstRegion[8], 'europe');
+  assert.equal(firstRegion[16], 'true');
+  const v2First = lines[2 + 7].split(',');
+  assert.equal(v2First[2], '2026-10-18');
+  assert.equal(v2First[8], 'russia-belarus');
+});
+
+// --- SVG ---
+
+test('toTrendSvg: валидная разметка, 12 точек и подписи дат без внешних ссылок', () => {
+  const svg = toTrendSvg(snapshotFor('2026-10-18'));
+  assert.ok(svg.startsWith('<svg'), 'SVG начинается с <svg');
+  assert.ok(svg.endsWith('</svg>\n') || svg.endsWith('</svg>'), 'SVG закрыт');
+  assert.ok(svg.includes('xmlns="http://www.w3.org/2000/svg"'));
+  assert.equal((svg.match(/<circle /g) || []).length, 12);
+  for (const date of WEEK_DATES) {
+    const label = `${date.slice(8, 10)}.${date.slice(5, 7)}`;
+    assert.ok(svg.includes(`>${label}<`), `нет подписи даты ${label}`);
+  }
+  assert.ok(!svg.includes('<image'), 'без встроенных картинок');
+  assert.ok(!svg.includes('<script'), 'без скриптов');
+  assert.ok(!/<a\s/.test(svg), 'без ссылок');
+  const external = svg.replace('http://www.w3.org/2000/svg', '');
+  assert.ok(!/https?:\/\//.test(external), 'ни одной внешней ссылки');
+  assert.ok(!svg.includes('<style'), 'стили инлайн, без <style>');
+});
+
+// --- changelog.html ---
+
+test('renderChangelogPage: полный HTML, дата/версия/заголовок, значения экранируются', () => {
+  const entries = [
+    { date: '2026-10-11', version: '3.0', kind: 'methodology', title: 'Методология 3.0', body: 'Текст <b>изменения</b>' },
+    { date: '2026-10-18', version: '3.0', kind: 'taxonomy', title: '<script>alert(1)</script>', body: 'Таксономия 2.0' },
+  ];
+  const html = renderChangelogPage(entries);
+  assert.ok(html.startsWith('<!doctype html>'));
+  assert.ok(html.includes('<html lang="ru">'));
+  assert.ok(html.includes('2026-10-11'));
+  assert.ok(html.includes('2026-10-18'));
+  assert.ok(html.includes('3.0'));
+  assert.ok(html.includes('Методология 3.0'));
+  assert.ok(!html.includes('<script>alert(1)</script>'), 'заголовок экранирован');
+  assert.ok(html.includes('&lt;script&gt;alert(1)&lt;/script&gt;'));
+  assert.ok(html.includes('&lt;b&gt;изменения&lt;/b&gt;'), 'body экранирован');
+  assert.ok(!html.includes('<script'), 'на странице нет скриптов');
+  assert.ok(html.includes('css/styles.css'));
+});
+
+// --- Запись ---
+
+test('writePublicData: шесть файлов, повторная запись побайтово та же', (t) => {
+  const dir = tempDir(t);
+  const weeks = ['2026-10-11', '2026-10-18'];
+  const loadSnapshot = (week) => snapshotFor(week);
+  const first = writePublicData({
+    rootDir: dir,
+    weeks,
+    loadSnapshot,
+    entries: CHANGELOG,
+  });
+  assert.deepEqual(first.files.map((f) => path.basename(f)).sort(), [
+    'cassandra-index.csv', 'changelog.html', 'changelog.json', 'index.json', 'latest.json', 'trend.svg',
+  ]);
+  const read = () => first.files.map((f) => readFileSync(f));
+  const before = read();
+  assert.ok(existsSync(path.join(dir, 'changelog.html')));
+  writePublicData({ rootDir: dir, weeks, loadSnapshot, entries: CHANGELOG });
+  const after = read();
+  for (let i = 0; i < before.length; i += 1) {
+    assert.ok(before[i].equals(after[i]), `файл изменился при повторной записи: ${first.files[i]}`);
+  }
+  const all = before.map((b) => b.toString('utf8')).join('\n');
+  assert.ok(!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(all), 'нет timestamp внутри файлов');
+  assert.ok(!all.includes('\r'), 'LF во всех файлах');
+});
+
+test('writePublicData: битый снапшот не трогает диск', async (t) => {
+  const dir = tempDir(t);
+  mkdirSync(path.join(dir, 'data', 'public'), { recursive: true });
+  const sentinel = path.join(dir, 'data', 'public', 'index.json');
+  writeFileSync(sentinel, 'sentinel');
+  const weeks = ['2026-10-11', '2026-10-18'];
+  const loadSnapshot = (w) => {
+    if (w === '2026-10-18') throw new Error(`${w}: снапшот не проходит validate: global`);
+    return snapshotFor(w);
+  };
+  assert.throws(
+    () => writePublicData({ rootDir: dir, weeks, loadSnapshot, entries: CHANGELOG }),
+    /2026-10-18/,
+  );
+  assert.equal(readFileSync(sentinel, 'utf8'), 'sentinel');
+  assert.ok(!existsSync(path.join(dir, 'changelog.html')));
+});
+
+// --- CLI ---
+
+test('CLI --write с битым снапшотом: код 1, неделя и validate в stderr, диск не тронут', (t) => {
+  const dir = tempDir(t);
+  const week = '2026-10-18';
+  cpSync(path.join(ROOT, 'data', week), path.join(dir, 'data', week), { recursive: true });
+  writeFileSync(
+    path.join(dir, 'data', 'latest.js'),
+    `window.CI_WEEKS = ["${week}"];\nwindow.CI_LATEST = "${week}";\n`,
+  );
+  const globalFile = path.join(dir, 'data', week, 'global.js');
+  writeFileSync(globalFile, readFileSync(globalFile, 'utf8').replace('"index": 64', '"index": 999'));
+  const run = spawnSync(process.execPath, ['calc/public-export.js', '--root', dir, '--write'], {
+    cwd: ROOT, encoding: 'utf8',
+  });
+  assert.equal(run.status, 1);
+  assert.match(run.stderr, /2026-10-18/);
+  assert.match(run.stderr, /validate/);
+  assert.ok(!existsSync(path.join(dir, 'data', 'public')), 'data/public не создан');
+  assert.ok(!existsSync(path.join(dir, 'changelog.html')), 'changelog.html не создан');
+});
+
+test('CLI без --write: печатает сводку и не меняет файлы', () => {
+  const before = readFileSync(path.join(ROOT, 'data', 'public', 'index.json'));
+  const run = spawnSync(process.execPath, ['calc/public-export.js'], { cwd: ROOT, encoding: 'utf8' });
+  assert.equal(run.status, 0, run.stderr);
+  assert.match(run.stdout, /2026-10-18/);
+  assert.match(run.stdout, /недел/i);
+  const after = readFileSync(path.join(ROOT, 'data', 'public', 'index.json'));
+  assert.ok(before.equals(after), 'печать не пишет файлы');
+});
+
+// --- Паритет с диском ---
+
+test('паритет: buildDataset по диску равен записанным index.json и CSV', () => {
+  const { weeks } = readLatestWeeks(readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8'));
+  const dataset = buildDataset(weeks, loadSnapshotFromDisk);
+
+  const index = JSON.parse(readFileSync(path.join(ROOT, 'data', 'public', 'index.json'), 'utf8'));
+  assert.deepEqual(index, dataset);
+  assert.equal(
+    readFileSync(path.join(ROOT, 'data', 'public', 'cassandra-index.csv'), 'utf8'),
+    toCsv(dataset),
+  );
+  const latest = dataset.weeks[dataset.weeks.length - 1];
+  assert.deepEqual(
+    JSON.parse(readFileSync(path.join(ROOT, 'data', 'public', 'latest.json'), 'utf8')).week,
+    latest,
+  );
+  assert.equal(
+    readFileSync(path.join(ROOT, 'data', 'public', 'trend.svg'), 'utf8'),
+    toTrendSvg(latest),
+  );
+  const changelog = JSON.parse(readFileSync(path.join(ROOT, 'data', 'public', 'changelog.json'), 'utf8'));
+  assert.deepEqual(changelog.entries, sortedDesc(CHANGELOG));
+  assert.equal(
+    readFileSync(path.join(ROOT, 'changelog.html'), 'utf8'),
+    renderChangelogPage(sortedDesc(CHANGELOG)),
+  );
+});
+
+test('паритет: каждая неделя проходит validate из js/data.js и совпадает с week.js', () => {
+  const { weeks } = readLatestWeeks(readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8'));
+  for (const w of weeks) {
+    const snap = loadSnapshotFromDisk(w);
+    const v = validate(snap);
+    assert.deepEqual(v.errors, [], `${w}: ${v.errors.join('; ')}`);
+    const dataset = buildDataset([w], () => snap);
+    assert.equal(dataset.weeks[0].index, snap.global.index, w);
+    assert.equal(dataset.weeks[0].methodology, snap.methodology, w);
+  }
+});
+
+test('паритет: публичные файлы не добавляют недель в CI_WEEKS', () => {
+  const { weeks } = readLatestWeeks(readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8'));
+  const index = JSON.parse(readFileSync(path.join(ROOT, 'data', 'public', 'index.json'), 'utf8'));
+  assert.deepEqual(index.weeks.map((w) => w.week), weeks);
+  // Лоадер сайта не знает про публичные файлы: только week.js одной недели.
+  const latestJs = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
+  assert.ok(!latestJs.includes('data/public'), 'latest.js не грузит публичный слой');
+  assert.ok(latestJs.includes("/week.js"), 'latest.js грузит week.js');
+  assert.equal(weeks.length, 12);
+});

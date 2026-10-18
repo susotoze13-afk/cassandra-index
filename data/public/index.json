@@ -1,0 +1,1679 @@
+{
+  "schema": "cassandra-index-public",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": null,
+    "url": null,
+    "attribution": "Cassandra Index — https://cassindex.ru",
+    "note": "Условия переиспользования данных не заданы владельцем проекта; атрибуция обязательна.",
+    "placeholder": true
+  },
+  "weeks": [
+    {
+      "week": "2026-08-02",
+      "published": "2026-08-02",
+      "through": "2026-07-26",
+      "methodology": "1.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 54,
+      "delta": 0,
+      "state": "danger",
+      "q": null,
+      "confidence": null,
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 64,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 49,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 75,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 43,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 55,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 45,
+          "delta": 0,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Военная активность выросла",
+            "en": "Military activity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Интенсивность столкновений выросла",
+            "en": "Clash intensity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Оборонные расходы растут",
+            "en": "Defence spending is rising"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 6,
+        "clusters": 2,
+        "state_affiliated": 1
+      },
+      "trend": [
+        {
+          "date": "2026-05-17",
+          "value": 38
+        },
+        {
+          "date": "2026-05-24",
+          "value": 40
+        },
+        {
+          "date": "2026-05-31",
+          "value": 41
+        },
+        {
+          "date": "2026-06-07",
+          "value": 41
+        },
+        {
+          "date": "2026-06-14",
+          "value": 44
+        },
+        {
+          "date": "2026-06-21",
+          "value": 46
+        },
+        {
+          "date": "2026-06-28",
+          "value": 47
+        },
+        {
+          "date": "2026-07-05",
+          "value": 48
+        },
+        {
+          "date": "2026-07-12",
+          "value": 49
+        },
+        {
+          "date": "2026-07-19",
+          "value": 51
+        },
+        {
+          "date": "2026-07-26",
+          "value": 53
+        },
+        {
+          "date": "2026-08-02",
+          "value": 54
+        }
+      ]
+    },
+    {
+      "week": "2026-08-09",
+      "published": "2026-08-09",
+      "through": "2026-08-02",
+      "methodology": "1.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 56,
+      "delta": 2,
+      "state": "danger",
+      "q": null,
+      "confidence": null,
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 65,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 50,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 77,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 43,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 56,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 46,
+          "delta": 1,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Военная активность выросла",
+            "en": "Military activity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Интенсивность столкновений выросла",
+            "en": "Clash intensity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Оборонные расходы растут",
+            "en": "Defence spending is rising"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 6,
+        "clusters": 2,
+        "state_affiliated": 1
+      },
+      "trend": [
+        {
+          "date": "2026-05-24",
+          "value": 40
+        },
+        {
+          "date": "2026-05-31",
+          "value": 42
+        },
+        {
+          "date": "2026-06-07",
+          "value": 43
+        },
+        {
+          "date": "2026-06-14",
+          "value": 43
+        },
+        {
+          "date": "2026-06-21",
+          "value": 46
+        },
+        {
+          "date": "2026-06-28",
+          "value": 48
+        },
+        {
+          "date": "2026-07-05",
+          "value": 49
+        },
+        {
+          "date": "2026-07-12",
+          "value": 50
+        },
+        {
+          "date": "2026-07-19",
+          "value": 51
+        },
+        {
+          "date": "2026-07-26",
+          "value": 53
+        },
+        {
+          "date": "2026-08-02",
+          "value": 55
+        },
+        {
+          "date": "2026-08-09",
+          "value": 56
+        }
+      ]
+    },
+    {
+      "week": "2026-08-16",
+      "published": "2026-08-16",
+      "through": "2026-08-09",
+      "methodology": "1.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 58,
+      "delta": 2,
+      "state": "danger",
+      "q": null,
+      "confidence": null,
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 67,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 51,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 78,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 42,
+          "delta": -1,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 57,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 46,
+          "delta": 0,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Военная активность выросла",
+            "en": "Military activity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Интенсивность столкновений выросла",
+            "en": "Clash intensity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Оборонные расходы растут",
+            "en": "Defence spending is rising"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 6,
+        "clusters": 2,
+        "state_affiliated": 1
+      },
+      "trend": [
+        {
+          "date": "2026-05-31",
+          "value": 42
+        },
+        {
+          "date": "2026-06-07",
+          "value": 44
+        },
+        {
+          "date": "2026-06-14",
+          "value": 45
+        },
+        {
+          "date": "2026-06-21",
+          "value": 45
+        },
+        {
+          "date": "2026-06-28",
+          "value": 48
+        },
+        {
+          "date": "2026-07-05",
+          "value": 50
+        },
+        {
+          "date": "2026-07-12",
+          "value": 51
+        },
+        {
+          "date": "2026-07-19",
+          "value": 52
+        },
+        {
+          "date": "2026-07-26",
+          "value": 53
+        },
+        {
+          "date": "2026-08-02",
+          "value": 55
+        },
+        {
+          "date": "2026-08-09",
+          "value": 57
+        },
+        {
+          "date": "2026-08-16",
+          "value": 58
+        }
+      ]
+    },
+    {
+      "week": "2026-08-23",
+      "published": "2026-08-23",
+      "through": "2026-08-16",
+      "methodology": "1.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 61,
+      "delta": 3,
+      "state": "very",
+      "q": null,
+      "confidence": null,
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 68,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 52,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 80,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 42,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 58,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 47,
+          "delta": 1,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Военная активность выросла",
+            "en": "Military activity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Интенсивность столкновений выросла",
+            "en": "Clash intensity increased"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Оборонные расходы растут",
+            "en": "Defence spending is rising"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 6,
+        "clusters": 2,
+        "state_affiliated": 1
+      },
+      "trend": [
+        {
+          "date": "2026-06-07",
+          "value": 45
+        },
+        {
+          "date": "2026-06-14",
+          "value": 47
+        },
+        {
+          "date": "2026-06-21",
+          "value": 48
+        },
+        {
+          "date": "2026-06-28",
+          "value": 48
+        },
+        {
+          "date": "2026-07-05",
+          "value": 51
+        },
+        {
+          "date": "2026-07-12",
+          "value": 53
+        },
+        {
+          "date": "2026-07-19",
+          "value": 54
+        },
+        {
+          "date": "2026-07-26",
+          "value": 55
+        },
+        {
+          "date": "2026-08-02",
+          "value": 56
+        },
+        {
+          "date": "2026-08-09",
+          "value": 58
+        },
+        {
+          "date": "2026-08-16",
+          "value": 60
+        },
+        {
+          "date": "2026-08-23",
+          "value": 61
+        }
+      ]
+    },
+    {
+      "week": "2026-08-30",
+      "published": "2026-08-30",
+      "through": "2026-08-30",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 51,
+      "delta": -10,
+      "state": "danger",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 49,
+          "delta": -19,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 42,
+          "delta": -10,
+          "background": true
+        },
+        {
+          "id": "middle-east",
+          "index": 49,
+          "delta": -31,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 32,
+          "delta": -10,
+          "background": true
+        },
+        {
+          "id": "south-asia",
+          "index": 49,
+          "delta": -9,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 48,
+          "delta": 1,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Удары по глубокому тылу вышли на рекордный уровень",
+            "en": "Strikes deep behind the front line reached record intensity"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Блокада чёрноморских портов остановила экспорт зерна",
+            "en": "The blockade of Black Sea ports halted grain exports"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Пуск мобильной «Ярс» подтверждён независимым мониторингом",
+            "en": "Mobile Yars launch confirmed by independent monitoring"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 29,
+        "clusters": 4,
+        "state_affiliated": 6
+      },
+      "trend": [
+        {
+          "date": "2026-06-14",
+          "value": 47
+        },
+        {
+          "date": "2026-06-21",
+          "value": 49
+        },
+        {
+          "date": "2026-06-28",
+          "value": 50
+        },
+        {
+          "date": "2026-07-05",
+          "value": 50
+        },
+        {
+          "date": "2026-07-12",
+          "value": 53
+        },
+        {
+          "date": "2026-07-19",
+          "value": 55
+        },
+        {
+          "date": "2026-07-26",
+          "value": 56
+        },
+        {
+          "date": "2026-08-02",
+          "value": 57
+        },
+        {
+          "date": "2026-08-09",
+          "value": 58
+        },
+        {
+          "date": "2026-08-16",
+          "value": 60
+        },
+        {
+          "date": "2026-08-23",
+          "value": 62
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-09-06",
+      "published": "2026-09-06",
+      "through": "2026-09-06",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 42,
+      "delta": -9,
+      "state": "danger",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 45,
+          "delta": -4,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 33,
+          "delta": -9,
+          "background": true
+        },
+        {
+          "id": "middle-east",
+          "index": 40,
+          "delta": -9,
+          "background": true
+        },
+        {
+          "id": "north-america",
+          "index": 23,
+          "delta": -9,
+          "background": true
+        },
+        {
+          "id": "south-asia",
+          "index": 40,
+          "delta": -9,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 41,
+          "delta": -7,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Режим тишины 5–8 сентября и локальное перемирие на ЗАЭС",
+            "en": "Silence regime of 5–8 September and local ceasefire at the ZNPP"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Инцидент в Лейпциге вызвал дипломатический разрыв с Германией",
+            "en": "Leipzig incident triggered a diplomatic rupture with Germany"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Учения НАТО в Прибалтике и рост оборонных бюджетов",
+            "en": "NATO drills in the Baltics and rising defence budgets"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 36,
+        "clusters": 4,
+        "state_affiliated": 9
+      },
+      "trend": [
+        {
+          "date": "2026-06-21",
+          "value": 50
+        },
+        {
+          "date": "2026-06-28",
+          "value": 52
+        },
+        {
+          "date": "2026-07-05",
+          "value": 53
+        },
+        {
+          "date": "2026-07-12",
+          "value": 53
+        },
+        {
+          "date": "2026-07-19",
+          "value": 56
+        },
+        {
+          "date": "2026-07-26",
+          "value": 58
+        },
+        {
+          "date": "2026-08-02",
+          "value": 59
+        },
+        {
+          "date": "2026-08-09",
+          "value": 60
+        },
+        {
+          "date": "2026-08-16",
+          "value": 61
+        },
+        {
+          "date": "2026-08-23",
+          "value": 63
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-09-13",
+      "published": "2026-09-13",
+      "through": "2026-09-13",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 43,
+      "delta": 1,
+      "state": "danger",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 40,
+          "delta": -5,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 34,
+          "delta": 1,
+          "background": true
+        },
+        {
+          "id": "middle-east",
+          "index": 38,
+          "delta": -2,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 24,
+          "delta": 1,
+          "background": true
+        },
+        {
+          "id": "south-asia",
+          "index": 41,
+          "delta": 1,
+          "background": true
+        },
+        {
+          "id": "africa",
+          "index": 40,
+          "delta": -1,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Массированный удар 8 сентября и атака дрона на границе с Молдовой",
+            "en": "Massed strike of 8 September and drone attack on the Moldovan border"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Германия выдворяет дипломатов, ЕС готовит пакет до 1600 листингов",
+            "en": "Germany expels diplomats as the EU prepares up to 1,600 listings"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Проверка боеготовности Беларуси и пуски КНДР",
+            "en": "Belarus combat-readiness checks and DPRK launches"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 34,
+        "clusters": 3,
+        "state_affiliated": 7
+      },
+      "trend": [
+        {
+          "date": "2026-06-28",
+          "value": 56
+        },
+        {
+          "date": "2026-07-05",
+          "value": 58
+        },
+        {
+          "date": "2026-07-12",
+          "value": 59
+        },
+        {
+          "date": "2026-07-19",
+          "value": 59
+        },
+        {
+          "date": "2026-07-26",
+          "value": 62
+        },
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-09-20",
+      "published": "2026-09-20",
+      "through": "2026-09-20",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 56,
+      "delta": 13,
+      "state": "danger",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": {
+        "covered": 43,
+        "total": 46
+      },
+      "regions": [
+        {
+          "id": "europe",
+          "index": 42,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 53,
+          "delta": 19,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 60,
+          "delta": 22,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 37,
+          "delta": 13,
+          "background": true
+        },
+        {
+          "id": "south-asia",
+          "index": 54,
+          "delta": 13,
+          "background": true
+        },
+        {
+          "id": "africa",
+          "index": 54,
+          "delta": 14,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Удары далеко за линией фронта участились",
+            "en": "Strikes deep behind the front line intensified"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Санкционное противостояние ужесточилось",
+            "en": "Sanctions confrontation tightened"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Напряжённость на восточном фланге НАТО выросла",
+            "en": "Tension rose on NATO's eastern flank"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 77,
+        "clusters": 4,
+        "state_affiliated": 19
+      },
+      "trend": [
+        {
+          "date": "2026-07-05",
+          "value": 58
+        },
+        {
+          "date": "2026-07-12",
+          "value": 59
+        },
+        {
+          "date": "2026-07-19",
+          "value": 59
+        },
+        {
+          "date": "2026-07-26",
+          "value": 62
+        },
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-09-27",
+      "published": "2026-09-27",
+      "through": "2026-09-27",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 47,
+      "delta": -9,
+      "state": "danger",
+      "q": 0.9071,
+      "confidence": "full",
+      "coverage_criteria": {
+        "covered": 27,
+        "total": 46
+      },
+      "regions": [
+        {
+          "id": "europe",
+          "index": 45,
+          "delta": 3,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 44,
+          "delta": -9,
+          "background": true
+        },
+        {
+          "id": "middle-east",
+          "index": 40,
+          "delta": -20,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 28,
+          "delta": -9,
+          "background": true
+        },
+        {
+          "id": "south-asia",
+          "index": 43,
+          "delta": -11,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 45,
+          "delta": -9,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Удары далеко за линией фронта участились",
+            "en": "Strikes deep behind the front line intensified"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Санкционное противостояние ужесточилось",
+            "en": "Sanctions confrontation tightened"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Напряжённость на восточном фланге НАТО выросла",
+            "en": "Tension rose on NATO's eastern flank"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 24,
+        "clusters": 2,
+        "state_affiliated": 8
+      },
+      "trend": [
+        {
+          "date": "2026-07-12",
+          "value": 59
+        },
+        {
+          "date": "2026-07-19",
+          "value": 59
+        },
+        {
+          "date": "2026-07-26",
+          "value": 62
+        },
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-27",
+          "value": 47,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-10-04",
+      "published": "2026-10-04",
+      "through": "2026-10-04",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 46,
+      "delta": -1,
+      "state": "danger",
+      "q": 0.9293,
+      "confidence": "full",
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 44,
+          "delta": -1,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 44,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 39,
+          "delta": -1,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 42,
+          "delta": 14,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 44,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 44,
+          "delta": -1,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Ядерная риторика и удары по энергетике усилились",
+            "en": "Nuclear rhetoric and energy strikes intensified"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Санкции и энергетическое давление сжали рынки",
+            "en": "Sanctions and energy pressure squeezed markets"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Вывод войск США из Ирака на фоне торговой войны союзников",
+            "en": "US troops leave Iraq amid allied trade war"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "sources": {
+        "count": 54,
+        "clusters": 4,
+        "state_affiliated": 14
+      },
+      "trend": [
+        {
+          "date": "2026-07-19",
+          "value": 59
+        },
+        {
+          "date": "2026-07-26",
+          "value": 62
+        },
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-27",
+          "value": 47,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-04",
+          "value": 46,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-10-11",
+      "published": "2026-10-11",
+      "through": "2026-10-11",
+      "methodology": "3.0",
+      "regions_taxonomy": "1.0",
+      "data_state": "published",
+      "index": 56,
+      "delta": 10,
+      "state": "danger",
+      "q": 0.8622,
+      "confidence": "full",
+      "coverage_criteria": null,
+      "regions": [
+        {
+          "id": "europe",
+          "index": 51,
+          "delta": 7,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 62,
+          "delta": 18,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 67,
+          "delta": 28,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 52,
+          "delta": 10,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 54,
+          "delta": 10,
+          "background": true
+        },
+        {
+          "id": "africa",
+          "index": 53,
+          "delta": 9,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Хуситы расширили войну до Эр-Рияда, США блокируют Ормуз",
+            "en": "Houthis widened the war to Riyadh as the US blockades Hormuz"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Ядерная сигнальная активность: пуск M51.3 и учения НАТО",
+            "en": "Nuclear signalling: M51.3 test and NATO drills"
+          },
+          "contribution": "medium"
+        },
+        {
+          "label": {
+            "ru": "Дизельная сделка США–РФ расколола Украину и Европу",
+            "en": "The US–Russia diesel deal split Ukraine and Europe"
+          },
+          "contribution": "high"
+        }
+      ],
+      "sources": {
+        "count": 85,
+        "clusters": 4,
+        "state_affiliated": 48
+      },
+      "trend": [
+        {
+          "date": "2026-07-26",
+          "value": 62
+        },
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-27",
+          "value": 47,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-04",
+          "value": 46,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-11",
+          "value": 56,
+          "methodology": "3.0"
+        }
+      ]
+    },
+    {
+      "week": "2026-10-18",
+      "published": "2026-10-18",
+      "through": "2026-10-18",
+      "methodology": "3.0",
+      "regions_taxonomy": "2.0",
+      "data_state": "published",
+      "index": 64,
+      "delta": 8,
+      "state": "very",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": {
+        "covered": 34,
+        "total": 46
+      },
+      "regions": [
+        {
+          "id": "russia-belarus",
+          "index": 56,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "ukraine-moldova",
+          "index": 58,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "baltic",
+          "index": 61,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "balkans",
+          "index": 63,
+          "delta": 7,
+          "background": false
+        },
+        {
+          "id": "eu-north-europe",
+          "index": 61,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "south-caucasus",
+          "index": 61,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "central-asia",
+          "index": 63,
+          "delta": 7,
+          "background": false
+        },
+        {
+          "id": "east-asia",
+          "index": 61,
+          "delta": -1,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 71,
+          "delta": 4,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 63,
+          "delta": 11,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 60,
+          "delta": 6,
+          "background": false
+        },
+        {
+          "id": "africa",
+          "index": 63,
+          "delta": 10,
+          "background": false
+        }
+      ],
+      "precursor": null,
+      "precursor_present": false,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Ормузский пролив заминирован, война расширяется на Красное море",
+            "en": "The Strait of Hormuz is mined and the war spreads to the Red Sea"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "ЕС ввёл крупнейший пакет санкций, НАТО начала ядерные учения",
+            "en": "The EU adopted its largest sanctions package as NATO began nuclear drills"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Санкционный маятник: США отсрочили ограничения, дроны ударили по тылу РФ",
+            "en": "Sanctions pendulum: the US deferred restrictions as drones struck Russia’s rear"
+          },
+          "contribution": "high"
+        }
+      ],
+      "sources": {
+        "count": 88,
+        "clusters": 5,
+        "state_affiliated": 30
+      },
+      "trend": [
+        {
+          "date": "2026-08-02",
+          "value": 64
+        },
+        {
+          "date": "2026-08-09",
+          "value": 65
+        },
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-27",
+          "value": 47,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-04",
+          "value": 46,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-11",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 64,
+          "methodology": "3.0"
+        }
+      ]
+    }
+  ]
+}
