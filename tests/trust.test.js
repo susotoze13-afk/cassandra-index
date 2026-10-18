@@ -55,6 +55,30 @@ test('trustFacts: пять фактов + детали (значения раз�
   ]);
 });
 
+// R05i.1: источники, подкреплённые хотя бы одной цитатой — счётчик для раскрытия
+// витрины. Фикстура: 4 источника, цитаты у первого и четвёртого; пустой список
+// у второго и поле у третьего отсутствует — «с цитатой» 2 из 4.
+test('trustFacts: quoted — источники с ≥1 цитатой, total — все источники', () => {
+  const snap = {
+    ...SNAP,
+    sources: [
+      { cluster_id: 'A-mainstream', state_affiliated: false, quotes: [{ criterion: 'D1.1', text: 'Фрагмент А' }] },
+      { cluster_id: 'A-mainstream', state_affiliated: false, quotes: [] },
+      { cluster_id: 'B-state-media', state_affiliated: true },
+      { cluster_id: 'C-registries', state_affiliated: false, quotes: [
+        { criterion: 'D5.1', text: 'Фрагмент Б' },
+        { criterion: 'D9.1', text: 'Фрагмент В' },
+      ] },
+    ],
+  };
+  const f = trustFacts(snap);
+  assert.deepEqual(f.quoted, { count: 2, total: 4 });
+  // Пять фактов строки не изменились от нового поля.
+  assert.equal(factsLine('ru', f).split(' · ').length, 5);
+  // Недели без поля quotes — 0 из N, не падение.
+  assert.deepEqual(trustFacts(SNAP).quoted, { count: 0, total: 4 });
+});
+
 test('trustFacts: слепые регионы считаются по набору недели (v2 — 12 id)', () => {
   const snap = {
     ...SNAP,
@@ -153,8 +177,11 @@ test('i18n: ключи пяти фактов и «н/д» существуют',
     'trust.fact.blind', 'trust.fact.methodology', 'trust.na',
     'trust.details.clusters', 'trust.details.affiliated',
     'trust.details.coverage', 'trust.details.coverage.na', 'trust.details.sensitive',
+    'trust.details.quotes', 'sources.quote.label',
     'trust.title',
   ]) {
     assert.equal(typeof DICTS.ru[key], 'string', `нет ключа ${key}`);
   }
+  assert.equal(DICTS.ru['trust.details.quotes'], 'С цитатой: {n} из {total}');
+  assert.equal(DICTS.ru['sources.quote.label'], 'Цитата');
 });

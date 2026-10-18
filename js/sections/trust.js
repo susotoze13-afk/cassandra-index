@@ -38,6 +38,11 @@ export function trustFacts(snapshot) {
 
   const affiliatedCount = sources.filter((s) => s && s.state_affiliated === true).length;
 
+  // R05i.1: сколько источников подкреплено хотя бы одной цитатой (R05i).
+  const quotedCount = sources.filter(
+    (s) => s && Array.isArray(s.quotes) && s.quotes.length > 0
+  ).length;
+
   const set = region.regionForTaxonomy(snapshot.regions_taxonomy);
   const regions = snapshot.regions && typeof snapshot.regions === 'object' ? snapshot.regions : {};
   const blindRegions = set.filter((r) => regions[r.id]?.background === true).length;
@@ -62,6 +67,7 @@ export function trustFacts(snapshot) {
     sensitivity,
     clusterCounts,
     affiliated: { count: affiliatedCount, total: sources.length },
+    quoted: { count: quotedCount, total: sources.length },
   };
 }
 
@@ -136,6 +142,15 @@ function buildDetails(lang, facts) {
     total: facts.affiliated.total,
   });
   wrap.appendChild(affiliated);
+
+  // R05i.1: строка «С цитатой: N из M» — раскрытие витрины, не основная строка.
+  const quoted = document.createElement('p');
+  quoted.className = 'trust-quoted';
+  quoted.textContent = t(lang, 'trust.details.quotes', {
+    n: facts.quoted.count,
+    total: facts.quoted.total,
+  });
+  wrap.appendChild(quoted);
 
   const coverage = document.createElement('p');
   coverage.className = 'trust-coverage';

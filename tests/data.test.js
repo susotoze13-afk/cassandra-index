@@ -126,8 +126,37 @@ test('validate: регионы — все 6, источники на драйв�
   assert.equal(validate(sixSources).ok, false);
 });
 
-test('validate: драйверов ровно 3 (контракт снапшота drivers[3])', () => {
-  const twoDrivers = validSnapshot();
+// R05i/R04i: поле quotes опционально (десять недель без него валидны); если
+// задано — массив {criterion, text} с непустыми строками, иначе запись битая.
+test('validate: quotes источника — корректная форма принимается, битая отклоняется', () => {
+  const withQuotes = validSnapshot();
+  withQuotes.sources[0].quotes = [
+    { criterion: 'D1.1', text: 'Дословный фрагмент текста.' },
+    { criterion: 'D9.3', text: 'Второй фрагмент.' },
+  ];
+  withQuotes.drivers[0].sources[0].quotes = [{ criterion: 'D2.3', text: 'Цитата в источнике драйвера.' }];
+  assert.deepEqual(validate(withQuotes), { ok: true, errors: [] });
+
+  const broken = [
+    ['не массив', 'D1.1: текст'],
+    ['элемент без text', [{ criterion: 'D1.1' }]],
+    ['пустой text', [{ criterion: 'D1.1', text: '' }]],
+    ['text из пробелов', [{ criterion: 'D1.1', text: '   ' }]],
+    ['text не строка', [{ criterion: 'D1.1', text: 5 }]],
+    ['нет criterion', [{ text: 'Фрагмент.' }]],
+    ['criterion не строка', [{ criterion: 7, text: 'Фрагмент.' }]],
+    ['null', null],
+  ];
+  for (const [name, value] of broken) {
+    const snap = validSnapshot();
+    snap.sources[0].quotes = value;
+    const v = validate(snap);
+    assert.equal(v.ok, false, name);
+    assert.ok(v.errors.some((e) => e.includes('sources')), `${name}: ${v.errors.join('; ')}`);
+  }
+});
+
+test('validate: драйверов ровно 3 (контракт снапшота drivers[3])', () => {  const twoDrivers = validSnapshot();
   twoDrivers.drivers = twoDrivers.drivers.slice(0, 2);
   const v1 = validate(twoDrivers);
   assert.equal(v1.ok, false);

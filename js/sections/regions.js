@@ -12,7 +12,7 @@ import * as risk from '../risk.js';
 import * as region from '../region.js';
 import { el, deltaClass } from '../ui.js';
 import { formatDelta, deltaArrow, isBackgroundRegion } from './hero.js';
-import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } from './drivers.js';
+import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion, quoteLookup } from './drivers.js';
 
 // Ranked-лист: все регионы набора отображаемой недели по убыванию |Δ|; при
 // равенстве |Δ| рост выше снижения, дальше — порядок справочника. Набор — по
@@ -64,18 +64,18 @@ function backgroundNote(lang) {
 
 // Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
 // регион оборачивает узлы в .region-driver-sources.
-function wrapSourcesAccordion(lang, drv, uid) {
+function wrapSourcesAccordion(lang, drv, uid, lookup) {
   const sources = Array.isArray(drv?.sources) ? drv.sources : [];
   const wrap = el('div', 'region-driver-sources');
   if (!sources.length) return wrap;
-  const acc = buildSourcesAccordion(lang, sources, `region-src-${uid}`);
+  const acc = buildSourcesAccordion(lang, sources, `region-src-${uid}`, lookup);
   wrap.append(acc.toggle, acc.list, acc.moreBtn);
   return wrap;
 }
 
 // Главные драйверы региона — кратко: лейбл/наблюдение, вклад и уверенность словами,
 // причина при сниженной уверенности (общий компонент confidenceInfo, таск 03).
-function buildDriverBlock(lang, drv, uid) {
+function buildDriverBlock(lang, drv, uid, lookup) {
   const block = el('div', 'region-driver');
 
   const label = driverLabel(lang, drv);
@@ -94,12 +94,12 @@ function buildDriverBlock(lang, drv, uid) {
   block.append(meta);
   if (conf.note) block.append(el('p', 'driver-confidence-note', conf.note));
 
-  block.append(wrapSourcesAccordion(lang, drv, uid));
+  block.append(wrapSourcesAccordion(lang, drv, uid, lookup));
   return block;
 }
 
 // Раскрытая карточка региона (§4.6): статус, Δ, уверенность региона, драйверы, источники.
-function buildDetail(lang, row, data, personal) {
+function buildDetail(lang, row, data, personal, lookup) {
   const detail = el('div', 'region-detail');
 
   // Статус + индекс + Δ: значения не только цветом — слова и знак рядом с тоном (§12).
@@ -134,7 +134,7 @@ function buildDetail(lang, row, data, personal) {
   const drivers = Array.isArray(data?.drivers) ? data.drivers : [];
   if (drivers.length) {
     detail.append(el('h3', 'region-detail-subtitle', t(lang, 'regions.drivers')));
-    drivers.forEach((drv, i) => detail.append(buildDriverBlock(lang, drv, `${row.id}-${i}`)));
+    drivers.forEach((drv, i) => detail.append(buildDriverBlock(lang, drv, `${row.id}-${i}`, lookup)));
   }
 
   return detail;
@@ -153,6 +153,7 @@ export function render(appState) {
     host.append(el('p', 'region-unavailable', t(lang, 'region.unavailable')));
     return;
   }
+  const lookup = quoteLookup(snapshot);
 
   const list = el('ol', 'regions-list');
   rows.forEach((row, i) => {
@@ -186,7 +187,7 @@ export function render(appState) {
     }
     head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
 
-    const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal);
+    const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal, lookup);
     detail.id = detailId;
     detail.hidden = true;
 

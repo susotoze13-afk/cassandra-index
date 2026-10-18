@@ -112,6 +112,9 @@ function isSource(s) {
   if (!isLocalized(s.title) || typeof s.url !== 'string' || typeof s.domain !== 'string') {
     return false;
   }
+  // quotes (R05i) — опциональное поле: список {criterion, text} с непустыми
+  // строками. Отсутствие — норма (недели без цитат); битая форма — ошибка.
+  if (s.quotes !== undefined && !isQuotes(s.quotes)) return false;
   // Легаси-схема демо-недель: скалярная дата публикации.
   if (typeof s.date === 'string') return true;
   // Полная схема ingestion (R55): обязательные поля новой записи.
@@ -122,6 +125,16 @@ function isSource(s) {
     ['primary', 'secondary', 'OSINT'].includes(s.source_type) &&
     typeof s.cluster_id === 'string' &&
     typeof s.state_affiliated === 'boolean'
+  );
+}
+
+function isQuotes(v) {
+  if (!Array.isArray(v)) return false;
+  return v.every(
+    (q) =>
+      !!q && typeof q === 'object' && !Array.isArray(q) &&
+      typeof q.criterion === 'string' && q.criterion.trim() !== '' &&
+      typeof q.text === 'string' && q.text.trim() !== ''
   );
 }
 
@@ -1043,6 +1056,7 @@ const DICTS = {
     'sources.type.secondary': 'вторичный',
     'sources.sort.tooltip': 'Сортировка: тип (primary → OSINT → secondary) → дата → алфавит',
     'sources.affiliated': 'государственная принадлежность',
+    'sources.quote.label': 'Цитата',
     'drivers.title': 'Что изменилось',
     'drivers.observation': 'Наблюдение',
     'drivers.why': 'Почему это важно',
@@ -1125,6 +1139,7 @@ const DICTS = {
     'trust.cluster.E-field-osint': 'Полевые OSINT (E)',
     'trust.cluster.F-financial': 'Финансовые данные (F)',
     'trust.details.affiliated': '{count} из {total} — гос/госфинансируемые, помечены честно',
+    'trust.details.quotes': 'С цитатой: {n} из {total}',
     'trust.details.coverage': 'не покрыто {n} {n, plural, one{критерий} few{критерия} many{критериев} other{критериев}} — нет подтверждающих сигналов в окне недели',
     'trust.details.coverage.na': 'Покрытие критериев: н/д',
     'trust.details.sensitive': 'индекс чувствителен к одному из доменов (Δ {delta} п.п.)',
@@ -2997,6 +3012,11 @@ function trustFacts(snapshot) {
 
   const affiliatedCount = sources.filter((s) => s && s.state_affiliated === true).length;
 
+  // R05i.1: сколько источников подкреплено хотя бы одной цитатой (R05i).
+  const quotedCount = sources.filter(
+    (s) => s && Array.isArray(s.quotes) && s.quotes.length > 0
+  ).length;
+
   const set = region.regionForTaxonomy(snapshot.regions_taxonomy);
   const regions = snapshot.regions && typeof snapshot.regions === 'object' ? snapshot.regions : {};
   const blindRegions = set.filter((r) => regions[r.id]?.background === true).length;
@@ -3021,6 +3041,7 @@ function trustFacts(snapshot) {
     sensitivity,
     clusterCounts,
     affiliated: { count: affiliatedCount, total: sources.length },
+    quoted: { count: quotedCount, total: sources.length },
   };
 }
 
@@ -3095,6 +3116,15 @@ function buildDetails(lang, facts) {
     total: facts.affiliated.total,
   });
   wrap.appendChild(affiliated);
+
+  // R05i.1: строка «С цитатой: N из M» — раскрытие витрины, не основная строка.
+  const quoted = document.createElement('p');
+  quoted.className = 'trust-quoted';
+  quoted.textContent = t(lang, 'trust.details.quotes', {
+    n: facts.quoted.count,
+    total: facts.quoted.total,
+  });
+  wrap.appendChild(quoted);
 
   const coverage = document.createElement('p');
   coverage.className = 'trust-coverage';
@@ -3267,6 +3297,34 @@ function confidenceInfo(lang, drv) {
   return { word: levelLabel(lang, 'confidence', drv?.confidence), note };
 }
 
+// ---------- Цитаты источников (R05i) ----------
+
+// Цитаты лежат у полной записи источника в snapshot.sources ({criterion, text}),
+// а источники драйверов и регионов несут сокращённую схему без id — поэтому
+// связываем их по url (спецификация, «Решения по реализации»).
+// quoteLookup(snapshot) → Map<url, quotes[]>, только источники с непустым списком.
+function quoteLookup(snapshot) {
+  const map = new Map();
+  const sources = Array.isArray(snapshot?.sources) ? snapshot.sources : [];
+  for (const s of sources) {
+    const quotes = quotesFor(s);
+    if (typeof s?.url === 'string' && quotes.length) map.set(s.url, quotes);
+  }
+  return map;
+}
+
+// quotesFor(source, lookup) → Array<{criterion, text}>; [] — цитат нет.
+// Полная запись со своим полем quotes приоритетнее карты (не теряем свежие данные).
+function quotesFor(source, lookup) {
+  if (source && Array.isArray(source.quotes) && source.quotes.length) {
+    return source.quotes.slice();
+  }
+  const url = source?.url;
+  if (!(lookup instanceof Map) || typeof url !== 'string') return [];
+  const found = lookup.get(url);
+  return Array.isArray(found) ? found.slice() : [];
+}
+
 // ---------- DOM ----------
 
 const LEVEL_TONE = {
@@ -3285,7 +3343,7 @@ function buildTypeBadge(lang, src) {
   return { badge, label: t(lang, `sources.type.${type}`) };
 }
 
-function buildSourceItem(lang, src) {
+function buildSourceItem(lang, src, quotes) {
   const li = el('li', 'driver-source');
   const a = el('a', 'driver-source-link');
   a.href = src.url;
@@ -3301,6 +3359,19 @@ function buildSourceItem(lang, src) {
   meta.append(el('span', 'driver-source-date', date(lang, src.publication_date ?? src.date, true)));
   a.append(meta);
   li.append(a);
+
+  // R05i: дословная цитата под источником — подпись «Цитата», id критерия, текст.
+  // У источника без цитат блок не создаётся вовсе (нет пустой подписи и сдвига).
+  for (const q of Array.isArray(quotes) ? quotes : []) {
+    if (!q || typeof q.text !== 'string' || q.text === '') continue;
+    const block = el('p', 'driver-source-quote');
+    block.append(el('span', 'driver-source-quote-label', t(lang, 'sources.quote.label')));
+    if (typeof q.criterion === 'string' && q.criterion) {
+      block.append(el('span', 'driver-source-quote-criterion', q.criterion));
+    }
+    block.append(el('span', 'driver-source-quote-text', q.text));
+    li.append(block);
+  }
   return li;
 }
 
@@ -3309,7 +3380,7 @@ function buildSourceItem(lang, src) {
 // драйвера добавляет в корень, блок региона — в обёртку .region-driver-sources.
 // Список отсортирован (R56), разворот по умолчанию свёрнут и живёт в
 // sessionStorage ≤ 30 минут (R57).
-function buildSourcesAccordion(lang, sources, listId) {
+function buildSourcesAccordion(lang, sources, listId, lookup) {
   const sorted = sortSources(sources);
   const list = el('ul', 'driver-sources');
   list.id = listId;
@@ -3323,7 +3394,7 @@ function buildSourcesAccordion(lang, sources, listId) {
   const paint = () => {
     const { shown, remaining } = visibleSources(sorted, state.showAll);
     list.innerHTML = '';
-    for (const src of shown) list.append(buildSourceItem(lang, src));
+    for (const src of shown) list.append(buildSourceItem(lang, src, quotesFor(src, lookup)));
     // Кнопка «все источники» живёт под раскрытым списком: при свёрнутом
     // аккордеоне не показываем (иначе — висящая кнопка без списка).
     moreBtn.hidden = !state.expanded || (!state.showAll && remaining === 0);
@@ -3361,7 +3432,7 @@ function buildSourcesAccordion(lang, sources, listId) {
   return { toggle, list, moreBtn };
 }
 
-function buildDriverCard(lang, drv, index) {
+function buildDriverCard(lang, drv, index, lookup) {
   const card = el('article', 'driver-card');
   card.dataset.driver = String(index);
 
@@ -3393,7 +3464,7 @@ function buildDriverCard(lang, drv, index) {
 
   // Аккордеон источников (§4.3.1): кнопка --accent, chevron 90°, aria-expanded/aria-controls.
   const sources = Array.isArray(drv.sources) ? drv.sources : [];
-  const acc = buildSourcesAccordion(lang, sources, `driver-${index}-sources`);
+  const acc = buildSourcesAccordion(lang, sources, `driver-${index}-sources`, lookup);
   card.append(acc.toggle, acc.list, acc.moreBtn);
   return card;
 }
@@ -3440,8 +3511,9 @@ function render(appState) {
   host.innerHTML = '';
 
   const drivers = Array.isArray(snapshot?.drivers) ? snapshot.drivers : [];
+  const lookup = quoteLookup(snapshot);
   const cards = el('div', 'drivers-list');
-  drivers.forEach((drv, i) => cards.append(buildDriverCard(lang, drv, i)));
+  drivers.forEach((drv, i) => cards.append(buildDriverCard(lang, drv, i, lookup)));
   host.append(cards);
 
   const measures = resolveMeasures(snapshot);
@@ -3464,6 +3536,8 @@ exports["resolveMeasures"] = resolveMeasures;
 exports["driverLabel"] = driverLabel;
 exports["levelLabel"] = levelLabel;
 exports["confidenceInfo"] = confidenceInfo;
+exports["quoteLookup"] = quoteLookup;
+exports["quotesFor"] = quotesFor;
 exports["buildSourceItem"] = buildSourceItem;
 exports["buildSourcesAccordion"] = buildSourcesAccordion;
 exports["render"] = render;
@@ -4034,7 +4108,7 @@ const risk = __ci_require("js/risk.js");
 const region = __ci_require("js/region.js");
 const { el, deltaClass } = __ci_require("js/ui.js");
 const { formatDelta, deltaArrow, isBackgroundRegion } = __ci_require("js/sections/hero.js");
-const { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion } = __ci_require("js/sections/drivers.js");
+const { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion, quoteLookup } = __ci_require("js/sections/drivers.js");
 // Секция «Что это значит для моего региона?» (регистрируется как 'regions'):
 // ranked-лист всех 6 регионов по недельному изменению (§4.6, §5.1).
 // Семантический ol/li — не карта: карта не может быть единственным источником
@@ -4095,18 +4169,18 @@ function backgroundNote(lang) {
 
 // Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
 // регион оборачивает узлы в .region-driver-sources.
-function wrapSourcesAccordion(lang, drv, uid) {
+function wrapSourcesAccordion(lang, drv, uid, lookup) {
   const sources = Array.isArray(drv?.sources) ? drv.sources : [];
   const wrap = el('div', 'region-driver-sources');
   if (!sources.length) return wrap;
-  const acc = buildSourcesAccordion(lang, sources, `region-src-${uid}`);
+  const acc = buildSourcesAccordion(lang, sources, `region-src-${uid}`, lookup);
   wrap.append(acc.toggle, acc.list, acc.moreBtn);
   return wrap;
 }
 
 // Главные драйверы региона — кратко: лейбл/наблюдение, вклад и уверенность словами,
 // причина при сниженной уверенности (общий компонент confidenceInfo, таск 03).
-function buildDriverBlock(lang, drv, uid) {
+function buildDriverBlock(lang, drv, uid, lookup) {
   const block = el('div', 'region-driver');
 
   const label = driverLabel(lang, drv);
@@ -4125,12 +4199,12 @@ function buildDriverBlock(lang, drv, uid) {
   block.append(meta);
   if (conf.note) block.append(el('p', 'driver-confidence-note', conf.note));
 
-  block.append(wrapSourcesAccordion(lang, drv, uid));
+  block.append(wrapSourcesAccordion(lang, drv, uid, lookup));
   return block;
 }
 
 // Раскрытая карточка региона (§4.6): статус, Δ, уверенность региона, драйверы, источники.
-function buildDetail(lang, row, data, personal) {
+function buildDetail(lang, row, data, personal, lookup) {
   const detail = el('div', 'region-detail');
 
   // Статус + индекс + Δ: значения не только цветом — слова и знак рядом с тоном (§12).
@@ -4165,7 +4239,7 @@ function buildDetail(lang, row, data, personal) {
   const drivers = Array.isArray(data?.drivers) ? data.drivers : [];
   if (drivers.length) {
     detail.append(el('h3', 'region-detail-subtitle', t(lang, 'regions.drivers')));
-    drivers.forEach((drv, i) => detail.append(buildDriverBlock(lang, drv, `${row.id}-${i}`)));
+    drivers.forEach((drv, i) => detail.append(buildDriverBlock(lang, drv, `${row.id}-${i}`, lookup)));
   }
 
   return detail;
@@ -4184,6 +4258,7 @@ function render(appState) {
     host.append(el('p', 'region-unavailable', t(lang, 'region.unavailable')));
     return;
   }
+  const lookup = quoteLookup(snapshot);
 
   const list = el('ol', 'regions-list');
   rows.forEach((row, i) => {
@@ -4217,7 +4292,7 @@ function render(appState) {
     }
     head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
 
-    const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal);
+    const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal, lookup);
     detail.id = detailId;
     detail.hidden = true;
 

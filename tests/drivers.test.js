@@ -113,6 +113,116 @@ test('sortSources: легаси-источники (только date) сорт�
   assert.deepEqual(sortSources([legacy, primary]).map((s) => s.domain), ['z.example', 'a.example']);
 });
 
+// R05i: цитаты лежат у полной записи источника (snapshot.sources), а источники
+// драйверов/регионов несут сокращённую схему без id — связываем по url.
+// Ожидания разобраны вручную от фикстуры ниже (три источника: с цитатой,
+// без поля цитат, с двумя цитатами).
+import { quoteLookup, quotesFor, buildSourceItem } from '../js/sections/drivers.js';
+
+const QUOTE_SNAP = {
+  sources: [
+    { url: 'https://a.example/x', quotes: [{ criterion: 'D1.1', text: 'Фрагмент А' }] },
+    { url: 'https://b.example/y' },
+    { url: 'https://c.example/z', quotes: [
+      { criterion: 'D9.1', text: 'Фрагмент Б' },
+      { criterion: 'D5.2', text: 'Фрагмент В' },
+    ] },
+  ],
+};
+
+test('quoteLookup: карта url → цитаты, только источники с непустым списком', () => {
+  const lookup = quoteLookup(QUOTE_SNAP);
+  assert.deepEqual([...lookup.keys()], ['https://a.example/x', 'https://c.example/z']);
+  assert.deepEqual(lookup.get('https://a.example/x'), [{ criterion: 'D1.1', text: 'Фрагмент А' }]);
+  assert.equal(quoteLookup(null).size, 0);
+  assert.equal(quoteLookup({}).size, 0);
+});
+
+test('quotesFor: цитаты по url; нет цитат — пустой массив', () => {
+  const lookup = quoteLookup(QUOTE_SNAP);
+  assert.deepEqual(quotesFor({ url: 'https://c.example/z' }, lookup), [
+    { criterion: 'D9.1', text: 'Фрагмент Б' },
+    { criterion: 'D5.2', text: 'Фрагмент В' },
+  ]);
+  assert.deepEqual(quotesFor({ url: 'https://b.example/y' }, lookup), []);
+  assert.deepEqual(quotesFor({ url: 'https://unknown.example/' }, lookup), []);
+  assert.deepEqual(quotesFor(null, lookup), []);
+  assert.deepEqual(quotesFor({ url: 'https://a.example/x' }), [], 'без lookup — пусто');
+  // Полная запись несёт цитаты сама — lookup не нужен.
+  assert.deepEqual(quotesFor({ url: 'https://x.example/', quotes: [{ criterion: 'D3.1', text: 'Свой' }] }), [
+    { criterion: 'D3.1', text: 'Свой' },
+  ]);
+});
+
+// Поддельный DOM: дерево узлов с className/textContent/append — только то,
+// что нужно строителю записи источника (createElement + textContent, без innerHTML).
+function fakeDocument() {
+  function make(tag) {
+    const node = {
+      tag,
+      className: '',
+      textContent: '',
+      children: [],
+      attributes: {},
+      dataset: {},
+      setAttribute(name, value) { this.attributes[name] = String(value); },
+      getAttribute(name) { return this.attributes[name] ?? null; },
+      append(...kids) { for (const k of kids) this.children.push(k); },
+      appendChild(k) { this.children.push(k); return k; },
+      addEventListener() {},
+      classList: { add() {}, toggle() {} },
+      style: { setProperty() {} },
+    };
+    Object.defineProperty(node, 'text', {
+      get() {
+        return [this.textContent, ...this.children.map((c) => c.text)].join('');
+      },
+    });
+    return node;
+  }
+  return { createElement: make };
+}
+
+function withFakeDocument(fn) {
+  const prev = globalThis.document;
+  globalThis.document = fakeDocument();
+  try {
+    return fn();
+  } finally {
+    if (prev === undefined) delete globalThis.document;
+    else globalThis.document = prev;
+  }
+}
+
+function quoteBlocks(node) {
+  return node.children.filter((c) => c.className === 'driver-source-quote');
+}
+
+test('buildSourceItem: цитата под источником; у источника без цитат блока нет', () => {
+  const src = {
+    title: { ru: 'Источник', en: 'Source' },
+    url: 'https://a.example/x',
+    domain: 'a.example',
+    source_type: 'primary',
+    publication_date: '2026-09-10',
+  };
+  const quote = { criterion: 'D1.1', text: 'Дословный фрагмент текста.' };
+
+  withFakeDocument(() => {
+    const withQuote = buildSourceItem('ru', src, [quote]);
+    const blocks = quoteBlocks(withQuote);
+    assert.equal(blocks.length, 1, 'ровно один блок цитаты');
+    const text = blocks[0].text;
+    assert.ok(text.includes('Цитата'), `подпись «Цитата»: ${text}`);
+    assert.ok(text.includes('D1.1'), `id критерия: ${text}`);
+    assert.ok(text.includes('Дословный фрагмент текста.'), `текст цитаты: ${text}`);
+
+    // Без третьего аргумента и с пустым списком — блока нет (вёрстка не сдвигается).
+    assert.equal(quoteBlocks(buildSourceItem('ru', src)).length, 0);
+    assert.equal(quoteBlocks(buildSourceItem('ru', src, [])).length, 0);
+  });
+});
+
 // R57: разворот аккордеона источников живёт в sessionStorage ≤ 30 минут;
 // чтение — чистый шов с подменой хранилища и времени.
 test('sourcesOpenState: новая сессия свёрнута; свежая метка — развёрнут; после 30 минут — свёрнут', () => {

@@ -660,6 +660,38 @@ main {
   font-size: 12px;
 }
 
+/* R05i: цитата под источником — без рамки, если её нет (блок не создаётся). */
+.driver-source-quote {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  border-left: 2px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 6px 6px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.driver-source-quote-label {
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.driver-source-quote-criterion {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
+.driver-source-quote-text {
+  color: var(--text);
+}
+
 .driver-sources-more {
   align-self: flex-start;
   background: none;
@@ -2073,6 +2105,7 @@ main {
 
 .trust-affiliated,
 .trust-coverage,
+.trust-quoted,
 .trust-sensitive {
   margin: 0 0 6px;
   font-size: 14px;

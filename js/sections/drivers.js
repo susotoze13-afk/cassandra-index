@@ -105,6 +105,34 @@ export function confidenceInfo(lang, drv) {
   return { word: levelLabel(lang, 'confidence', drv?.confidence), note };
 }
 
+// ---------- Цитаты источников (R05i) ----------
+
+// Цитаты лежат у полной записи источника в snapshot.sources ({criterion, text}),
+// а источники драйверов и регионов несут сокращённую схему без id — поэтому
+// связываем их по url (спецификация, «Решения по реализации»).
+// quoteLookup(snapshot) → Map<url, quotes[]>, только источники с непустым списком.
+export function quoteLookup(snapshot) {
+  const map = new Map();
+  const sources = Array.isArray(snapshot?.sources) ? snapshot.sources : [];
+  for (const s of sources) {
+    const quotes = quotesFor(s);
+    if (typeof s?.url === 'string' && quotes.length) map.set(s.url, quotes);
+  }
+  return map;
+}
+
+// quotesFor(source, lookup) → Array<{criterion, text}>; [] — цитат нет.
+// Полная запись со своим полем quotes приоритетнее карты (не теряем свежие данные).
+export function quotesFor(source, lookup) {
+  if (source && Array.isArray(source.quotes) && source.quotes.length) {
+    return source.quotes.slice();
+  }
+  const url = source?.url;
+  if (!(lookup instanceof Map) || typeof url !== 'string') return [];
+  const found = lookup.get(url);
+  return Array.isArray(found) ? found.slice() : [];
+}
+
 // ---------- DOM ----------
 
 const LEVEL_TONE = {
@@ -123,7 +151,7 @@ function buildTypeBadge(lang, src) {
   return { badge, label: t(lang, `sources.type.${type}`) };
 }
 
-export function buildSourceItem(lang, src) {
+export function buildSourceItem(lang, src, quotes) {
   const li = el('li', 'driver-source');
   const a = el('a', 'driver-source-link');
   a.href = src.url;
@@ -139,6 +167,19 @@ export function buildSourceItem(lang, src) {
   meta.append(el('span', 'driver-source-date', date(lang, src.publication_date ?? src.date, true)));
   a.append(meta);
   li.append(a);
+
+  // R05i: дословная цитата под источником — подпись «Цитата», id критерия, текст.
+  // У источника без цитат блок не создаётся вовсе (нет пустой подписи и сдвига).
+  for (const q of Array.isArray(quotes) ? quotes : []) {
+    if (!q || typeof q.text !== 'string' || q.text === '') continue;
+    const block = el('p', 'driver-source-quote');
+    block.append(el('span', 'driver-source-quote-label', t(lang, 'sources.quote.label')));
+    if (typeof q.criterion === 'string' && q.criterion) {
+      block.append(el('span', 'driver-source-quote-criterion', q.criterion));
+    }
+    block.append(el('span', 'driver-source-quote-text', q.text));
+    li.append(block);
+  }
   return li;
 }
 
@@ -147,7 +188,7 @@ export function buildSourceItem(lang, src) {
 // драйвера добавляет в корень, блок региона — в обёртку .region-driver-sources.
 // Список отсортирован (R56), разворот по умолчанию свёрнут и живёт в
 // sessionStorage ≤ 30 минут (R57).
-export function buildSourcesAccordion(lang, sources, listId) {
+export function buildSourcesAccordion(lang, sources, listId, lookup) {
   const sorted = sortSources(sources);
   const list = el('ul', 'driver-sources');
   list.id = listId;
@@ -161,7 +202,7 @@ export function buildSourcesAccordion(lang, sources, listId) {
   const paint = () => {
     const { shown, remaining } = visibleSources(sorted, state.showAll);
     list.innerHTML = '';
-    for (const src of shown) list.append(buildSourceItem(lang, src));
+    for (const src of shown) list.append(buildSourceItem(lang, src, quotesFor(src, lookup)));
     // Кнопка «все источники» живёт под раскрытым списком: при свёрнутом
     // аккордеоне не показываем (иначе — висящая кнопка без списка).
     moreBtn.hidden = !state.expanded || (!state.showAll && remaining === 0);
@@ -199,7 +240,7 @@ export function buildSourcesAccordion(lang, sources, listId) {
   return { toggle, list, moreBtn };
 }
 
-function buildDriverCard(lang, drv, index) {
+function buildDriverCard(lang, drv, index, lookup) {
   const card = el('article', 'driver-card');
   card.dataset.driver = String(index);
 
@@ -231,7 +272,7 @@ function buildDriverCard(lang, drv, index) {
 
   // Аккордеон источников (§4.3.1): кнопка --accent, chevron 90°, aria-expanded/aria-controls.
   const sources = Array.isArray(drv.sources) ? drv.sources : [];
-  const acc = buildSourcesAccordion(lang, sources, `driver-${index}-sources`);
+  const acc = buildSourcesAccordion(lang, sources, `driver-${index}-sources`, lookup);
   card.append(acc.toggle, acc.list, acc.moreBtn);
   return card;
 }
@@ -278,8 +319,9 @@ export function render(appState) {
   host.innerHTML = '';
 
   const drivers = Array.isArray(snapshot?.drivers) ? snapshot.drivers : [];
+  const lookup = quoteLookup(snapshot);
   const cards = el('div', 'drivers-list');
-  drivers.forEach((drv, i) => cards.append(buildDriverCard(lang, drv, i)));
+  drivers.forEach((drv, i) => cards.append(buildDriverCard(lang, drv, i, lookup)));
   host.append(cards);
 
   const measures = resolveMeasures(snapshot);

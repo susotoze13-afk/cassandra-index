@@ -100,6 +100,9 @@ function isSource(s) {
   if (!isLocalized(s.title) || typeof s.url !== 'string' || typeof s.domain !== 'string') {
     return false;
   }
+  // quotes (R05i) — опциональное поле: список {criterion, text} с непустыми
+  // строками. Отсутствие — норма (недели без цитат); битая форма — ошибка.
+  if (s.quotes !== undefined && !isQuotes(s.quotes)) return false;
   // Легаси-схема демо-недель: скалярная дата публикации.
   if (typeof s.date === 'string') return true;
   // Полная схема ingestion (R55): обязательные поля новой записи.
@@ -110,6 +113,16 @@ function isSource(s) {
     ['primary', 'secondary', 'OSINT'].includes(s.source_type) &&
     typeof s.cluster_id === 'string' &&
     typeof s.state_affiliated === 'boolean'
+  );
+}
+
+function isQuotes(v) {
+  if (!Array.isArray(v)) return false;
+  return v.every(
+    (q) =>
+      !!q && typeof q === 'object' && !Array.isArray(q) &&
+      typeof q.criterion === 'string' && q.criterion.trim() !== '' &&
+      typeof q.text === 'string' && q.text.trim() !== ''
   );
 }
 
