@@ -11,6 +11,10 @@
 = `2026-10-18`, forward-only); недели ≤ 10-11 — v1 (6 id), `2026-10-18` — первая
 неделя v2 (12 регионов, `week.js` из 17 частей). Версия таксономии
 версионируется отдельно от methodology.
+Публичный слой **Precursor Risk** — `precursor {value, signalingSubgroups}` (доля скора Д9,
+в индекс не входит, forward-only, ADR 0047); шкала объявлена порядковой (ADR 0048);
+форвардный якорь — ожидание редактора до записи недели (ADR 0049). Поток данных и границы
+модулей — `docs/architecture.md`.
 Стек: чистый HTML/CSS/JS, ноль зависимостей; Node ≥ 18; всё — ESM, кроме CommonJS `build.js`.
 
 ## Команды
@@ -23,6 +27,7 @@
 | Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11 → 10-18); после частей пишет и производный `week.js` |
 | Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
+| Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
@@ -52,9 +57,9 @@ privacy.html              политика приватности
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
-                          region (две таксономии v1/v2 + поиск), render, sections/* (9
-                          зарегистрированных секций, на странице видимых 8 — history скрыта;
-                          trust — витрина доверия, ADR 0033),
+                          region (две таксономии v1/v2 + поиск), render, sections/* (10
+                          зарегистрированных секций, на странице видимых 9 — history скрыта;
+                          precursor — слой Д9, ADR 0047; trust — витрина доверия, ADR 0033),
                           geo (ленивый справочник городов/стран), share, demo, ui, criteria,
                           analytics (Cloudflare Web Analytics, beacon после согласия),
                           sections/feedback (форма обратной связи)
@@ -74,10 +79,21 @@ calc/engine.js            ядро формул: скор драйвера (§4.
                           D4.6 — ordinal-шкала 0/0.33/0.67/1)
 calc/params.js            PARAMS — единственный источник чисел (k = 1.95,
                           methodology = '3.0')
-calc/calc.js              CLI прогона недели; маппинг входа → драйверы через buildDrivers;
-                          ворота ссылок и контракта перед --write; validateInputSources (R55);
-                          ignoredRegionalAttribution (R01.2, предупреждение об игноре);
-                          шов рендера снапшотов renderGlobal/renderRegionFile
+calc/week-step.js         чистый шаг недели: computeWeek (вход → buildDrivers →
+                          aggregateDrivers с ctx → regionalSignals → classifyPublication),
+                          taxonomyForWeek, loadSnapshotPart (vm), nextChainState;
+                          calc.js реэкспортирует швы, CLI и ворота остаются в calc.js
+calc/precursor.js         precursorOf(drivers) → {value:int 0..100, signalingSubgroups}
+                          | null — слой Д9 без ограничителя §4.3.5, в индекс не входит
+                          (ADR 0047); тесты tests/precursor.test.js
+calc/forward-anchors.js   CLUSTERS (id js/risk.js + unknown) и
+                          validateForwardAnchor(obj) → errors[] — схема форвардного
+                          ожидания, без диска и сети (ADR 0049);
+                          тесты tests/forward-anchors.test.js
+calc/calc.js              CLI прогона недели; ворота ссылок и контракта перед --write;
+                          validateInputSources (R55); ignoredRegionalAttribution (R01.2);
+                          precursorOf → поле precursor; шов рендера снапшотов
+                          renderGlobal/renderRegionFile
 calc/linkcheck.js         чистый модуль проверки URL: classify(status) → ok|blocked|broken,
                           checkUrl (ретраи на 429/406/5xx, таймаут 10 c, браузерные
                           заголовки), checkSources (последовательный обход)
@@ -132,7 +148,9 @@ calc/input/drafts/        пилот Jev: черновики `<неделя>.llm
                           append-only), корпус текстов `texts-<неделя>/<source_id>.txt`
                           (предоставляет человек), сырой вход пилота `pilot-llm-<неделя>.json`
 calc/input/anchors/       10 модельных якорных профилей §9 (rollingOrigin select/verify),
-                          D4.6 добавлен к каждому как ordinal {value, covered, sources}
+                          D4.6 добавлен к каждому как ordinal {value, covered, sources};
+                          рядом — форвардные `forward-<неделя>.json` (ADR 0049; ни одного
+                          пока нет, `loadAnchors` пропускает файлы без `input.anchor`)
 data/regions/             source of truth таксономии: reference.json (ISO 3166-2,
                           adminCenter, taxonomies{'1.0','2.0'}, taxonomy_version '2.0')
                           + зеркало reference.js (window.CI_REGION_REF)
@@ -152,6 +170,8 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           таксономии: v1 = 11, v2 = 17 — единственный файл, который грузит
                           сайт; производная, руками не править);
                           global.js несёт `regions_taxonomy` ('1.0'/'2.0'), по нему читаются части;
+                          поля `coverageCriteria` и `precursor` — forward-only: на диске
+                          `precursor` нет ни у одной недели (не бэкфиллится, ADR 0047);
                           запись региона несёт background (true = слепой регион; в v1-неделях
                           слепых 2/3/3/2/2/0/1 из 6, africa покрыт во всех 7 v1-неделях,
                           south-asia — в 08-30/09-06/09-27/10-04; в 10-18 покрыты все 12
@@ -160,7 +180,7 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
                           (по одному запросу на неделю вместо 11–17 частей; 12 недель)
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0038;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0049;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -181,7 +201,14 @@ docs/adr/                 зафиксированные архитектурн�
                           полем `quotes` в записи источника; 0042 — ворота дословности
                           на записи, а не на чтении; 0043 — `events[]` только у счётных
                           критериев якорей; 0044 — побочные `coverageCriteria` у 09-20
-                          и 09-27 приняты; 0045 — раскрытие масштаба и детализация покрытия)
+                          и 09-27 приняты; 0045 — раскрытие масштаба и детализация покрытия;
+                          0046 — поле `intersection` во входе (чужой прогон: критерий
+                          покрыт, но не входит в скор); 0047 — слой Precursor Risk (Д9)
+                          отдельным полем, в индекс не входит; 0048 — шкала порядковая,
+                          нормировка не меняется; 0049 — форвардные якоря и заморозка
+                          параметров до 8 точек)
+docs/architecture.md      поток данных расчёта и сайта, границы модулей, конвенции;
+                          источник для агента, впервые открывшего репозиторий
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
                           D1…D9 (текст документа ещё говорит «45» — под 46/3.0 не
                           обновлён):
@@ -192,7 +219,9 @@ docs/jev-classification.md  логика классификации источн
 docs/llm-pilot-journal.md аудиторский след пилота машинной разметки (ретро-прогоны
                           09-27/09-20, критерии успеха, решение о форвард-пилоте)
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21; доп. 2026-10-11 —
-                          ввод D4.6, methodology 3.0, k = 1.95 подтверждён)
+                          ввод D4.6, methodology 3.0, k = 1.95 подтверждён; 2026-10-18 —
+                          «Интервальность шкалы» (10 якорей, ADR 0048) и «Форвардный
+                          журнал» (ADR 0049, таблица пуста))
 docs/metrics-journal.md   аудиторский след продуктовых метрик ADR 0033 (доля share-переходов,
                           брендовые запросы, регулярность визита): baseline-таблица (заполняет
                           владелец вручную из Cloudflare Web Analytics) + правила ведения
@@ -205,7 +234,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           45 файлов, node --test
+tests/*.test.js           55 файлов, node --test (575 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -234,7 +263,21 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   с правилом пинит `tests/history-debt.test.js`.
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
-  маппинг в calibrate.js не дублируется).
+  маппинг в calibrate.js не дублируется). `loadAnchors(dir)` пропускает `*.json` без
+  объекта `input.anchor` — поэтому форвардные файлы в том же каталоге не ломают грид.
+- `calc/week-step.js` — шаг недели цепочки: `computeWeek(input, state, params)` →
+  `{week, drivers, ctx, global, classification, regions, sbLeft, sbReason}`;
+  `taxonomyForWeek`, `loadSnapshotPart` (vm, без DOM), `classifyPublication`,
+  `nextChainState`. calc.js реэкспортирует эти швы (тесты импортируют из calc.js).
+- `calc/precursor.js` — `precursorOf(drivers)` → `{value, signalingSubgroups}|null`:
+  берёт драйвер Д9, `value = clamp(Math.round(score*100), 0, 100)`; ограничитель §4.3.5
+  не применяется, `U`/`q`/инерция не трогаются. `runWeek` кладёт результат рядом с
+  `sensitivity`; `writeWeek` — в `meta` и `full`; `renderGlobal` пишет `s.precursor`
+  только при заданном поле.
+- `calc/forward-anchors.js` — `CLUSTERS` (id `SCALE` из js/risk.js + `unknown`; паритет
+  пинит тест) и `validateForwardAnchor(obj) → errors[]` (week — календарная дата,
+  expectedCluster из CLUSTERS, rationale/author непустые, committedAt — ISO,
+  sources[{url}]); диска и сети нет; `unknown` — законная запись, причина в `rationale`.
 - `calc/linkcheck.js` — чистый модуль: `classify` (2xx/3xx → ok; 401/403/406/null → blocked;
   404/410/прочее → broken), `checkUrl` (fetchImpl прокидывается снаружи — шов тестов,
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
@@ -243,7 +286,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-11','2026-10-18'], старт
   от опубликованного PREV_WEEK = '2026-08-23'; набор регионов недели — по версии:
   `taxonomyForWeek(week)` ('2.0' от `PARAMS.taxonomyV2From`, иначе '1.0'), whitelist входа
-  `regionIdsFor(taxonomyForWeek(week))`; runWeek проводит региональные сигналы:
+  `regionIdsFor(taxonomyForWeek(week))`; runWeek зовёт `computeWeek` из week-step.js
+  (маппинг → драйверы → агрегация → регионы → классификация) и добавляет
+  `sensitivity`, `precursor`, `intersections`, `debt`; региональные сигналы:
   `regionalSignals(input.criteria, regionIds, PARAMS)` → регион с сигналами считается
   по ним (nReg>0, background:false), без — слепой веткой (background:true); переиспользуемые швы: `loadSnapshotPart`
   (чтение .js-снапшотов через vm, без DOM), `collectSourceItems` (дедуп URL из top-level
@@ -307,9 +352,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   регион (индекс отражает глобальный фон), trend ровно 12 точек (value:null только с
   methodology), ровно 3 драйвера,
   источники по isSource), `validateQuality` (q/nullWeight/confidence/coverage/preview/
-  recalc, опциональный `coverageCriteria: {covered:int≥0, total:int>0, covered≤total}`
-  (покрытых критериев из 46, ADR 0033; старые недели без него валидны), неделя
-  insufficient обязана нести полный пакет непубликации);
+  recalc, опциональные `coverageCriteria: {covered:int≥0, total:int>0, covered≤total}`
+  (покрытых критериев из 46, ADR 0033) и `precursor: {value:int 0..100,
+  signalingSubgroups:int 0..8}` (ADR 0047; отсутствие валидно, битая форма — ошибка);
+  старые недели без обоих полей валидны, неделя
+  insufficient обязана нести полный пакет непубликации); `PRECURSOR_SUBGROUPS = 8` —
+  единственный источник числа подгрупп для сайта (паритет с `engine.D9_SUBGROUPS`
+  пинит tests/precursor-ui.test.js);
   `week/latest/listWeeks`; битый снапшот → `unavailable` + событие.
 - `js/region.js` — реестр двух таксономий: `REGIONS_V1` (6 легаси-регионов) и `REGIONS_V2`
   (12 текущих), `REGIONS = REGIONS_V2`, `regionForTaxonomy(version)` ('2.0' → V2, иначе V1);
@@ -370,8 +419,16 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   заметка с датой `TAXONOMY_V2_FROM`), `DEMO_REVIEWS`, `reviewFor`. В футере — строка
   атрибуции GeoNames (`footer.geo`, «© GeoNames, CC BY 4.0», ADR 0029). Тесты модуля
   (tests/history.test.js) сохранены.
+- `js/sections/precursor.js` — секция «Косвенные предвестники (Д9)» (ADR 0047): чистый
+  шов `precursorFacts(snapshot)` → `{value, signaling, total}|null` (null без `global`,
+  без поля, при битой форме или `dataState !== 'published'`), `showsNoSignals(facts)` —
+  пометка «сигналов нет» только при `value === 0 && signaling === 0`;
+  `PRECURSOR_SUBGROUPS` реэкспортируется из js/data.js. `render` пишет в хост
+  `[data-section="precursor"]`, скрывает секцию `.precursor-section` при null; тексты —
+  `precursor.*`, абзац про шкалу — `method.scale.*`. Стили `.precursor-*` — без `--state-*`.
+  Тесты: tests/precursor-ui.test.js.
 - `js/sections/trust.js` — секция «Витрина доверия» (ADR 0033, регистрируется в
-  js/render.js как 'trust' сразу под hero; хост `<div class="section-body"
+  js/render.js как 'trust' под precursor; хост `<div class="section-body"
   data-section="trust">` в `<section class="section trust-section">`): компактная
   строка-факт «46 критериев · N источников · M независимых кластеров · S слепой регион ·
   методология X.Y», клик раскрывает детали (распределение по кластерам, доля
@@ -387,7 +444,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
   список 46 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
-- `js/sections/feedback.js` — секция «Обратная связь» (9-я, зарегистрирована в js/render.js):
+- `js/sections/feedback.js` — секция «Обратная связь» (10-я, зарегистрирована в js/render.js):
   форма шлёт POST JSON на FormSubmit (`formsubmit.co/ajax/Zasik2008@yandex.ru` — внешний
   сервис, бэкенда у сайта нет). Антиспам чистыми швами: `honeypotCheck` (3 скрытых поля),
   `timingCheck`/`timingToken` (мин. 2 c + подпись по соли модуля), `rateLimit` (бэкофф
@@ -399,6 +456,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   и js/i18n.js+js/ui.js; неподдержанные формы import/export — ошибка сборки.
 
 ## Архитектура
+
+Полный разбор потока данных и границ модулей — `docs/architecture.md`; здесь — короткие
+правила, которые нельзя нарушать.
 
 - Поток данных расчёта: `calc/input/<week>.json` → `validate` + `validateInputSources`
   (входы цепочки несут sources, R55) → `buildDrivers` → `aggregateDrivers` (ctx: prevInternal/
@@ -415,23 +475,36 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   глобальный drivers.js генератор не трогает (редакционный сид); после записи —
   append в data/audit.jsonl (recalc: `version_before` из снапшота, `version_after` из
   PARAMS, `recalculation_method: 'aggregateDrivers v3.0'`; flash).
+- Поток слоя precursor: вход недели → `buildDrivers` (драйвер Д9: `score`,
+  `signalingSubgroups`) → `precursorOf(drivers)` → `runWeek.precursor` → `writeWeek`
+  (`meta` и `full`) → `renderGlobal` условно пишет `s.precursor` в `global.js` →
+  `week.js` несёт поле verbatim (части конкатенируются) → `precursorFacts(snapshot)`
+  в js/sections/precursor.js. В индекс не входит; null/отсутствие → блок скрыт, не «0 %».
+- Форвардные якоря: `calc/input/anchors/forward-<неделя>.json` (пишет редактор до
+  `--write`) → `validateForwardAnchor` → таблица `docs/calibration-journal.md`
+  (`observedCluster` — по опубликованному индексу); `loadAnchors` их не читает
+  (нет `input.anchor`), порядок «файл раньше записи» проверяется по git log.
 - Поток данных сайта: `data/latest.js` синхронно кладёт снапшоты в `window.CI_DATA`
   (document.write ТОЛЬКО комбинированных `data/<week>/week.js` — 12 запросов вместо
   138 частей (11 v1-недель × 11 + 17 у 10-18); измеренный эффект локально: 127→17 запросов, DCL ~5 с → ~0,14 с;
   fetch на file:// невозможен, поэтому document.write) → `js/app.js` init → `render.renderAll`
-  по 9 зарегистрированным секциям (на странице видимых 8: «История и источники»
+  по 10 зарегистрированным секциям (на странице видимых 9: «История и источники»
   скрыта — её render при отсутствии хоста обновляет только футер «Следующая
-  публикация»). Секции регионов/hero выбирают набор по `regions_taxonomy` недели
+  публикация»; `states` пишет в `[data-role="critical-panel"]`, `precursor` — в
+  `[data-section="precursor"]` и прячет `.precursor-section` без поля). Секции
+  регионов/hero выбирают набор по `regions_taxonomy` недели
   (`regionForTaxonomy`), `js/geo.js` грузится лениво при первом открытии пикера
   (`data/geo/*.js` не в бандле и не в index.html). Сайт не знает про calc/ — читает только data/.
 - События document: `ci:ready`, `ci:datastate`, `ci:regionchange`, `ci:demo`.
 - Шов для тестов — чистые функции: `calc/engine.js`, `calc/linkcheck.js` (поддельный
-  fetchImpl, без сети), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
+  fetchImpl, без сети), `calc/precursor.js` (`precursorOf`), `calc/forward-anchors.js`
+  (`validateForwardAnchor`), `validateInputSources`/`collectSourceItems`/`classifyPublication`/
   `nextChainState`/`renderGlobal`/`renderRegionFile`/`renderWeekCombined`/`loadWeekParts`/
-  `weekPartFiles`/`taxonomyForWeek` из calc.js (синтетические данные)
-  + чистые модули сайта (i18n, risk, region — `regionForTaxonomy`/`search` с инъекцией
-  каталога, data — `regionIdsFor`/`validate`, geo — `resolveRegion`/`loadGeo` с инъекцией,
-  sections/trust — `trustFacts`/`factsLine`/`showSensitivity`).
+  `weekPartFiles`/`taxonomyForWeek` (calc.js реэкспортирует швы week-step.js; синтетические
+  данные) + чистые модули сайта (i18n, risk, region — `regionForTaxonomy`/`search` с
+  инъекцией каталога, data — `regionIdsFor`/`validate`, geo — `resolveRegion`/`loadGeo`
+  с инъекцией, sections/trust — `trustFacts`/`factsLine`/`showSensitivity`,
+  sections/precursor — `precursorFacts`/`showsNoSignals`).
   CLI — тонкая обвязка.
 - Схема источника R55 (во всех 12 неделях, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
@@ -439,7 +512,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
   notes, quotes ([{criterion, text}] — цитаты, ADR 0041; дословность проверяется
   на записи, ADR 0042). data.js принимает и легаси-схему (скалярная date) для
-  обратной совместимости.
+  обратной совместимости. У критерия входа — опциональный `intersection: boolean`
+  (ADR 0046): `true` = критерий покрыт, но исключён из числителя/знаменателя скора;
+  `runWeek` печатает `intersections`, снапшот не меняется.
 - Каноническая классификация доменов (зафиксирована при правке метаданных
   2026-10-05): aa.com.tr (Anadolu), dw.com (Deutsche Welle), aljazeera.com —
   всегда `B-state-media` + `state_affiliated: true` (гос/госфинансируемые СМИ
@@ -475,7 +550,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Тесты
 
-`node --test` без аргументов (45 файлов, 447 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (55 файлов, 575 passed / 0 fail — подтверждено прогоном
 2026-10-18). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -522,7 +597,17 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 панель доверия: `tests/trust.test.js` (чистый `trustFacts` — пять фактов, слепые регионы
 по набору недели, битая/отсутствующая `coverageCriteria` → null, `factsLine`,
 `showSensitivity` с границей 5, `TRUST_SENSITIVITY_THRESHOLD = 5`; тексты `trust.*`/`share.*`
-без темы «инфошум ≠ реальные действия» — R11).
+без темы «инфошум ≠ реальные действия» — R11);
+слой precursor: `tests/precursor.test.js` (`precursorOf` на синтетике, запись `meta`/`full`,
+условный вывод `renderGlobal`, регрессионный пин 10-18 = `{value: 50, signalingSubgroups: 4}`)
+и `tests/precursor-ui.test.js` (`precursorFacts`/`showsNoSignals`, паритет
+`PRECURSOR_SUBGROUPS` ↔ `D9_SUBGROUPS`, ключи `precursor.*`/`method.scale.*`, место хоста
+между hero и trust, CSS без `--state-*`);
+форвардные якоря: `tests/forward-anchors.test.js` (CLUSTERS ↔ `SCALE` + unknown,
+схема, `unknown` с rationale, пример файла из журнала проходит валидатор);
+поле `intersection`: `tests/intersection.test.js` (покрытие считается, скор — нет,
+`collectIntersections`, снапшот не меняется); паритет шкалы §9/§1.2/`js/risk.js`:
+`tests/risk-scale-methodology.test.js`.
 
 ## Подводные камни
 
@@ -803,6 +888,25 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   ворота `writeWeek`: без корпуса неделя с цитатой не пишется (ADR 0042).
 - `calc/live-check.js` исполняет скачанный с сайта JS в `vm` — это не песочница: гонять
   только против своего домена; ожидание «12 недель» зашито (`EXPECTED_WEEK_COUNT`).
+- Слой `precursor` — forward-only (ADR 0047): на диске его нет ни у одной из 12 недель;
+  бэкфилл запрещён, ноль и отсутствие поля — разные вещи (сайт прячет блок, а не рисует
+  «0 %»). Контракт проверяет `js/data.js`, число подгрупп — `PRECURSOR_SUBGROUPS = 8`
+  (паритет с `engine.D9_SUBGROUPS`). Не поднимать methodology ради поля: расчёт не менялся.
+- Форвардные якоря (ADR 0049): файлов `calc/input/anchors/forward-*.json` пока нет;
+  схема живёт в `calc/forward-anchors.js`, а `calc/calibrate.js` их молча пропускает
+  (нет `input.anchor`) — без этого фильтра грид k падал бы. Порядок «файл раньше записи»
+  и таблица журнала — редакционная процедура, не ворота; параметры `k`/веса/пороги §9
+  не трогаются до 8 строк таблицы.
+- Поле `intersection` (ADR 0046, чужой прогон): критерий остаётся покрытым (q и порог
+  драйвера его видят), но в скор драйвера/Д8/Д9 не входит; `validate` допускает только
+  `boolean` и только на `covered: true`. Снапшот и `PARAMS.methodology` не меняются;
+  во входах 12 недель флага пока нет.
+- Таблица состояния и порогов §9 / §1.2 / `js/risk.js` — три места одного числа:
+  паритет пинит `tests/risk-scale-methodology.test.js`; `CLUSTERS` форвардных якорей
+  сверяется с `SCALE` тем же тестом — переименование состояния ломает тест, а не журнал.
+- `docs/calibration-journal.md` — источник истины по шкале; короткие версии (абзац
+  `method.scale.*` на сайте, сноска METHODOLOGY §1.1) обязаны совпадать с ним по смыслу.
+  Формулировка «порядковая», без «перцентиля» и «вероятности» (ADR 0048).
 
 ## Как здесь работает Autopilot
 
