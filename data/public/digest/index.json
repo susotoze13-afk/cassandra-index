@@ -1,0 +1,7 @@
+{
+  "schema": "cassandra-index-digest-index",
+  "schema_version": 1,
+  "weeks": [
+    "2026-10-18"
+  ]
+}
