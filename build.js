@@ -11,6 +11,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 
 const JS_DIR = path.join(__dirname, 'js');
 
@@ -233,4 +234,29 @@ function buildBundle(outFile, entries) {
 
 for (const [out, entries] of BUNDLES) {
   buildBundle(out, entries);
+}
+
+// Cache-busting бандлов: GitHub Pages отдаёт js/ с кэшем, поэтому после правки
+// js/** старый bundle.js мог жить в браузере рядом с новым HTML (симптом —
+// сырой ключ словаря вроде «nav.blog»). Хэш содержимого в query лечит это без
+// ручной версии: изменился бандл — изменился URL.
+const STAMPED = [
+  ['index.html', 'js/bundle.js'],
+  ['privacy.html', 'js/bundle-privacy.js'],
+];
+
+for (const [htmlFile, bundleFile] of STAMPED) {
+  const bundlePath = path.join(__dirname, bundleFile);
+  const htmlPath = path.join(__dirname, htmlFile);
+  // Тест сборки гоняет build.js во временном каталоге без HTML — штамп не нужен.
+  if (!fs.existsSync(bundlePath) || !fs.existsSync(htmlPath)) continue;
+  const bundle = fs.readFileSync(bundlePath, 'utf8');
+  const hash = crypto.createHash('sha256').update(bundle).digest('hex').slice(0, 10);
+  const html = fs.readFileSync(htmlPath, 'utf8');
+  const re = new RegExp(`src="${bundleFile.replace(/\./g, '\\.')}(?:\\?v=[^"]*)?"`);
+  const next = html.replace(re, `src="${bundleFile}?v=${hash}"`);
+  if (next !== html) {
+    fs.writeFileSync(htmlPath, next);
+    console.log(`${htmlFile}: ${bundleFile}?v=${hash}`);
+  }
 }
