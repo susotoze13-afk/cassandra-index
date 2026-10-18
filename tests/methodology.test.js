@@ -9,12 +9,12 @@ test('определение «глобальный военный конфли�
   const dict = DICTS.ru;
   assert.equal(typeof dict['method.definition.title'], 'string');
   assert.ok(dict['method.definition.title'].trim().length > 0);
-  for (let n = 1; n <= 4; n += 1) {
+  for (let n = 1; n <= 5; n += 1) {
     const key = `method.definition.${n}`;
     assert.equal(typeof dict[key], 'string', `${key} отсутствует`);
     assert.ok(dict[key].trim().length > 0, `${key} пустой`);
   }
-  assert.equal(dict['method.definition.5'], undefined, 'пунктов должно быть ровно четыре');
+  assert.equal(dict['method.definition.6'], undefined, 'пунктов должно быть ровно пять');
 });
 
 // Диапазоны якорей §10: ожидания взяты из текста спецификации шкалы, не из кода

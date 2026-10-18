@@ -26,6 +26,7 @@ const LIST_KEYS = {
     'method.definition.2',
     'method.definition.3',
     'method.definition.4',
+    'method.definition.5',
   ],
 };
 
