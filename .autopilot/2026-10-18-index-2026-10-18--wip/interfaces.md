@@ -29,14 +29,14 @@ UTF-8, валидный JSON):
       "value": 0.33,
       "sources": [ { "url": "…", "date": "2026-10-15", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false } ],
       "note": "одна строка на русском, что за событие",
-      "regions": ["europe"]
+      "regions": ["eu-north-europe"]
     },
     "D1.6": { "covered": false, "note": "сигналов в окне нет" }
   },
   "driverConfidence": { "D1": { "level": "medium", "reason": "покрыто 5/6 …" } },
   "regions": [
     {
-      "region": "europe",
+      "region": "eu-north-europe",
       "observation": { "ru": "…", "en": "…" },
       "why": { "ru": "…", "en": "…" },
       "contribution": "high",
@@ -77,10 +77,10 @@ UTF-8, валидный JSON):
   criteria/regions (те же URL; русский и английский заголовки обязательны).
 - `date`/`publication_date` — дата публикации в окне 12.10–18.10.2026.
 - `regions` — по 1–2 наблюдению на регион; id — только из набора v2 (12):
-  east-asia, south-asia, middle-east, north-america, europe, africa,
-  russia-belarus, ukraine-moldova, baltic, balkans, eu-north-europe,
-  south-caucasus, central-asia. Атрибуция `regions[]` внутри критериев — тоже
-  только из этих 12 id.
+  russia-belarus, ukraine-moldova, baltic, balkans, eu-north-europe, south-caucasus,
+  central-asia, east-asia, middle-east, north-america, south-asia, africa
+  (легаси-id `europe` в v2 НЕТ — Франция/Италия/Германия и т.п. относятся к
+  `eu-north-europe`). Атрибуция `regions[]` внутри критериев — тоже только из этих 12 id.
 
 ## Правила проекта (не выводятся из кода — только так)
 
@@ -119,11 +119,13 @@ whitelist/≤2 источника на кластер/`records` для кажд�
 0 ошибок.
 
 - **01** — D1.1–D1.6, D5.1–D5.4, D6.1–D6.4: покрыто 7 (D1.1, D1.3, D1.4, D1.5,
-  D5.1, D5.2, D6.3); 17 R55-записей; наблюдения middle-east, russia-belarus, europe.
+  D5.1, D5.2, D6.3); 17 R55-записей; наблюдения middle-east, russia-belarus,
+  eu-north-europe (Франция).
 - **02** — D2.1–D2.5, D3.1–D3.5, D4.1–D4.6: покрыто 14 (все, кроме D2.4, D3.1);
   30 R55-записей; наблюдения middle-east, russia-belarus.
 - **03** — D7.1–D7.4, D8.1–D8.4, D9.1–D9.7: покрыто 7 (D7.1, D7.2, D7.3, D8.1,
-  D8.2, D8.3, D9.3); 17 R55-записей; наблюдения middle-east, europe, russia-belarus.
+  D8.2, D8.3, D9.3); 17 R55-записей; наблюдения middle-east, eu-north-europe,
+  russia-belarus.
 
 ## Ворота независимости — согласование для сборки входа (решение оркестратора)
 

@@ -31,14 +31,16 @@ window.STATE =
     { "id": "01", "title": "Исследование D1/D5/D6", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/01.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/01.json"], "tests": null, "commit": "T01" },
     { "id": "02", "title": "Исследование D2/D3/D4", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/02.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/02.json"], "tests": null, "commit": "T02" },
     { "id": "03", "title": "Исследование D7/D8/D9", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/03.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/03.json"], "tests": null, "commit": "T03" },
-    { "id": "04", "title": "Сборка входа, сиды, расчёт и публикация недели 2026-10-18", "requirements": ["R01", "R02", "R03i", "R04i", "R04i.1", "R05i"], "blockedBy": ["01", "02", "03"], "wave": 2, "zone": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js"], "status": "pending", "retries": 0, "repairs": 0, "handoffs": 0 }
+    { "id": "04", "title": "Сборка входа, сиды, расчёт и публикация недели 2026-10-18", "requirements": ["R01", "R02", "R03i", "R04i", "R04i.1", "R05i"], "blockedBy": ["01", "02", "03"], "wave": 2, "zone": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js"], "status": "in-progress", "startedAt": "2026-10-18T09:57:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0 }
   ],
   "singlePass": null,
   "tests": null,
   "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
   "additions": [],
   "coverage": { "findings": 3, "missing": 0, "half": 0, "extra": 0, "note": "независимая проверка брифа↔спеки: замечания только про параметры процесса (режим full / глубина / доводка) — они не продуктовые требования и в спеку не входят; «лишние» пункты — подразумеваемые требования конвейера (R##i). Продуктовых пропусков нет" },
-  "concerns": [],
+  "concerns": [
+    "Спека-дефект: в interfaces.md список id v2 содержал 13 значений с лишним `europe` (в таксономии v2 его нет — Франция/Италия → eu-north-europe); исследование 01–03 повторило ошибку. Исправлено: спека и research/{01,02,03}.json (6 вхождений), проверка по 12 реальным id — 0 ошибок."
+  ],
   "reviewers": { "manifestSpec": null, "craft": null },
   "blind": null
 }

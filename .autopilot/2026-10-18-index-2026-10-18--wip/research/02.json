@@ -30,7 +30,7 @@
         { "url": "https://rt-english.com/russia/647240-russian-submarine-fire-drill", "date": "2026-10-15", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
       ],
       "note": "Технические ядерные сигналы: старт ядерных учений НАТО Steadfast Noon в Италии 13.10; первый за три года пуск КНДР стратегических крылатых ракет с подлодки 14.10; ракетные стрельбы российской атомной подлодки 15.10.",
-      "regions": ["europe", "east-asia"]
+      "regions": ["eu-north-europe", "east-asia"]
     },
     "D2.4": {
       "covered": false,
@@ -58,7 +58,7 @@
         { "url": "https://www.theweek.in/news/middle-east/2026/10/14/this-is-how-iran-prepares-to-counter-us-attack-captured-or-killed.html", "date": "2026-10-14", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ],
       "note": "Ультиматумы: командование НАТО обещает ответ силой «за линией фронта» на агрессию России; Иран заявляет о подготовке к отражению удара США.",
-      "regions": ["europe", "middle-east"]
+      "regions": ["eu-north-europe", "middle-east"]
     },
     "D3.3": {
       "covered": true,
@@ -99,7 +99,7 @@
         { "url": "https://www.theepochtimes.com/world/eu-seeks-new-trade-powers-as-deficit-with-china-widens-6105278", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ],
       "note": "Новые санкции и контрсанкции: пакет ЕС бьёт по цепочке поставок ракет и дронов РФ; ЕС ищет новые торговые полномочия из-за рекордного дефицита с Китаем.",
-      "regions": ["russia-belarus", "europe"]
+      "regions": ["russia-belarus", "eu-north-europe"]
     },
     "D4.2": {
       "covered": true,

@@ -22,7 +22,7 @@
         { "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
       ],
       "note": "Атаки за пределами основного театра: подрыв двух танкеров на минах в Ормузском проливе, обстрел буксира у берегов ОАЭ, огонь по СПГ-танкеру у Йемена, нападение поселенцев на европейскую дипломатическую делегацию на Западном берегу.",
-      "regions": ["middle-east", "europe"]
+      "regions": ["middle-east", "eu-north-europe"]
     },
     "D7.3": {
       "covered": true,
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "region": "europe",
+      "region": "eu-north-europe",
       "observation": { "ru": "Европейская дипломатическая делегация подверглась нападению израильских поселенцев на Западном берегу (избит французский мэр); Париж и Брюссель требуют ареста нападавших, Нетаньяху оспаривает атаку.", "en": "A European diplomatic delegation was attacked by Israeli settlers in the West Bank (a French mayor was beaten); Paris and Brussels demand arrests while Netanyahu disputes the attack." },
       "why": { "ru": "Прямое вовлечение европейских государств (D7.2 — атака на дипмиссию) усиливает региональную компоненту риска для Европы, хотя это не боевой театр.", "en": "Direct involvement of European states (D7.2 — attack on a diplomatic mission) raises the Europe-related risk component even though it is not a combat theatre." },
       "contribution": "medium",
