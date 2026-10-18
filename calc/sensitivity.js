@@ -6,12 +6,13 @@
 // как при ручной правке входа (entry → null). Вырожденный вход без единого
 // источника → null, не ложный 0 (R02.3). Порог публикации пометки (5 п.п.) —
 // забота сайта (таск 06), здесь только число. Чистая функция, ноль
-// зависимостей: тот же шов buildDrivers (calibrate.js) и aggregateDrivers
-// (engine.js), что и штатный прогон недели, с переданным контекстом цепочки.
+// зависимостей: тот же шов buildDrivers и aggregateDrivers (engine.js), что и
+// штатный прогон недели, с переданным контекстом цепочки. Импорт из engine.js,
+// а не через реэкспорт calibrate.js: это снимает косвенный цикл
+// calc.js → sensitivity.js → calibrate.js → calc.js.
 
 import { PARAMS } from './params.js';
-import { aggregateDrivers } from './engine.js';
-import { buildDrivers } from './calibrate.js';
+import { aggregateDrivers, buildDrivers } from './engine.js';
 
 const round1 = (x) => Math.round(x * 10) / 10;
 

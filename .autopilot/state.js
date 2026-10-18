@@ -11,9 +11,9 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "baseCommit": null,
+  "baseCommit": "051e015",
   "startedAt": "2026-10-18T12:26:34+03:00",
-  "updatedAt": "2026-10-18T12:46:52+03:00",
+  "updatedAt": "2026-10-18T15:48:08+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -43,16 +43,20 @@ window.STATE =
     },
     {
       "id": "plan",
-      "status": "active",
-      "startedAt": "2026-10-18T12:45:41+03:00"
+      "status": "done",
+      "startedAt": "2026-10-18T12:45:41+03:00",
+      "finishedAt": "2026-10-18T12:47:12+03:00"
     },
     {
       "id": "build",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-10-18T12:47:12+03:00",
+      "finishedAt": "2026-10-18T15:34:36+03:00"
     },
     {
       "id": "review",
-      "status": "pending"
+      "status": "active",
+      "startedAt": "2026-10-18T15:34:36+03:00"
     },
     {
       "id": "final",
@@ -94,9 +98,41 @@ window.STATE =
       ],
       "review": "нет (T0: whole-branch review — его ревью)",
       "model": "сильная",
-      "status": "pending",
+      "status": "in-progress",
+      "startedAt": "2026-10-18T12:47:12+03:00",
       "retries": 0,
       "repairs": 0
+    },
+    {
+      "id": "F1",
+      "title": "Ремонт ветки: шов шага недели, метрика выбора, тесты и точность",
+      "requirements": [
+        "R01",
+        "R01.1",
+        "R01.2",
+        "R03",
+        "R05",
+        "D03"
+      ],
+      "blockedBy": [],
+      "wave": 2,
+      "zone": [
+        "calc/week-step.js",
+        "calc/calc.js",
+        "calc/calibrate.js",
+        "calc/engine.js",
+        "tests/calibrate.test.js",
+        "docs/calibration-journal.md"
+      ],
+      "review": "да — ремонт ветки",
+      "model": "сильная",
+      "status": "repair",
+      "retries": 0,
+      "repairs": 1,
+      "startedAt": "2026-10-18T15:37:24+03:00",
+      "repairFindings": [
+        "5 условий ре-ревью: fallback prevIndex, chosen.maxDrift, CLI-формулировка 2.0, косвенный цикл sensitivity, форма контракта"
+      ]
     }
   ],
   "tests": null,
@@ -129,9 +165,15 @@ window.STATE =
     "2026-10-18T12:45:41+03:00",
     "2026-10-18T12:46:29+03:00",
     "2026-10-18T12:46:30+03:00",
-    "2026-10-18T12:46:52+03:00"
+    "2026-10-18T12:46:52+03:00",
+    "2026-10-18T12:47:02+03:00",
+    "2026-10-18T12:47:12+03:00",
+    "2026-10-18T15:34:36+03:00",
+    "2026-10-18T15:37:23+03:00",
+    "2026-10-18T15:37:24+03:00",
+    "2026-10-18T15:48:08+03:00"
   ],
-  "rev": 15,
+  "rev": 23,
   "waiting": null,
   "waits": [
     {
@@ -236,6 +278,55 @@ window.STATE =
       "g": "G3",
       "ok": true,
       "problems": 0
+    },
+    {
+      "t": "2026-10-18T12:47:12+03:00",
+      "k": "stage",
+      "id": "build",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T12:47:12+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T15:34:36+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T15:37:23+03:00",
+      "k": "tickets",
+      "n": 2
+    },
+    {
+      "t": "2026-10-18T15:37:23+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": true,
+      "problems": 0
+    },
+    {
+      "t": "2026-10-18T15:37:24+03:00",
+      "k": "ticket",
+      "ids": [
+        "F1"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T15:48:08+03:00",
+      "k": "ticket",
+      "ids": [
+        "F1"
+      ],
+      "act": "repair",
+      "note": "5 условий ре-ревью: fallback prevIndex, chosen.maxDrift, CLI-формулировка 2.0, косвенный цикл sensitivity, форма контракта"
     }
   ],
   "reqList": [
@@ -297,7 +388,7 @@ window.STATE =
     },
     "G3": {
       "ok": true,
-      "at": "2026-10-18T12:46:52+03:00",
+      "at": "2026-10-18T15:37:23+03:00",
       "problems": 0
     }
   },

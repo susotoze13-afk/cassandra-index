@@ -2,8 +2,9 @@
 // печать результата; с --write обновляет числовые файлы снапшота в data/.
 // Перед записью: ворота ссылок-источников (linkcheck.checkSources, R03) —
 // при любом битом URL запись отклоняется, диск не трогается.
-// CLI — тонкая обвязка: вся математика в engine.js, маппинг входа — в
-// buildDrivers из calibrate.js (шов §4.2–§4.3, не дублируется здесь).
+// CLI — тонкая обвязка: вся математика в engine.js, шаг недели — в общем
+// чистом модуле week-step.js (маппинг → драйверы → агрегация → регионы →
+// классификация), не дублируется здесь.
 //
 // Использование:
 //   node calc/calc.js [неделя …]          — прогон цепочки, только печать
@@ -20,42 +21,30 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import vm from 'node:vm';
 
 import { PARAMS } from './params.js';
-import { aggregateDrivers, validate, regionalIndex, regionalSignals, CRITERIA, detectFlashTriggers } from './engine.js';
-import { buildDrivers } from './calibrate.js';
+import { validate, CRITERIA, detectFlashTriggers } from './engine.js';
+import {
+  computeWeek,
+  classifyPublication,
+  nextChainState,
+  loadSnapshotPart,
+  taxonomyForWeek,
+} from './week-step.js';
 import { sensitivityScore } from './sensitivity.js';
 import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import * as audit from './audit.js';
 
+// Швы шага недели реэкспортируются для обратной совместимости: тесты и
+// check-sources.js исторически импортируют их из calc.js.
+export { classifyPublication, nextChainState, loadSnapshotPart, taxonomyForWeek, computeWeek };
+
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
-const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18'];
-const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
+export const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18'];
+export const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
 const RECALC_SET = new Set(RECALC_WEEKS);
-
-// Версия таксономии регионов недели (ADR 0028): неделя ≥ PARAMS.taxonomyV2From
-// считается набором '2.0' (двенадцать регионов), иначе '1.0' (шесть).
-// Версионируется отдельно от methodology — глобальный ряд тренда непрерывен.
-export function taxonomyForWeek(week) {
-  return week >= PARAMS.taxonomyV2From ? '2.0' : '1.0';
-}
-
-// --- Чтение файлов снапшота data/<week>/<file>.js через vm (без DOM) ---
-// Возвращает объект снапшота так, как его видит сайт в window.CI_DATA.
-export function loadSnapshotPart(week, file) {
-  const f = path.join(ROOT, 'data', week, `${file}.js`);
-  if (!existsSync(f)) return null;
-  const sandbox = { window: { CI_DATA: { snapshots: {}, latest: null } } };
-  // region-*.js присваивает в s.regions[id] и предполагает, что s.regions
-  // уже создан regions.js (порядок загрузки на сайте) — подсаживаем пустой.
-  sandbox.window.CI_DATA.snapshots[week] = { regions: {} };
-  vm.createContext(sandbox);
-  vm.runInContext(readFileSync(f, 'utf8'), sandbox);
-  return sandbox.window.CI_DATA.snapshots[week] || null;
-}
 
 // --- R01.2: атрибуция regions[], которую региональная агрегация игнорирует ---
 // По ADR 0022 сигналы Д2, Д4 и Д9 (кроме Д9.3) в региональную агрегацию
@@ -73,59 +62,6 @@ export function ignoredRegionalAttribution(criteria) {
     if (m.driver === 'D2' || m.driver === 'D4' || (m.driver === 'D9' && id !== 'D9.3')) out.push(id);
   }
   return out.sort();
-}
-
-// --- Классификация публикации (R11–R15) ---
-// Правила из PARAMS.dataCoverage: nullWeight = 1 − q; nullWeight > insufficient
-// (0.4) или null по Д1/Д2 → публикация запрещена; > reduced (0.2) — пониженная
-// уверенность; иначе полная. Чистый шов — тестируется синтетически.
-export function classifyPublication(aggregate, drivers, params = PARAMS) {
-  const dc = params.dataCoverage || { insufficient: 0.4, reduced: 0.2, d1d2Required: true };
-  const q = aggregate && typeof aggregate.q === 'number' ? aggregate.q : 0;
-  const nullWeight = 1 - q;
-  // EPS: границы 0.4/0.2 сравниваются без float-шума (q из движка — не
-  // точный десятичный; строгость «> порог» сохраняется).
-  const EPS = 1e-9;
-  const byId = {};
-  for (const d of Array.isArray(drivers) ? drivers : []) if (d && d.id) byId[d.id] = d;
-  const d1Null = !byId.D1 || typeof byId.D1.score !== 'number';
-  const d2Null = !byId.D2 || typeof byId.D2.score !== 'number';
-  const insufficient = nullWeight > dc.insufficient + EPS || (dc.d1d2Required && (d1Null || d2Null));
-  const reduced = !insufficient && nullWeight > dc.reduced + EPS;
-  return {
-    insufficient,
-    reduced,
-    dataState: insufficient ? 'insufficient' : 'published',
-    confidence: insufficient ? 'none' : reduced ? 'reduced' : 'full',
-    q,
-    nullWeight,
-    coveredDrivers: (Array.isArray(drivers) ? drivers : []).filter((d) => d && typeof d.score === 'number').length,
-    totalDrivers: Array.isArray(drivers) ? drivers.length : 0,
-  };
-}
-
-// --- Продвижение цепочки недель ---
-// insufficient-неделя не рвёт инерцию: lastValidInternal/prevPublished и
-// регионы не двигаются, число не идёт в trend (classification фиксирует,
-// что точка этой недели — null). Чистый шов — тестируется синтетически.
-export function nextChainState(state, res) {
-  const next = {
-    ...state,
-    prevRegions: { ...state.prevRegions },
-    recalcIndex: { ...state.recalcIndex },
-    classification: { ...state.classification },
-  };
-  next.classification[res.week] = res.classification.dataState;
-  if (!res.classification.insufficient) {
-    next.prevInternal = res.global.internal;
-    next.prevPublished = res.global.index;
-    next.prevWeek = res.week;
-    next.recalcIndex[res.week] = res.global.index;
-    for (const id of regionIdsFor(taxonomyForWeek(res.week))) next.prevRegions[id] = res.regions[id].index;
-  }
-  next.sbLeft = res.sbLeft;
-  next.sbReason = res.sbReason;
-  return next;
 }
 
 // --- Строгая валидация top-level sources входа (R55) ---
@@ -474,48 +410,21 @@ export function runWeek(week, state) {
   const { input, errors } = loadInput(week, regionIds);
   if (errors) return { week, errors };
 
-  const drivers = buildDrivers(input, PARAMS);
-  const ctx = {
-    prevInternal: state.prevInternal,
-    prevPublished: state.prevPublished,
-    structuralBreak:
-      state.sbLeft > 0 ? { active: true, reason: state.sbReason } : null,
-  };
-  const g = aggregateDrivers(drivers, PARAMS, ctx);
-  const classification = classifyPublication(g, drivers, PARAMS);
+  // Шаг недели — общий чистый модуль week-step.js (D03): маппинг → драйверы →
+  // агрегация с контекстом цепочки → региональные сигналы → классификация.
+  // Регионы: регион с сигналами считается по ним (nReg > 0, background:false),
+  // без сигналов — «слепой» веткой (nReg = 0, background:true), сохраняющей
+  // последнее региональное отклонение от глобального фона (prevRegions против
+  // prevPublished прошлой недели). Для insufficient-недели это расчётные числа
+  // превью (публикация запрещена — число не уходит в global/trend, но файлы
+  // регионов несут его для редакции).
+  const step = computeWeek(input, state, PARAMS);
+  const { global: g, drivers, classification, regions, ctx, sbLeft, sbReason } = step;
   // Метрика чувствительности недели (R02, ADR 0019): leave-one-out по
   // доменам и кластерам критериальных источников при том же контексте
   // цепочки; max|ΔI| в п.п. Чистая функция, без сети, до ворот записи.
   // null — вырожденный вход без единого источника (R02.3), поле не пишется.
   const sensitivity = sensitivityScore(input, ctx, PARAMS);
-
-  // Регионы: атрибуция критериев (engine.regionalSignals, §7) → регион с
-  // сигналами считается по ним (nReg > 0, background:false), без сигналов —
-  // «слепой» веткой (nReg = 0, background:true), которая сохраняет последнее
-  // региональное отклонение от глобального фона (prevRegions против
-  // prevPublished прошлой недели); в res.regions — проекция в форму снапшота
-  // {index, delta, status, background}. Для insufficient-недели это расчётные
-  // числа превью (публикация запрещена — число не уходит в global/trend, но
-  // файлы регионов несут его для редакции).
-  const signals = regionalSignals(input.criteria, regionIds, PARAMS);
-  const regions = {};
-  for (const id of regionIds) {
-    const r = regionalIndex(
-      { index: g.index, internal: g.internal, delta: g.delta },
-      {
-        ...(signals[id] || { nReg: 0 }),
-        prevIndex: state.prevRegions[id],
-        prevGlobal: state.prevPublished,
-      },
-      PARAMS,
-    );
-    regions[id] = { index: r.index, delta: r.delta, status: r.state, background: r.background };
-  }
-
-  // Персистентность Structural Break Override (§5.4): 2 недели.
-  const sb = g.structuralBreak;
-  const sbLeft = sb.active ? (PARAMS.structuralBreak.weeks || 2) : Math.max(0, state.sbLeft - 1);
-  const sbReason = sb.active ? sb.reason : state.sbReason;
 
   // trend: окно 12 точек как опубликовано; точки дат из пересчитываемой
   // цепочки несут methodology (версия снапшота недели точки). Опубликованные

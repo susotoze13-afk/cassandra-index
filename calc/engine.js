@@ -121,7 +121,7 @@ export function aggregateD9(subgroups, params) {
 // --- §4.2–§4.3: ядро маппинга критериев → драйверы ---
 // criteriaIn: карта критериев входа; confidenceLevels: {D1..D9: {level}} |
 // {} (тогда уверенность всех драйверов — 'medium'). Публичный шов маппинга —
-// buildDrivers в calibrate.js: он резолвит driverConfidence из входа и делегирует
+// buildDrivers (ниже): он резолвит driverConfidence из входа и делегирует
 // сюда (логика не дублируется). Знаменатель порога покрытия — все критерии
 // драйвера из CRITERIA: отсутствие ключа в файле эквивалентно явному null (§4.2).
 export function buildDriversCore(criteriaIn, confidenceLevels, params) {
@@ -178,6 +178,18 @@ export function buildDriversCore(criteriaIn, confidenceLevels, params) {
     signalingSubgroups: d9.signaling,
   });
   return drivers;
+}
+
+// Публичный шов маппинга входа недели → драйверы: резолвит driverConfidence
+// из входа и делегирует buildDriversCore. Живёт в engine.js, а не в
+// calibrate.js, чтобы шаг недели (calc/week-step.js) и sensitivity не
+// замыкали цикл импортов calc.js ↔ calibrate.js.
+export function buildDrivers(input, params = PARAMS) {
+  return buildDriversCore(
+    (input && input.criteria) || {},
+    (input && input.driverConfidence) || {},
+    params,
+  );
 }
 
 // --- §5 (шаги 2–6): гипотетический индекс по карте критериев ---
