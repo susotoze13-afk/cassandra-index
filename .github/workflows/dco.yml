@@ -1,0 +1,25 @@
+name: DCO
+
+# Подпись Developer Certificate of Origin (DCO 1.1) в каждом коммите pull request.
+# Сторонних action нет: checkout по SHA-пину и штатный node на runner.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions закреплены по полному SHA (docs/security-review.md, F-06).
+      # fetch-depth: 0 — нужна история, чтобы увидеть все коммиты диапазона PR.
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+
+      - name: Проверка Signed-off-by
+        run: node tools/check-dco.js "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
