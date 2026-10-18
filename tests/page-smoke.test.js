@@ -1,13 +1,13 @@
 // Сквозная проверка сайта через чистые швы (без DOM/сети), таск 05:
-// (1) все 11 недель на диске проходят контракт js/data.js, не отдают
-//     unavailable и дают витрину из шести строк (таксономия v1);
+// (1) все недели на диске проходят контракт js/data.js, не отдают
+//     unavailable и дают витрину по числу регионов своей таксономии (v1 = 6, v2 = 12);
 // (2) синтетический v2-снапшот даёт витрину из двенадцати строк.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { validate, regionIdsFor } from '../js/data.js';
-import { loadSnapshotPart } from '../calc/calc.js';
+import { loadSnapshotPart, taxonomyForWeek } from '../calc/calc.js';
 import { rankedRegions } from '../js/sections/regions.js';
 
 // Канонический список недель — CI_WEEKS из data/latest.js (не литерал).
@@ -32,7 +32,7 @@ function loadFullSnapshot(date) {
   return snap;
 }
 
-test('сквозная: недели CI_WEEKS (v1) валидны и витрина — шесть строк (нет unavailable)', () => {
+test('сквозная: недели CI_WEEKS валидны и витрина — по числу регионов таксономии (нет unavailable)', () => {
   assert.ok(WEEKS.length > 0, 'CI_WEEKS пуст');
   for (const w of WEEKS) {
     const snap = loadFullSnapshot(w);
@@ -40,8 +40,10 @@ test('сквозная: недели CI_WEEKS (v1) валидны и витри�
     assert.deepEqual(v.errors, [], `${w}: ${v.errors.join('; ')}`);
     assert.equal(v.ok, true, w);
     assert.notEqual(snap.dataState, 'unavailable', w);
-    assert.equal(snap.regions_taxonomy ?? '1.0', '1.0', w);
-    assert.equal(rankedRegions(snap).length, 6, `${w}: витрина не шесть строк`);
+    const version = snap.regions_taxonomy ?? '1.0';
+    assert.equal(version, taxonomyForWeek(w), `${w}: версия таксономии снапшота`);
+    assert.equal(rankedRegions(snap).length, regionIdsFor(version).length,
+      `${w}: витрина не по набору таксономии ${version}`);
   }
 });
 

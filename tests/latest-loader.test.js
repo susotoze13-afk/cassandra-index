@@ -1,5 +1,5 @@
 // Контракт загрузчика data/latest.js: document.write-список файлов данных.
-// Таск 02 (site-load-fix): 11 комбинированных data/<week>/week.js вместо
+// Таск 02 (site-load-fix): 12 комбинированных data/<week>/week.js вместо
 // 121 отдельных частей. Механика document.write, window.CI_WEEKS/CI_LATEST —
 // без изменений. Выполнение файла в vm с поддельным document (без DOM/сети).
 import { test } from 'node:test';
@@ -22,17 +22,17 @@ function runLoader() {
   return { sandbox, writes };
 }
 
-test('загрузчик: window.CI_WEEKS (11 недель) и CI_LATEST не меняются', () => {
+test('загрузчик: window.CI_WEEKS (12 недель) и CI_LATEST не меняются', () => {
   const { sandbox } = runLoader();
-  assert.equal(sandbox.window.CI_WEEKS.length, 11);
-  assert.equal(sandbox.window.CI_LATEST, '2026-10-11');
-  assert.equal(sandbox.window.CI_DATA.latest, '2026-10-11');
+  assert.equal(sandbox.window.CI_WEEKS.length, 12);
+  assert.equal(sandbox.window.CI_LATEST, '2026-10-18');
+  assert.equal(sandbox.window.CI_DATA.latest, '2026-10-18');
   assert.deepEqual(Object.keys(sandbox.window.CI_DATA.snapshots), []);
 });
 
-test('загрузчик: ровно 11 document.write — по одному data/<week>/week.js на неделю', () => {
+test('загрузчик: ровно 12 document.write — по одному data/<week>/week.js на неделю', () => {
   const { sandbox, writes } = runLoader();
-  assert.equal(writes.length, 11);
+  assert.equal(writes.length, 12);
   const expected = sandbox.window.CI_WEEKS.map(
     (w) => `<script src="data/${w}/week.js"><\/script>`,
   );

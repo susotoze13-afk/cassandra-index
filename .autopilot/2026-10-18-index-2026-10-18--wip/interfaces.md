@@ -157,6 +157,38 @@ null; D5 → 1/4 → драйвер null, D6 остаётся 1/4 → драйв
 D7.3 = 1 штатно вызовет flash-trigger `d7Value` → дополнительная запись `flash`
 в `data/audit.jsonl` (ожидаемо, не ошибка).
 
+### Региональная атрибуция первой недели v2 (решение оркестратора)
+
+У 7 новых v2-регионов (russia-belarus, ukraine-moldova, baltic, balkans,
+eu-north-europe, south-caucasus, central-asia) нет прошлой недели на v2 →
+`regionalIndex` дал бы `delta: null`, а контракт `js/data.js` требует число.
+Поэтому в `criteria[*].regions[]` этой недели допускаются только id с историей
+v1: **east-asia, south-asia, middle-east, north-america, africa**. Атрибуции на
+7 новых id сняты — они в этой неделе слепые (`background:true`, index = I_global),
+их нарратив живёт в seed-драйверах `region-*.js`, а не в regionalSignals.
+Дополнительно `regionalSignals` по ADR 0022 игнорирует Д2/Д4/Д9-кроме-D9.3, поэтому
+фактически покрыт (nReg>0) только **middle-east**; остальные 11 регионов слепые
+(delta — число за счёт prevIndex/g.delta). Это ожидаемо для первой недели v2.
+
+
 ## Из таска 04 — вход, сиды, расчёт недели 2026-10-18
 
-_(заполнит таск 04)_
+- `calc/input/2026-10-18.json`: 46 критериев — 27 покрыты (19 `null`), 55 R55-источников
+  (дедуп по URL), `driverConfidence` D1..D9 (D9 low). `engine.validate(input, PARAMS,
+  regionIdsFor('2.0'))` → `[]`; ворота независимости пройдены; `regions[]` — только
+  east-asia/south-asia/middle-east/north-america/africa.
+- `node calc/calc.js --write 2026-10-18`: linkcheck broken 0, blocked 6 (403 — iranwire,
+  2× breakingdefense, businesstoday, news.un.org, iaea), контракт пройден. Записаны
+  17 файлов `data/2026-10-18/` (global, regions, trend, drivers, sources, 12 × region-*,
+  week.js из 17 частей v2). `global`: index 62, delta +6, state very, `published` =
+  `through` = `2026-10-18`, methodology 3.0, `regions_taxonomy` 2.0, dataState published,
+  q 0.8622, `coverageCriteria {covered:27,total:46}`, sensitivity 0. Регионы: middle-east
+  covered (index 70, delta +3), 11 слепых (delta — числа), у всех по 2 драйвера.
+  Audit: `recalc-0054` + `flash-0055` (D7.3).
+- `RECALC_WEEKS` += `'2026-10-18'`; `data/latest.js` — 12 недель, `CI_LATEST` =
+  `'2026-10-18'`.
+- Тесты (по поправке D01): обновлены три пина — `tests/latest-loader` (12 недель),
+  `week-combined-parity` (`weekPartFiles(taxonomyForWeek(week))`, 12 недель),
+  `page-smoke` (версия недели из `regions_taxonomy`). `node --test` → 447 passed / 0 fail.
+- Ревью: Manifest+Spec PASS, Craft — findings без блокирующих (см. `state.js`
+  → `concerns`). Правок `js/**` не было — бандл не устарел.
