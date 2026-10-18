@@ -328,6 +328,52 @@ test('renderGlobal: сериализует s.coverageCriteria только ко�
   assert.ok(!without.includes('s.coverageCriteria'), without);
 });
 
+// --- precursor (R07, R12, R13): опциональный публичный слой Д9 ---
+
+test('validate: precursor принимается опционально; битые формы отклоняются', () => {
+  const good = validSnapshot();
+  good.precursor = { value: 42, signalingSubgroups: 3 };
+  assert.deepEqual(validate(good).errors, []);
+
+  // Границы целых 0..100 и 0..8 допустимы.
+  const bounds = validSnapshot();
+  bounds.precursor = { value: 0, signalingSubgroups: 0 };
+  assert.equal(validate(bounds).ok, true);
+  const upper = validSnapshot();
+  upper.precursor = { value: 100, signalingSubgroups: 8 };
+  assert.equal(validate(upper).ok, true);
+
+  // Лишние ключи игнорируются — форма валидна.
+  const extra = validSnapshot();
+  extra.precursor = { value: 7, signalingSubgroups: 1, note: 'x' };
+  assert.equal(validate(extra).ok, true);
+
+  // Отсутствие поля — старые недели валидны (08-30…10-18 задним числом не трогаем).
+  assert.equal(validate(validSnapshot()).ok, true);
+
+  const cases = [
+    { name: 'не объект', value: 42 },
+    { name: 'массив', value: [] },
+    { name: 'null', value: null },
+    { name: 'value не целое', value: { value: 42.5, signalingSubgroups: 3 } },
+    { name: 'value отрицательный', value: { value: -1, signalingSubgroups: 3 } },
+    { name: 'value > 100', value: { value: 101, signalingSubgroups: 3 } },
+    { name: 'нет value', value: { signalingSubgroups: 3 } },
+    { name: 'signalingSubgroups не целое', value: { value: 42, signalingSubgroups: 2.5 } },
+    { name: 'signalingSubgroups отрицательный', value: { value: 42, signalingSubgroups: -1 } },
+    { name: 'signalingSubgroups > 8', value: { value: 42, signalingSubgroups: 9 } },
+    { name: 'нет signalingSubgroups', value: { value: 42 } },
+    { name: 'value строкой', value: { value: '42', signalingSubgroups: 3 } },
+  ];
+  for (const c of cases) {
+    const s = validSnapshot();
+    s.precursor = c.value;
+    const v = validate(s);
+    assert.equal(v.ok, false, `должна отклониться форма: ${c.name}`);
+    assert.ok(v.errors.some((e) => e.includes('precursor')), `ошибка должна упоминать precursor: ${c.name}`);
+  }
+});
+
 test('validate: trend точки с methodology валидны; value:null только с methodology', () => {
   const withMethodology = validSnapshot();
   withMethodology.trend = withMethodology.trend.map((p, i) =>

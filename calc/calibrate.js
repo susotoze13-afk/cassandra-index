@@ -644,6 +644,9 @@ async function mainSeverity() {
 }
 
 // --- Загрузка профилей из calc/input/anchors/*.json ---
+// В том же каталоге лежат форвардные якоря forward-<week>.json (R15) с другой
+// схемой: у них нет input.anchor. Пропускаем такие файлы — иначе калибровка
+// падает на них через validate/evaluateGrid.
 export function loadAnchors(dir) {
   return readdirSync(dir)
     .filter((f) => f.endsWith('.json'))
@@ -651,7 +654,8 @@ export function loadAnchors(dir) {
     .map((file) => {
       const input = JSON.parse(readFileSync(path.join(dir, file), 'utf8'));
       return { file, meta: input.anchor, input };
-    });
+    })
+    .filter((a) => a.meta && typeof a.meta === 'object' && !Array.isArray(a.meta));
 }
 
 // --- CLI: таблица для журнала калибровки ---

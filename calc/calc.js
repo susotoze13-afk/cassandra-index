@@ -32,6 +32,7 @@ import {
   taxonomyForWeek,
 } from './week-step.js';
 import { sensitivityScore } from './sensitivity.js';
+import { precursorOf } from './precursor.js';
 import { validateQuotes, verifyQuotes } from './quotes.js';
 import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
@@ -386,6 +387,9 @@ export function renderGlobal(week, snap, globalOut, meta) {
   if (meta.preview) lines.push(`  s.preview = ${j(meta.preview)};`);
   if (meta.incompleteCoverage) lines.push('  s.incompleteCoverage = true;');
   if (typeof meta.sensitivity === 'number') lines.push(`  s.sensitivity = ${j(meta.sensitivity)};`);
+  // Публичный слой Д9 (§4.3.6, R07): { value, signalingSubgroups } — только у
+  // недель, записанных кодом с полем; старые снапшоты и паритет не меняются.
+  if (meta.precursor) lines.push(`  s.precursor = ${j(meta.precursor)};`);
   // Покрытие критериев недели (R05/R06, ADR 0045): { covered, total, uncovered } —
   // опционально, сериализуется только когда посчитано (старые недели поля не несут).
   if (meta.coverageCriteria) lines.push(`  s.coverageCriteria = ${j(meta.coverageCriteria)};`);
@@ -460,6 +464,10 @@ export function runWeek(week, state) {
   // цепочки; max|ΔI| в п.п. Чистая функция, без сети, до ворот записи.
   // null — вырожденный вход без единого источника (R02.3), поле не пишется.
   const sensitivity = sensitivityScore(input, ctx, PARAMS);
+  // Публичный слой Д9 (§4.3.6, R07): процент скора Д9 без ограничителя §4.3.5
+  // и число сигналящих подгрупп. В индекс не входит; null — Д9 слепой/битый,
+  // тогда поле не пишется вовсе (старые недели не меняются).
+  const precursor = precursorOf(drivers);
 
   // trend: окно 12 точек как опубликовано; точки дат из пересчитываемой
   // цепочки несут methodology (версия снапшота недели точки). Опубликованные
@@ -503,6 +511,7 @@ export function runWeek(week, state) {
     global: g,
     classification,
     sensitivity,
+    precursor,
     regions,
     trend,
     sbLeft,
@@ -606,6 +615,7 @@ export async function writeWeek(res, state) {
       : {}),
     ...(cls.reduced ? { incompleteCoverage: true } : {}),
     ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
+    ...(res.precursor ? { precursor: res.precursor } : {}),
     recalc,
   };
 
@@ -620,6 +630,7 @@ export async function writeWeek(res, state) {
     confidence: meta.confidence,
     coverageCriteria: meta.coverageCriteria,
     ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
+    ...(res.precursor ? { precursor: res.precursor } : {}),
     recalc,
   };
   if (meta.preview) full.preview = meta.preview;

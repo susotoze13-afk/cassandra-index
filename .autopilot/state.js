@@ -13,7 +13,7 @@ window.STATE =
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "baseCommit": "1a8a2c7",
   "startedAt": "2026-10-18T20:01:41+03:00",
-  "updatedAt": "2026-10-18T20:02:14+03:00",
+  "updatedAt": "2026-10-18T20:10:28+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -61,8 +61,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 22,
-    "done": 0,
-    "inTicket": 20,
+    "done": 9,
+    "inTicket": 11,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 1,
@@ -92,10 +92,16 @@ window.STATE =
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
-      "startedAt": "2026-10-18T20:02:14+03:00"
+      "startedAt": "2026-10-18T20:02:14+03:00",
+      "finishedAt": "2026-10-18T20:05:56+03:00",
+      "tests": {
+        "passed": 545,
+        "failed": 0
+      },
+      "commit": "33d8450"
     },
     {
       "id": "02",
@@ -125,9 +131,10 @@ window.STATE =
       ],
       "review": "да — фундамент",
       "model": "сильная",
-      "status": "pending",
+      "status": "review",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "startedAt": "2026-10-18T20:05:56+03:00"
     },
     {
       "id": "03",
@@ -161,7 +168,10 @@ window.STATE =
       "repairs": 0
     }
   ],
-  "tests": null,
+  "tests": {
+    "passed": 545,
+    "failed": 0
+  },
   "debt": {
     "placeholders": [],
     "assumptions": [],
@@ -180,7 +190,14 @@ window.STATE =
       "четыре таска зафиксированы"
     ]
   },
-  "concerns": [],
+  "concerns": [
+    "tests/precursor.test.js:61 — ожидание считается тем же precursorOf; закрепить реальное 10-18 = 50/4",
+    "tests/forward-anchors.test.js:24 — CLUSTERS сверять с SCALE из js/risk.js, не литералом",
+    "calc/forward-anchors.js:26 — committedAt принимает не-ISO (2026, 10/20/2026); нужна форма как у week",
+    "calc/precursor.js:15 — signalingSubgroups без проверки целого 0..8; нецелое даёт отказ на воротах вместо null",
+    "calc/calc.js:633 — full наследует precursor из snap; при res.precursor=null поле расходится с global.js",
+    "tests/precursor.test.js — нет сквозного теста meta → s.precursor"
+  ],
   "blind": null,
   "beats": [
     "2026-10-18T20:01:41+03:00",
@@ -191,9 +208,12 @@ window.STATE =
     "2026-10-18T20:01:58+03:00",
     "2026-10-18T20:01:59+03:00",
     "2026-10-18T20:02:07+03:00",
-    "2026-10-18T20:02:14+03:00"
+    "2026-10-18T20:02:14+03:00",
+    "2026-10-18T20:05:56+03:00",
+    "2026-10-18T20:08:27+03:00",
+    "2026-10-18T20:10:28+03:00"
   ],
-  "rev": 13,
+  "rev": 17,
   "waiting": null,
   "waits": [],
   "log": [
@@ -267,23 +287,57 @@ window.STATE =
         "01"
       ],
       "act": "start"
+    },
+    {
+      "t": "2026-10-18T20:05:56+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 545,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-18T20:05:56+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T20:08:27+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "review"
+    },
+    {
+      "t": "2026-10-18T20:10:28+03:00",
+      "k": "add",
+      "key": "concerns",
+      "n": 6
     }
   ],
   "reqList": [
     {
       "id": "R01",
       "text": "«в docs/calibration-journal.md добавить раздел «интервальность»: фактические якорные индексы по сегментам шкалы, монотонность, линейность отклика»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R02",
       "text": "«Если отклик нелинеен — либо зафиксировать, либо ввести нелинейную нормировку»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R03",
       "text": "«прямой ответ на «чем измерена шкала»»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R04",
@@ -293,12 +347,12 @@ window.STATE =
     {
       "id": "R05",
       "text": "«METHODOLOGY §1.1: та же оговорка сноской»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R06",
       "text": "«Явно перечисляем, чего раздел не доказывает»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R07",
@@ -339,7 +393,7 @@ window.STATE =
     {
       "id": "R14",
       "text": "«ADR … «Precursor Risk: литеральный слой Д9, не сравнимо с индексом, forward-only»; версия методологии остаётся 3.0»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R15",
@@ -349,17 +403,17 @@ window.STATE =
     {
       "id": "R16",
       "text": "«Несовпадения копятся в журнале, параметры не трогаются до 8 точек»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R17",
       "text": "«В журнале калибровки прямым текстом: независимых человеческих якорей нет; 3 verify-якоря — проверка порядка, не валидация реальности»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R18",
       "text": "«Внешних рейтеров сейчас не рекрутируем»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R19",

@@ -6,6 +6,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {
   selectK, buildDrivers, loadAnchors, calibrate, runAnchor,
@@ -517,6 +519,27 @@ test('anchors: events[] только там, где min(1, Σsev / capCount) т�
     total += withEvents;
   }
   assert.equal(total, 93, '93 счётных критерия с точно представимым значением во всех 10 якорях');
+});
+
+test('loadAnchors: файлы без input.anchor (форвардные якоря) пропускаются', () => {
+  // R15.2: forward-<week>.json лежит в том же каталоге, что и модельные якоря,
+  // но схема у него другая. Калибровка обязана его игнорировать, а не падать.
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'ci-anchors-'));
+  try {
+    writeFileSync(path.join(dir, 'anchor-a.json'), JSON.stringify({ anchor: { id: 'a' }, criteria: {} }));
+    writeFileSync(path.join(dir, 'forward-2026-10-25.json'), JSON.stringify({
+      week: '2026-10-25', expectedCluster: 'tense', rationale: 'r', author: 'editor',
+      committedAt: '2026-10-20', sources: [],
+    }));
+    writeFileSync(path.join(dir, 'anchor-not-object.json'), JSON.stringify({ anchor: 'a', criteria: {} }));
+
+    const anchors = loadAnchors(dir);
+    assert.equal(anchors.length, 1);
+    assert.equal(anchors[0].meta.id, 'a');
+    assert.equal(anchors[0].file, 'anchor-a.json');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 test('anchors: индекс каждого профиля не сдвинулся от замены value на events', () => {

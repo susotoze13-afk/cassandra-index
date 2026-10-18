@@ -844,6 +844,19 @@ function validateQuality(snapshot, errors) {
     errors.push('sensitivity: number 0..100 (percentage points)');
   }
 
+  // Публичный слой Д9 (§4.3.6, R07/R12): { value: int 0..100,
+  // signalingSubgroups: int 0..8 }. Поле опционально — недели до внедрения и
+  // непересчитанная история 08-30…10-18 валидны без него; лишние ключи
+  // игнорируются, битая форма — ошибка контракта.
+  if (snapshot.precursor !== undefined) {
+    const p = snapshot.precursor;
+    const ok =
+      !!p && typeof p === 'object' && !Array.isArray(p) &&
+      Number.isInteger(p.value) && p.value >= 0 && p.value <= 100 &&
+      Number.isInteger(p.signalingSubgroups) && p.signalingSubgroups >= 0 && p.signalingSubgroups <= 8;
+    if (!ok) errors.push('precursor: { value: int 0..100, signalingSubgroups: int 0..8 }');
+  }
+
   if (snapshot.dataState === 'insufficient') {
     if (snapshot.global !== null) {
       errors.push('insufficient: global must be null (publication blocked)');
