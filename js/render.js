@@ -4,6 +4,7 @@
 
 import { t } from './i18n.js';
 import { render as heroRender } from './sections/hero.js';
+import { render as precursorRender } from './sections/precursor.js';
 import { render as trustRender } from './sections/trust.js';
 import { render as driversRender } from './sections/drivers.js';
 import { render as trendRender } from './sections/trend.js';
@@ -15,6 +16,7 @@ import { render as feedbackRender } from './sections/feedback.js';
 
 export const SECTIONS = [
   'hero',
+  'precursor',
   'trust',
   'regions',
   'trend',
@@ -29,6 +31,7 @@ const registry = new Map();
 
 // Секция hero — первая; остальные регистрируют свои таски.
 registerSection('hero', heroRender);
+registerSection('precursor', precursorRender);
 registerSection('trust', trustRender);
 registerSection('drivers', driversRender);
 registerSection('trend', trendRender);

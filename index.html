@@ -111,6 +111,15 @@
       <p class="sr-only" data-role="a11y-live" aria-live="polite"></p>
     </section>
 
+    <!-- Косвенные предвестники (Д9, §4.3.6 METHODOLOGY, ADR 0047): публичный
+         слой Д9 — доля сигналов, число сигналящих подгрупп и оговорки; наполняет
+         js/sections/precursor.js. Неделя без поля precursor — секция скрыта
+         (атрибут hidden снимает рендер). -->
+    <section id="precursor" class="section precursor-section" aria-labelledby="precursor-title" hidden>
+      <h2 id="precursor-title" data-i18n="precursor.title">Косвенные предвестники (Д9)</h2>
+      <div class="section-body" data-section="precursor"></div>
+    </section>
+
     <!-- Витрина доверия (ADR 0033 §1, фаза 1): компактная строка-факт под hero,
          раскрытие деталей по клику — наполняет js/sections/trust.js. -->
     <section class="section trust-section" aria-labelledby="trust-title">
@@ -140,6 +149,14 @@
     <section id="methodology" class="section" aria-labelledby="methodology-title">
       <h2 id="methodology-title" data-i18n="nav.method">Методология</h2>
       <div class="section-body" data-section="methodology"></div>
+      <!-- R04/ADR 0047: те же 3–4 предложения про шкалу, что в журнале
+           калибровки; текст — из словаря (method.scale.*), применяет applyI18n.
+           Стоит вне [data-section="methodology"], чтобы innerHTML рендера
+           секции методологии его не стирал. -->
+      <div class="method-block method-scale-note">
+        <h3 data-i18n="method.scale.title">Что доказывает шкала</h3>
+        <p data-i18n="method.scale.intro">Шкала индекса порядковая: число упорядочивает недели по уровню риска, а границы состояний прокалиброваны на исторических эпизодах и модельных якорях. Расстояние между числами — не измеренная величина, а соглашение модели: отрезок от 40 до 60 не означает то же изменение, что от 80 до 100. Читать имеет смысл положение недели относительно границ состояний и направление движения, а не разность двух значений. По той же логике публикуется слой предвестников: он показывает долю сигналов Д9 и не складывается с индексом.</p>
+      </div>
     </section>
 
     <!-- Форма обратной связи (спецификация feedback-form): разметку наполняет

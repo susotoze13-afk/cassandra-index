@@ -1,5 +1,5 @@
 // js/bundle.js — СГЕНЕРИРОВАН build.js, не править вручную.
-// Исходники: js/criteria.js, js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/geo.js, js/sections/states.js, js/sections/hero.js, js/sections/trust.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
+// Исходники: js/criteria.js, js/data.js, js/region.js, js/risk.js, js/ui.js, js/i18n.js, js/analytics.js, js/geo.js, js/sections/states.js, js/sections/hero.js, js/sections/precursor.js, js/sections/trust.js, js/sections/drivers.js, js/sections/trend.js, js/sections/regions.js, js/sections/history.js, js/sections/methodology.js, js/sections/feedback.js, js/render.js, js/demo.js, js/app.js, js/share.js. Пересборка: node build.js
 (function () {
 'use strict';
 const modules = {};
@@ -1702,6 +1702,15 @@ const DICTS = {
     'trust.details.sensitivity': 'Чувствительность индекса: {delta} п.п. — максимальный сдвиг при исключении одного домена',
     'trust.details.sensitivity.na': 'Чувствительность индекса: н/д',
     'trust.details.sensitive': 'индекс чувствителен к одному из доменов (Δ {delta} п.п.)',
+    // Косвенные предвестники (Д9) — публичный слой §4.3.6, ADR 0047. R07–R11:
+    // процент целым числом, число сигналящих подгрупп, обе оговорки. Без цифр в
+    // подписи: подпись — про смысл, а не про конкретное число.
+    'precursor.title': 'Косвенные предвестники (Д9)',
+    'precursor.value': '{value} %',
+    'precursor.signals': '{n} {n, plural, one{сигналящая подгруппа} few{сигналящие подгруппы} many{сигналящих подгрупп} other{сигналящих подгрупп}} из 8',
+    'precursor.none': 'сигналов нет',
+    'precursor.note': 'доля сигналов Д9, не сравнимо с индексом',
+    'precursor.disclaimer': 'Косвенные индикаторы, не подтверждено прямыми наблюдениями.',
     'footer.nav': 'Сервисные ссылки',
     'feedback.title': 'Обратная связь',
     'feedback.topic.label': 'Тема',
@@ -1773,6 +1782,10 @@ const DICTS = {
     'method.definition.4': 'Поэтому состояния «Опасно», «Очень опасно» и «Критически опасно» описывают уровень риска, а не подтверждают, что глобальный военный конфликт уже идёт. Границы между состояниями — шкала публикации уровней риска, а не критерий отнесения конфликта к глобальным. Факт войны устанавливают по событиям: кто с кем воюет, на скольких театрах и какие государства вовлечены напрямую.',
     'method.measures.title': 'Что модель измеряет',
     'method.measures.1': 'Состояние риска глобального конфликта по подтверждённым открытым сигналам — включая косвенные индикаторы подготовки. Значение 0–100 — индекс аномальности относительно базовой линии мирного времени (ориентир — 2010–2019 годы): мера схожести текущей комбинации сигналов с историческими кризисами, а не прогноз будущего.',
+    // R04, ADR 0045/0047: что шкала доказывает и чего не доказывает — те же
+    // 3–4 предложения, что в журнале калибровки (раздел «Интервальность»).
+    'method.scale.title': 'Что доказывает шкала',
+    'method.scale.intro': 'Шкала индекса порядковая: число упорядочивает недели по уровню риска, а границы состояний прокалиброваны на исторических эпизодах и модельных якорях. Расстояние между числами — не измеренная величина, а соглашение модели: отрезок от 40 до 60 не означает то же изменение, что от 80 до 100. Читать имеет смысл положение недели относительно границ состояний и направление движения, а не разность двух значений. По той же логике публикуется слой предвестников: он показывает долю сигналов Д9 и не складывается с индексом.',
     'method.criteria.title': 'Полный перечень критериев',
     'method.criteria.intro': 'Индекс собирается из 46 критериев, сгруппированных по 9 драйверам. Ниже — что именно наблюдает модель по каждому критерию, какая у него шкала и в какую сторону он двигает оценку. Формулы агрегации, веса и пороги в публичный интерфейс не выносятся.',
     'method.criteria.driver.d1': 'Д1. Военная активность',
@@ -3105,6 +3118,90 @@ exports["deltaArrow"] = deltaArrow;
 exports["isBackgroundRegion"] = isBackgroundRegion;
 exports["displayedPlace"] = displayedPlace;
 exports["refineRegionFromCoords"] = refineRegionFromCoords;
+exports["render"] = render;
+return exports;
+}]);
+factories.push(["js/sections/precursor.js", function (exports) {
+const { t } = __ci_require("js/i18n.js");
+const { el } = __ci_require("js/ui.js");
+// js/sections/precursor.js — блок «Косвенные предвестники (Д9)» между hero и
+// витриной доверия (§4.3.6 METHODOLOGY, ADR 0047): доля сигналов Д9 без потолка
+// §4.3.5, число сигналящих подгрупп и честные оговорки — «не сравнимо с
+// индексом» и «не подтверждено прямыми наблюдениями». Блок неинтерактивен и не
+// попадает в тон риска: числа берутся из уже загруженного снапшота недели,
+// ничего не пересчитывается. Неделя без поля precursor, неопубликованная неделя
+// или битая форма поля — блока нет вовсе (R10). Чистый шов precursorFacts.
+
+
+// Число подгрупп Д9 (§4.3.8: иерархическая агрегация по восьми подгруппам);
+// паритет с engine.D9_SUBGROUPS пинит tests/precursor-ui.test.js.
+const PRECURSOR_SUBGROUPS = 8;
+
+// precursorFacts(snapshot) → { value, signaling, total } | null. null — если
+// снапшота/глобального индекса нет, неделя не published (R11.1), поля нет или
+// форма поля битая (R12.1): блок молчит, страница не падает. Стиль проверки —
+// как validCoverage в js/sections/trust.js: отказ без исключений.
+function precursorFacts(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') return null;
+  if (snapshot.dataState !== 'published') return null;
+  if (snapshot.global == null) return null;
+
+  const p = snapshot.precursor;
+  if (!p || typeof p !== 'object' || Array.isArray(p)) return null;
+
+  const ok =
+    Number.isInteger(p.value) && p.value >= 0 && p.value <= 100 &&
+    Number.isInteger(p.signalingSubgroups) &&
+    p.signalingSubgroups >= 0 &&
+    p.signalingSubgroups <= PRECURSOR_SUBGROUPS;
+  if (!ok) return null;
+
+  return {
+    value: p.value,
+    signaling: p.signalingSubgroups,
+    total: PRECURSOR_SUBGROUPS,
+  };
+}
+
+// Пометка «сигналов нет» — только когда нет ни значения, ни сигналящих
+// подгрупп (R10): при signaling = 0 и ненулевом значении пометки нет.
+function showsNoSignals(facts) {
+  if (!facts) return false;
+  return facts.value === 0 && facts.signaling === 0;
+}
+
+function render(appState) {
+  if (typeof document === 'undefined') return;
+  const host = document.querySelector('[data-section="precursor"]');
+  if (!host) return;
+
+  // Секция целиком скрыта, пока нет валидных фактов: пустой заголовок без
+  // данных читался бы как сбой (R10).
+  const section =
+    typeof host.closest === 'function' ? host.closest('.precursor-section') : null;
+
+  host.textContent = '';
+  const facts = precursorFacts(appState?.snapshot);
+  if (section) section.hidden = !facts;
+  if (!facts) return;
+
+  const lang = appState?.lang ?? 'ru';
+
+  const row = el('div', 'precursor-row');
+  row.appendChild(el('div', 'precursor-value', t(lang, 'precursor.value', { value: facts.value })));
+  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.signals', { n: facts.signaling })));
+  if (showsNoSignals(facts)) {
+    row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.none')));
+  }
+  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.note')));
+  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.disclaimer')));
+
+  host.appendChild(row);
+}
+
+exports["PRECURSOR_SUBGROUPS"] = PRECURSOR_SUBGROUPS;
+exports["precursorFacts"] = precursorFacts;
+exports["showsNoSignals"] = showsNoSignals;
 exports["render"] = render;
 return exports;
 }]);
@@ -5387,6 +5484,7 @@ return exports;
 factories.push(["js/render.js", function (exports) {
 const { t } = __ci_require("js/i18n.js");
 const { render: heroRender } = __ci_require("js/sections/hero.js");
+const { render: precursorRender } = __ci_require("js/sections/precursor.js");
 const { render: trustRender } = __ci_require("js/sections/trust.js");
 const { render: driversRender } = __ci_require("js/sections/drivers.js");
 const { render: trendRender } = __ci_require("js/sections/trend.js");
@@ -5402,6 +5500,7 @@ const { render: feedbackRender } = __ci_require("js/sections/feedback.js");
 
 const SECTIONS = [
   'hero',
+  'precursor',
   'trust',
   'regions',
   'trend',
@@ -5416,6 +5515,7 @@ const registry = new Map();
 
 // Секция hero — первая; остальные регистрируют свои таски.
 registerSection('hero', heroRender);
+registerSection('precursor', precursorRender);
 registerSection('trust', trustRender);
 registerSection('drivers', driversRender);
 registerSection('trend', trendRender);

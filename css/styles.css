@@ -1668,6 +1668,12 @@ main {
   margin-bottom: 24px;
 }
 
+/* R04/ADR 0047: абзац про шкалу — вне section-body методологии, поэтому цвет
+   вторичного текста задаётся явно; та же типографика, что у блоков метода. */
+.method-scale-note {
+  color: var(--text-secondary);
+}
+
 .method-block h3 {
   margin: 0 0 8px;
   font-size: 18px;
@@ -2077,6 +2083,47 @@ main {
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
+}
+
+/* ---------- Косвенные предвестники (Д9), §4.3.6 / ADR 0047 ---------- */
+/* Блок неинтерактивен и нейтрален по тону: только surface/border-soft/text —
+   значение не является уровнем риска и не сравнивается с индексом, поэтому
+   --state-* здесь не используются (R07.1). На 320 px одна колонка:
+   flex-direction: column + max-width: 100%, текст переносится. */
+.precursor-section {
+  padding: 32px 0;
+}
+
+.precursor-section[hidden] {
+  display: none;
+}
+
+.precursor-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 100%;
+  padding: 16px 20px;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.precursor-value {
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.precursor-note {
+  margin: 0;
+  max-width: 100%;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 /* ---------- Витрина доверия (ADR 0033 §1, фаза 1) ---------- */

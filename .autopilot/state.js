@@ -13,7 +13,7 @@ window.STATE =
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "baseCommit": "1a8a2c7",
   "startedAt": "2026-10-18T20:01:41+03:00",
-  "updatedAt": "2026-10-18T20:10:28+03:00",
+  "updatedAt": "2026-10-18T20:19:54+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -61,8 +61,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 22,
-    "done": 9,
-    "inTicket": 11,
+    "done": 15,
+    "inTicket": 5,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 1,
@@ -131,10 +131,16 @@ window.STATE =
       ],
       "review": "да — фундамент",
       "model": "сильная",
-      "status": "review",
+      "status": "done",
       "retries": 0,
       "repairs": 0,
-      "startedAt": "2026-10-18T20:05:56+03:00"
+      "startedAt": "2026-10-18T20:05:56+03:00",
+      "finishedAt": "2026-10-18T20:10:28+03:00",
+      "tests": {
+        "passed": 560,
+        "failed": 0
+      },
+      "commit": "f08eee5"
     },
     {
       "id": "03",
@@ -163,13 +169,17 @@ window.STATE =
       ],
       "review": "да — публичная поверхность",
       "model": "обычная",
-      "status": "pending",
+      "status": "repair",
       "retries": 0,
-      "repairs": 0
+      "repairs": 1,
+      "startedAt": "2026-10-18T20:10:29+03:00",
+      "repairFindings": [
+        "подпись под процентом: вернуть «доля сигналов Д9, не сравнимо с индексом»"
+      ]
     }
   ],
   "tests": {
-    "passed": 545,
+    "passed": 560,
     "failed": 0
   },
   "debt": {
@@ -196,7 +206,11 @@ window.STATE =
     "calc/forward-anchors.js:26 — committedAt принимает не-ISO (2026, 10/20/2026); нужна форма как у week",
     "calc/precursor.js:15 — signalingSubgroups без проверки целого 0..8; нецелое даёт отказ на воротах вместо null",
     "calc/calc.js:633 — full наследует precursor из snap; при res.precursor=null поле расходится с global.js",
-    "tests/precursor.test.js — нет сквозного теста meta → s.precursor"
+    "tests/precursor.test.js — нет сквозного теста meta → s.precursor",
+    "js/i18n.js:203 — «из 8» зашито в текст, facts.total не участвует; нужен плейсхолдер {total}",
+    "tests/precursor-ui.test.js:105 — тест пинит «из 8» строкой; ожидание считать от PRECURSOR_SUBGROUPS",
+    "tests/precursor-ui.test.js:146 — порядок SECTIONS проверяется regex по исходнику; импортировать SECTIONS",
+    "AGENTS.md — счётчики секций и список js/ не включают js/sections/precursor.js; обновить при памяти проекта"
   ],
   "blind": null,
   "beats": [
@@ -211,9 +225,14 @@ window.STATE =
     "2026-10-18T20:02:14+03:00",
     "2026-10-18T20:05:56+03:00",
     "2026-10-18T20:08:27+03:00",
-    "2026-10-18T20:10:28+03:00"
+    "2026-10-18T20:10:28+03:00",
+    "2026-10-18T20:10:29+03:00",
+    "2026-10-18T20:16:50+03:00",
+    "2026-10-18T20:19:24+03:00",
+    "2026-10-18T20:19:53+03:00",
+    "2026-10-18T20:19:54+03:00"
   ],
-  "rev": 17,
+  "rev": 23,
   "waiting": null,
   "waits": [],
   "log": [
@@ -321,6 +340,55 @@ window.STATE =
       "k": "add",
       "key": "concerns",
       "n": 6
+    },
+    {
+      "t": "2026-10-18T20:10:28+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 560,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-18T20:10:29+03:00",
+      "k": "ticket",
+      "ids": [
+        "03"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T20:16:50+03:00",
+      "k": "ticket",
+      "ids": [
+        "03"
+      ],
+      "act": "review"
+    },
+    {
+      "t": "2026-10-18T20:19:24+03:00",
+      "k": "ticket",
+      "ids": [
+        "03"
+      ],
+      "act": "repair",
+      "note": "подпись под процентом: вернуть «доля сигналов Д9, не сравнимо с индексом»"
+    },
+    {
+      "t": "2026-10-18T20:19:53+03:00",
+      "k": "add",
+      "key": "concerns",
+      "n": 4
+    },
+    {
+      "t": "2026-10-18T20:19:54+03:00",
+      "k": "add",
+      "key": "report",
+      "n": 1
     }
   ],
   "reqList": [
@@ -357,7 +425,7 @@ window.STATE =
     {
       "id": "R07",
       "text": "«реализовать как отдельный показатель рядом с главным индексом»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R08",
@@ -383,12 +451,12 @@ window.STATE =
     {
       "id": "R12",
       "text": "«опциональное поле precursor в снапшоте, валидация формы в js/data.js»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R13",
       "text": "«forward-only с 10-25, историю 08-30…10-18 не трогаем»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R14",
@@ -398,7 +466,7 @@ window.STATE =
     {
       "id": "R15",
       "text": "«calc/input/anchors/forward-<week>.json: {week, expectedCluster, rationale, author, committedAt, sources[]}, коммит до --write; допустимо unknown с причиной»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R16",
@@ -418,12 +486,12 @@ window.STATE =
     {
       "id": "R19",
       "text": "«дозаполнение precursor за 8 недель» — не делаем",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R20i",
       "text": "Числа опубликованных недель не меняются: индекс и дельта остаются как есть",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R21i",
@@ -457,5 +525,8 @@ window.STATE =
       "problems": 0
     }
   },
-  "result": null
+  "result": null,
+  "report": [
+    "Ни одна из 12 недель на диске не несёт precursor: блок на проде скрыт до первой --write (10-25); R09 на живом сайте сейчас не проверить"
+  ]
 }
