@@ -1,0 +1,19 @@
+# Нормализация переводов строк: в индексе и в рабочем дереве — LF на любой
+# машине. Без этого Windows-клон с core.autocrlf=true отдаёт CRLF, и тогда
+# падают tests/build.test.js и tests/week-combined-parity.test.js, а
+# `node build.js` не собирает бандл (грабля описана в AGENTS.md).
+#
+# Проверка: обычный `git clone` в свежую папку → `node --test` и `node build.js`
+# должны быть зелёными, `git status` после сборки — чистым.
+* text=auto eol=lf
+
+# Бинарные файлы не трогаем.
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
