@@ -11,11 +11,12 @@ import vm from 'node:vm';
 import {
   loadSnapshotPart, weekPartFiles, taxonomyForWeek, loadWeekParts, renderWeekCombined,
 } from '../calc/calc.js';
+import { readLatestWeeks } from '../calc/prepare-week.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 
 const latestSrc = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
-const WEEKS = JSON.parse(latestSrc.match(/window\.CI_WEEKS = (\[[^\]]*\])/)[1]);
+const { weeks: WEEKS } = readLatestWeeks(latestSrc);
 
 // Эталон: части недели через шов loadSnapshotPart, сложенные в порядке
 // загрузчика (regions и region-* мерджатся по ключам, не заменяют друг друга).
@@ -40,8 +41,11 @@ function snapshotFromCombined(week) {
   return JSON.parse(JSON.stringify(sandbox.window.CI_DATA.snapshots[week]));
 }
 
-test(`покрыто ${WEEKS.length} недель из CI_WEEKS`, () => {
-  assert.equal(WEEKS.length, 12);
+// Ручных пинов числа недель нет: согласие CI_WEEKS с диском проверяет отдельный
+// тест (tests/weeklists-agreement.test.js), а per-week паритет ниже сам по себе
+// покрывает каждую неделю списка — непустота списка здесь достаточна.
+test('список недель из CI_WEEKS не пуст', () => {
+  assert.ok(WEEKS.length > 0, 'CI_WEEKS пуст');
 });
 
 for (const week of WEEKS) {

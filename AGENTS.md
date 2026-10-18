@@ -89,8 +89,10 @@ calc/classify.js          чистый конвертер «черновик Jev
                           тесты tests/classify.test.js
 calc/calibrate.js         калибровка k на якорях: buildDrivers, runAnchor, evaluateGrid, selectK, sensitivity
 calc/prepare-week.js      механика новой недели для weekly-calc: чистые швы addRecalcWeek/
-                          addLatestWeek (RECALC_WEEKS, CI_WEEKS/CI_LATEST) + CLI [--write];
-                          тесты tests/prepare-week.test.js
+                          addLatestWeek (запись RECALC_WEEKS, CI_WEEKS/CI_LATEST) и read-
+                          швы readRecalcWeeks/readLatestWeeks (парсинг списков для тестов —
+                          тесты недель-списков не дублируют regex: tests/weeklists-agreement.test.js)
+                          + CLI [--write]; тесты tests/prepare-week.test.js
 calc/audit.js             append в data/audit.jsonl (recalc/flash, R35–R37/R16–R19)
 calc/migrate-week-combined.js  идемпотентная разовая миграция: `data/<week>/week.js`
                           из дисковых частей той же функцией, что и calc.js --write

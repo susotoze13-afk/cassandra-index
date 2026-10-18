@@ -57,6 +57,34 @@ export function addLatestWeek(src, week) {
   return { src: out, changed: out !== src };
 }
 
+// calc/calc.js: чтение RECALC_WEEKS из исходника. Чистый шов для тестов —
+// парсинг списков недель живёт здесь, в тестах не дублируется.
+export function readRecalcWeeks(src) {
+  const m = src.match(/const RECALC_WEEKS = \[([^\]]*)\]/);
+  if (!m) throw new Error('RECALC_WEEKS не найден');
+  // те же regex, что использует запись addRecalcWeek (по кавычкам) —
+  // read- и write-шовы видят один и тот же список
+  const dates = m[1].match(/'\d{4}-\d{2}-\d{2}'/g) || [];
+  return dates.map((s) => s.slice(1, -1));
+}
+
+// data/latest.js: чтение CI_WEEKS и CI_LATEST из исходника. Чистый шов для
+// тестов; week-часть — как write-шов addLatestWeek (кавычки + JSON.parse).
+export function readLatestWeeks(src) {
+  const m = src.match(/window\.CI_WEEKS = \[([^\]]*)\]/);
+  if (!m) throw new Error('CI_WEEKS не найден');
+  let weeks;
+  try {
+    weeks = JSON.parse(`[${m[1]}]`);
+  } catch (e) {
+    throw new Error(`CI_WEEKS не парсится: ${e.message}`);
+  }
+  if (!Array.isArray(weeks)) throw new Error('CI_WEEKS не массив');
+  const mL = src.match(/window\.CI_LATEST = "(\d{4}-\d{2}-\d{2})"/);
+  if (!mL) throw new Error('CI_LATEST не найден');
+  return { weeks, latest: mL[1] };
+}
+
 function main() {
   const args = process.argv.slice(2);
   const writeMode = args.includes('--write');

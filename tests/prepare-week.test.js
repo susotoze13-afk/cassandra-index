@@ -3,9 +3,27 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { addRecalcWeek, addLatestWeek } from '../calc/prepare-week.js';
+import { addRecalcWeek, addLatestWeek, readRecalcWeeks, readLatestWeeks } from '../calc/prepare-week.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+// --- round-trip: read-шовы согласованы с write-шовами ---
+
+test('round-trip: addRecalcWeek → readRecalcWeeks видит добавленную неделю', () => {
+  const { src } = addRecalcWeek(CALC_SAMPLE, '2026-10-11');
+  const recalc = readRecalcWeeks(src);
+  assert.ok(recalc.includes('2026-10-11'), 'read-шов не видит неделю после записи');
+  // основа семпла сохраняется: добавление — только к хвосту списка
+  assert.deepEqual(recalc.slice(0, 2), ['2026-08-30', '2026-09-06']);
+});
+
+test('round-trip: addLatestWeek → readLatestWeeks согласован', () => {
+  const { src } = addLatestWeek(LATEST_SAMPLE, '2026-08-16');
+  const { weeks, latest } = readLatestWeeks(src);
+  assert.ok(weeks.includes('2026-08-16'));
+  assert.equal(latest, '2026-08-16');
+  assert.equal(weeks.at(-1), latest);
+});
 
 // --- addRecalcWeek: синтетический источник ---
 const CALC_SAMPLE = "const RECALC_WEEKS = ['2026-08-30', '2026-09-06'];\nconst PREV_WEEK = '2026-08-23';\n";
