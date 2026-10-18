@@ -1011,6 +1011,81 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "notes": "Подтверждение испытания КНДР независимым изданием."
+  },
+  {
+    "id": "xinhua-keen-sword-27",
+    "title": {
+      "ru": "Совместные учения Японии и США Keen Sword 27 — около 60 тыс. человек",
+      "en": "Japan-U.S. large-scale joint drills draw widespread concern, opposition"
+    },
+    "domain": "english.news.cn",
+    "url": "https://english.news.cn/20261017/6bfadc87604f41d7a6ddbc059f2b42cf/c.html",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Анонс Keen Sword 27: 19–29 октября, несколько полигонов Японии, ~60 тыс. военных."
+  },
+  {
+    "id": "chosun-china-six-zones",
+    "title": {
+      "ru": "Учения КНР в шести морских зонах",
+      "en": "China's Unprecedented Drills Across Six Maritime Zones"
+    },
+    "domain": "chosun.com",
+    "url": "https://www.chosun.com/english/world-en/2026/10/14/V756J5U5ARCPHNLDBWC6H5LHHE/",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "С 12 октября учения с боевыми стрельбами в шести морских зонах — от Бохайского до Южно-Китайского моря."
+  },
+  {
+    "id": "izvestia-indra-2026",
+    "title": {
+      "ru": "Стартовали учения Россия–Индия Indra-2026",
+      "en": "Russia and India have deployed ships and aircraft in the Indra-2026 exercises"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/2184165/2026-10-14/russia-and-india-have-deployed-ships-and-aircraft-indra-2026-exercises",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Межвидовые учения: сухопутные части, корабли и авиация, Челябинская область и Дальний Восток."
+  },
+  {
+    "id": "chinascoop-karakoram-2026",
+    "title": {
+      "ru": "Первые совместные учения КНР и Пакистана Karakoram 2026",
+      "en": "Karakoram 2026: China Trains for the Mountains Where Technology Meets Human Limits"
+    },
+    "domain": "chinascoop.org",
+    "url": "https://chinascoop.org/karakoram-2026-pla-pakistan-high-altitude-warfare/",
+    "publication_date": "2026-10-15",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "E-field-osint",
+    "state_affiliated": false,
+    "notes": "Учения открыты 14 октября в Корле (Синьцзян): высокогорная контртеррористическая подготовка, БПЛА."
+  },
+  {
+    "id": "toi-egypt-live-fire-drills",
+    "title": {
+      "ru": "Египет провёл крупные боевые стрельбы на фоне йеменской эскалации",
+      "en": "Egypt Holds Major Live-Fire Drills As Sisi Vows To Defend Saudi Arabia"
+    },
+    "domain": "timesofindia.indiatimes.com",
+    "url": "https://timesofindia.indiatimes.com/videos/international/egypt-holds-major-live-fire-drills-as-sisi-vows-to-defend-saudi-arabia-amid-yemen-war-tensions/videoshow/135020199.cms",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Крупные боевые стрельбы Египта после заявлений Сиси о защите Саудовской Аравии."
   }
 ];
 })();

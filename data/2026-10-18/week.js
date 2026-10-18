@@ -19,10 +19,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 0;
   s.coverageCriteria = {
-  "covered": 27,
+  "covered": 28,
   "total": 46,
   "uncovered": [
-    "D1.2",
     "D1.6",
     "D2.4",
     "D3.1",
@@ -44,7 +43,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-10-18T14:25:36.131Z",
+  "at": "2026-10-18T14:33:53.412Z",
   "reason": "Еженедельный пересчёт",
   "previous": 63,
   "methodologyBefore": "3.0",
@@ -53,8 +52,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "russia-belarus": {
-    "index": 56,
-    "delta": 0,
+    "index": 55,
+    "delta": -1,
     "status": "danger",
     "background": false
   },
@@ -65,8 +64,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "baltic": {
-    "index": 59,
-    "delta": 3,
+    "index": 60,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
@@ -77,8 +76,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "eu-north-europe": {
-    "index": 59,
-    "delta": 3,
+    "index": 60,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
@@ -95,14 +94,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "east-asia": {
-    "index": 61,
-    "delta": -1,
-    "status": "very",
+    "index": 60,
+    "delta": -2,
+    "status": "danger",
     "background": false
   },
   "middle-east": {
-    "index": 71,
-    "delta": 4,
+    "index": 72,
+    "delta": 5,
     "status": "very",
     "background": false
   },
@@ -113,8 +112,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 59,
-    "delta": 5,
+    "index": 58,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
@@ -126,8 +125,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 56,
-  "delta": 0,
+  "index": 55,
+  "delta": -1,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -354,8 +353,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 59,
-  "delta": 3,
+  "index": 60,
+  "delta": 4,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -540,8 +539,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 59,
-  "delta": 3,
+  "index": 60,
+  "delta": 4,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -833,9 +832,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 61,
-  "delta": -1,
-  "status": "very",
+  "index": 60,
+  "delta": -2,
+  "status": "danger",
   "background": false,
   "confidence": "medium",
   "drivers": [
@@ -940,8 +939,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 71,
-  "delta": 4,
+  "index": 72,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1182,8 +1181,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 59,
-  "delta": 5,
+  "index": 58,
+  "delta": 4,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -2661,6 +2660,81 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "notes": "Подтверждение испытания КНДР независимым изданием."
+  },
+  {
+    "id": "xinhua-keen-sword-27",
+    "title": {
+      "ru": "Совместные учения Японии и США Keen Sword 27 — около 60 тыс. человек",
+      "en": "Japan-U.S. large-scale joint drills draw widespread concern, opposition"
+    },
+    "domain": "english.news.cn",
+    "url": "https://english.news.cn/20261017/6bfadc87604f41d7a6ddbc059f2b42cf/c.html",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Анонс Keen Sword 27: 19–29 октября, несколько полигонов Японии, ~60 тыс. военных."
+  },
+  {
+    "id": "chosun-china-six-zones",
+    "title": {
+      "ru": "Учения КНР в шести морских зонах",
+      "en": "China's Unprecedented Drills Across Six Maritime Zones"
+    },
+    "domain": "chosun.com",
+    "url": "https://www.chosun.com/english/world-en/2026/10/14/V756J5U5ARCPHNLDBWC6H5LHHE/",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "С 12 октября учения с боевыми стрельбами в шести морских зонах — от Бохайского до Южно-Китайского моря."
+  },
+  {
+    "id": "izvestia-indra-2026",
+    "title": {
+      "ru": "Стартовали учения Россия–Индия Indra-2026",
+      "en": "Russia and India have deployed ships and aircraft in the Indra-2026 exercises"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/2184165/2026-10-14/russia-and-india-have-deployed-ships-and-aircraft-indra-2026-exercises",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Межвидовые учения: сухопутные части, корабли и авиация, Челябинская область и Дальний Восток."
+  },
+  {
+    "id": "chinascoop-karakoram-2026",
+    "title": {
+      "ru": "Первые совместные учения КНР и Пакистана Karakoram 2026",
+      "en": "Karakoram 2026: China Trains for the Mountains Where Technology Meets Human Limits"
+    },
+    "domain": "chinascoop.org",
+    "url": "https://chinascoop.org/karakoram-2026-pla-pakistan-high-altitude-warfare/",
+    "publication_date": "2026-10-15",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "E-field-osint",
+    "state_affiliated": false,
+    "notes": "Учения открыты 14 октября в Корле (Синьцзян): высокогорная контртеррористическая подготовка, БПЛА."
+  },
+  {
+    "id": "toi-egypt-live-fire-drills",
+    "title": {
+      "ru": "Египет провёл крупные боевые стрельбы на фоне йеменской эскалации",
+      "en": "Egypt Holds Major Live-Fire Drills As Sisi Vows To Defend Saudi Arabia"
+    },
+    "domain": "timesofindia.indiatimes.com",
+    "url": "https://timesofindia.indiatimes.com/videos/international/egypt-holds-major-live-fire-drills-as-sisi-vows-to-defend-saudi-arabia-amid-yemen-war-tensions/videoshow/135020199.cms",
+    "publication_date": "2026-10-17",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Крупные боевые стрельбы Египта после заявлений Сиси о защите Саудовской Аравии."
   }
 ];
 })();

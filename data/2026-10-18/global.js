@@ -19,10 +19,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 0;
   s.coverageCriteria = {
-  "covered": 27,
+  "covered": 28,
   "total": 46,
   "uncovered": [
-    "D1.2",
     "D1.6",
     "D2.4",
     "D3.1",
@@ -44,7 +43,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-10-18T14:25:36.131Z",
+  "at": "2026-10-18T14:33:53.412Z",
   "reason": "Еженедельный пересчёт",
   "previous": 63,
   "methodologyBefore": "3.0",

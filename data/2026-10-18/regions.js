@@ -3,8 +3,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-10-18"] = window.CI_DATA.snapshots["2026-10-18"] || {};
   s.regions = {
   "russia-belarus": {
-    "index": 56,
-    "delta": 0,
+    "index": 55,
+    "delta": -1,
     "status": "danger",
     "background": false
   },
@@ -15,8 +15,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "baltic": {
-    "index": 59,
-    "delta": 3,
+    "index": 60,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
@@ -27,8 +27,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "eu-north-europe": {
-    "index": 59,
-    "delta": 3,
+    "index": 60,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
@@ -45,14 +45,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "east-asia": {
-    "index": 61,
-    "delta": -1,
-    "status": "very",
+    "index": 60,
+    "delta": -2,
+    "status": "danger",
     "background": false
   },
   "middle-east": {
-    "index": 71,
-    "delta": 4,
+    "index": 72,
+    "delta": 5,
     "status": "very",
     "background": false
   },
@@ -63,8 +63,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 59,
-    "delta": 5,
+    "index": 58,
+    "delta": 4,
     "status": "danger",
     "background": false
   },
