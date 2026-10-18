@@ -2,83 +2,77 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-18"] = window.CI_DATA.snapshots["2026-10-18"] || {};
   s.global = {
-  "index": 63,
-  "delta": 7
+  "index": 64,
+  "delta": 8
 };
   s.published = "2026-10-18";
   s.through = "2026-10-18";
   s.methodology = "3.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
-  s.q = 0.8622;
-  s.nullWeight = 0.1378;
+  s.q = 1;
+  s.nullWeight = 0;
   s.coverage = {
-  "coveredDrivers": 7,
+  "coveredDrivers": 9,
   "totalDrivers": 9
 };
   s.confidence = "full";
   s.sensitivity = 0;
   s.coverageCriteria = {
-  "covered": 28,
+  "covered": 34,
   "total": 46,
   "uncovered": [
     "D1.6",
     "D2.4",
     "D3.1",
-    "D5.2",
     "D5.3",
     "D5.4",
     "D6.1",
-    "D6.2",
     "D6.4",
-    "D7.4",
     "D8.4",
-    "D9.1",
     "D9.2",
-    "D9.4",
     "D9.5",
-    "D9.6a",
     "D9.6b",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-18T14:33:53.412Z",
+  "at": "2026-10-18T15:10:59.064Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 63,
+  "previous": 64,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
 };
   s.regions = {
   "russia-belarus": {
-    "index": 55,
-    "delta": -1,
+    "index": 56,
+    "delta": 0,
     "status": "danger",
     "background": false
   },
   "ukraine-moldova": {
-    "index": 57,
-    "delta": 1,
+    "index": 58,
+    "delta": 2,
     "status": "danger",
     "background": false
   },
   "baltic": {
-    "index": 60,
-    "delta": 4,
-    "status": "danger",
-    "background": false
-  },
-  "balkans": {
     "index": 61,
     "delta": 5,
     "status": "very",
     "background": false
   },
+  "balkans": {
+    "index": 63,
+    "delta": 7,
+    "status": "very",
+    "background": false
+  },
   "eu-north-europe": {
-    "index": 60,
-    "delta": 4,
-    "status": "danger",
+    "index": 61,
+    "delta": 5,
+    "status": "very",
     "background": false
   },
   "south-caucasus": {
@@ -88,45 +82,45 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "central-asia": {
-    "index": 61,
-    "delta": 5,
+    "index": 63,
+    "delta": 7,
     "status": "very",
     "background": false
   },
   "east-asia": {
-    "index": 60,
-    "delta": -2,
-    "status": "danger",
+    "index": 61,
+    "delta": -1,
+    "status": "very",
     "background": false
   },
   "middle-east": {
-    "index": 72,
-    "delta": 5,
+    "index": 71,
+    "delta": 4,
     "status": "very",
     "background": false
   },
   "north-america": {
-    "index": 61,
-    "delta": 9,
+    "index": 63,
+    "delta": 11,
     "status": "very",
     "background": false
   },
   "south-asia": {
-    "index": 58,
-    "delta": 4,
+    "index": 60,
+    "delta": 6,
     "status": "danger",
     "background": false
   },
   "africa": {
-    "index": 61,
-    "delta": 8,
+    "index": 63,
+    "delta": 10,
     "status": "very",
     "background": false
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 55,
-  "delta": -1,
+  "index": 56,
+  "delta": 0,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -246,8 +240,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 57,
-  "delta": 1,
+  "index": 58,
+  "delta": 2,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -353,9 +347,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 60,
-  "delta": 4,
-  "status": "danger",
+  "index": 61,
+  "delta": 5,
+  "status": "very",
   "background": false,
   "confidence": "medium",
   "drivers": [
@@ -446,8 +440,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 61,
-  "delta": 5,
+  "index": 63,
+  "delta": 7,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -539,9 +533,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 60,
-  "delta": 4,
-  "status": "danger",
+  "index": 61,
+  "delta": 5,
+  "status": "very",
   "background": false,
   "confidence": "medium",
   "drivers": [
@@ -739,8 +733,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 61,
-  "delta": 5,
+  "index": 63,
+  "delta": 7,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -832,9 +826,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 60,
-  "delta": -2,
-  "status": "danger",
+  "index": 61,
+  "delta": -1,
+  "status": "very",
   "background": false,
   "confidence": "medium",
   "drivers": [
@@ -939,8 +933,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 72,
-  "delta": 5,
+  "index": 71,
+  "delta": 4,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1074,8 +1068,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 61,
-  "delta": 9,
+  "index": 63,
+  "delta": 11,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1181,8 +1175,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 58,
-  "delta": 4,
+  "index": 60,
+  "delta": 6,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -1274,8 +1268,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 61,
-  "delta": 8,
+  "index": 63,
+  "delta": 10,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1420,7 +1414,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-10-18",
-    "value": 63,
+    "value": 64,
     "methodology": "3.0"
   }
 ];
@@ -2735,6 +2729,186 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "notes": "Крупные боевые стрельбы Египта после заявлений Сиси о защите Саудовской Аравии."
+  },
+  {
+    "id": "ap-ksl-sanaa-evacuation",
+    "title": {
+      "ru": "Саудовская коалиция просит жителей Саны эвакуироваться у нефтяного объекта",
+      "en": "Saudis tell Sanaa residents around oil facility to evacuate, and other Middle East developments"
+    },
+    "domain": "ksl.com",
+    "url": "https://www.ksl.com/article/51635649/saudis-tell-sanaa-residents-around-oil-facility-to-evacuate-and-other-middle-east-developments",
+    "publication_date": "2026-10-13",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "AP: коалиция во главе с Саудовской Аравией 13.10 попросила жителей района у государственного нефтяного объекта в Сане эвакуироваться перед «операциями»."
+  },
+  {
+    "id": "aljazeera-sanaa-evacuation-aramco",
+    "title": {
+      "ru": "Хуситы ударили по Aramco после удара коалиции по нефтяному объекту в Сане",
+      "en": "Houthis strike Aramco hours after Saudi-led coalition hits Sanaa oil site"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/13/houthis-threaten-saudi-arabias-aramco-facilities-and-airports",
+    "publication_date": "2026-10-13",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Взрывы в Сане через несколько часов после приказа коалиции об эвакуации у нефтяного объекта."
+  },
+  {
+    "id": "afr-starlink-throttle-ukraine",
+    "title": {
+      "ru": "Украина воюет вслепую после ограничений Starlink со стороны Маска и Трампа",
+      "en": "Ukraine fights blind after Musk and Trump throttle Starlink"
+    },
+    "domain": "afr.com",
+    "url": "https://www.afr.com/world/europe/ukraine-fighting-blind-after-musk-and-trump-throttle-starlink-20261015-p615ol",
+    "publication_date": "2026-10-15",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "F-financial",
+    "state_affiliated": false,
+    "notes": "Ограничение спутниковой связи и разведданных США для Украины в окне недели; поставщик Starshield — Пентагон."
+  },
+  {
+    "id": "cnn-starshield-ukraine",
+    "title": {
+      "ru": "Трамп: я не вмешивался в работу Starshield в Украине",
+      "en": "Trump says he didn't meddle with Elon Musk's Starshield in Ukraine"
+    },
+    "domain": "cnn.com",
+    "url": "https://www.cnn.com/2026/10/16/politics/ukraine-trump-russia-starlink",
+    "publication_date": "2026-10-16",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Официальная реакция Белого дома на ограничение Starshield для Украины — подтверждает факт ограничения."
+  },
+  {
+    "id": "forces-uk-nhs-casualty-wargame",
+    "title": {
+      "ru": "Британские военные и NHS провели учения по приёму массовых потерь",
+      "en": "UK military and NHS wargame tests Britain's readiness to treat mass casualties in a future war"
+    },
+    "domain": "forcesnews.com",
+    "url": "https://www.forcesnews.com/services/tri-service/uk-military-and-nhs-wargame-tests-britains-readiness-treat-mass-casualties",
+    "publication_date": "2026-10-16",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Трёхдневная военно-медицинская игра: >100 военных, клиницистов и госслужащих; оценка готовности гражданской медицины принимать раненых."
+  },
+  {
+    "id": "stripes-medevac-golden-hour",
+    "title": {
+      "ru": "«Золотой час» для эвакуации раненых объявлен устаревшим в обновлённом плане",
+      "en": "'Golden hour' for medevac of wounded troops treated as bygone in updated plan"
+    },
+    "domain": "stripes.com",
+    "url": "https://www.stripes.com/theaters/us/2026-10-14/military-medicine-modern-battlefield-23151474.html",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Новый стратегический план Uniformed Services University: лечение раненых у передовой вместо эвакуации в «золотой час»."
+  },
+  {
+    "id": "japantimes-oil-stockpiling",
+    "title": {
+      "ru": "Япония призывает к накоплению нефти на фоне ближневосточных рисков",
+      "en": "Japan urges oil stockpiling and development as Mideast risks rise"
+    },
+    "domain": "japantimes.co.jp",
+    "url": "https://www.japantimes.co.jp/business/2026/10/12/japan-trade-minister-energy-security/",
+    "publication_date": "2026-10-12",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Министр торговли Японии: наращивать нефтяные резервы и добычу из-за рисков на Ближнем Востоке."
+  },
+  {
+    "id": "oilprice-asia-oil-reserves",
+    "title": {
+      "ru": "Япония призывает Азию наращивать нефтяные резервы",
+      "en": "Japan Urges Asia to Build Up Oil Reserves as Middle East Risks Mount"
+    },
+    "domain": "oilprice.com",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Japan-Urges-Asia-to-Build-Up-Oil-Reserves-as-Middle-East-Risks-Mount.html",
+    "publication_date": "2026-10-12",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "F-financial",
+    "state_affiliated": false,
+    "notes": "Япония координирует с Саудовской Аравией и ОАЭ накопление нефтяных резервов в Азии (AZEC); резервы обсуждаются как мера против перебоев."
+  },
+  {
+    "id": "bss-iran-internet-shutdown",
+    "title": {
+      "ru": "Общенациональное отключение интернета в Иране длится более 132 часов — монитор",
+      "en": "Iran nationwide internet shutdown has now lasted over 132 hours: monitor"
+    },
+    "domain": "bssnews.net",
+    "url": "https://www.bssnews.net/international/351020",
+    "publication_date": "2026-10-15",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Ссылка на интернет-монитор: отключение продолжается более 132 часов, т.е. большую часть окна недели."
+  },
+  {
+    "id": "toi-iran-starlink-crackdown",
+    "title": {
+      "ru": "Иран называет Starlink «инструментом войны» и обещает ужесточить ограничения",
+      "en": "Iran calls Musk's Starlink a 'tool of war', vows tighter crackdown amid US-Israel conflict"
+    },
+    "domain": "timesofindia.indiatimes.com",
+    "url": "https://timesofindia.indiatimes.com/world/middle-east/iran-calls-musks-starlink-a-tool-of-war-vows-tighter-crackdown-amid-us-israel-conflict/articleshow/134958965.cms",
+    "publication_date": "2026-10-15",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Секретарь Высшего совета киберпространства Ирана: ужесточение блокировок Starlink и ограничений доступа к глобальному интернету во время войны."
+  },
+  {
+    "id": "bernama-azerbaijan-cyberattack",
+    "title": {
+      "ru": "Хакеры атаковали более 100 госдоменов Азербайджана",
+      "en": "Hackers Target Over 100 Azerbaijani Government Domains"
+    },
+    "domain": "bernama.com",
+    "url": "https://www.bernama.com/tv/news.php?id=2620362",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "notes": "Перепечатка Sputnik/RIA Novosti: заявление Государственной службы спецсвязи и информационной безопасности Азербайджана об атаке с 22:00 13.10, затронуто >100 госдоменов."
+  },
+  {
+    "id": "ocmedia-azerbaijan-cyberattack",
+    "title": {
+      "ru": "Проиранские хакеры взяли ответственность за кибератаку на Азербайджан",
+      "en": "Pro-Iran hackers claim responsibility for cyberattack on Azerbaijan, citing hijab ban"
+    },
+    "domain": "oc-media.org",
+    "url": "https://oc-media.org/breaking-pro-iran-hackers-claim-responsibility-for-cyberattack-on-azerbaijan-citing-hijab-ban/",
+    "publication_date": "2026-10-14",
+    "accessed_date": "2026-10-18",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Группа «313 Team» (проиранская, предположительно из Ирака) заявила об атаке на 47 ключевых IP-диапазонов госинфраструктуры; Азербайджан подтвердил атаку «иностранной хакерской группы»."
   }
 ];
 })();

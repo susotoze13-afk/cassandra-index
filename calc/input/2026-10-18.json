@@ -700,11 +700,57 @@
         "ukraine-moldova"
       ]
     },
-    "D5.2": null,
+    "D5.2": {
+      "events": [
+        1
+      ],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.bernama.com/tv/news.php?id=2620362",
+          "date": "2026-10-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://oc-media.org/breaking-pro-iran-hackers-claim-responsibility-for-cyberattack-on-azerbaijan-citing-hijab-ban/",
+          "date": "2026-10-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "regions": [
+        "south-caucasus"
+      ]
+    },
     "D5.3": null,
     "D5.4": null,
     "D6.1": null,
-    "D6.2": null,
+    "D6.2": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.ksl.com/article/51635649/saudis-tell-sanaa-residents-around-oil-facility-to-evacuate-and-other-middle-east-developments",
+          "date": "2026-10-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/10/13/houthis-threaten-saudi-arabias-aramco-facilities-and-airports",
+          "date": "2026-10-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ],
+      "regions": [
+        "middle-east"
+      ]
+    },
     "D6.3": {
       "value": 1,
       "covered": true,
@@ -821,7 +867,30 @@
         "middle-east"
       ]
     },
-    "D7.4": null,
+    "D7.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.afr.com/world/europe/ukraine-fighting-blind-after-musk-and-trump-throttle-starlink-20261015-p615ol",
+          "date": "2026-10-15",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnn.com/2026/10/16/politics/ukraine-trump-russia-starlink",
+          "date": "2026-10-16",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ],
+      "regions": [
+        "russia-belarus",
+        "ukraine-moldova"
+      ]
+    },
     "D8.1": {
       "value": 0,
       "covered": true,
@@ -893,7 +962,26 @@
       ]
     },
     "D8.4": null,
-    "D9.1": null,
+    "D9.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.forcesnews.com/services/tri-service/uk-military-and-nhs-wargame-tests-britains-readiness-treat-mass-casualties",
+          "date": "2026-10-16",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.stripes.com/theaters/us/2026-10-14/military-medicine-modern-battlefield-23151474.html",
+          "date": "2026-10-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
     "D9.2": null,
     "D9.3": {
       "value": 0.67,
@@ -934,9 +1022,47 @@
         "south-asia"
       ]
     },
-    "D9.4": null,
+    "D9.4": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.japantimes.co.jp/business/2026/10/12/japan-trade-minister-energy-security/",
+          "date": "2026-10-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Japan-Urges-Asia-to-Build-Up-Oil-Reserves-as-Middle-East-Risks-Mount.html",
+          "date": "2026-10-12",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
     "D9.5": null,
-    "D9.6a": null,
+    "D9.6a": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.bssnews.net/international/351020",
+          "date": "2026-10-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://timesofindia.indiatimes.com/world/middle-east/iran-calls-musks-starlink-a-tool-of-war-vows-tighter-crackdown-amid-us-israel-conflict/articleshow/134958965.cms",
+          "date": "2026-10-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
     "D9.6b": null,
     "D9.7": null
   },
@@ -958,16 +1084,16 @@
       "reason": "Покрыто 6/6: санкции, бюджеты, цепочки поставок, блокада путей, снятие ограничений и рыночный стресс перекрёстно подтверждены."
     },
     "D5": {
-      "level": "low",
-      "reason": "Покрыт 1/4 (D5.1): эскалационная риторика Трампа по Ирану и российского посланника по Украине подтверждена кластерами A и B. D5.2 снят воротами независимости (единственный кластер A без primary/OSINT), D5.3/D5.4 без сигналов в окне."
+      "level": "medium",
+      "reason": "Покрыто 2/4: эскалационная риторика (D5.1 = 0.67) и кибероперации (D5.2 — массовая атака на >100 госдоменов Азербайджана 13–14.10, ответственность взяла проиранская группа). ДезИнформкампаний в канун военных действий (D5.3) и снижения пропаганды (D5.4) в окне нет. Подтверждено кластерами A и B."
     },
     "D6": {
       "level": "low",
-      "reason": "покрыт 1/4 (только D6.3, один источник кластера B); мобилизация/эвакуация/откат без сигналов"
+      "reason": "Покрыто 3/4 (D6.1 без сигналов; D6.2, D6.3 покрыты). D6.2 — приказ коалиции об эвакуации жителей у нефтяного объекта в Сане подтверждён кластерами A и B; D6.3 — один источник кластера B. Расширения военного положения и мобилизационных законов в окне нет."
     },
     "D7": {
       "level": "high",
-      "reason": "Покрыто 3/4: вовлечение новых государств — возвращение ОАЭ в йеменскую войну и рассмотрение Египтом военной помощи Саудовской Аравии (D7.1); атаки за пределами театра — мины в Ормузском проливе, обстрел буксира у ОАЭ, огонь по СПГ-танкеру у Йемена, нападение поселенцев на европейских дипломатов (D7.2); расширение театра (D7.3 = 1). D7.4 без сигнала: выход третьих сторон в окне не подтверждён. Сигналы подтверждены кластерами A и B."
+      "reason": "Покрыто 4/4: вовлечение новых государств (D7.1), атаки за пределами театра (D7.2), расширение театра (D7.3 = 1) и выход третьих сторон (D7.4 = 0.33 — приостановка спутниковой связи/разведданных США для Украины с последующим восстановлением). Сигналы подтверждены кластерами A, B и F."
     },
     "D8": {
       "level": "medium",
@@ -975,7 +1101,7 @@
     },
     "D9": {
       "level": "low",
-      "reason": "Покрыта 1/8 подгрупп: транспорт и страхование (D9.3 = 0.67, ациклический — мины в Ормузском проливе, обстрелы судов у ОАЭ/Йемена, военно-страховой кризис танкеров). Остальные подгруппы Д9 без подтверждённых сигналов двумя независимыми кластерами в окне; уровень high невозможен (§4.3.1), одиночный сигнал требует повышенной короборации."
+      "reason": "Покрыто 4/8 подгрупп: транспорт и страхование (D9.3 = 0.67), медицинская подготовка (D9.1 = 0.33 — учения НАТО/NHS и новый план медэвакуации), стратегическое накопление (D9.4 = 0.33 — призыв Японии наращивать нефтяные резервы), информационный суверенитет (D9.6a = 0.67 — общенациональное отключение интернета в Иране и ужесточение блокировок Starlink). Уровень high невозможен (§4.3.1); остальные подгруппы без сигналов в окне."
     }
   },
   "sources": [
@@ -2063,6 +2189,186 @@
       "cluster_id": "A-mainstream",
       "state_affiliated": false,
       "notes": "Крупные боевые стрельбы Египта после заявлений Сиси о защите Саудовской Аравии."
+    },
+    {
+      "id": "ap-ksl-sanaa-evacuation",
+      "title": {
+        "ru": "Саудовская коалиция просит жителей Саны эвакуироваться у нефтяного объекта",
+        "en": "Saudis tell Sanaa residents around oil facility to evacuate, and other Middle East developments"
+      },
+      "domain": "ksl.com",
+      "url": "https://www.ksl.com/article/51635649/saudis-tell-sanaa-residents-around-oil-facility-to-evacuate-and-other-middle-east-developments",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "AP: коалиция во главе с Саудовской Аравией 13.10 попросила жителей района у государственного нефтяного объекта в Сане эвакуироваться перед «операциями»."
+    },
+    {
+      "id": "aljazeera-sanaa-evacuation-aramco",
+      "title": {
+        "ru": "Хуситы ударили по Aramco после удара коалиции по нефтяному объекту в Сане",
+        "en": "Houthis strike Aramco hours after Saudi-led coalition hits Sanaa oil site"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/13/houthis-threaten-saudi-arabias-aramco-facilities-and-airports",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "notes": "Взрывы в Сане через несколько часов после приказа коалиции об эвакуации у нефтяного объекта."
+    },
+    {
+      "id": "afr-starlink-throttle-ukraine",
+      "title": {
+        "ru": "Украина воюет вслепую после ограничений Starlink со стороны Маска и Трампа",
+        "en": "Ukraine fights blind after Musk and Trump throttle Starlink"
+      },
+      "domain": "afr.com",
+      "url": "https://www.afr.com/world/europe/ukraine-fighting-blind-after-musk-and-trump-throttle-starlink-20261015-p615ol",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "notes": "Ограничение спутниковой связи и разведданных США для Украины в окне недели; поставщик Starshield — Пентагон."
+    },
+    {
+      "id": "cnn-starshield-ukraine",
+      "title": {
+        "ru": "Трамп: я не вмешивался в работу Starshield в Украине",
+        "en": "Trump says he didn't meddle with Elon Musk's Starshield in Ukraine"
+      },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/10/16/politics/ukraine-trump-russia-starlink",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "Официальная реакция Белого дома на ограничение Starshield для Украины — подтверждает факт ограничения."
+    },
+    {
+      "id": "forces-uk-nhs-casualty-wargame",
+      "title": {
+        "ru": "Британские военные и NHS провели учения по приёму массовых потерь",
+        "en": "UK military and NHS wargame tests Britain's readiness to treat mass casualties in a future war"
+      },
+      "domain": "forcesnews.com",
+      "url": "https://www.forcesnews.com/services/tri-service/uk-military-and-nhs-wargame-tests-britains-readiness-treat-mass-casualties",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "Трёхдневная военно-медицинская игра: >100 военных, клиницистов и госслужащих; оценка готовности гражданской медицины принимать раненых."
+    },
+    {
+      "id": "stripes-medevac-golden-hour",
+      "title": {
+        "ru": "«Золотой час» для эвакуации раненых объявлен устаревшим в обновлённом плане",
+        "en": "'Golden hour' for medevac of wounded troops treated as bygone in updated plan"
+      },
+      "domain": "stripes.com",
+      "url": "https://www.stripes.com/theaters/us/2026-10-14/military-medicine-modern-battlefield-23151474.html",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "notes": "Новый стратегический план Uniformed Services University: лечение раненых у передовой вместо эвакуации в «золотой час»."
+    },
+    {
+      "id": "japantimes-oil-stockpiling",
+      "title": {
+        "ru": "Япония призывает к накоплению нефти на фоне ближневосточных рисков",
+        "en": "Japan urges oil stockpiling and development as Mideast risks rise"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/business/2026/10/12/japan-trade-minister-energy-security/",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "Министр торговли Японии: наращивать нефтяные резервы и добычу из-за рисков на Ближнем Востоке."
+    },
+    {
+      "id": "oilprice-asia-oil-reserves",
+      "title": {
+        "ru": "Япония призывает Азию наращивать нефтяные резервы",
+        "en": "Japan Urges Asia to Build Up Oil Reserves as Middle East Risks Mount"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Japan-Urges-Asia-to-Build-Up-Oil-Reserves-as-Middle-East-Risks-Mount.html",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "notes": "Япония координирует с Саудовской Аравией и ОАЭ накопление нефтяных резервов в Азии (AZEC); резервы обсуждаются как мера против перебоев."
+    },
+    {
+      "id": "bss-iran-internet-shutdown",
+      "title": {
+        "ru": "Общенациональное отключение интернета в Иране длится более 132 часов — монитор",
+        "en": "Iran nationwide internet shutdown has now lasted over 132 hours: monitor"
+      },
+      "domain": "bssnews.net",
+      "url": "https://www.bssnews.net/international/351020",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "notes": "Ссылка на интернет-монитор: отключение продолжается более 132 часов, т.е. большую часть окна недели."
+    },
+    {
+      "id": "toi-iran-starlink-crackdown",
+      "title": {
+        "ru": "Иран называет Starlink «инструментом войны» и обещает ужесточить ограничения",
+        "en": "Iran calls Musk's Starlink a 'tool of war', vows tighter crackdown amid US-Israel conflict"
+      },
+      "domain": "timesofindia.indiatimes.com",
+      "url": "https://timesofindia.indiatimes.com/world/middle-east/iran-calls-musks-starlink-a-tool-of-war-vows-tighter-crackdown-amid-us-israel-conflict/articleshow/134958965.cms",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "Секретарь Высшего совета киберпространства Ирана: ужесточение блокировок Starlink и ограничений доступа к глобальному интернету во время войны."
+    },
+    {
+      "id": "bernama-azerbaijan-cyberattack",
+      "title": {
+        "ru": "Хакеры атаковали более 100 госдоменов Азербайджана",
+        "en": "Hackers Target Over 100 Azerbaijani Government Domains"
+      },
+      "domain": "bernama.com",
+      "url": "https://www.bernama.com/tv/news.php?id=2620362",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "notes": "Перепечатка Sputnik/RIA Novosti: заявление Государственной службы спецсвязи и информационной безопасности Азербайджана об атаке с 22:00 13.10, затронуто >100 госдоменов."
+    },
+    {
+      "id": "ocmedia-azerbaijan-cyberattack",
+      "title": {
+        "ru": "Проиранские хакеры взяли ответственность за кибератаку на Азербайджан",
+        "en": "Pro-Iran hackers claim responsibility for cyberattack on Azerbaijan, citing hijab ban"
+      },
+      "domain": "oc-media.org",
+      "url": "https://oc-media.org/breaking-pro-iran-hackers-claim-responsibility-for-cyberattack-on-azerbaijan-citing-hijab-ban/",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "notes": "Группа «313 Team» (проиранская, предположительно из Ирака) заявила об атаке на 47 ключевых IP-диапазонов госинфраструктуры; Азербайджан подтвердил атаку «иностранной хакерской группы»."
     }
   ]
 }
