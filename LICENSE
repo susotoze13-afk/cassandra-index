@@ -1,7 +1,7 @@
 Cassandra Index — лицензия на код
 calc/**, js/**, tools/**, build.js, .github/**, разметка *.html и css/**
 
-Copyright 2026 Cassandra Index contributors
+Copyright 2026 Mikhail Zasidkevich
 Лицензия: Apache License 2.0
 Canonical text: https://www.apache.org/licenses/LICENSE-2.0
 
@@ -229,7 +229,7 @@ FULL TEXT OF THE APACHE LICENSE 2.0
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright 2026 Cassandra Index contributors
+   Copyright 2026 Mikhail Zasidkevich
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

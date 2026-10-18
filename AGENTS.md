@@ -61,7 +61,11 @@
 - **Вклад** — под Developer Certificate of Origin 1.1: `git commit -s`, CLA нет. Каждый коммит PR подписан; проверка `tools/check-dco.js` через `.github/workflows/dco.yml` (merge-коммит нарушением не считается).
 - **Уязвимости** — приватно на контакт из `SECURITY.md` (публичный issue не подходит); область, окна ответа и запрещённые действия — там же.
 - **Граница репозитория**: здесь **публичное ядро** целиком; **коммерческий модуль** — отдельный приватный репозиторий, закрытое зависит от открытого, не наоборот (ADR 0057, `docs/repo-boundaries.md`). Каталогов `commercial/`, `private/`, `enterprise/` не заводить — приватность в git не выражается папкой. Термины — в `CONTEXT.md`.
-- **Юридическое замечание**: правообладатель в `LICENSE` — `Cassandra Index contributors` (допущение, пока владелец не назван иначе); контакт безопасности — `Zasik2008@yandex.ru`.
+- **Юридическое замечание**: правообладатель в `LICENSE` — `Mikhail Zasidkevich`, автор в
+  `CITATION.cff`/`.zenodo.json` — тот же; контакт безопасности — `Zasik2008@yandex.ru`.
+- **DOI**: версия 1.0.0 заархивирована в Zenodo — `10.5281/zenodo.23458011`; DOI лежит в
+  `CITATION.cff` (`doi`), README (бейдж) и `how-to-read.html`, паритет пинит
+  `tests/citation.test.js`.
 
 **Новые корневые файлы** (не искать заново): `LICENSE`, `LICENSE-DATA`, `LICENSE-DOCS`, `NOTICE`, `TRADEMARK.md`, `VERSION`, `CITATION.cff`, `.zenodo.json`, `README.md`, `CONTRIBUTING.md`, `SECURITY.md`. Рядом: `tools/check-dco.js`, `.github/workflows/dco.yml`, `docs/repo-boundaries.md`, `docs/adr/0057-repository-boundary-public-core.md`, тесты-пины `tests/licensing.test.js`, `tests/citation.test.js`, `tests/dco.test.js`.
 

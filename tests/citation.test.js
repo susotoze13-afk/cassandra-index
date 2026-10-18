@@ -52,11 +52,16 @@ test('CITATION.cff: форма CFF 1.2.0 и паритет версии с VERSI
   assert.ok(cffField(cff, 'abstract'), 'нет abstract');
   assert.ok(cffList(cff, 'keywords').length >= 3, 'нужно не меньше трёх keywords');
 
-  // Автор — коллектив: у записи нет given-names, только name.
+  // Автор — владелец проекта, а не коллектив: DOI должен быть привязан к человеку.
   assert.ok(cff.includes('authors:'), 'нет authors');
-  assert.ok(/^\s*-\s+name:\s*["']?Cassandra Index["']?\s*$/m.test(cff),
-    'authors должен называть коллектив «Cassandra Index»');
-  assert.ok(!/given-names:/m.test(cff), 'коллективный автор не должен дробиться на имя и фамилию');
+  assert.ok(/^\s*-\s+family-names:\s*["']?Zasidkevich["']?\s*$/m.test(cff),
+    'authors должен называть владельца проекта (family-names: Zasidkevich)');
+  assert.ok(/^\s*given-names:\s*["']?Mikhail["']?\s*$/m.test(cff),
+    'authors должен нести given-names: Mikhail');
+
+  // DOI версии 1.0.0 в Zenodo — постоянная ссылка датасета.
+  assert.equal(cffField(cff, 'doi'), '10.5281/zenodo.23458011',
+    'CITATION.cff.doi должен нести DOI версии 1.0.0');
 
   // date-released — календарная дата релиза, а не дата недели в прозе.
   const released = cffField(cff, 'date-released');

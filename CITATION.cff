@@ -7,8 +7,10 @@ url: "https://cassindex.ru"
 repository-code: "https://github.com/susotoze13-afk/cassandra-index"
 license: "CC-BY-4.0"
 type: dataset
+doi: "10.5281/zenodo.23458011"
 authors:
-  - name: "Cassandra Index"
+  - family-names: "Zasidkevich"
+    given-names: "Mikhail"
 abstract: "Cassandra Index — публичная еженедельная оценка уровня и направления риска глобального военного конфликта по открытым данным. Число от 0 до 100 упорядочивает недели по уровню риска; шкала порядковая, индекс не предсказывает дату войны и не является вероятностью войны. Лицензия относится к данным: код проекта распространяется по Apache License 2.0 (LICENSE), данные — по CC BY 4.0 (LICENSE-DATA), документы и тексты — по CC BY 4.0 (LICENSE-DOCS)."
 keywords:
   - "conflict risk"

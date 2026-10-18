@@ -21,7 +21,7 @@ const APACHE_URL = 'http://www.apache.org/licenses/LICENSE-2.0';
 const CC_BY_URL = 'https://creativecommons.org/licenses/by/4.0/legalcode';
 const CC_BODY_MARKER = 'FULL TEXT OF THE CC BY 4.0 LEGAL CODE';
 const SITE = 'https://cassindex.ru';
-const COPYRIGHT = 'Copyright 2026 Cassandra Index contributors';
+const COPYRIGHT = 'Copyright 2026 Mikhail Zasidkevich';
 
 // Первоисточник Apache-2.0, строки 1–3 — заголовок файла.
 const APACHE_HEADER = [
