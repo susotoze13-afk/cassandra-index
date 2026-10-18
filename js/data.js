@@ -339,6 +339,20 @@ function validateQuality(snapshot, errors) {
     }
   }
 
+  // Рубрика «Разбор недели» (ADR 0037): выпуск как отдельная часть набора недели,
+  // НЕ входит в week.js — главная его не грузит (отсутствие валидно, forward-only).
+  // Полный контракт и ворота (лексика/числа/источники) — js/article.js; здесь только
+  // лёгкая проверка формы, чтобы битый article.js не рисовался как валидный.
+  if (snapshot.article !== undefined) {
+    const a = snapshot.article;
+    const ok =
+      !!a && typeof a === 'object' && !Array.isArray(a) &&
+      typeof a.week === 'string' && a.week !== '' &&
+      typeof a.title === 'string' && a.title !== '' &&
+      Array.isArray(a.blocks);
+    if (!ok) errors.push('article: { week: string, title: string, blocks: array } required');
+  }
+
   if (snapshot.dataState === 'insufficient') {
     if (snapshot.global !== null) {
       errors.push('insufficient: global must be null (publication blocked)');

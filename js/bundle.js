@@ -872,6 +872,20 @@ function validateQuality(snapshot, errors) {
     }
   }
 
+  // Рубрика «Разбор недели» (ADR 0037): выпуск как отдельная часть набора недели,
+  // НЕ входит в week.js — главная его не грузит (отсутствие валидно, forward-only).
+  // Полный контракт и ворота (лексика/числа/источники) — js/article.js; здесь только
+  // лёгкая проверка формы, чтобы битый article.js не рисовался как валидный.
+  if (snapshot.article !== undefined) {
+    const a = snapshot.article;
+    const ok =
+      !!a && typeof a === 'object' && !Array.isArray(a) &&
+      typeof a.week === 'string' && a.week !== '' &&
+      typeof a.title === 'string' && a.title !== '' &&
+      Array.isArray(a.blocks);
+    if (!ok) errors.push('article: { week: string, title: string, blocks: array } required');
+  }
+
   if (snapshot.dataState === 'insufficient') {
     if (snapshot.global !== null) {
       errors.push('insufficient: global must be null (publication blocked)');
@@ -1532,6 +1546,7 @@ const DICTS = {
     'nav.regions': 'Регионы',
     'nav.trend': 'Тренд',
     'nav.method': 'Методология',
+    'nav.howto': 'Как читать индекс',
     'nav.sources': 'История и источники',
     'nav.label': 'Основная навигация',
     'regions.title': 'Что это значит для моего региона?',
@@ -1688,6 +1703,11 @@ const DICTS = {
     'analytics.banner.accept': 'Разрешить',
     'analytics.banner.decline': 'Не разрешать',
     'footer.privacy': 'Приватность',
+    'footer.howto': 'Как читать индекс',
+    'footer.compare': 'Сравнение с другими индексами',
+    'footer.digest': 'Дайджест',
+    'footer.changelog': 'История изменений',
+    'footer.data': 'Данные (JSON)',
     'share.brand': 'CASSANDRA INDEX',
     'share.button': 'Поделиться',
     'share.region': 'Ваш регион: {name} · {index} / 100',
@@ -1733,6 +1753,7 @@ const DICTS = {
     'feedback.topic.wish': 'Пожелание',
     'feedback.topic.remark': 'Замечание',
     'feedback.topic.question': 'Вопрос',
+    'feedback.topic.digest': 'Подписка на дайджест',
     'feedback.message.label': 'Сообщение',
     'feedback.message.hint': 'От 5 до 4000 символов',
     'feedback.reply.label': 'Ваш email для ответа (необязательно)',
@@ -1860,6 +1881,12 @@ const DICTS = {
     'method.version.text': 'Каждый недельный снапшот привязан к версии методологии. Текущая версия: {version}.',
     'method.version.note': 'Если изменение методологии влияет на сопоставимость с прошлыми неделями, интерфейс раскрывает это рядом с затронутыми данными; история не пересчитывается молча.',
     'footer.disclaimer': 'Оценка риска на основе открытых данных. Не официальный прогноз.',
+    'footer.article': 'Разбор недели',
+    // Рубрика «Разбор недели» (articles.html, ADR 0037): хром страницы; проза выпуска — данные, не словарь.
+    'article.meta.through': 'Данные по',
+    'article.meta.methodology': 'Методология {version}',
+    'article.sources.title': 'Источники',
+    'article.empty': 'Выпуск за эту неделю ещё не подготовлен.',
   },
 };
 
@@ -5199,7 +5226,7 @@ const { el } = __ci_require("js/ui.js");
 
 
 // Белый список тем и лимиты — константы модуля (единственный источник).
-const FEEDBACK_TOPICS = ['wish', 'remark', 'question'];
+const FEEDBACK_TOPICS = ['wish', 'remark', 'question', 'digest'];
 const MIN_MESSAGE = 5;
 const MAX_MESSAGE = 4000;
 const TIMING_MIN_MS = 2000;

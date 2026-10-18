@@ -39,3 +39,15 @@ test('privacy.html: meta-CSP чиста от cloudflareinsights, diff к index �
   );
   assert.ok(!csp.includes('cloudflareinsights'), 'privacy.html не несёт разрешений cloudflareinsights');
 });
+
+test('articles.html: meta-CSP — только self, без analytics/formsubmit', () => {
+  const csp = metaCsp('articles.html');
+  assert.equal(
+    csp,
+    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; " +
+    "font-src 'self'; base-uri 'self'; object-src 'none'",
+  );
+  assert.ok(!csp.includes('cloudflareinsights'), 'articles.html не несёт разрешений cloudflareinsights');
+  assert.ok(!csp.includes('formsubmit'), 'articles.html не несёт разрешения formsubmit');
+  assert.ok(!csp.includes("'unsafe-inline'"), 'articles.html не должен нести unsafe-inline');
+});

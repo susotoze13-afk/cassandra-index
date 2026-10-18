@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta (GitHub Pages не даёт заголовков). Страница рубрики не несёт
+       ни аналитики, ни формы — только собственные скрипты и стили. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Разбор недели — Cassandra Index</title>
+  <meta name="description" content="Еженедельный разбор уровня и направления конфликтного риска: что произошло, на что повлияло и на что смотреть дальше.">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация рубрики">
+        <a href="index.html">На главную</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Разбор недели: наполняет js/article.js (bundle-articles.js) из data/<week>/article.js. -->
+    <div class="article-host" data-role="article"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="privacy.html">Приватность</a>
+    </nav>
+  </footer>
+
+  <!-- Данные рубрики: манифест недель с выпуском + week.js/article.js этих недель. -->
+  <script src="data/articles.js"></script>
+  <!-- classic script (file:// блокирует ES-модули), собран build.js. Тесты — против исходников. -->
+  <script src="js/bundle-articles.js" defer></script>
+</body>
+</html>
