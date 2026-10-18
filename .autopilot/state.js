@@ -2,7 +2,7 @@ window.STATE =
 {
   "version": 2,
   "slug": "severity-calibration",
-  "dir": "2026-10-18-severity-calibration--wip",
+  "dir": "2026-10-18-severity-calibration",
   "title": "Калибровка severity-весов: грид severity-наборов в calibrate.js",
   "mode": "semi",
   "depth": "normal",
@@ -13,8 +13,8 @@ window.STATE =
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "baseCommit": "051e015",
   "startedAt": "2026-10-18T12:26:34+03:00",
-  "updatedAt": "2026-10-18T15:48:08+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-10-18T15:54:08+03:00",
+  "finishedAt": "2026-10-18T15:54:08+03:00",
   "stages": [
     {
       "id": "preflight",
@@ -55,18 +55,21 @@ window.STATE =
     },
     {
       "id": "review",
-      "status": "active",
-      "startedAt": "2026-10-18T15:34:36+03:00"
+      "status": "done",
+      "startedAt": "2026-10-18T15:34:36+03:00",
+      "finishedAt": "2026-10-18T15:51:46+03:00"
     },
     {
       "id": "final",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-10-18T15:51:46+03:00",
+      "finishedAt": "2026-10-18T15:54:08+03:00"
     }
   ],
   "requirements": {
     "total": 8,
-    "done": 0,
-    "inTicket": 7,
+    "done": 7,
+    "inTicket": 0,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 1,
@@ -98,10 +101,16 @@ window.STATE =
       ],
       "review": "нет (T0: whole-branch review — его ревью)",
       "model": "сильная",
-      "status": "in-progress",
+      "status": "done",
       "startedAt": "2026-10-18T12:47:12+03:00",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "finishedAt": "2026-10-18T15:51:36+03:00",
+      "tests": {
+        "passed": 465,
+        "failed": 0
+      },
+      "commit": "8ba0e18"
     },
     {
       "id": "F1",
@@ -126,16 +135,25 @@ window.STATE =
       ],
       "review": "да — ремонт ветки",
       "model": "сильная",
-      "status": "repair",
+      "status": "done",
       "retries": 0,
       "repairs": 1,
       "startedAt": "2026-10-18T15:37:24+03:00",
       "repairFindings": [
         "5 условий ре-ревью: fallback prevIndex, chosen.maxDrift, CLI-формулировка 2.0, косвенный цикл sensitivity, форма контракта"
-      ]
+      ],
+      "finishedAt": "2026-10-18T15:51:37+03:00",
+      "tests": {
+        "passed": 465,
+        "failed": 0
+      },
+      "commit": "8ba0e18"
     }
   ],
-  "tests": null,
+  "tests": {
+    "passed": 465,
+    "failed": 0
+  },
   "debt": {
     "placeholders": [],
     "assumptions": [],
@@ -152,7 +170,11 @@ window.STATE =
     ]
   },
   "concerns": [],
-  "blind": null,
+  "blind": {
+    "checked": 8,
+    "matched": 8,
+    "mismatches": []
+  },
   "beats": [
     "2026-10-18T12:26:34+03:00",
     "2026-10-18T12:26:51+03:00",
@@ -171,9 +193,15 @@ window.STATE =
     "2026-10-18T15:34:36+03:00",
     "2026-10-18T15:37:23+03:00",
     "2026-10-18T15:37:24+03:00",
-    "2026-10-18T15:48:08+03:00"
+    "2026-10-18T15:48:08+03:00",
+    "2026-10-18T15:51:36+03:00",
+    "2026-10-18T15:51:37+03:00",
+    "2026-10-18T15:51:46+03:00",
+    "2026-10-18T15:53:59+03:00",
+    "2026-10-18T15:54:00+03:00",
+    "2026-10-18T15:54:08+03:00"
   ],
-  "rev": 23,
+  "rev": 30,
   "waiting": null,
   "waits": [
     {
@@ -327,43 +355,98 @@ window.STATE =
       ],
       "act": "repair",
       "note": "5 условий ре-ревью: fallback prevIndex, chosen.maxDrift, CLI-формулировка 2.0, косвенный цикл sensitivity, форма контракта"
+    },
+    {
+      "t": "2026-10-18T15:51:36+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 465,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-18T15:51:37+03:00",
+      "k": "ticket",
+      "ids": [
+        "F1"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 465,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-18T15:51:46+03:00",
+      "k": "stage",
+      "id": "final",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T15:53:59+03:00",
+      "k": "gate",
+      "g": "G4",
+      "ok": true,
+      "checked": 8,
+      "matched": 8
+    },
+    {
+      "t": "2026-10-18T15:54:00+03:00",
+      "k": "add",
+      "key": "report",
+      "n": 1
+    },
+    {
+      "t": "2026-10-18T15:54:00+03:00",
+      "k": "add",
+      "key": "report",
+      "n": 1
+    },
+    {
+      "t": "2026-10-18T15:54:08+03:00",
+      "k": "finish",
+      "result": "Грид severity-наборов в калибровке: базовый набор подтверждён, цепочка и пины не сдвинулись"
     }
   ],
   "reqList": [
     {
       "id": "R01",
       "text": "«расширь calc/calibrate.js гридом severity-наборов»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R02",
       "text": "«rolling-origin 7 select / 3 verify, verify-якоря»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R03",
       "text": "«чувствительность ±20 %»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R04",
       "text": "«журнал docs/calibration-journal.md»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R05",
       "text": "«калибровка severity (severityValues в calc/params.js)»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R06i",
       "text": "(подразумевается) при сдвиге чисел — актуализировать пины tests/data.test.js и tests/sensitivity.test.js",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R07i",
       "text": "(подразумевается) node --test зелёный после всех правок",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R08i",
@@ -390,7 +473,17 @@ window.STATE =
       "ok": true,
       "at": "2026-10-18T15:37:23+03:00",
       "problems": 0
+    },
+    "G4": {
+      "ok": true,
+      "at": "2026-10-18T15:53:59+03:00",
+      "checked": 8,
+      "matched": 8
     }
   },
-  "result": null
+  "result": "Грид severity-наборов в калибровке: базовый набор подтверждён, цепочка и пины не сдвинулись",
+  "report": [
+    "Обычный git clone на Windows (core.autocrlf=true) даёт 463/465: tests/build.test.js и migrate-идемпотентность ловят CRLF; при core.autocrlf=false — 465/465. Артефакт checkout, не код.",
+    "AGENTS.md не обновлялся этим прогоном: файл одновременно правит параллельный прогон (regional-source-coverage), чужие правки не брались."
+  ]
 }
