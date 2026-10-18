@@ -11,9 +11,9 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "baseCommit": null,
+  "baseCommit": "1a8a2c7",
   "startedAt": "2026-10-18T20:01:41+03:00",
-  "updatedAt": "2026-10-18T20:01:59+03:00",
+  "updatedAt": "2026-10-18T20:02:14+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -92,9 +92,10 @@ window.STATE =
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "startedAt": "2026-10-18T20:02:14+03:00"
     },
     {
       "id": "02",
@@ -188,9 +189,11 @@ window.STATE =
     "2026-10-18T20:01:50+03:00",
     "2026-10-18T20:01:57+03:00",
     "2026-10-18T20:01:58+03:00",
-    "2026-10-18T20:01:59+03:00"
+    "2026-10-18T20:01:59+03:00",
+    "2026-10-18T20:02:07+03:00",
+    "2026-10-18T20:02:14+03:00"
   ],
-  "rev": 11,
+  "rev": 13,
   "waiting": null,
   "waits": [],
   "log": [
@@ -256,6 +259,14 @@ window.STATE =
       "g": "G3",
       "ok": true,
       "problems": 0
+    },
+    {
+      "t": "2026-10-18T20:02:14+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "start"
     }
   ],
   "reqList": [

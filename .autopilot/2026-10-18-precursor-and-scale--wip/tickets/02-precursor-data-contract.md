@@ -38,9 +38,9 @@
       `renderGlobal` пишет поле в `global.js` только когда оно есть
 - [ ] `js/data.js` принимает `precursor` опционально и валидирует `{value:int 0..100,
       signalingSubgroups:int 0..8}`; битая форма → ошибка контракта, отсутствие → валидно
-- [ ] `calc/forward-anchors.js` экспортирует `CLUSTERS` (6 значений, включая `unknown`) и
-      `validateForwardAnchor`: битая дата, неизвестный кластер, пустой `rationale` у
-      `unknown`, пустой `author`, пустые `sources[].url` → ошибки
+- [ ] `calc/forward-anchors.js` экспортирует `CLUSTERS` (7 значений: шесть состояний
+      `js/risk.js` + `unknown`) и `validateForwardAnchor`: битая дата, неизвестный кластер,
+      пустой `rationale` у `unknown`, пустой `author`, пустые `sources[].url` → ошибки
 - [ ] `calc/calibrate.js` `loadAnchors` пропускает JSON без `input.anchor`; CLI-прогон
       калибровки даёт те же 10 якорей и те же индексы (81/99/91, 8/33/50/51/69/72/73)
 - [ ] Ни один файл `data/<неделя>/` не изменён; пины `tests/data.test.js` не тронуты

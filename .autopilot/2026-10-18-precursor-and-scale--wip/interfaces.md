@@ -16,7 +16,9 @@
 
 - **Владеет:** схемой форвардного якоря и её проверкой.
 - **Отдаёт:**
-  - `CLUSTERS = ['calm','tense','dangerous','very-dangerous','critically-dangerous','unknown']`;
+  - `CLUSTERS = ['calm','tense','danger','very','critical','extreme','unknown']`
+    (идентификаторы — из `js/risk.js`, шестое состояние 97–100 включается; `unknown` —
+    честный отказ редактора);
   - `validateForwardAnchor(obj) → errors[]` (пусто = валиден). Проверяет: `week` — дата
     `YYYY-MM-DD`; `expectedCluster` из `CLUSTERS`; `rationale` — непустая строка (для
     `unknown` обязана быть); `author` — непустая строка; `committedAt` — ISO-дата;
