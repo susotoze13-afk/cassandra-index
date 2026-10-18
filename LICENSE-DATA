@@ -4,6 +4,10 @@ Cassandra Index — лицензия на данные (data/**)
 Лицензия: Creative Commons Attribution 4.0 International (CC BY 4.0)
 Canonical legalcode: https://creativecommons.org/licenses/by/4.0/legalcode
 
+Область применения
+==================
+Текст страниц — CC BY 4.0 (LICENSE-DOCS); разметка и стили тех же страниц (*.html, css/**) — Apache License 2.0 (LICENSE).
+
 Что покрыто этой лицензией
 --------------------------
 - data/** — снапшоты недель (data/<неделя>/**), публичный слой
@@ -19,8 +23,10 @@ Canonical legalcode: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Что НЕ покрыто этой лицензией
 -----------------------------
-- Код проекта (calc/**, js/**, build.js, tools/**, .github/**, HTML и CSS) —
-  Apache License 2.0, см. LICENSE.
+- Код проекта и разметка страниц (calc/**, js/**, build.js, tools/**,
+  .github/**, HTML-разметка и CSS) — Apache License 2.0, см. LICENSE.
+- Документы (docs/**, корневые *.md) и видимый текст HTML-страниц — CC BY 4.0,
+  см. LICENSE-DOCS.
 - Тексты источников и цитаты, приведённые внутри снапшотов, — права
   издателей. Цитаты даны в объёме цитирования (ст. 1274 ГК РФ); для
   переиспользования текста нужны права правообладателя источника. Состав

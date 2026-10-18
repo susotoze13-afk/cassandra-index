@@ -1,3 +1,45 @@
+Cassandra Index — лицензия на код
+calc/**, js/**, tools/**, build.js, .github/**, разметка *.html и css/**
+
+Copyright 2026 Cassandra Index contributors
+Лицензия: Apache License 2.0
+Canonical text: https://www.apache.org/licenses/LICENSE-2.0
+
+Область применения
+==================
+Текст страниц — CC BY 4.0 (LICENSE-DOCS); разметка и стили тех же страниц (*.html, css/**) — Apache License 2.0 (LICENSE).
+
+Что покрыто этой лицензией
+--------------------------
+- Исходный код: calc/**, js/** (включая собранные бандлы js/bundle*.js),
+  build.js, tools/** и рабочие процессы .github/**.
+- Разметка страниц: *.html как HTML-структура и css/** — стили.
+- Строки интерфейса и комментарии внутри исходников — в том объёме, в каком
+  они являются частью кода.
+
+Что НЕ покрыто этой лицензией
+-----------------------------
+- Данные (data/**, включая снапшоты недель, публичный слой, таксономию и
+  справочники) — CC BY 4.0, см. LICENSE-DATA.
+- Документы (docs/**, корневые *.md) и видимый текст HTML-страниц — CC BY 4.0,
+  см. LICENSE-DOCS.
+- Тексты источников и цитаты внутри данных и документов — права издателей;
+  состав чужих материалов — NOTICE.
+- Дампы GeoNames (data/geo/*.zip, *.txt, cities15000.*, countryInfo.*) в
+  репозиторий не входят (.gitignore).
+- Название «Cassandra Index», логотип icon.svg и домен cassindex.ru —
+  TRADEMARK.md: права на марку этой лицензией не передаются.
+
+Полный текст лицензии
+=====================
+Ниже — канонический текст Apache License 2.0, приведённый дословно. Изменена
+только строка copyright в приложении: вместо шаблонных скобок «[yyyy] [name of
+copyright owner]» стоит строка правообладателя — так предписывает само
+приложение. Единственное приложение (APPENDIX) — в конце файла. Других
+приложений в файле нет.
+
+FULL TEXT OF THE APACHE LICENSE 2.0
+
 
                                  Apache License
                            Version 2.0, January 2004
@@ -186,46 +228,6 @@
       file or class name and description of purpose be included on the
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
-
-   Copyright [yyyy] [name of copyright owner]
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
-===============================================================================
-Copyright notice and filled-in appendix
-
-   Copyright 2026 Cassandra Index contributors
-
-   This file is the license for the source code of the Cassandra Index project
-   (calc/**, js/**, build.js, tools/**, .github/**, HTML and CSS). Data in
-   data/** is licensed separately under CC BY 4.0 (see LICENSE-DATA),
-   documentation under CC BY 4.0 (see LICENSE-DOCS). Third-party materials are
-   listed in NOTICE; trademarks are covered by TRADEMARK.md.
-
-   Everything from the line "APPENDIX: How to apply the Apache License to your
-   work" to the end of this file is the appendix filled in for this project, as
-   the original text asks.
-===============================================================================
-
-APPENDIX: How to apply the Apache License to your work
-
-   To apply the Apache License to your work, attach the following boilerplate
-   notice, with the fields enclosed by brackets "[]" replaced with your own
-   identifying information. (Don't include the brackets!)  The text should be
-   enclosed in the appropriate comment syntax for the file format. We also
-   recommend that a file or class name and description of purpose be included on
-   the same "printed page" as the copyright notice for easier identification
-   within third-party archives.
 
    Copyright 2026 Cassandra Index contributors
 

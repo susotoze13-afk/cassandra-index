@@ -52,11 +52,13 @@ node --test
 
 | Что | Файл | Лицензия |
 |---|---|---|
-| Код (`calc/`, `js/`, `tools/`, `build.js`, `.github/`, HTML-разметка и CSS) | `LICENSE` | Apache License 2.0 |
+| Код и разметка (`calc/`, `js/`, `tools/`, `build.js`, `.github/`, разметка `*.html` и `css/**`) | `LICENSE` | Apache License 2.0 |
 | Данные (`data/**`, включая публичный слой и справочники) | `LICENSE-DATA` | CC BY 4.0 |
-| Документы и тексты (`docs/**`, корневые `*.md`, текст статических страниц) | `LICENSE-DOCS` | CC BY 4.0 |
+| Документы и текст (`docs/**`, корневые `*.md`, видимый текст страниц) | `LICENSE-DOCS` | CC BY 4.0 |
 | Название «Cassandra Index», логотип `icon.svg`, домен `cassindex.ru` | `TRADEMARK.md` | лицензиями не передаются |
 | Чужие материалы: GeoNames, тексты источников, внешние сервисы, сторонний пакет | `NOTICE` | свои условия, не лицензии проекта |
+
+Текст страниц — CC BY 4.0 (LICENSE-DOCS); разметка и стили тех же страниц (*.html, css/**) — Apache License 2.0 (LICENSE).
 
 При переиспользовании данных и текстов обязательна атрибуция:
 «Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0», со ссылкой на

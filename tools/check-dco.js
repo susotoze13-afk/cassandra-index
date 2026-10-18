@@ -5,6 +5,11 @@
 // `git log` переданного диапазона и не знает ни про GitHub API, ни про PR.
 // Merge-коммиты нарушением не считаются: их сообщение формирует git, а не автор.
 //
+// Подпись сверяется с автором коммита: `Signed-off-by` должен совпасть с
+// `Name <email>` автора (без учёта регистра и лишних пробелов) — это обещание
+// CONTRIBUTING.md. Коммит без поля `author` проверяется только на наличие
+// подписи: у вызывающей стороны может не быть автора под рукой.
+//
 // Использование: node tools/check-dco.js <base> <head>
 // Код возврата: 0 — все коммиты подписаны, 1 — есть нарушения.
 
@@ -57,16 +62,42 @@ function firstLine(text) {
   return normalizeNewlines(text).split('\n')[0].trim();
 }
 
+const IDENTITY_RE = /^(.*?)\s*<([^<>]*)>\s*$/;
+
+// `Name <email>` → нормализованная пара; без угловых скобок — null.
+function identityOf(value) {
+  const match = IDENTITY_RE.exec(String(value ?? '').trim());
+  if (!match) return null;
+  return {
+    name: match[1].trim().replace(/\s+/g, ' ').toLowerCase(),
+    email: match[2].trim().toLowerCase(),
+  };
+}
+
+function sameIdentity(left, right) {
+  if (!left || !right) return false;
+  return left.email === right.email && left.name === right.name;
+}
+
 export function checkCommits(commits) {
   const offenders = [];
   for (const commit of commits ?? []) {
     if (isMergeCommit(commit)) continue;
     const { signedOffBy } = parseTrailers(commit.message ?? '');
+    const author = identityOf(commit.author);
+
+    let reason = null;
     if (signedOffBy.length === 0) {
+      reason = 'missing-signed-off-by';
+    } else if (author && !signedOffBy.some((value) => sameIdentity(identityOf(value), author))) {
+      reason = 'signed-off-by-mismatch';
+    }
+
+    if (reason) {
       offenders.push({
         sha: commit.sha ?? '',
         subject: commit.subject || firstLine(commit.message) || '(без темы)',
-        reason: 'missing-signed-off-by',
+        reason,
       });
     }
   }
@@ -75,7 +106,7 @@ export function checkCommits(commits) {
 
 // Читает диапазон `git log base..head` и возвращает коммиты для checkCommits.
 export function readCommits(base, head) {
-  const format = ['%H', '%P', '%s', '%B'].join('%x1f') + '%x1e';
+  const format = ['%H', '%P', '%an <%ae>', '%s', '%B'].join('%x1f') + '%x1e';
   const output = execFileSync('git', ['log', `--format=${format}`, `${base}..${head}`], {
     encoding: 'utf8',
     maxBuffer: 64 * 1024 * 1024,
@@ -86,10 +117,11 @@ export function readCommits(base, head) {
     .map((record) => record.replace(/^\n+/, ''))
     .filter((record) => record.trim() !== '')
     .map((record) => {
-      const [sha, parents, subject, ...messageParts] = record.split(FIELD_SEPARATOR);
+      const [sha, parents, author, subject, ...messageParts] = record.split(FIELD_SEPARATOR);
       return {
         sha,
         parents,
+        author,
         subject,
         message: messageParts.join(FIELD_SEPARATOR),
       };
@@ -116,9 +148,12 @@ function main(argv) {
     return 0;
   }
 
-  console.error(`DCO: ${result.offenders.length} коммит(ов) без Signed-off-by:`);
+  console.error(`DCO: ${result.offenders.length} коммит(ов) не проходят проверку подписи:`);
   for (const offender of result.offenders) {
-    console.error(`  - ${offender.sha} ${offender.subject}`);
+    const detail = offender.reason === 'signed-off-by-mismatch'
+      ? 'Signed-off-by не совпадает с автором'
+      : 'нет Signed-off-by';
+    console.error(`  - ${offender.sha} ${offender.subject} — ${detail}`);
   }
   console.error('Подпишите коммиты: git commit -s (или git rebase --signoff).');
   return 1;

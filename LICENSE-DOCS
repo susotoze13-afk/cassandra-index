@@ -1,8 +1,12 @@
-Cassandra Index — лицензия на документацию (docs/** и корневые *.md)
+Cassandra Index — лицензия на документацию и тексты (docs/** и корневые *.md)
 
 Атрибуция: Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0
 Лицензия: Creative Commons Attribution 4.0 International (CC BY 4.0)
 Canonical legalcode: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Область применения
+==================
+Текст страниц — CC BY 4.0 (LICENSE-DOCS); разметка и стили тех же страниц (*.html, css/**) — Apache License 2.0 (LICENSE).
 
 Что покрыто этой лицензией
 --------------------------
@@ -10,10 +14,10 @@ Canonical legalcode: https://creativecommons.org/licenses/by/4.0/legalcode
   журналы калибровки и метрик, материалы статей и реестры дозабора.
 - Корневые *.md — README.md, CONTRIBUTING.md, SECURITY.md, AGENTS.md,
   CONTEXT.md и прочие корневые markdown-документы.
-- Текст статических страниц — how-to-read.html, privacy.html, compare*.html,
-  articles.html, а также тексты, которые генерируются в changelog.html и
-  digest.html. Разметка и скрипты этих страниц остаются под Apache-2.0, см.
-  LICENSE.
+- Видимый текст статических страниц — how-to-read.html, privacy.html,
+  compare*.html, articles.html, а также текст, который генерируется в
+  changelog.html и digest.html. Разметка и скрипты этих страниц остаются под
+  Apache-2.0, см. LICENSE.
 
 Условия: при переиспользовании укажите атрибуцию и лицензию в форме строки
 «Атрибуция» выше, дайте ссылку на canonical legalcode и отметьте изменения,
@@ -21,15 +25,17 @@ Canonical legalcode: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Что НЕ покрыто этой лицензией
 -----------------------------
-- Код проекта (calc/**, js/**, build.js, tools/**, .github/**, HTML и CSS как
-  разметка) — Apache License 2.0, см. LICENSE.
+- Код проекта и разметка страниц (calc/**, js/**, build.js, tools/**,
+  .github/**, HTML-разметка и CSS, включая скрипты страниц) — Apache License
+  2.0, см. LICENSE.
 - Правила использования названия, логотипа и домена — TRADEMARK.md; его
   текст распространяется по этой же лицензии, но марка лицензией не
   передаётся.
 - Тексты источников и цитаты внутри документов и снапшотов — права
   издателей, цитирование в объёме; состав чужих материалов — NOTICE.
-- Дампы GeoNames в репозиторий не входят (.gitignore); производный
-  справочник — GeoNames, CC BY 4.0, атрибуция в NOTICE.
+- Дампы GeoNames (data/geo/*.zip, *.txt, cities15000.*, countryInfo.*) в
+  репозиторий не входят (.gitignore). Производный справочник использует
+  данные GeoNames (CC BY 4.0, https://www.geonames.org/), атрибуция — NOTICE.
 
 Полный текст лицензии
 =====================

@@ -75,6 +75,46 @@ test('checkCommits: неподписанный коммит — нарушите
   assert.equal(result.offenders[0].reason, 'missing-signed-off-by');
 });
 
+test('checkCommits: подпись не совпадает с автором коммита — нарушитель', () => {
+  const result = checkCommits([
+    {
+      sha: 'dddd4444',
+      parents: ['base0000'],
+      author: 'Editor <editor@example.org>',
+      subject: 'Правка от другого имени',
+      message: [
+        'Правка от другого имени',
+        '',
+        'Signed-off-by: Someone Else <someone@example.org>',
+        '',
+      ].join('\n'),
+    },
+  ]);
+  assert.equal(result.ok, false);
+  assert.equal(result.offenders.length, 1);
+  assert.equal(result.offenders[0].sha, 'dddd4444');
+  assert.equal(result.offenders[0].reason, 'signed-off-by-mismatch');
+});
+
+test('checkCommits: подпись совпадает с автором без учёта регистра', () => {
+  const result = checkCommits([
+    {
+      sha: 'eeee5555',
+      parents: ['base0000'],
+      author: 'EDITOR <Editor@Example.org>',
+      subject: 'Правка',
+      message: [
+        'Правка',
+        '',
+        'Signed-off-by: editor <editor@example.org>',
+        '',
+      ].join('\n'),
+    },
+  ]);
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.offenders, []);
+});
+
 test('checkCommits: merge-коммит без подписи не считается нарушением', () => {
   const result = checkCommits([
     {
