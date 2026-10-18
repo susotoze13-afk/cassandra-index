@@ -1,7 +1,7 @@
 window.STATE =
 {
   "slug": "index-2026-10-18",
-  "dir": "2026-10-18-index-2026-10-18--wip",
+  "dir": "2026-10-18-index-2026-10-18",
   "title": "Расчёт индекса Кассандры за неделю 12.10–18.10.2026",
   "mode": "full",
   "depth": "normal",
@@ -11,8 +11,8 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
   "startedAt": "2026-10-18T09:16:14+03:00",
-  "updatedAt": "2026-10-18T11:05:00+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-10-18T11:40:00+03:00",
+  "finishedAt": "2026-10-18T11:40:00+03:00",
   "stages": [
     { "id": "preflight", "status": "done", "startedAt": "2026-10-18T09:16:14+03:00", "finishedAt": "2026-10-18T09:18:18+03:00" },
     { "id": "manifest",  "status": "done", "startedAt": "2026-10-18T09:18:18+03:00", "finishedAt": "2026-10-18T09:20:00+03:00" },
@@ -21,7 +21,7 @@ window.STATE =
     { "id": "plan",      "status": "done", "startedAt": "2026-10-18T09:24:00+03:00", "finishedAt": "2026-10-18T09:26:00+03:00" },
     { "id": "build",     "status": "done", "startedAt": "2026-10-18T09:26:00+03:00", "finishedAt": "2026-10-18T11:05:00+03:00", "note": "4 из 4 тасков готовы" },
     { "id": "review",    "status": "done", "startedAt": "2026-10-18T09:50:00+03:00", "finishedAt": "2026-10-18T11:05:00+03:00", "note": "проверено 4 из 4 (Manifest+Spec PASS, Craft — без блокирующих)" },
-    { "id": "final",     "status": "active", "startedAt": "2026-10-18T11:05:00+03:00" }
+    { "id": "final",     "status": "done", "startedAt": "2026-10-18T11:05:00+03:00", "finishedAt": "2026-10-18T11:40:00+03:00" }
   ],
   "requirements": {
     "total": 7, "done": 7, "inTicket": 0, "inSpec": 0,
@@ -31,7 +31,7 @@ window.STATE =
     { "id": "01", "title": "Исследование D1/D5/D6", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/01.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/01.json"], "tests": null, "commit": "T01" },
     { "id": "02", "title": "Исследование D2/D3/D4", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/02.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/02.json"], "tests": null, "commit": "T02" },
     { "id": "03", "title": "Исследование D7/D8/D9", "requirements": ["R03i"], "blockedBy": [], "wave": 1, "zone": [".autopilot/2026-10-18-index-2026-10-18--wip/research/03.json"], "status": "done", "startedAt": "2026-10-18T09:28:00+03:00", "finishedAt": "2026-10-18T09:50:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": [".autopilot/2026-10-18-index-2026-10-18--wip/research/03.json"], "tests": null, "commit": "T03" },
-    { "id": "04", "title": "Сборка входа, сиды, расчёт и публикация недели 2026-10-18", "requirements": ["R01", "R02", "R03i", "R04i", "R04i.1", "R05i"], "blockedBy": ["01", "02", "03"], "wave": 2, "zone": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js", "tests/latest-loader.test.js", "tests/week-combined-parity.test.js", "tests/page-smoke.test.js"], "status": "done", "startedAt": "2026-10-18T09:57:00+03:00", "finishedAt": "2026-10-18T11:05:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js", "tests/latest-loader.test.js", "tests/week-combined-parity.test.js", "tests/page-smoke.test.js"], "tests": { "passed": 447, "failed": 0 }, "commit": null }
+    { "id": "04", "title": "Сборка входа, сиды, расчёт и публикация недели 2026-10-18", "requirements": ["R01", "R02", "R03i", "R04i", "R04i.1", "R05i"], "blockedBy": ["01", "02", "03"], "wave": 2, "zone": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js", "tests/latest-loader.test.js", "tests/week-combined-parity.test.js", "tests/page-smoke.test.js"], "status": "done", "startedAt": "2026-10-18T09:57:00+03:00", "finishedAt": "2026-10-18T11:05:00+03:00", "retries": 0, "repairs": 0, "handoffs": 0, "files": ["calc/input/2026-10-18.json", "data/2026-10-18/", "data/latest.js", "calc/calc.js", "tests/latest-loader.test.js", "tests/week-combined-parity.test.js", "tests/page-smoke.test.js"], "tests": { "passed": 447, "failed": 0 }, "commit": "a66d33b" }
   ],
   "singlePass": null,
   "tests": null,
@@ -46,6 +46,12 @@ window.STATE =
     "craft · число недель (12) продублировано в data/latest.js, tests/latest-loader.test.js, tests/week-combined-parity.test.js — каждая новая неделя требует трёх согласованных правок.",
     "craft · нет теста согласия RECALC_WEEKS (calc/calc.js) ↔ CI_WEEKS/CI_LATEST (data/latest.js); кандидат — швы addRecalcWeek/addLatestWeek из calc/prepare-week.js вместо ручных литералов."
   ],
-  "reviewers": { "manifestSpec": null, "craft": null },
-  "blind": null
+  "reviewers": { "manifestSpec": "ses_eb1fe829dffeG4igIhC0goyhv6", "craft": "ses_eb1f6348bffebCZzSWptB8SJd9" },
+  "blind": {
+    "checkedAt": "2026-10-18T11:30:00+03:00",
+    "verdict": "заказ выполнен: неделя 12.10–18.10.2026 рассчитана (index 62, delta +6), снапшот прошёл контракт validate, локальный сайт показывает 62/«Очень опасно»/↑+6, 12 региональных строк v2, тренд 12 точек, данные опубликованы",
+    "commands": "node --test → 447 passed / 0 fail; node calc/calc.js 2026-10-18 → index 62, публикация ДА (full)",
+    "drift": [],
+    "agreement": "манифест done ↔ «реализовано» по всем 7 требованиям; расхождений нет"
+  }
 }
