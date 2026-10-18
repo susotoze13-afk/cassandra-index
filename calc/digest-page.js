@@ -95,6 +95,7 @@ export function renderDigestPage(issues) {
     '        <a href="index.html">На главную</a>',
     '        <a href="blog/">Блог</a>',
     '        <a href="how-to-read.html">Как читать</a>',
+    '        <a href="validation.html">Валидация</a>',
     '        <a href="changelog.html">История изменений</a>',
     '      </nav>',
     '    </div>',

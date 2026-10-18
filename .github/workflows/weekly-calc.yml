@@ -87,10 +87,11 @@ jobs:
           WEEK: ${{ steps.week.outputs.value }}
         run: node calc/calc.js --write "$WEEK"
 
-      - name: Пересборка публичного слоя и архива выпусков
+      - name: Пересборка публичного слоя, валидации и архива выпусков
         if: steps.gate.outputs.skip == 'false'
         run: |
           node calc/public-export.js --write
+          node calc/backtest.js --write
           node calc/digest-export.js --write
           node blog-build.js --write
 
@@ -118,6 +119,8 @@ jobs:
           ")
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # git add -A берёт и производные валидации: data/public/validation.json,
+          # data/public/forecast-ledger.json и корневой validation.html.
           git add -A
           if git diff --cached --quiet; then
             echo "::notice::Нет изменений — коммит не требуется"

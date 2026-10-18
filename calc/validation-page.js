@@ -583,6 +583,7 @@ export function renderValidationPage(validation, ledger) {
     '        <a href="blog/">Блог</a>',
     '        <a href="how-to-read.html">Как читать индекс</a>',
     '        <a href="compare.html">Сравнение</a>',
+    '        <a href="validation.html">Валидация</a>',
     '        <a href="changelog.html">История изменений</a>',
     '      </nav>',
     '    </div>',
