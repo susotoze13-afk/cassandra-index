@@ -32,24 +32,49 @@
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
 | Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg` и `changelog.html`; `--root <dir>` — другой корень |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
-| Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев) |
+| Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
+| Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
 | Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, пересобирает публичный слой и дайджест (`public-export.js --write`, `digest-export.js --write`), тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
-| Автозапуск дайджеста | `.github/workflows/weekly-digest.yml`: cron пн 06:00 UTC + `workflow_dispatch [week]`; резерв каналов `--reserve`, коммит выпуска и `sent.json`, затем `--send`; без секретов — тихий skip |
+| Автозапуск дайджеста | `.github/workflows/weekly-digest.yml`: cron пн 06:00 UTC + `workflow_dispatch [week]`; job `prepare` пишет выпуск/архив и шлёт `--preview` в чат редактора, job `publish` висит на environment `digest-approval` (required reviewer) и только после одобрения делает `--reserve`, коммит `sent.json`, затем `--send`; без секретов — тихий skip |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
 
 `node calc/calc.js --write` требует сети: перед записью собранный снапшот гоняется
 через linkcheck (ворота R03) — хотя бы один битый URL → запись отклонена, диск не тронут.
 
+## Правовая рамка, цитирование и границы репозитория
+
+Лицензии разделены по типу материала — одной «лицензии репозитория» здесь нет:
+
+| Что | Файл | Условия |
+|---|---|---|
+| Код (`calc/`, `js/`, `tools/`, `build.js`, `.github/`, HTML-разметка, CSS) | `LICENSE` | Apache License 2.0 |
+| Данные (`data/**`: снапшоты недель, публичный слой, таксономия, справочники) | `LICENSE-DATA` | CC BY 4.0 |
+| Документы и тексты (`docs/**`, корневые `*.md`, текст статических страниц) | `LICENSE-DOCS` | CC BY 4.0 |
+| Название «Cassandra Index», логотип `icon.svg`, домен `cassindex.ru` | `TRADEMARK.md` | лицензиями не передаются |
+| Чужие материалы: GeoNames (CC BY 4.0), тексты издателей и цитаты, Cloudflare Web Analytics, FormSubmit, сторонний `package/package.json` (GSD Core, MIT) | `NOTICE` | свои условия, не лицензии проекта |
+
+- **Атрибуция данных и текстов** обязательна: «Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0», ссылка на canonical legalcode, отметка изменений. Форк называется иначе и указывает происхождение формулой «based on Cassandra Index».
+- **Версия** — `VERSION`: одна строка semver, единственный источник; дублируется `version:` в `CITATION.cff`, паритет пинит `tests/citation.test.js`. Версия методологии (`PARAMS.methodology`) — не версия проекта.
+- **Цитирование** — «Cassandra Index, версия, дата, URL»: версия из `VERSION`, дата релиза или дата цитируемой недели, URL https://cassindex.ru. Машинная форма — `CITATION.cff`, текстовый раздел — `how-to-read.html` (`#cite-title`).
+- **Официальный источник один — cassindex.ru; форки неофициальны.** Фраза из `README.md` дословна, её пинит `tests/governance.test.js`.
+- **Вклад** — под Developer Certificate of Origin 1.1: `git commit -s`, CLA нет. Каждый коммит PR подписан; проверка `tools/check-dco.js` через `.github/workflows/dco.yml` (merge-коммит нарушением не считается).
+- **Уязвимости** — приватно на контакт из `SECURITY.md` (публичный issue не подходит); область, окна ответа и запрещённые действия — там же.
+- **Граница репозитория**: здесь **публичное ядро** целиком; **коммерческий модуль** — отдельный приватный репозиторий, закрытое зависит от открытого, не наоборот (ADR 0057, `docs/repo-boundaries.md`). Каталогов `commercial/`, `private/`, `enterprise/` не заводить — приватность в git не выражается папкой. Термины — в `CONTEXT.md`.
+- **Юридическое замечание**: правообладатель в `LICENSE` — `Cassandra Index contributors` (допущение, пока владелец не назван иначе); контакт безопасности — `Zasik2008@yandex.ru`.
+
+**Новые корневые файлы** (не искать заново): `LICENSE`, `LICENSE-DATA`, `LICENSE-DOCS`, `NOTICE`, `TRADEMARK.md`, `VERSION`, `CITATION.cff`, `.zenodo.json`, `README.md`, `CONTRIBUTING.md`, `SECURITY.md`. Рядом: `tools/check-dco.js`, `.github/workflows/dco.yml`, `docs/repo-boundaries.md`, `docs/adr/0057-repository-boundary-public-core.md`, тесты-пины `tests/licensing.test.js`, `tests/citation.test.js`, `tests/dco.test.js`.
+
 ## Публикация
 
 - Выкат — GitHub Actions `.github/workflows/deploy.yml` на push в `master`; публикуется
   только то, что перечислено в `cp`-строке шага «Stage site files» (сейчас: `index.html`,
-  `privacy.html`, `how-to-read.html`, `changelog.html`, `digest.html`, `articles.html`,
-  `compare*.html`, `icon.svg`, `robots.txt`, `sitemap.xml`, `css/`, `js/`, `data/`) —
-  остальное наружу не уходит.
+  `privacy.html`, `how-to-read.html`, `changelog.html`, `digest.html`, `articles.html`
+  (алиас → `blog/`), `compare*.html`, `icon.svg`, `robots.txt`, `sitemap.xml`, `llms.txt`,
+  `css/`, `js/`, `data/`, `blog/`) — остальное наружу не уходит.
 - Пуш в master = автоматический выкат; коммитить только готовое к публикации, коммит и пуш — только за оркестратором (агенты-исполнители НЕ коммитят — был инцидент).
 - Автопуш по расписанию — `.github/workflows/weekly-calc.yml` (cron вс 08:00 МСК + `workflow_dispatch`): ЕДИНСТВЕННОЕ исключение правила выше — коммитит от `github-actions[bot]` и пушит в master только при готовом входе и сидах, после зелёных `node --test`; деплой запускается явно (`gh workflow run deploy.yml`, т.к. push от `GITHUB_TOKEN` не триггерит другие workflow). Подготовка входа и сидов остаётся ручной (§10.1); ворот на «не публиковать» нет — если вход/сиды не готовы, неделя тихо пропускается.
+- Еженедельный дайджест — `.github/workflows/weekly-digest.yml` (cron пн 06:00 UTC): job `prepare` собирает выпуск, коммитит архив и шлёт превью в `TELEGRAM_EDITOR_CHAT_ID`; job `publish` объявлен с `environment: digest-approval` и ждёт одобрения required reviewer, только после этого резервирует каналы и отправляет. Резерв до запроса и повторная отправка не меняются. Настройка environment — в репозитории (Settings → Environments), не в файле; reviewer — `susotoze13-afk`, `prevent_self_review` выключен (редактор может одобрить и свой dispatch).
 - Обновление недели: вход `calc/input/<дата>.json` → `node calc/calc.js --write <дата>` →
   `node calc/public-export.js --write` → `node calc/digest-export.js --write` →
   `node build.js` → `node --test` зелёный → commit (push — оркестратору).
@@ -64,10 +89,14 @@ index.html                главная страница; RU-разметка h
 privacy.html              политика приватности
 how-to-read.html          «как читать индекс» (статика, без JS; tests/seo-pages.test.js)
 compare.html              хаб сравнений; compare-war-monitor/acled/crisiswatch.html —
-                          сравнения с внешними проектами; articles.html — статика
+                          сравнения с внешними проектами; articles.html — алиас-редирект в blog/
 changelog.html            ГЕНЕРИРУЕТСЯ calc/public-export.js --write
 digest.html               ГЕНЕРИРУЕТСЯ calc/digest-export.js --write
-robots.txt, sitemap.xml   статика SEO; оба файла в deploy-whitelist
+blog/                     ГЕНЕРИРУЕТСЯ blog-build.js --write (ADR 0061): index.html (архив),
+                          <неделя>.html (статический выпуск), feed.xml (RSS)
+robots.txt                статика SEO; в deploy-whitelist
+sitemap.xml               ГЕНЕРИРУЕТСЯ blog-build.js --write (корень + blog/ + выпуски)
+llms.txt                  ГЕНЕРИРУЕТСЯ blog-build.js --write (GEO-индекс для LLM-поиска)
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
@@ -159,8 +188,9 @@ calc/digest-page.js       digest.html: renderDigestPage(issues), архив 12 �
 calc/digest-export.js     data/public/digest/<неделя>.json + index.json + digest.html
                           (merge с диском); по умолчанию только недели PARAMS.methodology
 calc/digest-send.js       доставка (SENT_SCHEMA_VERSION = 2): sendTelegram/sendEmail
-                          (fetchImpl — шов), deliver, reserveSent/readSent/writeSent,
-                          runDigestSend; секреты редиктятся
+                          (fetchImpl — шов), sendPreview (черновик в чат редактора
+                          до одобрения; sent.json не трогает), deliver,
+                          reserveSent/readSent/writeSent, runDigestSend; секреты редиктятся
 calc/input/<неделя>.json  входные сигналы недели: 46 критериев D1..D9 ({value, covered,
                           sources}; слепой критерий — null), R55-источники
                           (top-level, 20–82 записи/неделя), driverConfidence; покрытие
@@ -489,6 +519,12 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   HONEYPOT_FIELDS, ENDPOINT, ALLOWED_ORIGINS. Тесты: tests/feedback.test.js (17).
 - `build.js` — свой мини-бандлер: топосорт, namespace `window.CI`, входы js/app.js+js/share.js
   и js/i18n.js+js/ui.js; неподдержанные формы import/export — ошибка сборки.
+- `calc/public-export.js` — публичный слой теперь несёт лицензионный конверт CC BY 4.0
+  (объект `LICENSE`: name/url/attribution/note) в `data/public/*`.
+- `tools/check-dco.js` — проверка подписи коммитов DCO: `node tools/check-dco.js <base> <head>`;
+  ворота `.github/workflows/dco.yml`.
+- `tests/licensing.test.js` / `tests/citation.test.js` / `tests/dco.test.js` / `tests/governance.test.js`
+  — пины правовой рамки (лицензии по типу материала, версия/цитирование, DCO, граница репозитория).
 
 ## Архитектура
 
@@ -581,11 +617,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 доставке дайджеста — их имена и смысл в `.env.example` (значения — в секретах GitHub,
 в репозиторий не попадают):
 `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` — бот и чат Bot API (канал telegram);
+`TELEGRAM_EDITOR_CHAT_ID` — личный чат редактора для превью до одобрения (не канал);
 `DIGEST_EMAIL_ENDPOINT` — HTTP-эндпоинт провайдера, принимающий POST JSON (канал email);
 `DIGEST_EMAIL_TOKEN` — Bearer-токен этого эндпоинта; `DIGEST_EMAIL_FROM` — адрес
 отправителя; `DIGEST_EMAIL_TO` — получатели (строка через запятую допустима).
 Необязательные, читаются кодом, но в `.env.example` отсутствуют: `DIGEST_SITE` (базовый
-URL в тексте выпуска) и `DIGEST_CHART_URL` (ссылка на картинку графика).
+URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на картинку графика) и
+`DIGEST_APPROVAL_URL` (ссылка «где одобрить» в превью редактора).
 Для проверки ссылок нужна сеть (без неё проверки массово уходят в blocked — ворота
 это не блокирует, но отчёт раздувает). Доступ к сети в этой среде — только через
 оболочку (`curl.exe`, `node` fetch); инструменты WebSearch/WebFetch ходят через мёртвый
@@ -626,7 +664,7 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 `tests/prepare-week.test.js`;
 публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
 `tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
-`tests/digest-send.test.js` (поддельный fetchImpl, redact, резерв), `tests/seo-pages.test.js`,
+`tests/digest-send.test.js` (поддельный fetchImpl, redact, резерв, превью редактору), `tests/seo-pages.test.js`,
 `tests/site-pages.test.js` (каждый *.html корня обязан быть в cp-строке deploy.yml);
 отсечение точек не-3.0 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
