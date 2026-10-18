@@ -184,6 +184,7 @@ const HTML_PAGES = [
   'compare-war-monitor.html',
   'compare-acled.html',
   'compare-crisiswatch.html',
+  'validation.html',
 ];
 
 function htmlToText(html) {

@@ -48,5 +48,42 @@ License 2.0 (LICENSE), ни CC BY 4.0 (LICENSE-DATA, LICENSE-DOCS). Каждый
    проекта и не лицензия кода Cassandra Index; файл оставлен в репозитории
    как есть.
 
+6. Geopolitical Risk Index (GPR)
+   Источник: GPR, Matteo Iacoviello, https://www.matteoiacoviello.com/gpr.htm
+   Данные: https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls
+   Условия: индекс публикуется для свободного использования при обязательном
+   цитировании: Caldara, D. and Iacoviello, M. (2022), «Measuring
+   Geopolitical Risk», American Economic Review, 112(4). Права на индекс —
+   у авторов, проект их не перелицензирует.
+   Что взято: дневные значения индекса в офлайн-фикстуре
+   calc/backtest-fixtures/gpr.json; на странице validation.html показаны
+   только производные коэффициенты и расхождения, самих данных GPR там нет.
+
+7. ACLED — Armed Conflict Location & Event Data Project
+   Источник: ACLED, https://acleddata.com/
+   Данные: зеркало HDX (Humanitarian Data Exchange),
+   https://data.humdata.org/dataset/3e6bfc98-f837-495d-b8de-71e5ac026f59
+   Условия: ACLED Terms of Use & Attribution Policy,
+   https://acleddata.com/terms-of-use/ — использование данных требует
+   указания ACLED как источника; права на данные — у ACLED, проект их не
+   перелицензирует.
+   Что взято: месячные счётчики событий и погибших (фильтр Non_HRP) в
+   офлайн-фикстуре calc/backtest-fixtures/acled.json; на странице
+   validation.html — только производные сравнения.
+
+8. CrisisWatch — International Crisis Group
+   Источник: CrisisWatch, International Crisis Group,
+   https://www.crisisgroup.org/crisiswatch
+   Данные: ежемесячные выпуски CrisisWatch Trends & Alerts,
+   https://www.crisisgroup.org/crisiswatch
+   Условия: условия использования International Crisis Group,
+   https://www.crisisgroup.org/terms-use — материалы ICG приводятся в объёме
+   цитирования с указанием ICG и ссылкой на выпуск; права на них — у ICG,
+   проект их не перелицензирует.
+   Что взято: месячные счётчики стран в состоянии deteriorated / improved /
+   resolution в офлайн-фикстуре calc/backtest-fixtures/crisiswatch.json;
+   на странице validation.html — только производные сравнения.
+
 Итого: ни GeoNames, ни тексты издателей, ни Cloudflare Web Analytics, ни
-FormSubmit, ни GSD Core не покрываются лицензиями проекта.
+FormSubmit, ни GSD Core, ни GPR, ни ACLED, ни CrisisWatch не покрываются
+лицензиями проекта.

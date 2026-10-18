@@ -680,6 +680,7 @@ function renderLlms(issues) {
     `- [Блог](${BLOG_URL}): архив еженедельных разборов.`,
     `- [История изменений](${SITE}/changelog.html): версии методологии и данных.`,
     `- [Дайджест](${SITE}/digest.html): короткие недельные выпуски.`,
+    `- [Валидация и журнал прогнозов](${SITE}/validation.html): сравнение с GPR, ACLED и CrisisWatch, попадания и промахи прогнозов.`,
     '',
     '## Разборы недели',
     ...issues.map((issue) => `- [${formatDate(issue.week)} — ${issue.article.title}](${articleUrl(issue.week)}): ${issue.article.dek}`),

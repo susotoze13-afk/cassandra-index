@@ -59,14 +59,14 @@ const COMPARISONS = [
   { file: 'compare-acled.html', source: 'https://acleddata.com/' },
   { file: 'compare-crisiswatch.html', source: 'https://www.crisisgroup.org/crisiswatch' },
 ];
-const PAGES = [HOWTO, HUB, ...COMPARISONS.map((c) => c.file)];
+const PAGES = [HOWTO, HUB, ...COMPARISONS.map((c) => c.file), 'validation.html'];
 
 // Политика статических страниц: только собственные ресурсы и стили, без скриптов
 // (ни инлайновых, ни внешних) и без JSON-LD — осознанный отказ от ослабления CSP.
 const STATIC_CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; " +
   "font-src 'self'; base-uri 'self'; object-src 'none'";
 
-test('SEO-страницы: базовые требования к каждой из пяти страниц', () => {
+test('SEO-страницы: базовые требования к каждой из шести страниц', () => {
   for (const file of PAGES) {
     const html = read(file);
     assert.match(html, /^<!doctype html>\n<html lang="ru">/, `${file}: нет doctype/lang=ru`);
