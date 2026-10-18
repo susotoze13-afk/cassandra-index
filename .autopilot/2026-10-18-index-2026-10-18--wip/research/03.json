@@ -1,0 +1,319 @@
+{
+  "group": "03",
+  "window": { "from": "2026-10-12", "to": "2026-10-18" },
+  "criteria": {
+    "D7.1": {
+      "covered": true,
+      "events": [1.0, 0.5],
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/news/2026/10/17/saudi-led-coalition-intercepts-drones-as-egypt-weighs-sending-help", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Новое прямое вовлечение государств: ОАЭ согласились с Саудовской Аравией вернуться в йеменский конфликт на фоне успехов хуситов (1.0); Египет рассматривает отправку военной помощи Саудовской Аравии (0.5).",
+      "regions": ["middle-east"]
+    },
+    "D7.2": {
+      "covered": true,
+      "events": [1.0, 1.0, 1.0, 0.5],
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/one-injured-projectiles-hit-tugboat-uae-coast-ukmto-says", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/middle-east/small-boat-approaches-opens-fire-on-lng-tanker-off-yemen-s-coast-uk-maritime-agency-says/4092086", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Атаки за пределами основного театра: подрыв двух танкеров на минах в Ормузском проливе, обстрел буксира у берегов ОАЭ, огонь по СПГ-танкеру у Йемена, нападение поселенцев на европейскую дипломатическую делегацию на Западном берегу.",
+      "regions": ["middle-east", "europe"]
+    },
+    "D7.3": {
+      "covered": true,
+      "value": 1,
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/saudi-led-forces-try-to-break-houthi-siege-of-taiz-with-airstrikes", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Открытие/расширение театра: возвращение ОАЭ в йеменскую войну, удары и перехваты над Эр-Риядом и Восточной провинцией, бои за Таиз — фронт расширяется на Красное море и Персидский залив.",
+      "regions": ["middle-east"]
+    },
+    "D7.4": { "covered": false, "note": "Третьи стороны из конфликтов в окне не выходили: вывод UNIFIL из Ливана лишь обсуждается (al-monitor, 18.10), решения нет; подтверждаемого выхода или закрытия базирования в окне 12–18.10 нет." },
+
+    "D8.1": {
+      "covered": true,
+      "value": 0,
+      "sources": [
+        { "url": "https://news.un.org/feed/view/en/story/2026/10/1168611", "date": "2026-10-16", "cluster": "C-registries", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/economy/2203639", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Режимы прекращения огня нарушаются в течение окна: в Газе при действующем соглашении о перемирии, по данным ЮНИСЕФ, погибли 340 детей; у Запорожской АЭС сохраняется активность беспилотников «несмотря на перемирие».",
+      "regions": ["middle-east"]
+    },
+    "D8.2": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/middle-east/lebanon-to-take-part-in-us-backed-trilateral-talks-with-israel-on-oct-20-president-says/4092254", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/araghchi-says-iran-has-presented-concrete-hormuz-reopening-proposal", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Частичный деэскалационный трек без подписанных и верифицируемых договорённостей: анонсированы трёхсторонние переговоры Ливана с Израилем при посредничестве США (20.10), Иран представил «конкретное» предложение о разблокировке Ормузского пролива.",
+      "regions": ["middle-east"]
+    },
+    "D8.3": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.iaea.org/newscenter/pressreleases/update-371-iaea-director-general-statement-on-situation-in-ukraine", "date": "2026-10-16", "cluster": "C-registries", "type": "primary", "state_affiliated": false },
+        { "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-release-159-detainees-in-sanaa-icrc/4092084", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Международное наблюдение и верификация: МАГАТЭ публикует очередное обновление по ситуации на украинских АЭС (мониторинг ядерной безопасности); освобождение 159 задержанных хуситами в Сане проходит под наблюдением МККК.",
+      "regions": ["middle-east", "ukraine-moldova"]
+    },
+    "D8.4": { "covered": false, "note": "Устойчивого многонедельного снижения интенсивности эскалационных инцидентов в окне не подтверждено: боевые действия в Газе, Йемене и Украине идут непрерывно, режимы нарушаются." },
+
+    "D9.1": { "covered": false, "note": "Признаков экстренной медицинской подготовки (закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков) в окне 12–18.10 не найдено." },
+    "D9.2": { "covered": false, "note": "Новых мер финансовой изоляции (капитальные ограничения, отзыв активов, приостановка выплат по внешнему долгу, военные займы, запреты экспорта продовольствия/топлива) в окне не подтверждено; напротив, США приостановили вступление новых антироссийских санкций." },
+    "D9.3": {
+      "covered": true,
+      "value": 0.67,
+      "acyclic": true,
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-relief-unlikely-ease-tanker-crisis-kpler-says", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Транспорт и страхование: подрыв танкеров на минах в Ормузском проливе и обстрелы судов у ОАЭ/Йемена подняли военно-страховые риски в судоходстве; аналитики (Kpler) считают, что смягчение санкций США не снимет кризис танкеров.",
+      "regions": ["middle-east"]
+    },
+    "D9.4": { "covered": false, "note": "Аномальных закупок в госрезервы, круглосуточных режимов оборонных предприятий, мобилизационных заказов гражданским заводам или накопления топлива у театра в окне не найдено." },
+    "D9.5": { "covered": false, "note": "Изменений возраста/категорий призыва, расширения списков военнообязанных, ограничений выезда специалистов или правок законов о военной службе без объявленной мобилизации в окне не подтверждено." },
+    "D9.6a": { "covered": false, "note": "Явных мер по усилению информационного суверенитета (ужесточение цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО, государственные медиакампании, помехи спутниковой навигации) в окне не найдено с подтверждением двумя независимыми кластерами." },
+    "D9.6b": { "covered": false, "note": "Вывоза семей дипломатов и чиновников, отзыва студентов и специалистов, эвакуации музейных ценностей или перебазирования командных пунктов в окне 12–18.10 не найдено." },
+    "D9.7": { "covered": false, "note": "Снятия «тихих» мер (отмена капитального контроля, возврат семей дипломатов, возобновление публикации статистики, возврат предприятий к гражданским режимам, возврат эвакуированных коллекций) в окне не подтверждено." }
+  },
+  "driverConfidence": {
+    "D7": { "level": "high", "reason": "Покрыто 3/4: вовлечение новых государств — возвращение ОАЭ в йеменскую войну и рассмотрение Египтом военной помощи Саудовской Аравии (D7.1); атаки за пределами театра — мины в Ормузском проливе, обстрел буксира у ОАЭ, огонь по СПГ-танкеру у Йемена, нападение поселенцев на европейских дипломатов (D7.2); расширение театра (D7.3 = 1). D7.4 без сигнала: выход третьих сторон в окне не подтверждён. Сигналы подтверждены кластерами A и B." },
+    "D8": { "level": "medium", "reason": "Покрыто 3/4: прекращение огня не соблюдается (D8.1 = 0 — 340 погибших детей в Газе при перемирии, активность БПЛА у ЗАЭС); мирные договорённости не подписаны, есть лишь анонс трёхсторонних переговоров Ливан–Израиль–США и предложение Ирана по Ормузу (D8.2 = 0.33); международный мониторинг — обновление МАГАТЭ и освобождение задержанных под наблюдением МККК (D8.3 = 0.67). D8.4 без сигнала: устойчивого снижения интенсивности нет; деэскалационный трек слабый." },
+    "D9": { "level": "low", "reason": "Покрыта 1/8 подгрупп: транспорт и страхование (D9.3 = 0.67, ациклический — мины в Ормузском проливе, обстрелы судов у ОАЭ/Йемена, военно-страховой кризис танкеров). Остальные подгруппы Д9 без подтверждённых сигналов двумя независимыми кластерами в окне; уровень high невозможен (§4.3.1), одиночный сигнал требует повышенной короборации." }
+  },
+  "regions": [
+    {
+      "region": "middle-east",
+      "observation": { "ru": "Эскалация в зоне Персидского залива и Красного моря: подрыв танкеров на минах в Ормузском проливе, обстрелы судов у ОАЭ и Йемена, удары хуситов по Эр-Рияду и Восточной провинции, возвращение ОАЭ в йеменскую войну, рассмотрение Египтом военной помощи Саудовской Аравии; в Газе при перемирии продолжают гибнуть люди.", "en": "Escalation in the Gulf and Red Sea: tankers mined in the Strait of Hormuz, ships fired on off the UAE and Yemen, Houthi strikes on Riyadh and the Eastern Province, the UAE re-entering the Yemen war, Egypt weighing military help for Saudi Arabia; people keep dying in Gaza despite a ceasefire." },
+      "why": { "ru": "Несколько независимых сигналов D7.1/D7.2/D7.3/D9.3 делают регион центром недельной эскалации; подтверждено разными кластерами и вторичными агрегаторами.", "en": "Multiple independent D7.1/D7.2/D7.3/D9.3 signals make the region the centre of this week's escalation, corroborated across clusters." },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz", "date": "2026-10-18", "cluster": "B-state-media" },
+        { "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains", "date": "2026-10-17", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "europe",
+      "observation": { "ru": "Европейская дипломатическая делегация подверглась нападению израильских поселенцев на Западном берегу (избит французский мэр); Париж и Брюссель требуют ареста нападавших, Нетаньяху оспаривает атаку.", "en": "A European diplomatic delegation was attacked by Israeli settlers in the West Bank (a French mayor was beaten); Paris and Brussels demand arrests while Netanyahu disputes the attack." },
+      "why": { "ru": "Прямое вовлечение европейских государств (D7.2 — атака на дипмиссию) усиливает региональную компоненту риска для Европы, хотя это не боевой театр.", "en": "Direct involvement of European states (D7.2 — attack on a diplomatic mission) raises the Europe-related risk component even though it is not a combat theatre." },
+      "contribution": "medium",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank", "date": "2026-10-17", "cluster": "A-mainstream" },
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/israeli-settlers-attack-european-diplomats-in-the-occupied-west-bank", "date": "2026-10-18", "cluster": "B-state-media" }
+      ]
+    },
+    {
+      "region": "russia-belarus",
+      "observation": { "ru": "Украинский роевой удар беспилотников по Ленинградской области и Санкт-Петербургу — одна из крупнейших атак за четыре года; поражён дата-центр VK; США приостановили новые антироссийские санкции и отказались от дизельного эмбарго.", "en": "A Ukrainian drone swarm struck the Leningrad Region and St Petersburg — one of the largest attacks in four years; a VK data centre was hit; the US paused new Russia sanctions and waived the diesel measure." },
+      "why": { "ru": "Продолжение войны с глубокими ударами по тылу РФ и смешанный санкционный сигнал (эскалация + частичный деэскалационный трек) формируют региональную динамику russia-belarus.", "en": "The ongoing war with deep strikes into Russia's rear plus a mixed sanctions signal (escalation and a partial de-escalation track) shape the russia-belarus dynamics." },
+      "contribution": "medium",
+      "confidence": "medium",
+      "sources": [
+        { "url": "https://tass.com/emergencies/2203667", "date": "2026-10-18", "cluster": "B-state-media" },
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm", "date": "2026-10-18", "cluster": "B-state-media" }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "guardian-uae-yemen-reentry",
+      "title": { "ru": "ОАЭ договорились с Саудовской Аравией о возвращении в конфликт в Йемене на фоне успехов хуситов", "en": "UAE agrees with Saudi Arabia to re-enter Yemen conflict amid Houthi gains" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-saudi-coalition-egypt-help",
+      "title": { "ru": "Коалиция во главе с Саудовской Аравией перехватывает беспилотники; Египет рассматривает отправку помощи", "en": "Saudi-led coalition intercepts drones as Egypt weighs sending help" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/17/saudi-led-coalition-intercepts-drones-as-egypt-weighs-sending-help",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-hormuz-tankers-mines",
+      "title": { "ru": "Иран заявляет, что два танкера загорелись после подрыва на минах в Ормузском проливе", "en": "Iran says two tankers catch fire after hitting mines in Strait of Hormuz" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "mee-tugboat-uae-ukmto",
+      "title": { "ru": "Один пострадавший: снаряды попали в буксир у берегов ОАЭ, сообщает UKMTO", "en": "One injured as projectiles hit tugboat off UAE coast, UKMTO says" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/one-injured-projectiles-hit-tugboat-uae-coast-ukmto-says",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-lng-tanker-yemen-ukmto",
+      "title": { "ru": "Малая лодка приблизилась и открыла огонь по СПГ-танкеру у берегов Йемена, сообщает морское агентство Великобритании", "en": "Small boat approaches, opens fire on LNG tanker off Yemen's coast, UK maritime agency says" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/small-boat-approaches-opens-fire-on-lng-tanker-off-yemen-s-coast-uk-maritime-agency-says/4092086",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "guardian-settlers-eu-diplomats",
+      "title": { "ru": "Израильские поселенцы напали на европейских дипломатов на Западном берегу", "en": "Israeli settlers attack European diplomats in West Bank" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-taiz-siege-airstrikes",
+      "title": { "ru": "Силы во главе с Саудовской Аравией авиаударами пытаются снять осаду Таиза хуситами", "en": "Saudi-led forces try to break Houthi siege of Taiz with airstrikes" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/saudi-led-forces-try-to-break-houthi-siege-of-taiz-with-airstrikes",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "unicef-gaza-340-children-ceasefire",
+      "title": { "ru": "Газа: 340 детей погибли несмотря на соглашение о прекращении огня — ЮНИСЕФ", "en": "Gaza: 340 children killed despite ceasefire agreement - UNICEF" },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/feed/view/en/story/2026/10/1168611",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-zaporizhzhia-npp-drone-ceasefire",
+      "title": { "ru": "Активность украинских беспилотников у Запорожской АЭС и Энергодара сохраняется несмотря на перемирие", "en": "Ukrainian drone activity near Zaporozhye NPP, Energodar persists despite ceasefire" },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2203639",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-lebanon-israel-us-talks",
+      "title": { "ru": "Ливан примет участие в трёхсторонних переговорах с Израилем при поддержке США 20 октября — президент", "en": "Lebanon to take part in US-backed trilateral talks with Israel on Oct. 20, president says" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/lebanon-to-take-part-in-us-backed-trilateral-talks-with-israel-on-oct-20-president-says/4092254",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "mee-araghchi-hormuz-proposal",
+      "title": { "ru": "Арагчи: Иран представил «конкретное» предложение о разблокировке Ормузского пролива", "en": "Araghchi says Iran has presented 'concrete' Hormuz reopening proposal" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/araghchi-says-iran-has-presented-concrete-hormuz-reopening-proposal",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "iaea-update-371-ukraine",
+      "title": { "ru": "Обновление 371 — заявление генерального директора МАГАТЭ о ситуации в Украине", "en": "Update 371 - IAEA Director General Statement on Situation in Ukraine" },
+      "domain": "iaea.org",
+      "url": "https://www.iaea.org/newscenter/pressreleases/update-371-iaea-director-general-statement-on-situation-in-ukraine",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-houthis-release-159-icrc",
+      "title": { "ru": "Хуситы Йемена освободили 159 задержанных в Сане — МККК", "en": "Yemen's Houthis release 159 detainees in Sanaa: ICRC" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-release-159-detainees-in-sanaa-icrc/4092084",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "mee-kpler-tanker-crisis",
+      "title": { "ru": "Смягчение санкций США вряд ли ослабит кризис танкеров, считает Kpler", "en": "US sanctions relief unlikely to ease tanker crisis, Kpler says" },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-relief-unlikely-ease-tanker-crisis-kpler-says",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-st-petersburg-drone-swarm",
+      "title": { "ru": "Санкт-Петербург под атакой украинского роя беспилотников", "en": "St Petersburg under attack from Ukrainian drone swarm" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-leningrad-drone-attack-largest",
+      "title": { "ru": "Атака беспилотников на Ленинградскую область — одна из крупнейших за четыре года", "en": "Drone attack on Leningrad Region one of largest in four years" },
+      "domain": "tass.com",
+      "url": "https://tass.com/emergencies/2203667",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-settlers-eu-diplomats-video",
+      "title": { "ru": "Израильские поселенцы напали на европейских дипломатов на оккупированном Западном берегу", "en": "Israeli settlers attack European diplomats in the occupied West Bank" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/israeli-settlers-attack-european-diplomats-in-the-occupied-west-bank",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    }
+  ]
+}
