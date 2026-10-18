@@ -676,7 +676,7 @@ main {
 }
 
 .driver-source-quote-label {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 11px;
   letter-spacing: .04em;
   text-transform: uppercase;
