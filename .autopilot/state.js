@@ -1,49 +1,305 @@
 window.STATE =
 {
-  "slug": "weeklists-consolidation",
-  "dir": "2026-10-18-weeklists-consolidation",
-  "title": "Консолидация списков недель и добивка ревью-замечаний",
+  "version": 2,
+  "slug": "severity-calibration",
+  "dir": "2026-10-18-severity-calibration--wip",
+  "title": "Калибровка severity-весов: грид severity-наборов в calibrate.js",
   "mode": "semi",
   "depth": "normal",
-  "polish": null,
   "tier": "T0",
   "briefFile": "2026-10-18-brief.md",
   "memoryFile": "AGENTS.md",
+  "memoryOwner": "autopilot",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "startedAt": "2026-10-18T11:23:00+03:00",
-  "updatedAt": "2026-10-18T12:45:00+03:00",
-  "finishedAt": "2026-10-18T12:45:00+03:00",
+  "baseCommit": null,
+  "startedAt": "2026-10-18T12:26:34+03:00",
+  "updatedAt": "2026-10-18T12:46:52+03:00",
+  "finishedAt": null,
   "stages": [
-    { "id": "preflight", "status": "done", "startedAt": "2026-10-18T11:23:00+03:00", "finishedAt": "2026-10-18T11:24:30+03:00" },
-    { "id": "manifest",  "status": "done", "startedAt": "2026-10-18T11:24:30+03:00", "finishedAt": "2026-10-18T11:27:00+03:00" },
-    { "id": "briefing",  "status": "skipped", "startedAt": "2026-10-18T11:27:00+03:00", "finishedAt": "2026-10-18T11:27:00+03:00", "note": "вопросов не потребовалось — бриф точный, направление названо" },
-    { "id": "spec",      "status": "done", "startedAt": "2026-10-18T11:27:00+03:00", "finishedAt": "2026-10-18T11:35:00+03:00", "note": "G2: независимая проверка — 0 missing, 0 half; 5 extra (диск-сверка, порядок/дубли, производные проверки, запрет литералов, строка вне рамок про weekly-calc.yml) — все разрешены как R##.n-углубления R01/R02 или фиксация отложенного, A## не понадобились" },
-    { "id": "plan",      "status": "skipped", "startedAt": "2026-10-18T11:35:00+03:00", "finishedAt": "2026-10-18T11:35:00+03:00", "note": "ярус T0 — одна зона (calc/prepare-week.js + 4 тестовых файла), одна поверхность, без внешних сервисов; собираю сразу из spec, без разбивки на таски" },
-    { "id": "build",     "status": "done", "startedAt": "2026-10-18T11:36:00+03:00", "finishedAt": "2026-10-18T12:20:00+03:00", "note": "T0 single-pass: read-швы readRecalcWeeks/readLatestWeeks в calc/prepare-week.js; тест согласия tests/weeklists-agreement.test.js (новый); latest-loader/page-smoke/week-combined-parity переведены на производные проверки без литеральных пинов числа недель" },
-    { "id": "review",    "status": "done", "startedAt": "2026-10-18T12:20:00+03:00", "finishedAt": "2026-10-18T12:35:00+03:00", "note": "субагент craft-review (ses_eb1b6f097ffeCsKS10ssQIAc55): 0 CRITICAL, 1 MAJOR (guard write-формы в latest-loader слеп к v2-регионам — заменён на shape-гвардию), 2 MINOR (regex readRecalcWeeks расходился с write-стороной — выровнен по кавычкам; round-trip тесты швов добавлены в prepare-week.test.js), 1 NIT убран (неиспользуемый CI_LATEST). Все замечания закрыты до коммита" },
-    { "id": "final",     "status": "done", "startedAt": "2026-10-18T12:35:00+03:00", "finishedAt": "2026-10-18T12:45:00+03:00", "note": "интерфейсы top-up (интерфейсы фактически добавленного API), review замечания закрыты, директория без --wip, 456/0" }
+    {
+      "id": "preflight",
+      "status": "done",
+      "startedAt": "2026-10-18T12:26:34+03:00",
+      "finishedAt": "2026-10-18T12:26:51+03:00"
+    },
+    {
+      "id": "manifest",
+      "status": "done",
+      "startedAt": "2026-10-18T12:26:51+03:00",
+      "finishedAt": "2026-10-18T12:33:59+03:00"
+    },
+    {
+      "id": "briefing",
+      "status": "done",
+      "startedAt": "2026-10-18T12:34:03+03:00",
+      "finishedAt": "2026-10-18T12:34:03+03:00",
+      "note": "округа 1: форма грида + применение выбранного набора — закрыты пользователем"
+    },
+    {
+      "id": "spec",
+      "status": "done",
+      "startedAt": "2026-10-18T12:33:59+03:00",
+      "finishedAt": "2026-10-18T12:45:41+03:00"
+    },
+    {
+      "id": "plan",
+      "status": "active",
+      "startedAt": "2026-10-18T12:45:41+03:00"
+    },
+    {
+      "id": "build",
+      "status": "pending"
+    },
+    {
+      "id": "review",
+      "status": "pending"
+    },
+    {
+      "id": "final",
+      "status": "pending"
+    }
   ],
   "requirements": {
-    "total": 5, "done": 5, "inTicket": 0, "inSpec": 5,
-    "placeholder": 0, "deferred": 0, "dropped": 0
+    "total": 8,
+    "done": 0,
+    "inTicket": 7,
+    "inSpec": 0,
+    "placeholder": 0,
+    "deferred": 1,
+    "dropped": 0
   },
-  "tickets": [],
-  "singlePass": {
-    "files": [
-      "calc/prepare-week.js",
-      "tests/weeklists-agreement.test.js",
-      "tests/latest-loader.test.js",
-      "tests/page-smoke.test.js",
-      "tests/week-combined-parity.test.js",
-      "tests/prepare-week.test.js"
-    ],
-    "tests": { "total": 456, "passed": 456, "failed": 0 }
-  },
+  "tickets": [
+    {
+      "id": "01",
+      "title": "Калибровка severity-весов: грид кандидатов, оценка по цепочке, выбор",
+      "requirements": [
+        "R01",
+        "R01.1",
+        "R01.2",
+        "R02",
+        "R03",
+        "R05",
+        "R04",
+        "R06i",
+        "R07i"
+      ],
+      "blockedBy": [],
+      "wave": 1,
+      "zone": [
+        "calc/calibrate.js",
+        "calc/calc.js",
+        "calc/params.js",
+        "tests/calibrate.test.js",
+        "docs/calibration-journal.md"
+      ],
+      "review": "нет (T0: whole-branch review — его ревью)",
+      "model": "сильная",
+      "status": "pending",
+      "retries": 0,
+      "repairs": 0
+    }
+  ],
   "tests": null,
-  "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
+  "debt": {
+    "placeholders": [],
+    "assumptions": [],
+    "emptyEnv": []
+  },
   "additions": [],
-  "coverage": { "findings": 5, "missing": 0, "half": 0, "extra": 5, "note": "независимая проверка брифа↔спеки: пропусков и половинок нет; 5 extra — все разрешены как углубления R01/R02 (диск-сверка CI_WEEKS↔каталоги data/, порядок и дубли списков, производные проверки в latest-loader, запрет новых литералов) или как фиксация отложенного (weekly-calc.yml в «Вне рамок»); свободных A## нет" },
+  "coverage": {
+    "found": 2,
+    "fixed": 2,
+    "deferred": 0,
+    "items": [
+      "weeklists-прогон: добавлена строка в Решение (сдан ccaf356, вне рамок)",
+      "роль verify-якорей: добавлена явная переинтерпретация (ветка 1, Дополнение брифа)"
+    ]
+  },
   "concerns": [],
-  "reviewers": { "manifestSpec": null, "craft": "subagent ✓ — 0 CRITICAL; MAJ/MIN замечания закрыты до коммита (craft-review, ses_eb1b6f097ffeCsKS10ssQIAc55)" },
-  "blind": null
+  "blind": null,
+  "beats": [
+    "2026-10-18T12:26:34+03:00",
+    "2026-10-18T12:26:51+03:00",
+    "2026-10-18T12:27:01+03:00",
+    "2026-10-18T12:28:29+03:00",
+    "2026-10-18T12:33:47+03:00",
+    "2026-10-18T12:33:59+03:00",
+    "2026-10-18T12:34:03+03:00",
+    "2026-10-18T12:38:08+03:00",
+    "2026-10-18T12:45:41+03:00",
+    "2026-10-18T12:46:29+03:00",
+    "2026-10-18T12:46:30+03:00",
+    "2026-10-18T12:46:52+03:00"
+  ],
+  "rev": 15,
+  "waiting": null,
+  "waits": [
+    {
+      "kind": "briefing",
+      "from": "2026-10-18T12:28:29+03:00",
+      "to": "2026-10-18T12:33:47+03:00"
+    },
+    {
+      "kind": "briefing",
+      "from": "2026-10-18T12:38:08+03:00",
+      "to": "2026-10-18T12:45:41+03:00"
+    }
+  ],
+  "log": [
+    {
+      "t": "2026-10-18T12:26:34+03:00",
+      "k": "init"
+    },
+    {
+      "t": "2026-10-18T12:26:51+03:00",
+      "k": "stage",
+      "id": "manifest",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T12:28:29+03:00",
+      "k": "ask",
+      "kind": "briefing",
+      "note": "два вопроса — форма грида severity и применять ли найденный набор к PARAMS"
+    },
+    {
+      "t": "2026-10-18T12:33:47+03:00",
+      "k": "answered",
+      "kind": "briefing"
+    },
+    {
+      "t": "2026-10-18T12:33:59+03:00",
+      "k": "gate",
+      "g": "G1",
+      "ok": false,
+      "open": 8,
+      "total": 8
+    },
+    {
+      "t": "2026-10-18T12:33:59+03:00",
+      "k": "stage",
+      "id": "spec",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T12:34:03+03:00",
+      "k": "stage",
+      "id": "briefing",
+      "act": "done"
+    },
+    {
+      "t": "2026-10-18T12:38:08+03:00",
+      "k": "ask",
+      "kind": "briefing",
+      "note": "развилка после разведки: у всех 10 якорей нет events[] — грид severity на них не дифференцируется"
+    },
+    {
+      "t": "2026-10-18T12:45:41+03:00",
+      "k": "answered",
+      "kind": "briefing"
+    },
+    {
+      "t": "2026-10-18T12:45:41+03:00",
+      "k": "gate",
+      "g": "G2",
+      "ok": true,
+      "found": 2,
+      "fixed": 2,
+      "deferred": 0
+    },
+    {
+      "t": "2026-10-18T12:45:41+03:00",
+      "k": "stage",
+      "id": "plan",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-18T12:46:29+03:00",
+      "k": "tier",
+      "v": "T0"
+    },
+    {
+      "t": "2026-10-18T12:46:30+03:00",
+      "k": "tickets",
+      "n": 1
+    },
+    {
+      "t": "2026-10-18T12:46:30+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": false,
+      "problems": 1
+    },
+    {
+      "t": "2026-10-18T12:46:52+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": true,
+      "problems": 0
+    }
+  ],
+  "reqList": [
+    {
+      "id": "R01",
+      "text": "«расширь calc/calibrate.js гридом severity-наборов»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R02",
+      "text": "«rolling-origin 7 select / 3 verify, verify-якоря»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R03",
+      "text": "«чувствительность ±20 %»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R04",
+      "text": "«журнал docs/calibration-journal.md»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R05",
+      "text": "«калибровка severity (severityValues в calc/params.js)»",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R06i",
+      "text": "(подразумевается) при сдвиге чисел — актуализировать пины tests/data.test.js и tests/sensitivity.test.js",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R07i",
+      "text": "(подразумевается) node --test зелёный после всех правок",
+      "status": "in-ticket"
+    },
+    {
+      "id": "R08i",
+      "text": "(подразумевается) один коммит оркестратора; пуш — за пользователем; исполнители не коммитят",
+      "status": "deferred",
+      "why": "процессная конвенция репо (AGENTS.md/interfaces.md), не таск"
+    }
+  ],
+  "gates": {
+    "G1": {
+      "ok": false,
+      "at": "2026-10-18T12:33:59+03:00",
+      "open": 8,
+      "total": 8
+    },
+    "G2": {
+      "ok": true,
+      "at": "2026-10-18T12:45:41+03:00",
+      "found": 2,
+      "fixed": 2,
+      "deferred": 0
+    },
+    "G3": {
+      "ok": true,
+      "at": "2026-10-18T12:46:52+03:00",
+      "problems": 0
+    }
+  },
+  "result": null
 }
