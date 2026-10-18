@@ -82,6 +82,15 @@ calc/linkcheck.js         чистый модуль проверки URL: classi
                           checkUrl (ретраи на 429/406/5xx, таймаут 10 c, браузерные
                           заголовки), checkSources (последовательный обход)
 calc/check-sources.js     CLI перепроверки ссылок всех/перечисленных недель поверх calc.js
+calc/live-check.js        CLI сверки живого сайта: тянет data/latest.js + week.js,
+                          исполняет в vm, гоняет контракт js/data.js, проверяет цитаты
+                          09-20/09-27; --base (дефолт https://cassindex.ru), код 1 при
+                          расхождениях; тесты tests/live-check.test.js (без сети)
+calc/quotes.js            цитаты источника: QUOTE_MAX_LEN/QUOTES_PER_SOURCE_MAX,
+                          validateQuotes (форма: {criterion, text}, criterion из 46),
+                          verifyQuotes (дословность по корпусу texts-<неделя>/<id>.txt
+                          нормализацией calc/classify.js) — ворота в writeWeek;
+                          тесты tests/quotes.test.js
 calc/sensitivity.js       sensitivityScore — leave-one-domain/leave-one-cluster метрика
                           (R02): max|ΔI| в п.п., поле sensitivity quality-блока снапшота
 calc/classify.js          чистый конвертер «черновик Jev v2 → штатный вход»
@@ -168,7 +177,11 @@ docs/adr/                 зафиксированные архитектурн�
                           покрытие недели 10-18; 0040 — история источников: причина
                           слепоты (blindReasons), реестр отбраковки (rejected[]),
                           происхождение записи (origin) и окно дозабора N = 4; база
-                          данных не подключается — хранения достаточно)
+                          данных не подключается — хранения достаточно; 0041 — цитаты
+                          полем `quotes` в записи источника; 0042 — ворота дословности
+                          на записи, а не на чтении; 0043 — `events[]` только у счётных
+                          критериев якорей; 0044 — побочные `coverageCriteria` у 09-20
+                          и 09-27 приняты; 0045 — раскрытие масштаба и детализация покрытия)
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
                           D1…D9 (текст документа ещё говорит «45» — под 46/3.0 не
                           обновлён):
@@ -255,6 +268,16 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   версии → явная ошибка, не даунгрейд), writeWeek — `--write` пишет week.js после частей
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
+- `calc/quotes.js` — цитаты источников (ADR 0041/0042): `validateQuotes(sources, criteriaIds)`
+  (форма `{criterion, text}`, criterion из 46, лимит 1200 символов и 12 цитат на источник),
+  `verifyQuotes(sources, corpusDir, opts)` (дословность через `quoteFound` из classify.js;
+  ошибки называют id источника и критерий). Ворота — в `writeWeek` до linkcheck: неделя
+  с непроверяемой цитатой не пишется; `--write` читает корпус `calc/input/drafts/texts-<неделя>/`
+  (в `.gitignore`), поэтому чтение недели без корпуса работает. Поле опциональное:
+  в `data/` оно есть у 09-20 (8 источников) и 09-27 (6 источников, 7 цитат).
+- `calc/live-check.js` — сверка живого сайта: `checkSite({base, fetchImpl})` → отчёт,
+  `node calc/live-check.js [--base …]` (12 недель, контракт, цитаты 09-20/09-27, exit 1 при
+  расхождениях); скачанный JS исполняется в `vm` — доверять только своему домену (report).
 - `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
   `aggregateDrivers` при исключении каждого домена и каждого кластера источников,
   `max|ΔI|` по internal (одно десятичное); `SENSITIVITY_THRESHOLD = PARAMS.sensitivityThreshold`.
@@ -414,7 +437,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
-  notes. data.js принимает и легаси-схему (скалярная date) для обратной совместимости.
+  notes, quotes ([{criterion, text}] — цитаты, ADR 0041; дословность проверяется
+  на записи, ADR 0042). data.js принимает и легаси-схему (скалярная date) для
+  обратной совместимости.
 - Каноническая классификация доменов (зафиксирована при правке метаданных
   2026-10-05): aa.com.tr (Anadolu), dw.com (Deutsche Welle), aljazeera.com —
   всегда `B-state-media` + `state_affiliated: true` (гос/госфинансируемые СМИ
@@ -467,7 +492,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 сквозной позитив: эмитированный вход проходит engine.validate и маппится в 9 драйверов);
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель и
 региональный охват africa/south-asia — см. подводные камни); схема источников R55:
-`tests/sources-schema.test.js`;
+`tests/sources-schema.test.js` (включая опциональные `quotes`);
+цитаты источника и их дословность (ADR 0041/0042): `tests/quotes.test.js` (форма,
+лимиты, корпус, отказ без корпуса) и `tests/live-check.test.js` (сверка живого сайта
+на поддельном fetch — без сети);
 долг истории источников (ADR 0040): `tests/history-debt.test.js` (enum-ы, паритет
 `PARAMS.backfillCriteria` с правилом esc ∪ Д1/Д3/Д5/Д6/Д7, окно от недели первого
 покрытия, `validateRejected`/`validateBlindReasons` — warning) и
@@ -749,6 +777,15 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
   «Согласен»/«Не разрешать» перед скриншотами. Программный `focus()` не матчит
   `:focus-visible` (и `focus({focusVisible:true})` не работает) — диспетчеризовать
   реальный Tab через `Input.dispatchKeyEvent`.
+- Цитаты источников (ADR 0041): поле `quotes` есть только у 09-20 (8 источников) и 09-27
+  (6 источников, 7 цитат) — корпус `calc/input/drafts/texts-<неделя>/` в `.gitignore`,
+  у остальных недель текстов нет, задним числом не выдумываются. В аккордеоне источника
+  цитата показывается только если `url` источника драйвера/региона совпадает с записью
+  `snapshot.sources` (у 09-27 — 0 совпадений из 14/27, у 09-20 — 1 и 4), поэтому полный
+  список цитат недели живёт в витрине доверия (`quotedSources`). Проверка дословности —
+  ворота `writeWeek`: без корпуса неделя с цитатой не пишется (ADR 0042).
+- `calc/live-check.js` исполняет скачанный с сайта JS в `vm` — это не песочница: гонять
+  только против своего домена; ожидание «12 недель» зашито (`EXPECTED_WEEK_COUNT`).
 
 ## Как здесь работает Autopilot
 
