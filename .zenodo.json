@@ -10,6 +10,9 @@
   "license": "cc-by-4.0",
   "access_right": "open",
   "publication_date": "2026-10-18",
+  "version": "1.0.0",
+  "language": "rus",
+  "notes": "Лицензия cc-by-4.0 относится к данным (LICENSE-DATA). Код проекта распространяется по Apache License 2.0 (LICENSE), документы и тексты — по CC BY 4.0 (LICENSE-DOCS). Официальный источник — https://cassindex.ru; форки не являются официальными.",
   "keywords": [
     "conflict risk",
     "open data",
