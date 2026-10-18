@@ -91,7 +91,17 @@
 
 ## Что уже построено прошлыми тасками
 
-Нет: прогон начинается с пустого места в этой области.
+### Т01 — правовая рамка (коммит `T01`)
+
+- Файлы: `LICENSE` (Apache-2.0 + заполненное приложение, `Copyright 2026 Cassandra Index contributors`),
+  `LICENSE-DATA`, `LICENSE-DOCS` (шапка области применения + полный legalcode CC BY 4.0,
+  маркер тела — `FULL TEXT OF THE CC BY 4.0 LEGAL CODE`), `NOTICE` (5 пунктов),
+  `TRADEMARK.md`.
+- Тест `tests/licensing.test.js` — 7 `test()` на `node:test` + `assert/strict`;
+  проверяет наличие файлов, `git ls-files` на запрещённые каталоги через
+  `execFileSync('git', ['-C', root, 'ls-files'])`.
+- Тело legalcode CC в `LICENSE-DATA` и `LICENSE-DOCS` должно остаться идентичным;
+  различаются только шапки.
 
 ## Проект: как ставить, запускать и проверять
 
