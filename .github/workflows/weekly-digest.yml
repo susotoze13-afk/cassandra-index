@@ -15,6 +15,9 @@ on:
 # секретов он завершается notice-skip, а не красным фейлом.
 permissions:
   contents: write
+  # gh workflow run — push от GITHUB_TOKEN не порождает deploy.yml
+  # (та же причина, что в weekly-calc.yml).
+  actions: write
 
 concurrency:
   group: weekly-digest
@@ -122,3 +125,11 @@ jobs:
           fi
           git commit -m "дайджест: отправка отмечена в sent.json"
           git push origin master
+
+      # push от GITHUB_TOKEN не триггерит другие workflow — деплой запускается
+      # явно (как в weekly-calc.yml), иначе архив выпуска не доезжает до сайта.
+      - name: Запустить деплой
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref master
