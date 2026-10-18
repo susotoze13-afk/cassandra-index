@@ -1,0 +1,331 @@
+{
+  "group": "01",
+  "window": { "from": "2026-10-12", "to": "2026-10-18" },
+  "criteria": {
+    "D1.1": {
+      "covered": true,
+      "events": [0.5, 0.5],
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/17/saudi-led-coalition-intercepts-drones-as-egypt-weighs-sending-help", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Египет взвешивает отправку сил на помощь Саудовской Аравии; ОАЭ согласовали с Эр-Риядом возвращение в йеменский конфликт",
+      "regions": ["middle-east"]
+    },
+    "D1.2": { "covered": false, "note": "учений необычного масштаба в окне 12.10–18.10 не зафиксировано в доступных источниках" },
+    "D1.3": {
+      "covered": true,
+      "value": 0.33,
+      "sources": [
+        { "url": "https://www.aa.com.tr/en/middle-east/5-injured-in-ammunition-blast-at-iraqs-popular-mobilization-forces-base/4092325", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/world/2203601", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Наращивание логистики в зоне Залива: подвоз систем ПВО в Эр-Рияд и активность складов боеприпасов (взрыв на базе СНМ в Ираке)",
+      "regions": ["middle-east"]
+    },
+    "D1.4": {
+      "covered": true,
+      "events": [1.0, 1.0, 1.0, 0.5, 0.5],
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/emergencies/2203667", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true },
+        { "url": "https://tass.com/defense/2203653", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Активные боевые действия на нескольких театрах: подрыв танкеров на минах в Ормузском проливе, массированный удар дронов по Санкт-Петербургу и Ленобласти, удары по логистике и расчётам дронов ВСУ",
+      "regions": ["middle-east", "russia-belarus", "ukraine-moldova"]
+    },
+    "D1.5": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.jpost.com/middle-east/iran-news/article-911995", "date": "2026-10-18", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/world/2203601", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Развёртывание стратегических систем: КСИР в повышенной готовности, наращивание ПВО в Эр-Рияде, дежурства ПВО над Ленобластью против роя дронов",
+      "regions": ["middle-east", "russia-belarus"]
+    },
+    "D1.6": { "covered": false, "note": "подтверждённого разведения войск или вывода из позиций в окне нет; дипломатические паузы (санкции РФ) не являются разведением сил" },
+    "D5.1": {
+      "covered": true,
+      "value": 0.67,
+      "sources": [
+        { "url": "https://www.al-monitor.com/originals/2026/10/window-diplomacy-iran-may-be-closing-trump-again-threatens-pickaxe-mountain", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://tass.com/politics/2203539", "date": "2026-10-17", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Эскалация военной риторики: Трамп снова угрожает объекту Пик-Моунтин в Иране, российский посланник называет ситуацию вокруг Украины «мат»",
+      "regions": ["middle-east", "russia-belarus"]
+    },
+    "D5.2": {
+      "covered": true,
+      "events": [0.5, 0.5],
+      "sources": [
+        { "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/", "date": "2026-10-17", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false },
+        { "url": "https://www.bleepingcomputer.com/news/security/bae-systems-cyberattack-disrupts-us-federal-court-operations/", "date": "2026-10-16", "cluster": "A-mainstream", "type": "secondary", "state_affiliated": false }
+      ],
+      "note": "Кибероперации против инфраструктуры: атака на цепочку поставок ConnectWise с взломом арендаторов Microsoft 365 и инцидент у BAE Systems, нарушивший работу федеральных судов США",
+      "regions": ["north-america"]
+    },
+    "D5.3": { "covered": false, "note": "отчётов проверенных аналитических центров о координированных дезинформ-кампаниях в окне не найдено" },
+    "D5.4": { "covered": false, "note": "сигналов снижения военной пропаганды (закрытие каналов, публичные опровержения) в окне нет" },
+    "D6.1": { "covered": false, "note": "введения/расширения военного положения или мобилизационных законов в окне по доступным источникам не зафиксировано" },
+    "D6.2": { "covered": false, "note": "эвакуации населения из приграничных зон или учений ГО необычного масштаба в окне нет" },
+    "D6.3": {
+      "covered": true,
+      "value": 1,
+      "sources": [
+        { "url": "https://ria.ru/20261018/svo-2125201970.html", "date": "2026-10-18", "cluster": "B-state-media", "type": "secondary", "state_affiliated": true }
+      ],
+      "note": "Военная переориентация экономики: в российских колониях заключённые производят одежду для военнослужащих (военные госзаказы)",
+      "regions": ["russia-belarus"]
+    },
+    "D6.4": { "covered": false, "note": "отмены мобилизационных мер и возвращения гражданских режимов в окне нет" }
+  },
+  "driverConfidence": {
+    "D1": { "level": "medium", "reason": "покрыто 4/6 (D1.1, D1.3, D1.4, D1.5); счётные критерии подтверждены независимыми кластерами A и B" },
+    "D5": { "level": "low", "reason": "покрыто 2/4 (D5.1, D5.2); киберкритерий опирается на один кластер A, дезинформ/деэскалация не подтверждены" },
+    "D6": { "level": "low", "reason": "покрыт 1/4 (только D6.3, один источник кластера B); мобилизация/эвакуация/откат без сигналов" }
+  },
+  "regions": [
+    {
+      "region": "middle-east",
+      "observation": {
+        "ru": "Иран и Йемен в центре недели: подрыв двух танкеров на минах в Ормузском проливе, обстрел СПГ-танкера у берегов Йемена и удары хуситов по штабу в Адене",
+        "en": "Iran and Yemen dominate the week: two tankers hit mines in the Strait of Hormuz, an LNG tanker fired upon off Yemen, and Houthi strikes on a government HQ in Aden"
+      },
+      "why": {
+        "ru": "Перекрытие Ормуза и удары по энергетической инфраструктуре Залива резко повышают региональный сигнал эскалации",
+        "en": "Hormuz disruption and strikes on Gulf energy infrastructure sharply raise the regional escalation signal"
+      },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz", "date": "2026-10-18", "cluster": "A-mainstream" },
+        { "url": "https://www.aa.com.tr/en/middle-east/small-boat-approaches-opens-fire-on-lng-tanker-off-yemen-s-coast-uk-maritime-agency-says/4092086", "date": "2026-10-17", "cluster": "B-state-media" },
+        { "url": "https://www.al-monitor.com/originals/2026/10/egypts-sisi-seeks-parliaments-backing-help-defend-saudi-arabia-if-asked", "date": "2026-10-17", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "russia-belarus",
+      "observation": {
+        "ru": "Один из крупнейших за четыре года ударов дронов по Санкт-Петербургу и Ленинградской области: поражены ЦОД VK и нефтяной терминал, работа ПВО и аэропорта Пулково нарушена",
+        "en": "One of the largest drone attacks in four years on St Petersburg and the Leningrad region: a VK data centre and an oil terminal hit, air defences and Pulkovo airport disrupted"
+      },
+      "why": {
+        "ru": "Удар по тыловой инфраструктуре и энергетике углубляет вовлечённость РФ и повышает региональный риск",
+        "en": "The strike on rear-area infrastructure and energy deepens Russian involvement and raises regional risk"
+      },
+      "contribution": "high",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://tass.com/emergencies/2203667", "date": "2026-10-18", "cluster": "B-state-media" },
+        { "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm", "date": "2026-10-18", "cluster": "A-mainstream" }
+      ]
+    },
+    {
+      "region": "europe",
+      "observation": {
+        "ru": "Массовые антиправительственные протесты во Франции: поджоги зданий и более 1200 задержанных, беспорядки распространились на несколько городов",
+        "en": "Mass anti-government protests in France: buildings set ablaze and more than 1,200 arrested, unrest spreading across several cities"
+      },
+      "why": {
+        "ru": "Внутренняя нестабильность в крупной европейской стране ослабляет сплочённость и повышает региональный фон",
+        "en": "Domestic instability in a major European state weakens cohesion and raises the regional background"
+      },
+      "contribution": "medium",
+      "confidence": "high",
+      "sources": [
+        { "url": "https://www.theguardian.com/world/2026/oct/17/protests-france-high-prices-social-security-gilets-jaunes", "date": "2026-10-17", "cluster": "A-mainstream" }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "id": "aljazeera-egypt-saudi-help",
+      "title": { "ru": "Саудовская коалиция перехватывает дроны, Египет взвешивает помощь", "en": "Saudi-led coalition intercepts drones as Egypt weighs sending help" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/17/saudi-led-coalition-intercepts-drones-as-egypt-weighs-sending-help",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-uae-yemen-reentry",
+      "title": { "ru": "ОАЭ договорились с Саудовской Аравией о возвращении в конфликт в Йемене", "en": "UAE agrees with Saudi Arabia to re-enter Yemen conflict amid Houthi gains" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aa-iraq-pmf-ammo-blast",
+      "title": { "ru": "5 пострадавших при взрыве боеприпасов на базе Сил народной мобилизации в Ираке", "en": "5 injured in ammunition blast at Iraq's Popular Mobilization Forces base" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/5-injured-in-ammunition-blast-at-iraqs-popular-mobilization-forces-base/4092325",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-air-defense-riyadh",
+      "title": { "ru": "Европе сложно поставлять больше систем ПВО в Эр-Рияд — газета", "en": "Europe has difficulties with supplying more air defense systems to Riyadh — newspaper" },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2203601",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aljazeera-hormuz-tankers-mines",
+      "title": { "ru": "Иран сообщает: два танкера загорелись после подрыва на минах в Ормузском проливе", "en": "Iran says two tankers catch fire after hitting mines in Strait of Hormuz" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "aljazeera-st-petersburg-drone-swarm",
+      "title": { "ru": "Санкт-Петербург под атакой роя украинских дронов", "en": "St Petersburg under attack from Ukrainian drone swarm" },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-leningrad-largest-drone-attack",
+      "title": { "ru": "Атака дронов на Ленинградскую область — одна из крупнейших за четыре года", "en": "Drone attack on Leningrad Region one of largest in four years" },
+      "domain": "tass.com",
+      "url": "https://tass.com/emergencies/2203667",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "tass-dobropolye-drone-crews",
+      "title": { "ru": "Удары России уничтожили половину из почти 500 украинских расчётов дронов под Добропольем", "en": "Russian strikes destroy half of nearly 500 Ukrainian drone crews near Dobropolye" },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2203653",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "jpost-iran-irgc-high-alert",
+      "title": { "ru": "Санкции сжимают иранскую экономику; КСИР приведён в повышенную готовность из-за рисков беспорядков", "en": "Sanctions strangle Iranian economy as IRGC goes on high alert over civil unrest risks" },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/iran-news/article-911995",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "almonitor-trump-pickaxe-mountain",
+      "title": { "ru": "Окно дипломатии с Ираном может закрываться: Трамп снова угрожает объекту Пик-Моунтин", "en": "Window for diplomacy with Iran may be closing as Trump again threatens Pickaxe Mountain" },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/10/window-diplomacy-iran-may-be-closing-trump-again-threatens-pickaxe-mountain",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "tass-ukraine-checkmate",
+      "title": { "ru": "Российский посланник называет ситуацию вокруг Украины «мат»", "en": "Russian presidential envoy describes situation around Ukraine as checkmate" },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2203539",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "bleeping-connectwise-supply-chain",
+      "title": { "ru": "Хакеры взломали арендаторов Microsoft 365 через цепочку поставок ConnectWise", "en": "Hackers breach Microsoft 365 tenants via ConnectWise supply-chain attack" },
+      "domain": "bleepingcomputer.com",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "bleeping-bae-federal-courts",
+      "title": { "ru": "Кибератака на BAE Systems нарушила работу федеральных судов США", "en": "BAE Systems cyberattack disrupts US federal court operations" },
+      "domain": "bleepingcomputer.com",
+      "url": "https://www.bleepingcomputer.com/news/security/bae-systems-cyberattack-disrupts-us-federal-court-operations/",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "ria-prison-military-clothing",
+      "title": { "ru": "В российских колониях заключённые производят одежду для бойцов СВО", "en": "In Russian colonies inmates produce clothing for SMO soldiers" },
+      "domain": "ria.ru",
+      "url": "https://ria.ru/20261018/svo-2125201970.html",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "aa-lng-tanker-attacked-yemen",
+      "title": { "ru": "Малый катер открыл огонь по СПГ-танкеру у берегов Йемена — морское агентство Британии", "en": "Small boat approaches, opens fire on LNG tanker off Yemen's coast, UK maritime agency says" },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/small-boat-approaches-opens-fire-on-lng-tanker-off-yemen-s-coast-uk-maritime-agency-says/4092086",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "almonitor-egypt-sisi-saudi-defence",
+      "title": { "ru": "Сиси просит парламент одобрить помощь в защите Саудовской Аравии по запросу", "en": "Egypt's Sisi seeks parliament's backing to help defend Saudi Arabia if asked" },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/10/egypts-sisi-seeks-parliaments-backing-help-defend-saudi-arabia-if-asked",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "guardian-france-protests",
+      "title": { "ru": "Погромы и более 1200 задержанных: полиция столкнулась с протестующими по всей Франции", "en": "Buildings set ablaze and more than 1,200 arrested as police clash with protesters across France" },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/protests-france-high-prices-social-security-gilets-jaunes",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    }
+  ]
+}
