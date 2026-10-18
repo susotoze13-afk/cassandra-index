@@ -22,4 +22,18 @@ jobs:
           fetch-depth: 0
 
       - name: Проверка Signed-off-by
-        run: node tools/check-dco.js "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+        # Скрипт берётся из базовой ветки: иначе PR может ослабить свой же гейт,
+        # отредактировав tools/check-dco.js в том же коммите.
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          SCRIPT="$(mktemp -d)/check-dco.js"
+          if git show "$BASE_SHA:tools/check-dco.js" > "$SCRIPT" 2>/dev/null; then
+            echo "проверка подписи: скрипт из базовой ветки $BASE_SHA"
+          else
+            echo "проверка подписи: в базовой ветке скрипта нет, берём из PR"
+            cp tools/check-dco.js "$SCRIPT"
+          fi
+          node "$SCRIPT" "$BASE_SHA" "$HEAD_SHA"
