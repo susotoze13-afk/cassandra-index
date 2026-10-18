@@ -141,3 +141,68 @@
   сдвинута относительно него, ссылки в текстах это учитывают.
 - `docs/jev-classification.md` всё ещё говорит «45 критериев» — документ под 46/3.0
   не обновлялся.
+
+## 10. Публичный слой и дайджест
+
+Вторая, «витринная» половина пайплайна: снапшот недели → проекция для внешних
+потребителей → статические файлы → страницы. Обе ветки производны от тех же частей
+недели, что и `week.js`, и ни в один момент не меняют сам снапшот.
+
+### Поток данных
+
+```
+data/<week>/{global,regions,trend,drivers,sources,region-*}.js
+  └─ loadWeekParts / renderWeekCombined (calc/week-step.js)
+       └─ loadSnapshotFromDisk + validate (js/data.js)        ← единственный вход обеих веток
+            ├─ calc/public-export.js ─ datasetOf / buildDataset ─┬─ data/public/index.json
+            │                                                    ├─ data/public/latest.json
+            │                                                    ├─ data/public/cassandra-index.csv
+            │                                                    ├─ data/public/trend.svg
+            │                                                    └─ changelog.json + changelog.html
+            │                                                       (из calc/changelog-entries.js)
+            └─ calc/digest.js ─ buildDigest(snapshot, {site, prev, chartUrl})
+                 ├─ calc/digest-export.js ─ data/public/digest/<week>.json
+                 │                           + data/public/digest/index.json + digest.html
+                 └─ calc/digest-send.js ─ deliver ─┬─ Telegram Bot API (sendMessage)
+                                                   └─ HTTP-эндпоинт письма (POST JSON)
+                                                      └─ data/digest/sent.json (реестр)
+```
+
+`datasetOf` — узкая проекция (индекс, дельта, состояние, `q`, покрытие, регионы,
+precursor, вклад драйверов, сводка источников, тренд); части снапшота в публичный
+формат не копируются целиком. `data/public/*`, `digest.html`, `changelog.html` —
+производные: ручная правка затирается следующей сборкой, а расхождение ловят
+`tests/public-export.test.js`, `tests/changelog.test.js`, `tests/digest.test.js`.
+
+### Границы
+
+| Модуль | Владеет | Не знает |
+|---|---|---|
+| `calc/public-export.js` | проекцией снапшота, JSON/CSV/SVG, `changelog.html` | сайта, бандлов, `js/i18n.js` |
+| `calc/changelog-entries.js` | курируемым списком изменений и его формой | данных недели |
+| `calc/digest.js` | текстом выпуска (тема, text/html/telegram, 5 пунктов, 3 региона) | как и куда он уходит |
+| `calc/digest-page.js` | `digest.html` и ссылкой на `index.json` | доставки, расписания |
+| `calc/digest-export.js` | записью выпусков и архивного индекса (merge с диском) | каналов и секретов |
+| `calc/digest-send.js` | каналами, резервом и реестром `sent.json` | текста выпуска (получает готовый) |
+
+Обратной связи нет: сайт читает только `data/`, и ни один модуль `js/**` не грузит
+`data/public/*` — публичный слой существует для внешних потребителей и SEO-страниц.
+
+### Инварианты
+
+- Порядок сборки недели: `calc.js --write` → `public-export.js --write` →
+  `digest-export.js --write` → `node build.js` → `node --test`; так же в
+  `weekly-calc.yml`, где публичный слой и дайджест пересобираются до тестов.
+- Публичная схема версионируется отдельно (`PUBLIC_SCHEMA_VERSION = 1`), таймстемпов в
+  выводе нет: повторный `--write` без изменения данных даёт тот же файл.
+- `digest-export.js` по умолчанию берёт только недели текущей `PARAMS.methodology`;
+  `--week` добавляет одну, архив на диске не теряется (merge по неделе).
+- Идемпотентность доставки — пара «неделя+канал»: `--reserve` пишет `pending` до
+  отправки, `--send` пропускает занятые каналы и снимает `pending` только по успешным;
+  легаси-форма `sent.json` `{weeks:[...]}` читается как «оба канала отправлены».
+- Секреты не покидают процесс: в stderr — только имя переменной, значения вырезаются
+  `redact` из любых сообщений.
+- Статические страницы (`how-to-read.html`, `compare*.html`, `articles.html`) — вне
+  бандла, без JS, с инлайн-текстом; `robots.txt`/`sitemap.xml` их перечисляют, а
+  `tests/site-pages.test.js` требует, чтобы каждая страница корня была в `cp`-строке
+  `deploy.yml` — иначе она просто не публикуется.

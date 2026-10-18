@@ -30,8 +30,12 @@
 | Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
+| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg` и `changelog.html`; `--root <dir>` — другой корень |
+| Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
+| Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев) |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
-| Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
+| Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, пересобирает публичный слой и дайджест (`public-export.js --write`, `digest-export.js --write`), тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
+| Автозапуск дайджеста | `.github/workflows/weekly-digest.yml`: cron пн 06:00 UTC + `workflow_dispatch [week]`; резерв каналов `--reserve`, коммит выпуска и `sent.json`, затем `--send`; без секретов — тихий skip |
 | Сайт | открыть `index.html` (работает с `file://`, подключены бандлы) или любой статический сервер |
 
 `node calc/calc.js --write` требует сети: перед записью собранный снапшот гоняется
@@ -40,20 +44,30 @@
 ## Публикация
 
 - Выкат — GitHub Actions `.github/workflows/deploy.yml` на push в `master`; публикуется
-  только `index.html`, `privacy.html`, `icon.svg`, `css/`, `js/`, `data/` — остальное наружу не уходит.
+  только то, что перечислено в `cp`-строке шага «Stage site files» (сейчас: `index.html`,
+  `privacy.html`, `how-to-read.html`, `changelog.html`, `digest.html`, `articles.html`,
+  `compare*.html`, `icon.svg`, `robots.txt`, `sitemap.xml`, `css/`, `js/`, `data/`) —
+  остальное наружу не уходит.
 - Пуш в master = автоматический выкат; коммитить только готовое к публикации, коммит и пуш — только за оркестратором (агенты-исполнители НЕ коммитят — был инцидент).
 - Автопуш по расписанию — `.github/workflows/weekly-calc.yml` (cron вс 08:00 МСК + `workflow_dispatch`): ЕДИНСТВЕННОЕ исключение правила выше — коммитит от `github-actions[bot]` и пушит в master только при готовом входе и сидах, после зелёных `node --test`; деплой запускается явно (`gh workflow run deploy.yml`, т.к. push от `GITHUB_TOKEN` не триггерит другие workflow). Подготовка входа и сидов остаётся ручной (§10.1); ворот на «не публиковать» нет — если вход/сиды не готовы, неделя тихо пропускается.
 - Обновление недели: вход `calc/input/<дата>.json` → `node calc/calc.js --write <дата>` →
+  `node calc/public-export.js --write` → `node calc/digest-export.js --write` →
   `node build.js` → `node --test` зелёный → commit (push — оркестратору).
 - URL: `https://cassindex.ru` (кастомный домен, зарегистрирован на Beget; DNS: 4 A-записи GitHub Pages на apex + CNAME `www` → `susotoze13-afk.github.io`). Репозиторий `susotoze13-afk/cassandra-index`, public. Старый адрес `https://susotoze13-afk.github.io/cassandra-index/` продолжает работать (GitHub редиректит на кастомный домен).
 
 ## Структура
 
 ```
-index.html                единственная страница; RU-разметка hero в HTML; блок
+index.html                главная страница; RU-разметка hero в HTML; блок
                           «История и источники» скрыт (секция #sources и ссылка
                           навигации удалены — пинит tests/page-structure.test.js)
 privacy.html              политика приватности
+how-to-read.html          «как читать индекс» (статика, без JS; tests/seo-pages.test.js)
+compare.html              хаб сравнений; compare-war-monitor/acled/crisiswatch.html —
+                          сравнения с внешними проектами; articles.html — статика
+changelog.html            ГЕНЕРИРУЕТСЯ calc/public-export.js --write
+digest.html               ГЕНЕРИРУЕТСЯ calc/digest-export.js --write
+robots.txt, sitemap.xml   статика SEO; оба файла в deploy-whitelist
 icon.svg                  favicon
 css/styles.css            все токены палитры и стили
 js/                       сайт: app (оркестрация), data (контракт снапшотов), i18n, risk,
@@ -134,6 +148,19 @@ calc/backfill-report.js   CLI долга истории: сводка + чек-�
 calc/migrate-week-combined.js  идемпотентная разовая миграция: `data/<week>/week.js`
                           из дисковых частей той же функцией, что и calc.js --write
                           (renderWeekCombined + loadWeekParts из calc.js)
+calc/public-export.js     публичный слой (PUBLIC_SCHEMA_VERSION = 1): datasetOf/
+                          buildDataset/toCsv/toTrendSvg/renderChangelogPage/
+                          writePublicData/loadSnapshotFromDisk; вход — week.js-путь +
+                          validate из js/data.js; сайта не знает
+calc/changelog-entries.js курируемый CHANGELOG, KINDS, validateChangelog, sortedDesc
+calc/digest.js            текст выпуска: buildDigest(snapshot, {site, prev, chartUrl}) →
+                          subject/text/html/telegram/meta; DIGEST_ITEMS = 5, DIGEST_REGIONS = 3
+calc/digest-page.js       digest.html: renderDigestPage(issues), архив 12 ссылок
+calc/digest-export.js     data/public/digest/<неделя>.json + index.json + digest.html
+                          (merge с диском); по умолчанию только недели PARAMS.methodology
+calc/digest-send.js       доставка (SENT_SCHEMA_VERSION = 2): sendTelegram/sendEmail
+                          (fetchImpl — шов), deliver, reserveSent/readSent/writeSent,
+                          runDigestSend; секреты редиктятся
 calc/input/<неделя>.json  входные сигналы недели: 46 критериев D1..D9 ({value, covered,
                           sources}; слепой критерий — null), R55-источники
                           (top-level, 20–82 записи/неделя), driverConfidence; покрытие
@@ -179,8 +206,13 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           ADR 0038)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
                           (по одному запросу на неделю вместо 11–17 частей; 12 недель)
+data/public/              производные (public-export.js --write): index.json (все недели),
+                          latest.json, changelog.json, cassandra-index.csv, trend.svg;
+                          digest/ — <неделя>.json + index.json (digest-export.js --write)
+data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
+                          pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0049;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0055;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -206,7 +238,10 @@ docs/adr/                 зафиксированные архитектурн�
                           покрыт, но не входит в скор); 0047 — слой Precursor Risk (Д9)
                           отдельным полем, в индекс не входит; 0048 — шкала порядковая,
                           нормировка не меняется; 0049 — форвардные якоря и заморозка
-                          параметров до 8 точек)
+                          параметров до 8 точек; 0050–0052 — публичные данные как
+                          производная проекция, версия публичной схемы, статические
+                          SEO-страницы; 0053–0055 — доставка письма HTTP-эндпоинтом,
+                          реестр «неделя+канал» с резервом, подписка через форму)
 docs/architecture.md      поток данных расчёта и сайта, границы модулей, конвенции;
                           источник для агента, впервые открывшего репозиторий
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
@@ -234,7 +269,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           55 файлов, node --test (575 passed)
+tests/*.test.js           62 файла, node --test (660 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -542,15 +577,23 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 ## Окружение
 
-Секретов, конфигов и переменных окружения нет — репозиторий полностью статический;
-для проверки ссылок нужна сеть (без неё проверки массово уходят в blocked — ворота
+Ядро репозитория (сайт + расчёт) конфигов не требует; переменные окружения нужны только
+доставке дайджеста — их имена и смысл в `.env.example` (значения — в секретах GitHub,
+в репозиторий не попадают):
+`TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` — бот и чат Bot API (канал telegram);
+`DIGEST_EMAIL_ENDPOINT` — HTTP-эндпоинт провайдера, принимающий POST JSON (канал email);
+`DIGEST_EMAIL_TOKEN` — Bearer-токен этого эндпоинта; `DIGEST_EMAIL_FROM` — адрес
+отправителя; `DIGEST_EMAIL_TO` — получатели (строка через запятую допустима).
+Необязательные, читаются кодом, но в `.env.example` отсутствуют: `DIGEST_SITE` (базовый
+URL в тексте выпуска) и `DIGEST_CHART_URL` (ссылка на картинку графика).
+Для проверки ссылок нужна сеть (без неё проверки массово уходят в blocked — ворота
 это не блокирует, но отчёт раздувает). Доступ к сети в этой среде — только через
 оболочку (`curl.exe`, `node` fetch); инструменты WebSearch/WebFetch ходят через мёртвый
 прокси и результата не дают.
 
 ## Тесты
 
-`node --test` без аргументов (55 файлов, 575 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (62 файла, 660 passed / 0 fail — подтверждено прогоном
 2026-10-18). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -581,6 +624,10 @@ through-конвенция: `tests/through.test.js`; список критери
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
 механика недели автозапуска (addRecalcWeek/addLatestWeek, идемпотентность):
 `tests/prepare-week.test.js`;
+публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
+`tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
+`tests/digest-send.test.js` (поддельный fetchImpl, redact, резерв), `tests/seo-pages.test.js`,
+`tests/site-pages.test.js` (каждый *.html корня обязан быть в cp-строке deploy.yml);
 отсечение точек не-3.0 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
 разметки страницы (отсутствие скрытой секции #sources
@@ -611,6 +658,20 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 
 ## Подводные камни
 
+- `deploy.yml` собирает `_site` явным `cp` — новая страница без строки в whitelist не
+  публикуется (локально всё работает). Ловит `tests/site-pages.test.js`: каждый `*.html`
+  корня обязан быть в cp-строке (исключение зашито — `cassandra-index-prototype.html`).
+- `data/public/*`, `changelog.html`, `digest.html`, `data/public/digest/*` — производные:
+  руками не правятся, пересобираются CLI (`public-export.js --write`,
+  `digest-export.js --write`), иначе `node --test`/паритет ловит расхождение.
+- `data/digest/sent.json` — реестр пар «неделя+канал», формат v2
+  (`channels{неделя:[...]}` + `pending{неделя:{канал:runId}}`); легаси `{weeks:[...]}`
+  читается как «оба канала отправлены». Запись резервируется `--reserve` ДО отправки —
+  иначе ретрай workflow отправит второй раз.
+- Секреты дайджеста — только имена в `.env.example` (значения в секретах GitHub);
+  `digest-send.js` редиктит их, в stderr попадает лишь имя переменной.
+- Новая неделя: `weekly-calc.yml` пересобирает публичный слой и дайджест до
+  `node --test` — устаревший `data/public/*` роняет тесты, а не уезжает в прод молча.
 - Кастомный домен `cassindex.ru`: workflow сам кладёт `_site/CNAME` (менять домен —
   править строку `echo cassindex.ru > _site/CNAME` в deploy.yml). CNAME из артефакта
   НЕ привязывает домен автоматически: одноразово домен сохранён вручную (Settings →

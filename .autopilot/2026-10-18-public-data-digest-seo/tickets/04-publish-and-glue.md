@@ -2,7 +2,7 @@
 
 **Требования:** R14, R27, R27.1, R13, R07
 **Зависит от:** 01, 02, 03
-**Зона:** `sitemap.xml` · `robots.txt` · `.github/workflows/deploy.yml` · `tests/site-pages.test.js`
+**Зона:** `sitemap.xml` · `robots.txt` · `.github/workflows/deploy.yml` · `.github/workflows/weekly-digest.yml` · `tests/site-pages.test.js`
 **Волна:** 3
 **Ревью:** нет
 **Модель:** обычная
@@ -33,6 +33,9 @@
 - [ ] `deploy.yml`: в шаге «Stage site files» копируются все корневые `*.html` (кроме
       `cassindex-index-prototype.html`), `robots.txt`, `sitemap.xml`; `rm -f
       _site/data/audit.jsonl` и `CNAME` остались; actions по-прежнему закреплены SHA
+- [ ] `weekly-digest.yml`: после коммита `sent.json` явно запускает `deploy.yml`
+      (`actions: write` + `gh workflow run deploy.yml`), иначе архив дайджеста не
+      доезжает до сайта — push от `GITHUB_TOKEN` не триггерит другие workflow
 - [ ] `tests/site-pages.test.js`: каждый корневой `*.html` есть в `cp`-списке deploy и в
       `sitemap.xml`; ни одного лишнего файла в обоих списках; каждая страница ссылается
       на `index.html`; `data/public/index.json` достижим по пути из `_site`
