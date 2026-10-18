@@ -5,7 +5,7 @@
 // + отчёты cloudflareinsights.com, только после согласия); privacy.html их не несёт.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -38,6 +38,24 @@ test('privacy.html: meta-CSP чиста от cloudflareinsights, diff к index �
     "base-uri 'self'; object-src 'none'",
   );
   assert.ok(!csp.includes('cloudflareinsights'), 'privacy.html не несёт разрешений cloudflareinsights');
+});
+
+test('blog: статические страницы — только self, без analytics/formsubmit', () => {
+  const pages = ['blog/index.html', ...readdirSync(path.join(ROOT, 'blog'))
+    .filter((name) => name.endsWith('.html') && name !== 'index.html')
+    .map((name) => `blog/${name}`)];
+  for (const file of pages) {
+    const csp = metaCsp(file);
+    assert.equal(
+      csp,
+      "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; " +
+      "font-src 'self'; base-uri 'self'; object-src 'none'",
+      `${file}: CSP не соответствует статической странице`,
+    );
+    assert.ok(!csp.includes('cloudflareinsights'), `${file}: не должен нести аналитику`);
+    assert.ok(!csp.includes('formsubmit'), `${file}: не должен нести formsubmit`);
+    assert.ok(!csp.includes("'unsafe-inline'"), `${file}: не должен нести unsafe-inline`);
+  }
 });
 
 test('articles.html: meta-CSP — только self, без analytics/formsubmit', () => {

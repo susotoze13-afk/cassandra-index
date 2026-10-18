@@ -92,6 +92,7 @@ jobs:
         run: |
           node calc/public-export.js --write
           node calc/digest-export.js --write
+          node blog-build.js --write
 
       - name: Тесты
         if: steps.gate.outputs.skip == 'false'

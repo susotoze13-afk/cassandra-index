@@ -18,7 +18,6 @@ const JS_DIR = path.join(__dirname, 'js');
 const BUNDLES = [
   ['js/bundle.js', ['js/app.js', 'js/share.js']],
   ['js/bundle-privacy.js', ['js/i18n.js', 'js/ui.js']],
-  ['js/bundle-articles.js', ['js/article.js']],
 ];
 
 const IMPORT_RE = /^import\s+(.+?)\s+from\s+['"](\.[^'"]+)['"];?\s*$/;

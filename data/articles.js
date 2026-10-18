@@ -1,6 +1,6 @@
-// articles.js — манифест рубрики (ADR 0037): недели с выпуском и document.write-
-// загрузка week.js + article.js этих недель. Тянет только articles.html. Генерируется
-// article-build.js, вручную не править.
+// articles.js — исторический манифест рубрики (ADR 0037): недели с выпуском и
+// document.write-загрузка week.js + article.js. Статический блог (ADR 0056) его не
+// использует; файл оставлен для совместимости. Генерируется article-build.js.
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 window.CI_ARTICLES = ["2026-10-18"];
 (function () {

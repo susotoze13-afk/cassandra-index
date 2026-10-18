@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // article-build.js — конвертер рубрики (ADR 0037): docs/articles/weekly/<week>.md →
 // data/<week>/article.js (редакционный сид, отдельная часть набора недели, НЕ входит
-// в week.js) + data/articles.js (манифест: список недель с выпуском и document.write
-// week.js + article.js этих недель). Без сторонних парсеров, только stdlib (как build.js).
+// в week.js) + data/articles.js (исторический манифест; статический блог ADR 0056
+// его не читает). Без сторонних парсеров, только stdlib (как build.js).
 // Пишет файлы только при --write; без него — печать и валидация (идемпотентно).
 // Чистые функции экспортированы для тестов (module.exports; ESM-тесты берут через createRequire).
 
@@ -281,9 +281,9 @@ function manifestFileFor(weeks) {
     .map((w) => `  document.write('<script src="data/${w}/week.js"><\\/script>');\n  document.write('<script src="data/${w}/article.js"><\\/script>');`)
     .join('\n');
   return (
-    '// articles.js — манифест рубрики (ADR 0037): недели с выпуском и document.write-\n' +
-    '// загрузка week.js + article.js этих недель. Тянет только articles.html. Генерируется\n' +
-    '// article-build.js, вручную не править.\n' +
+    '// articles.js — исторический манифест рубрики (ADR 0037): недели с выпуском и\n' +
+    '// document.write-загрузка week.js + article.js. Статический блог (ADR 0056) его не\n' +
+    '// использует; файл оставлен для совместимости. Генерируется article-build.js.\n' +
     'window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };\n' +
     `window.CI_ARTICLES = ${JSON.stringify(sorted)};\n` +
     '(function () {\n' +

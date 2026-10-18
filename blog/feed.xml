@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Блог Cassandra Index</title>
+    <link>https://cassindex.ru/blog/</link>
+    <atom:link href="https://cassindex.ru/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Еженедельные разборы уровня и направления конфликтного риска по открытым данным.</description>
+    <language>ru</language>
+    <lastBuildDate>Sun, 18 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Неделя морских путей: Ормузский пролив и рост числа вовлечённых сторон</title>
+      <link>https://cassindex.ru/blog/2026-10-18.html</link>
+      <guid isPermaLink="true">https://cassindex.ru/blog/2026-10-18.html</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Индекс риска — 64 из 100, за неделю +8. Центр тяжести сместился в море, а круг прямо вовлечённых сторон вырос.</description>
+    </item>
+  </channel>
+</rss>

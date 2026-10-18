@@ -103,9 +103,18 @@ test('sitemap.xml: urlset 0.9, абсолютные URL и ровно опубл
     assert.ok(location.startsWith(`${SITE}/`), `URL карты должен быть абсолютным: ${location}`);
   }
 
-  const expected = pages
-    .map((page) => (page === 'index.html' ? `${SITE}/` : `${SITE}/${page}`))
-    .sort();
+  // articles.html — алиас-редирект (ADR 0056): в карту входит целевой /blog/,
+  // а не промежуточная страница. Страницы блога лежат вне корня и читаются с диска.
+  const blogDir = join(root, 'blog');
+  const blogPages = existsSync(blogDir)
+    ? readdirSync(blogDir).filter((name) => name.endsWith('.html') && name !== 'index.html')
+    : [];
+  const expected = [
+    ...pages.filter((page) => page !== 'articles.html')
+      .map((page) => (page === 'index.html' ? `${SITE}/` : `${SITE}/${page}`)),
+    `${SITE}/blog/`,
+    ...blogPages.map((name) => `${SITE}/blog/${name}`),
+  ].sort();
   assert.deepEqual([...new Set(locations)].sort(), expected);
   assert.equal(locations.length, expected.length, 'в sitemap.xml не должно быть дублей');
 });

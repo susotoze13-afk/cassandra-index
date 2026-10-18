@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cassindex.ru/sitemap.xml
+
+# Индекс для генеративных поисковых систем (GEO): https://cassindex.ru/llms.txt

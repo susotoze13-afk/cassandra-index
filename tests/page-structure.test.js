@@ -16,12 +16,22 @@ test('index.html: блок «История и источники» скрыт (
   assert.ok(!indexHtml.includes('data-section="history"'), 'хост секции истории не должен остаться в разметке');
 });
 
-// Рубрика «Разбор недели» (ADR 0037): отдельная страница articles.html со своим
-// хостом; главная ссылается на неё из сервисной навигации.
+// Блог «Разбор недели» (ADR 0037 → ADR 0056): статический архив blog/index.html
+// и страницы недель; articles.html остался алиасом-редиректом. Главная ссылается
+// на блог из шапки и подвала — это постоянная точка входа, а не разовая ссылка.
 const articlesHtml = readFileSync(join(root, 'articles.html'), 'utf8');
 
-test('articles.html: есть хост выпуска и манифест, главная ссылается на рубрику', () => {
-  assert.ok(articlesHtml.includes('data-role="article"'), 'articles.html должен нести хост [data-role="article"]');
-  assert.ok(articlesHtml.includes('src="data/articles.js"'), 'articles.html грузит манифест data/articles.js');
-  assert.ok(indexHtml.includes('href="articles.html"'), 'главная должна ссылаться на articles.html');
+test('blog: главная ссылается на блог в шапке и подвале', () => {
+  assert.ok(indexHtml.includes('href="blog/"'), 'главная должна ссылаться на blog/');
+  assert.ok(indexHtml.includes('data-i18n="nav.blog"'), 'ссылка шапки должна брать строку из словаря');
+  assert.ok(indexHtml.includes('data-i18n="footer.blog"'), 'ссылка подвала должна брать строку из словаря');
+  assert.ok(indexHtml.includes('href="blog/" data-i18n="nav.blog"'), 'в шапке нет пункта «Блог»');
+});
+
+test('articles.html: алиас ведёт в статический блог, а не рендерит выпуск', () => {
+  assert.ok(articlesHtml.includes('href="blog/"'), 'articles.html должен вести в blog/');
+  assert.ok(articlesHtml.includes('<link rel="canonical" href="https://cassindex.ru/blog/">'),
+    'канонический адрес алиаса — страница блога');
+  assert.ok(articlesHtml.includes('http-equiv="refresh"'), 'алиас должен перенаправлять без JS');
+  assert.ok(!articlesHtml.includes('data-role="article"'), 'динамический хост выпуска больше не нужен');
 });

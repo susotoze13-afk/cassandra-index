@@ -328,6 +328,7 @@ export function renderChangelogPage(entries) {
     '',
     '  <header class="privacy-top">',
     '    <a class="privacy-back" href="index.html">← На главную</a>',
+    '    <a class="privacy-back" href="blog/">Блог</a>',
     '  </header>',
     '',
     '  <main>',
