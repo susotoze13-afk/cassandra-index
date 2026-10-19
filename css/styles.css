@@ -2544,6 +2544,245 @@ main {
   font-size: 13px;
 }
 
+/* ---------- «Почему индекс изменился» (ADR 0062) ----------
+   Водопад — список, а не SVG: значения читаются текстом, полоса декоративная
+   (aria-hidden) и только дублирует знак. Тон полосы — --state-* (рост/снижение),
+   но смысл не в цвете: рядом всегда число со знаком. На 320px одна колонка,
+   подписи переносятся. */
+.contribution-section {
+  padding: 20px 0;
+}
+
+.contribution-section[hidden] {
+  display: none;
+}
+
+.contribution-lead,
+.contribution-total {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.contribution-total {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.contribution-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contribution-step {
+  display: grid;
+  grid-template-columns: minmax(180px, 2fr) 64px minmax(0, 3fr);
+  align-items: center;
+  gap: 6px 12px;
+  font-size: 14px;
+}
+
+.contribution-step-label {
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.contribution-step-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  text-align: right;
+  color: var(--text);
+}
+
+.contribution-bar {
+  display: block;
+  height: 10px;
+  border-radius: 4px;
+  background: var(--border);
+}
+
+.contribution-bar--up {
+  background: var(--state-very);
+}
+
+.contribution-bar--down {
+  background: var(--state-calm);
+}
+
+/* Остаток — та же сетка, что у шагов (значение выровнено по колонке чисел),
+   но подпись переносится, а полоса идёт отдельной строкой во всю ширину. */
+.contribution-step--residual .contribution-step-label {
+  font-style: italic;
+  white-space: normal;
+}
+
+.contribution-step--residual .contribution-bar {
+  grid-column: 1 / -1;
+  background: var(--border-soft);
+}
+
+.contribution-breakdown {
+  margin: 14px 0 0;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 10px 14px;
+  color: var(--text-secondary);
+}
+
+.contribution-summary-toggle {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.contribution-summary-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.contribution-summary-toggle::before {
+  content: '▸';
+  margin-right: 8px;
+  color: var(--text-secondary);
+}
+
+.contribution-breakdown[open] > .contribution-summary-toggle::before {
+  content: '▾';
+}
+
+.contribution-summary-toggle:hover {
+  color: var(--accent);
+}
+
+.contribution-note {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.contribution-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.contribution-table th,
+.contribution-table td {
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--border-soft);
+  overflow-wrap: anywhere;
+}
+
+.contribution-table thead th {
+  border-top: 0;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.contribution-table tbody th {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.contribution-table-pp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+}
+
+.contribution-what {
+  margin-top: 16px;
+}
+
+.contribution-what-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.contribution-what-list {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.contribution-what-item {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 480px) {
+  /* Узкий экран: название драйвера — отдельной строкой во всю ширину, под ним
+     полоса и число в одной строке. */
+  .contribution-step {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 8px;
+  }
+
+  .contribution-step-label {
+    grid-column: 1 / -1;
+  }
+
+  .contribution-step-value {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  .contribution-bar,
+  .contribution-step--residual .contribution-bar {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  /* Таблица разложения на узком экране — карточки: имя драйвера, вклад и
+     критерии в три строки, без горизонтального скролла. */
+  .contribution-table thead {
+    display: none;
+  }
+
+  .contribution-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 8px;
+    padding: 8px 0;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .contribution-table tbody th {
+    grid-column: 1;
+    padding: 0;
+    border: 0;
+  }
+
+  .contribution-table tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  .contribution-table tbody td.contribution-table-pp {
+    grid-column: 2;
+    text-align: right;
+  }
+
+  .contribution-table tbody td:last-child {
+    grid-column: 1 / -1;
+    color: var(--text-secondary);
+  }
+}
+
 /* ---------- Справочные страницы: how-to-read.html, compare*.html ----------
    В них нет ни строки JS: только текст и стили, без скриптов и без
    встраивания; вёрстка проверяется без JS (reflow 320px для узких экранов),

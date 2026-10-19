@@ -19,6 +19,7 @@ import {
   renderChangelogPage,
   writePublicData,
   loadSnapshotFromDisk,
+  loadAnalysisFromDisk,
 } from '../calc/public-export.js';
 import { CHANGELOG, sortedDesc, validateChangelog } from '../calc/changelog-entries.js';
 import { validate, regionIdsFor } from '../js/data.js';
@@ -268,7 +269,7 @@ test('renderChangelogPage: полный HTML, дата/версия/заголо
 
 // --- Запись ---
 
-test('writePublicData: шесть файлов, повторная запись побайтово та же', (t) => {
+test('writePublicData: ряд, справочники, понедельные файлы и схемы; повторная запись та же', (t) => {
   const dir = tempDir(t);
   const weeks = ['2026-10-11', '2026-10-18'];
   const loadSnapshot = (week) => snapshotFor(week);
@@ -278,8 +279,13 @@ test('writePublicData: шесть файлов, повторная запись 
     loadSnapshot,
     entries: CHANGELOG,
   });
+  // 9 файлов ряда, зеркало analysis.js и changelog + 2 недели + 6 схем (ADR 0062).
   assert.deepEqual(first.files.map((f) => path.basename(f)).sort(), [
-    'cassandra-index.csv', 'changelog.html', 'changelog.json', 'index.json', 'latest.json', 'trend.svg',
+    '2026-10-11.json', '2026-10-18.json', 'analysis.js',
+    'cassandra-index.csv', 'changelog.html', 'changelog.json', 'criteria.json',
+    'criteria.schema.json', 'index.json', 'index.schema.json', 'latest.json',
+    'latest.schema.json', 'methodology.json', 'methodology.schema.json',
+    'regions.json', 'regions.schema.json', 'trend.svg', 'week.schema.json',
   ]);
   const read = () => first.files.map((f) => readFileSync(f));
   const before = read();
@@ -354,7 +360,10 @@ test('CLI без --write: печатает сводку и не меняет ф�
 
 test('паритет: buildDataset по диску равен записанным index.json и CSV', () => {
   const { weeks } = readLatestWeeks(readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8'));
-  const dataset = buildDataset(weeks, loadSnapshotFromDisk);
+  const analyzeWeek = (w, snap, prevSnap, prevWeek) => loadAnalysisFromDisk(
+    w, snap, prevSnap, prevWeek,
+  );
+  const dataset = buildDataset(weeks, loadSnapshotFromDisk, analyzeWeek);
 
   const index = JSON.parse(readFileSync(path.join(ROOT, 'data', 'public', 'index.json'), 'utf8'));
   assert.deepEqual(index, dataset);

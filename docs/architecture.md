@@ -89,8 +89,12 @@
 
 ## 6. Сайт: секции и хосты
 
-- `js/render.js` — `SECTIONS` (10): `hero, precursor, trust, regions, trend, drivers,
-  states, history, methodology, feedback`.
+- `js/render.js` — `SECTIONS` (11): `hero, precursor, trust, contribution, regions,
+  trend, drivers, states, history, methodology, feedback`.
+- `contribution` — «Почему индекс изменился» (ADR 0062), между trust и regions;
+  читает `window.CI_ANALYSIS` из `data/analysis.js` (зеркало `data/public/*`,
+  которое сайт по конвенции не грузит): водопад, разложение по драйверам,
+  «что бы изменило оценку». Нет записи недели — секция скрыта целиком.
 - Видимых на странице 9: у `history` нет хоста `[data-section="history"]` — его
   `render` обновляет только футер `[data-role="footer-next"]`.
 - `states` пишет в `[data-role="critical-panel"]` (не в `section-body`).
@@ -184,7 +188,13 @@ precursor, редакционные драйверы, сводка источн�
 модельная развёртка (ADR 0062: `driver_breakdown`, `waterfall`, `what_would_change`);
 части снапшота в публичный формат не копируются целиком. Развёртку считает
 `calc/contributions.js` из архивных входов `calc/input/<week>.json`, справочники и
-JSON Schema — `calc/public-contract.js`; контракт описан в `docs/api.md`. `data/public/*`, `digest.html`, `changelog.html` —
+JSON Schema — `calc/public-contract.js`; контракт описан в `docs/api.md`.
+
+Сайт не грузит `data/public/*` (пин `tests/public-export.test.js`), поэтому те же
+три поля развёртки публикуются зеркалом `data/analysis.js` (`window.CI_ANALYSIS`,
+classic script для `file://`), его грузит `index.html` рядом с `data/latest.js`.
+Секция `js/sections/contribution.js` читает зеркало и ничего не пересчитывает;
+паритет зеркала с `index.json` пинит `tests/contribution-ui.test.js`. `data/public/*`, `digest.html`, `changelog.html` —
 производные: ручная правка затирается следующей сборкой, а расхождение ловят
 `tests/public-export.test.js`, `tests/changelog.test.js`, `tests/digest.test.js`.
 

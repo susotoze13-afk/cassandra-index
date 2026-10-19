@@ -1,0 +1,111 @@
+{
+  "schema": "cassandra-index-methodology",
+  "schema_version": 1,
+  "methodology": "3.0",
+  "project_version": "1.0.0",
+  "criteria_count": 46,
+  "drivers_count": 9,
+  "weights": {
+    "D1": 0.1175,
+    "D2": 0.1175,
+    "D3": 0.1175,
+    "D4": 0.1175,
+    "D5": 0.1175,
+    "D6": 0.1175,
+    "D7": 0.1175,
+    "D8": 0.1175,
+    "D9": 0.06
+  },
+  "parameters": {
+    "alpha": 0.5,
+    "lambda": 0.6,
+    "rho": 0.25,
+    "u_abs": 0.025,
+    "k": 1.95,
+    "coverage_threshold": 0.5,
+    "cap_count": 5,
+    "d9_growth_limit": 0.3,
+    "beta_up": 0.9,
+    "beta_down": 0.5,
+    "structural_break": {
+      "beta": 0.8,
+      "prev": 0.2,
+      "weeks": 2
+    },
+    "confidence": {
+      "high": 1,
+      "medium": 0.7,
+      "low": 0.4
+    },
+    "n0": 5,
+    "gamma": 0.5,
+    "kappa": 0.85,
+    "region_clamp": 40,
+    "region_shock_delta": 15,
+    "region_estruct_default": 0.5,
+    "data_coverage": {
+      "insufficient": 0.4,
+      "reduced": 0.2,
+      "d1_d2_required": true
+    },
+    "sensitivity_threshold": 5
+  },
+  "severity_values": [
+    0.2,
+    0.5,
+    1,
+    2
+  ],
+  "clusters": [
+    "A-mainstream",
+    "B-state-media",
+    "C-registries",
+    "D-satellite-osint",
+    "E-field-osint",
+    "F-financial"
+  ],
+  "state_scale": [
+    {
+      "id": "calm",
+      "min": 0,
+      "max": 20
+    },
+    {
+      "id": "tense",
+      "min": 21,
+      "max": 40
+    },
+    {
+      "id": "danger",
+      "min": 41,
+      "max": 60
+    },
+    {
+      "id": "very",
+      "min": 61,
+      "max": 80
+    },
+    {
+      "id": "critical",
+      "min": 81,
+      "max": 96
+    },
+    {
+      "id": "extreme",
+      "min": 97,
+      "max": 100
+    }
+  ],
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "sources": {
+    "engine": "calc/engine.js",
+    "params": "calc/params.js",
+    "methodology_document": "METHODOLOGY.md"
+  }
+}

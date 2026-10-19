@@ -42,6 +42,22 @@
       "link": "https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0046-intersection-field-in-week-input.md"
     },
     {
+      "date": "2026-10-18",
+      "version": "3.0",
+      "kind": "field",
+      "title": "Развёртка «почему индекс такой»: contribution_pp, top-3, водопад",
+      "body": "В публичной неделе появились driver_breakdown (девять драйверов модели: вклад в п.п., top-3 критерия, покрытие), waterfall («прошлая неделя → вклады → эта неделя» с остатком механики модели) и what_would_change (критерии у порога, контрфактика criterion-zeroed). Сумма contribution_pp равна индексу; расчёт индекса не меняется.",
+      "link": "https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0062-public-api-contract-and-driver-contributions.md"
+    },
+    {
+      "date": "2026-10-18",
+      "version": "3.0",
+      "kind": "schema",
+      "title": "API-контракт: справочники, понедельные файлы, JSON Schema",
+      "body": "Добавлены data/public/regions.json, criteria.json, methodology.json, weeks/<дата>.json и schema/v1/*.json (JSON Schema draft 2020-12); контракт описан в docs/api.md. Веса и пороги раскрыты для машинного потребителя; публичная страница «Методология» их по-прежнему не показывает.",
+      "link": "https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/api.md"
+    },
+    {
       "date": "2026-10-11",
       "version": "3.0",
       "kind": "methodology",

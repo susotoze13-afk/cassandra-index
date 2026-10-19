@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/methodology.schema.json",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "methodology",
+    "project_version",
+    "criteria_count",
+    "drivers_count",
+    "weights",
+    "parameters",
+    "severity_values",
+    "clusters",
+    "state_scale",
+    "license",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-methodology"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "methodology": {
+      "type": "string"
+    },
+    "project_version": {
+      "type": "string"
+    },
+    "criteria_count": {
+      "const": 46
+    },
+    "drivers_count": {
+      "const": 9
+    },
+    "weights": {
+      "type": "object",
+      "required": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "D1": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D2": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D3": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D4": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D5": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D6": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D7": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D8": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "D9": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "severity_values": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state_scale": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "min",
+          "max"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "min": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "max": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "attribution",
+        "note",
+        "placeholder"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "CC BY 4.0"
+        },
+        "url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placeholder": {
+          "const": false
+        }
+      }
+    },
+    "sources": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema": "cassandra-index-week",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "week": {
+    "week": "2026-08-02",
+    "published": "2026-08-02",
+    "through": "2026-07-26",
+    "methodology": "1.0",
+    "regions_taxonomy": "1.0",
+    "data_state": "published",
+    "index": 54,
+    "delta": 0,
+    "state": "danger",
+    "q": null,
+    "confidence": null,
+    "coverage_criteria": null,
+    "regions": [
+      {
+        "id": "europe",
+        "index": 64,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "east-asia",
+        "index": 49,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "middle-east",
+        "index": 75,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "north-america",
+        "index": 43,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "south-asia",
+        "index": 55,
+        "delta": 0,
+        "background": false
+      },
+      {
+        "id": "africa",
+        "index": 45,
+        "delta": 0,
+        "background": false
+      }
+    ],
+    "precursor": null,
+    "precursor_present": false,
+    "drivers": [
+      {
+        "label": {
+          "ru": "Военная активность выросла",
+          "en": "Military activity increased"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "Интенсивность столкновений выросла",
+          "en": "Clash intensity increased"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "Оборонные расходы растут",
+          "en": "Defence spending is rising"
+        },
+        "contribution": "medium"
+      }
+    ],
+    "driver_breakdown": [],
+    "waterfall": null,
+    "what_would_change": null,
+    "sources": {
+      "count": 6,
+      "clusters": 2,
+      "state_affiliated": 1
+    },
+    "trend": [
+      {
+        "date": "2026-05-17",
+        "value": 38
+      },
+      {
+        "date": "2026-05-24",
+        "value": 40
+      },
+      {
+        "date": "2026-05-31",
+        "value": 41
+      },
+      {
+        "date": "2026-06-07",
+        "value": 41
+      },
+      {
+        "date": "2026-06-14",
+        "value": 44
+      },
+      {
+        "date": "2026-06-21",
+        "value": 46
+      },
+      {
+        "date": "2026-06-28",
+        "value": 47
+      },
+      {
+        "date": "2026-07-05",
+        "value": 48
+      },
+      {
+        "date": "2026-07-12",
+        "value": 49
+      },
+      {
+        "date": "2026-07-19",
+        "value": 51
+      },
+      {
+        "date": "2026-07-26",
+        "value": 53
+      },
+      {
+        "date": "2026-08-02",
+        "value": 54
+      }
+    ]
+  }
+}

@@ -1,0 +1,633 @@
+{
+  "schema": "cassandra-index-regions",
+  "schema_version": 1,
+  "taxonomy_version": "2.0",
+  "taxonomy_v2_from": "2026-10-18",
+  "current": "2.0",
+  "taxonomies": {
+    "1.0": [
+      {
+        "id": "europe",
+        "name": {
+          "ru": "Европа",
+          "en": "Europe"
+        },
+        "countries": [
+          "AL",
+          "AD",
+          "AT",
+          "BY",
+          "BE",
+          "BA",
+          "BG",
+          "HR",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LV",
+          "LI",
+          "LT",
+          "LU",
+          "MT",
+          "MD",
+          "MC",
+          "ME",
+          "NL",
+          "MK",
+          "NO",
+          "PL",
+          "PT",
+          "RO",
+          "RU",
+          "SM",
+          "RS",
+          "SK",
+          "SI",
+          "ES",
+          "SE",
+          "CH",
+          "UA",
+          "GB",
+          "VA"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Амстердам",
+            "en": "Amsterdam"
+          },
+          "country": "NL",
+          "iso3166_2": "NL-NH",
+          "geonames_id": 2759794
+        }
+      },
+      {
+        "id": "east-asia",
+        "name": {
+          "ru": "Восточная Азия",
+          "en": "East Asia"
+        },
+        "countries": [
+          "BN",
+          "JP",
+          "CN",
+          "HK",
+          "MO",
+          "TW",
+          "KP",
+          "KR",
+          "SG",
+          "ID",
+          "KH",
+          "LA",
+          "MY",
+          "MN",
+          "MM",
+          "PH",
+          "TH",
+          "TL",
+          "VN"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Токио",
+            "en": "Tokyo"
+          },
+          "country": "JP",
+          "iso3166_2": "JP-13",
+          "geonames_id": 1850147
+        }
+      },
+      {
+        "id": "middle-east",
+        "name": {
+          "ru": "Ближний Восток",
+          "en": "Middle East"
+        },
+        "countries": [
+          "BH",
+          "IR",
+          "IQ",
+          "IL",
+          "JO",
+          "KW",
+          "LB",
+          "OM",
+          "PS",
+          "QA",
+          "SA",
+          "SY",
+          "TR",
+          "AE",
+          "YE"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Бейрут",
+            "en": "Beirut"
+          },
+          "country": "LB",
+          "iso3166_2": "LB-BA",
+          "geonames_id": 276781
+        }
+      },
+      {
+        "id": "north-america",
+        "name": {
+          "ru": "Северная Америка",
+          "en": "North America"
+        },
+        "countries": [
+          "CA",
+          "MX",
+          "US"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Вашингтон",
+            "en": "Washington"
+          },
+          "country": "US",
+          "iso3166_2": "US-DC",
+          "geonames_id": 4140963
+        }
+      },
+      {
+        "id": "south-asia",
+        "name": {
+          "ru": "Южная Азия",
+          "en": "South Asia"
+        },
+        "countries": [
+          "AF",
+          "BD",
+          "BT",
+          "IN",
+          "MV",
+          "NP",
+          "PK",
+          "LK"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Нью-Дели",
+            "en": "New Delhi"
+          },
+          "country": "IN",
+          "iso3166_2": "IN-DL",
+          "geonames_id": 1261481
+        }
+      },
+      {
+        "id": "africa",
+        "name": {
+          "ru": "Африка",
+          "en": "Africa"
+        },
+        "countries": [
+          "DZ",
+          "AO",
+          "BJ",
+          "BW",
+          "BF",
+          "BI",
+          "CV",
+          "CM",
+          "TD",
+          "KM",
+          "CG",
+          "CD",
+          "CI",
+          "DJ",
+          "EG",
+          "GQ",
+          "ER",
+          "SZ",
+          "ET",
+          "GA",
+          "GM",
+          "GH",
+          "GN",
+          "GW",
+          "KE",
+          "LS",
+          "LR",
+          "LY",
+          "MG",
+          "MW",
+          "ML",
+          "MR",
+          "MU",
+          "MA",
+          "MZ",
+          "NA",
+          "NE",
+          "NG",
+          "RW",
+          "ST",
+          "SN",
+          "SC",
+          "SL",
+          "SO",
+          "ZA",
+          "SS",
+          "SD",
+          "TZ",
+          "TG",
+          "TN",
+          "UG",
+          "EH",
+          "ZM",
+          "ZW"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Найроби",
+            "en": "Nairobi"
+          },
+          "country": "KE",
+          "iso3166_2": "KE-30",
+          "geonames_id": 184745
+        }
+      }
+    ],
+    "2.0": [
+      {
+        "id": "russia-belarus",
+        "name": {
+          "ru": "Россия и Беларусь",
+          "en": "Russia and Belarus"
+        },
+        "countries": [
+          "RU",
+          "BY"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Москва",
+            "en": "Moscow"
+          },
+          "country": "RU",
+          "iso3166_2": "RU-MOW",
+          "geonames_id": 524901
+        }
+      },
+      {
+        "id": "ukraine-moldova",
+        "name": {
+          "ru": "Украина и Молдова",
+          "en": "Ukraine and Moldova"
+        },
+        "countries": [
+          "UA",
+          "MD"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Киев",
+            "en": "Kyiv"
+          },
+          "country": "UA",
+          "iso3166_2": "UA-30",
+          "geonames_id": 703448
+        }
+      },
+      {
+        "id": "baltic",
+        "name": {
+          "ru": "Балтия",
+          "en": "The Baltics"
+        },
+        "countries": [
+          "EE",
+          "LV",
+          "LT"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Рига",
+            "en": "Riga"
+          },
+          "country": "LV",
+          "iso3166_2": "LV-RIX",
+          "geonames_id": 456172
+        }
+      },
+      {
+        "id": "balkans",
+        "name": {
+          "ru": "Балканы",
+          "en": "The Balkans"
+        },
+        "countries": [
+          "AL",
+          "BA",
+          "BG",
+          "HR",
+          "GR",
+          "ME",
+          "MK",
+          "RO",
+          "RS",
+          "SI"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Белград",
+            "en": "Belgrade"
+          },
+          "country": "RS",
+          "iso3166_2": "RS-00",
+          "geonames_id": 792680
+        }
+      },
+      {
+        "id": "eu-north-europe",
+        "name": {
+          "ru": "Европа (ЕС и Север)",
+          "en": "Europe (EU & North)"
+        },
+        "countries": [
+          "AT",
+          "AD",
+          "BE",
+          "CY",
+          "CZ",
+          "DK",
+          "FI",
+          "FR",
+          "DE",
+          "HU",
+          "IS",
+          "IE",
+          "IT",
+          "LI",
+          "LU",
+          "MT",
+          "MC",
+          "NL",
+          "NO",
+          "PL",
+          "PT",
+          "SM",
+          "SK",
+          "ES",
+          "SE",
+          "CH",
+          "GB",
+          "VA"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Брюссель",
+            "en": "Brussels"
+          },
+          "country": "BE",
+          "iso3166_2": "BE-BRU",
+          "geonames_id": 2800866
+        }
+      },
+      {
+        "id": "south-caucasus",
+        "name": {
+          "ru": "Южный Кавказ",
+          "en": "South Caucasus"
+        },
+        "countries": [
+          "GE",
+          "AM",
+          "AZ"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Тбилиси",
+            "en": "Tbilisi"
+          },
+          "country": "GE",
+          "iso3166_2": "GE-TB",
+          "geonames_id": 611717
+        }
+      },
+      {
+        "id": "central-asia",
+        "name": {
+          "ru": "Средняя Азия",
+          "en": "Central Asia"
+        },
+        "countries": [
+          "KZ",
+          "UZ",
+          "TM",
+          "TJ",
+          "KG"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Алматы",
+            "en": "Almaty"
+          },
+          "country": "KZ",
+          "iso3166_2": "KZ-ALA",
+          "geonames_id": 1526384
+        }
+      },
+      {
+        "id": "east-asia",
+        "name": {
+          "ru": "Восточная Азия",
+          "en": "East Asia"
+        },
+        "countries": [
+          "BN",
+          "JP",
+          "CN",
+          "HK",
+          "MO",
+          "TW",
+          "KP",
+          "KR",
+          "SG",
+          "ID",
+          "KH",
+          "LA",
+          "MY",
+          "MN",
+          "MM",
+          "PH",
+          "TH",
+          "TL",
+          "VN"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Токио",
+            "en": "Tokyo"
+          },
+          "country": "JP",
+          "iso3166_2": "JP-13",
+          "geonames_id": 1850147
+        }
+      },
+      {
+        "id": "middle-east",
+        "name": {
+          "ru": "Ближний Восток",
+          "en": "Middle East"
+        },
+        "countries": [
+          "BH",
+          "IR",
+          "IQ",
+          "IL",
+          "JO",
+          "KW",
+          "LB",
+          "OM",
+          "PS",
+          "QA",
+          "SA",
+          "SY",
+          "TR",
+          "AE",
+          "YE"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Бейрут",
+            "en": "Beirut"
+          },
+          "country": "LB",
+          "iso3166_2": "LB-BA",
+          "geonames_id": 276781
+        }
+      },
+      {
+        "id": "north-america",
+        "name": {
+          "ru": "Северная Америка",
+          "en": "North America"
+        },
+        "countries": [
+          "CA",
+          "MX",
+          "US"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Вашингтон",
+            "en": "Washington"
+          },
+          "country": "US",
+          "iso3166_2": "US-DC",
+          "geonames_id": 4140963
+        }
+      },
+      {
+        "id": "south-asia",
+        "name": {
+          "ru": "Южная Азия",
+          "en": "South Asia"
+        },
+        "countries": [
+          "AF",
+          "BD",
+          "BT",
+          "IN",
+          "MV",
+          "NP",
+          "PK",
+          "LK"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Нью-Дели",
+            "en": "New Delhi"
+          },
+          "country": "IN",
+          "iso3166_2": "IN-DL",
+          "geonames_id": 1261481
+        }
+      },
+      {
+        "id": "africa",
+        "name": {
+          "ru": "Африка",
+          "en": "Africa"
+        },
+        "countries": [
+          "DZ",
+          "AO",
+          "BJ",
+          "BW",
+          "BF",
+          "BI",
+          "CV",
+          "CM",
+          "TD",
+          "KM",
+          "CG",
+          "CD",
+          "CI",
+          "DJ",
+          "EG",
+          "GQ",
+          "ER",
+          "SZ",
+          "ET",
+          "GA",
+          "GM",
+          "GH",
+          "GN",
+          "GW",
+          "KE",
+          "LS",
+          "LR",
+          "LY",
+          "MG",
+          "MW",
+          "ML",
+          "MR",
+          "MU",
+          "MA",
+          "MZ",
+          "NA",
+          "NE",
+          "NG",
+          "RW",
+          "ST",
+          "SN",
+          "SC",
+          "SL",
+          "SO",
+          "ZA",
+          "SS",
+          "SD",
+          "TZ",
+          "TG",
+          "TN",
+          "UG",
+          "EH",
+          "ZM",
+          "ZW"
+        ],
+        "admin_center": {
+          "city": {
+            "ru": "Найроби",
+            "en": "Nairobi"
+          },
+          "country": "KE",
+          "iso3166_2": "KE-30",
+          "geonames_id": 184745
+        }
+      }
+    ]
+  }
+}

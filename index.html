@@ -129,6 +129,15 @@
       <div class="section-body" data-section="trust"></div>
     </section>
 
+    <!-- Почему индекс изменился (ADR 0062): водопад «прошлая неделя → вклады →
+         эта неделя», разложение по драйверам и «что бы изменило оценку».
+         Источник — data/analysis.js (window.CI_ANALYSIS); нет записи недели —
+         секция скрыта. -->
+    <section id="contribution" class="section contribution-section" aria-labelledby="contribution-title" hidden>
+      <h2 id="contribution-title" data-i18n="contribution.title">Почему индекс изменился</h2>
+      <div class="section-body" data-section="contribution"></div>
+    </section>
+
     <!-- Критический режим (§6): спокойная плашка от данных (≥81) — наполняет states.js. -->
     <div data-role="critical-panel" hidden></div>
 
@@ -196,12 +205,16 @@
   <!-- Данные: JS-файлы через script src (file:// блокирует fetch).
        latest.js — единый указатель: новая неделя = каталог + дата в CI_WEEKS. -->
   <script src="data/latest.js"></script>
+  <!-- Зеркало развёртки «почему индекс изменился» (ADR 0062): data/public/*
+       сайт не грузит, поэтому те же поля публикуются как classic script.
+       Пересобирается calc/public-export.js --write. -->
+  <script src="data/analysis.js"></script>
   <!-- Справочник регионов (ISO 3166-2, админцентры, лестница уверенности):
        канонический JSON — data/regions/reference.json; загрузчик кладёт его в
        window.CI_REGION_REF (fetch на file:// невозможен, как у data/latest.js). -->
   <script src="data/regions/reference.js"></script>
   <!-- ES-модули Chrome блокирует по CORS на file:// — подключаем classic script,
        собранный build.js из js/** (пересборка: node build.js). Тесты — против исходников. -->
-  <script src="js/bundle.js?v=4643551ba1" defer></script>
+  <script src="js/bundle.js?v=235e9dd7c8" defer></script>
 </body>
 </html>

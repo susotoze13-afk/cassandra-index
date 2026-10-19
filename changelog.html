@@ -52,6 +52,18 @@
     <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0046-intersection-field-in-week-input.md" rel="noopener noreferrer">Подробнее</a></p>
   </article>
   <article class="changelog-entry">
+    <h2>Развёртка «почему индекс такой»: contribution_pp, top-3, водопад</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · поле</p>
+    <p>В публичной неделе появились driver_breakdown (девять драйверов модели: вклад в п.п., top-3 критерия, покрытие), waterfall («прошлая неделя → вклады → эта неделя» с остатком механики модели) и what_would_change (критерии у порога, контрфактика criterion-zeroed). Сумма contribution_pp равна индексу; расчёт индекса не меняется.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0062-public-api-contract-and-driver-contributions.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
+    <h2>API-контракт: справочники, понедельные файлы, JSON Schema</h2>
+    <p class="changelog-meta"><time datetime="2026-10-18">2026-10-18</time> · версия 3.0 · схема данных</p>
+    <p>Добавлены data/public/regions.json, criteria.json, methodology.json, weeks/&lt;дата&gt;.json и schema/v1/*.json (JSON Schema draft 2020-12); контракт описан в docs/api.md. Веса и пороги раскрыты для машинного потребителя; публичная страница «Методология» их по-прежнему не показывает.</p>
+    <p><a href="https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/api.md" rel="noopener noreferrer">Подробнее</a></p>
+  </article>
+  <article class="changelog-entry">
     <h2>Методология 3.0: рыночный стресс-критерий D4.6</h2>
     <p class="changelog-meta"><time datetime="2026-10-11">2026-10-11</time> · версия 3.0 · методология</p>
     <p>В драйвер Д4 добавлен критерий D4.6 «стресс рынков» с порядковой шкалой 0 / 0,33 / 0,67 / 1. Цепочка недель 2026-08-30 … 2026-10-18 перевыпущена под версией 3.0, k = 1,95 подтверждён на якорях.</p>

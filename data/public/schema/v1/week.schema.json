@@ -1,0 +1,747 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/week.schema.json",
+  "title": "Cassandra Index — неделя (публичная проекция)",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "site",
+    "license",
+    "week"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-week"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "site": {
+      "const": "https://cassindex.ru"
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "attribution",
+        "note",
+        "placeholder"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "CC BY 4.0"
+        },
+        "url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placeholder": {
+          "const": false
+        }
+      }
+    },
+    "week": {
+      "$ref": "#/$defs/week"
+    }
+  },
+  "$defs": {
+    "week": {
+      "type": "object",
+      "required": [
+        "week",
+        "published",
+        "through",
+        "methodology",
+        "regions_taxonomy",
+        "data_state",
+        "index",
+        "delta",
+        "state",
+        "q",
+        "confidence",
+        "coverage_criteria",
+        "regions",
+        "precursor",
+        "precursor_present",
+        "drivers",
+        "driver_breakdown",
+        "waterfall",
+        "what_would_change",
+        "sources",
+        "trend"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "week": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "published": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "through": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "methodology": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "regions_taxonomy": {
+          "enum": [
+            "1.0",
+            "2.0"
+          ]
+        },
+        "data_state": {
+          "enum": [
+            "published",
+            "updating",
+            "delayed",
+            "insufficient",
+            "unavailable"
+          ]
+        },
+        "index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "delta": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "calm",
+            "tense",
+            "danger",
+            "very",
+            "critical",
+            "extreme",
+            null
+          ]
+        },
+        "q": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "confidence": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "full",
+            "reduced",
+            "none",
+            null
+          ]
+        },
+        "coverage_criteria": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "covered",
+            "total"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "covered": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "index",
+              "delta",
+              "background"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "index": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "delta": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "background": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "precursor": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "signaling_subgroups": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            }
+          }
+        },
+        "precursor_present": {
+          "type": "boolean"
+        },
+        "drivers": {
+          "description": "Редакционные драйверы недели (три сюжета), не модельные Д1…Д9.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "contribution"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "object",
+                "required": [
+                  "ru",
+                  "en"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "ru": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "en": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "contribution": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "high",
+                  "medium",
+                  "low",
+                  null
+                ]
+              }
+            }
+          }
+        },
+        "driver_breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "Модельный драйвер Д1…Д9: вклад в опубликованный индекс и top-3 критерия.",
+            "required": [
+              "id",
+              "name",
+              "score",
+              "confidence",
+              "weight",
+              "weight_effective",
+              "covered",
+              "contribution_pp",
+              "top_criteria"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "enum": [
+                  "D1",
+                  "D2",
+                  "D3",
+                  "D4",
+                  "D5",
+                  "D6",
+                  "D7",
+                  "D8",
+                  "D9"
+                ]
+              },
+              "name": {
+                "type": "object",
+                "required": [
+                  "ru",
+                  "en"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "ru": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "score": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "confidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "weight": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "weight_effective": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "covered": {
+                "type": "object",
+                "required": [
+                  "criteria",
+                  "total"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "criteria": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "contribution_pp": {
+                "type": "number",
+                "description": "Вклад драйвера в опубликованный индекс, п.п. Сумма по девяти драйверам равна index."
+              },
+              "top_criteria": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name",
+                    "dir",
+                    "value",
+                    "contribution",
+                    "share"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "object",
+                      "required": [
+                        "ru",
+                        "en"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "ru": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "en": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "dir": {
+                      "enum": [
+                        "esc",
+                        "deesc"
+                      ]
+                    },
+                    "value": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "contribution": {
+                      "type": "number"
+                    },
+                    "share": {
+                      "type": "number",
+                      "minimum": -1,
+                      "maximum": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "waterfall": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Водопад «прошлая неделя → вклады драйверов → эта неделя».",
+          "required": [
+            "from",
+            "to",
+            "steps",
+            "residual_pp",
+            "residual_reason"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "type": "object",
+              "required": [
+                "week",
+                "index"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "week": {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                },
+                "index": {
+                  "type": "integer"
+                }
+              }
+            },
+            "to": {
+              "type": "object",
+              "required": [
+                "week",
+                "index"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "week": {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                },
+                "index": {
+                  "type": "integer"
+                }
+              }
+            },
+            "steps": {
+              "type": "array",
+              "minItems": 9,
+              "maxItems": 9,
+              "items": {
+                "type": "object",
+                "required": [
+                  "driver",
+                  "contribution_pp"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "driver": {
+                    "enum": [
+                      "D1",
+                      "D2",
+                      "D3",
+                      "D4",
+                      "D5",
+                      "D6",
+                      "D7",
+                      "D8",
+                      "D9"
+                    ]
+                  },
+                  "contribution_pp": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "residual_pp": {
+              "type": "number",
+              "description": "Механика модели (инерция, q-сжатие, лимит Д9) и округление — не вклад драйвера."
+            },
+            "residual_reason": {
+              "const": "saturation-inertia-coverage-rounding"
+            }
+          }
+        },
+        "what_would_change": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Контрфактика: сигнал одного критерия обнулён при прочих равных.",
+          "required": [
+            "state",
+            "thresholds",
+            "criteria",
+            "method"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "thresholds": {
+              "type": "object",
+              "required": [
+                "down",
+                "up"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "down": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "state",
+                    "index",
+                    "gap_pp"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "integer"
+                    },
+                    "gap_pp": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "up": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "state",
+                    "index",
+                    "gap_pp"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "integer"
+                    },
+                    "gap_pp": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "criteria": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "name",
+                  "driver",
+                  "dir",
+                  "value",
+                  "impact_pp",
+                  "effect",
+                  "crosses_state",
+                  "breaks_driver"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "object",
+                    "required": [
+                      "ru",
+                      "en"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ru": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "en": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  },
+                  "driver": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "dir": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "value": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "impact_pp": {
+                    "type": "number"
+                  },
+                  "effect": {
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "crosses_state": {
+                    "type": "boolean"
+                  },
+                  "breaks_driver": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "method": {
+              "const": "criterion-zeroed"
+            }
+          }
+        },
+        "sources": {
+          "type": "object",
+          "required": [
+            "count",
+            "clusters",
+            "state_affiliated"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "clusters": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "state_affiliated": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "trend": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "value"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              },
+              "value": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "methodology": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

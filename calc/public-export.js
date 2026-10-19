@@ -39,27 +39,27 @@ import { validate, regionIdsFor } from '../js/data.js';
 import {
   loadWeekParts, renderWeekCombined, weekPartFiles, taxonomyForWeek,
 } from './calc.js';
+import { analyseWeek, buildWaterfall } from './contributions.js';
+import {
+  PUBLIC_LICENSE as LICENSE,
+  PUBLIC_SCHEMA_VERSION,
+  SCHEMA_NAMES,
+  SITE,
+  criteriaDoc,
+  methodologyDoc,
+  regionsDoc,
+  schemaDocs,
+  weekDoc,
+} from './public-contract.js';
 import { CHANGELOG, sortedDesc, validateChangelog } from './changelog-entries.js';
 import { readLatestWeeks } from './prepare-week.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
-export const PUBLIC_SCHEMA_VERSION = 1;
-const PUBLIC_SCHEMA = 'cassandra-index-public';
+const PUBLIC_SCHEMA = SCHEMA_NAMES.index;
 const CHANGELOG_SCHEMA = 'cassandra-index-changelog';
-const SITE = 'https://cassindex.ru';
 
-// Данные публичного слоя распространяются под CC BY 4.0 (LICENSE-DATA в корне).
-// Форма конверта заморожена (interfaces.md §3): name/url заполнены, `placeholder`
-// снят — машинный потребитель видит разрешение, а не дыру. Атрибуция обязательна:
-// обязательна ссылка на проект и лицензию, дата/версия недели уже лежат рядом.
-const LICENSE = {
-  name: 'CC BY 4.0',
-  url: 'https://creativecommons.org/licenses/by/4.0/legalcode',
-  attribution: 'Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0',
-  note: 'Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.',
-  placeholder: false,
-};
+export { PUBLIC_SCHEMA_VERSION };
 
 const CSV_COLUMNS = [
   'schema', 'schema_version', 'week', 'published', 'through', 'methodology',
@@ -111,9 +111,14 @@ function trendPoint(point) {
   return out;
 }
 
-// datasetOf(snapshot, week) — чистая проекция одной недели; диска и сети нет.
-export function datasetOf(snapshot, week) {
+// datasetOf(snapshot, week, analysis) — чистая проекция одной недели; диска и
+// сети нет. analysis — необязательный результат calc/contributions.js:
+// {driver_breakdown, what_would_change, waterfall}. Без него поля пустые
+// (driver_breakdown: [], waterfall: null, what_would_change: null) — схема
+// стабильна, а «нет расчёта» не выдаётся за «нулевой вклад».
+export function datasetOf(snapshot, week, analysis) {
   const s = snapshot || {};
+  const a = analysis && typeof analysis === 'object' ? analysis : {};
   const taxonomy = typeof s.regions_taxonomy === 'string' ? s.regions_taxonomy : '1.0';
   const g = s.global && typeof s.global === 'object' ? s.global : null;
   const regions = regionIdsFor(taxonomy).map((id) => {
@@ -154,6 +159,10 @@ export function datasetOf(snapshot, week) {
       label: { ru: d && d.label ? d.label.ru : null, en: d && d.label ? d.label.en : null },
       contribution: d ? d.contribution : null,
     })),
+    // Модельная развёртка Д1…Д9 (ADR 0062) — отдельно от редакционных драйверов.
+    driver_breakdown: Array.isArray(a.driver_breakdown) ? a.driver_breakdown : [],
+    waterfall: a.waterfall ?? null,
+    what_would_change: a.what_would_change ?? null,
     sources: {
       count: sources.length,
       clusters: clusters.size,
@@ -165,9 +174,11 @@ export function datasetOf(snapshot, week) {
   };
 }
 
-// buildDataset(weeks, loadSnapshot) — конверт публичного ряда. Порядок недель
-// задаёт вызывающий (CI_WEEKS возрастает); последняя неделя — latest.
-export function buildDataset(weeks, loadSnapshot) {
+// buildDataset(weeks, loadSnapshot, analyzeWeek) — конверт публичного ряда.
+// Порядок недель задаёт вызывающий (CI_WEEKS возрастает); последняя неделя —
+// latest. analyzeWeek(week, snapshot, prevSnapshot) → analysis|undefined —
+// необязательный шов развёртки (CLI передаёт loadAnalysisFromDisk).
+export function buildDataset(weeks, loadSnapshot, analyzeWeek) {
   if (!Array.isArray(weeks) || weeks.length === 0) {
     throw new Error('public-export: список недель пуст');
   }
@@ -175,12 +186,19 @@ export function buildDataset(weeks, loadSnapshot) {
     throw new Error('public-export: нужен loadSnapshot(week)');
   }
   const out = [];
+  let prevSnapshot = null;
+  let prevWeek = null;
   for (const week of weeks) {
     const snap = loadSnapshot(week);
     if (!snap || typeof snap !== 'object') {
       throw new Error(`public-export: ${week}: снапшот не найден`);
     }
-    out.push(datasetOf(snap, week));
+    const analysis = typeof analyzeWeek === 'function'
+      ? analyzeWeek(week, snap, prevSnapshot, prevWeek)
+      : undefined;
+    out.push(datasetOf(snap, week, analysis));
+    prevSnapshot = snap;
+    prevWeek = week;
   }
   return {
     schema: PUBLIC_SCHEMA,
@@ -356,20 +374,54 @@ function changelogFile(entries) {
 
 const jsonText = (v) => `${JSON.stringify(v, null, 2)}\n`;
 
-// writePublicData({rootDir, weeks, loadSnapshot, entries}) — собирает всё в
-// память и только потом пишет: упавший снапшот не оставляет полузаписанных
-// файлов. Возвращает {files} — пути записанного.
-export function writePublicData({ rootDir, weeks, loadSnapshot, entries = CHANGELOG }) {
+// analysisBundle(dataset) — зеркало развёртки для сайта: data/analysis.js
+// кладёт window.CI_ANALYSIS (classic script, работает на file://). Сайт по
+// конвенции не грузит data/public/*, поэтому те же три поля публикуются ещё
+// раз в data/. Демо-недели без входа в файл не попадают: «нет расчёта» —
+// секция скрыта, а не нулевой вклад.
+export function analysisBundle(dataset) {
+  const weeks = {};
+  for (const w of dataset.weeks) {
+    if (!w.driver_breakdown.length && !w.waterfall && !w.what_would_change) continue;
+    weeks[w.week] = {
+      driver_breakdown: w.driver_breakdown,
+      waterfall: w.waterfall,
+      what_would_change: w.what_would_change,
+    };
+  }
+  const latest = dataset.weeks[dataset.weeks.length - 1];
+  return [
+    '// СГЕНЕРИРОВАНО calc/public-export.js --write (ADR 0062). Не править руками.',
+    '// Зеркало развёртки «почему индекс изменился» для сайта: data/public/* сайт',
+    '// не грузит, а data/analysis.js — обычный classic script (работает на file://).',
+    'window.CI_ANALYSIS = window.CI_ANALYSIS || {};',
+    `window.CI_ANALYSIS.schema_version = ${PUBLIC_SCHEMA_VERSION};`,
+    `window.CI_ANALYSIS.latest = ${JSON.stringify(latest ? latest.week : null)};`,
+    // Компактно: это файл для сайта, а не контракт; читаемость даёт JSON-слой.
+    `window.CI_ANALYSIS.weeks = ${JSON.stringify(weeks)};`,
+    '',
+  ].join('\n');
+}
+
+// writePublicData({rootDir, weeks, loadSnapshot, entries, analyzeWeek}) —
+// собирает всё в память и только потом пишет: упавший снапшот не оставляет
+// полузаписанных файлов. Возвращает {files} — пути записанного.
+// Кроме ряда (index/latest/CSV/SVG) и changelog пишет машинный контракт
+// ADR 0062: справочники, понедельные файлы и JSON Schema.
+export function writePublicData({
+  rootDir, weeks, loadSnapshot, entries = CHANGELOG, analyzeWeek,
+}) {
   const root = rootDir || ROOT;
   const errors = validateChangelog(entries);
   if (errors.length) throw new Error(`changelog: ${errors.join('; ')}`);
-  const dataset = buildDataset(weeks, loadSnapshot);
+  const dataset = buildDataset(weeks, loadSnapshot, analyzeWeek);
   const latest = dataset.weeks[dataset.weeks.length - 1];
   const changelog = changelogFile(entries);
+  const publicDir = path.join(root, 'data', 'public');
   const outputs = [
-    [path.join(root, 'data', 'public', 'index.json'), jsonText(dataset)],
+    [path.join(publicDir, 'index.json'), jsonText(dataset)],
     [
-      path.join(root, 'data', 'public', 'latest.json'),
+      path.join(publicDir, 'latest.json'),
       jsonText({
         schema: dataset.schema,
         schema_version: dataset.schema_version,
@@ -378,12 +430,25 @@ export function writePublicData({ rootDir, weeks, loadSnapshot, entries = CHANGE
         week: latest,
       }),
     ],
-    [path.join(root, 'data', 'public', 'cassandra-index.csv'), toCsv(dataset)],
-    [path.join(root, 'data', 'public', 'trend.svg'), toTrendSvg(latest)],
-    [path.join(root, 'data', 'public', 'changelog.json'), jsonText(changelog)],
+    [path.join(publicDir, 'cassandra-index.csv'), toCsv(dataset)],
+    [path.join(publicDir, 'trend.svg'), toTrendSvg(latest)],
+    [path.join(publicDir, 'changelog.json'), jsonText(changelog)],
+    [path.join(publicDir, 'regions.json'), jsonText(regionsDoc())],
+    [path.join(publicDir, 'criteria.json'), jsonText(criteriaDoc())],
+    [path.join(publicDir, 'methodology.json'), jsonText(methodologyDoc())],
+    // Зеркало для сайта: data/analysis.js (не data/public/* — сайт его не грузит).
+    [path.join(root, 'data', 'analysis.js'), analysisBundle(dataset)],
     [path.join(root, 'changelog.html'), renderChangelogPage(changelog.entries)],
   ];
-  mkdirSync(path.join(root, 'data', 'public'), { recursive: true });
+  for (const week of dataset.weeks) {
+    outputs.push([path.join(publicDir, 'weeks', `${week.week}.json`), jsonText(weekDoc(week))]);
+  }
+  for (const [name, schema] of Object.entries(schemaDocs())) {
+    outputs.push([path.join(publicDir, 'schema', 'v1', name), jsonText(schema)]);
+  }
+  mkdirSync(publicDir, { recursive: true });
+  mkdirSync(path.join(publicDir, 'weeks'), { recursive: true });
+  mkdirSync(path.join(publicDir, 'schema', 'v1'), { recursive: true });
   for (const [file, content] of outputs) writeFileSync(file, content, 'utf8');
   return { files: outputs.map(([file]) => file) };
 }
@@ -439,6 +504,64 @@ export function loadSnapshotFromDisk(week, rootDir = ROOT) {
   return snapshot;
 }
 
+// --- Модельная развёртка недели (ADR 0062) ---
+
+function readInputFile(root, week) {
+  const file = path.join(root, 'calc', 'input', `${week}.json`);
+  if (!existsSync(file)) return null;
+  try {
+    return JSON.parse(readFileSync(file, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+function publishedIndexOf(snapshot) {
+  const g = snapshot && snapshot.global;
+  return g && typeof g.index === 'number' && Number.isFinite(g.index) ? g.index : null;
+}
+
+// loadAnalysisFromDisk(week, snapshot, prevSnapshot, prevWeek, rootDir) — шов
+// buildDataset для CLI: вклады драйверов и контрфактика считаются из входа
+// недели (calc/input/<week>.json), водопад — из входов текущей и прошлой
+// недели. Нет входа (демо-архив, чужой корень) → пустая развёртка, а не
+// выдуманные нули. Водопад через границу версий методологии не строится:
+// недели 08-02…08-23 — демо-история 1.0, их числа несопоставимы.
+export function loadAnalysisFromDisk(week, snapshot, prevSnapshot, prevWeek, rootDir = ROOT) {
+  const root = rootDir || ROOT;
+  const index = publishedIndexOf(snapshot);
+  const input = readInputFile(root, week);
+  const empty = { driver_breakdown: [], what_would_change: null, waterfall: null };
+  if (!input || index === null) return empty;
+  let analysis;
+  try {
+    analysis = analyseWeek(input, PARAMS, index);
+  } catch {
+    return empty;
+  }
+  let waterfall = null;
+  const prevIndex = publishedIndexOf(prevSnapshot);
+  const sameMethodology = prevSnapshot
+    && prevSnapshot.methodology === snapshot.methodology;
+  if (prevWeek && prevIndex !== null && sameMethodology) {
+    const prevInput = readInputFile(root, prevWeek);
+    if (prevInput) {
+      try {
+        waterfall = buildWaterfall({
+          current: input,
+          previous: prevInput,
+          currentIndex: index,
+          previousIndex: prevIndex,
+          params: PARAMS,
+        });
+      } catch {
+        waterfall = null;
+      }
+    }
+  }
+  return { ...analysis, waterfall };
+}
+
 // --- CLI ---
 
 function parseArgs(argv) {
@@ -465,25 +588,38 @@ function main() {
   const latestSrc = readFileSync(path.join(root, 'data', 'latest.js'), 'utf8');
   const { weeks } = readLatestWeeks(latestSrc);
   const loadSnapshot = (w) => loadSnapshotFromDisk(w, root);
+  const analyzeWeek = (w, snap, prevSnap, prevWeek) => loadAnalysisFromDisk(
+    w, snap, prevSnap, prevWeek, root,
+  );
   const lines = [];
   if (write) {
-    const { files } = writePublicData({ rootDir: root, weeks, loadSnapshot, entries: CHANGELOG });
-    const last = buildDataset([weeks[weeks.length - 1]], loadSnapshot).weeks[0];
+    const { files } = writePublicData({
+      rootDir: root, weeks, loadSnapshot, entries: CHANGELOG, analyzeWeek,
+    });
+    const last = buildDataset([weeks[weeks.length - 1]], loadSnapshot, analyzeWeek).weeks[0];
     lines.push(`записано файлов: ${files.length}`);
     for (const file of files) lines.push(`  ${path.relative(root, file).split(path.sep).join('/')}`);
     lines.push(`последняя неделя: ${last.week} — индекс ${last.index}, дельта ${signed(last.delta)}, `
       + `состояние ${last.state}`);
+    lines.push(`развёртка драйверов: ${last.driver_breakdown.length}, `
+      + `водопад: ${last.waterfall ? 'есть' : 'нет'}, `
+      + `контрфактика: ${last.what_would_change ? last.what_would_change.criteria.length : 0}`);
   } else {
-    const dataset = buildDataset(weeks, loadSnapshot);
+    const dataset = buildDataset(weeks, loadSnapshot, analyzeWeek);
     const last = dataset.weeks[dataset.weeks.length - 1];
     const files = [
       'data/public/index.json', 'data/public/latest.json',
       'data/public/cassandra-index.csv', 'data/public/trend.svg',
-      'data/public/changelog.json', 'changelog.html',
+      'data/public/changelog.json', 'data/public/regions.json',
+      'data/public/criteria.json', 'data/public/methodology.json',
+      'data/public/weeks/<неделя>.json', 'data/public/schema/v1/*.json',
+      'data/analysis.js', 'changelog.html',
     ];
     lines.push(`недель: ${dataset.weeks.length}, последняя ${last.week} — индекс ${last.index}, `
       + `дельта ${signed(last.delta)}, состояние ${last.state}`);
     lines.push(`changelog: ${CHANGELOG.length} записей`);
+    lines.push(`развёртка драйверов: ${last.driver_breakdown.length}, `
+      + `водопад: ${last.waterfall ? 'есть' : 'нет'}`);
     lines.push('файлы (не записаны; для записи — --write):');
     for (const file of files) lines.push(`  ${file}`);
   }

@@ -218,6 +218,9 @@ export function buildDriversCore(criteriaIn, confidenceLevels, params) {
     confidence: level('D9'),
     criteria: d9Criteria,
     signalingSubgroups: d9.signaling,
+    // Коэффициенты короборации §4.3.2 по подгруппам — нужны публичной
+    // развёртке вклада критериев (calc/contributions.js). Расчёт не меняют.
+    corr: d9.corr,
   });
   return drivers;
 }
@@ -315,6 +318,14 @@ export function detectStructuralBreak(drivers, params) {
 // Д8.score — это d₈ (сила деэскалации); Д8 не входит в нормировку эск. весов.
 // context: {prevInternal, prevPublished, structuralBreak: {active, reason}|null}.
 // Возвращает {index, state, delta, internal, q, parts, structuralBreak}.
+// §5.2: насыщающая кривая. Экспортируется отдельно: публичный слой считает
+// вклад драйверов той же кривой, а не второй её копией (calc/contributions.js).
+export function saturateCurve(x, params) {
+  const p = params || {};
+  const k = p.k != null ? p.k : PARAMS.k;
+  return 100 * (1 - Math.exp(-k * x)) / (1 - Math.exp(-k));
+}
+
 export function aggregateDrivers(drivers, params, context) {
   const p = params || {};
   const ctx = context || {};
@@ -374,7 +385,7 @@ export function aggregateDrivers(drivers, params, context) {
 
   // Шаг 6: насыщающая кривая (§5.2).
   const k = p.k != null ? p.k : PARAMS.k;
-  const curve = (x) => 100 * (1 - Math.exp(-k * x)) / (1 - Math.exp(-k));
+  const curve = (x) => saturateCurve(x, p);
   let I_new = curve(I_agg);
 
   // §4.3.4: лимит прироста 30 % — вклад Д9 в недельный прирост (до инерции).
@@ -414,6 +425,26 @@ export function aggregateDrivers(drivers, params, context) {
 
   const index = roundHalfUp(internal);
   const prevPublished = typeof ctx.prevPublished === 'number' ? ctx.prevPublished : null;
+  // Вклад драйверов в агрегат ДО кривой (§5 шаги 2–4), в единицах I_agg:
+  // Σ shares = I_agg. Деэскалация Д8 входит отрицательным членом, Д9 — уже
+  // ограниченным U (§4.3.5). Публичная развёртка (calc/contributions.js)
+  // масштабирует это на опубликованный индекс — расчёт не меняется.
+  const shares = {};
+  const weights = {};
+  for (const id of ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9']) {
+    if (id === 'D9') {
+      shares[id] = U;
+      weights[id] = wp.D9 || 0;
+    } else if (id === 'D8') {
+      shares[id] = d8 ? -lambda * (w.D8 || 0) * d8.score : 0;
+      // Д8 не входит в нормировку эскалационных весов (§5 шаг 2): эффективного
+      // веса у него нет, вычитается λ·w₈. null честнее номинала.
+      weights[id] = null;
+    } else {
+      shares[id] = covered(id) ? wp[id] * covered(id).score : 0;
+      weights[id] = wp[id] || 0;
+    }
+  }
   return {
     index,
     state: stateOf(index, p),
@@ -421,6 +452,8 @@ export function aggregateDrivers(drivers, params, context) {
     internal,
     q,
     parts: { S, U, U_raw, I_agg, I_new, I_new0, tilde },
+    shares,
+    weights,
     structuralBreak: sb,
   };
 }

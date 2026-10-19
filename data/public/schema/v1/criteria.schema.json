@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/criteria.schema.json",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "methodology",
+    "criteria_count",
+    "drivers",
+    "criteria"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-criteria"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "methodology": {
+      "type": "string"
+    },
+    "criteria_count": {
+      "const": 46
+    },
+    "drivers": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "enum": [
+              "D1",
+              "D2",
+              "D3",
+              "D4",
+              "D5",
+              "D6",
+              "D7",
+              "D8",
+              "D9"
+            ]
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ru",
+              "en"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ru": {
+                "type": "string",
+                "minLength": 1
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 46,
+      "maxItems": 46,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "driver",
+          "scale",
+          "dir",
+          "name",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "driver": {
+            "enum": [
+              "D1",
+              "D2",
+              "D3",
+              "D4",
+              "D5",
+              "D6",
+              "D7",
+              "D8",
+              "D9"
+            ]
+          },
+          "scale": {
+            "enum": [
+              "count",
+              "ordinal",
+              "binary"
+            ]
+          },
+          "dir": {
+            "enum": [
+              "esc",
+              "deesc"
+            ]
+          },
+          "name": {
+            "type": "object",
+            "required": [
+              "ru",
+              "en"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ru": {
+                "type": "string",
+                "minLength": 1
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "required": [
+              "ru",
+              "en"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ru": {
+                "type": "string",
+                "minLength": 1
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

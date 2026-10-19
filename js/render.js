@@ -6,6 +6,7 @@ import { t } from './i18n.js';
 import { render as heroRender } from './sections/hero.js';
 import { render as precursorRender } from './sections/precursor.js';
 import { render as trustRender } from './sections/trust.js';
+import { render as contributionRender } from './sections/contribution.js';
 import { render as driversRender } from './sections/drivers.js';
 import { render as trendRender } from './sections/trend.js';
 import { render as regionsRender } from './sections/regions.js';
@@ -18,6 +19,7 @@ export const SECTIONS = [
   'hero',
   'precursor',
   'trust',
+  'contribution',
   'regions',
   'trend',
   'drivers',
@@ -33,6 +35,7 @@ const registry = new Map();
 registerSection('hero', heroRender);
 registerSection('precursor', precursorRender);
 registerSection('trust', trustRender);
+registerSection('contribution', contributionRender);
 registerSection('drivers', driversRender);
 registerSection('trend', trendRender);
 registerSection('regions', regionsRender);

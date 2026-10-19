@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/regions.schema.json",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "taxonomy_version",
+    "taxonomy_v2_from",
+    "current",
+    "taxonomies"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-regions"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "taxonomy_version": {
+      "enum": [
+        "1.0",
+        "2.0"
+      ]
+    },
+    "taxonomy_v2_from": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "current": {
+      "enum": [
+        "1.0",
+        "2.0"
+      ]
+    },
+    "taxonomies": {
+      "type": "object",
+      "required": [
+        "1.0",
+        "2.0"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "1.0": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          }
+        },
+        "2.0": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "region": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "countries",
+        "admin_center"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "required": [
+            "ru",
+            "en"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ru": {
+              "type": "string",
+              "minLength": 1
+            },
+            "en": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "admin_center": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "city",
+            "country",
+            "iso3166_2",
+            "geonames_id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "city": {
+              "type": "object",
+              "required": [
+                "ru",
+                "en"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ru": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "country": {
+              "type": "string"
+            },
+            "iso3166_2": {
+              "type": "string"
+            },
+            "geonames_id": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

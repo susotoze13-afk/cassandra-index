@@ -30,7 +30,7 @@
 | Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
-| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg` и `changelog.html`; `--root <dir>` — другой корень |
+| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` и `changelog.html`; `--root <dir>` — другой корень |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
 | Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
@@ -183,8 +183,15 @@ calc/migrate-week-combined.js  идемпотентная разовая миг�
                           (renderWeekCombined + loadWeekParts из calc.js)
 calc/public-export.js     публичный слой (PUBLIC_SCHEMA_VERSION = 1): datasetOf/
                           buildDataset/toCsv/toTrendSvg/renderChangelogPage/
-                          writePublicData/loadSnapshotFromDisk; вход — week.js-путь +
-                          validate из js/data.js; сайта не знает
+                          writePublicData/loadSnapshotFromDisk/loadAnalysisFromDisk;
+                          вход — week.js-путь + validate из js/data.js; сайта не знает
+calc/contributions.js     модельная развёртка (ADR 0062): criteriaShares/topCriteria/
+                          driverBreakdown (contribution_pp, Σ = index), buildWaterfall
+                          (steps + residual_pp = published delta), whatWouldChange
+                          (контрфактика criterion-zeroed), analyseWeek; чистая, без диска
+calc/public-contract.js   машинный контракт (ADR 0062): regionsDoc/criteriaDoc/
+                          methodologyDoc/weekDoc и JSON Schema draft 2020-12
+                          (schemaDocs); чистые сборщики, reference.json/VERSION — на импорте
 calc/changelog-entries.js курируемый CHANGELOG, KINDS, validateChangelog, sortedDesc
 calc/digest.js            текст выпуска: buildDigest(snapshot, {site, prev, chartUrl}) →
                           subject/text/html/telegram/meta; DIGEST_ITEMS = 5, DIGEST_REGIONS = 3
@@ -240,9 +247,16 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           ADR 0038)
 data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
                           (по одному запросу на неделю вместо 11–17 частей; 12 недель)
+data/analysis.js          ГЕНЕРИРУЕТСЯ public-export.js --write (ADR 0062): зеркало
+                          развёртки для сайта, window.CI_ANALYSIS {weeks{<дата>:
+                          {driver_breakdown, waterfall, what_would_change}}};
+                          classic script (file://), секция contribution его читает
 data/public/              производные (public-export.js --write): index.json (все недели),
                           latest.json, changelog.json, cassandra-index.csv, trend.svg;
-                          digest/ — <неделя>.json + index.json (digest-export.js --write)
+                          справочники regions.json / criteria.json / methodology.json,
+                          weeks/<неделя>.json (конверт одной недели), schema/v1/*.json
+                          (JSON Schema, ADR 0062); digest/ — <неделя>.json + index.json
+                          (digest-export.js --write)
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
@@ -275,7 +289,13 @@ docs/adr/                 зафиксированные архитектурн�
                           параметров до 8 точек; 0050–0052 — публичные данные как
                           производная проекция, версия публичной схемы, статические
                           SEO-страницы; 0053–0055 — доставка письма HTTP-эндпоинтом,
-                          реестр «неделя+канал» с резервом, подписка через форму)
+                          реестр «неделя+канал» с резервом, подписка через форму;
+                          0062 — публичный API-контракт и числовая развёртка «почему
+                          индекс такой»: driver_breakdown/waterfall/what_would_change,
+                          справочники, понедельные файлы, JSON Schema; веса и пороги
+                          раскрыты для API, UI-граница ADR 0045 сохранена)
+docs/api.md               публичный API-контракт (ADR 0062): эндпоинты, поля,
+                          версии, лицензия, примеры, смысл residual_pp
 docs/architecture.md      поток данных расчёта и сайта, границы модулей, конвенции;
                           источник для агента, впервые открывшего репозиторий
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
@@ -510,6 +530,16 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   не читает). Ключи i18n `trust.*` (в т.ч. `trust.cluster.A-mainstream`…`F-financial`).
   Стили — `.trust-section`/`.trust-row`/`.trust-details-*` в css/styles.css. Тесты:
   tests/trust.test.js.
+- `js/sections/contribution.js` — секция «Почему индекс изменился» (ADR 0062,
+  регистрируется в js/render.js как 'contribution' после trust): водопад
+  «прошлая неделя → вклады девяти драйверов → эта неделя» + остаток механики,
+  раскрывающаяся таблица «Из чего сложился индекс» (вклад в п.п., top-3 критерия
+  с названиями) и блок «Что бы изменило оценку» (пороги состояний, до трёх
+  критериев). Источник — `window.CI_ANALYSIS` из `data/analysis.js` (сайт не
+  грузит `data/public/*`). Чистые швы: `analysisFor(store, week)`,
+  `waterfallRows`, `levelRows`, `whatRows`, `barWidth`, `formatPp`, `driverLabel`;
+  нет записи недели — секция скрыта, а не нули. Ключи i18n `contribution.*`,
+  стили `.contribution-*`. Тесты: tests/contribution-ui.test.js.
 - `js/sections/methodology.js` — секция «Методология»: статический контент из i18n + полный
   список 46 критериев; шов `criteriaModel(lang) → [{driver, title, items}]` (9 групп),
   рендер `<details>/<summary>`, ключи i18n `method.criteria.*`.
@@ -524,7 +554,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `build.js` — свой мини-бандлер: топосорт, namespace `window.CI`, входы js/app.js+js/share.js
   и js/i18n.js+js/ui.js; неподдержанные формы import/export — ошибка сборки.
 - `calc/public-export.js` — публичный слой теперь несёт лицензионный конверт CC BY 4.0
-  (объект `LICENSE`: name/url/attribution/note) в `data/public/*`.
+  (объект `LICENSE`: name/url/attribution/note) в `data/public/*`; с ADR 0062 там же
+  справочники, понедельные файлы и JSON Schema, а `buildDataset` принимает третий шов
+  `analyzeWeek(week, snapshot, prevSnapshot, prevWeek)` для развёртки драйверов.
+- `calc/contributions.js` + `calc/public-contract.js` — API-контракт: `contribution_pp`
+  (Σ = index), top-3 критерия драйвера, водопад с `residual_pp`, контрфактика
+  `criterion-zeroed`; схемы не дублируют неделю (`index`/`latest` ссылаются на
+  `week.schema.json#/$defs/week`).
 - `tools/check-dco.js` — проверка подписи коммитов DCO: `node tools/check-dco.js <base> <head>`;
   ворота `.github/workflows/dco.yml`.
 - `tests/licensing.test.js` / `tests/citation.test.js` / `tests/dco.test.js` / `tests/governance.test.js`
@@ -667,6 +703,10 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 механика недели автозапуска (addRecalcWeek/addLatestWeek, идемпотентность):
 `tests/prepare-week.test.js`;
 публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
+`tests/public-contract.test.js` (ADR 0062: справочники, driver_breakdown, waterfall,
+what_would_change, минимальный JSON-Schema-валидатор на все публичные файлы),
+`tests/contribution-ui.test.js` (секция «Почему индекс изменился»: чистые швы,
+ключи словаря, хост/стили, паритет `data/analysis.js` с генератором),
 `tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
 `tests/digest-send.test.js` (поддельный fetchImpl, redact, резерв, превью редактору), `tests/seo-pages.test.js`,
 `tests/site-pages.test.js` (каждый *.html корня обязан быть в cp-строке deploy.yml);
@@ -706,6 +746,22 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 - `data/public/*`, `changelog.html`, `digest.html`, `data/public/digest/*` — производные:
   руками не правятся, пересобираются CLI (`public-export.js --write`,
   `digest-export.js --write`), иначе `node --test`/паритет ловит расхождение.
+  Сюда же относится контракт ADR 0062: `regions.json`, `criteria.json`,
+  `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` — схемы и
+  справочники генерируются, ручная правка ловится `tests/public-contract.test.js`.
+  `data/analysis.js` — тоже генерируемый (зеркало развёртки для сайта, не
+  `data/public/*`: сайт публичный слой не грузит); паритет пинит
+  `tests/contribution-ui.test.js`. После правки `js/**` — `node build.js`.
+- ADR 0062 раскрывает веса, CAP, `k` и пороги в `methodology.json` для машинного
+  потребителя. Это **не** отмена ADR 0045: страница «Методология» по-прежнему не
+  показывает формулы и веса. Не «чинить» UI вслед за API.
+- `driver_breakdown.contribution_pp` — развёртка уже посчитанного индекса
+  (Σ = `index`), `waterfall.residual_pp` — инерция/q-сжатие/лимит Д9 и округление,
+  а не вклад драйвера. Складывать шаги водопада без остатка нельзя; водопад
+  `null` на первой неделе цепочки и через границу версий методологии.
+- Развёртка читает `calc/input/<неделя>.json`; у демо-недель 08-02…08-23 входов
+  нет, поэтому `driver_breakdown: []`, `waterfall: null`, `what_would_change: null`.
+  Это «нет расчёта», а не нулевой вклад.
 - `data/digest/sent.json` — реестр пар «неделя+канал», формат v2
   (`channels{неделя:[...]}` + `pending{неделя:{канал:runId}}`); легаси `{weeks:[...]}`
   читается как «оба канала отправлены». Запись резервируется `--reserve` ДО отправки —

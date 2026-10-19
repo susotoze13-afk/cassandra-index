@@ -1,0 +1,534 @@
+{
+  "schema": "cassandra-index-week",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "week": {
+    "week": "2026-08-30",
+    "published": "2026-08-30",
+    "through": "2026-08-30",
+    "methodology": "3.0",
+    "regions_taxonomy": "1.0",
+    "data_state": "published",
+    "index": 51,
+    "delta": -10,
+    "state": "danger",
+    "q": 1,
+    "confidence": "full",
+    "coverage_criteria": null,
+    "regions": [
+      {
+        "id": "europe",
+        "index": 49,
+        "delta": -19,
+        "background": false
+      },
+      {
+        "id": "east-asia",
+        "index": 42,
+        "delta": -10,
+        "background": true
+      },
+      {
+        "id": "middle-east",
+        "index": 49,
+        "delta": -31,
+        "background": false
+      },
+      {
+        "id": "north-america",
+        "index": 32,
+        "delta": -10,
+        "background": true
+      },
+      {
+        "id": "south-asia",
+        "index": 49,
+        "delta": -9,
+        "background": false
+      },
+      {
+        "id": "africa",
+        "index": 48,
+        "delta": 1,
+        "background": false
+      }
+    ],
+    "precursor": null,
+    "precursor_present": false,
+    "drivers": [
+      {
+        "label": {
+          "ru": "Удары по глубокому тылу вышли на рекордный уровень",
+          "en": "Strikes deep behind the front line reached record intensity"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "Блокада чёрноморских портов остановила экспорт зерна",
+          "en": "The blockade of Black Sea ports halted grain exports"
+        },
+        "contribution": "high"
+      },
+      {
+        "label": {
+          "ru": "Пуск мобильной «Ярс» подтверждён независимым мониторингом",
+          "en": "Mobile Yars launch confirmed by independent monitoring"
+        },
+        "contribution": "medium"
+      }
+    ],
+    "driver_breakdown": [
+      {
+        "id": "D1",
+        "name": {
+          "ru": "Д1. Военная активность",
+          "en": "D1. Military activity"
+        },
+        "score": 0.358,
+        "confidence": "high",
+        "weight": 0.1175,
+        "weight_effective": 0.18,
+        "covered": {
+          "criteria": 6,
+          "total": 6
+        },
+        "contribution_pp": 15.2,
+        "top_criteria": [
+          {
+            "id": "D1.4",
+            "name": {
+              "ru": "Актуальные боевые действия",
+              "en": "Active hostilities"
+            },
+            "dir": "esc",
+            "value": 0.6,
+            "contribution": 0.12,
+            "share": 0.335
+          },
+          {
+            "id": "D1.2",
+            "name": {
+              "ru": "Учения необычного масштаба",
+              "en": "Exercises of unusual scale"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.066,
+            "share": 0.184
+          },
+          {
+            "id": "D1.3",
+            "name": {
+              "ru": "Наращивание военной логистики",
+              "en": "Military logistics build-up"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.066,
+            "share": 0.184
+          }
+        ]
+      },
+      {
+        "id": "D2",
+        "name": {
+          "ru": "Д2. Ядерная сигнальная активность",
+          "en": "D2. Nuclear signaling activity"
+        },
+        "score": 0.05,
+        "confidence": "medium",
+        "weight": 0.1175,
+        "weight_effective": 0.126,
+        "covered": {
+          "criteria": 5,
+          "total": 5
+        },
+        "contribution_pp": 1.5,
+        "top_criteria": [
+          {
+            "id": "D2.3",
+            "name": {
+              "ru": "Технические ядерные сигналы",
+              "en": "Technical nuclear signals"
+            },
+            "dir": "esc",
+            "value": 0.2,
+            "contribution": 0.05,
+            "share": 1
+          }
+        ]
+      },
+      {
+        "id": "D3",
+        "name": {
+          "ru": "Д3. Дипломатическая эскалация и деэскалация",
+          "en": "D3. Diplomatic escalation and de-escalation"
+        },
+        "score": 0.052,
+        "confidence": "medium",
+        "weight": 0.1175,
+        "weight_effective": 0.126,
+        "covered": {
+          "criteria": 5,
+          "total": 5
+        },
+        "contribution_pp": 1.6,
+        "top_criteria": [
+          {
+            "id": "D3.4",
+            "name": {
+              "ru": "Переговоры и посредничество",
+              "en": "Talks and mediation"
+            },
+            "dir": "deesc",
+            "value": 0.67,
+            "contribution": -0.167,
+            "share": -0.432
+          },
+          {
+            "id": "D3.2",
+            "name": {
+              "ru": "Ультиматумы",
+              "en": "Ultimatums"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.11,
+            "share": 0.284
+          },
+          {
+            "id": "D3.3",
+            "name": {
+              "ru": "Санкции и международно-правовые решения",
+              "en": "Sanctions and legal measures"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.11,
+            "share": 0.284
+          }
+        ]
+      },
+      {
+        "id": "D4",
+        "name": {
+          "ru": "Д4. Экономические индикаторы конфликта",
+          "en": "D4. Economic indicators of conflict"
+        },
+        "score": 0.372,
+        "confidence": "high",
+        "weight": 0.1175,
+        "weight_effective": 0.18,
+        "covered": {
+          "criteria": 6,
+          "total": 6
+        },
+        "contribution_pp": 15.7,
+        "top_criteria": [
+          {
+            "id": "D4.3",
+            "name": {
+              "ru": "Разрыв цепочек поставок",
+              "en": "Supply chain disruption"
+            },
+            "dir": "esc",
+            "value": 0.67,
+            "contribution": 0.134,
+            "share": 0.36
+          },
+          {
+            "id": "D4.2",
+            "name": {
+              "ru": "Военные расходы",
+              "en": "Military spending"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.066,
+            "share": 0.177
+          },
+          {
+            "id": "D4.4",
+            "name": {
+              "ru": "Конфискации и блокировка торговли",
+              "en": "Asset seizures and trade blockage"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.066,
+            "share": 0.177
+          }
+        ]
+      },
+      {
+        "id": "D5",
+        "name": {
+          "ru": "Д5. Информационная и киберсфера",
+          "en": "D5. Information and cyber sphere"
+        },
+        "score": 0.33,
+        "confidence": "low",
+        "weight": 0.1175,
+        "weight_effective": 0.072,
+        "covered": {
+          "criteria": 2,
+          "total": 4
+        },
+        "contribution_pp": 5.6,
+        "top_criteria": [
+          {
+            "id": "D5.1",
+            "name": {
+              "ru": "Эскалация военной риторики",
+              "en": "Escalation of war rhetoric"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.33,
+            "share": 1
+          }
+        ]
+      },
+      {
+        "id": "D6",
+        "name": {
+          "ru": "Д6. Мобилизация общества",
+          "en": "D6. Societal mobilization"
+        },
+        "score": 0.165,
+        "confidence": "medium",
+        "weight": 0.1175,
+        "weight_effective": 0.126,
+        "covered": {
+          "criteria": 3,
+          "total": 4
+        },
+        "contribution_pp": 4.9,
+        "top_criteria": [
+          {
+            "id": "D6.2",
+            "name": {
+              "ru": "Эвакуация населения",
+              "en": "Evacuation of population"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.165,
+            "share": 1
+          }
+        ]
+      },
+      {
+        "id": "D7",
+        "name": {
+          "ru": "Д7. Распространение и вовлечение третьих сторон",
+          "en": "D7. Proliferation and third-party involvement"
+        },
+        "score": 0.177,
+        "confidence": "medium",
+        "weight": 0.1175,
+        "weight_effective": 0.126,
+        "covered": {
+          "criteria": 4,
+          "total": 4
+        },
+        "contribution_pp": 5.2,
+        "top_criteria": [
+          {
+            "id": "D7.1",
+            "name": {
+              "ru": "Вовлечение новых государств",
+              "en": "Entry of new states"
+            },
+            "dir": "esc",
+            "value": 0.33,
+            "contribution": 0.11,
+            "share": 0.623
+          },
+          {
+            "id": "D7.2",
+            "name": {
+              "ru": "Атаки за пределами театра",
+              "en": "Attacks beyond the theatre"
+            },
+            "dir": "esc",
+            "value": 0.2,
+            "contribution": 0.067,
+            "share": 0.377
+          }
+        ]
+      },
+      {
+        "id": "D8",
+        "name": {
+          "ru": "Д8. Подтверждённые деэскалирующие исходы",
+          "en": "D8. Confirmed de-escalating outcomes"
+        },
+        "score": 0,
+        "confidence": "low",
+        "weight": 0.1175,
+        "weight_effective": null,
+        "covered": {
+          "criteria": 3,
+          "total": 4
+        },
+        "contribution_pp": 0,
+        "top_criteria": []
+      },
+      {
+        "id": "D9",
+        "name": {
+          "ru": "Д9. Косвенные индикаторы подготовки",
+          "en": "D9. Indirect preparation indicators"
+        },
+        "score": 0.084,
+        "confidence": "medium",
+        "weight": 0.06,
+        "weight_effective": 0.064,
+        "covered": {
+          "criteria": 4,
+          "total": 8
+        },
+        "contribution_pp": 1.3,
+        "top_criteria": [
+          {
+            "id": "D9.3",
+            "name": {
+              "ru": "Транспорт и страхование",
+              "en": "Transport and insurance"
+            },
+            "dir": "esc",
+            "value": 0.67,
+            "contribution": 0.084,
+            "share": 1
+          }
+        ]
+      }
+    ],
+    "waterfall": null,
+    "what_would_change": {
+      "state": "danger",
+      "thresholds": {
+        "down": {
+          "state": "tense",
+          "index": 41,
+          "gap_pp": -10
+        },
+        "up": {
+          "state": "very",
+          "index": 61,
+          "gap_pp": 10
+        }
+      },
+      "criteria": [
+        {
+          "id": "D4.3",
+          "name": {
+            "ru": "Разрыв цепочек поставок",
+            "en": "Supply chain disruption"
+          },
+          "driver": "D4",
+          "dir": "esc",
+          "value": 0.67,
+          "impact_pp": -3.7,
+          "effect": "down",
+          "crosses_state": false,
+          "breaks_driver": false
+        },
+        {
+          "id": "D5.1",
+          "name": {
+            "ru": "Эскалация военной риторики",
+            "en": "Escalation of war rhetoric"
+          },
+          "driver": "D5",
+          "dir": "esc",
+          "value": 0.33,
+          "impact_pp": -3.6,
+          "effect": "down",
+          "crosses_state": false,
+          "breaks_driver": false
+        },
+        {
+          "id": "D1.4",
+          "name": {
+            "ru": "Актуальные боевые действия",
+            "en": "Active hostilities"
+          },
+          "driver": "D1",
+          "dir": "esc",
+          "value": 0,
+          "impact_pp": -3.3,
+          "effect": "down",
+          "crosses_state": false,
+          "breaks_driver": false
+        }
+      ],
+      "method": "criterion-zeroed"
+    },
+    "sources": {
+      "count": 29,
+      "clusters": 4,
+      "state_affiliated": 6
+    },
+    "trend": [
+      {
+        "date": "2026-06-14",
+        "value": 47
+      },
+      {
+        "date": "2026-06-21",
+        "value": 49
+      },
+      {
+        "date": "2026-06-28",
+        "value": 50
+      },
+      {
+        "date": "2026-07-05",
+        "value": 50
+      },
+      {
+        "date": "2026-07-12",
+        "value": 53
+      },
+      {
+        "date": "2026-07-19",
+        "value": 55
+      },
+      {
+        "date": "2026-07-26",
+        "value": 56
+      },
+      {
+        "date": "2026-08-02",
+        "value": 57
+      },
+      {
+        "date": "2026-08-09",
+        "value": 58
+      },
+      {
+        "date": "2026-08-16",
+        "value": 60
+      },
+      {
+        "date": "2026-08-23",
+        "value": 62
+      },
+      {
+        "date": "2026-08-30",
+        "value": 51,
+        "methodology": "3.0"
+      }
+    ]
+  }
+}
