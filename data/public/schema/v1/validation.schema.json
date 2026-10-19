@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/validation.schema.json",
+  "title": "Cassandra Index — внешняя сверка ряда",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "site",
+    "license",
+    "methodology",
+    "weeks",
+    "thresholds",
+    "comparators",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-validation"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "site": {
+      "const": "https://cassindex.ru"
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "attribution",
+        "note",
+        "placeholder"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "CC BY 4.0"
+        },
+        "url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placeholder": {
+          "const": false
+        }
+      }
+    },
+    "methodology": {
+      "type": "string",
+      "minLength": 1
+    },
+    "weeks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "required": [
+        "min_pairs",
+        "preliminary_below",
+        "lags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "min_pairs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "preliminary_below": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lags": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "comparators": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/comparator"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "comparators",
+        "with_coefficients",
+        "insufficient"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "comparators": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "with_coefficients": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "insufficient": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "correlation": {
+      "type": "object",
+      "required": [
+        "n",
+        "pearson",
+        "spearman",
+        "p_permutation",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pearson": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "spearman": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "p_permutation": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "preliminary",
+            "descriptive",
+            "insufficient",
+            "ok"
+          ]
+        }
+      }
+    },
+    "comparator": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "granularity",
+        "construct",
+        "provenance",
+        "overlap",
+        "levels",
+        "deltas",
+        "direction",
+        "lead_lag",
+        "discrepancies",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "granularity": {
+          "enum": [
+            "week",
+            "month"
+          ]
+        },
+        "construct": {
+          "type": "object",
+          "required": [
+            "ru"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ru": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "name",
+            "url",
+            "data_url",
+            "retrieved",
+            "as_of",
+            "license"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "data_url": {
+              "type": "string",
+              "minLength": 1
+            },
+            "retrieved": {
+              "type": "string",
+              "minLength": 1
+            },
+            "as_of": {
+              "type": "string",
+              "minLength": 1
+            },
+            "license": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "overlap": {
+          "type": "object",
+          "required": [
+            "periods",
+            "from",
+            "to"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "periods": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "from": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$"
+            },
+            "to": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$"
+            }
+          }
+        },
+        "levels": {
+          "$ref": "#/$defs/correlation"
+        },
+        "deltas": {
+          "$ref": "#/$defs/correlation"
+        },
+        "direction": {
+          "type": "object",
+          "required": [
+            "hits",
+            "total",
+            "skipped",
+            "rate",
+            "status"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "hits": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "skipped": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rate": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "status": {
+              "enum": [
+                "preliminary",
+                "descriptive",
+                "insufficient",
+                "ok"
+              ]
+            }
+          }
+        },
+        "lead_lag": {
+          "type": "object",
+          "required": [
+            "by_lag",
+            "best_lag",
+            "best",
+            "status"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "by_lag": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "lag",
+                  "n",
+                  "pearson"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "lag": {
+                    "type": "integer"
+                  },
+                  "n": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "pearson": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "best_lag": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "best": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "preliminary",
+                "descriptive",
+                "insufficient",
+                "ok"
+              ]
+            }
+          }
+        },
+        "discrepancies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "period",
+              "index_delta",
+              "external_delta"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "period": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$"
+              },
+              "index_delta": {
+                "type": "number"
+              },
+              "external_delta": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

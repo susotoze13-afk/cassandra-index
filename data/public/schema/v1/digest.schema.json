@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/digest.schema.json",
+  "title": "Cassandra Index — выпуск дайджеста",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "week",
+    "subject",
+    "text",
+    "html",
+    "telegram",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-digest"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "week": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "html": {
+      "type": "string",
+      "minLength": 1
+    },
+    "telegram": {
+      "type": "string",
+      "minLength": 1
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "items",
+        "regions",
+        "hasPrev"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "regions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hasPrev": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

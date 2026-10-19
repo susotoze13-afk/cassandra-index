@@ -31,6 +31,9 @@ Cassandra Index — порядковая шкала уровня и направ
 | `/data/public/trend.svg` | кривая 12 недель без внешних ресурсов | еженедельно |
 | `/data/public/schema/v1/*.json` | JSON Schema draft 2020-12 на каждый файл | при смене схемы |
 | `/data/public/digest/index.json` | архив еженедельных дайджестов | еженедельно |
+| `/data/public/digest/<week>.json` | один выпуск дайджеста: тема, текст, HTML, Telegram | еженедельно |
+| `/data/public/validation.json` | внешняя сверка ряда с GPR, ACLED и CrisisWatch | по прогону сверки |
+| `/data/public/forecast-ledger.json` | реестр прогнозов и их проверки по опубликованным неделям | еженедельно |
 
 HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
@@ -60,7 +63,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
 Правила:
 
-- добавление поля — минорное изменение схемы, `schema_version` не меняется;
+- добавление поля или файла — минорное изменение схемы, `schema_version` не меняется;
   потребитель обязан игнорировать незнакомые поля;
 - удаление/переименование/смена типа — новая версия `schema_version` и новая
   папка `schema/vN/`;
@@ -90,6 +93,12 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
 `latest.json` — тот же конверт с одним объектом `week` вместо массива.
 `weeks/<date>.json` — конверт `cassandra-index-week` с одним объектом `week`.
+
+Не все файлы несут конверт: `changelog.json` и `digest/index.json`/`digest/<week>.json`
+содержат только `schema`, `schema_version` и полезную нагрузку — полей `site` и
+`license` у них нет. Данные в них всё равно распространяются по CC BY 4.0
+(`LICENSE-DATA`), атрибуция обязательна. `validation.json` и
+`forecast-ledger.json` конверт несут, как `index.json`.
 
 ## Объект недели
 
@@ -321,6 +330,177 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 только с версией методологии; сравнивайте `methodology`, прежде чем смешивать
 недели в одном расчёте.
 
+## Остальные публичные файлы
+
+### `changelog.json`
+
+История изменений методологии и схемы. Конверта `site`/`license` нет —
+это метаданные проекта.
+
+```json
+{
+  "schema": "cassandra-index-changelog",
+  "schema_version": 1,
+  "entries": [
+    {
+      "date": "2026-10-18",
+      "version": "3.0",
+      "kind": "taxonomy",
+      "title": "Таксономия регионов 2.0: двенадцать регионов",
+      "body": "Недели начиная с 2026-10-18 считаются набором 2.0 …",
+      "link": "https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0028-region-taxonomy-v2.md"
+    }
+  ]
+}
+```
+
+- `date` — дата события `YYYY-MM-DD`; `version` — версия методологии, в которой
+  изменение действует.
+- `kind` — `methodology`, `taxonomy`, `schema`, `field`, `fix` или `product`.
+- `link` необязателен и всегда http(s)-ссылка. Записи идут от новых к старым.
+
+### `digest/index.json`
+
+Архив выпусков: `{schema: "cassandra-index-digest-index", schema_version: 1,
+weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронологическом порядке. Конверта
+`site`/`license` нет; данные — CC BY 4.0 по `LICENSE-DATA`.
+
+```json
+{
+  "schema": "cassandra-index-digest-index",
+  "schema_version": 1,
+  "weeks": ["2026-10-18", "2026-10-11"]
+}
+```
+
+### `digest/<YYYY-MM-DD>.json`
+
+Готовый выпуск дайджеста за неделю. Конверта `site`/`license` нет.
+
+```json
+{
+  "schema": "cassandra-index-digest",
+  "schema_version": 1,
+  "week": "2026-10-18",
+  "subject": "Cassandra Index, неделя 18 октября 2026 года: 64 из 100, очень опасно, +8",
+  "text": "Cassandra Index — неделя 18 октября 2026 года\n…",
+  "html": "<!doctype html><html lang=\"ru\">…</html>",
+  "telegram": "Cassandra Index — неделя 18 октября 2026 года\n…",
+  "meta": { "items": 5, "regions": 3, "hasPrev": true }
+}
+```
+
+- `week` — дата недели или `null` у служебного выпуска без недели.
+- `text` — версия для письма, `html` — тело письма, `telegram` — версия для
+  Telegram; `subject` — тема письма.
+- `meta.items` — сколько пунктов в выпуске, `meta.regions` — сколько регионов,
+  `meta.hasPrev` — был ли предыдущий выпуск (нужен для дельты).
+- `digest/<week>.json` стабилен по пути: опубликованный выпуск не переписывается.
+
+### `validation.json`
+
+Внешняя сверка ряда с независимыми источниками (ADR 0063). Конверт
+`site`/`license` есть.
+
+```json
+{
+  "schema": "cassandra-index-validation",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": { "name": "CC BY 4.0", "…": "…" },
+  "methodology": "3.0",
+  "weeks": ["2026-08-30", "…", "2026-10-18"],
+  "thresholds": { "min_pairs": 6, "preliminary_below": 20, "lags": [-2, -1, 0, 1, 2] },
+  "comparators": [{
+    "id": "gpr",
+    "title": "Geopolitical Risk Index (GPR)",
+    "granularity": "week",
+    "construct": { "ru": "…" },
+    "provenance": { "name": "…", "url": "…", "data_url": "…", "retrieved": "2026-10-18", "as_of": "2026-10-13", "license": "…" },
+    "overlap": { "periods": 7, "from": "2026-08-30", "to": "2026-10-11" },
+    "levels": { "n": 7, "pearson": -0.148, "spearman": 0.126, "p_permutation": 0.7421, "status": "preliminary" },
+    "deltas": { "…": "…" },
+    "direction": { "hits": 1, "total": 6, "skipped": 0, "rate": 0.167, "status": "descriptive" },
+    "lead_lag": { "by_lag": [{ "lag": 0, "n": 6, "pearson": -0.599 }], "best_lag": 0, "best": -0.599, "status": "preliminary" },
+    "discrepancies": [{ "period": "2026-10-11", "index_delta": 10, "external_delta": -26.45 }],
+    "note": null
+  }],
+  "summary": { "comparators": 3, "with_coefficients": 1, "insufficient": 2 }
+}
+```
+
+- `comparators[].status` — `insufficient` (пар меньше `min_pairs`), `preliminary`
+  (меньше `preliminary_below`), `ok` или `descriptive` (для направления).
+- Коэффициенты `pearson`/`spearman`/`p_permutation`, `lead_lag.best` и
+  `overlap.from`/`to` бывают `null` — это «недостаточно пар», а не ноль.
+  Месячные компараторы дают `YYYY-MM` в `period`/`from`/`to`.
+- `discrepancies` — периоды, где знак изменения индекса и внешнего ряда разошёлся
+  (до 12 записей). Это диагностика, а не ошибка.
+- `note` — пояснение, почему коэффициент не публикуется, или `null`.
+
+### `forecast-ledger.json`
+
+Реестр прогнозов и их проверки по опубликованным неделям (ADR 0064). Конверт
+`site`/`license` есть.
+
+```json
+{
+  "schema": "cassandra-index-forecast-ledger",
+  "schema_version": 1,
+  "site": "https://cassindex.ru",
+  "license": { "name": "CC BY 4.0", "…": "…" },
+  "rule": { "cluster": "шкала js/risk.js (SCALE)", "direction": { "deadband": 2, "values": ["down", "flat", "up"] }, "baseline": "…" },
+  "entries": [{
+    "week": "2026-09-06",
+    "kind": "baseline",
+    "committedAt": "2026-08-30",
+    "verified": true,
+    "expectedCluster": "danger",
+    "expectedDirection": "flat",
+    "actualIndex": 42,
+    "actualCluster": "danger",
+    "actualDelta": -9,
+    "actualDirection": "down",
+    "outcome": { "cluster": "hit", "direction": "miss" }
+  }],
+  "summary": {
+    "baseline": { "entries": 7, "cluster": { "hits": 6, "total": 7 }, "direction": { "hits": 2, "total": 7 }, "pending": { "cluster": 0, "direction": 0 } },
+    "editor": { "entries": 0, "cluster": { "hits": 0, "total": 0 }, "direction": { "hits": 0, "total": 0 }, "pending": { "cluster": 0, "direction": 0 } }
+  },
+  "misses": [{ "week": "2026-10-18", "kind": "baseline", "field": "cluster", "expected": "danger", "actual": "very" }]
+}
+```
+
+- `kind` — `baseline` (прогноз «без изменений») или `editor` (прогноз редактора
+  из `calc/input/anchors/forward-<week>.json`).
+- `committedAt` — когда прогноз зафиксирован; `verified` — подтверждён ли он
+  git-историей (`null` у непроверенной записи редактора).
+- `outcome` по каждому полю — `hit`, `miss` или `pending` (нет факта или
+  ожидания). `pending` не входит в `total`.
+- `actualIndex`/`actualDelta`/`actualCluster`/`actualDirection` бывают `null`,
+  пока неделя не опубликована.
+- `rule.direction.deadband` — порог, ниже которого изменение считается `flat`.
+- `misses` — плоский список промахов для быстрой проверки калибровки.
+
+### `cassandra-index.csv`
+
+Плоская таблица «неделя × область», одна строка на глобальный ряд и на каждый
+регион недели. Колонки в этом порядке:
+
+`schema,schema_version,week,published,through,methodology,regions_taxonomy,data_state,scope,index,delta,state,q,confidence,coverage_covered,coverage_total,background`
+
+- `scope` — `global` или id региона набора недели (`regions_taxonomy`).
+- `background` — `true` у слепого региона: индекс отражает глобальный фон.
+- Пустые поля — «нет данных» (`null` в JSON), а не ноль. `schema` каждой строки —
+`cassandra-index-public`, `schema_version` — `1`.
+
+### `trend.svg`
+
+Кривая последних 12 недель: 640×320, линия и точки, подписи дат по оси X,
+без внешних ресурсов, шрифтов и скриптов — встраивается в страницу и письмо
+как есть. Значения — глобальный индекс 0–100. Файл не JSON, JSON Schema к нему
+не применяется.
+
 ## Схемы
 
 `data/public/schema/v1/`:
@@ -333,10 +513,17 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 | `regions.schema.json` | `regions.json` |
 | `criteria.schema.json` | `criteria.json` |
 | `methodology.schema.json` | `methodology.json` |
+| `changelog.schema.json` | `changelog.json` |
+| `digest-index.schema.json` | `digest/index.json` |
+| `digest.schema.json` | `digest/<date>.json` |
+| `validation.schema.json` | `validation.json` |
+| `forecast-ledger.schema.json` | `forecast-ledger.json` |
 
 JSON Schema draft 2020-12. Схемы разрешают только описанные поля
 (`additionalProperties: false`) — это контракт, а не подсказка. `index.json` и
 `latest.json` ссылаются на `week.schema.json#/$defs/week`, а не дублируют его.
+Схема на каждый публичный JSON обязательна: тест-сторож падает, если на диске
+появился файл `data/public/**/*.json` без схемы или без строки в этом документе.
 
 ## Примеры
 

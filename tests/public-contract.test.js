@@ -4,7 +4,7 @@
 // (только используемые ключевые слова draft 2020-12), без зависимостей.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
 import {
@@ -283,6 +283,92 @@ function validateNode(data, schema, name, schemas, at = '$') {
   }
   return errors;
 }
+
+const PUBLIC_DIR = path.join(ROOT, 'data', 'public');
+
+// Обход публичного слоя: все JSON, кроме самих схем (data/public/schema/**).
+function publicJsonFiles(dir = PUBLIC_DIR, prefix = '') {
+  const out = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (entry.name === 'schema' && !prefix) continue;
+      out.push(...publicJsonFiles(path.join(dir, entry.name), rel));
+    } else if (entry.name.endsWith('.json')) {
+      out.push(rel);
+    }
+  }
+  return out.sort();
+}
+
+// Схема выбирается по пути: у недель и дайджеста свои шаблоны.
+function schemaNameFor(rel) {
+  if (rel === 'index.json') return 'index.schema.json';
+  if (rel === 'latest.json') return 'latest.schema.json';
+  if (rel.startsWith('weeks/')) return 'week.schema.json';
+  if (rel === 'digest/index.json') return 'digest-index.schema.json';
+  if (rel.startsWith('digest/')) return 'digest.schema.json';
+  return `${path.posix.basename(rel, '.json')}.schema.json`;
+}
+
+// Путь в docs/api.md: конкретные даты не перечисляются, шаблоны — да.
+function docPathFor(rel) {
+  if (rel.startsWith('weeks/')) return 'weeks/<YYYY-MM-DD>.json';
+  if (rel.startsWith('digest/') && rel !== 'digest/index.json') return 'digest/<week>.json';
+  return rel;
+}
+
+test('схемы: каждый публичный JSON на диске проходит схему по пути', () => {
+  const schemas = schemaDocs();
+  const files = publicJsonFiles();
+  assert.ok(files.includes('validation.json'), 'обход не нашёл validation.json');
+  assert.ok(files.includes('digest/2026-10-18.json'), 'обход не нашёл выпуск дайджеста');
+  for (const rel of files) {
+    const schemaName = schemaNameFor(rel);
+    const schema = schemas[schemaName];
+    assert.ok(schema, `${rel}: нет схемы ${schemaName} в schemaDocs()`);
+    const errors = validateNode(readPublic(rel), schema, schemaName, schemas);
+    assert.deepEqual(errors, [], `${rel}: ${errors.slice(0, 5).join('; ')}`);
+  }
+});
+
+test('сторож: каждый публичный JSON упомянут в docs/api.md и имеет схему', () => {
+  const api = readFileSync(path.join(ROOT, 'docs', 'api.md'), 'utf8');
+  const schemas = schemaDocs();
+  for (const rel of publicJsonFiles()) {
+    assert.ok(schemas[schemaNameFor(rel)], `${rel}: нет схемы ${schemaNameFor(rel)}`);
+    const url = `/data/public/${docPathFor(rel)}`;
+    assert.ok(api.includes(url), `${rel}: нет строки ${url} в docs/api.md`);
+  }
+});
+
+test('schemaDocs: одиннадцать схем, по одной на каждый публичный JSON', () => {
+  const names = Object.keys(schemaDocs());
+  assert.equal(names.length, 11);
+  for (const name of ['changelog', 'digest-index', 'digest', 'validation', 'forecast-ledger']) {
+    assert.ok(names.includes(`${name}.schema.json`), `нет ${name}.schema.json`);
+  }
+});
+
+test('схемы: nullable-поля допускают null (digest.week, коэффициенты validation)', () => {
+  const schemas = schemaDocs();
+  assert.ok(schemas['digest.schema.json'], 'нет digest.schema.json');
+  assert.ok(schemas['validation.schema.json'], 'нет validation.schema.json');
+  const digest = structuredClone(readPublic('digest/2026-10-18.json'));
+  digest.week = null;
+  assert.deepEqual(
+    validateNode(digest, schemas['digest.schema.json'], 'digest.schema.json', schemas), [],
+  );
+  const validation = structuredClone(readPublic('validation.json'));
+  for (const c of validation.comparators) {
+    c.levels.pearson = null;
+    c.lead_lag.best = null;
+    c.lead_lag.best_lag = null;
+  }
+  assert.deepEqual(
+    validateNode(validation, schemas['validation.schema.json'], 'validation.schema.json', schemas), [],
+  );
+});
 
 test('схемы: каждый публичный JSON проходит свою JSON Schema', () => {
   const schemas = schemaDocs();

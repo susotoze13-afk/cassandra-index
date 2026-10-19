@@ -18,6 +18,7 @@ import path from 'node:path';
 
 import { PARAMS } from './params.js';
 import { DRIVER_IDS, DRIVER_NAMES } from './contributions.js';
+import { KINDS } from './changelog-entries.js';
 import { CRITERIA_LIST } from '../js/criteria.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -33,6 +34,11 @@ export const SCHEMA_NAMES = {
   regions: 'cassandra-index-regions',
   criteria: 'cassandra-index-criteria',
   methodology: 'cassandra-index-methodology',
+  changelog: 'cassandra-index-changelog',
+  digestIndex: 'cassandra-index-digest-index',
+  digestWeek: 'cassandra-index-digest',
+  validation: 'cassandra-index-validation',
+  forecastLedger: 'cassandra-index-forecast-ledger',
 };
 
 // Лицензионный конверт данных (CC BY 4.0) — общий для всех файлов.
@@ -45,6 +51,8 @@ export const PUBLIC_LICENSE = {
 };
 
 const DATE_RE = '^[0-9]{4}-[0-9]{2}-[0-9]{2}$';
+// Период сверки: недельный — дата, месячный компаратор — 'YYYY-MM'.
+const PERIOD_RE = '^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$';
 const STATE_IDS = PARAMS.states.map((s) => s.id);
 
 function regionDoc(region) {
@@ -606,6 +614,355 @@ const METHODOLOGY_SCHEMA = {
   },
 };
 
+// changelog.json — машинная история изменений (calc/changelog-entries.js).
+// Лицензионного конверта и site в файле нет: это метаданные проекта.
+const CHANGELOG_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/changelog.schema.json',
+  title: 'Cassandra Index — история изменений публичного слоя',
+  type: 'object',
+  required: ['schema', 'schema_version', 'entries'],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.changelog },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    entries: { type: 'array', items: { $ref: '#/$defs/entry' } },
+  },
+  $defs: {
+    entry: {
+      type: 'object',
+      required: ['date', 'version', 'kind', 'title', 'body'],
+      additionalProperties: false,
+      properties: {
+        date: { type: 'string', pattern: DATE_RE },
+        version: { type: 'string', minLength: 1 },
+        kind: { enum: KINDS },
+        title: { type: 'string', minLength: 1 },
+        body: { type: 'string', minLength: 1 },
+        link: { type: 'string', pattern: '^https?://\\S+$' },
+      },
+    },
+  },
+};
+
+// digest/index.json — архив выпусков: только даты, без конверта.
+const DIGEST_INDEX_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/digest-index.schema.json',
+  title: 'Cassandra Index — индекс выпусков дайджеста',
+  type: 'object',
+  required: ['schema', 'schema_version', 'weeks'],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.digestIndex },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    weeks: { type: 'array', items: { type: 'string', pattern: DATE_RE } },
+  },
+};
+
+// digest/<week>.json — готовый выпуск. week бывает null у служебного выпуска,
+// поэтому тип — ['string', 'null'] (валидатор не знает anyOf).
+const DIGEST_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/digest.schema.json',
+  title: 'Cassandra Index — выпуск дайджеста',
+  type: 'object',
+  required: ['schema', 'schema_version', 'week', 'subject', 'text', 'html', 'telegram', 'meta'],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.digestWeek },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    week: { type: ['string', 'null'], pattern: DATE_RE },
+    subject: { type: 'string', minLength: 1 },
+    text: { type: 'string', minLength: 1 },
+    html: { type: 'string', minLength: 1 },
+    telegram: { type: 'string', minLength: 1 },
+    meta: {
+      type: 'object',
+      required: ['items', 'regions', 'hasPrev'],
+      additionalProperties: false,
+      properties: {
+        items: { type: 'integer', minimum: 0 },
+        regions: { type: 'integer', minimum: 0 },
+        hasPrev: { type: 'boolean' },
+      },
+    },
+  },
+};
+
+// validation.json — внешняя сверка (ADR 0063). Конверт site+license есть.
+const STATUS_ENUM = ['preliminary', 'descriptive', 'insufficient', 'ok'];
+
+const VALIDATION_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/validation.schema.json',
+  title: 'Cassandra Index — внешняя сверка ряда',
+  type: 'object',
+  required: [
+    'schema', 'schema_version', 'site', 'license', 'methodology', 'weeks',
+    'thresholds', 'comparators', 'summary',
+  ],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.validation },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    site: { const: SITE },
+    license: LICENSE_SCHEMA,
+    methodology: { type: 'string', minLength: 1 },
+    weeks: { type: 'array', items: { type: 'string', pattern: DATE_RE } },
+    thresholds: {
+      type: 'object',
+      required: ['min_pairs', 'preliminary_below', 'lags'],
+      additionalProperties: false,
+      properties: {
+        min_pairs: { type: 'integer', minimum: 0 },
+        preliminary_below: { type: 'integer', minimum: 0 },
+        lags: { type: 'array', items: { type: 'integer' } },
+      },
+    },
+    comparators: { type: 'array', items: { $ref: '#/$defs/comparator' } },
+    summary: {
+      type: 'object',
+      required: ['comparators', 'with_coefficients', 'insufficient'],
+      additionalProperties: false,
+      properties: {
+        comparators: { type: 'integer', minimum: 0 },
+        with_coefficients: { type: 'integer', minimum: 0 },
+        insufficient: { type: 'integer', minimum: 0 },
+      },
+    },
+  },
+  $defs: {
+    // Коэффициенты бывают null, когда пар меньше порога.
+    correlation: {
+      type: 'object',
+      required: ['n', 'pearson', 'spearman', 'p_permutation', 'status'],
+      additionalProperties: false,
+      properties: {
+        n: { type: 'integer', minimum: 0 },
+        pearson: nullable('number'),
+        spearman: nullable('number'),
+        p_permutation: nullable('number'),
+        status: { enum: STATUS_ENUM },
+      },
+    },
+    comparator: {
+      type: 'object',
+      required: [
+        'id', 'title', 'granularity', 'construct', 'provenance', 'overlap',
+        'levels', 'deltas', 'direction', 'lead_lag', 'discrepancies', 'note',
+      ],
+      additionalProperties: false,
+      properties: {
+        id: { type: 'string', minLength: 1 },
+        title: { type: 'string', minLength: 1 },
+        granularity: { enum: ['week', 'month'] },
+        construct: {
+          type: 'object',
+          required: ['ru'],
+          additionalProperties: false,
+          properties: { ru: { type: 'string', minLength: 1 } },
+        },
+        provenance: {
+          type: 'object',
+          required: ['name', 'url', 'data_url', 'retrieved', 'as_of', 'license'],
+          additionalProperties: false,
+          properties: {
+            name: { type: 'string', minLength: 1 },
+            url: { type: 'string', minLength: 1 },
+            data_url: { type: 'string', minLength: 1 },
+            // as_of бывает неполной датой ('2026-09'), поэтому без pattern.
+            retrieved: { type: 'string', minLength: 1 },
+            as_of: { type: 'string', minLength: 1 },
+            license: { type: 'string', minLength: 1 },
+          },
+        },
+        overlap: {
+          type: 'object',
+          required: ['periods', 'from', 'to'],
+          additionalProperties: false,
+          properties: {
+            periods: { type: 'integer', minimum: 0 },
+            // from/to бывают месячными ('2026-08') у месячных компараторов.
+            from: { type: ['string', 'null'], pattern: PERIOD_RE },
+            to: { type: ['string', 'null'], pattern: PERIOD_RE },
+          },
+        },
+        levels: { $ref: '#/$defs/correlation' },
+        deltas: { $ref: '#/$defs/correlation' },
+        direction: {
+          type: 'object',
+          required: ['hits', 'total', 'skipped', 'rate', 'status'],
+          additionalProperties: false,
+          properties: {
+            hits: { type: 'integer', minimum: 0 },
+            total: { type: 'integer', minimum: 0 },
+            skipped: { type: 'integer', minimum: 0 },
+            rate: { type: ['number', 'null'], minimum: 0, maximum: 1 },
+            status: { enum: STATUS_ENUM },
+          },
+        },
+        lead_lag: {
+          type: 'object',
+          required: ['by_lag', 'best_lag', 'best', 'status'],
+          additionalProperties: false,
+          properties: {
+            by_lag: {
+              type: 'array',
+              items: {
+                type: 'object',
+                required: ['lag', 'n', 'pearson'],
+                additionalProperties: false,
+                properties: {
+                  lag: { type: 'integer' },
+                  n: { type: 'integer', minimum: 0 },
+                  pearson: nullable('number'),
+                },
+              },
+            },
+            best_lag: { type: ['integer', 'null'] },
+            best: nullable('number'),
+            status: { enum: STATUS_ENUM },
+          },
+        },
+        discrepancies: {
+          type: 'array',
+          items: {
+            type: 'object',
+            required: ['period', 'index_delta', 'external_delta'],
+            additionalProperties: false,
+            properties: {
+              period: { type: 'string', pattern: PERIOD_RE },
+              index_delta: { type: 'number' },
+              external_delta: { type: 'number' },
+            },
+          },
+        },
+        note: nullable('string'),
+      },
+    },
+  },
+};
+
+// forecast-ledger.json — реестр прогнозов (ADR 0064). Конверт site+license есть.
+const FORECAST_LEDGER_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/forecast-ledger.schema.json',
+  title: 'Cassandra Index — реестр прогнозов и их проверки',
+  type: 'object',
+  required: ['schema', 'schema_version', 'site', 'license', 'rule', 'entries', 'summary', 'misses'],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.forecastLedger },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    site: { const: SITE },
+    license: LICENSE_SCHEMA,
+    rule: {
+      type: 'object',
+      required: ['cluster', 'direction', 'baseline'],
+      additionalProperties: false,
+      properties: {
+        cluster: { type: 'string', minLength: 1 },
+        direction: {
+          type: 'object',
+          required: ['deadband', 'values'],
+          additionalProperties: false,
+          properties: {
+            deadband: { type: 'number', minimum: 0 },
+            values: { type: 'array', items: { enum: ['down', 'flat', 'up'] } },
+          },
+        },
+        baseline: { type: 'string', minLength: 1 },
+      },
+    },
+    entries: { type: 'array', items: { $ref: '#/$defs/entry' } },
+    summary: {
+      type: 'object',
+      required: ['baseline', 'editor'],
+      additionalProperties: false,
+      properties: {
+        baseline: { $ref: '#/$defs/bucket' },
+        editor: { $ref: '#/$defs/bucket' },
+      },
+    },
+    misses: {
+      type: 'array',
+      items: {
+        type: 'object',
+        required: ['week', 'kind', 'field', 'expected', 'actual'],
+        additionalProperties: false,
+        properties: {
+          week: { type: 'string', pattern: DATE_RE },
+          kind: { enum: ['baseline', 'editor'] },
+          field: { enum: ['cluster', 'direction'] },
+          expected: nullable('string'),
+          actual: nullable('string'),
+        },
+      },
+    },
+  },
+  $defs: {
+    // Ожидание до проверки и факт до публикации бывают null — это «pending».
+    entry: {
+      type: 'object',
+      required: [
+        'week', 'kind', 'committedAt', 'verified', 'expectedCluster', 'expectedDirection',
+        'actualIndex', 'actualCluster', 'actualDelta', 'actualDirection', 'outcome',
+      ],
+      additionalProperties: false,
+      properties: {
+        week: { type: 'string', pattern: DATE_RE },
+        kind: { enum: ['baseline', 'editor'] },
+        committedAt: { type: 'string', minLength: 1 },
+        verified: { type: ['boolean', 'null'] },
+        expectedCluster: nullable('string'),
+        expectedDirection: { type: ['string', 'null'], enum: ['down', 'flat', 'up', null] },
+        actualIndex: nullable('integer'),
+        actualCluster: nullable('string'),
+        actualDelta: nullable('integer'),
+        actualDirection: { type: ['string', 'null'], enum: ['down', 'flat', 'up', null] },
+        outcome: {
+          type: 'object',
+          required: ['cluster', 'direction'],
+          additionalProperties: false,
+          properties: {
+            cluster: { enum: ['hit', 'miss', 'pending'] },
+            direction: { enum: ['hit', 'miss', 'pending'] },
+          },
+        },
+      },
+    },
+    tally: {
+      type: 'object',
+      required: ['hits', 'total'],
+      additionalProperties: false,
+      properties: {
+        hits: { type: 'integer', minimum: 0 },
+        total: { type: 'integer', minimum: 0 },
+      },
+    },
+    bucket: {
+      type: 'object',
+      required: ['entries', 'cluster', 'direction', 'pending'],
+      additionalProperties: false,
+      properties: {
+        entries: { type: 'integer', minimum: 0 },
+        cluster: { $ref: '#/$defs/tally' },
+        direction: { $ref: '#/$defs/tally' },
+        pending: {
+          type: 'object',
+          required: ['cluster', 'direction'],
+          additionalProperties: false,
+          properties: {
+            cluster: { type: 'integer', minimum: 0 },
+            direction: { type: 'integer', minimum: 0 },
+          },
+        },
+      },
+    },
+  },
+};
+
 // schemaDocs() — карта «имя файла → объект схемы». Порядок фиксирован, чтобы
 // запись была детерминированной.
 export function schemaDocs() {
@@ -616,5 +973,10 @@ export function schemaDocs() {
     'regions.schema.json': REGIONS_SCHEMA,
     'criteria.schema.json': CRITERIA_SCHEMA,
     'methodology.schema.json': METHODOLOGY_SCHEMA,
+    'changelog.schema.json': CHANGELOG_SCHEMA,
+    'digest-index.schema.json': DIGEST_INDEX_SCHEMA,
+    'digest.schema.json': DIGEST_SCHEMA,
+    'validation.schema.json': VALIDATION_SCHEMA,
+    'forecast-ledger.schema.json': FORECAST_LEDGER_SCHEMA,
   };
 }
