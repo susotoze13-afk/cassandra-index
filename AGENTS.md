@@ -30,7 +30,8 @@
 | Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
-| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` и `changelog.html`; `--root <dir>` — другой корень |
+| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` (11 схем, включая `changelog`, `digest`, `validation`, `forecast-ledger`) и `changelog.html`; `--root <dir>` — другой корень |
+| Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
 | Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
@@ -190,8 +191,9 @@ calc/contributions.js     модельная развёртка (ADR 0062): crit
                           (steps + residual_pp = published delta), whatWouldChange
                           (контрфактика criterion-zeroed), analyseWeek; чистая, без диска
 calc/public-contract.js   машинный контракт (ADR 0062): regionsDoc/criteriaDoc/
-                          methodologyDoc/weekDoc и JSON Schema draft 2020-12
-                          (schemaDocs); чистые сборщики, reference.json/VERSION — на импорте
+                          methodologyDoc/weekDoc и 11 JSON Schema draft 2020-12
+                          (schemaDocs, SCHEMA_NAMES); чистые сборщики, reference.json/
+                          VERSION — на импорте
 calc/changelog-entries.js курируемый CHANGELOG, KINDS, validateChangelog, sortedDesc
 calc/digest.js            текст выпуска: buildDigest(snapshot, {site, prev, chartUrl}) →
                           subject/text/html/telegram/meta; DIGEST_ITEMS = 5, DIGEST_REGIONS = 3
@@ -252,16 +254,18 @@ data/analysis.js          ГЕНЕРИРУЕТСЯ public-export.js --write (ADR
                           развёртки для сайта, window.CI_ANALYSIS {weeks{<дата>:
                           {driver_breakdown, waterfall, what_would_change}}};
                           classic script (file://), секция contribution его читает
-data/public/              производные (public-export.js --write): index.json (все недели),
-                          latest.json, changelog.json, cassandra-index.csv, trend.svg;
-                          справочники regions.json / criteria.json / methodology.json,
-                          weeks/<неделя>.json (конверт одной недели), schema/v1/*.json
-                          (JSON Schema, ADR 0062); digest/ — <неделя>.json + index.json
+data/public/              производные (`public-export.js --write`; `validation.json` —
+                          `backtest.js --write`, `forecast-ledger.json` — `ledger.js --write`):
+                          index.json (все недели), latest.json, changelog.json, validation.json,
+                          forecast-ledger.json, cassandra-index.csv, trend.svg; справочники
+                          regions.json / criteria.json / methodology.json,
+                          weeks/<неделя>.json (конверт одной недели), 11 схем schema/v1/*.json
+                          (ADR 0062/0063/0064); digest/ — <неделя>.json + index.json
                           (digest-export.js --write)
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0055;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0064;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -294,9 +298,13 @@ docs/adr/                 зафиксированные архитектурн�
                           0062 — публичный API-контракт и числовая развёртка «почему
                           индекс такой»: driver_breakdown/waterfall/what_would_change,
                           справочники, понедельные файлы, JSON Schema; веса и пороги
-                          раскрыты для API, UI-граница ADR 0045 сохранена)
-docs/api.md               публичный API-контракт (ADR 0062): эндпоинты, поля,
-                          версии, лицензия, примеры, смысл residual_pp
+                          раскрыты для API, UI-граница ADR 0045 сохранена; 0063 — внешняя
+                          сверка ряда с GPR/ACLED/CrisisWatch (`validation.json`,
+                          `validation.html`); 0064 — реестр прогнозов из форвардных якорей
+                          (`forecast-ledger.json`))
+docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
+                          эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
+                          каждый публичный JSON обязан иметь строку здесь и схему
 docs/architecture.md      поток данных расчёта и сайта, границы модулей, конвенции;
                           источник для агента, впервые открывшего репозиторий
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
@@ -324,7 +332,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           62 файла, node --test (660 passed)
+tests/*.test.js           74 файла, node --test (769 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -672,8 +680,8 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (62 файла, 660 passed / 0 fail — подтверждено прогоном
-2026-10-18). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (74 файла, 769 passed / 0 fail — подтверждено прогоном
+2026-10-19). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
 `loadGeo`/`resolveRegion` над инъекцией — без сети). Расчётное ядро: `tests/calc-engine.test.js` (включая
@@ -705,7 +713,8 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 `tests/prepare-week.test.js`;
 публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
 `tests/public-contract.test.js` (ADR 0062: справочники, driver_breakdown, waterfall,
-what_would_change, минимальный JSON-Schema-валидатор на все публичные файлы),
+what_would_change, минимальный JSON-Schema-валидатор на все публичные файлы; сторож —
+каждый `data/public/**/*.json` обязан иметь схему и строку в `docs/api.md`),
 `tests/contribution-ui.test.js` (секция «Почему индекс изменился»: чистые швы,
 ключи словаря, хост/стили, паритет `data/analysis.js` с генератором),
 `tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
@@ -746,13 +755,16 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   корня обязан быть в cp-строке (исключение зашито — `cassandra-index-prototype.html`).
 - `data/public/*`, `changelog.html`, `digest.html`, `data/public/digest/*` — производные:
   руками не правятся, пересобираются CLI (`public-export.js --write`,
-  `digest-export.js --write`), иначе `node --test`/паритет ловит расхождение.
+  `digest-export.js --write`; `validation.json` + `validation.html` — `backtest.js --write`,
+  `forecast-ledger.json` — `ledger.js --write`), иначе `node --test` ловит расхождение.
   Сюда же относится контракт ADR 0062: `regions.json`, `criteria.json`,
-  `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` — схемы и
-  справочники генерируются, ручная правка ловится `tests/public-contract.test.js`.
+  `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` (11 схем) — генерируются,
+  ручная правка ловится `tests/public-contract.test.js`.
   `data/analysis.js` — тоже генерируемый (зеркало развёртки для сайта, не
   `data/public/*`: сайт публичный слой не грузит); паритет пинит
   `tests/contribution-ui.test.js`. После правки `js/**` — `node build.js`.
+- Новый файл в `data/public/**` без схемы в `schemaDocs()` или без строки в `docs/api.md`
+  роняет `tests/public-contract.test.js`: сначала схема/документ, потом генератор.
 - ADR 0062 раскрывает веса, CAP, `k` и пороги в `methodology.json` для машинного
   потребителя. Это **не** отмена ADR 0045: страница «Методология» по-прежнему не
   показывает формулы и веса. Не «чинить» UI вслед за API.

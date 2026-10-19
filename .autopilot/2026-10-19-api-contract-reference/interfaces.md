@@ -111,6 +111,19 @@ function publicJsonFiles() // обход data/public/**/*.json, исключая
 - `writePublicData` — идемпотентная запись (уже пинится тестом).
 - `node calc/public-export.js --write` — пересборка; повторный прогон байт-в-байт.
 
+## Выставленные интерфейсы (из возврата T01)
+
+- `SCHEMA_NAMES` += `changelog`, `digestIndex`, `digestWeek`, `validation`,
+  `forecastLedger`.
+- `schemaDocs()` → 11 схем: `index`, `latest`, `week`, `regions`, `criteria`,
+  `methodology`, `changelog`, `digest-index`, `digest`, `validation`,
+  `forecast-ledger`.
+- Новые схемы: `$id` `https://cassindex.ru/data/public/schema/v1/<name>.schema.json`,
+  `additionalProperties: false`, nullable через `type: [T, 'null']`.
+  `validation`/`forecast-ledger` несут `site` + `license`; `changelog`/`digest*` — нет.
+- В `tests/public-contract.test.js`: `publicJsonFiles()`, `schemaNameFor(rel)`,
+  `docPathFor(rel)`.
+
 ## Что НЕ является границей
 
 - `calc/backtest.js`, `calc/ledger.js`, `calc/digest-export.js` — не трогаются и не
