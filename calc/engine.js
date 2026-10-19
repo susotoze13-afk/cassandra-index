@@ -26,6 +26,18 @@ export function stateOf(index, params) {
   return hit ? hit.id : null;
 }
 
+// --- §4.2: общий фильтр критериев драйвера ---
+// Возвращает null, если порог покрытия не достигнут (драйвер слепой), иначе
+// { covered, counted }: covered — все покрытые критерии (участвуют в пороге),
+// counted — покрытые не-пересечения (участвуют в скоре, §4.1.5 / ADR 0046).
+function scoredCriteria(list, coverageThreshold) {
+  const total = Array.isArray(list) ? list.length : 0;
+  if (total === 0) return null;
+  const covered = list.filter((c) => c && c.covered === true);
+  if (covered.length / total < coverageThreshold) return null;
+  return { covered, counted: covered.filter((c) => c.intersection !== true) };
+}
+
 // --- §4.2: скор драйвера ---
 // criteria: массив {dir: 'esc'|'deesc', value: 0..1, covered: bool,
 // intersection?: bool}.
@@ -41,15 +53,10 @@ export function stateOf(index, params) {
 // Если все покрытые критерии — пересечения, порог покрыт, но считаемых членов
 // нет: eTerm = bTerm = 0 → скор 0 (нового сигнала нет), а не null.
 export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = PARAMS.coverageThreshold) {
-  const list = Array.isArray(criteria) ? criteria : [];
-  const total = list.length;
-  if (total === 0) return null;
-  const covered = list.filter((c) => c && c.covered === true);
-  if (covered.length / total < coverageThreshold) return null;
-  // Скор считает только не-пересечения; порог выше — по всем покрытым.
-  const counted = covered.filter((c) => c.intersection !== true);
-  const esc = counted.filter((c) => c.dir === 'esc');
-  const deesc = counted.filter((c) => c.dir === 'deesc');
+  const scored = scoredCriteria(criteria, coverageThreshold);
+  if (!scored) return null;
+  const esc = scored.counted.filter((c) => c.dir === 'esc');
+  const deesc = scored.counted.filter((c) => c.dir === 'deesc');
   const sum = (arr) => arr.reduce((acc, c) => acc + (Number(c.value) || 0), 0);
   const nE = esc.length;   // N_E,i — максимум по покрытым эск. критериям
   const nB = deesc.length; // N_B,i — по покрытым деэск. критериям
@@ -68,14 +75,10 @@ export function driverScore(criteria, alpha = PARAMS.alpha, coverageThreshold = 
 // Если все покрытые критерии — пересечения, порог покрыт, а среднее пусто:
 // возврат 0 (нового сигнала нет), а не null — покрытие не потеряно.
 export function d8Strength(criteria, coverageThreshold = PARAMS.coverageThreshold) {
-  const list = Array.isArray(criteria) ? criteria : [];
-  const total = list.length;
-  if (total === 0) return null;
-  const covered = list.filter((c) => c && c.covered === true);
-  if (covered.length / total < coverageThreshold) return null;
-  const counted = covered.filter((c) => c.intersection !== true);
-  if (counted.length === 0) return 0; // все покрытые — пересечения: новый сигнал 0
-  const mean = counted.reduce((acc, c) => acc + (Number(c.value) || 0), 0) / counted.length;
+  const scored = scoredCriteria(criteria, coverageThreshold);
+  if (!scored) return null;
+  if (scored.counted.length === 0) return 0; // все покрытые — пересечения: новый сигнал 0
+  const mean = scored.counted.reduce((acc, c) => acc + (Number(c.value) || 0), 0) / scored.counted.length;
   return clamp(mean, 0, 1);
 }
 
@@ -326,6 +329,53 @@ export function saturateCurve(x, params) {
   return 100 * (1 - Math.exp(-k * x)) / (1 - Math.exp(-k));
 }
 
+// --- §5 шаг 2: нормировка эскалационных весов ОТДЕЛЬНО от Д8 ---
+// E — id эскалационных драйверов; wp[id] = (w·c) / Σ(w·c) по покрытым из E.
+// Слепой драйвер получает wp = 0 (его вес перераспределяется остальными).
+function normalizeWeights(E, w, confOf, covered) {
+  let denom = 0;
+  for (const id of E) {
+    const d = covered(id);
+    if (d) denom += w[id] * confOf(d);
+  }
+  const wp = {};
+  for (const id of E) {
+    const d = covered(id);
+    wp[id] = d && denom > 0 ? (w[id] * confOf(d)) / denom : 0;
+  }
+  return wp;
+}
+
+// --- §4.3.5: потолок вклада Д9 ---
+// U = min(U_raw, (ρ/(1−ρ))·S + U_abs); U_abs применяется только при ≥ 2
+// сигналящих подгруппах Д9 (v0.7) — одиночная изолированная подгруппа при
+// S = 0 даёт вклад 0.
+function d9Ceiling(U_raw, S, nSub, p) {
+  const U_abs = nSub >= 2 ? (p.U_abs != null ? p.U_abs : PARAMS.U_abs) : 0;
+  const rho = p.rho != null ? p.rho : PARAMS.rho;
+  return Math.min(U_raw, (rho / (1 - rho)) * S + U_abs);
+}
+
+// --- §4.3.4: лимит недельного прироста индекса от Д9 (до инерции) ---
+// ΔI_Д9 = min(ΔI_raw, 0.3·(100 − I_{t−1})); prevRef — I_{t−1} (внутреннее
+// значение; на первой неделе цепочки — прогон без Д9, трактовка зафиксирована
+// в коде и тестах). Закрытая форма: ищем I_agg', при котором кривая даёт
+// I_new0 + limit, и подставляем её без-Д9 базу. Возвращает I_new (возможно,
+// обрезанный).
+function capD9Growth(I_new, I_new0, prevRef, I_agg, U, p) {
+  const k = p.k != null ? p.k : PARAMS.k;
+  const growthLimit = (p.d9GrowthLimit != null ? p.d9GrowthLimit : PARAMS.d9GrowthLimit) * (100 - prevRef);
+  if (I_new - I_new0 <= growthLimit) return I_new;
+  const target = I_new0 + growthLimit;
+  const x = -Math.log(1 - ((1 - Math.exp(-k)) * target) / 100) / k;
+  const base = Math.max(0, I_agg - U);
+  return curveOf(base + Math.max(0, x - base), p);
+}
+
+function curveOf(x, p) {
+  return saturateCurve(x, p);
+}
+
 export function aggregateDrivers(drivers, params, context) {
   const p = params || {};
   const ctx = context || {};
@@ -341,16 +391,7 @@ export function aggregateDrivers(drivers, params, context) {
 
   // Шаг 2: нормировка эскалационных весов ОТДЕЛЬНО от Д8: E = {Д1..Д7, Д9}.
   const E = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D9'].filter((id) => w[id] != null);
-  let denom = 0;
-  for (const id of E) {
-    const d = covered(id);
-    if (d) denom += w[id] * confOf(d);
-  }
-  const wp = {};
-  for (const id of E) {
-    const d = covered(id);
-    wp[id] = d && denom > 0 ? (w[id] * confOf(d)) / denom : 0;
-  }
+  const wp = normalizeWeights(E, w, confOf, covered);
 
   // Шаг 3: S по прямым эскалационным (без Д9), потолок Д9 (§4.3.5).
   let S = 0;
@@ -363,9 +404,7 @@ export function aggregateDrivers(drivers, params, context) {
   const U_raw = d9 ? wp.D9 * d9.score : 0;
   // U_abs применяется только при ≥ 2 сигналящих подгруппах Д9 (v0.7).
   const nSub = d9 && d9.signalingSubgroups != null ? d9.signalingSubgroups : 0;
-  const U_abs = nSub >= 2 ? (p.U_abs != null ? p.U_abs : PARAMS.U_abs) : 0;
-  const rho = p.rho != null ? p.rho : PARAMS.rho;
-  const U = Math.min(U_raw, (rho / (1 - rho)) * S + U_abs);
+  const U = d9Ceiling(U_raw, S, nSub, p);
 
   // Шаг 4: сырой скор; d₈ = null → член равен 0.
   const d8 = covered('D8');
@@ -384,21 +423,13 @@ export function aggregateDrivers(drivers, params, context) {
   const q = qDen > 0 ? qNum / qDen : 0;
 
   // Шаг 6: насыщающая кривая (§5.2).
-  const k = p.k != null ? p.k : PARAMS.k;
-  const curve = (x) => saturateCurve(x, p);
+  const curve = (x) => curveOf(x, p);
   let I_new = curve(I_agg);
 
   // §4.3.4: лимит прироста 30 % — вклад Д9 в недельный прирост (до инерции).
   const I_new0 = curve(Math.max(0, I_agg - U));
   const prevRef = typeof ctx.prevInternal === 'number' ? ctx.prevInternal : I_new0;
-  const growthLimit = (p.d9GrowthLimit != null ? p.d9GrowthLimit : PARAMS.d9GrowthLimit) * (100 - prevRef);
-  if (I_new - I_new0 > growthLimit) {
-    // Закрытая форма: ищем I_agg', где curve равна I_new0 + limit, вычитаем без-Д9 базу.
-    const target = I_new0 + growthLimit;
-    const x = -Math.log(1 - ((1 - Math.exp(-k)) * target) / 100) / k;
-    const base = Math.max(0, I_agg - U);
-    I_new = curve(base + Math.max(0, x - base));
-  }
+  I_new = capD9Growth(I_new, I_new0, prevRef, I_agg, U, p);
 
   // Шаг 7: q-сжатие к предыдущему внутреннему значению (§5.3).
   const prevInternal = typeof ctx.prevInternal === 'number' ? ctx.prevInternal : null;
