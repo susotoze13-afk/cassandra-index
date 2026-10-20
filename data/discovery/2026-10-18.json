@@ -1,0 +1,1563 @@
+{
+  "schema_version": 1,
+  "week": "2026-10-18",
+  "window": {
+    "from": "2026-10-11",
+    "to": "2026-10-18"
+  },
+  "blind": [
+    "D1.6",
+    "D2.4",
+    "D3.1",
+    "D5.3",
+    "D5.4",
+    "D6.1",
+    "D6.4",
+    "D8.4",
+    "D9.2",
+    "D9.5",
+    "D9.6b",
+    "D9.7"
+  ],
+  "network": true,
+  "feed_scan": {
+    "window": {
+      "from": "2026-10-11",
+      "to": "2026-10-18"
+    },
+    "results": [
+      {
+        "id": "sd-balkaninsight",
+        "name": "Balkan Insight",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://balkaninsight.com/2026/10/16/tougher-security-response-wont-solve-albanias-growing-crisis-experts/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/serbia-channels-public-funds-to-pro-vucic-diaspora-groups/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/week-in-review-bad-deals-and-scandals/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/arte-europe-weekly-frances-school-protests-an-education-system-under-strain/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/croatian-football-fans-pro-nazi-chants-prompt-arrests/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/albania-pm-defiant-as-protests-spread-to-provincial-cities/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/serbias-captured-tv-screens-all-tell-the-same-story/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/democracy-digest-polish-man-charged-with-plotting-to-kill-pm-suspected-saboteurs-arrested/rd/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/invisible-human-engine-book-goes-behind-courtroom-battles-at-yugoslav-tribunal/btj/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/16/halk-tv-takeover-confirms-long-capture-of-turkeys-media/bi/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/croatia-rejects-serbian-accusation-of-election-interference/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/family-values-row-returns-as-kosovo-govt-revives-changes-to-civil-code/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/us-convicts-bosnian-of-attempting-to-buy-arms-from-north-korea/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/croatia-sets-eight-conditions-for-backing-montenegros-eu-accession/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/albanian-pm-blames-opposition-after-another-night-of-violent-clashes/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/central-europe-struggles-to-square-the-circle-over-foreign-workers/rd/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/black-sea-drone-attacks-expose-holes-in-bulgarian-security-strategy/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/15/rising-violence-is-a-sign-that-serbias-ruling-party-is-panicking/bi/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/albanian-president-urges-calm-as-street-protest-clashes-continue/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/kosovo-to-boost-support-for-ex-kla-leaders-ahead-of-war-crimes-appeal/btj/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/insider-blows-lid-on-serbian-ruling-partys-use-of-hired-thugs/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/tear-gas-petrol-bombs-on-tiranas-streets-as-police-and-students-tussle/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/sex-tapes-scandal-shows-albanias-still-stuck-in-patriarchal-mindset/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/how-north-macedonias-inheritance-tax-policy-penalises-childless-heirs/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/14/bosnias-new-government-was-being-built-as-votes-were-still-being-counted/bi/",
+            "date": "2026-10-14"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/albanian-student-protesters-clash-with-police-outside-ministry-of-education/bi/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/romanian-far-right-politician-georgescu-put-under-house-arrest/bi/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/hungarys-memory-politics-who-defines-the-communist-past/rd/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/letter-from-brussels-eus-15-year-probation-plan-is-an-unfair-deal-for-balkan-states/bi/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/13/buried-in-case-files-lacking-security-albanias-courts-struggle-in-dilapidated-buildings/bi/",
+            "date": "2026-10-13"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/natos-top-commander-unveils-plan-for-victory-against-russia/rd/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/greece-unveils-new-rules-banning-social-media-use-among-minors/bi/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/eus-rule-of-law-report-risks-becoming-toothless-says-liberties/rd/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/turkey-urged-to-end-escalating-internet-censorship/bi/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/bosnias-new-grand-mufti-looks-forward-after-election-by-muslim-community/bi/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/monday-briefing-from-the-balkans-october-12-2026/bi/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/czech-local-elections-deliver-warning-to-babiss-governing-coalition/rd/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/greek-singers-death-throws-spotlight-on-private-doctors-wellness-claims/bi/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/kosovo-clarifies-hague-war-crimes-courts-jurisdiction-but-to-what-end/btj/",
+            "date": "2026-10-12"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/10/12/in-republika-srpska-dont-assume-all-serbs-support-vucic/bi/",
+            "date": "2026-10-12"
+          }
+        ]
+      },
+      {
+        "id": "sd-n1",
+        "name": "N1",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-danas",
+        "name": "Danas",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-vijesti",
+        "name": "Vijesti",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-belta",
+        "name": "БелТА",
+        "region": "russia-belarus",
+        "kind": "rss",
+        "status": "broken",
+        "links": []
+      },
+      {
+        "id": "sd-moldova",
+        "name": "Moldova.org",
+        "region": "ukraine-moldova",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.moldova.org/festivalul-dedicat-sanatatii-mintale-si-neurodivergentei-neuropalette-revine-cu-a-doua-editie/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.moldova.org/o-bunica-robot-va-reprezenta-moldova-la-barcelona-design-week-2026/",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.moldova.org/4-adolescente-au-reprezentat-moldova-la-finala-mondiala-a-competitiei-technovation-girls-din-india/",
+            "date": "2026-10-15"
+          },
+          {
+            "url": "https://www.moldova.org/ziua-internationala-a-femeilor-din-mediul-rural-cum-a-transformat-natalia-dumbrava-o-livada-de-visini-intr-o-afacere-cu-planuri-de-extindere/",
+            "date": "2026-10-15"
+          }
+        ]
+      },
+      {
+        "id": "sd-baltictimes",
+        "name": "The Baltic Times",
+        "region": "baltic",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "http://www.baltictimes.com/european_commission_presents_new_arctic_strategy/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuanian_drone_maker_rsi_europe_gets_eur_29_5_mln_eu_grant/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuanian_president_meets_polish_prime_minister_in_warsaw/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/forestry_council_discusses_amendments_to_forest_act_and_nature_conservation_act/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/four-kilometer_anti-tank_trench_dug_and_dragon_s_teeth_installed_along_baltic_defense_line/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/eur_10_6_million_are_available_to_local_governments_for_water_management_reconstruction_projects/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/musicians_haddaway__layzee_and_dr__alban_included_on_latvia_s_blacklist_-_foreign_ministry/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/fence_built_in_belarus_serves_as_a_buffer_zone_to_prepare_migrants_for_crossing_latvian_border-_zile/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/latitude59_expands_its_global_reach_with_events_in_four_countries/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/haute_couture_inspired_elie_saab_h_m_collection_arrives_at__lemiste_centre_in_estonia/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/grand_hotel_kempinski_riga_claims_two_world_travel_awards_titles/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/5_000_gather_in_brussels_as_eu_regions_demand_a_stronger_voice_amid_growing_calls_for_budget_cuts/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/_apsara__strengthens_its_position_in_the_e-commerce_market_by_expanding_online_sales/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/professor_albertas_vitkus__habilitated_doctor_of_sciences__leading_lithuanian_histologist_and_inventor__dies_at_97/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/stargate_hydrogen_selected_to_continue_the_legacy_of_the_hystat_alkaline_electrolysers/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/eu_commissioner_kubilius_to_address_role_of_universities_in_strengthening_european_security/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuanian_fm_calls_for_end_to_escalation_amid_drone_attacks_on_black_sea_ships/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuania_extends_military_assistance_on_kaliningrad_border_until_mid-nov/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuanian_president_urges_eu_to_focus_more_on_eastern_border_regions/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuania_s_smaller_defence_budget_will_not_delay_division_development__defmin_says_-_bns_exclusive/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuania_s_national_debt_to_rise_rapidly_until_2030__finance_minister_says/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/mihkelson_meets_with_eu_special_representative_for_middle_east_peace_process/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/madise__europe_must_take_greater_responsibility_for_its_own_defense/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/fuel_prices_mostly_rose_in_the_baltics_over_the_past_week/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/lithuania_to_remain_among_europe_s_top_defence_spenders_in_2027__eu_commissioner_says/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/eu_defence_commissioner_voices_concern_over_lithuania_s_3_8_pct_budget_deficit_forecast/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/estonian_flags_to_fly_on_finno-ugric_day/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/why_commercial_buildings_lose_heat_on_the_coldest_nights/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/reading_an_alta_survey_like_an_underwriter__what_the_lines_and_notes_actually_say/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/competitiveness_of_the_eu_is_a_matter_of_strategic_security_-_president/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/via_baltica_to_receive_uninterrupted_5g_coverage/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/it_is_important_for_europe_s_economic_and_industrial_potential_that_targeted_investment_is_ensured_in_innovation__digital_development_and_defense_industry_-_braze/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/nato_is_militarily_far_superior_to_russia_-_grynkewich/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/baltic_assembly_to_discuss_security_of_the_baltic_states/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/political_developments_in_europe_run_counter_to_solutions_needed_to_address_today_s_challenges_-_director_of_carnegie_europe/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/airbaltic_official_charged_with_abuse_of_office_and_fraud/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/board_of_unity_party_resigns/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/how_probate_timelines_differ_between_countries_and_what_families_should_know/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/best_uk_websites_for_finding_local_services/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/gap_opens_its_first_store_in_estonia_at__lemiste_centre/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/the__migla____fog___proposal_wins_the_design_competition_for_the_development_of_the_pavilion_and_station_square/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/eva_air_strengthens_presence_in_the_baltics_with_aviareps_partnership/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/stargate_hydrogen_launches_stardust___ceramic_electrode_technology_that_lowers_the_cost_of_green_hydrogen_without_the_use_of_precious_metals/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/balsio_launches_workspaces__bringing_team_chat_and_whatsapp_contacts_into_one_app/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/holiday_decorating_ideas_for_small_spaces/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/almost_every_second_residential_property_in_latvia_remains_uninsured/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/benefits_of_managed_iot_services/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/vilnius_hosts_an_international_academic_conference_on_artworks_and_their_doubles__copies__imitations__and_forgeries/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/during_eu_budget_talks__latvia_will_call_for_additional_funding_for_countries_on_eu_eastern_flank_-_kulbergs/",
+            "date": null
+          },
+          {
+            "url": "http://www.baltictimes.com/barndominium_design_choices_for_urban_and_rural_properties_in_quebec/",
+            "date": null
+          }
+        ]
+      },
+      {
+        "id": "sd-nrk",
+        "name": "NRK",
+        "region": "eu-north-europe",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-civilge",
+        "name": "Civil Georgia",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://civil.ge/archives/755092",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://civil.ge/archives/755066",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://civil.ge/archives/755050",
+            "date": "2026-10-17"
+          }
+        ]
+      },
+      {
+        "id": "sd-ocmedia",
+        "name": "OC Media",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-reportaz",
+        "name": "Report.az",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-ferghana",
+        "name": "Ferghana.ru",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://ferghana.ru/news/34463",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34462",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34461",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34460",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/articles/10310",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34459",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34458",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34457",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34456",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34453",
+            "date": null
+          }
+        ]
+      },
+      {
+        "id": "sd-astanatimes",
+        "name": "Astana Times",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-uza",
+        "name": "UZA",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-almonitor",
+        "name": "Al-Monitor",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-guardian-me",
+        "name": "The Guardian (Ближний Восток)",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/18/guardian-reporter-filmed-masked-militants-seconds-before-west-bank-attack-on-french-mayor",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/18/flydubai-captain-smit-machchhar-blocking-axe-blows-flight-fz1073",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/18/us-ambassador-israel-mike-huckabee-west-bank-settler-attack-photojournalist-heidi-levine",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/world/video/2026/oct/18/french-mayor-attacked-by-israeli-settlers-in-occupied-west-bank-video",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/global-development/2026/oct/18/attacked-from-the-sky-sudanese-goldminers-count-deadly-cost-of-eking-out-a-living-on-the-egypt-border",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/18/theres-a-lot-of-racism-a-lot-of-hatred-far-right-gains-predicted-as-israel-heads-to-the-polls",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "https://www.theguardian.com/film/2026/oct/16/jonathan-glazer-says-israels-retaliation-over-naza-more-venal-than-anticipated",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://www.theguardian.com/film/video/2026/oct/17/naza-directors-its-a-film-about-systems-of-mass-killings-video",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/17/couples-families-separated-war-in-gaza",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/16/israeli-settlers-attack-olive-farmers-west-bank-washington-post-journalist-heidi-levine",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.theguardian.com/world/video/2026/oct/16/american-photojournalist-israeli-settler-attack-west-bank",
+            "date": "2026-10-16"
+          }
+        ]
+      },
+      {
+        "id": "sd-timesofisrael",
+        "name": "The Times of Israel",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "blocked",
+        "links": []
+      },
+      {
+        "id": "sd-africanews",
+        "name": "Africanews",
+        "region": "africa",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "http://www.africanews.com/2026/10/18/france-paris-lyon-and-marseille-count-the-cost-after-violent-protests/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/pope-leo-xiv-thanks-faithful-for-prayers-at-first-appearance-since-surgery/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/cameroons-opposition-mrc-elects-its-first-female-president-tiriane-noah/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/smashed-storefronts-burned-buildings-france-wakes-up-to-aftermath-of-violent-protests/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/nigerias-army-chief-of-staff-visits-troops-in-borno-after-deaths-of-15-soliders/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/sudanese-gold-miners-describe-deadly-airstrike-that-killed-72/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/18/drc-accuses-ex-president-kabila-of-planning-general-attack-on-the-country/",
+            "date": "2026-10-18"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/egypts-president-sisi-will-step-down-when-term-expires-in-2030/",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/senegals-macky-sall-withdraws-from-race-for-un-top-job/",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/frontline-workers-in-drc-receive-ervebo-vaccine-amid-growing-ebola-outbreak/",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/all-seven-candidates-to-lead-un-receive-security-council-veto-in-informal-poll/",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/iran-denies-being-behind-houthi-attacks-as-aden-airport-hit/",
+            "date": "2026-10-17"
+          },
+          {
+            "url": "http://www.africanews.com/2026/10/17/ex-fighters-in-ethiopias-tigray-region-register-for-reintegration-programme/",
+            "date": "2026-10-17"
+          }
+        ]
+      },
+      {
+        "id": "sd-premiumtimes",
+        "name": "Premium Times",
+        "region": "africa",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-scmp",
+        "name": "South China Morning Post",
+        "region": "east-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-koreaherald",
+        "name": "The Korea Herald",
+        "region": "east-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-thehindu",
+        "name": "The Hindu",
+        "region": "south-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.thehindu.com/news/national/west-bengal/bengal-cm-defends-decision-to-shift-stampede-injured-to-private-hospital-cites-better-care/article71605499.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/two-men-rearrested-in-uk-on-suspicion-of-assisting-iran-over-suspected-plot-at-a-us-run-air-base/article71605486.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/haryana/haryana-power-staff-call-3-day-strike-against-giving-licence-to-private-discom/article71605055.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/traffic-diversions-for-police-commemoration-day-parade-on-wednesday/article71604535.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/mumbai/one-dead-few-injured-in-firing-inside-sgnp/article71605463.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/tamil-nadu/guest-lecturers-yet-to-get-hike-in-honorarium-announced-in-the-budget/article71604876.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/ct-scans-mri-tests-at-20-below-central-government-rates-at-3-mcd-hospitals/article71605407.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/police-trace-missing-girl-to-a-childrens-home-in-kellys/article71604477.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/dengue-persists-doctors-caution-against-infections-as-monsoon-sets-in/article71604816.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/bodies-of-two-school-students-recovered-from-puzhal-lake/article71604508.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/chennai-metrowater-deploys-additional-sewer-machines-to-desilt-city-network/article71604717.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/jammu-and-kashmir/kashmir-clerics-including-mirwaiz-say-eviction-of-delhis-historic-race-course-mosque-deeply-disturbing/article71605010.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/jnusu-ends-17-day-protest-after-rustication-orders-of-its-office-bearers-revoked/article71604932.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/hygiene-lapses-found-at-sweet-shops-in-chandni-chowk-naraina-okhla-narela/article71605316.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/opinion/op-ed/the-ecis-unfinished-lessons/article71605299.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/opinion/op-ed/on-paddy-field-conservation-in-keralam/article71605301.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/maharashtra/at-dussehra-rally-uddhav-bats-for-regime-change-promises-acche-din-after-ousting-bjp/article71605421.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/30-foot-high-cockroach-effigy-triggers-aap-bjp-war-of-words/article71605225.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/kin-of-roman-catholic-priest-cant-claim-ownership-of-his-property-as-it-belongs-to-the-institution-madras-hc/article71605118.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/minor-cannot-be-stripped-of-indian-citizenship-merely-because-father-became-uk-citizen-says-madras-high-court/article71604980.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/tamil-nadu/tn-government-should-construct-new-secretariat-complex-outside-chennai-says-anbumani/article71604935.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/fresh-weather-system-likely-to-sustain-heavy-rainfall-in-tamil-nadu-till-october-26/article71604868.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/punjab/aap-claims-punjab-cm-mann-detained-for-three-hours-at-delhi-airport-fined-50000/article71605400.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/in-delhi-only-027-of-45-lakh-form-6s-disposed-of-so-far/article71605163.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/cjps-abhijeet-dipke-thanks-delhi-ramlila-organisers-for-free-publicity-over-cockroach-effigy/article71603848.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/keralam-seeks-fssai-clarity-on-high-fat-sugar-salt-food/article71604523.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/russian-aerial-blitz-kills-9-in-ukraine-as-zelenskyy-meets-us-european-officials-in-norway/article71605338.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/marco-rubio-mumbai-visit-october-20-2026/article71603994.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/karnataka/dussehra-celebrated-in-belagavi/article71604653.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/health-department-issues-circular-on-maintaining-medicine-stocks-in-hospitals/article71604608.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/newsprint-makers-seek-pm-modis-intervention-over-coal-shortages-demand-7525-allocation-ratio/article71605332.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/death-toll-from-houthi-strike-on-yemen-government-camp-rises-to-73/article71605335.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/pm-modi-flags-three-enemies-of-india-calls-for-unity-in-national-interest/article71605000.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/residents-block-road-over-irregular-water-supply/article71605279.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/israeli-fire-kills-four-people-in-gaza-medics-say/article71605315.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/pinarayi-vijayan-questions-sma-drug-distribution-sat-hospital-says-only-cdsco-approved-drugs-used/article71604901.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/jammu-and-kashmir/jk-government-announces-annual-shifting-of-capital-from-srinagar-to-jammu/article71604076.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/sudan-army-strike-in-disputed-territory-kills-53-local-authorities/article71605311.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/siddha-medical-camp-held-at-dindigul-district-court/article71605174.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/furniture-showroom-fined-for-unclean-mosquito-breeding-spot/article71605124.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/two-priests-of-tiruchendur-temple-arrested-for-stealing-money-from-hundi/article71605127.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Hyderabad/air-chief-marshal-ap-singh-completes-final-iaf-sortie-in-hyderabad-with-instructor-who-first-taught-him-to-fly/article71604571.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/un-experts-urge-india-to-curb-force-against-unarmed-student-protesters/article71604310.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/on-ecinet-platform-access-for-states-can-be-switched-off-and-on-centrally-report/article71605004.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/kanthapuram-sunni-faction-calls-off-protests-against-waqf-board-reconstitution-in-keralam/article71604998.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/attack-by-islamic-state-affiliated-group-in-mali-kills-48/article71605269.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Coimbatore/minister-kamali-launches-supply-of-fine-rice-for-family-cardholders-under-price-stabilisation-scheme/article71605092.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/french-pm-vows-massive-police-deployment-for-new-demonstrations-on-october-24/article71604984.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/arrest-made-in-sakthikulangara-skeletal-remains-case/article71604648.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/iran-guards-say-their-mines-halted-two-tankers-crossing-strait-of-hormuz/article71605265.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/saurav-das-ashutosh-ranka-judicial-custody-cjp-seeks-urgent-hearing-in-delhi-high-court/article71604565.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Coimbatore/salem-man-arrested-with-75-kg-of-ganja-in-coimbatore/article71605223.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/west-bengal/west-bengal-cm-meets-families-of-deceased-in-kolkata-puja-pandal-stampede/article71605079.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/business/Economy/marco-rubio-oil-purchases-india-mumbai-october-20-2026/article71604269.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/police-hold-special-weapons-and-equipment-exhibition/article71604945.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/chennai/cardiologists-from-across-the-globe-discuss-angioplasty-complications-at-meet-in-chennai/article71603283.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Coimbatore/discarded-from-aquariums-exotic-south-american-fish-invades-noyyal-tanks-in-coimbatore/article71605117.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/puducherry/children-initiated-into-the-world-of-letters-on-vijayadasami-day/article71604222.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/sport/cricket/ranji-trophy-himateja-ton-puts-hyderabad-in-command/article71605147.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/tamil-nadu/collector-reviews-flood-mitigation-works-in-cuddalore/article71603598.ece",
+            "date": null
+          }
+        ]
+      },
+      {
+        "id": "sd-npr",
+        "name": "NPR News",
+        "region": "north-america",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-bbc",
+        "name": "BBC World",
+        "region": null,
+        "kind": "rss",
+        "status": "error",
+        "links": []
+      },
+      {
+        "id": "sd-aljazeera",
+        "name": "Al Jazeera English",
+        "region": null,
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-guardian",
+        "name": "The Guardian (World)",
+        "region": null,
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.theguardian.com/politics/2026/oct/16/uk-chinese-electric-vehicle-ev-tariffs-eu-made-in-europe-scheme",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/2026/oct/16/amelia-earhart-new-zeland-museum-aerial-survey-photos-nikumaroro-island",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/oct/16/india-cockroach-janta-party-leader-detained-amid-crackdown-protests",
+            "date": "2026-10-16"
+          },
+          {
+            "url": "https://www.theguardian.com/environment/2026/oct/16/flash-floods-deaths-nepal-high-temperatures-portugal",
+            "date": "2026-10-16"
+          }
+        ]
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "id": "D2.4-nato-17-nations-ukdefence",
+      "criterion": "D2.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D2.4-nato-17-nations-ukdefence",
+        "criterion": "D2.4",
+        "url": "https://ukdefencejournal.org.uk/seventeen-nations-join-nato-nuclear-exercise-in-italy/",
+        "title": {
+          "ru": "Семнадцать стран присоединились к ядерным учениям НАТО в Италии",
+          "en": "Seventeen nations join NATO nuclear exercise in Italy"
+        },
+        "domain": "ukdefencejournal.org.uk",
+        "publication_date": "2026-10-12",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "E-field-osint",
+        "state_affiliated": false
+      }
+    },
+    {
+      "id": "D2.4-nato-begins-nuclear-zamin",
+      "criterion": "D2.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D2.4-nato-begins-nuclear-zamin",
+        "criterion": "D2.4",
+        "url": "https://zamin.uz/en/world/224399-nato-begins-major-nuclear-exercises-in-italy-how-did-russia-respond.html",
+        "title": {
+          "ru": "НАТО начинает масштабные ядерные учения в Италии",
+          "en": "NATO Begins Major Nuclear Exercises in Italy"
+        },
+        "domain": "zamin.uz",
+        "publication_date": "2026-10-13",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      }
+    },
+    {
+      "id": "D6.1-martial-law-thenews",
+      "criterion": "D6.1",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.1-martial-law-thenews",
+        "criterion": "D6.1",
+        "url": "https://www.thenews.com.pk/latest/1420203-trump-allies-discuss-martial-law-if-midterms-deemed-rigged",
+        "title": {
+          "ru": "Союзники Трампа обсуждают военное положение в случае признания промежуточных выборов сфальсифицированными",
+          "en": "Trump allies discuss martial law if midterms deemed 'rigged'"
+        },
+        "domain": "thenews.com.pk",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      }
+    },
+    {
+      "id": "D6.1-martial-law-ibtimes",
+      "criterion": "D6.1",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.1-martial-law-ibtimes",
+        "criterion": "D6.1",
+        "url": "https://www.ibtimes.co.uk/trump-allies-martial-law-seizing-ballots-midterms-1826059",
+        "title": {
+          "ru": "Союзники Трампа обсуждают введение военного положения и изъятие бюллетеней",
+          "en": "MAGAs Float 'Martial Law' and Seizing Voting Machines"
+        },
+        "domain": "ibtimes.co.uk",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      }
+    },
+    {
+      "id": "D6.1-martial-law-jang",
+      "criterion": "D6.1",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.1-martial-law-jang",
+        "criterion": "D6.1",
+        "url": "https://jang.com.pk/en/74729-martial-law-in-us-trumps-allies-discuss-imposing-military-rule-news",
+        "title": {
+          "ru": "Военное положение в США? Союзники Трампа обсуждают введение военного правления",
+          "en": "Martial law in US? Trump's allies discuss imposing military rule"
+        },
+        "domain": "jang.com.pk",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      }
+    },
+    {
+      "id": "D9.5-zakharova-iz",
+      "criterion": "D9.5",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D9.5-zakharova-iz",
+        "criterion": "D9.5",
+        "url": "https://iz.ru/en/node/2185243",
+        "title": {
+          "ru": "Захарова назвала ужесточение мобилизации на Украине игрой Зеленского в мясорубке",
+          "en": "Zakharova called the tightening of mobilization in Ukraine Zelensky's game in a meat grinder"
+        },
+        "domain": "iz.ru",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "primary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": true
+      }
+    },
+    {
+      "id": "D9.5-ukraine-russia-iz",
+      "criterion": "D9.5",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D9.5-ukraine-russia-iz",
+        "criterion": "D9.5",
+        "url": "https://iz.ru/en/node/1969099",
+        "title": {
+          "ru": "Игра проигрыш: ядерные учения НАТО спровоцируют ответные меры России",
+          "en": "Game to lose: NATO nuclear exercises will provoke retaliatory steps by the Russian Federation"
+        },
+        "domain": "iz.ru",
+        "publication_date": "2026-10-15",
+        "accessed_date": "2026-10-20",
+        "source_type": "primary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      }
+    },
+    {
+      "id": "D9.2-lithuania-friedman-eadaily",
+      "criterion": "D9.2",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D9.2-lithuania-friedman-eadaily",
+        "criterion": "D9.2",
+        "url": "https://eadaily.com/en/news/2026/10/14/lithuania-went-against-the-eu-has-frozen-the-assets-of-two-russian-businessmen",
+        "title": {
+          "ru": "Литва вопреки ЕС заморозила активы двух российских бизнесменов",
+          "en": "Lithuania went against the EU has frozen the assets of two Russian businessmen"
+        },
+        "domain": "eadaily.com",
+        "publication_date": "2026-10-14",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true
+      }
+    },
+    {
+      "id": "D9.2-baltic-grain-splash247",
+      "criterion": "D9.2",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D9.2-baltic-grain-splash247",
+        "criterion": "D9.2",
+        "url": "https://splash247.com/baltic-states-push-for-eu-wide-ban-on-russian-grain-transit/",
+        "title": {
+          "ru": "Страны Балтии добиваются общесоюзного запрета на транзит российского зерна",
+          "en": "Baltic states push for EU-wide ban on Russian grain transit"
+        },
+        "domain": "splash247.com",
+        "publication_date": "2026-10-12",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "F-financial",
+        "state_affiliated": false
+      }
+    },
+    {
+      "id": "D6.4-nigeria-refugees-punch",
+      "criterion": "D6.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.4-nigeria-refugees-punch",
+        "criterion": "D6.4",
+        "url": "https://punchng.com/7000-nigerian-refugees-voluntarily-return-home-in-2026-minister/",
+        "title": {
+          "ru": "7000 нигерийских беженцев добровольно вернулись на родину в 2026 году",
+          "en": "7,000 Nigerian refugees return home in 2026 – Minister"
+        },
+        "domain": "punchng.com",
+        "publication_date": "2026-10-13",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "africa"
+        ]
+      }
+    },
+    {
+      "id": "D6.4-nigeria-refugees-gazette",
+      "criterion": "D6.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.4-nigeria-refugees-gazette",
+        "criterion": "D6.4",
+        "url": "https://gazettengr.com/nigeria-seeks-afdb-ecowas-bank-funding-for-refugees-announces-return-of-7000-citizens/",
+        "title": {
+          "ru": "Нигерия просит финансирование у АфБР и банка ЭКОВАС для беженцев",
+          "en": "Nigeria seeks AfDB, ECOWAS bank funding for refugees, announces return of 7,000 citizens"
+        },
+        "domain": "gazettengr.com",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "africa"
+        ]
+      }
+    },
+    {
+      "id": "D6.4-afghan-refugees-xinhua",
+      "criterion": "D6.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D6.4-afghan-refugees-xinhua",
+        "criterion": "D6.4",
+        "url": "https://english.news.cn/20261017/7f8137aa6f6241f989f0b3f44101f9f5/c.html",
+        "title": {
+          "ru": "Более 4500 афганских беженцев вернулись домой за неделю",
+          "en": "Over 4,500 Afghan refugees return home in 1 week: official"
+        },
+        "domain": "news.cn",
+        "publication_date": "2026-10-17",
+        "accessed_date": "2026-10-20",
+        "source_type": "primary",
+        "cluster_id": "C-registries",
+        "state_affiliated": true,
+        "regions": [
+          "south-asia"
+        ]
+      }
+    },
+    {
+      "id": "D3.1-bulgaria-summons-russian-envoy-balkaninsight",
+      "criterion": "D3.1",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D3.1-bulgaria-summons-russian-envoy-balkaninsight",
+        "criterion": "D3.1",
+        "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+        "title": {
+          "ru": "Болгария вызвала российского посла из-за новых атак беспилотников в Черном море",
+          "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
+        },
+        "domain": "balkaninsight.com",
+        "publication_date": "2026-10-13",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "balkans"
+        ]
+      }
+    },
+    {
+      "id": "D3.1-albania-israel-gazeta",
+      "criterion": "D3.1",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D3.1-albania-israel-gazeta",
+        "criterion": "D3.1",
+        "url": "https://www.balkaninsight.com/2026/10/14/albanian-president-urges-calm-as-street-protest-clashes-continue/",
+        "title": {
+          "ru": "Протесты в Тиране привели к временному закрытию посольства Израиля",
+          "en": "Protests in Tirana, Israeli embassy temporarily closed"
+        },
+        "domain": "gazetaexpress.com",
+        "publication_date": "2026-10-14",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": false,
+        "regions": [
+          "balkans"
+        ]
+      }
+    },
+    {
+      "id": "D1.6-lebanon-unifil-france-allisrael",
+      "criterion": "D1.6",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D1.6-lebanon-unifil-france-allisrael",
+        "criterion": "D1.6",
+        "url": "https://allisraelnews.com/lebanon-asks-france-to-help-secure-international-force-to-replace-unifil-after-2026-withdrawal",
+        "title": {
+          "ru": "Ливан просит Францию помочь в обеспечении международных сил для замены ЮНИФИЛ",
+          "en": "Lebanon asks France to help secure international force to replace UNIFIL after 2026 withdrawal"
+        },
+        "domain": "allisraelnews.com",
+        "publication_date": "2026-10-18",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "C-registries",
+        "state_affiliated": false,
+        "regions": [
+          "middle-east"
+        ]
+      }
+    },
+    {
+      "id": "D1.6-uk-jerusalem-turkiye",
+      "criterion": "D1.6",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D1.6-uk-jerusalem-turkiye",
+        "criterion": "D1.6",
+        "url": "https://www.aa.com.tr/en/middle-east/israel-kills-11-in-gaza-as-ceasefire-hopes-fade/3719456",
+        "title": {
+          "ru": "Великобритания переименовывает консульство в Иерусалиме, Израиль заявляет о закрытии",
+          "en": "UK renames Jerusalem consulate as Israel declares it closed"
+        },
+        "domain": "turkiyetoday.com",
+        "publication_date": "2026-10-15",
+        "accessed_date": "2026-10-20",
+        "source_type": "primary",
+        "cluster_id": "F-financial",
+        "state_affiliated": true,
+        "regions": [
+          "middle-east"
+        ]
+      }
+    },
+    {
+      "id": "D5.4-nato-commander-victory-balkaninsight",
+      "criterion": "D5.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.4-nato-commander-victory-balkaninsight",
+        "criterion": "D5.4",
+        "url": "https://balkaninsight.com/2026/10/12/natos-top-commander-unveils-plan-for-victory-against-russia/rd/",
+        "title": {
+          "ru": "Главнокомандующий НАТО представил план победы над Россией",
+          "en": "NATO's Top Commander Unveils Plan for Victory Against Russia"
+        },
+        "domain": "balkaninsight.com",
+        "publication_date": "2026-10-12",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "E-field-osint",
+        "state_affiliated": false,
+        "regions": [
+          "eu-north-europe"
+        ]
+      }
+    },
+    {
+      "id": "D5.4-nato-exercise-stripes",
+      "criterion": "D5.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.4-nato-exercise-stripes",
+        "criterion": "D5.4",
+        "url": "https://www.stripes.com/theaters/europe/2026-10-13/steadfast-noon-nato-exercise-23139099.html",
+        "title": {
+          "ru": "НАТО начинает ежегодные ядерные учения в Италии",
+          "en": "NATO begins annual nuclear exercise in Italy"
+        },
+        "domain": "stripes.com",
+        "publication_date": "2026-10-13",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "eu-north-europe"
+        ]
+      }
+    },
+    {
+      "id": "D8.4-tigray-reintegration-africanews",
+      "criterion": "D8.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D8.4-tigray-reintegration-africanews",
+        "criterion": "D8.4",
+        "url": "https://www.africanews.com/2026/10/17/ex-fighters-in-ethiopias-tigray-region-register-for-reintegration-programme/",
+        "title": {
+          "ru": "Бывшие бойцы в регионе Тыграй Эфиопии регистрируются для реинтеграции",
+          "en": "Ex-fighters in Ethiopia's Tigray region register for reintegration programme"
+        },
+        "domain": "africanews.com",
+        "publication_date": "2026-10-17",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "africa"
+        ]
+      }
+    },
+    {
+      "id": "D8.4-tigray-apnews",
+      "criterion": "D8.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "URL заблокирован из среды проверки (blocked, статус 403) — предупреждение, не отказ"
+      ],
+      "urlStatus": "blocked",
+      "source": {
+        "id": "D8.4-tigray-apnews",
+        "criterion": "D8.4",
+        "url": "https://apnews.com/article/ethiopia-tigray-mekelle-disarmament-eritrea-a6ffdcdb836c7e23d9535b0efd5d3d18",
+        "title": {
+          "ru": "Эфиопия создает временное правительство в Тыграе на фоне разоружения бывших бойцов",
+          "en": "Ethiopia sets up Tigray caretaker government as ex-fighters seek return to civilian life"
+        },
+        "domain": "apnews.com",
+        "publication_date": "2026-10-16",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "regions": [
+          "africa"
+        ]
+      }
+    },
+    {
+      "id": "D8.4-cameroon-disarmament",
+      "criterion": "D8.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D8.4-cameroon-disarmament",
+        "criterion": "D8.4",
+        "url": "https://www.cameroon-tribune.cm/article.html/81518/fr.html/bamenda-disarmament-centre-ex-fighters-acquire-economic-empowerment-skills",
+        "title": {
+          "ru": "Центр разоружения Баменды: бывшие бойцы осваивают навыки экономического развития",
+          "en": "Bamenda Disarmament Centre: Ex-fighters Acquire Economic Empowerment Skills"
+        },
+        "domain": "cameroon-tribune.cm",
+        "publication_date": "2026-10-13",
+        "accessed_date": "2026-10-20",
+        "source_type": "secondary",
+        "cluster_id": "C-registries",
+        "state_affiliated": true,
+        "regions": [
+          "africa"
+        ]
+      }
+    }
+  ]
+}

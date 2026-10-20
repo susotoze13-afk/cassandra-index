@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "week": "2026-10-18",
+  "candidates": [
+    {
+      "id": "D2.4-nato-17-nations-ukdefence",
+      "criterion": "D2.4",
+      "url": "https://ukdefencejournal.org.uk/seventeen-nations-join-nato-nuclear-exercise-in-italy/",
+      "title": {
+        "ru": "Семнадцать стран присоединились к ядерным учениям НАТО в Италии",
+        "en": "Seventeen nations join NATO nuclear exercise in Italy"
+      },
+      "domain": "ukdefencejournal.org.uk",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "E-field-osint",
+      "state_affiliated": false
+    },
+    {
+      "id": "D2.4-nato-begins-nuclear-zamin",
+      "criterion": "D2.4",
+      "url": "https://zamin.uz/en/world/224399-nato-begins-major-nuclear-exercises-in-italy-how-did-russia-respond.html",
+      "title": {
+        "ru": "НАТО начинает масштабные ядерные учения в Италии",
+        "en": "NATO Begins Major Nuclear Exercises in Italy"
+      },
+      "domain": "zamin.uz",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "D6.1-martial-law-thenews",
+      "criterion": "D6.1",
+      "url": "https://www.thenews.com.pk/latest/1420203-trump-allies-discuss-martial-law-if-midterms-deemed-rigged",
+      "title": {
+        "ru": "Союзники Трампа обсуждают военное положение в случае признания промежуточных выборов сфальсифицированными",
+        "en": "Trump allies discuss martial law if midterms deemed 'rigged'"
+      },
+      "domain": "thenews.com.pk",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "D6.1-martial-law-ibtimes",
+      "criterion": "D6.1",
+      "url": "https://www.ibtimes.co.uk/trump-allies-martial-law-seizing-ballots-midterms-1826059",
+      "title": {
+        "ru": "Союзники Трампа обсуждают введение военного положения и изъятие бюллетеней",
+        "en": "MAGAs Float 'Martial Law' and Seizing Voting Machines"
+      },
+      "domain": "ibtimes.co.uk",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false
+    },
+    {
+      "id": "D6.1-martial-law-jang",
+      "criterion": "D6.1",
+      "url": "https://jang.com.pk/en/74729-martial-law-in-us-trumps-allies-discuss-imposing-military-rule-news",
+      "title": {
+        "ru": "Военное положение в США? Союзники Трампа обсуждают введение военного правления",
+        "en": "Martial law in US? Trump's allies discuss imposing military rule"
+      },
+      "domain": "jang.com.pk",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "D9.5-zakharova-iz",
+      "criterion": "D9.5",
+      "url": "https://iz.ru/en/node/2185243",
+      "title": {
+        "ru": "Захарова назвала ужесточение мобилизации на Украине игрой Зеленского в мясорубке",
+        "en": "Zakharova called the tightening of mobilization in Ukraine Zelensky's game in a meat grinder"
+      },
+      "domain": "iz.ru",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "primary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": true
+    },
+    {
+      "id": "D9.5-ukraine-russia-iz",
+      "criterion": "D9.5",
+      "url": "https://iz.ru/en/node/1969099",
+      "title": {
+        "ru": "Игра проигрыш: ядерные учения НАТО спровоцируют ответные меры России",
+        "en": "Game to lose: NATO nuclear exercises will provoke retaliatory steps by the Russian Federation"
+      },
+      "domain": "iz.ru",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-20",
+      "source_type": "primary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "D9.2-lithuania-friedman-eadaily",
+      "criterion": "D9.2",
+      "url": "https://eadaily.com/en/news/2026/10/14/lithuania-went-against-the-eu-has-frozen-the-assets-of-two-russian-businessmen",
+      "title": {
+        "ru": "Литва вопреки ЕС заморозила активы двух российских бизнесменов",
+        "en": "Lithuania went against the EU has frozen the assets of two Russian businessmen"
+      },
+      "domain": "eadaily.com",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true
+    },
+    {
+      "id": "D9.2-baltic-grain-splash247",
+      "criterion": "D9.2",
+      "url": "https://splash247.com/baltic-states-push-for-eu-wide-ban-on-russian-grain-transit/",
+      "title": {
+        "ru": "Страны Балтии добиваются общесоюзного запрета на транзит российского зерна",
+        "en": "Baltic states push for EU-wide ban on Russian grain transit"
+      },
+      "domain": "splash247.com",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false
+    },
+    {
+      "id": "D6.4-nigeria-refugees-punch",
+      "criterion": "D6.4",
+      "url": "https://punchng.com/7000-nigerian-refugees-voluntarily-return-home-in-2026-minister/",
+      "title": {
+        "ru": "7000 нигерийских беженцев добровольно вернулись на родину в 2026 году",
+        "en": "7,000 Nigerian refugees return home in 2026 – Minister"
+      },
+      "domain": "punchng.com",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "africa"
+      ]
+    },
+    {
+      "id": "D6.4-nigeria-refugees-gazette",
+      "criterion": "D6.4",
+      "url": "https://gazettengr.com/nigeria-seeks-afdb-ecowas-bank-funding-for-refugees-announces-return-of-7000-citizens/",
+      "title": {
+        "ru": "Нигерия просит финансирование у АфБР и банка ЭКОВАС для беженцев",
+        "en": "Nigeria seeks AfDB, ECOWAS bank funding for refugees, announces return of 7,000 citizens"
+      },
+      "domain": "gazettengr.com",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "africa"
+      ]
+    },
+    {
+      "id": "D6.4-afghan-refugees-xinhua",
+      "criterion": "D6.4",
+      "url": "https://english.news.cn/20261017/7f8137aa6f6241f989f0b3f44101f9f5/c.html",
+      "title": {
+        "ru": "Более 4500 афганских беженцев вернулись домой за неделю",
+        "en": "Over 4,500 Afghan refugees return home in 1 week: official"
+      },
+      "domain": "news.cn",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-20",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true,
+      "regions": [
+        "south-asia"
+      ]
+    },
+    {
+      "id": "D3.1-bulgaria-summons-russian-envoy-balkaninsight",
+      "criterion": "D3.1",
+      "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+      "title": {
+        "ru": "Болгария вызвала российского посла из-за новых атак беспилотников в Черном море",
+        "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
+      },
+      "domain": "balkaninsight.com",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "balkans"
+      ]
+    },
+    {
+      "id": "D3.1-albania-israel-gazeta",
+      "criterion": "D3.1",
+      "url": "https://www.balkaninsight.com/2026/10/14/albanian-president-urges-calm-as-street-protest-clashes-continue/",
+      "title": {
+        "ru": "Протесты в Тиране привели к временному закрытию посольства Израиля",
+        "en": "Protests in Tirana, Israeli embassy temporarily closed"
+      },
+      "domain": "gazetaexpress.com",
+      "publication_date": "2026-10-14",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": false,
+      "regions": [
+        "balkans"
+      ]
+    },
+    {
+      "id": "D1.6-lebanon-unifil-france-allisrael",
+      "criterion": "D1.6",
+      "url": "https://allisraelnews.com/lebanon-asks-france-to-help-secure-international-force-to-replace-unifil-after-2026-withdrawal",
+      "title": {
+        "ru": "Ливан просит Францию помочь в обеспечении международных сил для замены ЮНИФИЛ",
+        "en": "Lebanon asks France to help secure international force to replace UNIFIL after 2026 withdrawal"
+      },
+      "domain": "allisraelnews.com",
+      "publication_date": "2026-10-18",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false,
+      "regions": [
+        "middle-east"
+      ]
+    },
+    {
+      "id": "D1.6-uk-jerusalem-turkiye",
+      "criterion": "D1.6",
+      "url": "https://www.aa.com.tr/en/middle-east/israel-kills-11-in-gaza-as-ceasefire-hopes-fade/3719456",
+      "title": {
+        "ru": "Великобритания переименовывает консульство в Иерусалиме, Израиль заявляет о закрытии",
+        "en": "UK renames Jerusalem consulate as Israel declares it closed"
+      },
+      "domain": "turkiyetoday.com",
+      "publication_date": "2026-10-15",
+      "accessed_date": "2026-10-20",
+      "source_type": "primary",
+      "cluster_id": "F-financial",
+      "state_affiliated": true,
+      "regions": [
+        "middle-east"
+      ]
+    },
+    {
+      "id": "D5.4-nato-commander-victory-balkaninsight",
+      "criterion": "D5.4",
+      "url": "https://balkaninsight.com/2026/10/12/natos-top-commander-unveils-plan-for-victory-against-russia/rd/",
+      "title": {
+        "ru": "Главнокомандующий НАТО представил план победы над Россией",
+        "en": "NATO's Top Commander Unveils Plan for Victory Against Russia"
+      },
+      "domain": "balkaninsight.com",
+      "publication_date": "2026-10-12",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "E-field-osint",
+      "state_affiliated": false,
+      "regions": [
+        "eu-north-europe"
+      ]
+    },
+    {
+      "id": "D5.4-nato-exercise-stripes",
+      "criterion": "D5.4",
+      "url": "https://www.stripes.com/theaters/europe/2026-10-13/steadfast-noon-nato-exercise-23139099.html",
+      "title": {
+        "ru": "НАТО начинает ежегодные ядерные учения в Италии",
+        "en": "NATO begins annual nuclear exercise in Italy"
+      },
+      "domain": "stripes.com",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "eu-north-europe"
+      ]
+    },
+    {
+      "id": "D8.4-tigray-reintegration-africanews",
+      "criterion": "D8.4",
+      "url": "https://www.africanews.com/2026/10/17/ex-fighters-in-ethiopias-tigray-region-register-for-reintegration-programme/",
+      "title": {
+        "ru": "Бывшие бойцы в регионе Тыграй Эфиопии регистрируются для реинтеграции",
+        "en": "Ex-fighters in Ethiopia's Tigray region register for reintegration programme"
+      },
+      "domain": "africanews.com",
+      "publication_date": "2026-10-17",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "africa"
+      ]
+    },
+    {
+      "id": "D8.4-tigray-apnews",
+      "criterion": "D8.4",
+      "url": "https://apnews.com/article/ethiopia-tigray-mekelle-disarmament-eritrea-a6ffdcdb836c7e23d9535b0efd5d3d18",
+      "title": {
+        "ru": "Эфиопия создает временное правительство в Тыграе на фоне разоружения бывших бойцов",
+        "en": "Ethiopia sets up Tigray caretaker government as ex-fighters seek return to civilian life"
+      },
+      "domain": "apnews.com",
+      "publication_date": "2026-10-16",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "regions": [
+        "africa"
+      ]
+    },
+    {
+      "id": "D8.4-cameroon-disarmament",
+      "criterion": "D8.4",
+      "url": "https://www.cameroon-tribune.cm/article.html/81518/fr.html/bamenda-disarmament-centre-ex-fighters-acquire-economic-empowerment-skills",
+      "title": {
+        "ru": "Центр разоружения Баменды: бывшие бойцы осваивают навыки экономического развития",
+        "en": "Bamenda Disarmament Centre: Ex-fighters Acquire Economic Empowerment Skills"
+      },
+      "domain": "cameroon-tribune.cm",
+      "publication_date": "2026-10-13",
+      "accessed_date": "2026-10-20",
+      "source_type": "secondary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true,
+      "regions": [
+        "africa"
+      ]
+    }
+  ]
+}
