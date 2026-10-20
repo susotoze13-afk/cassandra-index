@@ -59,3 +59,4 @@
 | 2026-10-18 | `2026-10-18-license-and-citation` | сдан | Правовая рамка: лицензии по типу материала, NOTICE и торговая марка, VERSION и CITATION.cff, README, вклад под DCO, SECURITY и граница репозиториев |
 | 2026-10-18 | `2026-10-18-public-validation-backtest` | сдан | Публичная валидация индекса внешними рядами и журнал прогнозов: validation.html, validation.json, forecast-ledger.json, офлайн-бэктест calc/backtest.js |
 | 2026-10-19 | `2026-10-19-api-contract-reference` | сдан | Полный контракт публичного слоя: 11 JSON Schema, docs/api.md по всем файлам, тест-сторож |
+| 2026-10-20 | `2026-10-20-editorial-source-discovery--wip` | в работе | — |
