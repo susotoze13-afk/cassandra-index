@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "feeds": [
+    { "id": "sd-balkaninsight", "name": "Balkan Insight", "region": "balkans", "url": "https://balkaninsight.com/feed/", "kind": "rss" },
+    { "id": "sd-n1", "name": "N1", "region": "balkans", "url": "https://n1info.rs/feed/", "kind": "rss" },
+    { "id": "sd-danas", "name": "Danas", "region": "balkans", "url": "https://danas.rs/feed/", "kind": "rss" },
+    { "id": "sd-vijesti", "name": "Vijesti", "region": "balkans", "url": "https://vijesti.me/rss", "kind": "rss" },
+    { "id": "sd-belta", "name": "БелТА", "region": "russia-belarus", "url": "https://www.belta.by/rss/", "kind": "rss" },
+    { "id": "sd-moldova", "name": "Moldova.org", "region": "ukraine-moldova", "url": "https://moldova.org/feed/", "kind": "rss" },
+    { "id": "sd-baltictimes", "name": "The Baltic Times", "region": "baltic", "url": "https://baltictimes.com/rss", "kind": "rss" },
+    { "id": "sd-nrk", "name": "NRK", "region": "eu-north-europe", "url": "https://www.nrk.no/nyheter/siste.rss", "kind": "rss" },
+    { "id": "sd-civilge", "name": "Civil Georgia", "region": "south-caucasus", "url": "https://civil.ge/rss", "kind": "rss" },
+    { "id": "sd-ocmedia", "name": "OC Media", "region": "south-caucasus", "url": "https://oc-media.org/feed", "kind": "rss" },
+    { "id": "sd-reportaz", "name": "Report.az", "region": "south-caucasus", "url": "https://report.az/en/rss", "kind": "rss" },
+    { "id": "sd-ferghana", "name": "Ferghana.ru", "region": "central-asia", "url": "https://www.ferghana.ru/rss/", "kind": "rss" },
+    { "id": "sd-astanatimes", "name": "Astana Times", "region": "central-asia", "url": "https://www.astanatimes.com/feed", "kind": "rss" },
+    { "id": "sd-uza", "name": "UZA", "region": "central-asia", "url": "https://uza.uz/rss", "kind": "rss" },
+    { "id": "sd-almonitor", "name": "Al-Monitor", "region": "middle-east", "url": "https://www.al-monitor.com/rss", "kind": "rss" },
+    { "id": "sd-guardian-me", "name": "The Guardian (Ближний Восток)", "region": "middle-east", "url": "https://www.theguardian.com/world/middleeast/rss", "kind": "rss" },
+    { "id": "sd-timesofisrael", "name": "The Times of Israel", "region": "middle-east", "url": "https://www.timesofisrael.com/feed/", "kind": "rss" },
+    { "id": "sd-africanews", "name": "Africanews", "region": "africa", "url": "https://africanews.com/feed/", "kind": "rss" },
+    { "id": "sd-premiumtimes", "name": "Premium Times", "region": "africa", "url": "https://www.premiumtimesng.com/feed/", "kind": "rss" },
+    { "id": "sd-scmp", "name": "South China Morning Post", "region": "east-asia", "url": "https://www.scmp.com/rss/feed", "kind": "rss" },
+    { "id": "sd-koreaherald", "name": "The Korea Herald", "region": "east-asia", "url": "https://www.koreaherald.com/rss", "kind": "rss" },
+    { "id": "sd-thehindu", "name": "The Hindu", "region": "south-asia", "url": "https://www.thehindu.com/news/feeder/default.rss", "kind": "rss" },
+    { "id": "sd-npr", "name": "NPR News", "region": "north-america", "url": "https://feeds.npr.org/1001/rss.xml", "kind": "rss" },
+    { "id": "sd-bbc", "name": "BBC World", "region": null, "url": "https://feeds.bbci.co.uk/news/world/rss.xml", "kind": "rss" },
+    { "id": "sd-aljazeera", "name": "Al Jazeera English", "region": null, "url": "https://www.aljazeera.com/xml/rss/all.xml", "kind": "rss" },
+    { "id": "sd-guardian", "name": "The Guardian (World)", "region": null, "url": "https://www.theguardian.com/world/rss", "kind": "rss" }
+  ]
+}
