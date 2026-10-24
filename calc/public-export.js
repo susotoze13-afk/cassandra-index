@@ -256,7 +256,15 @@ function escapeHtml(s) {
 }
 
 // toTrendSvg(snapshot) — кривая 12 точек: подписи дат, без внешних ресурсов.
-// Принимает снапшот или проекцию недели (у обоих есть trend).
+// Принимает снапшот или проекцию недели (у обоих есть trend). Точки разных
+// версий methodology несопоставимы (как на сайте, js/sections/trend.js):
+// серия рвётся на смене версии и каждый сегмент рисуется своей полилинией.
+function methOf(p) {
+  return p && typeof p.methodology === 'string' && p.methodology !== ''
+    ? p.methodology
+    : null;
+}
+
 export function toTrendSvg(snapshot) {
   const trend = snapshot && Array.isArray(snapshot.trend) ? snapshot.trend : [];
   const { width: W, height: H, padLeft, padRight, padTop, padBottom, radius } = TREND;
@@ -265,8 +273,9 @@ export function toTrendSvg(snapshot) {
   const n = trend.length;
   const x = (i) => (n <= 1 ? padLeft : padLeft + (plotW * i) / (n - 1));
   const y = (v) => H - padBottom - (plotH * v) / 100;
-  const points = [];
   const marks = [];
+  const segments = [];
+  let current = null;
   trend.forEach((p, i) => {
     const cx = x(i);
     const label = typeof p.date === 'string' && DATE_RE.test(p.date)
@@ -280,8 +289,14 @@ export function toTrendSvg(snapshot) {
       );
     }
     if (!isNum(p.value)) return;
+    const meth = methOf(p);
+    if (current && current.meth !== meth) {
+      segments.push(current);
+      current = null;
+    }
+    if (!current) current = { meth, coords: [] };
     const cy = y(p.value);
-    points.push(`${cx.toFixed(1)},${cy.toFixed(1)}`);
+    current.coords.push(`${cx.toFixed(1)},${cy.toFixed(1)}`);
     marks.push(
       `  <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${radius}" `
       + 'style="fill:var(--accent, #58A6FF)"/>',
@@ -289,17 +304,29 @@ export function toTrendSvg(snapshot) {
       + 'style="fill:var(--text, #E6EDF3)">' + `${p.value}</text>`,
     );
   });
+  if (current && current.coords.length) segments.push(current);
+  const versions = [...new Set(trend.map(methOf))];
+  // null-версия — точки, записанные без поля methodology (демо-архив 1.0);
+  // честная пометка, а не выдуманный номер (как «—» у trend-break-mark на сайте).
+  const versionsText = versions.length === 0
+    ? ''
+    : versions.length === 1
+      ? `методология ${versions[0] ?? 'без версии'}`
+      : `методологии ${versions.map((v) => v ?? 'без версии').join(' и ')}`;
+  const polylines = segments.map((seg) => `  <polyline points="${seg.coords.join(' ')}" fill="none" `
+    + 'style="stroke:var(--accent, #58A6FF);stroke-width:2"/>');
   const axis = `  <line x1="${padLeft}" y1="${H - padBottom}" x2="${W - padRight}" `
     + `y2="${H - padBottom}" style="stroke:var(--border, #232B36)"/>`;
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" `
     + 'role="img" aria-labelledby="trend-title trend-desc">',
-    '  <title id="trend-title">Cassandra Index — индекс за 12 недель</title>',
+    `  <title id="trend-title">Cassandra Index — индекс за ${n} недель`
+    + `${versionsText ? ` (${versionsText})` : ''}</title>`,
     '  <desc id="trend-desc">Точки — опубликованный индекс по неделям; шкала 0–100 '
-    + 'порядковая, расстояния между числами — соглашение.</desc>',
+    + 'порядковая, расстояния между числами — соглашение. Точки разных версий '
+    + 'методологии соединены отдельными линиями и между собой не сравниваются.</desc>',
     axis,
-    `  <polyline points="${points.join(' ')}" fill="none" `
-    + 'style="stroke:var(--accent, #58A6FF);stroke-width:2"/>',
+    ...polylines,
     ...marks,
     '</svg>',
     '',
@@ -525,8 +552,48 @@ function publishedIndexOf(snapshot) {
 // buildDataset для CLI: вклады драйверов и контрфактика считаются из входа
 // недели (calc/input/<week>.json), водопад — из входов текущей и прошлой
 // недели. Нет входа (демо-архив, чужой корень) → пустая развёртка, а не
-// выдуманные нули. Водопад через границу версий методологии не строится:
-// недели 08-02…08-23 — демо-история 1.0, их числа несопоставимы.
+// выдуманные нули. Причина null-водопада — снаружи, см. waterfallReasonFor.
+// buildWeekWaterfall(...) — внутренний шов: водопад недели и, при null, причина.
+// Водопад через границу версий методологии не строится: недели 08-02…08-23 —
+// демо-история 1.0, их числа несопоставимы.
+function buildWeekWaterfall(input, snapshot, prevSnapshot, prevWeek, root) {
+  const index = publishedIndexOf(snapshot);
+  if (index === null) return { waterfall: null, reason: 'индекс недели не опубликован' };
+  if (!prevWeek) return { waterfall: null, reason: 'нет прошлой недели' };
+  const prevIndex = publishedIndexOf(prevSnapshot);
+  if (prevIndex === null) return { waterfall: null, reason: 'прошлая неделя не опубликована' };
+  if (!(prevSnapshot && prevSnapshot.methodology === snapshot.methodology)) {
+    return { waterfall: null, reason: 'смена методологии у прошлой недели' };
+  }
+  const prevInput = readInputFile(root, prevWeek);
+  if (!prevInput) return { waterfall: null, reason: 'нет входа прошлой недели' };
+  try {
+    return {
+      waterfall: buildWaterfall({
+        current: input,
+        previous: prevInput,
+        currentIndex: index,
+        previousIndex: prevIndex,
+        params: PARAMS,
+      }),
+      reason: null,
+    };
+  } catch {
+    return { waterfall: null, reason: 'ошибка построения водопада' };
+  }
+}
+
+// waterfallReasonFor(week, snapshot, prevSnapshot, prevWeek, rootDir) — причина,
+// по которой водопад недели не построился (null — построился). Печать CLI:
+// «водопад: нет» без причины не различает «по правилам не строится» (демо-архив,
+// первая неделя цепочки, смена methodology у prev) и «не построился» (ошибка).
+export function waterfallReasonFor(week, snapshot, prevSnapshot, prevWeek, rootDir = ROOT) {
+  const root = rootDir || ROOT;
+  const input = readInputFile(root, week);
+  if (!input) return 'нет входа недели';
+  return buildWeekWaterfall(input, snapshot, prevSnapshot, prevWeek, root).reason;
+}
+
 export function loadAnalysisFromDisk(week, snapshot, prevSnapshot, prevWeek, rootDir = ROOT) {
   const root = rootDir || ROOT;
   const index = publishedIndexOf(snapshot);
@@ -539,26 +606,7 @@ export function loadAnalysisFromDisk(week, snapshot, prevSnapshot, prevWeek, roo
   } catch {
     return empty;
   }
-  let waterfall = null;
-  const prevIndex = publishedIndexOf(prevSnapshot);
-  const sameMethodology = prevSnapshot
-    && prevSnapshot.methodology === snapshot.methodology;
-  if (prevWeek && prevIndex !== null && sameMethodology) {
-    const prevInput = readInputFile(root, prevWeek);
-    if (prevInput) {
-      try {
-        waterfall = buildWaterfall({
-          current: input,
-          previous: prevInput,
-          currentIndex: index,
-          previousIndex: prevIndex,
-          params: PARAMS,
-        });
-      } catch {
-        waterfall = null;
-      }
-    }
-  }
+  const { waterfall } = buildWeekWaterfall(input, snapshot, prevSnapshot, prevWeek, root);
   return { ...analysis, waterfall };
 }
 
@@ -583,6 +631,16 @@ function signed(n) {
   return n > 0 ? `+${n}` : String(n);
 }
 
+// waterfallLine(lastWeek, weeks, loadSnapshot, root) — «есть» или
+// «нет (<причина>)»: причина из waterfallReasonFor, а не обманчивое голое «нет».
+function waterfallLine(lastWeek, weeks, loadSnapshot, root) {
+  const prev = weeks.length > 1 ? weeks[weeks.length - 2] : null;
+  const reason = waterfallReasonFor(
+    lastWeek, loadSnapshot(lastWeek), prev ? loadSnapshot(prev) : null, prev, root,
+  );
+  return reason === null ? 'есть' : `нет (${reason})`;
+}
+
 function main() {
   const { write, root } = parseArgs(process.argv.slice(2));
   const latestSrc = readFileSync(path.join(root, 'data', 'latest.js'), 'utf8');
@@ -592,17 +650,19 @@ function main() {
     w, snap, prevSnap, prevWeek, root,
   );
   const lines = [];
+  const lastWeek = weeks[weeks.length - 1];
+  const waterfall = waterfallLine(lastWeek, weeks, loadSnapshot, root);
   if (write) {
     const { files } = writePublicData({
       rootDir: root, weeks, loadSnapshot, entries: CHANGELOG, analyzeWeek,
     });
-    const last = buildDataset([weeks[weeks.length - 1]], loadSnapshot, analyzeWeek).weeks[0];
+    const last = buildDataset([lastWeek], loadSnapshot, analyzeWeek).weeks[0];
     lines.push(`записано файлов: ${files.length}`);
     for (const file of files) lines.push(`  ${path.relative(root, file).split(path.sep).join('/')}`);
     lines.push(`последняя неделя: ${last.week} — индекс ${last.index}, дельта ${signed(last.delta)}, `
       + `состояние ${last.state}`);
     lines.push(`развёртка драйверов: ${last.driver_breakdown.length}, `
-      + `водопад: ${last.waterfall ? 'есть' : 'нет'}, `
+      + `водопад: ${waterfall}, `
       + `контрфактика: ${last.what_would_change ? last.what_would_change.criteria.length : 0}`);
   } else {
     const dataset = buildDataset(weeks, loadSnapshot, analyzeWeek);
@@ -619,7 +679,7 @@ function main() {
       + `дельта ${signed(last.delta)}, состояние ${last.state}`);
     lines.push(`changelog: ${CHANGELOG.length} записей`);
     lines.push(`развёртка драйверов: ${last.driver_breakdown.length}, `
-      + `водопад: ${last.waterfall ? 'есть' : 'нет'}`);
+      + `водопад: ${waterfall}`);
     lines.push('файлы (не записаны; для записи — --write):');
     for (const file of files) lines.push(`  ${file}`);
   }

@@ -20,6 +20,7 @@ import {
   writePublicData,
   loadSnapshotFromDisk,
   loadAnalysisFromDisk,
+  waterfallReasonFor,
 } from '../calc/public-export.js';
 import { CHANGELOG, sortedDesc, validateChangelog } from '../calc/changelog-entries.js';
 import { validate, regionIdsFor } from '../js/data.js';
@@ -244,6 +245,45 @@ test('toTrendSvg: валидная разметка, 12 точек и подпи
   const external = svg.replace('http://www.w3.org/2000/svg', '');
   assert.ok(!/https?:\/\//.test(external), 'ни одной внешней ссылки');
   assert.ok(!svg.includes('<style'), 'стили инлайн, без <style>');
+});
+
+test('toTrendSvg: сегменты по methodology — разрыв 1.0/3.0, все 12 точек сохранены', () => {
+  const snap = snapshotFor('2026-10-18');
+  snap.trend = WEEK_DATES.map((date, i) => ({
+    date, value: 40 + i, methodology: i < 4 ? '1.0' : '3.0',
+  }));
+  const svg = toTrendSvg(snap);
+  const polylines = svg.match(/<polyline points="([^"]+)"/g) || [];
+  assert.equal(polylines.length, 2, 'две полилинии с разрывом на границе версий');
+  const coordCounts = polylines.map((line) => /points="([^"]+)"/.exec(line)[1].trim().split(/\s+/).length);
+  assert.deepEqual(coordCounts, [4, 8], 'сегменты 1.0 (4 точки) и 3.0 (8 точек)');
+  assert.equal((svg.match(/<circle /g) || []).length, 12, 'все 12 точек на месте');
+  assert.ok(svg.includes('1.0') && svg.includes('3.0'), 'заголовок называет обе версии методологий');
+  assert.ok(!svg.includes('нет входа'), 'SVG не путается с печатью водопада');
+});
+
+test('waterfallReasonFor: причина null-водопада вместо обманчивого «нет»', (t) => {
+  const dir = tempDir(t);
+  const snap = snapshotFor('2026-10-18');
+  assert.equal(
+    waterfallReasonFor('2026-10-18', snap, null, null, dir),
+    'нет входа недели',
+    'корень без входов: причина — отсутствие входа недели',
+  );
+  const firstChain = loadSnapshotFromDisk('2026-08-30');
+  const demoPrev = loadSnapshotFromDisk('2026-08-23');
+  assert.equal(
+    waterfallReasonFor('2026-08-30', firstChain, demoPrev, '2026-08-23'),
+    'смена методологии у прошлой недели',
+    'первая неделя цепочки: разрыв версий 1.0 → 3.0',
+  );
+  const last = loadSnapshotFromDisk('2026-10-18');
+  const prev = loadSnapshotFromDisk('2026-10-11');
+  assert.equal(
+    waterfallReasonFor('2026-10-18', last, prev, '2026-10-11'),
+    null,
+    'последняя неделя: водопад строится, причины нет',
+  );
 });
 
 // --- changelog.html ---
