@@ -16,7 +16,7 @@ import {
   MAX_DISCREPANCIES, LAGS, COMPARATOR_IDS,
   pearson, spearman, permutationP, directionAgreement, leadLag,
   alignWeekly, alignMonthly, loadFixtures, cassandraSeries,
-  buildValidation, writeValidation,
+  buildValidation, writeValidation, incompleteMonths,
 } from '../calc/backtest.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -328,6 +328,78 @@ test('реальные фикстуры: GPR 7 недель и 6 дельт, м�
   assert.equal(cw.overlap.periods, 2);
   assert.equal(cw.levels.status, 'insufficient');
   assert.equal(cw.levels.pearson, null);
+});
+
+test('incompleteMonths: срез раньше конца месяца, месячный as_of — полный ряд', () => {
+  const series = [
+    { month: '2026-09', events: 6123 },
+    { month: '2026-10', events: 2286 },
+  ];
+  assert.deepEqual(
+    incompleteMonths({ as_of: '2026-10-09' }, series),
+    ['2026-10'],
+  );
+  assert.deepEqual(
+    incompleteMonths({ as_of: '2026-10-31' }, series),
+    [],
+  );
+  // месячный as_of (YYYY-MM) — ряд по закрытому месяцу, пометки нет
+  assert.deepEqual(
+    incompleteMonths({ as_of: '2026-09' }, [{ month: '2026-09', deteriorated: 5 }]),
+    [],
+  );
+  assert.deepEqual(incompleteMonths({}, series), []);
+  assert.deepEqual(incompleteMonths({ as_of: '2026-10-09' }, []), []);
+});
+
+test('buildValidation: неполный месяц — note у компаратора, полный ряд — без note', (t) => {
+  const dir = tempDir(t);
+  const acledSource = { ...sourceOf('acled', 'month', 'ACLED'), as_of: '2026-10-09' };
+  mkdirSync(dir, { recursive: true });
+  writeFixtureSet(dir, {
+    gpr: syntheticDaily(),
+    acled: [
+      { month: '2026-09', events: 5000, fatalities: 3000 },
+      { month: '2026-10', events: 6000, fatalities: 3500 },
+    ],
+    crisiswatch: [{ month: '2026-09', deteriorated: 5, improved: 0, resolution: 0 }],
+  });
+  // as_of фикстуры ACLED — полная дата 2026-10-09, точка 2026-10 в ряду есть
+  const acledFile = path.join(dir, 'acled.json');
+  const acledFixture = JSON.parse(readFileSync(acledFile, 'utf8'));
+  acledFixture.source = acledSource;
+  writeFileSync(acledFile, JSON.stringify(acledFixture));
+
+  const v = buildValidation({ weeks: WEEKS, loadSnapshot: snapshotsFor(), fixturesDir: dir });
+  const acled = v.comparators[1];
+  assert.match(acled.note, /ряд 2026-10 неполный \(as_of 2026-10-09\)/);
+  // недостаток пар никуда не делся — обе пометки в одном note
+  assert.match(acled.note, /Пересечение короче порога/);
+
+  // тот же ряд, но as_of — конец месяца: пометки о неполноте нет
+  acledFixture.source = { ...acledSource, as_of: '2026-10-31' };
+  writeFileSync(acledFile, JSON.stringify(acledFixture));
+  const full = buildValidation({ weeks: WEEKS, loadSnapshot: snapshotsFor(), fixturesDir: dir });
+  const acledFull = full.comparators[1];
+  assert.doesNotMatch(acledFull.note, /неполный/);
+  assert.match(acledFull.note, /Пересечение короче порога/);
+});
+
+test('реальные фикстуры: неполный месяц ACLED', () => {
+  const latestSrc = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
+  const weeks = JSON.parse(/CI_WEEKS = (\[[^\]]+\])/.exec(latestSrc)[1]);
+  const v = buildValidation({
+    weeks,
+    loadSnapshot: (w) => loadSnapshotFromDisk(w, ROOT),
+    fixturesDir: FIXTURES,
+  });
+  const [gpr, acled, cw] = v.comparators;
+  assert.match(acled.note, /ряд 2026-10 неполный \(as_of 2026-10-09\)/);
+  assert.equal(gpr.note, null);
+  assert.doesNotMatch(cw.note, /неполный/);
+  const cli = spawnSync(process.execPath, ['calc/backtest.js'], { cwd: ROOT, encoding: 'utf8' });
+  assert.equal(cli.status, 0, cli.stderr);
+  assert.match(cli.stdout, /неполный/);
 });
 
 test('CLI без --write печатает сводку и не трогает диск', () => {

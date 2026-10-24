@@ -15,6 +15,10 @@
 // Порог выборки: MIN_PAIRS = 6 — ниже коэффициенты не публикуются (null +
 // status 'insufficient'); PRELIMINARY_BELOW = 20 — от 6 до 19 пар 'preliminary'.
 //
+// Неполный месяц: у месячного компаратора с полной датой as_of точки месяцев,
+// не дотянувшихся до её конца, помечаются в note («ряд YYYY-MM неполный
+// (as_of …)») и в печати сводки; месячный as_of вида YYYY-MM — закрытый месяц.
+//
 // Детерминизм: никаких timestamp внутри JSON, ключи в фиксированном порядке,
 // LF; повторный --write даёт побайтно те же файлы.
 //
@@ -453,6 +457,25 @@ function discrepanciesOf(diffs) {
   return out;
 }
 
+function monthEnd(month) {
+  const [year, mon] = month.split('-').map(Number);
+  return new Date(Date.UTC(year, mon, 0)).toISOString().slice(0, 10);
+}
+
+// incompleteMonths(source, series) — месяцы точек ряда, срезанные раньше конца
+// месяца: у фикстуры есть точка M, а as_of не дотягивается до конца M.
+// Месячный as_of вида YYYY-MM — ряд по закрытому месяцу, пометки нет.
+export function incompleteMonths(source, series) {
+  const asOf = source && typeof source.as_of === 'string' ? source.as_of : '';
+  if (!DATE_RE.test(asOf)) return [];
+  const out = [];
+  for (const row of Array.isArray(series) ? series : []) {
+    if (!row || typeof row.month !== 'string' || !MONTH_RE.test(row.month)) continue;
+    if (asOf < monthEnd(row.month) && !out.includes(row.month)) out.push(row.month);
+  }
+  return out.sort();
+}
+
 function comparatorOf(id, fixture, series) {
   const meta = COMPARATOR_META[id];
   const source = fixture.source;
@@ -469,6 +492,16 @@ function comparatorOf(id, fixture, series) {
     diffs.map((d) => d.external_delta),
   );
   const directionStatus = agreement.total + agreement.skipped < 2 ? 'insufficient' : 'descriptive';
+  const notes = [];
+  if (levels.status === 'insufficient') {
+    notes.push(`Пересечение короче порога: ${levels.n} пар при минимуме ${MIN_PAIRS}; коэффициент не публикуется.`);
+  }
+  if (meta.granularity === 'month') {
+    const incomplete = incompleteMonths(source, fixture.series);
+    if (incomplete.length > 0) {
+      notes.push(`ряд ${incomplete.join(', ')} неполный (as_of ${source.as_of})`);
+    }
+  }
   return {
     id,
     title: source.name,
@@ -488,9 +521,7 @@ function comparatorOf(id, fixture, series) {
     direction: { ...agreement, status: directionStatus },
     lead_lag: leadLag(pairs),
     discrepancies: discrepanciesOf(diffs),
-    note: levels.status === 'insufficient'
-      ? `Пересечение короче порога: ${levels.n} пар при минимуме ${MIN_PAIRS}; коэффициент не публикуется.`
-      : null,
+    note: notes.length > 0 ? notes.join(' ') : null,
   };
 }
 
@@ -566,7 +597,8 @@ function comparatorLine(c) {
     + `уровни n=${c.levels.n} ${c.levels.status} r=${valueOrDash(c.levels.pearson)}, `
     + `дельты n=${c.deltas.n} ${c.deltas.status} r=${valueOrDash(c.deltas.pearson)}, `
     + `направление ${c.direction.hits}/${c.direction.total} (пропущено ${c.direction.skipped}), `
-    + `лаг ${c.lead_lag.status}${c.lead_lag.best_lag === null ? '' : ` best=${c.lead_lag.best_lag}`}`;
+    + `лаг ${c.lead_lag.status}${c.lead_lag.best_lag === null ? '' : ` best=${c.lead_lag.best_lag}`}`
+    + (typeof c.note === 'string' && c.note ? `, пометка: ${c.note}` : '');
 }
 
 function main() {
