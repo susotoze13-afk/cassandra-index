@@ -60,4 +60,4 @@
 | 2026-10-18 | `2026-10-18-public-validation-backtest` | сдан | Публичная валидация индекса внешними рядами и журнал прогнозов: validation.html, validation.json, forecast-ledger.json, офлайн-бэктест calc/backtest.js |
 | 2026-10-19 | `2026-10-19-api-contract-reference` | сдан | Полный контракт публичного слоя: 11 JSON Schema, docs/api.md по всем файлам, тест-сторож |
 | 2026-10-20 | `2026-10-20-editorial-source-discovery--wip` | в работе | — |
-| 2026-10-24 | `2026-10-24-regional-iwith-degeneracy--wip` | в работе | — |
+| 2026-10-24 | `2026-10-24-regional-iwith-degeneracy` | сдан | Региональные гипотетики §7 считают драйвер при ≥1 покрытом критерии (эпсилон), forward-only с 2026-10-25; ADR 0065, O10 закрыта; пересчёт истории — за владельцем (O11) |

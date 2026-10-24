@@ -87,7 +87,10 @@
 
 ## Что уже построено (дополняется по ходу)
 
-- (пусто)
+- `regionalHypothesisParams(params?, week?) → params | { ...params, coverageThreshold }` — чистый шов гейта, без мутаций.
+- `regionalSignals(criteria, regionIds?, params?, week?)` — четвёртый опциональный аргумент `week`.
+- `PARAMS.regionHypothesisThreshold = 1e-9`, `PARAMS.regionHypothesisFrom = '2026-10-25'`.
+- `calc/week-step.js` передаёт `week` в `regionalSignals` (единственный production-вызов).
 
 ## Команды
 

@@ -66,6 +66,6 @@
 - [ ] Новый тест на реальном `calc/input/2026-10-18.json`: при гейте `2026-10-18` — `russia-belarus.iWith > 0`, `ukraine-moldova.iWith > 0`, `central-asia.iWith === 0`; при штатном `PARAMS` (гейт 2026-10-25) — `russia-belarus.iWith === 0`
 - [ ] `node --test` — 0 падений; пины `tests/data.test.js`, `tests/sensitivity.test.js`, `tests/intersection.test.js`, `tests/page-smoke.test.js` зелёные **без правки их значений**
 - [ ] `docs/adr/0065-regional-hypothesis-coverage.md` существует и содержит: дату, статус, эпсилон, четыре свойства E (включая ukraine-moldova ≈ 64 и `iWith < iWithout` из-за деэскалации), отклонённый вариант D и причину, итоговый выбор охвата (forward-only, гейт `2026-10-25`; пересчёт истории — отдельное решение владельца), переадресацию в ADR 0022, строку о том, что публичный контракт в этой правке не раскрыт
-- [ ] `docs/preproduction-decisions.md`: O10 перенесена из §1 в архив §2 с решением и ссылкой на ADR 0065 и коммит; шапка — версия 1.5, дата 2026-10-24, диапазон `O1–O10`
+- [ ] `docs/preproduction-decisions.md`: O10 перенесена из §1 в архив §2 с решением и ссылкой на ADR 0065 и коммит; шапка — версия 1.5, дата 2026-10-24, диапазон `O1–O11` (O11 — открытый вопрос о пересчёте истории)
 - [ ] `docs/regional-iwith-degeneracy.md`: статус обновлён (решение принято, ссылки на ADR 0065 и коммит); исследование не переписано
 - [ ] `data/**`, `data/public/**`, `digest.html` не изменены (`git status` по этим путям пуст)

@@ -265,7 +265,7 @@ data/public/              производные (`public-export.js --write`; `v
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0064;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0065;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -301,7 +301,8 @@ docs/adr/                 зафиксированные архитектурн�
                           раскрыты для API, UI-граница ADR 0045 сохранена; 0063 — внешняя
                           сверка ряда с GPR/ACLED/CrisisWatch (`validation.json`,
                           `validation.html`); 0064 — реестр прогнозов из форвардных якорей
-                          (`forecast-ledger.json`))
+                          (`forecast-ledger.json`); 0065 — региональные гипотетики §7:
+                          порог покрытия (эпсилон, forward-only с недели 10-25))
 docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
                           эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
                           каждый публичный JSON обязан иметь строку здесь и схему
@@ -359,6 +360,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   обязательна), `backfillWindow` (4) и `backfillCriteria` (39 id: esc ∪
   Д1/Д3/Д5/Д6/Д7) — процедура дозабора при смене методологии; паритет списка
   с правилом пинит `tests/history-debt.test.js`.
+  ADR 0065: `regionHypothesisThreshold` (1e-9) — в региональных гипотетиках §7
+  драйвер покрыт при ≥1 покрытом критерии, и `regionHypothesisFrom`
+  (`2026-10-25`) — forward-only-гейт правила; читает `engine.regionalHypothesisParams`.
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
   маппинг в calibrate.js не дублируется). `loadAnchors(dir)` пропускает `*.json` без
@@ -424,7 +428,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
   `aggregateDrivers` при исключении каждого домена и каждого кластера источников,
   `max|ΔI|` по internal (одно десятичное); `SENSITIVITY_THRESHOLD = PARAMS.sensitivityThreshold`.
-- `calc/source-discovery.js` — инструмент витрины кандидатов (editorial-source-discovery): поиск/предложение источников по слепым критериям недели, ворота URL и независимости кластеров; формирует непубликуемое предложение `data/discovery/<неделя>.json` и `docs/source-proposals/<неделя>.md`, не меняет `calc/input/<неделя>.json` и не вызывает пересчёта (ADR 0065).
+- `calc/source-discovery.js` — инструмент витрины кандидатов (editorial-source-discovery): поиск/предложение источников по слепым критериям недели, ворота URL и независимости кластеров; формирует непубликуемое предложение `data/discovery/<неделя>.json` и `docs/source-proposals/<неделя>.md`, не меняет `calc/input/<неделя>.json` и не вызывает пересчёта (ADR в подготовке — прогон 2026-10-20 не довёл его до файла).
 - `calc/classify.js` — чистый конвертер «черновик Jev v2 → штатный вход»
   (docs/jev-classification.md §6.1, ADR 0018 доп. 2026-10-11): шов `normalizeText`
   (пробелы/дефисы/кавычки → канон), `quoteFound` (дословность цитаты — ворот
