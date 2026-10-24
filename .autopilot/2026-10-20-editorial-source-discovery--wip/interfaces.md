@@ -36,6 +36,20 @@
 - **Пересечение с методологией (R06)**: корректируется только процедурный текст (governance §10.1)
   + новый ADR 0065 + строка AGENTS.md; численная методология не затрагивается.
 
+## Интерфейсы, выставленные таской 01
+
+- `calc/source-discovery.js` (ESM): `run(argv, {root}) → {code, lines}`;
+  `discover(pool, ctx, {fetchImpl, checkUrls, readText}) → {week, window, blind, network, candidates, counts}`;
+  `checkCandidate(cand, ctx, opts) → {id, criterion, verdict, blockers, warnings}`;
+  `checkCandidateUrl → {url, status, urlStatus}`;
+  чистые швы: `windowFor`, `discoveryContext`, `regionalEligible`, `proposalOf`, `validatePool`, `validateFeeds`,
+  `extractFeedLinks`, `scanFeeds`, `renderReport(→string)`, `renderFeedScan(→string)`, `discoveryDoc`;
+  константы `SOURCE_TYPES`, `DISCOVERY_SCHEMA_VERSION = 1`; CLI `--week/--feeds/--write`, exit 1 при ≥1 FAIL.
+- CLI без аргументов в репо: «пул кандидатов не найден» (exit 1) — реальный пул недели — производство таски 02
+  (`calc/input/discovery/<week>.json`); `--write` создаёт только `data/discovery/<week>.json`.
+- `calc/input/discovery/feeds.json`: записи `{id, name, region|null, url, kind: "rss"|"html"}`, 26 лент;
+  таблица в `docs/source-discovery.md` — зеркало, паритет пинится тестом (включая колонку name).
+
 ## Договорились (из carried.md — правила, действующие для проекта)
 
 - Методология numeric read-only в этом прогоне; откат по ASSUMPTION при расхождении с текстом §10.1/ADR 0026.

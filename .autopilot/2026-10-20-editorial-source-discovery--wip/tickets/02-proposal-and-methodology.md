@@ -2,7 +2,7 @@
 
 **Требования:** R02, R03, R04, R05, R06, R07i, R08i
 **Зависит от:** 01
-**Зона:** `docs/source-proposals/` · `data/discovery/` · `docs/governance.md` · `docs/adr/` · `AGENTS.md`
+**Зона:** `docs/source-proposals/` · `data/discovery/` · `calc/input/discovery/2026-10-18.json` · `docs/governance.md` · `docs/adr/` · `AGENTS.md`
 **Волна:** 2
 **Ревью:** нет
 **Модель:** обычная

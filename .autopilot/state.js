@@ -11,9 +11,9 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
   "skillDir": "C:/Users/1/.agents/skills/autopilot",
-  "baseCommit": "2b58d87",
+  "baseCommit": "3f7765e",
   "startedAt": "2026-10-20T21:57:59+03:00",
-  "updatedAt": "2026-10-20T22:24:29+03:00",
+  "updatedAt": "2026-10-20T23:46:20+03:00",
   "finishedAt": null,
   "stages": [
     {
@@ -43,11 +43,14 @@ window.STATE =
     },
     {
       "id": "plan",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-10-20T22:25:12+03:00",
+      "finishedAt": "2026-10-20T22:25:12+03:00"
     },
     {
       "id": "build",
-      "status": "pending"
+      "status": "active",
+      "startedAt": "2026-10-20T22:25:12+03:00"
     },
     {
       "id": "review",
@@ -60,8 +63,8 @@ window.STATE =
   ],
   "requirements": {
     "total": 9,
-    "done": 0,
-    "inTicket": 9,
+    "done": 2,
+    "inTicket": 7,
     "inSpec": 0,
     "placeholder": 0,
     "deferred": 0,
@@ -86,9 +89,20 @@ window.STATE =
       ],
       "review": "да — фундамент",
       "model": "сильная",
-      "status": "pending",
+      "status": "done",
+      "startedAt": "2026-10-20T22:25:12+03:00",
+      "finishedAt": "2026-10-20T23:45:56+03:00",
       "retries": 0,
-      "repairs": 0
+      "repairs": 2,
+      "repairFindings": [
+        "исполнитель вернулся без контракта и без файлов — дозапрос в тот же контекст",
+        "BLOCKING: синтетический пул по пути реальной недели 2026-10-18 + тесты привязаны к его содержимому"
+      ],
+      "tests": {
+        "passed": 800,
+        "failed": 0
+      },
+      "commit": "1dc5604"
     },
     {
       "id": "02",
@@ -109,18 +123,23 @@ window.STATE =
       "zone": [
         "docs/source-proposals/",
         "data/discovery/",
+        "calc/input/discovery/2026-10-18.json",
         "docs/governance.md",
         "docs/adr/",
         "AGENTS.md"
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "startedAt": "2026-10-20T23:46:20+03:00"
     }
   ],
-  "tests": null,
+  "tests": {
+    "passed": 800,
+    "failed": 0
+  },
   "debt": {
     "placeholders": [],
     "assumptions": [
@@ -142,7 +161,12 @@ window.STATE =
       "spec: 'Открытые места' — формат реестра решён, вопросов к пользователю нет"
     ]
   },
-  "concerns": [],
+  "concerns": [
+    "calc/source-discovery.js:404-434 · scanFeeds без таймаута/AbortController — зависшая лента вешает CLI",
+    "tests/source-discovery.test.js:414-434 · паритет документ↔feeds.json не пинит колонку name",
+    "calc/source-discovery.js:95-101 · regionalEligible — зеркало правила engine без пина паритета",
+    "calc/source-discovery.js:393-397 + docs/source-discovery.md:32 · HTML-режим: ссылки без даты проходят как inWindow, документ описывает иначе"
+  ],
   "blind": null,
   "beats": [
     "2026-10-20T21:57:59+03:00",
@@ -154,9 +178,17 @@ window.STATE =
     "2026-10-20T22:20:43+03:00",
     "2026-10-20T22:23:33+03:00",
     "2026-10-20T22:23:34+03:00",
-    "2026-10-20T22:24:29+03:00"
+    "2026-10-20T22:24:29+03:00",
+    "2026-10-20T22:24:46+03:00",
+    "2026-10-20T22:25:12+03:00",
+    "2026-10-20T22:50:53+03:00",
+    "2026-10-20T23:26:05+03:00",
+    "2026-10-20T23:34:22+03:00",
+    "2026-10-20T23:45:56+03:00",
+    "2026-10-20T23:46:19+03:00",
+    "2026-10-20T23:46:20+03:00"
   ],
-  "rev": 14,
+  "rev": 25,
   "waiting": null,
   "waits": [],
   "log": [
@@ -236,13 +268,91 @@ window.STATE =
       "g": "G3",
       "ok": true,
       "problems": 0
+    },
+    {
+      "t": "2026-10-20T22:25:12+03:00",
+      "k": "stage",
+      "id": "build",
+      "act": "start"
+    },
+    {
+      "t": "2026-10-20T22:25:12+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-10-20T22:50:53+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "repair",
+      "note": "исполнитель вернулся без контракта и без файлов — дозапрос в тот же контекст"
+    },
+    {
+      "t": "2026-10-20T23:26:05+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "review"
+    },
+    {
+      "t": "2026-10-20T23:34:22+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "repair",
+      "note": "BLOCKING: синтетический пул по пути реальной недели 2026-10-18 + тесты привязаны к его содержимому"
+    },
+    {
+      "t": "2026-10-20T23:34:22+03:00",
+      "k": "add",
+      "key": "concerns",
+      "n": 4
+    },
+    {
+      "t": "2026-10-20T23:45:56+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "done",
+      "tests": {
+        "passed": 800,
+        "failed": 0
+      }
+    },
+    {
+      "t": "2026-10-20T23:46:19+03:00",
+      "k": "tickets",
+      "n": 2
+    },
+    {
+      "t": "2026-10-20T23:46:20+03:00",
+      "k": "gate",
+      "g": "G3",
+      "ok": true,
+      "problems": 0
+    },
+    {
+      "t": "2026-10-20T23:46:20+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "start"
     }
   ],
   "reqList": [
     {
       "id": "R01",
       "text": "«Отбор источников — редакционная процедура.»",
-      "status": "in-ticket"
+      "status": "done"
     },
     {
       "id": "R02",
@@ -282,7 +392,7 @@ window.STATE =
     {
       "id": "R09i",
       "text": "(подразумевается) новая возможность не ломает конвенции репо: ноль зависимостей (stdlib/браузер), сеть только в инструменте поиска, всё остальное — чистые модули с тестами",
-      "status": "in-ticket"
+      "status": "done"
     }
   ],
   "gates": {
@@ -301,7 +411,7 @@ window.STATE =
     },
     "G3": {
       "ok": true,
-      "at": "2026-10-20T22:23:34+03:00",
+      "at": "2026-10-20T23:46:20+03:00",
       "problems": 0
     }
   },

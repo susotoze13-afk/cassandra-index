@@ -34,7 +34,7 @@ jobs:
           mkdir -p _site
           # Белый список корня: страница, которая сюда не добавлена, не публикуется.
           # Прототип (cassandra-index-prototype.html) — read-only, наружу не идёт.
-          cp index.html privacy.html how-to-read.html changelog.html digest.html \
+          cp index.html privacy.html about.html how-to-read.html changelog.html digest.html \
              articles.html compare.html compare-war-monitor.html compare-acled.html \
              compare-crisiswatch.html validation.html icon.svg robots.txt sitemap.xml llms.txt _site/
           cp -r css js data _site/
