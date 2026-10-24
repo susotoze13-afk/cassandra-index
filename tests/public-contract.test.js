@@ -32,6 +32,7 @@ import {
   loadSnapshotFromDisk,
 } from '../calc/public-export.js';
 import { readLatestWeeks } from '../calc/prepare-week.js';
+import { MAX_DISCREPANCIES } from '../calc/backtest.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const LATEST_SRC = readFileSync(path.join(ROOT, 'data', 'latest.js'), 'utf8');
@@ -318,6 +319,59 @@ function docPathFor(rel) {
   return rel;
 }
 
+// Упоминание пути засчитывается не как подстрока внутри чужой строки
+// (например, URL с доменом), а по границам: символы по краям —
+// не буквы/цифры (бэктик, пробел, конец строки) или строка таблицы
+// эндпоинтов.
+function apiMentionsPath(api, url) {
+  const word = /[A-Za-z0-9]/;
+  for (const line of api.split('\n')) {
+    const tableRow = line.trimStart().startsWith('|');
+    let i = 0;
+    while ((i = line.indexOf(url, i)) !== -1) {
+      const before = i === 0 ? '' : line[i - 1];
+      const after = line[i + url.length] ?? '';
+      if ((!word.test(before) && !word.test(after)) || tableRow) return true;
+      i += 1;
+    }
+  }
+  return false;
+}
+
+test('сторож: путь внутри чужого URL с доменом не засчитывается', () => {
+  const fake = 'never-published-file.json';
+  const doc = [
+    '# API',
+    'Скачать: `curl https://cassindex.ru/data/public/' + fake + '`',
+    'Текст про что угодно без пути.',
+  ].join('\n');
+  assert.equal(apiMentionsPath(doc, `/data/public/${fake}`), false,
+    'упоминание только внутри доменного URL не должно засчитываться');
+  const tableDoc = '| Путь | Описание |\n| `/data/public/latest.json` | еженедельно |';
+  assert.equal(apiMentionsPath(tableDoc, '/data/public/latest.json'), true,
+    'строка таблицы эндпоинтов засчитывается');
+  const backtickDoc = 'файл `/data/public/latest.json` — еженедельно';
+  assert.equal(apiMentionsPath(backtickDoc, '/data/public/latest.json'), true,
+    'бэктик-границы засчитываются');
+  const lineEndDoc = 'Конверт недели: /data/public/latest.json';
+  assert.equal(apiMentionsPath(lineEndDoc, '/data/public/latest.json'), true,
+    'конец строки — легальная граница');
+  assert.equal(apiMentionsPath(lineEndDoc, 'x/data/public/latest.json'), false,
+    'буквенная граница перед путем не засчитывается');
+});
+
+test('пин: число записей расхождений в docs/api.md равно MAX_DISCREPANCIES из calc/backtest.js', () => {
+  const api = readFileSync(path.join(ROOT, 'docs', 'api.md'), 'utf8');
+  const sentence = api
+    .split(/[.\n]/)
+    .find((s) => s.includes('записей') && s.includes('MAX_DISCREPANCIES'));
+  assert.ok(sentence, 'docs/api.md: нет упоминания MAX_DISCREPANCIES с числом записей');
+  assert.ok(
+    sentence.includes(String(MAX_DISCREPANCIES)),
+    `docs/api.md: число записей расхождений разошлось с MAX_DISCREPANCIES=${MAX_DISCREPANCIES}`,
+  );
+});
+
 test('схемы: каждый публичный JSON на диске проходит схему по пути', () => {
   const schemas = schemaDocs();
   const files = publicJsonFiles();
@@ -338,7 +392,7 @@ test('сторож: каждый публичный JSON упомянут в doc
   for (const rel of publicJsonFiles()) {
     assert.ok(schemas[schemaNameFor(rel)], `${rel}: нет схемы ${schemaNameFor(rel)}`);
     const url = `/data/public/${docPathFor(rel)}`;
-    assert.ok(api.includes(url), `${rel}: нет строки ${url} в docs/api.md`);
+    assert.ok(apiMentionsPath(api, url), `${rel}: нет строки ${url} в docs/api.md`);
   }
 });
 
@@ -350,7 +404,7 @@ test('schemaDocs: одиннадцать схем, по одной на кажд
   }
 });
 
-test('схемы: nullable-поля допускают null (digest.week, коэффициенты validation)', () => {
+test('схемы: nullable-поля допускают null (digest.week, все пути validation)', () => {
   const schemas = schemaDocs();
   assert.ok(schemas['digest.schema.json'], 'нет digest.schema.json');
   assert.ok(schemas['validation.schema.json'], 'нет validation.schema.json');
@@ -362,11 +416,103 @@ test('схемы: nullable-поля допускают null (digest.week, коэ
   const validation = structuredClone(readPublic('validation.json'));
   for (const c of validation.comparators) {
     c.levels.pearson = null;
+    c.levels.spearman = null;
+    c.levels.p_permutation = null;
+    c.deltas.pearson = null;
+    c.deltas.spearman = null;
+    c.deltas.p_permutation = null;
+    c.overlap.from = null;
+    c.overlap.to = null;
+    c.direction.rate = null;
+    c.lead_lag.by_lag[0].pearson = null;
     c.lead_lag.best = null;
     c.lead_lag.best_lag = null;
+    c.note = null;
   }
   assert.deepEqual(
     validateNode(validation, schemas['validation.schema.json'], 'validation.schema.json', schemas), [],
+  );
+});
+
+test('схемы: nullable-пути недели допускают null (все пути $defs/week)', () => {
+  const schemas = schemaDocs();
+  const file = structuredClone(readPublic(`weeks/${LAST}.json`));
+  const w = file.week;
+  // DRIVER_BREAKDOWN_SCHEMA: score/confidence/weight/weight_effective.
+  for (const d of w.driver_breakdown) {
+    d.score = null;
+    d.confidence = null;
+    d.weight = null;
+    d.weight_effective = null;
+  }
+  // Редакционные драйверы: label.ru/en, contribution.
+  for (const d of w.drivers) {
+    d.label.ru = null;
+    d.label.en = null;
+    d.contribution = null;
+  }
+  // WHAT_WOULD_CHANGE_SCHEMA: state, thresholds.down/up, criteria[].driver/dir.
+  w.what_would_change.state = null;
+  w.what_would_change.thresholds.down = null;
+  w.what_would_change.thresholds.up = null;
+  w.what_would_change.criteria[0].driver = null;
+  w.what_would_change.criteria[0].dir = null;
+  // Верхний уровень недели.
+  w.published = null;
+  w.through = null;
+  w.methodology = null;
+  w.index = null;
+  w.delta = null;
+  w.state = null;
+  w.q = null;
+  w.confidence = null;
+  w.coverage_criteria = null;
+  w.regions[0].index = null;
+  w.regions[0].delta = null;
+  w.precursor = null;
+  w.trend[0].value = null;
+  assert.deepEqual(
+    validateNode(file, schemas['week.schema.json'], 'week.schema.json', schemas), [],
+  );
+  // Объектные nullable-пути целиком: waterfall и what_would_change.
+  file.week.waterfall = null;
+  file.week.what_would_change = null;
+  assert.deepEqual(
+    validateNode(file, schemas['week.schema.json'], 'week.schema.json', schemas), [],
+  );
+  // Негативный контроль: не-nullable поле в null валидатор отклоняет.
+  const bad = structuredClone(readPublic(`weeks/${LAST}.json`));
+  bad.week.week = null;
+  assert.notDeepEqual(
+    validateNode(bad, schemas['week.schema.json'], 'week.schema.json', schemas), [],
+  );
+});
+
+test('схемы: nullable-пути regions и forecast-ledger допускают null', () => {
+  const schemas = schemaDocs();
+  const regions = structuredClone(readPublic('regions.json'));
+  for (const tax of ['1.0', '2.0']) {
+    for (const r of regions.taxonomies[tax]) r.admin_center = null;
+  }
+  assert.deepEqual(
+    validateNode(regions, schemas['regions.schema.json'], 'regions.schema.json', schemas), [],
+  );
+  const ledger = structuredClone(readPublic('forecast-ledger.json'));
+  for (const e of ledger.entries) {
+    e.verified = null;
+    e.expectedCluster = null;
+    e.expectedDirection = null;
+    e.actualIndex = null;
+    e.actualCluster = null;
+    e.actualDelta = null;
+    e.actualDirection = null;
+  }
+  for (const m of ledger.misses) {
+    m.expected = null;
+    m.actual = null;
+  }
+  assert.deepEqual(
+    validateNode(ledger, schemas['forecast-ledger.schema.json'], 'forecast-ledger.schema.json', schemas), [],
   );
 });
 
