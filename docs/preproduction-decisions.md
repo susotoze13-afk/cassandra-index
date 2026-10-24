@@ -62,7 +62,7 @@
 
 | # | Решение | Где зафиксировано |
 |---|---|---|
-| O10 | Артефакт региональных гипотетик §7 закрыт вариантом E: в `iWith`/`iWithout` драйвер покрыт при ≥1 покрытом критерии (`PARAMS.regionHypothesisThreshold = 1e-9`, эпсилон — `covered = 0` остаётся `null`), обе ноги Δ по одному правилу; глобальный индекс, q, состояния, публикация и чувствительность не меняются. Вариант D (вырождение → слепая ветка) отклонён — схлопывает регионы с данными в фон. Охват — forward-only с `PARAMS.regionHypothesisFrom = '2026-10-25'`: опубликованная история не переписывается, пересчёт цепочки вынесен в O11 | ADR 0065; `calc/engine.js` (`regionalHypothesisParams`), `calc/params.js`, `calc/week-step.js`; `tests/regional-hypothesis.test.js`; исследование — docs/regional-iwith-degeneracy.md; коммит autopilot-прогона 2026-10-24 |
+| O10 | Артефакт региональных гипотетик §7 закрыт вариантом E: в `iWith`/`iWithout` драйвер покрыт при ≥1 покрытом критерии (`PARAMS.regionHypothesisThreshold = 1e-9`, эпсилон — `covered = 0` остаётся `null`), обе ноги Δ по одному правилу; глобальный индекс, q, состояния, публикация и чувствительность не меняются. Вариант D (вырождение → слепая ветка) отклонён — схлопывает регионы с данными в фон. Охват — forward-only с `PARAMS.regionHypothesisFrom = '2026-10-25'`: опубликованная история не переписывается, пересчёт цепочки вынесен в O11 | ADR 0065; `calc/engine.js` (`regionalHypothesisParams`), `calc/params.js`, `calc/week-step.js`; `tests/regional-hypothesis.test.js`; исследование — docs/regional-iwith-degeneracy.md; коммит bc35393 (autopilot-прогон regional-iwith-degeneracy, 2026-10-24; доработка 0921db8) |
 
 ### Бывшие разделы 2–5 (сжато: решение + владелец + ссылка)
 

@@ -7,7 +7,8 @@ JSON/CSV/SVG на том же домене, что и сайт: отдельно
 
 - База: `https://cassindex.ru`
 - Версия схемы: `1` (`schema_version` в каждом JSON)
-- Версия методологии: `3.0` (`methodology` в файлах и в `methodology.json`)
+- Версия методологии: `3.0` (поле `methodology` у `methodology.json`,
+  `validation.json` и объекта недели; конверт `index.json` его не несёт)
 - Лицензия данных: **CC BY 4.0** (`LICENSE-DATA`), атрибуция обязательна
 - Формат: UTF-8, LF, без BOM; JSON — два пробела отступа, ключи в стабильном
   порядке (повторная сборка даёт те же байты)
@@ -57,7 +58,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 | Поле | Где | Что значит |
 |---|---|---|
 | `schema_version` | все JSON | версия формы публичного файла; сейчас `1` |
-| `methodology` | `index.json`, `methodology.json`, `week.methodology` | версия методики расчёта; сейчас `3.0` |
+| `methodology` | `methodology.json`, `validation.json`, `week.methodology` | версия методики расчёта; сейчас `3.0` |
 | `regions_taxonomy` | `week.regions_taxonomy` | версия таксономии регионов недели: `1.0` (6) или `2.0` (12) |
 | `project_version` | `methodology.json` | версия проекта из `VERSION` (semver) |
 
@@ -73,7 +74,8 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
 ## Конверт
 
-`index.json`:
+`index.json` (объект недели в `weeks` сокращён до пары полей — полный
+набор полей см. ниже в разделе «Объект недели»):
 
 ```json
 {
@@ -84,10 +86,10 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
     "name": "CC BY 4.0",
     "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
     "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
-    "note": "Атрибуция обязательна: …",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
     "placeholder": false
   },
-  "weeks": [ { "week": "2026-10-18", "…": "…" } ]
+  "weeks": [ { "week": "2026-10-18", "index": 64, "state": "very" } ]
 }
 ```
 
@@ -262,11 +264,14 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
   "taxonomy_v2_from": "2026-10-18",
   "current": "2.0",
   "taxonomies": {
-    "1.0": [{ "id": "europe", "name": { "ru": "Европа", "en": "Europe" }, "countries": ["AL", "…"], "admin_center": { "…": "…" } }],
+    "1.0": [{ "id": "europe", "name": { "ru": "Европа", "en": "Europe" }, "countries": ["AL", "AD", "AT", "BY", "BE"], "admin_center": { "city": { "ru": "Амстердам", "en": "Amsterdam" }, "country": "NL", "iso3166_2": "NL-NH", "geonames_id": 2759794 } }],
     "2.0": [{ "id": "russia-belarus", "name": { "ru": "Россия и Беларусь", "en": "Russia and Belarus" }, "countries": ["RU", "BY"], "admin_center": { "city": { "ru": "Москва", "en": "Moscow" }, "country": "RU", "iso3166_2": "RU-MOW", "geonames_id": 524901 } }]
   }
 }
 ```
+
+(В примере списки регионов сокращены до одного элемента, список стран
+версии 1.0 — до первых пяти кодов; в файле — все регионы набора.)
 
 `countries` — ISO 3166-1 alpha-2. `admin_center` — город, на который
 проецируется регион в интерфейсе; `null` у регионов без административного
@@ -280,17 +285,20 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
   "schema_version": 1,
   "methodology": "3.0",
   "criteria_count": 46,
-  "drivers": [{ "id": "D1", "name": { "ru": "…", "en": "…" } }],
+  "drivers": [{ "id": "D1", "name": { "ru": "Д1. Военная активность", "en": "D1. Military activity" } }],
   "criteria": [{
     "id": "D1.1",
     "driver": "D1",
     "scale": "count",
     "dir": "esc",
-    "name": { "ru": "…", "en": "…" },
-    "description": { "ru": "…", "en": "…" }
+    "name": { "ru": "Перемещения войск и военных колонн", "en": "Troop and military column movements" },
+    "description": { "ru": "Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.", "en": "Ground transfers, railway echelons and sealifts of troops near the theatre of operations or borders." }
   }]
 }
 ```
+
+(Списки `drivers` и `criteria` сокращены до одного элемента; в файле —
+все 9 драйверов и 46 критериев.)
 
 `scale`: `count` (счётная), `ordinal` (порядковая 0/0.33/0.67/1),
 `binary` (бинарная). `dir`: `esc` — эскалационная, `deesc` — деэскалационная.
@@ -305,7 +313,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
   "project_version": "1.0.0",
   "criteria_count": 46,
   "drivers_count": 9,
-  "weights": { "D1": 0.1175, "…": "…", "D9": 0.06 },
+  "weights": { "D1": 0.1175, "D2": 0.1175, "D3": 0.1175, "D4": 0.1175, "D5": 0.1175, "D6": 0.1175, "D7": 0.1175, "D8": 0.1175, "D9": 0.06 },
   "parameters": {
     "alpha": 0.5, "lambda": 0.6, "rho": 0.25, "u_abs": 0.025, "k": 1.95,
     "coverage_threshold": 0.5, "cap_count": 5, "d9_growth_limit": 0.3,
@@ -314,9 +322,15 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
     "confidence": { "high": 1, "medium": 0.7, "low": 0.4 }
   },
   "severity_values": [0.2, 0.5, 1, 2],
-  "clusters": ["A-mainstream", "…"],
-  "state_scale": [{ "id": "calm", "min": 0, "max": 20 }, "…"],
-  "license": { "…": "…" },
+  "clusters": ["A-mainstream", "B-state-media", "C-registries", "D-satellite-osint", "E-field-osint", "F-financial"],
+  "state_scale": [{ "id": "calm", "min": 0, "max": 20 }, { "id": "tense", "min": 21, "max": 40 }, { "id": "danger", "min": 41, "max": 60 }, { "id": "very", "min": 61, "max": 80 }, { "id": "critical", "min": 81, "max": 96 }, { "id": "extreme", "min": 97, "max": 100 }],
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
   "sources": { "engine": "calc/engine.js", "params": "calc/params.js", "methodology_document": "METHODOLOGY.md" }
 }
 ```
@@ -347,7 +361,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
       "version": "3.0",
       "kind": "taxonomy",
       "title": "Таксономия регионов 2.0: двенадцать регионов",
-      "body": "Недели начиная с 2026-10-18 считаются набором 2.0 …",
+      "body": "Недели начиная с 2026-10-18 считаются набором 2.0 (двенадцать регионов); более ранние недели остаются набором 1.0 (шесть регионов). Версия таксономии версионируется отдельно от методологии: глобальный ряд не рвётся.",
       "link": "https://github.com/susotoze13-afk/cassandra-index/blob/master/docs/adr/0028-region-taxonomy-v2.md"
     }
   ]
@@ -383,19 +397,25 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
   "schema_version": 1,
   "week": "2026-10-18",
   "subject": "Cassandra Index, неделя 18 октября 2026 года: 64 из 100, очень опасно, +8",
-  "text": "Cassandra Index — неделя 18 октября 2026 года\n…",
-  "html": "<!doctype html><html lang=\"ru\">…</html>",
-  "telegram": "Cassandra Index — неделя 18 октября 2026 года\n…",
+  "text": "Cassandra Index — неделя 18 октября 2026 года",
+  "html": "<!doctype html>\n<html lang=\"ru\">",
+  "telegram": "<b>Cassandra Index — неделя 18 октября 2026 года</b>",
   "meta": { "items": 5, "regions": 3, "hasPrev": true }
 }
 ```
+
+(Полные тексты выпуска в `text`/`html`/`telegram` длинные; в примере —
+только их начала, обрезка многоточием в самом JSON не используется.)
 
 - `week` — дата недели или `null` у служебного выпуска без недели.
 - `text` — версия для письма, `html` — тело письма, `telegram` — версия для
   Telegram; `subject` — тема письма.
 - `meta.items` — сколько пунктов в выпуске, `meta.regions` — сколько регионов,
   `meta.hasPrev` — был ли предыдущий выпуск (нужен для дельты).
-- `digest/<week>.json` стабилен по пути: опубликованный выпуск не переписывается.
+- `digest/<week>.json` стабилен по пути, но не по содержимому: выпуск
+  пересобирается из текущего снапшота недели при каждом `--write` по этой
+  неделе и перезаписывает прежний; недели вне списка прогона не трогаются —
+  они лишь дополняют архив `digest/index.json`.
 
 ### `validation.json`
 
@@ -407,19 +427,25 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
   "schema": "cassandra-index-validation",
   "schema_version": 1,
   "site": "https://cassindex.ru",
-  "license": { "name": "CC BY 4.0", "…": "…" },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
   "methodology": "3.0",
-  "weeks": ["2026-08-30", "…", "2026-10-18"],
+  "weeks": ["2026-08-30", "2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18"],
   "thresholds": { "min_pairs": 6, "preliminary_below": 20, "lags": [-2, -1, 0, 1, 2] },
   "comparators": [{
     "id": "gpr",
     "title": "Geopolitical Risk Index (GPR)",
     "granularity": "week",
-    "construct": { "ru": "…" },
-    "provenance": { "name": "…", "url": "…", "data_url": "…", "retrieved": "2026-10-18", "as_of": "2026-10-13", "license": "…" },
+    "construct": { "ru": "Доля газетных публикаций о геополитических рисках (война, терроризм, давление), взвешенная по частотности публикаций; дневной индекс GPRD." },
+    "provenance": { "name": "Geopolitical Risk Index (GPR)", "url": "https://www.matteoiacoviello.com/gpr.htm", "data_url": "https://www.matteoiacoviello.com/gpr_files/data_gpr_daily_recent.xls", "retrieved": "2026-10-18", "as_of": "2026-10-13", "license": "Caldara & Iacoviello, GPR — условия использования на странице источника (matteoiacoviello.com/gpr.htm)" },
     "overlap": { "periods": 7, "from": "2026-08-30", "to": "2026-10-11" },
     "levels": { "n": 7, "pearson": -0.148, "spearman": 0.126, "p_permutation": 0.7421, "status": "preliminary" },
-    "deltas": { "…": "…" },
+    "deltas": { "n": 6, "pearson": -0.599, "spearman": -0.638, "p_permutation": 0.2314, "status": "preliminary" },
     "direction": { "hits": 1, "total": 6, "skipped": 0, "rate": 0.167, "status": "descriptive" },
     "lead_lag": { "by_lag": [{ "lag": 0, "n": 6, "pearson": -0.599 }], "best_lag": 0, "best": -0.599, "status": "preliminary" },
     "discrepancies": [{ "period": "2026-10-11", "index_delta": 10, "external_delta": -26.45 }],
@@ -429,13 +455,22 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 }
 ```
 
+(Пример реальный, но усечённый: у GPR в `lead_lag.by_lag` пять лагов,
+а не один, и пять записей `discrepancies`, не одна. ACLED и CrisisWatch
+в том же файле; у них `granularity: "month"` и большинство коэффициентов
+`null` — см. пояснения ниже.)
+
 - `comparators[].status` — `insufficient` (пар меньше `min_pairs`), `preliminary`
   (меньше `preliminary_below`), `ok` или `descriptive` (для направления).
 - Коэффициенты `pearson`/`spearman`/`p_permutation`, `lead_lag.best` и
   `overlap.from`/`to` бывают `null` — это «недостаточно пар», а не ноль.
   Месячные компараторы дают `YYYY-MM` в `period`/`from`/`to`.
+- ACLED: месяц `2026-10` ряда неполный — выгрузка срезана по `as_of`
+  2026-10-09, точка месяца отражает лишь первые девять дней; последний месяц
+  ряда нельзя читать как полный (контролируйте по `provenance.as_of`).
 - `discrepancies` — периоды, где знак изменения индекса и внешнего ряда разошёлся
-  (до 12 записей). Это диагностика, а не ошибка.
+  (не более 12 записей — константа `MAX_DISCREPANCIES` в `calc/backtest.js`).
+  Это диагностика, а не ошибка.
 - `note` — пояснение, почему коэффициент не публикуется, или `null`.
 
 ### `forecast-ledger.json`
@@ -448,8 +483,14 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
   "schema": "cassandra-index-forecast-ledger",
   "schema_version": 1,
   "site": "https://cassindex.ru",
-  "license": { "name": "CC BY 4.0", "…": "…" },
-  "rule": { "cluster": "шкала js/risk.js (SCALE)", "direction": { "deadband": 2, "values": ["down", "flat", "up"] }, "baseline": "…" },
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "rule": { "cluster": "шкала js/risk.js (SCALE)", "direction": { "deadband": 2, "values": ["down", "flat", "up"] }, "baseline": "ожидание = кластер прошлой опубликованной недели и направление flat" },
   "entries": [{
     "week": "2026-09-06",
     "kind": "baseline",
@@ -474,7 +515,10 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 - `kind` — `baseline` (прогноз «без изменений») или `editor` (прогноз редактора
   из `calc/input/anchors/forward-<week>.json`).
 - `committedAt` — когда прогноз зафиксирован; `verified` — подтверждён ли он
-  git-историей (`null` у непроверенной записи редактора).
+  git-историей. У записи редактора `verified: null` различает две причины:
+  при `outcome.cluster === 'pending'` и `actualIndex === null` неделя ещё не
+  опубликована (проверять пока нечего); иначе `null` означает, что git-история
+  недели недоступна (прогон не в git-репозитории или дата коммита не парсится).
 - `outcome` по каждому полю — `hit`, `miss` или `pending` (нет факта или
   ожидания). `pending` не входит в `total`.
 - `actualIndex`/`actualDelta`/`actualCluster`/`actualDirection` бывают `null`,

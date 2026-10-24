@@ -6,7 +6,8 @@
 = 1e-9`), forward-only с `PARAMS.regionHypothesisFrom = '2026-10-25'`; глобальный
 индекс и опубликованная история не меняются. Записано в
 `docs/adr/0065-regional-hypothesis-coverage.md`, пункт O10 закрыт (пересчёт истории
-— O11 в `docs/preproduction-decisions.md`). Коммит — autopilot-прогон 2026-10-24.
+— O11 в `docs/preproduction-decisions.md`). Коммит — bc35393 (autopilot-прогон
+regional-iwith-degeneracy, 2026-10-24).
 Числа §4 получены одноразовым
 прототипом (перегонка `calc/input/<неделя>.json` через функции движка с
 подменой порога; после написания этого документа прототип удалён, шаги
