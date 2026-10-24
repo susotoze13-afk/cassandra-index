@@ -1266,6 +1266,36 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "notes": "Группа «313 Team» (проиранская, предположительно из Ирака) заявила об атаке на 47 ключевых IP-диапазонов госинфраструктуры; Азербайджан подтвердил атаку «иностранной хакерской группы»."
+  },
+  {
+    "id": "balkaninsight-bulgaria-summons-envoy-2026-10-13",
+    "title": {
+      "ru": "Болгария вызвала российского посла из-за новых атак дронов в Чёрном море",
+      "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
+    },
+    "domain": "balkaninsight.com",
+    "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+    "publication_date": "2026-10-13",
+    "accessed_date": "2026-10-24",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "editorial-backfill"
+  },
+  {
+    "id": "danas-drone-sank-ship-bulgaria-2026-10-13",
+    "title": {
+      "ru": "Дрон потопил судно в Болгарии — премьер вызвал российского посла",
+      "en": "Drone sank ship in Bulgaria, PM summoned Russian ambassador"
+    },
+    "domain": "danas.rs",
+    "url": "https://www.danas.rs/bbc-news-serbian/dron-potopio-brod-u-bugarskoj-premijer-pozvao-rusku-ambasadorku/",
+    "publication_date": "2026-10-13",
+    "accessed_date": "2026-10-24",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "editorial-backfill"
   }
 ];
 })();

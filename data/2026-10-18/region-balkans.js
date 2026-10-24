@@ -2,93 +2,97 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-18"] = window.CI_DATA.snapshots["2026-10-18"] || {};
   s.regions["balkans"] = {
-  "index": 63,
-  "delta": 7,
+  "index": 61,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "medium",
   "drivers": [
     {
       "observation": {
-        "ru": "ЕС принял крупнейший пакет санкций против России, добавив 1 569 записей в военный чёрный список; США ввели новый раунд санкций против связанных с Ираном сетей.",
-        "en": "The EU adopted its largest sanctions package on Russia, adding 1,569 entries to the military blacklist, while the US imposed a new round of sanctions on Iran-linked networks."
+        "ru": "Атаки дронов в болгарской зоне Чёрного моря: в ночь на 13 октября затонуло гражданское судно в 31 км от села Крапец, 11 членов экипажа пропали без вести; второе судно под украинским флагом поражено у Бялы, все 15 человек спасены.",
+        "en": "Drone attacks in Bulgaria's Black Sea zone: overnight into 13 October a civilian ship sank 31 km off the village of Krapets with 11 crew members missing, while a second, Ukrainian-flagged vessel was hit near Byala and all 15 on board were rescued."
       },
       "why": {
-        "ru": "Ужесточение санкционного режима повышает чувствительность балканских экономик к внешним ограничениям.",
-        "en": "A tighter sanctions regime increases the sensitivity of Balkan economies to external restrictions."
+        "ru": "Боевые действия вплотную к балканскому побережью повышают риск для судоходства, портовой инфраструктуры и страхования грузов региона.",
+        "en": "Hostilities close to the Balkan coast raise risks for shipping, port infrastructure and cargo insurance in the region."
       },
-      "contribution": "medium",
+      "contribution": "high",
       "confidence": "medium",
       "sources": [
         {
-          "id": "brusselstimes-eu-sanctions-1569-2026-10-12",
+          "id": "balkaninsight-bulgaria-summons-envoy-2026-10-13",
           "title": {
-            "ru": "Крупнейший пакет санкций ЕС: 1 569 записей в военном чёрном списке России",
-            "en": "Largest EU sanctions package yet adds 1,569 to Russia military blacklist"
+            "ru": "Болгария вызвала российского посла из-за новых атак дронов в Чёрном море",
+            "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
           },
-          "domain": "brusselstimes.com",
-          "url": "https://www.brusselstimes.com/2357495/largest-eu-sanctions-package-yet-adds-1569-to-russia-military-blacklist",
-          "publication_date": "2026-10-12",
-          "accessed_date": "2026-10-18",
+          "domain": "balkaninsight.com",
+          "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+          "publication_date": "2026-10-13",
+          "accessed_date": "2026-10-24",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
-          "state_affiliated": false
+          "state_affiliated": false,
+          "origin": "editorial-backfill"
         },
         {
-          "id": "safety4sea-eu-sanctions-russia-2026-10-13",
+          "id": "danas-drone-sank-ship-bulgaria-2026-10-13",
           "title": {
-            "ru": "ЕС принял крупнейший в истории пакет санкций против России",
-            "en": "EU adopts largest-ever sanctions package targeting Russia"
+            "ru": "Дрон потопил судно в Болгарии — премьер вызвал российского посла",
+            "en": "Drone sank ship in Bulgaria, PM summoned Russian ambassador"
           },
-          "domain": "safety4sea.com",
-          "url": "https://safety4sea.com/eu-adopts-largest-ever-sanctions-package-targeting-russia/",
+          "domain": "danas.rs",
+          "url": "https://www.danas.rs/bbc-news-serbian/dron-potopio-brod-u-bugarskoj-premijer-pozvao-rusku-ambasadorku/",
           "publication_date": "2026-10-13",
-          "accessed_date": "2026-10-18",
+          "accessed_date": "2026-10-24",
           "source_type": "secondary",
-          "cluster_id": "F-financial",
-          "state_affiliated": false
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false,
+          "origin": "editorial-backfill"
         }
       ]
     },
     {
       "observation": {
-        "ru": "Нефтяной шок: Brent впервые с мая превысил $110, US crude — выше $100 на фоне рисков Ормузского пролива, Саудовской Аравии и России.",
-        "en": "Oil shock: Brent topped $110 for the first time since May and US crude rose above $100 amid Hormuz, Saudi and Russia risks."
+        "ru": "Болгария созвала экстренное заседание Совета безопасности, вызвала российского посла и назначила срочные переговоры с генеральным секретарём НАТО; премьер заявил, что твёрдых доказательств вины одной из сторон у Софии нет.",
+        "en": "Bulgaria convened an emergency Security Council meeting, summoned the Russian ambassador and scheduled urgent talks with NATO's secretary general, while the prime minister said Sofia has no solid evidence blaming either side."
       },
       "why": {
-        "ru": "Рост цен на энергоносители ухудшает внешнеторговый баланс и повышает социальную напряжённость в регионе.",
-        "en": "Higher energy prices worsen the trade balance and raise social tension in the region."
+        "ru": "Балканские столицы отвечают на инцидент дипломатическими демаршами и координацией с НАТО — от этого зависит следующий шаг региональной повестки.",
+        "en": "Balkan capitals are responding with diplomatic demarches and NATO coordination, which shapes the region's next step."
       },
       "contribution": "medium",
       "confidence": "medium",
       "sources": [
         {
-          "id": "cnbctv18-brent-110-explained-2026-10-16",
+          "id": "balkaninsight-bulgaria-summons-envoy-2026-10-13",
           "title": {
-            "ru": "Объяснение: почему Brent впервые превысил $110",
-            "en": "Explained: What led to Brent crude prices crossing $110 for the first time"
+            "ru": "Болгария вызвала российского посла из-за новых атак дронов в Чёрном море",
+            "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
           },
-          "domain": "cnbctv18.com",
-          "url": "https://www.cnbctv18.com/market/commodities/crude-oil-prices-brent-wti-why-are-rates-rising-explained-saudi-houthis-hormuz-iran-us-russia-ukraine-20013997.htm",
-          "publication_date": "2026-10-16",
-          "accessed_date": "2026-10-18",
+          "domain": "balkaninsight.com",
+          "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+          "publication_date": "2026-10-13",
+          "accessed_date": "2026-10-24",
           "source_type": "secondary",
-          "cluster_id": "F-financial",
-          "state_affiliated": false
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false,
+          "origin": "editorial-backfill"
         },
         {
-          "id": "discoveryalert-brent-110-2026-10-17",
+          "id": "danas-drone-sank-ship-bulgaria-2026-10-13",
           "title": {
-            "ru": "Нефть Brent достигла $110: риски Ормуза, Саудовской Аравии и России накапливаются",
-            "en": "Brent Oil Price Hits $110 as Hormuz, Saudi and Russia Risks Stack Up"
+            "ru": "Дрон потопил судно в Болгарии — премьер вызвал российского посла",
+            "en": "Drone sank ship in Bulgaria, PM summoned Russian ambassador"
           },
-          "domain": "discoveryalert.com",
-          "url": "https://discoveryalert.com/news/brent-oil-price-110-hormuz-saudi-russia-october-2026/",
-          "publication_date": "2026-10-17",
-          "accessed_date": "2026-10-18",
+          "domain": "danas.rs",
+          "url": "https://www.danas.rs/bbc-news-serbian/dron-potopio-brod-u-bugarskoj-premijer-pozvao-rusku-ambasadorku/",
+          "publication_date": "2026-10-13",
+          "accessed_date": "2026-10-24",
           "source_type": "secondary",
-          "cluster_id": "F-financial",
-          "state_affiliated": false
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false,
+          "origin": "editorial-backfill"
         }
       ]
     }

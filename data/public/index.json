@@ -4860,8 +4860,8 @@
         },
         {
           "id": "balkans",
-          "index": 63,
-          "delta": 7,
+          "index": 61,
+          "delta": 5,
           "background": false
         },
         {
@@ -5477,7 +5477,7 @@
         "method": "criterion-zeroed"
       },
       "sources": {
-        "count": 88,
+        "count": 90,
         "clusters": 5,
         "state_affiliated": 30
       },

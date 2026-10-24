@@ -21,8 +21,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "balkans": {
-    "index": 63,
-    "delta": 7,
+    "index": 61,
+    "delta": 5,
     "status": "very",
     "background": false
   },
