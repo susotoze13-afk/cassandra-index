@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- CSP через meta: GitHub Pages не даёт заголовков. Страница статическая —
+       без скриптов, без внешних ресурсов и без JSON-LD. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'">
+  <title>Аудит 12 индексов риска: приложение к статье — Cassandra Index</title>
+  <meta name="description" content="Матрица 12 индексов риска по 10 признакам проверяемости: развёртка всех 120 ячеек с основанием, взвешенная шкала, устойчивость к весам и покрытие 14 стран.">
+  <link rel="canonical" href="https://cassindex.ru/indices-audit.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cassandra Index">
+  <meta property="og:title" content="Аудит 12 индексов риска: приложение к статье — Cassandra Index">
+  <meta property="og:description" content="Матрица 12 индексов риска по 10 признакам проверяемости: развёртка всех 120 ячеек с основанием, взвешенная шкала, устойчивость к весам и покрытие 14 стран.">
+  <meta property="og:url" content="https://cassindex.ru/indices-audit.html">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="doc-page">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Cassandra Index</a>
+      <nav class="site-nav" aria-label="Навигация страницы">
+        <a href="index.html">На главную</a>
+        <a href="how-to-read.html">Как читать индекс</a>
+        <a href="compare.html">Сравнение</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <h1>Аудит 12 индексов риска: приложение к статье</h1>
+    <p class="doc-lede">Приложение к разбору «12 индексов риска: 5 можно перепроверить, 7 приходится верить». Здесь видна каждая из 120 ячеек: чем она подтверждена или почему пуста, как из матрицы получился балл проекта и что известно про 14 стран.</p>
+    <p class="doc-meta">Дата среза: 24 октября 2026. Правило: если число этой страницы и число статьи разошлись, правится приложение, а не статья.</p>
+    <p class="doc-meta">Все числа ниже посчитаны из матрицы генератором <code>indices-audit-build.js</code>; в источнике страницы этих чисел нет.</p>
+    <div class="doc-note">
+      <p><strong>Это не рейтинг.</strong> Ячейки неравны по весу, и профиль проекта информативнее суммы. «—» значит «не подтверждено публичным документом», а не «отсутствует»: аудит проверяет документацию проекта, а не его поведение и не верность его числа.</p>
+    </div>
+    <nav aria-label="Оглавление">
+      <h2>Оглавление</h2>
+      <ul class="doc-links">
+        <li><a href="#what">Что это</a></li>
+        <li><a href="#criteria">Критерии</a></li>
+        <li><a href="#matrix">Матрица</a></li>
+        <li><a href="#result">Итог</a></li>
+        <li><a href="#five">Пять из двенадцати</a></li>
+        <li><a href="#cards">Карточки</a></li>
+        <li><a href="#cells">Развёртка 120 ячеек</a></li>
+        <li><a href="#scale">Взвешенная шкала</a></li>
+        <li><a href="#sensitivity">Устойчивость ±5 п.п.</a></li>
+        <li><a href="#countries">Страны</a></li>
+        <li><a href="#unverified">Что не удалось проверить</a></li>
+        <li><a href="#reuse">Переиспользование</a></li>
+      </ul>
+    </nav>
+
+    <section id="what" aria-labelledby="what-title">
+      <h2 id="what-title">Что это</h2>
+      <p>Аудит сравнивает 12 публичных индексов и баз риска по десяти бинарным признакам проверяемости: можно ли скачать данные, опубликованы ли формула и веса, назван ли источник у отдельной записи, опубликованы ли границы применимости и оценка неопределённости, есть ли версии и история, свободная ли лицензия, длиннее ли пяти лет ряд, есть ли страновой уровень и проходил ли метод внешнюю проверку.</p>
+      <p>Признак считается подтверждённым только публичным документом по ссылке из карточки проекта. Спорная клетка кодируется минусом. Аудит фиксирует, что опубликовано, а не насколько проект хорош.</p>
+      <p>Cassandra Index кодирован теми же правилами, что и остальные проекты: это самоаудит, конфликт интересов раскрыт в статье. Все клетки проверены 24 октября 2026 года.</p>
+    </section>
+
+    <section id="criteria" aria-labelledby="criteria-title">
+      <h2 id="criteria-title">Критерии</h2>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Десять признаков проверяемости и что считается подтверждением</caption>
+          <colgroup><col width="7%"><col width="36%"><col width="57%"></colgroup>
+          <thead><tr><th scope="col">Код</th><th scope="col">Признак</th><th scope="col">Что считается подтверждением</th></tr></thead>
+          <tbody>
+            <tr id="criterion-d"><th scope="row">Д</th><td>Открытые данные</td><td>Исходные данные или оценки можно скачать либо запросить публично, а не только прочитать график</td></tr>
+            <tr id="criterion-f"><th scope="row">Ф</th><td>Формула или веса</td><td>Опубликовано, как из компонентов получается итоговое число: формула, веса, пороги или правила агрегации</td></tr>
+            <tr id="criterion-s"><th scope="row">С</th><td>Прослеживаемость источника (запись или компонент)</td><td>У отдельной записи или у отдельного компонента назван источник, а не только общий список литературы</td></tr>
+            <tr id="criterion-g"><th scope="row">Г</th><td>Список дыр</td><td>Опубликовано, что не покрыто, где границы применимости и какие ограничения у метода</td></tr>
+            <tr id="criterion-n"><th scope="row">Н</th><td>Неопределённость</td><td>Опубликована оценка устойчивости или разброса итогового числа: интервал, чувствительность, нижняя и верхняя оценка</td></tr>
+            <tr id="criterion-v"><th scope="row">В</th><td>Версии</td><td>У данных и у метода есть версии и история изменений</td></tr>
+            <tr id="criterion-l"><th scope="row">Л</th><td>Свободная лицензия</td><td>Данные открыты по свободной лицензии (CC BY, CC0, public domain), а не «free to read»</td></tr>
+            <tr id="criterion-i"><th scope="row">И</th><td>История от пяти лет</td><td>Публичный сопоставимый ряд длиннее пяти лет</td></tr>
+            <tr id="criterion-st"><th scope="row">Ст</th><td>Страновой уровень</td><td>Есть оценки или срезы по отдельным странам, а не только по регионам и миру</td></tr>
+            <tr id="criterion-r"><th scope="row">Р</th><td>Внешнее рецензирование</td><td>Метод или результаты проходили независимую научную либо редакционную проверку вне организации</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="matrix" aria-labelledby="matrix-title">
+      <h2 id="matrix-title">Матрица</h2>
+      <p>Строки — 12 проектов в порядке статьи, колонки — 10 признаков. «✔» значит «подтверждено публичным документом», «—» — «не подтверждено публичным документом», а не «отсутствует». Колонки «Балл» и итога в шапке нет: это не рейтинг.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Матрица подтверждения десяти признаков по двенадцати проектам</caption>
+          <colgroup><col width="26%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"><col width="7.4%"></colgroup>
+          <thead><tr><th scope="col">Проект</th><th scope="col"><abbr title="Открытые данные">Д</abbr></th><th scope="col"><abbr title="Формула или веса">Ф</abbr></th><th scope="col"><abbr title="Прослеживаемость источника (запись или компонент)">С</abbr></th><th scope="col"><abbr title="Список дыр">Г</abbr></th><th scope="col"><abbr title="Неопределённость">Н</abbr></th><th scope="col"><abbr title="Версии">В</abbr></th><th scope="col"><abbr title="Свободная лицензия">Л</abbr></th><th scope="col"><abbr title="История от пяти лет">И</abbr></th><th scope="col"><abbr title="Страновой уровень">Ст</abbr></th><th scope="col"><abbr title="Внешнее рецензирование">Р</abbr></th></tr></thead>
+          <tbody>
+            <tr id="matrix-cassandra"><th scope="row"><a href="#project-cassandra">Cassandra Index</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-acled"><th scope="row"><a href="#project-acled">ACLED</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-ucdp"><th scope="row"><a href="#project-ucdp">UCDP</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td></tr>
+            <tr id="matrix-gdelt"><th scope="row"><a href="#project-gdelt">GDELT</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-crisiswatch"><th scope="row"><a href="#project-crisiswatch">CrisisWatch</a></th><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-warmonitor"><th scope="row"><a href="#project-warmonitor">War Monitor</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-gpr"><th scope="row"><a href="#project-gpr">GPR Index</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td></tr>
+            <tr id="matrix-inform"><th scope="row"><a href="#project-inform">INFORM</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-gpi"><th scope="row"><a href="#project-gpi">Global Peace Index</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-fsi"><th scope="row"><a href="#project-fsi">Fragile States Index</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-ewp"><th scope="row"><a href="#project-ewp">Early Warning Project</a></th><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>✔<span class="sr-only"> подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+            <tr id="matrix-bgri"><th scope="row"><a href="#project-bgri">BlackRock BGRI</a></th><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td><td>—<span class="sr-only"> не подтверждено</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="doc-meta">Описание каждого признака — в разделе «Критерии»; основание каждой клетки — в «Развёртке 120 ячеек».</p>
+    </section>
+
+    <section id="result" aria-labelledby="result-title">
+      <h2 id="result-title">Итог</h2>
+      <div class="doc-keyfigures">
+        <div class="doc-figure">
+          <span class="doc-figure-label">Подтверждено ячеек</span>
+          <strong class="doc-figure-value">62 из 120</strong>
+          <span class="doc-figure-note">52 % матрицы</span>
+        </div>
+        <div class="doc-figure">
+          <span class="doc-figure-label">Медиана</span>
+          <strong class="doc-figure-value">5,5</strong>
+          <span class="doc-figure-note">подтверждённых признаков на проект</span>
+        </div>
+        <div class="doc-figure">
+          <span class="doc-figure-label">Проверить до записи</span>
+          <strong class="doc-figure-value">5 из 12</strong>
+          <span class="doc-figure-note">признаки Д + Ф + С одновременно</span>
+        </div>
+        <div class="doc-figure">
+          <span class="doc-figure-label">Полный цикл</span>
+          <strong class="doc-figure-value">1</strong>
+          <span class="doc-figure-note">проект с Д + Ф + С + Г + Н</span>
+        </div>
+      </div>
+      <p>Итог матрицы — <strong>62 из 120</strong> подтверждённых клеток, медиана — <strong>5,5</strong> признака на проект. Это не рейтинг: сумма отвечает на вопрос «сколько признаков проверяемости подтверждено документом», а не «какой проект лучше».</p>
+      <p>Полный цикл Д + Ф + С + Г + Н — 1 из 12: Cassandra Index.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Подтверждённые клетки по блокам признаков</caption>
+          <colgroup><col width="32%"><col width="20%"><col width="24%"><col width="24%"></colgroup>
+          <thead><tr><th scope="col">Блок</th><th scope="col">Признаки</th><th scope="col">Подтверждено</th><th scope="col">Всего</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Данные и лицензия</th><td>Д + Л</td><td>14</td><td>24</td></tr>
+            <tr><th scope="row">Метод и прослеживаемость</th><td>Ф + С</td><td>13</td><td>24</td></tr>
+            <tr><th scope="row">Границы и неопределённость</th><td>Г + Н</td><td>5</td><td>24</td></tr>
+            <tr><th scope="row">Версии и история</th><td>В + И</td><td>18</td><td>24</td></tr>
+            <tr><th scope="row">Охват и проверка</th><td>Ст + Р</td><td>12</td><td>24</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="five" aria-labelledby="five-title">
+      <h2 id="five-title">Пять из двенадцати</h2>
+      <p>Правило зафиксировано до подсчёта: «проверить до записи» значит, что данные открыты (Д), формула или веса опубликованы (Ф) и у отдельной записи назван источник (С).</p>
+      <ul>
+        <li><strong>Проверить до записи — 5 из 12:</strong> Cassandra Index, ACLED, UCDP, INFORM, Early Warning Project.</li>
+        <li><strong>Пересчитать, но не проверить — 3:</strong> GPR Index, Global Peace Index, Fragile States Index — данные и формула есть, прослеживаемости у записи нет (Д + Ф без С).</li>
+        <li><strong>Принять на веру — 4:</strong> GDELT, CrisisWatch, War Monitor, BlackRock BGRI — нет опубликованной формулы либо открытых данных.</li>
+      </ul>
+      <p>Название статьи сжимает это до «5 и 7»; здесь развёрнутая формулировка. Числа раздела считаются из матрицы: при изменении любой клетки они меняются вместе с ней.</p>
+    </section>
+
+    <section id="cards" aria-labelledby="cards-title">
+      <h2 id="cards-title">Карточки</h2>
+      <p>Двенадцать карточек в порядке статьи: конструкт, что подтверждено, что нет, источник с датой проверки. Формулировки нейтральны — карточка фиксирует, что опубликовано.</p>
+      <article id="project-cassandra">
+        <h3>Cassandra Index</h3>
+        <p><strong>Конструкт:</strong> 46 критериев в <code>calc/input/&lt;неделя&gt;.json</code> → 9 драйверов → недельный индекс уровня и направления риска глобального конфликта, 0–100; 12 регионов таксономии v2, страна попадает в регион через атрибуцию <code>regions[]</code>.</p>
+        <p><strong>Подтверждено:</strong> входные критерии и карточки источников R55 (id, домен, тип, кластер, государственная принадлежность, даты, цитаты) лежат в открытом репозитории; формула, веса и пороги — в <code>calc/engine.js</code> и <code>data/public/methodology.json</code>; непокрытые критерии — <code>coverageCriteria.uncovered</code>, причина слепоты — <code>blindReasons</code> с недели 2026-10-25; публикуется чувствительность к удалению домена или кластера; версия методологии и журнал <code>data/audit.jsonl</code> с хеш-цепочкой; данные — CC BY 4.0, код — Apache License 2.0.</p>
+        <p><strong>Не подтверждено:</strong> история — восемь пересчитанных недель методологии 3.0 с 2026-08-30; странового уровня нет, только 12 регионов; внешнего рецензирования нет, проект ведёт один редактор, журнал red team пуст. Самоаудит: свой проект кодирован теми же правилами, конфликт интересов раскрыт в статье. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://cassindex.ru">Cassandra Index — сайт и публичные данные</a> — проверено 2026-10-24. локальные файлы <code>calc/input/*.json</code>, <code>data/public/methodology.json</code>, <code>docs/api.md</code>, <code>docs/adr/</code>.</p>
+        <p class="doc-meta">Разрешение: регион: 12 регионов таксономии v2, страны только через атрибуцию <code>regions[]</code>. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-cassandra">Строка в матрице</a> · <a href="#scale-cassandra">Строка в шкале</a> · <a href="#cell-cassandra-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-acled">
+        <h3>ACLED</h3>
+        <p><strong>Конструкт:</strong> событийная база политического насилия и протестов с ручным кодированием по кодбуку; Conflict Index из четырёх индикаторов; единица — событие, у события есть страна.</p>
+        <p><strong>Подтверждено:</strong> данные выгружаются через myACLED и Data Export Tool; методология и устройство индекса описаны; у события есть поле источника; заявлены версии данных и метода; многолетняя история; страновой уровень.</p>
+        <p><strong>Не подтверждено:</strong> раздел ограничений не подтверждён — методология отдаёт 403; оценка разброса итогового индекса не публикуется; свободной лицензии на данные нет (бесплатный доступ для некоммерческого использования, коммерческие условия отдельно); внешнего рецензирования метода нет. Клетка «Г» — спорная, оставлена минусом. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://acleddata.com/">ACLED — описание, методология, Data Export Tool</a> — проверено 2026-10-24. (ответ 403), факты по сохранённому описанию от 2026-10-18.</p>
+        <p class="doc-meta">Разрешение: страна: поле страны у события, Conflict Index по странам. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-acled">Строка в матрице</a> · <a href="#scale-acled">Строка в шкале</a> · <a href="#cell-acled-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-ucdp">
+        <h3>UCDP</h3>
+        <p><strong>Конструкт:</strong> академические датасеты организованного насилия: Georeferenced Event Dataset, battle-related deaths, monthly candidate events; единица — событие и страна-год.</p>
+        <p><strong>Подтверждено:</strong> все датасеты свободно скачиваются, к каждому — кодбук и история версий; у события есть ссылка на источник; число погибших даётся в трёх оценках low/best/high; CC BY 4.0; ряд 1946–2025; страновой уровень; метод и данные прошли научное рецензирование.</p>
+        <p><strong>Не подтверждено:</strong> отдельного публичного перечня «чего мы не покрываем» нет — кодбук задаёт определение границ и порог, но это не список дыр. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://ucdp.uu.se/downloads/">UCDP — downloads</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна и событие с геокоординатами. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-ucdp">Строка в матрице</a> · <a href="#scale-ucdp">Строка в шкале</a> · <a href="#cell-ucdp-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-gdelt">
+        <h3>GDELT</h3>
+        <p><strong>Конструкт:</strong> событийная база из мирового новостного потока на 100+ языках с 1979 года; машинное кодирование CAMEO, итогового индекса нет.</p>
+        <p><strong>Подтверждено:</strong> данные открыты и обновляются ежедневно; версии (GDELT 2.0); ряд с 1979-01-01; события кодируются FIPS Country Code, есть геопривязка.</p>
+        <p><strong>Не подтверждено:</strong> итогового числа нет, поэтому формулу и веса кодировать не к чему; поштучной ссылки на источник у записи нет; список ограничений и оценка неопределённости не публикуются; данные бесплатны, но не по CC-лицензии; внешнего рецензирования метода нет. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://www.gdeltproject.org/about.html">GDELT — about</a>, <a href="https://www.gdeltproject.org/data.html">data</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: событие с геокодом, страновой срез через FIPS Country Code. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-gdelt">Строка в матрице</a> · <a href="#scale-gdelt">Строка в шкале</a> · <a href="#cell-gdelt-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-crisiswatch">
+        <h3>CrisisWatch</h3>
+        <p><strong>Конструкт:</strong> месячная экспертная оценка динамики 70+ конфликтов и кризисов: стрелки «ухудшилось», «улучшилось», «без изменений» и блок On the Horizon; единица — ситуация.</p>
+        <p><strong>Подтверждено:</strong> архив с 2003 года; страновой и ситуационный уровень — страницы ситуаций по странам и конфликтам.</p>
+        <p><strong>Не подтверждено:</strong> данных для скачивания нет; формулы и весов нет; поштучной ссылки у оценки нет; список ограничений и оценка неопределённости не публикуются; версий метода нет; свободной лицензии нет; внешнего рецензирования метода нет. Оценка качественная: воспроизводимого числа конструкт не обещает. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://www.crisisgroup.org/crisiswatch">CrisisWatch — International Crisis Group</a> — проверено 2026-10-24. (ответ 403 и Cloudflare-челлендж), факты по сохранённому описанию от 2026-10-18.</p>
+        <p class="doc-meta">Разрешение: ситуация: 70+ конфликтов и кризисов, страновой и ситуационный уровень. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-crisiswatch">Строка в матрице</a> · <a href="#scale-crisiswatch">Строка в шкале</a> · <a href="#cell-crisiswatch-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-warmonitor">
+        <h3>War Monitor</h3>
+        <p><strong>Конструкт:</strong> карта конфликта в реальном времени, CII 0–100 по странам, уровень угрозы 0–10 на глобальном уровне, ежедневный брифинг; своего сырья нет — композит над чужими данными.</p>
+        <p><strong>Подтверждено:</strong> собственные числа (уровень угрозы, CII) отдаются в CSV и JSON; собственные числа — CC BY 4.0; страновой уровень (страницы стран с CII).</p>
+        <p><strong>Не подтверждено:</strong> методика CII и уровня 0–10 описана кратко, без весов и порогов; поштучной ссылки у числа нет; список непокрытого и оценка неопределённости не публикуются; версий метода нет; история около 188 дней; внешнего рецензирования нет. AGPL-3.0 заявлен, но публичного репозитория не найдено — в скоринг это не входит. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://warmonit.com/countries">War Monitor — список стран</a>, <a href="https://warmonit.com/country/russia">страница страны</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна: CII 0–100, публичных страновых страниц 30 по списку <code>/countries</code>. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-warmonitor">Строка в матрице</a> · <a href="#scale-warmonitor">Строка в шкале</a> · <a href="#cell-warmonitor-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-gpr">
+        <h3>GPR Index</h3>
+        <p><strong>Конструкт:</strong> доля газетных публикаций о геополитическом риске; дневной и месячный ряд; 44 страновых индекса; корпус 10 газет с 1985 года, исторический ряд из 3 газет с 1900.</p>
+        <p><strong>Подтверждено:</strong> данные скачиваются (Excel, Stata); методология опубликована в AER 2022 и воспроизводима; есть лог версий и даты обновления рядов; CC BY; история с 1900 и 1985; страновой уровень; научное рецензирование.</p>
+        <p><strong>Не подтверждено:</strong> поштучной ссылки на публикацию нет — индекс считается по корпусу газет, а не по отдельным статьям; списка непокрытого нет; отдельной оценки неопределённости итогового индекса нет. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://www.matteoiacoviello.com/gpr.htm">GPR — Caldara–Iacoviello</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна: 44 страновых индекса плюс глобальный. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-gpr">Строка в матрице</a> · <a href="#scale-gpr">Строка в шкале</a> · <a href="#cell-gpr-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-inform">
+        <h3>INFORM</h3>
+        <p><strong>Конструкт:</strong> композитный индекс риска гуманитарных кризисов по странам и территориям; три измерения — опасность и подверженность, уязвимость, недостаток возможностей; шкала 0–10.</p>
+        <p><strong>Подтверждено:</strong> данные и методологический документ открыты; формула и веса описаны; у компонентов и индикаторов указаны источники; в методологическом документе есть раздел об ограничениях; версии по годам и полугодиям; ряд тренда с 2017; страновой уровень.</p>
+        <p><strong>Не подтверждено:</strong> поштучной ссылки у каждой страновой оценки нет (источники привязаны к индикаторам); интервал итогового балла не подтверждён — подстраницы закрыты JS и WAF, клетка «Н» спорная; явная свободная лицензия на данные не подтверждена; внешнего рецензирования метода нет. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://drmkc.jrc.ec.europa.eu/inform-index/INFORM-Risk/Results-and-data">INFORM — Results and data</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна и территория: 191 позиция в списке. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-inform">Строка в матрице</a> · <a href="#scale-inform">Строка в шкале</a> · <a href="#cell-inform-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-gpi">
+        <h3>Global Peace Index</h3>
+        <p><strong>Конструкт:</strong> годовой индекс миролюбия 163 стран, 23 индикатора в трёх доменах; единица — страна-год.</p>
+        <p><strong>Подтверждено:</strong> данные доступны; методология с весами опубликована в годовом отчёте; версии по годам; история; страновой уровень.</p>
+        <p><strong>Не подтверждено:</strong> источников по индикаторам не подтверждено — PDF отчёта IEP 2026 из среды не открылся, клетка «С» спорная; списка дыр нет; оценки неопределённости нет; свободной лицензии нет; внешнего рецензирования метода нет. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://www.economicsandpeace.org/global-peace-index/">Global Peace Index — Institute for Economics and Peace</a> — проверено 2026-10-24. (ответ 000, сброс соединения), факты по сохранённому описанию.</p>
+        <p class="doc-meta">Разрешение: страна: 163 страны. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-gpi">Строка в матрице</a> · <a href="#scale-gpi">Строка в шкале</a> · <a href="#cell-gpi-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-fsi">
+        <h3>Fragile States Index</h3>
+        <p><strong>Конструкт:</strong> годовой индекс хрупкости государств, 12 индикаторов CAST с суб-индикаторами; три потока данных — контент-анализ корпуса, количественные ряды, экспертный ревью.</p>
+        <p><strong>Подтверждено:</strong> данные выгружаются; методика с индикаторами опубликована; версии по годам; ряд с 2006; страновой уровень заявлен самим проектом (178 государств), поштучно список не сверен.</p>
+        <p><strong>Не подтверждено:</strong> привязки «индикатор → источник» нет — названы только потоки и агентства, клетка «С» спорная; список дыр не публикуется; оценки неопределённости нет; свободной лицензии нет; внешнего рецензирования нет. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://fragilestatesindex.org/methodology/">Fragile States Index — методология</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна: 178 государств заявлено проектом, поштучный список не сверен. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-fsi">Строка в матрице</a> · <a href="#scale-fsi">Строка в шкале</a> · <a href="#cell-fsi-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-ewp">
+        <h3>Early Warning Project</h3>
+        <p><strong>Конструкт:</strong> статистическая модель, оценивающая вероятность массовых зверств по странам; 38 переменных из примерно двенадцати источников; единица — страна-год; результат — ранг и 95 % интервал.</p>
+        <p><strong>Подтверждено:</strong> исходные данные на GitHub и страница рейтинга; описание модели; источники по каждой из 38 переменных на странице Methodology: Risk Factor Sources; 95 % доверительный интервал ранга по бутстрэпу на 1000 ресэмплов на странице Uncertainty of Our Model's Results; версии по годам; история; страновой уровень.</p>
+        <p><strong>Не подтверждено:</strong> перечня непокрытого нет — описание модели задаёт границы, но не список дыр; лицензия выходных данных не подтверждена; внешнего рецензирования метода нет. Клетки «С» и «Н» исправлены по errata от 2026-10-24. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://earlywarningproject.ushmm.org/">Early Warning Project</a>, <a href="https://earlywarningproject.ushmm.org/methodology-risk-factors">Risk Factor Sources</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: страна: 168 стран и территорий в списке, ранг и 95 % интервал. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-ewp">Строка в матрице</a> · <a href="#scale-ewp">Строка в шкале</a> · <a href="#cell-ewp-d">Первая клетка развёртки</a></p>
+      </article>
+      <article id="project-bgri">
+        <h3>BlackRock BGRI</h3>
+        <p><strong>Конструкт:</strong> дашборд внимания рынка к десяти геополитическим рискам; по каждому риску аналитики дают оценку low, medium или high; сырьё — брокерские отчёты и финансовые новости, окно около пяти лет.</p>
+        <p><strong>Подтверждено:</strong> ничего из десяти признаков публичной документацией не подтверждено. Дашборд отдаётся страницей, но значений и ключей данных в разметке нет.</p>
+        <p><strong>Не подтверждено:</strong> данных для скачивания нет; формула и веса не опубликованы; поштучных ссылок нет; список дыр и оценка неопределённости не публикуются; версий метода нет; свободной лицензии нет; сопоставимый ряд длиннее пяти лет не подтверждён; странового уровня нет; внешнего рецензирования нет. Пустая строка означает отсутствие подтверждения, а не оценку продукта: это закрытый инвестиционный дашборд, который публичной проверяемости и не обещает. «—» в матрице означает «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p><strong>Источник:</strong> <a href="https://www.blackrock.com/corporate/insights/blackrock-investment-institute/interactive-charts/geopolitical-risk-dashboard">BlackRock — Geopolitical Risk Dashboard</a> — проверено 2026-10-24. .</p>
+        <p class="doc-meta">Разрешение: нет странового уровня: десять геополитических рисков и внимание рынка. Дата среза: 24 октября 2026. «—» в матрице значит «не подтверждено публичным документом», а не «отсутствует».</p>
+        <p class="doc-meta"><a href="#matrix-bgri">Строка в матрице</a> · <a href="#scale-bgri">Строка в шкале</a> · <a href="#cell-bgri-d">Первая клетка развёртки</a></p>
+      </article>
+    </section>
+
+    <section id="cells" aria-labelledby="cells-title">
+      <h2 id="cells-title">Развёртка 120 ячеек</h2>
+      <p>Одна строка на каждую пару «проект × критерий»: у подтверждённой клетки — документ, страница или файл с датой проверки; у пустой — причина, по которой подтверждения нет. Статус берётся из матрицы, развёртка его не дублирует.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Основание каждой из 120 ячеек матрицы</caption>
+          <colgroup><col width="22%"><col width="22%"><col width="56%"></colgroup>
+          <thead><tr><th scope="col">Проект</th><th scope="col">Критерий</th><th scope="col">Основание</th></tr></thead>
+          <tbody>
+            <tr id="cell-cassandra-d"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td><code>calc/input/&lt;неделя&gt;.json</code> и <code>data/public/**</code> в публичном репозитории — проверено 2026-10-24 (локальные файлы)</td></tr>
+            <tr id="cell-cassandra-f"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Формула и веса в <code>calc/engine.js</code>, веса и пороги раскрыты в <code>data/public/methodology.json</code> (ADR 0062) — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-s"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>Карточка каждого источника R55 (id, домен, тип, кластер, государственная принадлежность, даты, цитаты) в <code>calc/input/&lt;неделя&gt;.json</code> и <code>data/&lt;неделя&gt;/sources.js</code> — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-g"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td><code>coverageCriteria.uncovered</code> (ADR 0033) и обязательная причина слепоты <code>blindReasons</code> с 2026-10-25 (ADR 0040) — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-n"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>Поле <code>sensitivity</code> в quality-блоке снапшота: максимум смещения при удалении домена или кластера (ADR 0019) — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-v"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-v">В — Версии</a></td><td><code>PARAMS.methodology = '3.0'</code>, журнал изменений и журнал аудита <code>data/audit.jsonl</code> — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-l"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>Данные — CC BY 4.0 (<code>LICENSE-DATA</code>), код — Apache License 2.0 (<code>LICENSE</code>) — проверено 2026-10-24</td></tr>
+            <tr id="cell-cassandra-i"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>— пересчитанная цепочка методологии 3.0 начинается 2026-08-30, это восемь недель; ряда длиннее пяти лет нет</td></tr>
+            <tr id="cell-cassandra-st"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>— 12 регионов таксономии v2 (ADR 0028), страны входят в регион через атрибуцию <code>regions[]</code>, страновых срезов нет</td></tr>
+            <tr id="cell-cassandra-r"><td><a href="#project-cassandra">Cassandra Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования нет; проект ведёт один редактор, журнал red team пуст (аудит §5.1)</td></tr>
+            <tr id="cell-acled-d"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Data Export Tool и myACLED на acleddata.com — документально (2026-10-24, ответ 403), сохранённое описание от 2026-10-18</td></tr>
+            <tr id="cell-acled-f"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методология и устройство Conflict Index из четырёх индикаторов — документально (2026-10-24, ответ 403), описание от 2026-10-18</td></tr>
+            <tr id="cell-acled-s"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>У события есть поле источника — документально, кодбук и Data Export Tool (2026-10-24, ответ 403), описание от 2026-10-18</td></tr>
+            <tr id="cell-acled-g"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— раздел ограничений не подтверждён: методология отдаёт 403; спорная клетка, оставлена минусом (deep dive §6.2)</td></tr>
+            <tr id="cell-acled-n"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка разброса итогового индекса не публикуется (аудит §5.2)</td></tr>
+            <tr id="cell-acled-v"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии данных и метода заявлены в документации — документально (2026-10-24, ответ 403), описание от 2026-10-18</td></tr>
+            <tr id="cell-acled-l"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— бесплатный доступ для некоммерческого использования, свободной лицензии на данные нет (аудит §5.2, deep dive §2)</td></tr>
+            <tr id="cell-acled-i"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Многолетняя история событий, ряд длиннее пяти лет — документально (аудит §5.2), описание от 2026-10-18</td></tr>
+            <tr id="cell-acled-st"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>У события есть поле страны, Conflict Index считается по странам — документально (аудит §5.2, 2026-10-24)</td></tr>
+            <tr id="cell-acled-r"><td><a href="#project-acled">ACLED</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.2)</td></tr>
+            <tr id="cell-ucdp-d"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>ucdp.uu.se/downloads: все датасеты бесплатны, GED 26.1, Candidate 26.0.X, API — проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-f"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Кодбук к каждому датасету задаёт правила кодирования и пороги — ucdp.uu.se/downloads, проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-s"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>У события есть ссылка на источник — GED 26.1, ucdp.uu.se/downloads, проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-g"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— кодбук задаёт границы и порог, но перечня непокрытого нет; спорная клетка оставлена минусом (аудит §5.3, deep dive §6.2)</td></tr>
+            <tr id="cell-ucdp-n"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>Число погибших даётся в трёх оценках low/best/high — ucdp.uu.se/downloads, проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-v"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-v">В — Версии</a></td><td>История версий у каждого датасета — ucdp.uu.se/downloads, проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-l"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>CC BY 4.0 — ucdp.uu.se/downloads, проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-i"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>UCDP/PRIO Armed Conflict Dataset version 26.1, ряд 1946–2025 — проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-st"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>UCDP Country-Year Dataset on Organized Violence within Country Borders version 26.1 — проверено 2026-10-24</td></tr>
+            <tr id="cell-ucdp-r"><td><a href="#project-ucdp">UCDP</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>Публикация в рецензируемом журнале Journal of Peace Research (аудит §5.3, deep dive §5.6) — проверено 2026-10-24</td></tr>
+            <tr id="cell-gdelt-d"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Ежедневные файлы данных — gdeltproject.org/data.html, проверено 2026-10-24</td></tr>
+            <tr id="cell-gdelt-f"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>— итогового числа нет, формуле и весам кодировать нечего (аудит §5.4)</td></tr>
+            <tr id="cell-gdelt-s"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— кодирование машинное по CAMEO, ссылки на источник у записи нет (аудит §5.4)</td></tr>
+            <tr id="cell-gdelt-g"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список ограничений не публикуется (аудит §5.4)</td></tr>
+            <tr id="cell-gdelt-n"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка неопределённости не публикуется (аудит §5.4)</td></tr>
+            <tr id="cell-gdelt-v"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-v">В — Версии</a></td><td>GDELT 2.0, версии событийных файлов — gdeltproject.org/about.html, проверено 2026-10-24</td></tr>
+            <tr id="cell-gdelt-l"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— данные бесплатны, но не по CC-лицензии (аудит §5.4, deep dive §2)</td></tr>
+            <tr id="cell-gdelt-i"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Данные с 1979-01-01, около 250 млн геореференцированных записей — gdeltproject.org/about.html, проверено 2026-10-24</td></tr>
+            <tr id="cell-gdelt-st"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>События кодируются FIPS Country Code — gdeltproject.org/data.html, проверено 2026-10-24</td></tr>
+            <tr id="cell-gdelt-r"><td><a href="#project-gdelt">GDELT</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.4)</td></tr>
+            <tr id="cell-crisiswatch-d"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>— данных для скачивания нет, публикуются страницы ситуаций и PDF (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-f"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>— формулы и весов нет, оценка качественная (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-s"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— ссылки на источник у оценки нет (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-g"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список ограничений не публикуется (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-n"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка неопределённости не публикуется (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-v"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-v">В — Версии</a></td><td>— версий метода нет (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-l"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободной лицензии нет (аудит §5.5)</td></tr>
+            <tr id="cell-crisiswatch-i"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Архив с 2003 года (аудит §5.5, deep dive §4.5) — документально, 2026-10-24, ответ 403 Cloudflare</td></tr>
+            <tr id="cell-crisiswatch-st"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>Страницы ситуаций по странам и конфликтам, 70+ ситуаций (аудит §5.5) — документально, 2026-10-24</td></tr>
+            <tr id="cell-crisiswatch-r"><td><a href="#project-crisiswatch">CrisisWatch</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.5)</td></tr>
+            <tr id="cell-warmonitor-d"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Собственные числа отдаются в CSV и JSON — warmonit.com, документально (2026-10-24), разбор от 2026-10-18</td></tr>
+            <tr id="cell-warmonitor-f"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>— методика CII описана кратко, весов и порогов нет (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-s"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— поштучной ссылки у числа нет (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-g"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список непокрытого не публикуется (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-n"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка неопределённости не публикуется (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-v"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-v">В — Версии</a></td><td>— версий метода нет (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-l"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>CC BY 4.0 на собственные числа (аудит §5.6, deep dive §5.3) — проверено 2026-10-24</td></tr>
+            <tr id="cell-warmonitor-i"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>— история около 188 дней, менее пяти лет (аудит §5.6)</td></tr>
+            <tr id="cell-warmonitor-st"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>Страновой CII 0–100, страница страны warmonit.com/country/russia — проверено 2026-10-24</td></tr>
+            <tr id="cell-warmonitor-r"><td><a href="#project-warmonitor">War Monitor</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования нет (аудит §5.6)</td></tr>
+            <tr id="cell-gpr-d"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Выгрузки Excel и Stata — matteoiacoviello.com/gpr.htm, проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-f"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методология опубликована в AER 2022 и воспроизводима — matteoiacoviello.com/gpr.htm, проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-s"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— индекс считается по корпусу 10 газет, ссылки на отдельную публикацию нет (аудит §5.7)</td></tr>
+            <tr id="cell-gpr-g"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— списка непокрытого нет (аудит §5.7)</td></tr>
+            <tr id="cell-gpr-n"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— отдельной оценки неопределённости итогового индекса нет (аудит §5.7)</td></tr>
+            <tr id="cell-gpr-v"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Лог версий и даты обновления: месячный ряд 2026-10-01, дневной 2026-10-19 — проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-l"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>CC BY (deep dive §2, §5.3) — проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-i"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Исторический ряд: 3 газеты с 1900, 10 газет с 1985 — matteoiacoviello.com/gpr.htm, проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-st"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>44 страновых индекса, список на matteoiacoviello.com/gpr_country.htm — проверено 2026-10-24</td></tr>
+            <tr id="cell-gpr-r"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>Публикация в AER 2022 (deep dive §5.6) — проверено 2026-10-24</td></tr>
+            <tr id="cell-inform-d"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>XLSX и страница Results and data со списком 191 страны и территории — проверено 2026-10-24 (headless Chrome)</td></tr>
+            <tr id="cell-inform-f"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методологический документ с формулой и весами (аудит §5.8) — документально, 2026-10-24</td></tr>
+            <tr id="cell-inform-s"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>У компонентов и индикаторов указаны источники (аудит §5.8) — документально, 2026-10-24</td></tr>
+            <tr id="cell-inform-g"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>Раздел об ограничениях в методологическом документе (аудит §5.8) — документально, 2026-10-24</td></tr>
+            <tr id="cell-inform-n"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— интервал итогового балла не подтверждён: подстраницы закрыты JS и WAF; спорная клетка (deep dive §6.2)</td></tr>
+            <tr id="cell-inform-v"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии по годам и полугодиям: INFORM_Risk_2026_v072.xlsx и INFORM_Risk_Mid_2026_v073.xlsx — проверено 2026-10-24</td></tr>
+            <tr id="cell-inform-l"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободная лицензия на данные не подтверждена (аудит §5.8, deep dive §2)</td></tr>
+            <tr id="cell-inform-i"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Файл тренда INFORM2026_TREND_2017_2026_v72_ALL.xlsx, ряд с 2017 — проверено 2026-10-24</td></tr>
+            <tr id="cell-inform-st"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>191 страна и территория в списке Results and data — проверено 2026-10-24</td></tr>
+            <tr id="cell-inform-r"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.8)</td></tr>
+            <tr id="cell-gpi-d"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Данные доступны — economicsandpeace.org, документально (2026-10-24, ответ 000), сохранённое описание</td></tr>
+            <tr id="cell-gpi-f"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методология с весами в годовом отчёте (аудит §5.9) — документально, 2026-10-24</td></tr>
+            <tr id="cell-gpi-s"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— источники по индикаторам не подтверждены: PDF отчёта IEP 2026 не открылся (000); спорная клетка (deep dive §6.2)</td></tr>
+            <tr id="cell-gpi-g"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— списка дыр нет (аудит §5.9)</td></tr>
+            <tr id="cell-gpi-n"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценки неопределённости нет (аудит §5.9)</td></tr>
+            <tr id="cell-gpi-v"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии по годам (аудит §5.9) — документально, 2026-10-24</td></tr>
+            <tr id="cell-gpi-l"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободной лицензии нет (аудит §5.9)</td></tr>
+            <tr id="cell-gpi-i"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Годовой ряд длиннее пяти лет (аудит §5.9) — документально, 2026-10-24</td></tr>
+            <tr id="cell-gpi-st"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>163 страны (аудит §5.9) — документально, 2026-10-24</td></tr>
+            <tr id="cell-gpi-r"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.9)</td></tr>
+            <tr id="cell-fsi-d"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Выгрузки на fragilestatesindex.org/excel/ и страница country-data — проверено 2026-10-24</td></tr>
+            <tr id="cell-fsi-f"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методика CAST: 12 индикаторов и суб-индикаторы — fragilestatesindex.org/methodology, проверено 2026-10-24</td></tr>
+            <tr id="cell-fsi-s"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— привязки «индикатор → источник» нет, названы только потоки UN, WB, WHO; спорная клетка (deep dive §6.2)</td></tr>
+            <tr id="cell-fsi-g"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список дыр не публикуется (аудит §5.10)</td></tr>
+            <tr id="cell-fsi-n"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка неопределённости не публикуется (аудит §5.10)</td></tr>
+            <tr id="cell-fsi-v"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии по годам, последний отчёт FSI 2024 — fragilestatesindex.org/excel/, проверено 2026-10-24</td></tr>
+            <tr id="cell-fsi-l"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободной лицензии нет (аудит §5.10, deep dive §5.3)</td></tr>
+            <tr id="cell-fsi-i"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>«complete set of Fragile States Index data from 2006–2018» на странице global-data — проверено 2026-10-24</td></tr>
+            <tr id="cell-fsi-st"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>«178 nations» и «179 countries» в тексте страниц проекта — проверено 2026-10-24; поштучный список не сверен</td></tr>
+            <tr id="cell-fsi-r"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования нет (аудит §5.10)</td></tr>
+            <tr id="cell-ewp-d"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Исходные данные на GitHub и страница рейтинга ranking-of-all-countries — проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-f"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Описание статистической модели-ансамбля на методических страницах проекта — проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-s"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>«38 variables from about a dozen data sources», источник назван по каждой переменной — methodology-risk-factors, проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-g"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— перечня непокрытого нет: описание модели задаёт границы, но не список дыр (аудит §5.11, errata §6.1)</td></tr>
+            <tr id="cell-ewp-n"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>95 % доверительный интервал ранга по бутстрэпу на 1000 ресэмплов — /uncertainty, проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-v"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-v">В — Версии</a></td><td>«2025-26 Statistical Risk Assessment», версии по годам — проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-l"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— лицензия выходных данных не подтверждена (deep dive §2)</td></tr>
+            <tr id="cell-ewp-i"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Годовой ряд длиннее пяти лет (аудит §5.11) — документально, 2026-10-24</td></tr>
+            <tr id="cell-ewp-st"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>168 стран и территорий в /api/select-countries, страница /countries/russia — проверено 2026-10-24</td></tr>
+            <tr id="cell-ewp-r"><td><a href="#project-ewp">Early Warning Project</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.11)</td></tr>
+            <tr id="cell-bgri-d"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>— дашборд отдаёт 14 159 байт разметки без значений и без ключей данных (2026-10-24)</td></tr>
+            <tr id="cell-bgri-f"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>— формула и веса не опубликованы (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-s"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— поштучных ссылок нет (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-g"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список дыр не публикуется (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-n"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— оценка неопределённости не публикуется (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-v"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-v">В — Версии</a></td><td>— версий метода нет (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-l"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободной лицензии нет (аудит §5.12)</td></tr>
+            <tr id="cell-bgri-i"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>— история около пяти лет, сопоставимый публичный ряд длиннее пяти лет не подтверждён (deep dive §4.12)</td></tr>
+            <tr id="cell-bgri-st"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>— странового уровня нет: в разметке дашборда ноль вхождений названий стран (2026-10-24)</td></tr>
+            <tr id="cell-bgri-r"><td><a href="#project-bgri">BlackRock BGRI</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования нет (аудит §5.12)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="scale" aria-labelledby="scale-title">
+      <h2 id="scale-title">Взвешенная шкала</h2>
+      <p>Балл проекта — взвешенная сумма пяти вкладов: <strong>25·открытость + 25·воспроизводимость + 20·покрытие + 15·история + 15·независимость</strong>. Открытость = (Д + Л) / 2, воспроизводимость = (Ф + С) / 2, покрытие = 0,6·Ст + 0,4·частота, история = И, независимость = Р. Итог округляется до целого.</p>
+      <p class="doc-meta">Частота: непрерывная, дневная и недельная — 1,00; месячная — 0,75; годовая и полугодовая — 0,50; дашборд без объявленного ритма — 0. Вклады в таблице — доли от 0 до 1, балл — уже взвешенный итог.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Пять вкладов и взвешенный балл каждого проекта</caption>
+          <colgroup><col width="24%"><col width="13%"><col width="16%"><col width="12%"><col width="12%"><col width="12%"><col width="11%"></colgroup>
+          <thead><tr><th scope="col">Проект</th><th scope="col">Открытость</th><th scope="col">Воспроизводимость</th><th scope="col">Покрытие</th><th scope="col">История</th><th scope="col">Независимость</th><th scope="col">Балл</th></tr></thead>
+          <tbody>
+            <tr id="scale-ucdp"><th scope="row"><a href="#project-ucdp">UCDP</a></th><td>1,00</td><td>1,00</td><td>0,90</td><td>1,00</td><td>1,00</td><td><strong>98</strong></td></tr>
+            <tr id="scale-gpr"><th scope="row"><a href="#project-gpr">GPR Index</a></th><td>1,00</td><td>0,50</td><td>1,00</td><td>1,00</td><td>1,00</td><td><strong>88</strong></td></tr>
+            <tr id="scale-acled"><th scope="row"><a href="#project-acled">ACLED</a></th><td>0,50</td><td>1,00</td><td>1,00</td><td>1,00</td><td>0,00</td><td><strong>73</strong></td></tr>
+            <tr id="scale-inform"><th scope="row"><a href="#project-inform">INFORM</a></th><td>0,50</td><td>1,00</td><td>0,80</td><td>1,00</td><td>0,00</td><td><strong>69</strong></td></tr>
+            <tr id="scale-ewp"><th scope="row"><a href="#project-ewp">Early Warning Project</a></th><td>0,50</td><td>1,00</td><td>0,80</td><td>1,00</td><td>0,00</td><td><strong>69</strong></td></tr>
+            <tr id="scale-cassandra"><th scope="row"><a href="#project-cassandra">Cassandra Index</a></th><td>1,00</td><td>1,00</td><td>0,40</td><td>0,00</td><td>0,00</td><td><strong>58</strong></td></tr>
+            <tr id="scale-gpi"><th scope="row"><a href="#project-gpi">Global Peace Index</a></th><td>0,50</td><td>0,50</td><td>0,80</td><td>1,00</td><td>0,00</td><td><strong>56</strong></td></tr>
+            <tr id="scale-fsi"><th scope="row"><a href="#project-fsi">Fragile States Index</a></th><td>0,50</td><td>0,50</td><td>0,80</td><td>1,00</td><td>0,00</td><td><strong>56</strong></td></tr>
+            <tr id="scale-gdelt"><th scope="row"><a href="#project-gdelt">GDELT</a></th><td>0,50</td><td>0,00</td><td>1,00</td><td>1,00</td><td>0,00</td><td><strong>48</strong></td></tr>
+            <tr id="scale-warmonitor"><th scope="row"><a href="#project-warmonitor">War Monitor</a></th><td>1,00</td><td>0,00</td><td>1,00</td><td>0,00</td><td>0,00</td><td><strong>45</strong></td></tr>
+            <tr id="scale-crisiswatch"><th scope="row"><a href="#project-crisiswatch">CrisisWatch</a></th><td>0,00</td><td>0,00</td><td>0,90</td><td>1,00</td><td>0,00</td><td><strong>33</strong></td></tr>
+            <tr id="scale-bgri"><th scope="row"><a href="#project-bgri">BlackRock BGRI</a></th><td>0,00</td><td>0,00</td><td>0,00</td><td>0,00</td><td>0,00</td><td><strong>0</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sensitivity" aria-labelledby="sensitivity-title">
+      <h2 id="sensitivity-title">Устойчивость ±5 п.п.</h2>
+      <p>Проверка: один вес сдвигается на +5 или −5 процентных пункта, остальные четыре перенормируются пропорционально до суммы 100. Порядок считается по неокруглённому баллу, в таблице показывается округлённый итог.</p>
+      <p>Первое место (UCDP) и последние два (CrisisWatch, BlackRock BGRI) не двигаются ни в одном из десяти сценариев. Обменов мест всего: 14; все они — в середине списка.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Порядок проектов при сдвиге каждого веса на ±5 п.п.</caption>
+          <colgroup><col width="22%"><col width="12%"><col width="66%"></colgroup>
+          <thead><tr><th scope="col">Вес</th><th scope="col">Сдвиг</th><th scope="col">Что изменилось</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Открытость</th><td>+5 п.п.</td><td>обменялись местами: GDELT ↔ War Monitor</td></tr>
+            <tr><th scope="row">Открытость</th><td>−5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">Воспроизводимость</th><td>+5 п.п.</td><td>порядок не изменился</td></tr>
+            <tr><th scope="row">Воспроизводимость</th><td>−5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">Покрытие</th><td>+5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">Покрытие</th><td>−5 п.п.</td><td>порядок не изменился</td></tr>
+            <tr><th scope="row">История</th><td>+5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">История</th><td>−5 п.п.</td><td>обменялись местами: GDELT ↔ War Monitor</td></tr>
+            <tr><th scope="row">Независимость</th><td>+5 п.п.</td><td>порядок не изменился</td></tr>
+            <tr><th scope="row">Независимость</th><td>−5 п.п.</td><td>порядок не изменился</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="countries" aria-labelledby="countries-title">
+      <h2 id="countries-title">Страны</h2>
+      <p>Как читать: <code>страна</code> — у проекта есть страновой ряд или оценка именно по этой стране, подтверждённые страницей, файлом или API проекта; <code>регион</code> — только региональная или ситуационная группировка; <code>нет</code> — странового уровня по этой стране проект не публикует; <code>не проверено</code> — проверить не удалось, в клетке причина и дата. Отрицательный вывод из недоступности источника не делается.</p>
+      <p class="doc-meta">Дата проверки каждой клетки — 2026-10-24. Строка Cassandra — «регион» по построению: 12 регионов таксономии v2, страна входит в регион через атрибуцию <code>regions[]</code>, страновых срезов нет.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Покрытие 14 стран двенадцатью проектами</caption>
+          <colgroup><col width="12%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="6.5%"><col width="10%"></colgroup>
+          <thead><tr><th scope="col">Страна</th><th scope="col">Cassandra Index</th><th scope="col">ACLED</th><th scope="col">UCDP</th><th scope="col">GDELT</th><th scope="col">CrisisWatch</th><th scope="col">War Monitor</th><th scope="col">GPR Index</th><th scope="col">INFORM</th><th scope="col">Global Peace Index</th><th scope="col">Fragile States Index</th><th scope="col">Early Warning Project</th><th scope="col">BlackRock BGRI</th><th scope="col">Дата проверки</th></tr></thead>
+          <tbody>
+            <tr id="country-1"><th scope="row">Россия</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-2"><th scope="row">Украина</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-3"><th scope="row">Беларусь</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-4"><th scope="row">Молдова</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-5"><th scope="row">Казахстан</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-6"><th scope="row">Грузия</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-7"><th scope="row">Армения</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-8"><th scope="row">Азербайджан</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-9"><th scope="row">Литва</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-10"><th scope="row">Латвия</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-11"><th scope="row">Эстония</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-12"><th scope="row">Узбекистан</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-13"><th scope="row">Киргизия</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+            <tr id="country-14"><th scope="row">Таджикистан</th><td>регион</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>страна</td><td>страна</td><td>не проверено: 403 Cloudflare, 2026-10-24</td><td>нет</td><td>нет</td><td>страна</td><td>не проверено: 000 — сброс соединения, 2026-10-24</td><td>страна</td><td>страна</td><td>нет</td><td>2026-10-24</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Атрибуты проектов</h3>
+      <p>Разрешение, начало ряда, лаг публикации и адрес, по которому факт проверен. Для проектов, чьи страницы 24 октября не открылись, год начала ряда помечен как неустановленный.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Разрешение, начало ряда, лаг и адрес проверки по каждому проекту</caption>
+          <colgroup><col width="14%"><col width="21%"><col width="16%"><col width="14%"><col width="25%"><col width="10%"></colgroup>
+          <thead><tr><th scope="col">Проект</th><th scope="col">Разрешение</th><th scope="col">С какого года</th><th scope="col">Лаг публикации</th><th scope="col">Где смотреть</th><th scope="col">Дата проверки</th></tr></thead>
+          <tbody>
+            <tr id="attribute-cassandra"><th scope="row">Cassandra Index</th><td>регион: 12 регионов таксономии v2, страны только через атрибуцию <code>regions[]</code></td><td>2026-08-30 — пересчитанная цепочка методологии 3.0, восемь недель; 2026-08-02…08-23 — демонстрационная история методологии 1.0</td><td>неделя</td><td><code>data/regions/reference.json</code>, <code>data/&lt;неделя&gt;/week.js</code>, https://cassindex.ru</td><td>2026-10-24</td></tr>
+            <tr id="attribute-acled"><th scope="row">ACLED</th><td>страна: поле страны у события, Conflict Index по странам</td><td>не установлено: сайт отдаёт 403, локальные материалы год начала ряда не называют</td><td>непрерывно, месячный индекс</td><td>https://acleddata.com/ (ответ 403)</td><td>2026-10-24</td></tr>
+            <tr id="attribute-ucdp"><th scope="row">UCDP</th><td>страна и событие с геокоординатами</td><td>1946–2025: UCDP/PRIO Armed Conflict Dataset version 26.1</td><td>год с финализацией плюс месячный Candidate</td><td>https://ucdp.uu.se/downloads/</td><td>2026-10-24</td></tr>
+            <tr id="attribute-gdelt"><th scope="row">GDELT</th><td>событие с геокодом, страновой срез через FIPS Country Code</td><td>1979-01-01</td><td>непрерывно, ежедневно</td><td>https://www.gdeltproject.org/about.html, https://www.gdeltproject.org/data.html</td><td>2026-10-24</td></tr>
+            <tr id="attribute-crisiswatch"><th scope="row">CrisisWatch</th><td>ситуация: 70+ конфликтов и кризисов, страновой и ситуационный уровень</td><td>2003</td><td>месяц</td><td>https://www.crisisgroup.org/crisiswatch (ответ 403 и Cloudflare)</td><td>2026-10-24</td></tr>
+            <tr id="attribute-warmonitor"><th scope="row">War Monitor</th><td>страна: CII 0–100, публичных страновых страниц 30 по списку <code>/countries</code></td><td>не заявлено на странице страны; в описании — структурная база плюс давление событий за 30 дней</td><td>ежедневно 06:00 UTC на глобальном уровне; страновой CII пересчитывается чаще</td><td>https://warmonit.com/countries, https://warmonit.com/country/russia</td><td>2026-10-24</td></tr>
+            <tr id="attribute-gpr"><th scope="row">GPR Index</th><td>страна: 44 страновых индекса плюс глобальный</td><td>глобальный: 1900 на трёх газетах, 1985 на десяти</td><td>день и месяц; месячный ряд обновлён 2026-10-01</td><td>https://www.matteoiacoviello.com/gpr.htm, https://www.matteoiacoviello.com/gpr_country.htm</td><td>2026-10-24</td></tr>
+            <tr id="attribute-inform"><th scope="row">INFORM</th><td>страна и территория: 191 позиция в списке</td><td>2017: файл тренда INFORM2026_TREND_2017_2026_v72_ALL.xlsx</td><td>год плюс середина года</td><td>https://drmkc.jrc.ec.europa.eu/inform-index/INFORM-Risk/Results-and-data</td><td>2026-10-24</td></tr>
+            <tr id="attribute-gpi"><th scope="row">Global Peace Index</th><td>страна: 163 страны</td><td>годовой ряд длиннее пяти лет, точный первый год из среды не установлен</td><td>год</td><td>https://www.economicsandpeace.org/global-peace-index/ (ответ 000)</td><td>2026-10-24</td></tr>
+            <tr id="attribute-fsi"><th scope="row">Fragile States Index</th><td>страна: 178 государств заявлено проектом, поштучный список не сверен</td><td>2006: «complete set of Fragile States Index data from 2006–2018»</td><td>год, последний отчёт FSI 2024</td><td>https://fragilestatesindex.org/country-data/, https://fragilestatesindex.org/excel/</td><td>2026-10-24</td></tr>
+            <tr id="attribute-ewp"><th scope="row">Early Warning Project</th><td>страна: 168 стран и территорий в списке, ранг и 95 % интервал</td><td>текущая оценка — 2025-26 Statistical Risk Assessment; ряд длиннее пяти лет</td><td>год</td><td>https://earlywarningproject.ushmm.org/ranking-of-all-countries, https://earlywarningproject.ushmm.org/api/select-countries</td><td>2026-10-24</td></tr>
+            <tr id="attribute-bgri"><th scope="row">BlackRock BGRI</th><td>нет странового уровня: десять геополитических рисков и внимание рынка</td><td>около пяти лет, точная дата начала не опубликована</td><td>дашборд, ритм не объявлен</td><td>https://www.blackrock.com/corporate/insights/blackrock-investment-institute/interactive-charts/geopolitical-risk-dashboard</td><td>2026-10-24</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="unverified" aria-labelledby="unverified-title">
+      <h2 id="unverified-title">Что не удалось проверить</h2>
+      <p>Клетки, попавшие в этот список, в матрице кодированы по сохранённым документам и в счёт подтверждённого не идут. Код ответа или причина названы прямо, чтобы читатель видел границу проверки.</p>
+      <div class="article-table-wrap">
+        <table class="doc-table">
+          <caption class="sr-only">Что именно не удалось проверить 24 октября 2026 года и почему</caption>
+          <colgroup><col width="14%"><col width="18%"><col width="26%"><col width="10%"><col width="32%"></colgroup>
+          <thead><tr><th scope="col">Проект</th><th scope="col">Что проверяли</th><th scope="col">Адрес</th><th scope="col">Дата</th><th scope="col">Код или причина</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">ACLED</th><td>корень, Data Export Tool, методология, API</td><td>https://acleddata.com/</td><td>2026-10-24</td><td>403 (5 542 байта); в headless Chrome — Cloudflare-челлендж «Just a moment…»; <code>/data-export-tool/</code> и <code>/methodology/</code> — 403, <code>api.acleddata.com</code> — 000</td></tr>
+            <tr><th scope="row">CrisisWatch</th><td>страница CrisisWatch и корень ICG</td><td>https://www.crisisgroup.org/crisiswatch</td><td>2026-10-24</td><td>403 (5 624 байта) и Cloudflare-челлендж; корень отдаётся 200, но ссылок на CrisisWatch в нём нет</td></tr>
+            <tr><th scope="row">Global Peace Index</th><td>страница индекса и карта</td><td>https://www.economicsandpeace.org/global-peace-index/</td><td>2026-10-24</td><td>000, размер 0 — сброс соединения в curl и в headless Chrome; DNS резолвится; https://www.visionofhumanity.org/maps/ — 000</td></tr>
+            <tr><th scope="row">Fragile States Index</th><td>поштучный список стран и выгрузки XLSX</td><td>https://fragilestatesindex.org/country-data/, https://fragilestatesindex.org/excel/</td><td>2026-10-24</td><td>страницы отдаются 200, но тело пустое: данные в Tableau-embed, стран в HTML нет; XLSX приходят обрезанными, ZIP-каталог отсутствует</td></tr>
+            <tr><th scope="row">Early Warning Project</th><td>таблица рангов</td><td>https://earlywarningproject.ushmm.org/ranking-of-all-countries</td><td>2026-10-24</td><td>200, но страница — оболочка: таблица подгружается скриптом; список стран получен через /api/select-countries</td></tr>
+            <tr><th scope="row">INFORM</th><td>выгрузка XLSX</td><td>https://drmkc.jrc.ec.europa.eu/inform-index/Portals/0/InfoRM/2026/INFORM_Risk_Mid_2026_v073.xlsx</td><td>2026-10-24</td><td>200, но 5 327 байт — WAF-заглушка вместо файла; список стран получен из HTML страницы Results and data</td></tr>
+            <tr><th scope="row">War Monitor</th><td>значения CII по двенадцати странам из таблицы</td><td>https://warmonit.com/country/belarus и ещё 11 слагов</td><td>2026-10-24</td><td>404 на всех двенадцати (контроль: russia и ukraine — 200); API <code>/api/countries</code> — 401, требуется ключ</td></tr>
+            <tr><th scope="row">BlackRock BGRI</th><td>числа дашборда</td><td>https://www.blackrock.com/corporate/insights/blackrock-investment-institute/interactive-charts/geopolitical-risk-dashboard</td><td>2026-10-24</td><td>200, 14 159 байт: ни одного значения и ни одного названия страны в разметке; дашборд рисуется скриптом</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="reuse" aria-labelledby="reuse-title">
+      <h2 id="reuse-title">Переиспользование</h2>
+      <p>Данные и текст этой страницы распространяются на условиях лицензии Creative Commons Attribution 4.0 International (CC BY 4.0): <a href="https://creativecommons.org/licenses/by/4.0/legalcode">https:/<wbr>/<wbr>creativecommons.org/<wbr>licenses/<wbr>by/<wbr>4.0/<wbr>legalcode</a>. Атрибуция: «Cassandra Index — <a href="https://cassindex.ru">https:/<wbr>/<wbr>cassindex.ru</a>, лицензия CC BY 4.0», со ссылкой на текст лицензии и отметкой изменений при переработке. Производное приложение к статье должно указывать происхождение формулой «based on Cassandra Index». Тексты цитируемых проектов, их данные и товарные знаки остаются под их собственными условиями: у UCDP и GPR это CC BY, у остальных — free to read либо закрытые условия, и здесь они не перелицензируются.</p>
+      <p>Текст лицензии: <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International (legalcode)</a>.</p>
+      <p class="doc-meta">Атрибуция обязательна: «Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0»; при переработке — отметка изменений и формула «based on Cassandra Index». Тексты, данные и товарные знаки цитируемых проектов остаются под их собственными условиями.</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="disclaimer">Cassandra Index — экспериментальная оценка риска на основе открытых данных. Это не официальный прогноз правительства или международной организации. Оценка может быть ошибочной.</p>
+    <nav class="footer-nav" aria-label="Сервисные ссылки">
+      <a href="index.html">На главную</a>
+      <a href="how-to-read.html">Как читать индекс</a>
+      <a href="compare.html">Сравнение</a>
+      <a href="privacy.html">Приватность</a>
+      <a href="about.html">Независимость и исправления</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

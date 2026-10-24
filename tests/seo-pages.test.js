@@ -59,7 +59,7 @@ const COMPARISONS = [
   { file: 'compare-acled.html', source: 'https://acleddata.com/' },
   { file: 'compare-crisiswatch.html', source: 'https://www.crisisgroup.org/crisiswatch' },
 ];
-const PAGES = [HOWTO, HUB, ...COMPARISONS.map((c) => c.file), 'validation.html'];
+const PAGES = [HOWTO, HUB, ...COMPARISONS.map((c) => c.file), 'validation.html', 'indices-audit.html'];
 
 // Политика статических страниц: только собственные ресурсы и стили, без скриптов
 // (ни инлайновых, ни внешних) и без JSON-LD — осознанный отказ от ослабления CSP.
