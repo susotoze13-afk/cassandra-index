@@ -57,7 +57,7 @@ test('regionalHypothesisParams: неделя раньше гейта — пор�
   assert.equal(got, p); // тот же объект: подмены нет
 });
 
-test('regionalHypothesisParams: неделя на дате гейта и позже — эпсилон', () => {
+test('regionalHypothesisParams: неделя на дате гейта и позже — порог берётся из params (подмена 0.42)', () => {
   const p = list();
   p.regionHypothesisFrom = '2026-10-25';
   // Порог задан отдельно от эпсилона: проверяется чтение параметра, а не
