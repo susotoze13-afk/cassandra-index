@@ -357,7 +357,7 @@ function main() {
     const loadSnapshot = (w) => loadSnapshotFromDisk(w, root);
     const { file, ledger } = write
       ? writeLedger({ rootDir: root, weeks, loadSnapshot })
-      : { file: path.join(root, PUBLIC_DIR, LEDGER_FILE), ledger: buildLedger({ weeks, loadSnapshot }) };
+      : { file: path.join(root, PUBLIC_DIR, LEDGER_FILE), ledger: buildLedger({ rootDir: root, weeks, loadSnapshot }) };
     const b = ledger.summary.baseline;
     const e = ledger.summary.editor;
     process.stdout.write(

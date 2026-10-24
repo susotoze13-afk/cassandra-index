@@ -36,17 +36,23 @@
 
 ## Известные баги
 
-- `indices-audit-build.js` — дубль строки в матрице/странах/частоте молча перезаписывает данные (у развёртки проверка есть).
-- `indices-audit-build.js` — `trimUrlTail` режет «)» у URL с парной скобкой; тест лицензии не пинит точный адрес.
-- `indices-audit-build.js` — циклическая перестановка мест показывается как парные обмены (значения верны).
-- `indices-audit-build.js` — опция `projectIds` в `parseSource` не проведена в `validateSource`/`orderBy`.
-- `docs/articles/indices-audit-app-source.md` — таблица «Частота» называет проверенным файл INFORM, который в «Не проверено» помечен WAF-заглушкой.
-- `docs/articles/indices-audit-app-source.md` — UCDP «история версий у каждого датасета» сильнее источника («where available»); BGRI «около пяти лет» против «с 2017 года» в статье.
-- `calc/ledger.js:360` — печатная ветка CLI без `--write` вызывает `buildLedger` без `rootDir`.
-- `calc/quotes.js:103` — гард `id !== '' && !SAFE_ID_RE.test(id)` пропускает пустой id до чтения корпуса.
-- `calc/backtest.js:502` — `note` начинается строчной буквой после точки в видимом тексте валидации.
-- `git clone` на Windows с `core.autocrlf=true` даёт падение двух тестов (CRLF).
+(пусто — последние закрыты 2026-10-24, см. «Правки без автопилота»)
 
 ## Правки без автопилота
 
 <!-- дата — что — почему; пишет обычная сессия, следующая сборка разбирает -->
+
+- 2026-10-24 — закрыт весь список «Известные баги» (9 находок + устаревший CRLF):
+  `indices-audit-build.js` — отказ на дубль строки в матрице/частоте/атрибутах/странах,
+  `trimUrlTail` с балансом скобок, циклические перестановки показываются цепочкой
+  (`moveCycles`), `projectIds` проведён в `validateSource`/`orderOf`; md-источник —
+  INFORM в «Частоте» больше не называет проверенным XLSX-WAF-заглушку, UCDP «В»
+  смягчён до «where available», BGRI конструкт сводит «окно 5 лет» и «с 2017 года»
+  (обзор Альфа-Банка, не проверен); `calc/ledger.js` печатная ветка CLI получает
+  `rootDir`, `calc/quotes.js` гард режет пустой/нестроковой id до чтения корпуса,
+  `calc/backtest.js` note с заглавной; страница и `validation.json`/`validation.html`
+  пересобраны (`indices-audit-build.js --write`, `backtest.js --write`); CRLF-пункт
+  снят — починен ранее коммитом beabacf (.gitattributes). Регрессионные тесты:
+  дубли строк, URL со скобками, точный legalcode-href, moveCycles, projectIds,
+  пустой id цитат, CLI ledger без --write; пины backtest обновлены.
+  `node --test` из корня: 849 passed / 0 fail.

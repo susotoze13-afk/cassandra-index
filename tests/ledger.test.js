@@ -9,6 +9,7 @@ import {
 } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 import {
   LEDGER_SCHEMA,
@@ -306,4 +307,14 @@ test('data/public/forecast-ledger.json опубликован и несёт сх
     assert.ok(['cluster', 'direction'].includes(m.field));
     assert.notEqual(m.expected, m.actual);
   }
+});
+
+test('CLI без --write: печатная ветка получает rootDir и не падает', () => {
+  // Регрессия: ветка печати вызывала buildLedger без rootDir (anchorsDir → от undefined).
+  const stdout = execFileSync(process.execPath, [path.join(ROOT, 'calc', 'ledger.js')], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+  assert.match(stdout, /не записано: data\/public\/forecast-ledger\.json/);
+  assert.match(stdout, /baseline: \d+ записей/);
 });

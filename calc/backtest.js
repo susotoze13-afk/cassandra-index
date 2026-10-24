@@ -499,7 +499,7 @@ function comparatorOf(id, fixture, series) {
   if (meta.granularity === 'month') {
     const incomplete = incompleteMonths(source, fixture.series);
     if (incomplete.length > 0) {
-      notes.push(`ряд ${incomplete.join(', ')} неполный (as_of ${source.as_of})`);
+      notes.push(`Ряд ${incomplete.join(', ')} неполный (as_of ${source.as_of})`);
     }
   }
   return {

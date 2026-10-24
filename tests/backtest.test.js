@@ -372,7 +372,7 @@ test('buildValidation: неполный месяц — note у компарат�
 
   const v = buildValidation({ weeks: WEEKS, loadSnapshot: snapshotsFor(), fixturesDir: dir });
   const acled = v.comparators[1];
-  assert.match(acled.note, /ряд 2026-10 неполный \(as_of 2026-10-09\)/);
+  assert.match(acled.note, /Ряд 2026-10 неполный \(as_of 2026-10-09\)/);
   // недостаток пар никуда не делся — обе пометки в одном note
   assert.match(acled.note, /Пересечение короче порога/);
 
@@ -394,7 +394,7 @@ test('реальные фикстуры: неполный месяц ACLED', () 
     fixturesDir: FIXTURES,
   });
   const [gpr, acled, cw] = v.comparators;
-  assert.match(acled.note, /ряд 2026-10 неполный \(as_of 2026-10-09\)/);
+  assert.match(acled.note, /Ряд 2026-10 неполный \(as_of 2026-10-09\)/);
   assert.equal(gpr.note, null);
   assert.doesNotMatch(cw.note, /неполный/);
   const cli = spawnSync(process.execPath, ['calc/backtest.js'], { cwd: ROOT, encoding: 'utf8' });

@@ -99,8 +99,9 @@ export function verifyQuotes(sources, corpusDir, opts = {}) {
     if (!s || typeof s !== 'object' || !Array.isArray(s.quotes)) return;
     const id = typeof s.id === 'string' ? s.id : '';
     // id небезопасен — корпус по нему не читаем вообще: path traversal из записи
-    // источника не должен дотянуться до файла вне corpusDir.
-    if (id !== '' && !SAFE_ID_RE.test(id)) {
+    // источника не должен дотянуться до файла вне corpusDir. Пустой и
+    // нестроковой id сюда же: по ним читался бы <corpusDir>/.txt (каталог).
+    if (!SAFE_ID_RE.test(id)) {
       res.skipped += s.quotes.length;
       res.errors.push(`sources[${i}].id: unsafe id`);
       return;

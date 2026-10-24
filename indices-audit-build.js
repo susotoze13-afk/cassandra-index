@@ -245,9 +245,12 @@ export function parseSource(markdown, { projectIds = PROJECT_IDS } = {}) {
   const byName = new Map(projects.map((project) => [project.name, project]));
 
   const matrixHeader = ['Проект', ...CRITERIA];
+  const seenMatrix = new Set();
   for (const [name, ...cells] of tableOf(sectionOf(sections, 'Матрица'), matrixHeader)) {
     const project = byName.get(name);
     if (!project) fail(`матрица: неизвестный проект «${name}»`);
+    if (seenMatrix.has(name)) fail(`матрица, ${name}: строка повторяется`);
+    seenMatrix.add(name);
     CRITERIA.forEach((code, index) => {
       const cell = cells[index];
       if (cell === '✔') project.matrix[code] = true;
@@ -273,6 +276,7 @@ export function parseSource(markdown, { projectIds = PROJECT_IDS } = {}) {
   ).map(([name, frequency]) => [name, frequency])) {
     const project = byName.get(name);
     if (!project) fail(`частота: неизвестный проект «${name}»`);
+    if (project.frequency !== null) fail(`частота, ${name}: строка повторяется`);
     project.frequency = frequency;
   }
 
@@ -283,16 +287,22 @@ export function parseSource(markdown, { projectIds = PROJECT_IDS } = {}) {
   )) {
     const project = byName.get(name);
     if (!project) fail(`атрибуты: неизвестный проект «${name}»`);
+    if (project.attributes !== null) fail(`атрибуты, ${name}: строка повторяется`);
     project.attributes = { resolution, since, lag, where, checked };
   }
 
   const countrySection = sectionOf(sections, 'Страны');
   const countryChecked = /Дата проверки каждой клетки\s*[—–-]\s*(\d{4}-\d{2}-\d{2})/.exec(countrySection.lines.join('\n'));
   if (!countryChecked) fail('в разделе «Страны» нет строки «Дата проверки каждой клетки — YYYY-MM-DD»');
-  const countries = tableOf(countrySection, ['Страна', ...projectIds]).map(([name, ...cells]) => ({
-    name,
-    cells: cells.map(countryCell),
-  }));
+  const seenCountry = new Set();
+  const countries = tableOf(countrySection, ['Страна', ...projectIds]).map(([name, ...cells]) => {
+    if (seenCountry.has(name)) fail(`страны: строка «${name}» повторяется`);
+    seenCountry.add(name);
+    return {
+      name,
+      cells: cells.map(countryCell),
+    };
+  });
 
   const unverified = tableOf(
     sectionOf(sections, 'Не проверено'),
@@ -326,7 +336,7 @@ function countIf(project, codes) {
 
 // ---------- Проверка источника ----------
 
-export function validateSource(model) {
+export function validateSource(model, { projectIds = PROJECT_IDS } = {}) {
   const errors = [];
   const push = (message) => errors.push(message);
   if (!model || typeof model !== 'object') return ['модель источника пуста'];
@@ -346,13 +356,13 @@ export function validateSource(model) {
   });
 
   const projects = Array.isArray(model.projects) ? model.projects : [];
-  if (projects.length !== PROJECT_IDS.length) {
-    push(`проектов ${projects.length}, а должно быть ${PROJECT_IDS.length}`);
+  if (projects.length !== projectIds.length) {
+    push(`проектов ${projects.length}, а должно быть ${projectIds.length}`);
   }
   const seen = new Set();
   const seenNames = new Set();
   for (const [index, project] of projects.entries()) {
-    const expected = PROJECT_IDS[index];
+    const expected = projectIds[index];
     if (project.id !== expected) push(`проект №${index + 1}: слаг «${project.id}» вместо «${expected}»`);
     if (seen.has(project.id)) push(`проект ${project.id}: слаг повторяется`);
     seen.add(project.id);
@@ -400,8 +410,8 @@ export function validateSource(model) {
   }
   for (const row of countryRows) {
     if (!row.name) push('в таблице стран пустое название');
-    if (row.cells.length !== PROJECT_IDS.length) {
-      push(`страна «${row.name}»: ${row.cells.length} клеток вместо ${PROJECT_IDS.length}`);
+    if (row.cells.length !== projectIds.length) {
+      push(`страна «${row.name}»: ${row.cells.length} клеток вместо ${projectIds.length}`);
     }
     for (const cell of row.cells) {
       if (!['страна', 'регион', 'нет', 'unverified'].includes(cell.kind)) {
@@ -489,10 +499,35 @@ export function matrixStats(model) {
   };
 }
 
-function orderOf(scores) {
+function orderOf(scores, projectIds = PROJECT_IDS) {
   return [...scores]
-    .sort((a, b) => b.score - a.score || PROJECT_IDS.indexOf(a.id) - PROJECT_IDS.indexOf(b.id))
+    .sort((a, b) => b.score - a.score || projectIds.indexOf(a.id) - projectIds.indexOf(b.id))
     .map((row) => row.id);
+}
+
+// Перестановка мест — это циклы: при повороте троих честнее «A: 1 → 3; C: 3 → 2;
+// B: 2 → 1» (цепочка), чем три независимых «было → стало», читающихся как обмены
+// пар. Раскладываем смещённые позиции на циклы и выдаём каждый цикл в порядке
+// цепочки: пункт назначения одного — пункт отправления следующего.
+export function moveCycles(baseline, order) {
+  const moves = order
+    .map((id, index) => ({ id, from: baseline.indexOf(id) + 1, to: index + 1 }))
+    .filter((move) => move.from !== move.to);
+  const byFrom = new Map(moves.map((move) => [move.from, move]));
+  const seen = new Set();
+  const cycles = [];
+  for (const start of [...moves].sort((a, b) => a.from - b.from)) {
+    if (seen.has(start.id)) continue;
+    const chain = [];
+    let move = start;
+    while (move && !seen.has(move.id)) {
+      seen.add(move.id);
+      chain.push(move);
+      move = byFrom.get(move.to);
+    }
+    cycles.push(chain);
+  }
+  return cycles;
 }
 
 export function sensitivityRows(model) {
@@ -558,9 +593,24 @@ function paragraphWithLinks(text) {
 }
 
 // Адрес в прозе может стоять перед точкой, запятой или закрывающей скобкой:
-// хвостовая пунктуация не входит ни в href, ни в текст ссылки.
+// хвостовая пунктуация не входит ни в href, ни в текст ссылки. Закрывающую
+// скобку режем, только если она непарная: «(bar)» в конце настоящего URL
+// (https://example.com/foo_(bar)) — часть адреса, а не пунктуация.
 function trimUrlTail(rawUrl) {
-  return rawUrl.replace(/[.,;:!?)\]»]+$/, '');
+  const count = (text, ch) => text.split(ch).length - 1;
+  let url = rawUrl;
+  for (;;) {
+    const last = url[url.length - 1] ?? '';
+    if ('.,;:!?»'.includes(last)) {
+      url = url.slice(0, -1);
+    } else if (last === ')' && count(url, ')') > count(url, '(')) {
+      url = url.slice(0, -1);
+    } else if (last === ']' && count(url, ']') > count(url, '[')) {
+      url = url.slice(0, -1);
+    } else {
+      return url;
+    }
+  }
 }
 
 function link(href, text) {
@@ -852,12 +902,12 @@ export function renderPage(model) {
   ]));
 
   const sensitivityRowsHtml = sensitivity.map((row) => {
-    const moves = row.order
-      .map((id, index) => ({ id, from: baseline.indexOf(id) + 1, to: index + 1 }))
-      .filter((move) => move.from !== move.to);
-    const description = moves.length === 0
+    const cycles = moveCycles(baseline, row.order);
+    const description = cycles.length === 0
       ? 'порядок не изменился'
-      : moves.map((move) => `${escapeHtml(nameOf(move.id))}: ${move.from} → ${move.to}`).join('; ');
+      : cycles
+        .map((chain) => chain.map((move) => `${escapeHtml(nameOf(move.id))}: ${move.from} → ${move.to}`).join('; '))
+        .join('; ');
     return `<tr><th scope="row">${escapeHtml(PROJECT_LABELS[row.key])}</th><td>${row.delta > 0 ? '+' : '−'}5 п.п.</td><td>${description}</td></tr>`;
   });
   const edgesStable = topStable && bottomStable;

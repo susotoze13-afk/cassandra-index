@@ -22,6 +22,7 @@ import {
   weightedRows,
   matrixStats,
   sensitivityRows,
+  moveCycles,
   renderPage,
   buildOutputs,
 } from '../indices-audit-build.js';
@@ -63,6 +64,40 @@ test('испорченный источник — понятная ошибка,
   const errors = validateSource(brokenModel);
   assert.ok(errors.length > 0, 'расхождение матрицы и развёртки должно ловиться');
   assert.match(errors.join('\n'), /Д/);
+});
+
+// Вставляет копию первой строки таблицы раздела, подходящей predicate, сразу
+// после оригинала — имитация дубля строки в источнике.
+function withDuplicatedRow(section, predicate) {
+  const start = source.indexOf(`## ${section}`);
+  assert.ok(start >= 0, `нет раздела «${section}»`);
+  const end = source.indexOf('\n## ', start + 1);
+  const block = source.slice(start, end === -1 ? source.length : end);
+  const lines = block.split('\n');
+  const index = lines.findIndex((line) => line.startsWith('|') && predicate(line));
+  assert.ok(index > 0, `в разделе «${section}» нет строки для дубля`);
+  lines.splice(index + 1, 0, lines[index]);
+  const next = end === -1 ? '' : source.slice(end);
+  return source.slice(0, start) + lines.join('\n') + next;
+}
+
+test('дубль строки в матрице/частоте/атрибутах/странах — отказ, а не перезапись', () => {
+  assert.throws(
+    () => parseSource(withDuplicatedRow('Матрица', (l) => l.startsWith('| Cassandra Index |'))),
+    /матрица, Cassandra Index: строка повторяется/,
+  );
+  assert.throws(
+    () => parseSource(withDuplicatedRow('Частота', (l) => l.startsWith('| Cassandra Index |'))),
+    /частота, Cassandra Index: строка повторяется/,
+  );
+  assert.throws(
+    () => parseSource(withDuplicatedRow('Атрибуты', (l) => l.startsWith('| Cassandra Index |'))),
+    /атрибуты, Cassandra Index: строка повторяется/,
+  );
+  assert.throws(
+    () => parseSource(withDuplicatedRow('Страны', (l) => l.startsWith('| Россия |'))),
+    /страны: строка «Россия» повторяется/,
+  );
 });
 
 test('взвешенная шкала: 12 баллов из матрицы совпадают со статьёй', () => {
@@ -300,6 +335,55 @@ test('ссылка на legalcode: хвостовая пунктуация не 
     assert.ok(!/href="https:\/\/creativecommons\.org\/licenses\/by\/4\.0\/legalcode[.,;:!?]/.test(html),
       `href с хвостовой пунктуацией: ${license}`);
   }
+  // Точный адрес реальной лицензии страницы — без точки в конце предложения.
+  assert.ok(page.includes('href="https://creativecommons.org/licenses/by/4.0/legalcode"'),
+    'на странице нет legalcode-ссылки с точным адресом');
+});
+
+test('URL с парной скобкой: «)» — часть адреса, непарная режется', () => {
+  const license = 'Условия: https://en.wikipedia.org/wiki/Geopolitical_risk_(index). Далее текст.';
+  const html = renderPage({ ...model, license });
+  assert.ok(html.includes('href="https://en.wikipedia.org/wiki/Geopolitical_risk_(index)"'),
+    'парная скобка в конце URL должна остаться в href');
+  assert.ok(!html.includes('href="https://en.wikipedia.org/wiki/Geopolitical_risk_(index).'),
+    'точка после парной скобки не должна попадать в href');
+  // Непарная закрывающая скобка — пунктуация вокруг ссылки, режется по-прежнему.
+  const wrapped = renderPage({ ...model, license: 'Условия (https://creativecommons.org/licenses/by/4.0/legalcode).' });
+  assert.ok(wrapped.includes('href="https://creativecommons.org/licenses/by/4.0/legalcode"'),
+    'непарная скобка режется, адрес цел');
+});
+
+test('moveCycles: поворот троих — одна цепочка, обмен пар — цепочка из двух', () => {
+  const rotation = moveCycles(['a', 'b', 'c', 'd'], ['b', 'c', 'a', 'd']);
+  assert.equal(rotation.length, 1, 'поворот троих — один цикл');
+  assert.deepEqual(rotation[0].map((m) => m.id), ['a', 'c', 'b'], 'цепочка: пункт назначения = пункт отправления следующего');
+  for (let i = 0; i < rotation[0].length; i += 1) {
+    const next = rotation[0][(i + 1) % rotation[0].length];
+    assert.equal(rotation[0][i].to, next.from, 'цикл замкнут через from/to');
+  }
+
+  const swap = moveCycles(['a', 'b', 'c', 'd'], ['b', 'a', 'c', 'd']);
+  assert.equal(swap.length, 1);
+  assert.deepEqual(swap[0].map((m) => m.id), ['a', 'b'], 'обмен пар — цепочка из двух');
+  assert.deepEqual(moveCycles(['a', 'b'], ['a', 'b']), [], 'без сдвигов циклов нет');
+});
+
+test('projectIds: опция parseSource согласована с validateSource', () => {
+  // Усечённая модель (два проекта) валидна с projectIds из двух слаг,
+  // а с дефолтным списком отклоняется по числу проектов и клеток стран.
+  const mini = {
+    ...model,
+    projects: model.projects.slice(0, 2),
+    countries: {
+      ...model.countries,
+      rows: model.countries.rows.map((row) => ({ name: row.name, cells: row.cells.slice(0, 2) })),
+    },
+  };
+  assert.deepEqual(validateSource(mini, { projectIds: PROJECT_IDS.slice(0, 2) }), [],
+    'модель из двух проектов валидна с projectIds из двух слаг');
+  const errors = validateSource(mini);
+  assert.match(errors.join('\n'), /проектов 2, а должно быть 12/);
+  assert.match(errors.join('\n'), /2 клеток вместо 12/);
 });
 
 test('выкат: страница в cp-строке deploy.yml', () => {

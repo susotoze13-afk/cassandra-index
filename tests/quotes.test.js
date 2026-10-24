@@ -171,6 +171,22 @@ test('verifyQuotes: id с разделителем пути отклоняетс
   assert.match(res.errors[0], /sources\[0\]\.id: unsafe id/);
 });
 
+test('verifyQuotes: пустой и нестроковой id отклоняются до чтения корпуса', () => {
+  // Пустой id дочитывал <corpusDir>/.txt (каталог как файл), нестроковой — приводился к ''.
+  for (const bad of ['', 42, null]) {
+    const calls = [];
+    const res = verifyQuotes(
+      [{ id: bad, quotes: [{ criterion: 'D1.1', text: 'фрагмент' }] }],
+      '/nonexistent-corpus',
+      { readText: (file) => { calls.push(file); return 'фрагмент'; } },
+    );
+    assert.equal(calls.length, 0, `корпус не читается по id ${JSON.stringify(bad)}`);
+    assert.equal(res.skipped, 1);
+    assert.equal(res.errors.length, 1);
+    assert.match(res.errors[0], /sources\[0\]\.id: unsafe id/);
+  }
+});
+
 // --- Ворота входа: validateInputSources вызывает проверку формы ---
 
 test('validateInputSources: битая цитата отклоняется в стиле остальных полей источника', () => {
