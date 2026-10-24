@@ -1,9 +1,9 @@
 <!-- autopilot:progress -->
 # Cassandra Index — что осталось
 
-Последняя сборка: `.autopilot/2026-10-24-regional-iwith-degeneracy/` — в региональных
-гипотетиках §7 драйвер считается при ≥1 покрытом критерии (эпсилон вместо 50 %),
-forward-only с недели 2026-10-25; ADR 0065, O10 закрыта, глобальный ряд не сдвинулся.
+Последняя сборка: `.autopilot/2026-10-24-known-bugs-batch/` — 13 известных багов из
+PROGRESS.md закрыты (docs/api.md, ledger, backtest, public-export, quotes, тесты);
+глобальный ряд и `PUBLIC_SCHEMA_VERSION = 1` не двигались.
 
 ## Договорились — не пересматривать
 
@@ -15,36 +15,31 @@ forward-only с недели 2026-10-25; ADR 0065, O10 закрыта, глоб�
   forward-only `precursor`, `validation.json` из `backtest.js --write`, `forecast-ledger.json` из `ledger.js --write`.
 - Региональный порог гипотетик — forward-only: недели < 2026-10-25 считают по глобальному 50 %
   (ADR 0065); переписывать опубликованную историю автоматика не вправе.
+- `verified: null` в `forecast-ledger.json` различается парой `(outcome, actualIndex)`;
+  нового поля под причину не заводить (решение пользователя 2026-10-24, ADR 0066).
 
 ## Не доделано
 
-- **Пересчёт региональной истории 08-30…10-18** (O11): рекомендуемый брифом шаг. Включает
-  `node calc/calc.js --write 2026-08-30 … 2026-10-18` (нужна сеть), `public-export.js --write`,
-  `digest-export.js --write`, обновление пинов, `node --test`. Для этого сдвинуть
-  `PARAMS.regionHypothesisFrom` на `2026-08-30`. Без пересчёта опубликованная 10-18 остаётся
-  56/58, хотя `iWith` при правиле E равен 77/60.
+- **Пересчёт региональной истории 08-30…10-18** (O11): `node calc/calc.js --write 2026-08-30 … 2026-10-18`
+  (нужна сеть), `public-export.js --write`, `digest-export.js --write`, обновление пинов, `node --test`;
+  сдвинуть `PARAMS.regionHypothesisFrom` на `2026-08-30`.
 - Пять новых схем публичного слоя ещё не на сайте: нужен push в `master` и выкат `deploy.yml`.
 - ACLED Conflict Index как композит не сравнивается (D01): полугодовой, без машинного доступа.
 - Lead/lag по месячным рядам не считается: 2–3 точки, сдвиг неинформативен.
 - Фикстуры GPR/ACLED/CrisisWatch сняты на 2026-10-18 и сами не обновляются.
 - Редакционных форвардных якорей нет ни одного; журнал показывает только baseline.
+- Третья причина `verified: null` (нет `gitProbe`, нет коммита якоря или `week.js`) парой не
+  различается — ограничение записано в ADR 0066, новое поле не заводится.
 
 ## Известные баги
 
-- `calc/params.js:60` — комментарий гипотетик (исправлен в F1; при следующей правке рядом не терять завершённость фразы).
-- `tests/regional-hypothesis.test.js:60` — название теста говорит «эпсилон», хотя порог подменён на 0.42.
-- `docs/preproduction-decisions.md` и `docs/regional-iwith-degeneracy.md` — ссылка «коммит autopilot-прогона 2026-10-24» без хеша; вписать при следующей правке.
-- `docs/api.md`: верхнеуровневое поле `methodology` в `index.json` указано ошибочно.
-- `docs/api.md`: «опубликованный выпуск не переписывается» — `writeDigestData` пересобирает.
-- `docs/api.md`: «до 12 записей» дублирует `MAX_DISCREPANCIES` без пина; примеры с «…» — невалидный JSON.
-- Сторож `docs/api.md` ищет путь подстрокой.
-- `tests/public-contract.test.js`: nullable-тест покрывает не все nullable-пути.
-- `calc/ledger.js`: `verified:null` не различает три причины; `writeLedger` без `anchorsDir` читает боевой каталог.
-- `calc/backtest.js`: ACLED за 2026-10 считается по 2026-10-09 без пометки.
-- `calc/public-export.js --write` печатает «водопад: нет» при верных данных.
-- `calc/public-export.js`: `trend.svg` рисует одну полилинию по всем 12 точкам, включая демо-1.0.
-- `calc/quotes.js` не проверяет `id` источника на путь (`../`).
+- `calc/ledger.js:360` — печатная ветка CLI без `--write` вызывает `buildLedger` без `rootDir`:
+  при `--root <другой>` якоря читаются из боевого каталога.
+- `calc/quotes.js:103` — гард `id !== '' && !SAFE_ID_RE.test(id)` пропускает пустой id до чтения корпуса.
+- `calc/backtest.js:502` — `note` начинается строчной буквой и склеивается через пробел после точки:
+  «…не публикуется. ряд 2026-10 неполный…» (видимый текст `validation.json`/`validation.html`).
 - `git clone` на Windows с `core.autocrlf=true` даёт падение двух тестов (CRLF).
+- `tests/regional-hypothesis.test.js:63` — комментарий упоминает «эпсилон»; заголовок теста верный.
 
 ## Правки без автопилота
 

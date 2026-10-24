@@ -47,4 +47,20 @@ forecast-ledger.json; различие причин `verified:null` докуме
 
 ## Что закрыли тикеты (дополняется по мере прогона)
 
-(пока пусто)
+### T03 (ledger + quotes)
+- `buildLedger({rootDir, weeks, loadSnapshot, anchorsDir, gitProbe})` / `writeLedger({rootDir, ...})` — дефолт anchorsDir от `rootDir`; константа ANCHORS_DIR удалена. CLI без --root работает прежне.
+- `verifyQuotes(sources, corpusDir, opts)` — id вне `^[A-Za-z0-9_-]+$` → `{skipped+1, errors:["sources[i].id: unsafe id"]}`, корпус не читается. Реальные id 09-20/09-27 проходят паттерн.
+- Description `verified` в FORECAST_LEDGER_SCHEMA: pending + actualIndex null → неделя не опубликована; иначе null → git-история недели недоступна (текст, структура без изменений).
+
+### T02 (тесты публичного контракта)
+- Тестовый шов сторожа: `apiMentionsPath(api, url): boolean` — вхождение с не-буквенно-цифровыми границами или строка markdown-таблицы; URL-вложение не засчитывается.
+- Пин: число записей расхождений в docs/api.md сверено с импортированным `MAX_DISCREPANCIES` (число, не формулировка).
+- Nullable-покрытие: все пути notes §8 (week 23, validation 12, regions 1, ledger 9) + негативный контроль.
+
+### T04 (backtest: неполный месяц ACLED)
+- `incompleteMonths(source, series) → string[]` — месяцы YYYY-MM, где as_of раньше конца месяца (as_of вида YYYY-MM — закрытый месяц, не помечается).
+- `comparatorOf().note` — склейка через пробел: insufficient-предложение (как раньше) + «ряд YYYY-MM неполный (as_of …)»; `comparatorLine` дописывает «, пометка: …». Новых полей нет.
+
+### T05 (public-export: водопад и trend.svg)
+- `waterfallReasonFor(week, snapshot, prevSnapshot, prevWeek, rootDir=ROOT) → string|null` — отдельный шов причины ('нет входа недели' | 'смена методологии у прошлой недели' | 'нет входа прошлой недели' | 'ошибка построения водопада'); печать main(): «водопад: есть» | «водопад: нет (<причина>)».
+- `toTrendSvg` — по `<polyline>` на сегмент methodology; точки без версии подписаны «без версии», не выдуманным номером.
