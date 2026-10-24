@@ -122,7 +122,7 @@ export function computeWeek(input, state = {}, params = PARAMS) {
   const classification = classifyPublication(g, drivers, params);
 
   const prevRegions = st.prevRegions;
-  const signals = regionalSignals(input.criteria, regionIds, params);
+  const signals = regionalSignals(input.criteria, regionIds, params, week);
   const regions = {};
   for (const id of regionIds) {
     const r = regionalIndex(

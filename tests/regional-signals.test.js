@@ -91,7 +91,11 @@ test('regionalSignals: смешанная неделя — только реги
   assert.equal(eu.eDyn, 3 / 5);  // доля сигналов региона в общем потоке (5 покрытых)
   assert.equal(eu.hasDeescSignals, true); // D1.6 deesc, value > 0
   assert.ok(Math.abs(eu.iWith - 72.61) < 0.01); // ручной прогон выше
-  assert.equal(eu.iWithout, 0); // без сигналов Европы D1 не покрыт (1/6 < 50 %)
+  // iWithout: без сигналов Европы D1 покрыт 1/6 (D1.3) — по глобальному порогу
+  // 50 % это null, но гипотетики считаются по правилу «≥1 покрытого критерия»
+  // (ADR 0065, эпсилон): S = 0.2; curve(0.2) = 100·(1−e^{−0.39})/(1−e^{−1.95})
+  // ≈ 37.65.
+  assert.ok(Math.abs(eu.iWithout - 37.65) < 0.01);
 
   const af = out.africa;
   assert.equal(af.nReg, 1);

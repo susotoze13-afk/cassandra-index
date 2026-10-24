@@ -565,9 +565,28 @@ export function regionalIndex(global, region, params) {
   };
 }
 
+// --- §7 (ADR 0065): параметры гипотетик iWith/iWithout ---
+// Порог покрытия гипотетик: драйвер покрыт, если в региональном подмножестве
+// есть хотя бы один его покрытый критерий (regionHypothesisThreshold, эпсилон
+// вместо глобальных 50 % §4.2). Гейт forward-only: недели раньше
+// regionHypothesisFrom считаются по глобальному порогу — опубликованная история
+// не переписывается. Пустая/отсутствующая дата гейта и вызов без недели (чистый
+// юнит) — правило действует всегда (прецедент independenceGateFrom).
+// Чистая функция: входной объект параметров не мутируется.
+export function regionalHypothesisParams(params, week) {
+  const p = params || PARAMS;
+  const from = p.regionHypothesisFrom;
+  if (typeof from === 'string' && from !== '' && typeof week === 'string' && week < from) {
+    return p;
+  }
+  return { ...p, coverageThreshold: p.regionHypothesisThreshold ?? 1e-9 };
+}
+
 // --- §7: агрегация региональной атрибуции критериев в сигналы региона ---
 // criteria: входная карта критериев (input.criteria после validate);
-// regionIds: whitelist регионов (по умолчанию — REGION_IDS из js/data.js).
+// regionIds: whitelist регионов (по умолчанию — REGION_IDS из js/data.js);
+// week: дата недели (YYYY-MM-DD) для гейта порога гипотетик (ADR 0065);
+// отсутствие недели — новое правило действует (чистый юнит).
 // Возвращает { [regionId]: {nReg, eStruct, eDyn, hasDeescSignals, iWith,
 // iWithout} } только для регионов с ≥1 региональным сигналом; {} при
 // отсутствии атрибуции. Результат — готовый вход engine.regionalIndex.
@@ -599,8 +618,10 @@ export function regionalIndex(global, region, params) {
 //   - iWith — гипотетический индекс §5 (шаги 2–6) по сигналам региона;
 //     iWithout — тот же прогон по всем покрытым критериям недели без сигналов
 //     региона (сигналы других регионов остаются).
-export function regionalSignals(criteria, regionIds, params) {
+export function regionalSignals(criteria, regionIds, params, week) {
   const p = params || PARAMS;
+  // Гипотетики считаются с порогом из гейта (ADR 0065), остальные поля — из p.
+  const pRegion = regionalHypothesisParams(p, week);
   const whitelist = Array.isArray(regionIds) && regionIds.length ? regionIds : REGION_IDS;
   const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
   const eligible = (id) => {
@@ -646,8 +667,8 @@ export function regionalSignals(criteria, regionIds, params) {
       hasDeescSignals: signals.some(
         ({ id, entry }) => CRITERIA[id].dir === 'deesc' && normalizeCriterion(entry, p) > 0,
       ),
-      iWith: hypotheticalIndex(withMap, p),
-      iWithout: hypotheticalIndex(withoutMap, p),
+      iWith: hypotheticalIndex(withMap, pRegion),
+      iWithout: hypotheticalIndex(withoutMap, pRegion),
     };
   }
   return out;
