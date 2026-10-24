@@ -121,6 +121,79 @@ test('устойчивость ±5 п.п.: верх и низ не двигаю�
   assert.ok(swaps > 0, 'ни один сдвиг веса не дал обменов мест — проверка ничего не проверяет');
 });
 
+test('источник: INFORM/Д подтверждён страницей Results and data, а не XLSX-заглушкой', () => {
+  const inform = model.projects.find((project) => project.id === 'inform');
+  const unverified = model.unverified.find((row) => row.project === 'INFORM');
+  assert.ok(unverified, 'INFORM должен быть в разделе «Не проверено»');
+  assert.match(unverified.reason, /WAF/i, 'причина непроверенного XLSX — WAF-заглушка');
+  const basis = inform.basis['Д'];
+  assert.match(basis, /Results and data/, 'подтверждение — страница со списком стран');
+  assert.match(basis, /191/, 'страница называет 191 позицию');
+  assert.ok(!/XLSX[^.;]*—\s*проверено/.test(basis),
+    'XLSX назван подтверждением, хотя в «Не проверено» он WAF-заглушка');
+});
+
+test('источник: FSI/Д подтверждён тем, что открылось, а не выгрузками', () => {
+  const fsi = model.projects.find((project) => project.id === 'fsi');
+  const unverified = model.unverified.find((row) => row.project === 'Fragile States Index');
+  assert.ok(unverified, 'FSI должен быть в разделе «Не проверено»');
+  assert.match(unverified.reason, /Tableau/, 'причина — пустой Tableau-embed');
+  assert.match(unverified.reason, /XLSX/, 'причина — обрезанные XLSX');
+  const basis = fsi.basis['Д'];
+  assert.match(basis, /200/, 'подтверждение называет реально полученный ответ страниц');
+  assert.ok(!/выгрузк/i.test(basis) || /обрезан|не (скачал|открыл|получен)|Tableau/i.test(basis),
+    '«подтверждено выгрузками» не может стоять рядом с «обрезанные XLSX»');
+});
+
+test('источник: INFORM/В не ссылается на файл, названный WAF-заглушкой', () => {
+  const inform = model.projects.find((project) => project.id === 'inform');
+  const unverified = model.unverified.find((row) => row.project === 'INFORM');
+  const stubbed = /INFORM_Risk_Mid_(\d+)_v(\d+)\.xlsx/.exec(unverified.reason);
+  const basis = inform.basis['В'];
+  assert.match(basis, /год/i, 'версии должны называть год и полугодие');
+  assert.ok(!/Mid_2026|INFORM_Risk_/i.test(basis),
+    'файл, названный в «Не проверено» WAF-заглушкой, не может подтверждать версии');
+  assert.ok(!stubbed || !basis.includes(stubbed[0]), 'неподтверждённый XLSX не может быть основанием «В»');
+});
+
+test('генератор: дата среза и число непроверенного берутся из модели, а не вписаны', () => {
+  const mutated = { ...model, date: '2026-11-05', unverified: model.unverified.slice(0, 3) };
+  const html = renderPage(mutated);
+  assert.ok(html.includes('5 ноября 2026'), 'дата среза в прозе — из model.date');
+  assert.ok(!html.includes('24 октября'), 'вписанная дата не должна переживать смену model.date');
+  assert.ok(html.includes('проверок, которые не удалось довести до конца: 3'), 'число непроверенного считается из модели');
+  assert.ok(!/все клетки проверены/i.test(html), '«все клетки проверены» — ложное утверждение');
+});
+
+test('таблица устойчивости: у каждого сдвинувшегося проекта есть «было → стало»', () => {
+  const html = renderPage(model);
+  // При +5 к открытости War Monitor поднимается с 10-го места на 9-е, GDELT опускается с 9-го на 10-е.
+  assert.ok(html.includes('GDELT: 9 → 10'), 'нет позиции «было → стало» для GDELT');
+  assert.ok(html.includes('War Monitor: 10 → 9'), 'нет позиции «было → стало» для War Monitor');
+});
+
+test('фраза «все они — в середине списка» вычисляется, а не вписана', () => {
+  // Синтетика: у всех проектов пустая матрица и нулевое покрытие; Cassandra открыта
+  // только по Д, ACLED — только по Ф. Эти два проекта обмениваются первым местом
+  // при сдвиге веса, значит «верх не двигался» уже неверно.
+  const empty = Object.fromEntries(CRITERIA.map((code) => [code, false]));
+  const projects = model.projects.map((project) => ({
+    ...project,
+    frequency: 'dashboard',
+    matrix: { ...empty },
+    basis: Object.fromEntries(CRITERIA.map((code) => [code, '— тест'])),
+  }));
+  projects[0].matrix = { ...empty, 'Д': true };
+  projects[1].matrix = { ...empty, 'Ф': true };
+  const html = renderPage({ ...model, projects });
+  assert.ok(!html.includes('все они — в середине списка'),
+    'верх двигался, значит «все они — в середине списка» — вписанная фраза');
+  assert.ok(html.includes('часть обменов затрагивает верх или низ списка'),
+    'фраза должна строиться из флага «верх и низ не двигались»');
+  // На реальных данных верх и низ устойчивы — фраза честно стоит.
+  assert.ok(renderPage(model).includes('все они — в середине списка'));
+});
+
 test('buildOutputs возвращает один файл, равный renderPage на диске', () => {
   const outputs = buildOutputs(ROOT);
   assert.equal(outputs.length, 1);

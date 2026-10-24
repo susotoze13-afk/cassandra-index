@@ -63,7 +63,7 @@
       <h2 id="what-title">Что это</h2>
       <p>Аудит сравнивает 12 публичных индексов и баз риска по десяти бинарным признакам проверяемости: можно ли скачать данные, опубликованы ли формула и веса, назван ли источник у отдельной записи, опубликованы ли границы применимости и оценка неопределённости, есть ли версии и история, свободная ли лицензия, длиннее ли пяти лет ряд, есть ли страновой уровень и проходил ли метод внешнюю проверку.</p>
       <p>Признак считается подтверждённым только публичным документом по ссылке из карточки проекта. Спорная клетка кодируется минусом. Аудит фиксирует, что опубликовано, а не насколько проект хорош.</p>
-      <p>Cassandra Index кодирован теми же правилами, что и остальные проекты: это самоаудит, конфликт интересов раскрыт в статье. Все клетки проверены 24 октября 2026 года.</p>
+      <p>Cassandra Index кодирован теми же правилами, что и остальные проекты: это самоаудит, конфликт интересов раскрыт в статье. Каждая из 120 пар «проект × критерий» разобрана 24 октября 2026; проверок, которые не удалось довести до конца: 8 — их адреса, даты и коды ответов в разделе «Что не удалось проверить».</p>
     </section>
 
     <section id="criteria" aria-labelledby="criteria-title">
@@ -361,12 +361,12 @@
             <tr id="cell-gpr-i"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Исторический ряд: 3 газеты с 1900, 10 газет с 1985 — matteoiacoviello.com/gpr.htm, проверено 2026-10-24</td></tr>
             <tr id="cell-gpr-st"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>44 страновых индекса, список на matteoiacoviello.com/gpr_country.htm — проверено 2026-10-24</td></tr>
             <tr id="cell-gpr-r"><td><a href="#project-gpr">GPR Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>Публикация в AER 2022 (deep dive §5.6) — проверено 2026-10-24</td></tr>
-            <tr id="cell-inform-d"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>XLSX и страница Results and data со списком 191 страны и территории — проверено 2026-10-24 (headless Chrome)</td></tr>
+            <tr id="cell-inform-d"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Страница Results and data со списком 191 страны и территории открылась — проверено 2026-10-24 (headless Chrome); XLSX-выгрузка вернула WAF-заглушку, см. раздел «Что не удалось проверить»</td></tr>
             <tr id="cell-inform-f"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методологический документ с формулой и весами (аудит §5.8) — документально, 2026-10-24</td></tr>
             <tr id="cell-inform-s"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>У компонентов и индикаторов указаны источники (аудит §5.8) — документально, 2026-10-24</td></tr>
             <tr id="cell-inform-g"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>Раздел об ограничениях в методологическом документе (аудит §5.8) — документально, 2026-10-24</td></tr>
             <tr id="cell-inform-n"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-n">Н — Неопределённость</a></td><td>— интервал итогового балла не подтверждён: подстраницы закрыты JS и WAF; спорная клетка (deep dive §6.2)</td></tr>
-            <tr id="cell-inform-v"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии по годам и полугодиям: INFORM_Risk_2026_v072.xlsx и INFORM_Risk_Mid_2026_v073.xlsx — проверено 2026-10-24</td></tr>
+            <tr id="cell-inform-v"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-v">В — Версии</a></td><td>Версии по годам и полугодиям — аудит §5.8 и страница Results and data, проверено 2026-10-24</td></tr>
             <tr id="cell-inform-l"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-l">Л — Свободная лицензия</a></td><td>— свободная лицензия на данные не подтверждена (аудит §5.8, deep dive §2)</td></tr>
             <tr id="cell-inform-i"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Файл тренда INFORM2026_TREND_2017_2026_v72_ALL.xlsx, ряд с 2017 — проверено 2026-10-24</td></tr>
             <tr id="cell-inform-st"><td><a href="#project-inform">INFORM</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>191 страна и территория в списке Results and data — проверено 2026-10-24</td></tr>
@@ -381,7 +381,7 @@
             <tr id="cell-gpi-i"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-i">И — История от пяти лет</a></td><td>Годовой ряд длиннее пяти лет (аудит §5.9) — документально, 2026-10-24</td></tr>
             <tr id="cell-gpi-st"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-st">Ст — Страновой уровень</a></td><td>163 страны (аудит §5.9) — документально, 2026-10-24</td></tr>
             <tr id="cell-gpi-r"><td><a href="#project-gpi">Global Peace Index</a></td><td><a href="#criterion-r">Р — Внешнее рецензирование</a></td><td>— внешнего рецензирования метода нет (аудит §5.9)</td></tr>
-            <tr id="cell-fsi-d"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Выгрузки на fragilestatesindex.org/excel/ и страница country-data — проверено 2026-10-24</td></tr>
+            <tr id="cell-fsi-d"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-d">Д — Открытые данные</a></td><td>Страницы country-data и excel открываются с кодом 200 и содержат ссылки на скачивание XLSX — проверено 2026-10-24; тело страниц пустое (Tableau-embed), а файлы приходят обрезанными — см. раздел «Что не удалось проверить»</td></tr>
             <tr id="cell-fsi-f"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-f">Ф — Формула или веса</a></td><td>Методика CAST: 12 индикаторов и суб-индикаторы — fragilestatesindex.org/methodology, проверено 2026-10-24</td></tr>
             <tr id="cell-fsi-s"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-s">С — Прослеживаемость источника (запись или компонент)</a></td><td>— привязки «индикатор → источник» нет, названы только потоки UN, WB, WHO; спорная клетка (deep dive §6.2)</td></tr>
             <tr id="cell-fsi-g"><td><a href="#project-fsi">Fragile States Index</a></td><td><a href="#criterion-g">Г — Список дыр</a></td><td>— список дыр не публикуется (аудит §5.10)</td></tr>
@@ -446,21 +446,21 @@
     <section id="sensitivity" aria-labelledby="sensitivity-title">
       <h2 id="sensitivity-title">Устойчивость ±5 п.п.</h2>
       <p>Проверка: один вес сдвигается на +5 или −5 процентных пункта, остальные четыре перенормируются пропорционально до суммы 100. Порядок считается по неокруглённому баллу, в таблице показывается округлённый итог.</p>
-      <p>Первое место (UCDP) и последние два (CrisisWatch, BlackRock BGRI) не двигаются ни в одном из десяти сценариев. Обменов мест всего: 14; все они — в середине списка.</p>
+      <p>Первое место (UCDP) и последние два (CrisisWatch, BlackRock BGRI) не двигаются ни в одном из десяти сценариев. Обменов мест всего: 14; все они — в середине списка: верх и низ не двигались.</p>
       <div class="article-table-wrap">
         <table class="doc-table">
           <caption class="sr-only">Порядок проектов при сдвиге каждого веса на ±5 п.п.</caption>
           <colgroup><col width="22%"><col width="12%"><col width="66%"></colgroup>
           <thead><tr><th scope="col">Вес</th><th scope="col">Сдвиг</th><th scope="col">Что изменилось</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Открытость</th><td>+5 п.п.</td><td>обменялись местами: GDELT ↔ War Monitor</td></tr>
-            <tr><th scope="row">Открытость</th><td>−5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">Открытость</th><td>+5 п.п.</td><td>War Monitor: 10 → 9; GDELT: 9 → 10</td></tr>
+            <tr><th scope="row">Открытость</th><td>−5 п.п.</td><td>Global Peace Index: 7 → 6; Fragile States Index: 8 → 7; Cassandra Index: 6 → 8</td></tr>
             <tr><th scope="row">Воспроизводимость</th><td>+5 п.п.</td><td>порядок не изменился</td></tr>
-            <tr><th scope="row">Воспроизводимость</th><td>−5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
-            <tr><th scope="row">Покрытие</th><td>+5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
+            <tr><th scope="row">Воспроизводимость</th><td>−5 п.п.</td><td>Global Peace Index: 7 → 6; Fragile States Index: 8 → 7; Cassandra Index: 6 → 8</td></tr>
+            <tr><th scope="row">Покрытие</th><td>+5 п.п.</td><td>Global Peace Index: 7 → 6; Fragile States Index: 8 → 7; Cassandra Index: 6 → 8</td></tr>
             <tr><th scope="row">Покрытие</th><td>−5 п.п.</td><td>порядок не изменился</td></tr>
-            <tr><th scope="row">История</th><td>+5 п.п.</td><td>обменялись местами: Cassandra Index ↔ Global Peace Index; Fragile States Index ↔ Global Peace Index; Cassandra Index ↔ Fragile States Index</td></tr>
-            <tr><th scope="row">История</th><td>−5 п.п.</td><td>обменялись местами: GDELT ↔ War Monitor</td></tr>
+            <tr><th scope="row">История</th><td>+5 п.п.</td><td>Global Peace Index: 7 → 6; Fragile States Index: 8 → 7; Cassandra Index: 6 → 8</td></tr>
+            <tr><th scope="row">История</th><td>−5 п.п.</td><td>War Monitor: 10 → 9; GDELT: 9 → 10</td></tr>
             <tr><th scope="row">Независимость</th><td>+5 п.п.</td><td>порядок не изменился</td></tr>
             <tr><th scope="row">Независимость</th><td>−5 п.п.</td><td>порядок не изменился</td></tr>
           </tbody>
@@ -496,7 +496,7 @@
         </table>
       </div>
       <h3>Атрибуты проектов</h3>
-      <p>Разрешение, начало ряда, лаг публикации и адрес, по которому факт проверен. Для проектов, чьи страницы 24 октября не открылись, год начала ряда помечен как неустановленный.</p>
+      <p>Разрешение, начало ряда, лаг публикации и адрес, по которому факт проверен. Для проектов, чьи страницы 24 октября 2026 не открылись, год начала ряда помечен как неустановленный.</p>
       <div class="article-table-wrap">
         <table class="doc-table">
           <caption class="sr-only">Разрешение, начало ряда, лаг и адрес проверки по каждому проекту</caption>
@@ -525,7 +525,7 @@
       <p>Клетки, попавшие в этот список, в матрице кодированы по сохранённым документам и в счёт подтверждённого не идут. Код ответа или причина названы прямо, чтобы читатель видел границу проверки.</p>
       <div class="article-table-wrap">
         <table class="doc-table">
-          <caption class="sr-only">Что именно не удалось проверить 24 октября 2026 года и почему</caption>
+          <caption class="sr-only">Что именно не удалось проверить 24 октября 2026 и почему</caption>
           <colgroup><col width="14%"><col width="18%"><col width="26%"><col width="10%"><col width="32%"></colgroup>
           <thead><tr><th scope="col">Проект</th><th scope="col">Что проверяли</th><th scope="col">Адрес</th><th scope="col">Дата</th><th scope="col">Код или причина</th></tr></thead>
           <tbody>
