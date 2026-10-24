@@ -47,9 +47,9 @@
 ## 2. Корень: механика на числах russia-belarus (§7, calc/engine.js)
 
 Региональная гипотетика `iWith` — индекс, посчитанный «как если бы мир был
-только этим регионом»: `regionalSignals` (engine.js:602) собирает
+только этим регионом»: `regionalSignals` (engine.js:621) собирает
 `withMap` из регионально атрибутированных критериев и зовёт
-`hypotheticalIndex(withMap, …)` (:649). Тот идёт тем же пайплайном §5 —
+`hypotheticalIndex(withMap, …)` (:670). Тот идёт тем же пайплайном §5 —
 `buildDriversCore` → `driverScore` → `aggregateDrivers`.
 
 Атрибуты russia-belarus на 10-18 — 7 критериев: D1.2 (0.67), D1.4 (1),
@@ -103,7 +103,7 @@ baltic…), а middle-east (18 сигналов, драйверы выше 50 %)
   только при 0 покрытых) — вырождение возникает только в D1–D8.
 - Глобальный индекс, q, классификация публикации, чувствительность — порог
   получают в своём, полном контексте и работают штатно. Артефакт живёт
-  только в двух гипотетиках `regionalSignals` (engine.js:649–650 — единственные
+  только в двух гипотетиках `regionalSignals` (engine.js:670–671 — единственные
   вызовы `hypotheticalIndex` в коде).
 - Порог не прописан и в ADR 0022: трактовки «сигналы региона → сравнение с
   остальным миром» не задают, как считать гипотетику по разреженному
@@ -263,7 +263,7 @@ east-asia 71, north-america 61, south-asia 63, africa 62 — держат тол
 - `docs/adr/0022-regional-signals-interpretation.md` — текущая трактовка
   iWith/iWithout.
 - `calc/engine.js:33–39` (scoredCriteria), `:248` (hypotheticalIndex),
-  `:502` (regionalIndex), `:602–654` (regionalSignals, правка — :649–650);
+  `:502` (regionalIndex), `:621–675` (regionalSignals, правка — `:670–671`);
   `calc/params.js:43–51` (n0, regionClamp, coverageThreshold).
 - `METHODOLOGY.md` §7 (региональная модель), §10 (версионирование).
 - `docs/preproduction-decisions.md` — строка O10.

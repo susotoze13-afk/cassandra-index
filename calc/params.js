@@ -57,7 +57,8 @@ export const PARAMS = {
   regionHypothesisThreshold: 1e-9,
   // Дата вступления правила гипотетик (ADR 0065): недели раньше считают
   // iWith/iWithout по глобальному порогу §4.2 — опубликованная история не
-  // переписывается (forward-only, прецедент independenceGateFrom); breaking
+  // переписывается (forward-only, прецедент independenceGateFrom). Методология
+  // не растёт: сдвигается только граница применения правила.
   regionHypothesisFrom: '2026-10-25',
   d9GrowthLimit: 0.3, // лимит недельного прироста индекса от Д9 (§4.3.4)
   confidence: { high: 1.0, medium: 0.7, low: 0.4 }, // шкала cᵢ (§5.1)
