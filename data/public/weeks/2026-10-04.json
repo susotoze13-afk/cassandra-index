@@ -21,7 +21,10 @@
     "state": "danger",
     "q": 0.9293,
     "confidence": "full",
-    "coverage_criteria": null,
+    "coverage_criteria": {
+      "covered": 27,
+      "total": 46
+    },
     "regions": [
       {
         "id": "europe",
@@ -31,31 +34,31 @@
       },
       {
         "id": "east-asia",
-        "index": 44,
-        "delta": 0,
+        "index": 46,
+        "delta": 2,
         "background": false
       },
       {
         "id": "middle-east",
         "index": 39,
-        "delta": -1,
+        "delta": -9,
         "background": false
       },
       {
         "id": "north-america",
-        "index": 42,
-        "delta": 14,
+        "index": 43,
+        "delta": 15,
         "background": false
       },
       {
         "id": "south-asia",
-        "index": 44,
-        "delta": 1,
+        "index": 46,
+        "delta": -3,
         "background": false
       },
       {
         "id": "africa",
-        "index": 44,
+        "index": 46,
         "delta": -1,
         "background": false
       }

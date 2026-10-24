@@ -20,10 +20,15 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.sensitivity = 1.6;
   s.coverageCriteria = {
   "covered": 43,
-  "total": 46
+  "total": 46,
+  "uncovered": [
+    "D9.1",
+    "D9.5",
+    "D9.7"
+  ]
 };
   s.recalc = {
-  "at": "2026-10-18T13:48:51.352Z",
+  "at": "2026-10-24T18:00:40.634Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "3.0",

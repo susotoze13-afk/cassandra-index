@@ -29,7 +29,7 @@
       {
         "id": "europe",
         "index": 45,
-        "delta": 3,
+        "delta": 1,
         "background": false
       },
       {
@@ -40,8 +40,8 @@
       },
       {
         "id": "middle-east",
-        "index": 40,
-        "delta": -20,
+        "index": 48,
+        "delta": -12,
         "background": false
       },
       {
@@ -52,14 +52,14 @@
       },
       {
         "id": "south-asia",
-        "index": 43,
-        "delta": -11,
+        "index": 49,
+        "delta": -10,
         "background": false
       },
       {
         "id": "africa",
-        "index": 45,
-        "delta": -9,
+        "index": 47,
+        "delta": -10,
         "background": false
       }
     ],

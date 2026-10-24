@@ -9,31 +9,31 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "east-asia": {
-    "index": 44,
-    "delta": 0,
+    "index": 46,
+    "delta": 2,
     "status": "danger",
     "background": false
   },
   "middle-east": {
     "index": 39,
-    "delta": -1,
+    "delta": -9,
     "status": "tense",
     "background": false
   },
   "north-america": {
-    "index": 42,
-    "delta": 14,
+    "index": 43,
+    "delta": 15,
     "status": "danger",
     "background": false
   },
   "south-asia": {
-    "index": 44,
-    "delta": 1,
+    "index": 46,
+    "delta": -3,
     "status": "danger",
     "background": false
   },
   "africa": {
-    "index": 44,
+    "index": 46,
     "delta": -1,
     "status": "danger",
     "background": false

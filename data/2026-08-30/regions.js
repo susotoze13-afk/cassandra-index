@@ -3,8 +3,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-08-30"] = window.CI_DATA.snapshots["2026-08-30"] || {};
   s.regions = {
   "europe": {
-    "index": 49,
-    "delta": -19,
+    "index": 48,
+    "delta": -20,
     "status": "danger",
     "background": false
   },
@@ -33,8 +33,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "africa": {
-    "index": 48,
-    "delta": 1,
+    "index": 53,
+    "delta": 6,
     "status": "danger",
     "background": false
   }

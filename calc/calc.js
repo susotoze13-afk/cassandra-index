@@ -581,12 +581,24 @@ function recalcDiff(snap, globalOut, meta) {
   return diff;
 }
 
+// Публичный слой Д9 — forward-only (ADR 0047): неделя получает precursor только
+// с PARAMS.precursorFrom, история задним числом не бэкфиллится (пересчёт
+// 08-30…10-18 поле не добавляет). Пустая/отсутствующая дата — гейта нет.
+export function precursorForWeek(week, res, params = PARAMS) {
+  if (!res || !res.precursor) return null;
+  const from = params.precursorFrom;
+  if (typeof from === 'string' && from && week < from) return null;
+  return res.precursor;
+}
+
 export async function writeWeek(res, state) {
   const week = res.week;
   const snap = loadSnapshotPart(week, 'global') || {};
   const cls = res.classification;
 
   const globalOut = cls.insufficient ? null : { index: res.global.index, delta: res.global.delta };
+  // Слой Д9 пишется с гейта precursorFrom (ADR 0047); до него поля в снапшоте нет.
+  const precursorOut = precursorForWeek(week, res, PARAMS);
   const recalc = {
     at: new Date().toISOString(),
     reason: recalcReason(cls, res),
@@ -615,7 +627,7 @@ export async function writeWeek(res, state) {
       : {}),
     ...(cls.reduced ? { incompleteCoverage: true } : {}),
     ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
-    ...(res.precursor ? { precursor: res.precursor } : {}),
+    ...(precursorOut ? { precursor: precursorOut } : {}),
     recalc,
   };
 
@@ -630,7 +642,7 @@ export async function writeWeek(res, state) {
     confidence: meta.confidence,
     coverageCriteria: meta.coverageCriteria,
     ...(typeof res.sensitivity === 'number' ? { sensitivity: res.sensitivity } : {}),
-    ...(res.precursor ? { precursor: res.precursor } : {}),
+    ...(precursorOut ? { precursor: precursorOut } : {}),
     recalc,
   };
   if (meta.preview) full.preview = meta.preview;

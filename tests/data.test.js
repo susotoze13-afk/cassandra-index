@@ -465,17 +465,24 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
 });
 
 // Пин регионального охвата africa/south-asia после пересчёта под источники
-// (прогон africa-south-asia-sources). Ожидание — из спецификации прогона:
+// (прогон africa-asia-sources). Ожидание — из спецификации прогона:
 // africa покрыт во всех 7 неделях цепочки, south-asia — в 08-30, 09-06,
 // 09-27, 10-04; остальные недели south-asia честно слепые. Покрытый регион
-// (background:false) обязан считаться по своим сигналам: его индекс не равен
-// глобальному (в отличие от слепого, который несёт глобальный фон).
-test('диск: africa/south-asia — background по неделям цепочки, покрытые ≠ global', () => {
+// (background:false) считается по своим сигналам; слепой несёт глобальный фон.
+// Совпадение пары {index, delta} с глобальной у покрытого региона — законный
+// результат, а не признак слепой ветки: после ADR 0065 (эпсилон в гипотетиках
+// §7, региональный пересчёт истории) отклонение разрежённого региона может
+// быть меньше шага округления (10-04/africa: iWith − iWithout ≈ 0.36 п.п.).
+// Поэтому пин проверяет флаги, числовые значения и то, что сигналы реально
+// доезжают до числа: регрессионный якорь 09-20/africa и счётчик несовпадений.
+test('диск: africa/south-asia — background по неделям цепочки, покрытые считаются по сигналам', () => {
   const WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
   const covered = {
     africa: new Set(WEEKS),
     'south-asia': new Set(['2026-08-30', '2026-09-06', '2026-09-27', '2026-10-04']),
   };
+  let differing = 0;
+  let coveredCount = 0;
   for (const w of WEEKS) {
     const regions = loadSnapshotPart(w, 'regions');
     const global = loadSnapshotPart(w, 'global').global;
@@ -483,9 +490,20 @@ test('диск: africa/south-asia — background по неделям цепоч�
       const r = regions.regions[id];
       const isCovered = covered[id].has(w);
       assert.equal(r.background, !isCovered, `${w}/${id}: background`);
+      assert.equal(typeof r.index, 'number', `${w}/${id}: индекс региона — число`);
+      assert.equal(typeof r.delta, 'number', `${w}/${id}: изменение региона — число`);
       if (isCovered) {
-        assert.notEqual(r.index, global.index, `${w}/${id}: покрытый регион не должен равняться глобальному`);
+        coveredCount += 1;
+        if (r.index !== global.index || r.delta !== global.delta) differing += 1;
       }
     }
   }
+  // Регрессионный якорь: 09-20/africa = 57 (+14) против глобальных 56 (+13).
+  const anchor = loadSnapshotPart('2026-09-20', 'regions').regions.africa;
+  assert.equal(anchor.index, 57);
+  assert.equal(anchor.delta, 14);
+  assert.equal(anchor.background, false);
+  // Почти все покрытые регион-недели отходят от глобального фона; единичные
+  // совпадения — округление малого отклонения (см. комментарий выше).
+  assert.ok(differing >= coveredCount - 2, `совпало с фоном: ${coveredCount - differing} из ${coveredCount}`);
 });

@@ -20,10 +20,31 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.sensitivity = 2.8;
   s.coverageCriteria = {
   "covered": 27,
-  "total": 46
+  "total": 46,
+  "uncovered": [
+    "D3.4",
+    "D3.5",
+    "D4.4",
+    "D4.5",
+    "D5.3",
+    "D5.4",
+    "D6.2",
+    "D6.3",
+    "D6.4",
+    "D7.1",
+    "D7.4",
+    "D8.3",
+    "D9.1",
+    "D9.2",
+    "D9.4",
+    "D9.5",
+    "D9.6a",
+    "D9.6b",
+    "D9.7"
+  ]
 };
   s.recalc = {
-  "at": "2026-10-18T14:02:38.929Z",
+  "at": "2026-10-24T18:14:08.312Z",
   "reason": "Еженедельный пересчёт",
   "previous": 47,
   "methodologyBefore": "3.0",
@@ -33,7 +54,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.regions = {
   "europe": {
     "index": 45,
-    "delta": 3,
+    "delta": 1,
     "status": "danger",
     "background": false
   },
@@ -44,9 +65,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "middle-east": {
-    "index": 40,
-    "delta": -20,
-    "status": "tense",
+    "index": 48,
+    "delta": -12,
+    "status": "danger",
     "background": false
   },
   "north-america": {
@@ -56,21 +77,21 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "south-asia": {
-    "index": 43,
-    "delta": -11,
+    "index": 49,
+    "delta": -10,
     "status": "danger",
     "background": false
   },
   "africa": {
-    "index": 45,
-    "delta": -9,
+    "index": 47,
+    "delta": -10,
     "status": "danger",
     "background": false
   }
 };
   s.regions["europe"] = {
   "index": 45,
-  "delta": 3,
+  "delta": 1,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -291,9 +312,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 40,
-  "delta": -20,
-  "status": "tense",
+  "index": 48,
+  "delta": -12,
+  "status": "danger",
   "background": false,
   "confidence": "high",
   "drivers": [
@@ -495,8 +516,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 43,
-  "delta": -11,
+  "index": 49,
+  "delta": -10,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -592,8 +613,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 45,
-  "delta": -9,
+  "index": 47,
+  "delta": -10,
   "status": "danger",
   "background": false,
   "confidence": "medium",

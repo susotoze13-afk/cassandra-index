@@ -8,6 +8,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.published = "2026-08-30";
   s.through = "2026-08-30";
   s.methodology = "3.0";
+  s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 1;
   s.nullWeight = 0;
@@ -17,8 +18,22 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.sensitivity = 0.6;
+  s.coverageCriteria = {
+  "covered": 38,
+  "total": 46,
+  "uncovered": [
+    "D5.2",
+    "D5.3",
+    "D6.1",
+    "D8.3",
+    "D9.1",
+    "D9.5",
+    "D9.6a",
+    "D9.6b"
+  ]
+};
   s.recalc = {
-  "at": "2026-10-12T19:07:28.638Z",
+  "at": "2026-10-24T17:46:42.298Z",
   "reason": "Еженедельный пересчёт",
   "previous": 51,
   "methodologyBefore": "3.0",
@@ -27,8 +42,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "europe": {
-    "index": 49,
-    "delta": -19,
+    "index": 48,
+    "delta": -20,
     "status": "danger",
     "background": false
   },
@@ -57,15 +72,15 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "africa": {
-    "index": 48,
-    "delta": 1,
+    "index": 53,
+    "delta": 6,
     "status": "danger",
     "background": false
   }
 };
   s.regions["europe"] = {
-  "index": 49,
-  "delta": -19,
+  "index": 48,
+  "delta": -20,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -557,8 +572,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 48,
-  "delta": 1,
+  "index": 53,
+  "delta": 6,
   "status": "danger",
   "background": false,
   "confidence": "medium",

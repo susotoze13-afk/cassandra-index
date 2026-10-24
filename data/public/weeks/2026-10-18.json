@@ -28,32 +28,32 @@
     "regions": [
       {
         "id": "russia-belarus",
-        "index": 56,
-        "delta": 0,
+        "index": 68,
+        "delta": 12,
         "background": false
       },
       {
         "id": "ukraine-moldova",
-        "index": 58,
-        "delta": 2,
+        "index": 63,
+        "delta": 7,
         "background": false
       },
       {
         "id": "baltic",
-        "index": 61,
-        "delta": 5,
+        "index": 67,
+        "delta": 11,
         "background": false
       },
       {
         "id": "balkans",
-        "index": 61,
-        "delta": 5,
+        "index": 67,
+        "delta": 11,
         "background": false
       },
       {
         "id": "eu-north-europe",
-        "index": 61,
-        "delta": 5,
+        "index": 66,
+        "delta": 10,
         "background": false
       },
       {
@@ -70,32 +70,32 @@
       },
       {
         "id": "east-asia",
-        "index": 61,
-        "delta": -1,
+        "index": 66,
+        "delta": 7,
         "background": false
       },
       {
         "id": "middle-east",
-        "index": 71,
-        "delta": 4,
+        "index": 69,
+        "delta": 2,
         "background": false
       },
       {
         "id": "north-america",
-        "index": 63,
-        "delta": 11,
+        "index": 66,
+        "delta": 14,
         "background": false
       },
       {
         "id": "south-asia",
-        "index": 60,
-        "delta": 6,
+        "index": 66,
+        "delta": 10,
         "background": false
       },
       {
         "id": "africa",
-        "index": 63,
-        "delta": 10,
+        "index": 66,
+        "delta": 7,
         "background": false
       }
     ],

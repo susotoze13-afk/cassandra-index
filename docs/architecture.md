@@ -38,7 +38,9 @@
 3. `value = clamp(Math.round(score * 100), 0, 100)` — доля скора Д9, ограничитель §4.3.5
    не применяется; `U`, `q`, инерция и индекс не трогаются.
 4. `runWeek` кладёт `precursor` в результат рядом с `sensitivity` (`calc/calc.js`).
-5. `writeWeek` добавляет поле в `meta` и в `full` только при непустом значении.
+5. `writeWeek` прогоняет его через `precursorForWeek(week, res, PARAMS)` и добавляет поле
+   в `meta` и в `full` только при непустом значении **и** неделе не раньше
+   `PARAMS.precursorFrom` (`2026-10-25`) — иначе пересчёт истории бэкфиллил бы слой.
 6. `renderGlobal` пишет `s.precursor` в `global.js` условно (`if (meta.precursor)`).
 7. `data/<week>/week.js` получает поле verbatim: `renderWeekCombined` конкатенирует тела
    частей, `global` идёт первым; отдельной части у слоя нет.

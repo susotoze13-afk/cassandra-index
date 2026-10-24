@@ -20,10 +20,15 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.sensitivity = 1.6;
   s.coverageCriteria = {
   "covered": 43,
-  "total": 46
+  "total": 46,
+  "uncovered": [
+    "D9.1",
+    "D9.5",
+    "D9.7"
+  ]
 };
   s.recalc = {
-  "at": "2026-10-18T13:48:51.352Z",
+  "at": "2026-10-24T18:00:40.634Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "3.0",
@@ -32,8 +37,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "europe": {
-    "index": 42,
-    "delta": 2,
+    "index": 44,
+    "delta": 7,
     "status": "danger",
     "background": false
   },
@@ -45,7 +50,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   "middle-east": {
     "index": 60,
-    "delta": 22,
+    "delta": 18,
     "status": "danger",
     "background": false
   },
@@ -56,21 +61,21 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "south-asia": {
-    "index": 54,
+    "index": 59,
     "delta": 13,
     "status": "danger",
     "background": true
   },
   "africa": {
-    "index": 54,
+    "index": 57,
     "delta": 14,
     "status": "danger",
     "background": false
   }
 };
   s.regions["europe"] = {
-  "index": 42,
-  "delta": 2,
+  "index": 44,
+  "delta": 7,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -292,7 +297,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions["middle-east"] = {
   "index": 60,
-  "delta": 22,
+  "delta": 18,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -495,7 +500,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 54,
+  "index": 59,
   "delta": 13,
   "status": "danger",
   "background": true,
@@ -592,7 +597,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 54,
+  "index": 57,
   "delta": 14,
   "status": "danger",
   "background": false,

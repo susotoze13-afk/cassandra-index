@@ -21,12 +21,15 @@
     "state": "danger",
     "q": 1,
     "confidence": "full",
-    "coverage_criteria": null,
+    "coverage_criteria": {
+      "covered": 38,
+      "total": 46
+    },
     "regions": [
       {
         "id": "europe",
-        "index": 49,
-        "delta": -19,
+        "index": 48,
+        "delta": -20,
         "background": false
       },
       {
@@ -55,8 +58,8 @@
       },
       {
         "id": "africa",
-        "index": 48,
-        "delta": 1,
+        "index": 53,
+        "delta": 6,
         "background": false
       }
     ],

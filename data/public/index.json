@@ -562,12 +562,15 @@
       "state": "danger",
       "q": 1,
       "confidence": "full",
-      "coverage_criteria": null,
+      "coverage_criteria": {
+        "covered": 38,
+        "total": 46
+      },
       "regions": [
         {
           "id": "europe",
-          "index": 49,
-          "delta": -19,
+          "index": 48,
+          "delta": -20,
           "background": false
         },
         {
@@ -596,8 +599,8 @@
         },
         {
           "id": "africa",
-          "index": 48,
-          "delta": 1,
+          "index": 53,
+          "delta": 6,
           "background": false
         }
       ],
@@ -1084,11 +1087,14 @@
       "state": "danger",
       "q": 1,
       "confidence": "full",
-      "coverage_criteria": null,
+      "coverage_criteria": {
+        "covered": 41,
+        "total": 46
+      },
       "regions": [
         {
           "id": "europe",
-          "index": 45,
+          "index": 44,
           "delta": -4,
           "background": false
         },
@@ -1112,14 +1118,14 @@
         },
         {
           "id": "south-asia",
-          "index": 40,
-          "delta": -9,
+          "index": 45,
+          "delta": -4,
           "background": false
         },
         {
           "id": "africa",
-          "index": 41,
-          "delta": -7,
+          "index": 44,
+          "delta": -9,
           "background": false
         }
       ],
@@ -1700,12 +1706,15 @@
       "state": "danger",
       "q": 1,
       "confidence": "full",
-      "coverage_criteria": null,
+      "coverage_criteria": {
+        "covered": 41,
+        "total": 46
+      },
       "regions": [
         {
           "id": "europe",
-          "index": 40,
-          "delta": -5,
+          "index": 37,
+          "delta": -7,
           "background": false
         },
         {
@@ -1716,8 +1725,8 @@
         },
         {
           "id": "middle-east",
-          "index": 38,
-          "delta": -2,
+          "index": 42,
+          "delta": 2,
           "background": false
         },
         {
@@ -1728,13 +1737,13 @@
         },
         {
           "id": "south-asia",
-          "index": 41,
+          "index": 46,
           "delta": 1,
           "background": true
         },
         {
           "id": "africa",
-          "index": 40,
+          "index": 43,
           "delta": -1,
           "background": false
         }
@@ -2336,8 +2345,8 @@
       "regions": [
         {
           "id": "europe",
-          "index": 42,
-          "delta": 2,
+          "index": 44,
+          "delta": 7,
           "background": false
         },
         {
@@ -2349,7 +2358,7 @@
         {
           "id": "middle-east",
           "index": 60,
-          "delta": 22,
+          "delta": 18,
           "background": false
         },
         {
@@ -2360,13 +2369,13 @@
         },
         {
           "id": "south-asia",
-          "index": 54,
+          "index": 59,
           "delta": 13,
           "background": true
         },
         {
           "id": "africa",
-          "index": 54,
+          "index": 57,
           "delta": 14,
           "background": false
         }
@@ -3014,7 +3023,7 @@
         {
           "id": "europe",
           "index": 45,
-          "delta": 3,
+          "delta": 1,
           "background": false
         },
         {
@@ -3025,8 +3034,8 @@
         },
         {
           "id": "middle-east",
-          "index": 40,
-          "delta": -20,
+          "index": 48,
+          "delta": -12,
           "background": false
         },
         {
@@ -3037,14 +3046,14 @@
         },
         {
           "id": "south-asia",
-          "index": 43,
-          "delta": -11,
+          "index": 49,
+          "delta": -10,
           "background": false
         },
         {
           "id": "africa",
-          "index": 45,
-          "delta": -9,
+          "index": 47,
+          "delta": -10,
           "background": false
         }
       ],
@@ -3606,7 +3615,10 @@
       "state": "danger",
       "q": 0.9293,
       "confidence": "full",
-      "coverage_criteria": null,
+      "coverage_criteria": {
+        "covered": 27,
+        "total": 46
+      },
       "regions": [
         {
           "id": "europe",
@@ -3616,31 +3628,31 @@
         },
         {
           "id": "east-asia",
-          "index": 44,
-          "delta": 0,
+          "index": 46,
+          "delta": 2,
           "background": false
         },
         {
           "id": "middle-east",
           "index": 39,
-          "delta": -1,
+          "delta": -9,
           "background": false
         },
         {
           "id": "north-america",
-          "index": 42,
-          "delta": 14,
+          "index": 43,
+          "delta": 15,
           "background": false
         },
         {
           "id": "south-asia",
-          "index": 44,
-          "delta": 1,
+          "index": 46,
+          "delta": -3,
           "background": false
         },
         {
           "id": "africa",
-          "index": 44,
+          "index": 46,
           "delta": -1,
           "background": false
         }
@@ -4226,18 +4238,21 @@
       "state": "danger",
       "q": 0.8622,
       "confidence": "full",
-      "coverage_criteria": null,
+      "coverage_criteria": {
+        "covered": 27,
+        "total": 46
+      },
       "regions": [
         {
           "id": "europe",
-          "index": 51,
-          "delta": 7,
+          "index": 56,
+          "delta": 12,
           "background": false
         },
         {
           "id": "east-asia",
-          "index": 62,
-          "delta": 18,
+          "index": 59,
+          "delta": 13,
           "background": false
         },
         {
@@ -4249,19 +4264,19 @@
         {
           "id": "north-america",
           "index": 52,
-          "delta": 10,
+          "delta": 9,
           "background": false
         },
         {
           "id": "south-asia",
-          "index": 54,
+          "index": 56,
           "delta": 10,
           "background": true
         },
         {
           "id": "africa",
-          "index": 53,
-          "delta": 9,
+          "index": 59,
+          "delta": 13,
           "background": false
         }
       ],
@@ -4842,32 +4857,32 @@
       "regions": [
         {
           "id": "russia-belarus",
-          "index": 56,
-          "delta": 0,
+          "index": 68,
+          "delta": 12,
           "background": false
         },
         {
           "id": "ukraine-moldova",
-          "index": 58,
-          "delta": 2,
+          "index": 63,
+          "delta": 7,
           "background": false
         },
         {
           "id": "baltic",
-          "index": 61,
-          "delta": 5,
+          "index": 67,
+          "delta": 11,
           "background": false
         },
         {
           "id": "balkans",
-          "index": 61,
-          "delta": 5,
+          "index": 67,
+          "delta": 11,
           "background": false
         },
         {
           "id": "eu-north-europe",
-          "index": 61,
-          "delta": 5,
+          "index": 66,
+          "delta": 10,
           "background": false
         },
         {
@@ -4884,32 +4899,32 @@
         },
         {
           "id": "east-asia",
-          "index": 61,
-          "delta": -1,
+          "index": 66,
+          "delta": 7,
           "background": false
         },
         {
           "id": "middle-east",
-          "index": 71,
-          "delta": 4,
+          "index": 69,
+          "delta": 2,
           "background": false
         },
         {
           "id": "north-america",
-          "index": 63,
-          "delta": 11,
+          "index": 66,
+          "delta": 14,
           "background": false
         },
         {
           "id": "south-asia",
-          "index": 60,
-          "delta": 6,
+          "index": 66,
+          "delta": 10,
           "background": false
         },
         {
           "id": "africa",
-          "index": 63,
-          "delta": 10,
+          "index": 66,
+          "delta": 7,
           "background": false
         }
       ],

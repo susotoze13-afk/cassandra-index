@@ -28,8 +28,8 @@
     "regions": [
       {
         "id": "europe",
-        "index": 42,
-        "delta": 2,
+        "index": 44,
+        "delta": 7,
         "background": false
       },
       {
@@ -41,7 +41,7 @@
       {
         "id": "middle-east",
         "index": 60,
-        "delta": 22,
+        "delta": 18,
         "background": false
       },
       {
@@ -52,13 +52,13 @@
       },
       {
         "id": "south-asia",
-        "index": 54,
+        "index": 59,
         "delta": 13,
         "background": true
       },
       {
         "id": "africa",
-        "index": 54,
+        "index": 57,
         "delta": 14,
         "background": false
       }

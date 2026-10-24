@@ -9,8 +9,9 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 import { precursorOf } from '../calc/precursor.js';
-import { runWeek, renderGlobal } from '../calc/calc.js';
+import { runWeek, renderGlobal, precursorForWeek } from '../calc/calc.js';
 import { buildDrivers } from '../calc/engine.js';
+import { PARAMS, list } from '../calc/params.js';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const driversOf = (...extra) => [{ id: 'D1', score: 0.9 }, ...extra];
@@ -69,22 +70,45 @@ test('10-18: реальное значение слоя закреплено к�
   assert.deepEqual(res.precursor, { value: 50, signalingSubgroups: 4 });
 });
 
-test('writeWeek: precursor попадает в meta (значит, и в global.js)', () => {
+// --- Гейт forward-only (ADR 0047): история не бэкфиллится ---
+
+test('PARAMS: слой precursor — forward-only с 2026-10-25 (ADR 0047)', () => {
+  assert.equal(PARAMS.precursorFrom, '2026-10-25');
+});
+
+test('precursorForWeek: до гейта поле не пишется, с гейта — пишется', () => {
+  const res = { precursor: { value: 50, signalingSubgroups: 4 } };
+  // Пересчёт истории 08-30…10-18 поле не добавляет.
+  assert.equal(precursorForWeek('2026-08-30', res), null);
+  assert.equal(precursorForWeek('2026-10-18', res), null);
+  // Первая неделя с гейта и позже — поле есть.
+  assert.deepEqual(precursorForWeek('2026-10-25', res), res.precursor);
+  assert.deepEqual(precursorForWeek('2026-11-01', res), res.precursor);
+  // Нет расчётного precursor (Д9 слепой) — нет и поля, гейт не спасает.
+  assert.equal(precursorForWeek('2026-11-01', { precursor: null }), null);
+  // Пустая дата гейта — правило действует всегда.
+  const open = list();
+  open.precursorFrom = '';
+  assert.deepEqual(precursorForWeek('2026-08-30', res, open), res.precursor);
+});
+
+test('writeWeek: precursor попадает в meta через гейт (значит, и в global.js)', () => {
   // У writeWeek нет инъекции записи: вызов писал бы в data/. Сторож — по
   // исходнику calc.js, как паритеты разметки в tests/page-structure.test.js.
-  // Пропажа строки означает, что поле из global.js исчезнет молча.
+  // Пропажа гейта вернула бы бэкфилл истории; пропажа строки — потерю поля.
   const src = readFileSync(path.join(ROOT, 'calc', 'calc.js'), 'utf8');
+  assert.match(src, /const precursorOut = precursorForWeek\(week, res, PARAMS\)/);
   const metaAt = src.indexOf('const meta = {');
   const fullAt = src.indexOf('const full = {');
   assert.ok(metaAt > -1 && fullAt > metaAt, 'не найдены блоки meta/full в writeWeek');
   const metaBlock = src.slice(metaAt, fullAt);
   assert.match(
     metaBlock,
-    /precursor:\s*res\.precursor/,
+    /precursor:\s*precursorOut/,
     'в meta нет precursor — поле не дойдёт до renderGlobal',
   );
   const fullBlock = src.slice(fullAt, src.indexOf('\n  if (meta.preview) full.preview', fullAt));
-  assert.match(fullBlock, /precursor:\s*res\.precursor/, 'в full нет precursor');
+  assert.match(fullBlock, /precursor:\s*precursorOut/, 'в full нет precursor');
 });
 
 test('renderGlobal: пишет s.precursor только когда поле задано', () => {

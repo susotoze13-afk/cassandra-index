@@ -8,6 +8,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.published = "2026-09-06";
   s.through = "2026-09-06";
   s.methodology = "3.0";
+  s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 1;
   s.nullWeight = 0;
@@ -17,8 +18,19 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.confidence = "full";
   s.sensitivity = 2.5;
+  s.coverageCriteria = {
+  "covered": 41,
+  "total": 46,
+  "uncovered": [
+    "D6.2",
+    "D6.3",
+    "D9.1",
+    "D9.6b",
+    "D9.7"
+  ]
+};
   s.recalc = {
-  "at": "2026-10-12T19:11:54.646Z",
+  "at": "2026-10-24T17:50:46.246Z",
   "reason": "Еженедельный пересчёт",
   "previous": 42,
   "methodologyBefore": "3.0",
@@ -27,7 +39,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "europe": {
-    "index": 45,
+    "index": 44,
     "delta": -4,
     "status": "danger",
     "background": false
@@ -51,20 +63,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "south-asia": {
-    "index": 40,
-    "delta": -9,
-    "status": "tense",
+    "index": 45,
+    "delta": -4,
+    "status": "danger",
     "background": false
   },
   "africa": {
-    "index": 41,
-    "delta": -7,
+    "index": 44,
+    "delta": -9,
     "status": "danger",
     "background": false
   }
 };
   s.regions["europe"] = {
-  "index": 45,
+  "index": 44,
   "delta": -4,
   "status": "danger",
   "background": false,
@@ -464,9 +476,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 40,
-  "delta": -9,
-  "status": "tense",
+  "index": 45,
+  "delta": -4,
+  "status": "danger",
   "background": false,
   "confidence": "medium",
   "drivers": [
@@ -571,8 +583,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 41,
-  "delta": -7,
+  "index": 44,
+  "delta": -9,
   "status": "danger",
   "background": false,
   "confidence": "medium",

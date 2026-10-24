@@ -34,6 +34,7 @@
 | Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
+| Страница аудита индексов | `node indices-audit-build.js` — печать сводки; `--write` — `indices-audit.html` из `docs/articles/indices-audit-app-source.md`; числа (62/120, медиана, «5 из 12», баллы, ±5 п.п.) считаются из матрицы источника; паритет пинит `tests/indices-audit.test.js` |
 | Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
 | Еженедельный автозапуск | GitHub Actions `.github/workflows/weekly-calc.yml`: cron вс 08:00 МСК + `workflow_dispatch [week]`; при готовых входе и сидах сам добивает `RECALC_WEEKS`/`latest.js`, считает, пересобирает публичный слой и дайджест (`public-export.js --write`, `digest-export.js --write`), тестирует, собирает, коммитит в master и запускает `deploy.yml`; иначе тихий skip |
@@ -348,7 +349,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           76 файлов, node --test (820 passed)
+tests/*.test.js           77 файлов, node --test (843 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -377,7 +378,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   с правилом пинит `tests/history-debt.test.js`.
   ADR 0065: `regionHypothesisThreshold` (1e-9) — в региональных гипотетиках §7
   драйвер покрыт при ≥1 покрытом критерии, и `regionHypothesisFrom`
-  (`2026-10-25`) — forward-only-гейт правила; читает `engine.regionalHypothesisParams`.
+  (`2026-08-30` — первая пересчитанная неделя цепочки 3.0; история 08-30…10-18
+  пересчитана по решению владельца O11, демо-недели 1.0 не трогались); читает
+  `engine.regionalHypothesisParams`. ADR 0047: `precursorFrom` (`2026-10-25`) —
+  гейт записи слоя Д9 в снапшот; пересчёт истории слой не бэкфиллит.
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
   маппинг в calibrate.js не дублируется). `loadAnchors(dir)` пропускает `*.json` без
@@ -700,7 +704,7 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (76 файлов, 820 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (77 файлов, 843 passed / 0 fail — подтверждено прогоном
 2026-10-24). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,

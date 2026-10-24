@@ -4,7 +4,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.regions = {
   "europe": {
     "index": 45,
-    "delta": 3,
+    "delta": 1,
     "status": "danger",
     "background": false
   },
@@ -15,9 +15,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "middle-east": {
-    "index": 40,
-    "delta": -20,
-    "status": "tense",
+    "index": 48,
+    "delta": -12,
+    "status": "danger",
     "background": false
   },
   "north-america": {
@@ -27,14 +27,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": true
   },
   "south-asia": {
-    "index": 43,
-    "delta": -11,
+    "index": 49,
+    "delta": -10,
     "status": "danger",
     "background": false
   },
   "africa": {
-    "index": 45,
-    "delta": -9,
+    "index": 47,
+    "delta": -10,
     "status": "danger",
     "background": false
   }
