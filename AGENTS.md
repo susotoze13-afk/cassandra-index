@@ -424,6 +424,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
   `aggregateDrivers` при исключении каждого домена и каждого кластера источников,
   `max|ΔI|` по internal (одно десятичное); `SENSITIVITY_THRESHOLD = PARAMS.sensitivityThreshold`.
+- `calc/source-discovery.js` — инструмент витрины кандидатов (editorial-source-discovery): поиск/предложение источников по слепым критериям недели, ворота URL и независимости кластеров; формирует непубликуемое предложение `data/discovery/<неделя>.json` и `docs/source-proposals/<неделя>.md`, не меняет `calc/input/<неделя>.json` и не вызывает пересчёта (ADR 0065).
 - `calc/classify.js` — чистый конвертер «черновик Jev v2 → штатный вход»
   (docs/jev-classification.md §6.1, ADR 0018 доп. 2026-10-11): шов `normalizeText`
   (пробелы/дефисы/кавычки → канон), `quoteFound` (дословность цитаты — ворот
