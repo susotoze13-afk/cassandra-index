@@ -153,7 +153,8 @@ calc/live-check.js        CLI сверки живого сайта: тянет d
 calc/quotes.js            цитаты источника: QUOTE_MAX_LEN/QUOTES_PER_SOURCE_MAX,
                           validateQuotes (форма: {criterion, text}, criterion из 46),
                           verifyQuotes (дословность по корпусу texts-<неделя>/<id>.txt
-                          нормализацией calc/classify.js) — ворота в writeWeek;
+                          нормализацией calc/classify.js; id вне ^[A-Za-z0-9_-]+$
+                          отклоняется до чтения корпуса) — ворота в writeWeek;
                           тесты tests/quotes.test.js
 calc/sensitivity.js       sensitivityScore — leave-one-domain/leave-one-cluster метрика
                           (R02): max|ΔI| в п.п., поле sensitivity quality-блока снапшота
@@ -183,8 +184,11 @@ calc/migrate-week-combined.js  идемпотентная разовая миг�
                           из дисковых частей той же функцией, что и calc.js --write
                           (renderWeekCombined + loadWeekParts из calc.js)
 calc/public-export.js     публичный слой (PUBLIC_SCHEMA_VERSION = 1): datasetOf/
-                          buildDataset/toCsv/toTrendSvg/renderChangelogPage/
-                          writePublicData/loadSnapshotFromDisk/loadAnalysisFromDisk;
+                          buildDataset/toCsv/toTrendSvg (polyline-сегменты по
+                          methodology, точка без версии — «без версии»)/
+                          renderChangelogPage/waterfallReasonFor (причина null-водопада,
+                          печать «водопад: нет (<причина>)»)/writePublicData/
+                          loadSnapshotFromDisk/loadAnalysisFromDisk;
                           вход — week.js-путь + validate из js/data.js; сайта не знает
 calc/contributions.js     модельная развёртка (ADR 0062): criteriaShares/topCriteria/
                           driverBreakdown (contribution_pp, Σ = index), buildWaterfall
@@ -195,6 +199,14 @@ calc/public-contract.js   машинный контракт (ADR 0062): regionsD
                           (schemaDocs, SCHEMA_NAMES); чистые сборщики, reference.json/
                           VERSION — на импорте
 calc/changelog-entries.js курируемый CHANGELOG, KINDS, validateChangelog, sortedDesc
+calc/backtest.js          внешняя сверка (ADR 0063): comparatorOf (note несёт и
+                          insufficient-предложение, и пометку неполного месяца —
+                          incompleteMonths: as_of раньше конца месяца), MAX_DISCREPANCIES
+                          (число записей расхождений; пин связывает docs/api.md с кодом);
+                          тесты tests/backtest.test.js
+calc/ledger.js            реестр прогнозов (ADR 0064): buildLedger/writeLedger — чистые
+                          швы {rootDir, weeks, loadSnapshot, anchorsDir, gitProbe},
+                          дефолт anchorsDir считается от rootDir; тесты tests/ledger.test.js
 calc/digest.js            текст выпуска: buildDigest(snapshot, {site, prev, chartUrl}) →
                           subject/text/html/telegram/meta; DIGEST_ITEMS = 5, DIGEST_REGIONS = 3
 calc/digest-page.js       digest.html: renderDigestPage(issues), архив 12 ссылок
@@ -265,7 +277,7 @@ data/public/              производные (`public-export.js --write`; `v
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0065;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0066;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -302,7 +314,10 @@ docs/adr/                 зафиксированные архитектурн�
                           сверка ряда с GPR/ACLED/CrisisWatch (`validation.json`,
                           `validation.html`); 0064 — реестр прогнозов из форвардных якорей
                           (`forecast-ledger.json`); 0065 — региональные гипотетики §7:
-                          порог покрытия (эпсилон, forward-only с недели 10-25))
+                          порог покрытия (эпсилон, forward-only с недели 10-25));
+                          0066 — трактовка `verified:null` в forecast-ledger: pending +
+                          actualIndex null = неделя не опубликована, иначе git-история
+                          недели недоступна (ADR 0064 доп., без нового поля)
 docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
                           эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
                           каждый публичный JSON обязан иметь строку здесь и схему
@@ -333,7 +348,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           74 файла, node --test (769 passed)
+tests/*.test.js           76 файлов, node --test (820 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -685,13 +700,15 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (74 файла, 769 passed / 0 fail — подтверждено прогоном
-2026-10-19). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (76 файлов, 820 passed / 0 fail — подтверждено прогоном
+2026-10-24). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
 `loadGeo`/`resolveRegion` над инъекцией — без сети). Расчётное ядро: `tests/calc-engine.test.js` (включая
 перенос регионального отклонения при nReg = 0); региональная модель:
 `tests/regional-signals.test.js` (aggregation атрибуции в регионы) и `tests/regions.test.js`;
+порог покрытия региональных гипотетик берётся из params (подмена 0.42, читается параметр):
+`tests/regional-hypothesis.test.js` (ADR 0065);
 признак игнора атрибуции: `tests/ignored-attribution.test.js` (R01.2, ADR 0022); калибровка:
 `tests/calibrate.test.js`; ссылки: `tests/linkcheck.test.js` (поддельный fetchImpl, без сети);
 чувствительность: `tests/sensitivity.test.js` (чистый sensitivityScore + пин реальной
@@ -719,7 +736,11 @@ engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit
 публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
 `tests/public-contract.test.js` (ADR 0062: справочники, driver_breakdown, waterfall,
 what_would_change, минимальный JSON-Schema-валидатор на все публичные файлы; сторож —
-каждый `data/public/**/*.json` обязан иметь схему и строку в `docs/api.md`),
+каждый `data/public/**/*.json` обязан иметь схему и строку в `docs/api.md` — матч
+`apiMentionsPath` с не-буквенно-цифровыми границами, вложенный URL-префикс не
+засчитывается; пин числа записей расхождений в docs/api.md = импортированный
+`MAX_DISCREPANCIES`; nullable-покрытие всех схем мутациями дисковых файлов +
+негативный контроль),
 `tests/contribution-ui.test.js` (секция «Почему индекс изменился»: чистые швы,
 ключи словаря, хост/стили, паритет `data/analysis.js` с генератором),
 `tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
@@ -770,6 +791,13 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `tests/contribution-ui.test.js`. После правки `js/**` — `node build.js`.
 - Новый файл в `data/public/**` без схемы в `schemaDocs()` или без строки в `docs/api.md`
   роняет `tests/public-contract.test.js`: сначала схема/документ, потом генератор.
+- `trend.svg` — по `<polyline>`-сегменту на версию methodology (несопоставимые версии
+  не соединяются); точка без версии подписана «без версии», не выдуманным номером.
+  Причина null-водопада — отдельный шов `waterfallReasonFor`, печатается main(), не
+  выдумывается.
+- Пин `MAX_DISCREPANCIES` связывает docs/api.md с кодом: число записей расхождений
+  в документе обязано равняться импортированной константе; nullable-покрытие схем
+  пинит мутационный тест над дисковыми файлами (оба — tests/public-contract.test.js).
 - ADR 0062 раскрывает веса, CAP, `k` и пороги в `methodology.json` для машинного
   потребителя. Это **не** отмена ADR 0045: страница «Методология» по-прежнему не
   показывает формулы и веса. Не «чинить» UI вслед за API.
