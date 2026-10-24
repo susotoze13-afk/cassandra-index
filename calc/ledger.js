@@ -30,7 +30,6 @@ import { validateForwardAnchor } from './forward-anchors.js';
 import { RECALC_WEEKS } from './calc.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const ANCHORS_DIR = path.join(ROOT, 'calc', 'input', 'anchors');
 const PUBLIC_DIR = path.join('data', 'public');
 const LEDGER_FILE = 'forecast-ledger.json';
 
@@ -221,19 +220,20 @@ function editorEntry(anchor, file, snapshot, gitProbe) {
 
 const KIND_ORDER = { baseline: 0, editor: 1 };
 
-// buildLedger({weeks, loadSnapshot, anchorsDir, gitProbe}) — чистая сборка
+// buildLedger({rootDir, weeks, loadSnapshot, anchorsDir, gitProbe}) — чистая сборка
 // журнала (диска нет, кроме чтения каталога якорей).
-export function buildLedger({ weeks, loadSnapshot, anchorsDir, gitProbe } = {}) {
+export function buildLedger({ rootDir, weeks, loadSnapshot, anchorsDir, gitProbe } = {}) {
   if (typeof loadSnapshot !== 'function') {
     throw new Error('ledger: нужен loadSnapshot(week)');
   }
-  const probe = gitProbe === undefined ? defaultGitProbe() : gitProbe;
+  const root = rootDir || ROOT;
+  const probe = gitProbe === undefined ? defaultGitProbe(root) : gitProbe;
   // Baseline — только по неделям цепочки RECALC_WEEKS: демо-недели 1.0 (08-02…08-23)
   // исключены, переход 08-23→08-30 не считается промахом.
   const list = Array.isArray(weeks)
     ? weeks.filter((w) => CHAIN_WEEKS.has(w)).sort()
     : [];
-  const dir = anchorsDir || ANCHORS_DIR;
+  const dir = anchorsDir || path.join(root, 'calc', 'input', 'anchors');
 
   const entries = [];
   let prevWeek = null;
@@ -322,7 +322,7 @@ export function writeLedger({
 } = {}) {
   const root = rootDir || ROOT;
   const probe = gitProbe === undefined ? defaultGitProbe(root) : gitProbe;
-  const ledger = buildLedger({ weeks, loadSnapshot, anchorsDir, gitProbe: probe });
+  const ledger = buildLedger({ rootDir: root, weeks, loadSnapshot, anchorsDir, gitProbe: probe });
   const file = path.join(root, PUBLIC_DIR, LEDGER_FILE);
   mkdirSync(path.dirname(file), { recursive: true });
   writeFileSync(file, jsonText(ledger), 'utf8');

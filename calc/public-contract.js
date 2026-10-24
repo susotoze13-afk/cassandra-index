@@ -914,7 +914,10 @@ const FORECAST_LEDGER_SCHEMA = {
         week: { type: 'string', pattern: DATE_RE },
         kind: { enum: ['baseline', 'editor'] },
         committedAt: { type: 'string', minLength: 1 },
-        verified: { type: ['boolean', 'null'] },
+        verified: {
+          type: ['boolean', 'null'],
+          description: 'У baseline всегда true. У записи редактора: результат git-проверки иммутабельности. null с outcome.cluster "pending" и actualIndex null — неделя ещё не опубликована; иначе null — git-история недели недоступна, проверка не выполнена.',
+        },
         expectedCluster: nullable('string'),
         expectedDirection: { type: ['string', 'null'], enum: ['down', 'flat', 'up', null] },
         actualIndex: nullable('integer'),

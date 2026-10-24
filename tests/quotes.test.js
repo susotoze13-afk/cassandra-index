@@ -157,6 +157,20 @@ test('verifyQuotes: источник без quotes корпус не требу�
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('verifyQuotes: id с разделителем пути отклоняется до чтения корпуса', () => {
+  const calls = [];
+  const res = verifyQuotes(
+    [{ id: '../secret', quotes: [{ criterion: 'D1.1', text: 'фрагмент' }] }],
+    '/nonexistent-corpus',
+    { readText: (file) => { calls.push(file); return 'фрагмент'; } },
+  );
+  assert.equal(calls.length, 0, 'корпус не читается по небезопасному id');
+  assert.equal(res.skipped, 1);
+  assert.equal(res.checked, 0);
+  assert.equal(res.errors.length, 1);
+  assert.match(res.errors[0], /sources\[0\]\.id: unsafe id/);
+});
+
 // --- Ворота входа: validateInputSources вызывает проверку формы ---
 
 test('validateInputSources: битая цитата отклоняется в стиле остальных полей источника', () => {

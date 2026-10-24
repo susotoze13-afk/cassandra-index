@@ -259,6 +259,24 @@ test('writeLedger: конверт лицензии, порядок ключей 
   ]);
 });
 
+test('writeLedger: без anchorsDir читает якоря из <rootDir>/calc/input/anchors, а не боевой каталог', (t) => {
+  const root = tempDir(t);
+  const anchorsDir = path.join(root, 'calc', 'input', 'anchors');
+  mkdirSync(anchorsDir, { recursive: true });
+  writeFileSync(
+    path.join(anchorsDir, 'forward-2026-09-13.json'),
+    JSON.stringify(ANCHOR_FACT, null, 2),
+    'utf8',
+  );
+  const { ledger } = writeLedger({
+    rootDir: root, weeks: CHAIN_WEEKS, loadSnapshot: loadChain, gitProbe: noGit,
+  });
+  const editor = ledger.entries.filter((e) => e.kind === 'editor');
+  assert.equal(editor.length, 1, 'якорь tmp-root прочитан, боевой каталог не подмешан');
+  assert.equal(editor[0].week, '2026-09-13');
+  assert.equal(editor[0].expectedCluster, 'tense');
+});
+
 test('data/public/forecast-ledger.json опубликован и несёт схему и промахи', () => {
   const file = path.join(ROOT, 'data', 'public', 'forecast-ledger.json');
   assert.ok(existsSync(file), 'forecast-ledger.json отсутствует');

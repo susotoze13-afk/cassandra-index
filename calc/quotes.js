@@ -22,6 +22,10 @@ import { quoteFound } from './classify.js';
 export const QUOTE_MAX_LEN = 1200;
 export const QUOTES_PER_SOURCE_MAX = 12;
 
+// Легальный id источника — плоское имя файла корпуса (<id>.txt): без разделителей
+// пути и прочих символов вне [A-Za-z0-9_-]. Реальные id входов недель ему следуют.
+const SAFE_ID_RE = /^[A-Za-z0-9_-]+$/;
+
 // Набор id критериев — массив или Set; всё остальное = пустой набор
 // (цитату не к чему привязать).
 function idSet(criteriaIds) {
@@ -94,6 +98,13 @@ export function verifyQuotes(sources, corpusDir, opts = {}) {
   list.forEach((s, i) => {
     if (!s || typeof s !== 'object' || !Array.isArray(s.quotes)) return;
     const id = typeof s.id === 'string' ? s.id : '';
+    // id небезопасен — корпус по нему не читаем вообще: path traversal из записи
+    // источника не должен дотянуться до файла вне corpusDir.
+    if (id !== '' && !SAFE_ID_RE.test(id)) {
+      res.skipped += s.quotes.length;
+      res.errors.push(`sources[${i}].id: unsafe id`);
+      return;
+    }
     s.quotes.forEach((q, k) => {
       if (!q || typeof q !== 'object') return;
       // Отказ обязан называть источник и критерий (R03i.1) — даже когда id или
