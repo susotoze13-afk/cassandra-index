@@ -1,0 +1,240 @@
+# Литература для рукописи «Полиса»: аннотированный список
+
+Все DOI проверены через Crossref API 2026-10-25 (запрос по DOI; там, где DOI не
+находился — поиск по библиографическому описанию). Это важно: при первичной проверке
+четыре DOI из памяти оказались неверными, а два вели на чужие статьи — в рукопись они
+не попали. Ни один источник не приводится «по памяти».
+
+Формат для журнала: два алфавитных списка (русский и References), у каждого источника
+DOI активной ссылкой и, при наличии, EDN из eLIBRARY. Здесь — рабочий список с
+пометкой, зачем работа нужна и в какой раздел встаёт.
+
+## 1. Композитные индикаторы: как строят и где ломаются (7)
+
+1. **OECD, Joint Research Centre. 2008.** *Handbook on Constructing Composite
+   Indicators: Methodology and User Guide.* Paris: OECD Publishing.
+   DOI: 10.1787/9789264043466-en.
+   *Зачем:* нормативная база всего метода — выбор индикаторов, нормировка, взвешивание,
+   агрегация, анализ чувствительности. Без ссылки на него рукопись выглядит как
+   изобретение велосипеда.
+   *Куда:* §4 (метод), первый абзац о взвешивании.
+
+2. **Freudenberg, M. 2003.** Composite Indicators of Country Performance: A Critical
+   Assessment. *OECD Science, Technology and Industry Working Papers* 2003/16.
+   DOI: 10.1787/405566708255.
+   *Зачем:* критический разбор: композит прячет субъективные решения (веса, нормировка),
+   а выглядит объективным числом. Это ровно тот упрёк, который рукопись должна снять
+   сама, до рецензента.
+   *Куда:* §2 (границы конструкта) и §8 (ограничения).
+
+3. **Saisana, M., Saltelli, A., Tarantola, S. 2005.** Uncertainty and Sensitivity
+   Analysis Techniques as Tools for the Quality Assessment of Composite Indicators.
+   *Journal of the Royal Statistical Society: Series A* 168(2): 307–323.
+   DOI: 10.1111/j.1467-985X.2005.00350.x.
+   *Зачем:* методологическое основание для §5.3: чувствительность к весам и параметрам —
+   не украшение, а условие интерпретируемости.
+   *Куда:* §5.3 и обоснование порога 5 п.п.
+
+4. **Greco, S., Ishizaka, A., Tasiou, M., Torrisi, G. 2019.** On the Methodological
+   Framework of Composite Indices: A Review of the Issues of Weighting, Aggregation,
+   and Robustness. *Social Indicators Research* 141(1): 61–94.
+   DOI: 10.1007/s11205-017-1832-9.
+   *Зачем:* систематический обзор: компенсаторность (взвешенная сумма) против
+   некомпенсаторных подходов. Позволяет объяснить, почему выбрана взвешенная сумма и
+   чем за это платим.
+   *Куда:* §4.2, абзац о выборе агрегации.
+
+5. **Becker, W., Saisana, M., Paruolo, P., Vandecasteele, I. 2017.** Weights and
+   importance in composite indicators: Closing the gap. *Ecological Indicators* 80: 12–22.
+   DOI: 10.1016/j.ecolind.2017.03.056.
+   *Зачем:* различие «вес» и «влияние»: равные веса драйверов не означают равного вклада
+   в итог. Прямо относится к раскрытию `contribution_pp` (ADR 0062).
+   *Куда:* §4.2 и §7 (объяснение развёртки).
+
+6. **Paruolo, P., Saisana, M., Saltelli, A. 2013.** Ratings and Rankings: Voodoo or
+   Science? *Journal of the Royal Statistical Society: Series A* 176(3): 609–634.
+   DOI: 10.1111/j.1467-985X.2012.01059.x.
+   *Зачем:* рейтинги неустойчивы к незначительным изменениям метода; вывод — публиковать
+   неопределённость, а не только число.
+   *Куда:* §2.1 (порядковая шкала) и §6 (как читать сверку).
+
+7. **Saltelli, A., Bammer, G., Bruno, I. et al. 2020.** Five ways to ensure that models
+   serve society: a manifesto. *Nature* 582: 482–484. DOI: 10.1038/d41586-020-01812-9.
+   *Зачем:* этика моделей: прозрачность допущений, отказ от ложной точности. Оправдывает
+   отказ от вероятностной интерпретации шкалы.
+   *Куда:* §2.2 и §9.
+
+## 2. Измерение и шкала (2)
+
+8. **Stevens, S. S. 1946.** On the Theory of Scales of Measurement. *Science*
+   103(2684): 677–680. DOI: 10.1126/science.103.2684.677.
+   *Зачем:* классическое различение номинальной, порядковой и интервальной шкал. Без него
+   утверждение «шкала порядковая» — лозунг, а не позиция.
+   *Куда:* §2.1.
+
+9. **Gneiting, T., Raftery, A. E. 2007.** Strictly Proper Scoring Rules, Prediction, and
+   Estimation. *Journal of the American Statistical Association* 102(477): 359–378.
+   DOI: 10.1198/016214506000001437.
+   *Зачем:* чтобы корректно сказать, чего индекс не делает: он не вероятностный прогноз,
+   и к нему неприменимы правила скоринга вероятностей. Это снимает вопрос «а какой у вас
+   Brier score».
+   *Куда:* §2.2 и §6 (что была бы корректная постановка прогноза).
+
+## 3. Данные о конфликте: чем мерим и где смещение (6)
+
+10. **Sundberg, R., Melander, E. 2013.** Introducing the UCDP Georeferenced Event
+    Dataset. *Journal of Peace Research* 50(4): 523–532.
+    DOI: 10.1177/0022343313484347.
+    *Куда:* §3 и §6 — компаратор и источник данных о насилии.
+
+11. **Raleigh, C., Linke, A., Hegre, H., Karlsen, J. 2010.** Introducing ACLED: An Armed
+    Conflict Location and Event Dataset. *Journal of Peace Research* 47(5): 651–660.
+    DOI: 10.1177/0022343310378914.
+    *Куда:* §3 и §6 — второй компаратор; объясняет, почему месяц ≠ неделя.
+
+12. **Davies, S., Pettersson, T., Öberg, M. 2022.** Organized violence 1989–2021 and
+    drone warfare. *Journal of Peace Research* 59(4): 593–610.
+    DOI: 10.1177/00223433221108428.
+    *Зачем:* актуальная сводка трендов насилия — нужна, чтобы читатель понимал, о каком
+    фоне идёт речь.
+    *Куда:* §1 (постановка).
+
+13. **Eck, K. 2012.** In data we trust? A comparison of UCDP GED and ACLED conflict
+    events datasets. *Cooperation and Conflict* 47(1): 124–141.
+    DOI: 10.1177/0010836711434463.
+    *Зачем:* два «объективных» датасета дают разные картины — прямое основание для §6:
+    отсутствие согласия с GPR может быть свойством не индекса, а компаратора.
+    *Куда:* §6, обсуждение результата.
+
+14. **Weidmann, N. B. 2016.** A Closer Look at Reporting Bias in Conflict Event Data.
+    *American Journal of Political Science* 60(1): 206–218. DOI: 10.1111/ajps.12196.
+    *Зачем:* смещение освещения не случайно и связано с доступом; обосновывает ворота
+    независимости источников и кластеры A–F.
+    *Куда:* §3.2.
+
+15. **Gohdes, A., Price, M. 2013.** First Things First: Assessing Data Quality before
+    Model Quality. *Journal of Conflict Resolution* 57(6): 1090–1108.
+    DOI: 10.1177/0022002712459708.
+    *Зачем:* качество данных проверяется до модели; поддерживает публикацию покрытия
+    (27–43 из 46) как обязательного поля, а не примечания.
+    *Куда:* §3.2 и §7.
+
+## 4. Прогноз, раннее предупреждение и риск (7)
+
+16. **Caldara, D., Iacoviello, M. 2022.** Measuring Geopolitical Risk. *American Economic
+    Review* 112(4): 1194–1225. DOI: 10.1257/aer.20191823.
+    *Куда:* §6, основной компаратор; §1, пример индекса, построенного на корпусе прессы.
+
+17. **Goldstone, J. A., Bates, R. H., Epstein, D. L. et al. 2010.** A Global Model for
+    Forecasting Political Instability. *American Journal of Political Science* 54(1):
+    190–208. DOI: 10.1111/j.1540-5907.2009.00426.x.
+    *Зачем:* эталонная постановка прогноза с явным горизонтом и проверкой вне выборки.
+    Показывает, чего у нас пока нет.
+    *Куда:* §6, «какой следующий шаг был бы корректным».
+
+18. **Hegre, H., Karlsen, J., Nygård, H. M., Strand, H., Urdal, H. 2013.** Predicting
+    Armed Conflict, 2010–2050. *International Studies Quarterly* 57(2): 250–270.
+    DOI: 10.1111/isqu.12007.
+    *Куда:* §6 и §8 — обоснование, почему девять недель не ряд.
+
+19. **Ward, M. D., Greenhill, B. D., Bakke, K. M. 2010.** The perils of policy by p-value:
+    Predicting civil conflicts. *Journal of Peace Research* 47(4): 363–375.
+    DOI: 10.1177/0022343309356491.
+    *Зачем:* значимость коэффициента ≠ качество прогноза. Прямо поддерживает §6: мы
+    публикуем и незначимые, и неудобные числа.
+    *Куда:* §6, абзац об интерпретации.
+
+20. **Bowlsby, D., Chenoweth, E., Hendrix, C., Moyer, J. D. 2020.** The Future is a
+    Moving Target: Predicting Political Instability. *British Journal of Political
+    Science* 50(4): 1405–1417. DOI: 10.1017/s0007123418000443.
+    *Зачем:* точность прогноза падает со временем упреждения — аргумент за фиксированный
+    короткий горизонт в протоколе валидации.
+    *Куда:* §8 (план валидации).
+
+21. **Hegre, H., Metternich, N. W., Nygård, H. M., Wucherpfennig, J. 2017.**
+    Introduction: Forecasting in Peace Research. *Journal of Peace Research* 54(2):
+    113–124. DOI: 10.1177/0022343317691330.
+    *Зачем:* рамка жанра: что считается прогнозом в исследованиях мира, какие метрики
+    принято публиковать.
+    *Куда:* §1 и §6.
+
+22. **Tetlock, P. E. 2005.** *Expert Political Judgment: How Good Is It? How Can We Know?*
+    Princeton: Princeton University Press.
+    *Зачем:* экспертные суждения систематически смещены; обосновывает, почему
+    «редактор так решил» — не метод.
+    *Куда:* §1 и §8 (один кодировщик).
+
+## 5. Открытость и воспроизводимость (4)
+
+23. **Nosek, B. A., Alter, G., Banks, G. C. et al. 2015.** Promoting an open research
+    culture. *Science* 348(6242): 1422–1425. DOI: 10.1126/science.aab2374.
+    *Куда:* §7 — стандарты прозрачности (TOP).
+
+24. **Munafò, M. R., Nosek, B. A., Bishop, D. V. M. et al. 2017.** A manifesto for
+    reproducible science. *Nature Human Behaviour* 1: 0021.
+    DOI: 10.1038/s41562-016-0021.
+    *Куда:* §7 — воспроизводимость как свойство дизайна, а не приложение.
+
+25. **Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J. et al. 2016.** The FAIR
+    Guiding Principles for scientific data management and stewardship. *Scientific Data*
+    3: 160018. DOI: 10.1038/sdata.2016.18.
+    *Куда:* §7 — почему публичный слой со схемами и лицензией, а не «данные по запросу».
+
+26. **Christensen, G., Freese, J., Miguel, E. 2019.** *Transparent and Reproducible Social
+    Science Research.* Oakland: University of California Press.
+    *Куда:* §7 — организация репозитория и журнал аудита.
+
+## 6. Согласие кодировщиков (3)
+
+27. **Cohen, J. 1960.** A Coefficient of Agreement for Nominal Scales. *Educational and
+    Psychological Measurement* 20(1): 37–46. DOI: 10.1177/001316446002000104.
+    *Куда:* §5.4 (двойное кодирование), методика κ.
+
+28. **Landis, J. R., Koch, G. G. 1977.** The Measurement of Observer Agreement for
+    Categorical Data. *Biometrics* 33(1): 159–174. DOI: 10.2307/2529310.
+    *Зачем:* границы интерпретации κ (слабое/умеренное/существенное). Важно, чтобы не
+    выдать 0,45 за «высокое согласие».
+    *Куда:* §5.4.
+
+29. **Hayes, A. F., Krippendorff, K. 2007.** Answering the Call for a Standard Reliability
+    Measure for Coding Data. *Communication Methods and Measures* 1(1): 77–89.
+    DOI: 10.1080/19312450709336664.
+    *Зачем:* κ Коэна требует номинальных шкал; для порядковых значений нужна взвешенная κ —
+    именно её считает `calc/coding-reliability.js`.
+    *Куда:* §5.4, обоснование взвешенной κ.
+
+## 7. Не в References, а в постраничные сноски
+
+По правилам «Полиса» интернет-ресурсы, не являющиеся научно-аналитическими
+материалами, идут в сноски, а не в список литературы. Туда:
+
+- Fragile States Index — страница методологии и список исследований CAST
+  (fragilestatesindex.org) — для абзаца о том, как выглядит внешняя проверка у других.
+- INFORM Risk — страница методологии JRC (drmkc.jrc.ec.europa.eu) — для сравнения
+  «страновой уровень и частота».
+- Global Peace Index — отчёт IEP (economicsandpeace.org) — для абзаца об устойчивости
+  к весам: у них 5 100+ комбинаций, у нас leave-one-domain.
+- Early Warning Project (ushmm.org) — для сравнения с интервалом неопределённости.
+- Сайты ACLED, UCDP, GPR — как адреса данных, если нужны точные даты выгрузок.
+- Официальные документы ЕС/ООН, если понадобятся, — тоже сноска.
+
+## 8. Чего в списке нет и что с этим делать
+
+1. **Русскоязычная литература.** Её в списке нет намеренно: придумывать ссылки на
+   работы, которых я не проверял, нельзя, а «Полис» ждёт разговор с отечественной
+   традицией. Что делать: поиск по eLIBRARY и архиву «Полиса» по ключевым словам
+   «индекс риска», «композитный индикатор», «измерение конфликта», «раннее
+   предупреждение», «индекс хрупкости»; отобрать 5–8 работ, у которых есть DOI/EDN.
+   Это единственный блок, который нельзя закрыть без вас.
+2. **Работы по конкретным регионам.** Для методической статьи не обязательны, но
+   рецензент-регионовед может спросить. Один абзац с 2–3 ссылками закроет вопрос.
+3. **Публикации о самом Cassandra Index.** Их нет, и это честно: статья первая.
+   Ссылка на сайт и репозиторий — в сноске, не в списке литературы.
+
+## 9. Механическая проверка перед подачей
+
+- [ ] Каждый DOI открывается и ведёт на ту работу, что указана (Crossref или doi.org).
+- [ ] У каждой статьи есть том, номер и страницы (или номер статьи).
+- [ ] Два списка: русский алфавитный и References — оба с DOI активной ссылкой.
+- [ ] EDN добавлен там, где работа есть в eLIBRARY.
+- [ ] Ни одной ссылки «в воздух»: каждый источник цитируется в тексте.
