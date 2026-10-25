@@ -23,8 +23,9 @@ prevGlobal; публичный файл `data/public/countries/<неделя>.js
 (секция регионов). На неделях с валидным оверлеем действует инвариант **«регион ⊇
 страна»** (ADR 0068): атрибуция регионов расширяется регионами атрибутированных стран
 (`expandRegionAttribution` → `computeWeek(..., {regionCriteria})`), поэтому сигнал
-страны всегда виден её региону. История не бэкфиллится. Поток данных и границы
-модулей — `docs/architecture.md`.
+страны всегда виден её региону; независимость атрибуции (≥2 кластера, ADR 0067 п. 8) —
+предупреждение `countryAttributionWarnings`. История не бэкфиллится. Поток данных и
+границы модулей — `docs/architecture.md`.
 Стек: чистый HTML/CSS/JS, ноль зависимостей; Node ≥ 18; всё — ESM, кроме CommonJS `build.js`.
 
 ## Команды
@@ -388,7 +389,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           88 файлов, node --test (933 passed)
+tests/*.test.js           88 файлов, node --test (937 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -428,6 +429,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   signals, name:{ru,en}}`; имена — единый источник `data/geo/countries.js`, vm-чтение
   с кэшем; prevIndex страны: страна → регион → prevGlobal),
   `countryIdsFor(taxonomy, ref)`/`regionOfCountry(iso, taxonomy, ref)`,
+  `countryAttributionWarnings(overlay, weekInput)` → строки предупреждений о записях
+  с < 2 кластерами источников на страну (ADR 0067 п. 8; предупреждение, не ворота),
   `renderCountryPart(week, rows)` → текст части, `writeCountryLayer(week, rows, root)`
   — запись `countries.js` + пересборка `week.js` через `loadWeekParts`/`renderWeekCombined`
   (глобальные/региональные части не трогает; частей нет → throw).
@@ -789,7 +792,7 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (88 файлов, 933 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (88 файлов, 937 passed / 0 fail — подтверждено прогоном
 2026-10-25). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -973,13 +976,20 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   {regionCriteria})`) — регион видит все сигналы своих стран. Поэтому пересчёт недели
   слоя меняет не только `countries.js`, но и `regions.js`/`region-*.js`/`week.js`
   (`node calc/calc.js --write <неделя>`), а публичный слой и дайджест пересобираются
-  штатным путём. Инвариант — вложенность сигналов, не равенство чисел: регион может быть
-  выше страны за счёт собственных сигналов (ukraine-moldova 68 при UA 61). Пин —
-  `tests/region-country-consistency.test.js`.
-- Граница прогона 2026-10-25: неделя `2026-10-25` и вход `calc/input/2026-10-25.json`
-  принадлежат параллельной сессии — её части `global/regions/region-*/trend/drivers/
-  sources` не редактировать и не перезаписывать; страновой слой пишет ТОЛЬКО новую
-  часть `countries.js` и детерминированно пересобирает `week.js` из дисковых частей.
+  штатным путём. Инвариант — вложенность сигналов, не равенство чисел: регион может
+  нести собственные сигналы, не атрибутированные ни одной стране (у `ukraine-moldova`
+  это D3.1 — Молдова). Пин — `tests/region-country-consistency.test.js`.
+- Правило ADR 0067 п. 8 (≥2 кластера на страну) — **предупреждение, не ворота**:
+  `countryAttributionWarnings` в `calc/country-layer.js`, строки печатает `printWeek`
+  («предупреждение (страны): …»), снапшот и публикация не меняются. Действует
+  симметрично для всех стран; на 2026-10-25 предупреждения у D1.4 (RU, UA), D1.5 (RU),
+  D7.2 (RU, UA), D9.3 (UA) — по одному кластеру. MD не опубликована: её единственная
+  возможная атрибуция (D3.1) — один B-источник, второго кластера нет.
+- Граница прогона 2026-10-25 (историческая, снята коммитом недели `baac71b`): пока неделя
+  принадлежала параллельной сессии, её части `global/regions/region-*/trend/drivers/
+  sources` не редактировались, а страновой слой писал ТОЛЬКО новую часть `countries.js`
+  и пересобирал `week.js` из дисковых частей. Сейчас неделя закоммичена и пересчитывается
+  штатным `calc.js --write` (это меняет и регионы — инвариант ADR 0068).
 - Публичный файл `data/public/countries/<неделя>.json` — конверт как у
   `weeks/<неделя>.json` + блок `countries` без `name` (имена — справочник) и с
   `sensitivity` недели; пишется `public-export.js --write` для недель ≥ гейта с частью

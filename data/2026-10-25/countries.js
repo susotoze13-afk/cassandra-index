@@ -17,11 +17,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 61,
-      "delta": -2,
+      "index": 68,
+      "delta": 5,
       "background": false,
       "region": "ukraine-moldova",
-      "signals": 5,
+      "signals": 7,
       "name": {
         "ru": "Украина",
         "en": "Ukraine"
