@@ -128,6 +128,14 @@
 
 ## Проверка — одна команда
 
+### Выставлено таской 01
+
+- `engine.attributedSignals(criteria, ids, params, week, attr='regions')`, `engine.attributedIndex(global, unit, params)`; `regionalSignals`/`regionalIndex` — обёртки (сигнатуры прежние).
+- `PARAMS.countryLayerFrom = '2026-10-25'`.
+- `calc/country-layer.js`: `loadCountryOverlay(week)→obj|null`, `validateCountryOverlay(overlay, weekInput, ref)→errors[]`, `mergeCountryAttribution(weekInput, overlay)→копия criteria`, `countrySignals(mergedCriteria, countryIds, params, week)`, `countryIndex(globalOut, unit, params)`, `buildCountryRows(week, globalOut, weekInput, overlay, prevSnapshot, ref, params)→{total, published, rows}`, `renderCountryPart(week, rows)→текст части`, `countryIdsFor(taxonomy, ref)`, `regionOfCountry(iso, taxonomy, ref)`.
+- Строка страны: `{ index, delta, background, region, signals, name: { ru, en } }`.
+- Не реализован таской 01 (сознательно): `writeCountryLayer` — требует presence-gated `loadWeekParts` в calc.js (таск 02/03).
+
 - Полная проверка: `node --test` (из корня, без аргументов; форма `node --test tests/` падает на Windows/Node 24).
 - Один файл: `node --test tests/<имя>.test.js`.
 - Сборка бандла после правки `js/**`: `node build.js` (обязательно, бандлы коммитятся).

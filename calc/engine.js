@@ -489,20 +489,21 @@ export function aggregateDrivers(drivers, params, context) {
   };
 }
 
-// --- §7: региональная модель отклонения ---
+// --- §7: размерностно-нейтральная модель отклонения (регионы и страны) ---
 // global: {index, internal, delta} — результат aggregateDrivers.
-// region: {iWith, iWithout — внутренние значения гипотетических прогонов §5
-//   по сигналам региона и без них; nReg — число независимых региональных
-//   сигналов за окно; eStruct, eDyn ∈ [0,1]; hasDeescSignals: bool;
-//   prevIndex — опубликованный региональный индекс прошлой недели (для Δ);
-//   prevGlobal — опубликованный глобальный индекс той же прошлой недели
-//   (для переноса последнего регионального отклонения)}.
-// Слепой регион (nReg = 0) сохраняет последнее региональное отклонение
-// относительно глобального фона, а не схлопывается в I_global.
-export function regionalIndex(global, region, params) {
+// unit: атрибутированная единица ({iWith, iWithout — внутренние значения
+//   гипотетических прогонов §5 по её сигналам и без них; nReg — число
+//   независимых сигналов за окно; eStruct, eDyn ∈ [0,1]; hasDeescSignals: bool;
+//   prevIndex — опубликованный индекс единицы прошлой недели (для Δ; у страны
+//   без истории — индекс её региона, ADR 0067); prevGlobal — опубликованный
+//   глобальный индекс той же прошлой недели (для переноса последнего
+//   отклонения)}.
+// Слепая единица (nReg = 0) сохраняет последнее отклонение относительно
+// глобального фона, а не схлопывается в I_global.
+export function attributedIndex(global, unit, params) {
   const p = params || {};
   const g = global || {};
-  const r = region || {};
+  const r = unit || {};
   const gInternal = typeof g.internal === 'number' ? g.internal : g.index;
   const gIndex = typeof g.index === 'number' ? g.index : roundHalfUp(gInternal);
   const nReg = typeof r.nReg === 'number' ? r.nReg : 0;
@@ -565,6 +566,12 @@ export function regionalIndex(global, region, params) {
   };
 }
 
+// regionalIndex — прежнее имя attributedIndex (регионы — тонкая обёртка,
+// байт-пин выходов всех недель: tests/engine-attribution-parity.test.js).
+export function regionalIndex(global, region, params) {
+  return attributedIndex(global, region, params);
+}
+
 // --- §7 (ADR 0065): параметры гипотетик iWith/iWithout ---
 // Порог покрытия гипотетик: драйвер покрыт, если в региональном подмножестве
 // есть хотя бы один его покрытый критерий (regionHypothesisThreshold, эпсилон
@@ -582,47 +589,50 @@ export function regionalHypothesisParams(params, week) {
   return { ...p, coverageThreshold: p.regionHypothesisThreshold ?? 1e-9 };
 }
 
-// --- §7: агрегация региональной атрибуции критериев в сигналы региона ---
+// --- §7: агрегация атрибуции критериев в сигналы единицы (регион или страна) ---
 // criteria: входная карта критериев (input.criteria после validate);
-// regionIds: whitelist регионов (по умолчанию — REGION_IDS из js/data.js);
+// ids: whitelist единиц атрибуции (для регионов — по умолчанию REGION_IDS из
+// js/data.js; для стран — whitelist ISO2 вызывающего);
 // week: дата недели (YYYY-MM-DD) для гейта порога гипотетик (ADR 0065);
 // отсутствие недели — новое правило действует (чистый юнит).
-// Возвращает { [regionId]: {nReg, eStruct, eDyn, hasDeescSignals, iWith,
-// iWithout} } только для регионов с ≥1 региональным сигналом; {} при
-// отсутствии атрибуции. Результат — готовый вход engine.regionalIndex.
+// attr: имя атрибутивного поля записи критерия ('regions' | 'countries') —
+// размерность атрибуции; логика агрегации общая (одна формула §7).
+// Возвращает { [id]: {nReg, eStruct, eDyn, hasDeescSignals, iWith,
+// iWithout} } только для единиц с ≥1 сигналом; {} при
+// отсутствии атрибуции. Результат — готовый вход engine.attributedIndex.
 // Трактовка шкал §7, которую методология не определяет однозначно, —
 // зафиксирована в docs/adr/0022-regional-signals-interpretation.md:
-//   - сигнал региона — покрытая (covered:true) запись критерия с непустым
-//     regions[], включающим регион; nReg — число таких записей (объём данных:
+//   - сигнал — покрытая (covered:true) запись критерия с непустым
+//     attr-полем, включающим единицу; nReg — число таких записей (объём данных:
 //     сигнал с value 0 тоже считается — это зафиксированное наблюдение, а не
 //     отсутствие данных); «независимость» на уровне недели гарантируют ворота
 //     validateSourceIndependence (calc.js), а не эта функция;
 //   - запись с intersection: true (§4.1.5, ADR 0046) — вторичный учёт уже
-//     посчитанного события: региональной моделью она не считается вообще —
-//     ни сигналом (nReg), ни потоком недели (знаменатель eDyn), ни членом
-//     гипотетических прогонов iWith/iWithout. Иначе повторное событие сдвигало
-//     бы индексы регионов при неизменном глобальном скоре. Регион, у которого
+//     посчитанного события: региональной/страновой моделью она не считается
+//     вообще — ни сигналом (nReg), ни потоком недели (знаменатель eDyn), ни
+//     членом гипотетических прогонов iWith/iWithout. Иначе повторное событие
+//     сдвигало бы индексы при неизменном глобальном скоре. Единица, у которой
 //     все сигналы — пересечения, остаётся без сигналов (nReg = 0 → слепая
 //     ветка background:true), а не получает фантомный сдвиг. Покрытие недели
 //     это не меняет: счётчик покрытых критериев живёт в calc/calc.js и считает
 //     по covered;
 //   - Д2 и Д4, а также Д9 кроме Д9.3, в агрегацию не входят: §7 относит их
-//     эффект к экспозиции региона, а не к дублированию сигнала;
-//   - hasDeescSignals — есть покрытый сигнал региона по критерию с
+//     эффект к экспозиции единицы, а не к дублированию сигнала;
+//   - hasDeescSignals — есть покрытый сигнал по критерию с
 //     направлением 'deesc' и нормированным значением > 0;
 //   - eStruct — стартовое нейтральное значение params.regionEstructDefault
 //     (структурная экспозиция недельный вход не несёт; квартальный реестр —
 //     задел методологии 3.0); eDyn = nReg / (число покрытых критериев недели)
-//     — доля сигналов региона в общем потоке (компонента «близость к активным
+//     — доля сигналов единицы в общем потоке (компонента «близость к активным
 //     событиям» недоступна во входе недели — ADR 0022);
-//   - iWith — гипотетический индекс §5 (шаги 2–6) по сигналам региона;
+//   - iWith — гипотетический индекс §5 (шаги 2–6) по сигналам единицы;
 //     iWithout — тот же прогон по всем покрытым критериям недели без сигналов
-//     региона (сигналы других регионов остаются).
-export function regionalSignals(criteria, regionIds, params, week) {
+//     единицы (сигналы других единиц остаются).
+export function attributedSignals(criteria, ids, params, week, attr = 'regions') {
   const p = params || PARAMS;
   // Гипотетики считаются с порогом из гейта (ADR 0065), остальные поля — из p.
   const pRegion = regionalHypothesisParams(p, week);
-  const whitelist = Array.isArray(regionIds) && regionIds.length ? regionIds : REGION_IDS;
+  const whitelist = Array.isArray(ids) && ids.length ? ids : REGION_IDS;
   const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
   const eligible = (id) => {
     const m = CRITERIA[id];
@@ -641,8 +651,8 @@ export function regionalSignals(criteria, regionIds, params, week) {
     // считают её отдельно (buildDriversCore / coverageOf).
     if (entry.intersection === true) continue;
     nCovered += 1;
-    if (!eligible(id) || !Array.isArray(entry.regions)) continue;
-    for (const rid of entry.regions) {
+    if (!eligible(id) || !Array.isArray(entry[attr])) continue;
+    for (const rid of entry[attr]) {
       if (!whitelist.includes(rid)) continue;
       (attributed[rid] = attributed[rid] || []).push({ id, entry });
     }
@@ -672,6 +682,13 @@ export function regionalSignals(criteria, regionIds, params, week) {
     };
   }
   return out;
+}
+
+// regionalSignals — прежнее имя attributedSignals для размерности 'regions'
+// (тонкая обёртка: выходы всех 13 недель не сдвигаются, байт-пин —
+// tests/engine-attribution-parity.test.js).
+export function regionalSignals(criteria, regionIds, params, week) {
+  return attributedSignals(criteria, regionIds, params, week, 'regions');
 }
 
 // --- Валидация входного файла недели (calc/input/<неделя>.json) ---
