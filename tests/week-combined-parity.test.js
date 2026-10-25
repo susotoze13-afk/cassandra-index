@@ -33,7 +33,7 @@ function snapshotFromParts(week) {
   // presence-gated — недели без файла countries.js валидны и не меняются.
   const countries = loadSnapshotPart(week, 'countries');
   if (countries && countries.countries !== undefined) {
-    expected.countries = countries.countries;
+    expected.countries = JSON.parse(JSON.stringify(countries.countries));
   }
   return expected;
 }

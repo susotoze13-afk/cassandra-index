@@ -1,0 +1,86 @@
+{
+  "week": "2026-10-25",
+  "criteria": {
+    "D1.4": {
+      "countries": ["RU"],
+      "basis": "Массированный удар ВСУ по Белгороду с разрушениями и потерями; ПВО РФ заявила о сбитии 1 297 дронов за сутки; Минобороны РФ сообщило о взятии села Мировка в Запорожской области",
+      "sources": [
+        "https://tass.com/politics/2207373",
+        "https://tass.com/defense/2207273",
+        "https://sputnikglobe.com/20261022/russian-forces-liberate-mirovka-settlement-in-zaporozhye-region---mod-1124923329.html"
+      ]
+    },
+    "D1.5": {
+      "countries": ["RU"],
+      "basis": "Россия сблизила военный спутник с американским аппаратом, связанным с Украиной, — эскалация космической конфронтации со стороны РФ",
+      "sources": [
+        "https://www.defensenews.com/space/2026/10/23/the-west-cant-stop-me-space-wars-heat-up-as-russia-tails-a-ukraine-linked-us-satellite/"
+      ]
+    },
+    "D3.1": {
+      "countries": ["RU"],
+      "basis": "Австрия объявила четырёх российских дипломатов персонами нон грата; Россия пообещала «жёсткий ответ» после высылки дипломата Молдовой",
+      "sources": [
+        "https://www.kommersant.ru/doc/9045475",
+        "https://www.aa.com.tr/en/world/russia-warns-of-firm-response-after-moldova-expels-diplomat/4099661"
+      ]
+    },
+    "D3.4": {
+      "countries": ["RU", "UA"],
+      "basis": "Временное перемирие в Олешках: Мелания Трамп объявила о договорённости, Зеленский подтвердил, что Украина его соблюдает и рассчитывает на посредничество США",
+      "sources": [
+        "https://www.cbsnews.com/news/first-lady-melania-trump-temporary-ceasefire-russia-ukraine-oleshky/",
+        "https://www.aa.com.tr/en/politics/zelenskyy-says-ukraine-will-honor-oleshky-ceasefire-counts-on-us-mediation-to-work/4099683"
+      ]
+    },
+    "D3.5": {
+      "countries": ["RU", "UA"],
+      "basis": "Россия и Украина выполняют обязательства по перемирию в Алёшках; локальное гуманитарное перемирие начнётся 27 октября, заявил украинский переговорщик",
+      "sources": [
+        "https://tass.com/politics/2207325",
+        "https://www.thehindu.com/news/international/local-humanitarian-ceasefire-with-russia-will-start-on-october-27-says-negotiator/article71618931.ece",
+        "https://www.aa.com.tr/en/politics/zelenskyy-says-ukraine-will-honor-oleshky-ceasefire-counts-on-us-mediation-to-work/4099683"
+      ]
+    },
+    "D5.2": {
+      "countries": ["RU"],
+      "basis": "Хакеры ГРУ атаковали судостроителя НАТО, производителя авиадвигателей и правоохранительное ведомство; Мерц обвинил Россию в стремлении дестабилизировать Германию",
+      "sources": [
+        "https://cyberscoop.com/russian-hackers-apt28-target-nato-defense-firms/",
+        "https://www.aa.com.tr/en/europe/merz-accuses-russia-of-seeking-to-destabilize-germany/4099528"
+      ]
+    },
+    "D7.2": {
+      "countries": ["RU"],
+      "basis": "Логистический центр Ozon в Омске подвергся атаке дронов",
+      "sources": [
+        "https://tass.com/emergencies/2207313"
+      ]
+    },
+    "D7.4": {
+      "countries": ["UA"],
+      "basis": "SpaceX ограничивала скорость Starlink для Украины из-за ударов дронами; ограничения скорости Starshield сняты после контактов на высоком уровне",
+      "sources": [
+        "https://www.cbsnews.com/news/ukraine-starlink-drone-spacex-musk-speed-restriction/",
+        "https://www.aa.com.tr/en/world/ukraine-says-starshield-speed-restrictions-lifted-after-high-level-contacts/4099455"
+      ]
+    },
+    "D8.2": {
+      "countries": ["RU", "UA"],
+      "basis": "Временное гуманитарное перемирие между Россией и Украиной в Олешках (Алёшках) закреплено сторонами",
+      "sources": [
+        "https://www.cbsnews.com/news/first-lady-melania-trump-temporary-ceasefire-russia-ukraine-oleshky/",
+        "https://www.thehindu.com/news/international/local-humanitarian-ceasefire-with-russia-will-start-on-october-27-says-negotiator/article71618931.ece",
+        "https://tass.com/politics/2207325"
+      ]
+    },
+    "D9.3": {
+      "countries": ["UA"],
+      "basis": "Украина потеряла почти 14 % локомотивов менее чем за два года; ограничения скорости Starshield для Украины сняты после контактов на высоком уровне",
+      "sources": [
+        "https://tass.com/economy/2207397",
+        "https://www.aa.com.tr/en/world/ukraine-says-starshield-speed-restrictions-lifted-after-high-level-contacts/4099455"
+      ]
+    }
+  }
+}
