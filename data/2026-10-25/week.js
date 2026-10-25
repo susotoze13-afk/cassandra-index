@@ -2,18 +2,18 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
   s.global = {
-  "index": 69,
-  "delta": 5
+  "index": 68,
+  "delta": 4
 };
   s.published = "2026-10-25";
   s.through = "2026-10-25";
   s.methodology = "3.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
-  s.q = 0.9361;
-  s.nullWeight = 0.0639;
+  s.q = 1;
+  s.nullWeight = 0;
   s.coverage = {
-  "coveredDrivers": 8,
+  "coveredDrivers": 9,
   "totalDrivers": 9
 };
   s.confidence = "full";
@@ -23,30 +23,25 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "signalingSubgroups": 5
 };
   s.coverageCriteria = {
-  "covered": 31,
+  "covered": 36,
   "total": 46,
   "uncovered": [
     "D1.3",
     "D1.6",
-    "D2.3",
     "D2.4",
-    "D3.1",
     "D4.1",
-    "D4.2",
-    "D5.2",
     "D5.3",
     "D5.4",
     "D6.4",
-    "D8.4",
     "D9.1",
     "D9.5",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T06:06:35.971Z",
+  "at": "2026-10-25T11:50:02.216Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 70,
+  "previous": 69,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
@@ -59,26 +54,26 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "ukraine-moldova": {
-    "index": 68,
-    "delta": 5,
+    "index": 69,
+    "delta": 6,
     "status": "very",
     "background": false
   },
   "baltic": {
-    "index": 72,
-    "delta": 5,
+    "index": 70,
+    "delta": 3,
     "status": "very",
-    "background": true
+    "background": false
   },
   "balkans": {
-    "index": 72,
-    "delta": 5,
+    "index": 69,
+    "delta": 2,
     "status": "very",
-    "background": true
+    "background": false
   },
   "eu-north-europe": {
-    "index": 70,
-    "delta": 4,
+    "index": 68,
+    "delta": 2,
     "status": "very",
     "background": false
   },
@@ -86,11 +81,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "index": 66,
     "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "central-asia": {
-    "index": 68,
-    "delta": 5,
+    "index": 67,
+    "delta": 4,
     "status": "very",
     "background": true
   },
@@ -101,8 +96,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "middle-east": {
-    "index": 78,
-    "delta": 9,
+    "index": 79,
+    "delta": 10,
     "status": "very",
     "background": false
   },
@@ -247,8 +242,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 68,
-  "delta": 5,
+  "index": 69,
+  "delta": 6,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -382,10 +377,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 72,
-  "delta": 5,
+  "index": 70,
+  "delta": 3,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "low",
   "drivers": [
     {
@@ -489,10 +484,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 72,
-  "delta": 5,
+  "index": 69,
+  "delta": 2,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "medium",
   "drivers": [
     {
@@ -582,8 +577,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 70,
-  "delta": 4,
+  "index": 68,
+  "delta": 2,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -720,7 +715,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "index": 66,
   "delta": 5,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "low",
   "drivers": [
     {
@@ -824,8 +819,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 68,
-  "delta": 5,
+  "index": 67,
+  "delta": 4,
   "status": "very",
   "background": true,
   "confidence": "low",
@@ -1052,8 +1047,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 78,
-  "delta": 9,
+  "index": 79,
+  "delta": 10,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1646,7 +1641,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-10-25",
-    "value": 69,
+    "value": 68,
     "methodology": "3.0"
   }
 ];
@@ -3302,6 +3297,176 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "kommersant-austria-expels-1023",
+    "title": {
+      "ru": "Австрия объявила четырёх российских дипломатов персонами нон грата",
+      "en": "Austria declares four Russian diplomats personae non gratae"
+    },
+    "domain": "kommersant.ru",
+    "url": "https://www.kommersant.ru/doc/9045475",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-moldova-expels-diplomat-1024",
+    "title": {
+      "ru": "Россия обещает «жёсткий ответ» после высылки дипломата Молдовой",
+      "en": "Russia warns of 'firm response' after Moldova expels diplomat"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/world/russia-warns-of-firm-response-after-moldova-expels-diplomat/4099661",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "defensenews-france-uk-nuclear-drill-1023",
+    "title": {
+      "ru": "Франция и Великобритания впервые провели совместные учения с отработкой ядерного удара с воздуха",
+      "en": "France, UK carry out joint airborne nuclear-strike exercise for first time"
+    },
+    "domain": "defensenews.com",
+    "url": "https://www.defensenews.com/global/europe/2026/10/23/france-uk-carry-out-joint-airborne-nuclear-strike-exercise-for-first-time/",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "govuk-uk-france-nuclear-exercise-1023",
+    "title": {
+      "ru": "Великобритания и Франция укрепляют ядерное оборонное партнёрство на первых совместных учениях",
+      "en": "UK-France deepen nuclear defence ties in first joint exercise"
+    },
+    "domain": "gov.uk",
+    "url": "https://www.gov.uk/government/news/uk-france-deepen-nuclear-defence-ties-in-first-joint-exercise",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "primary",
+    "cluster_id": "C-registries",
+    "state_affiliated": true
+  },
+  {
+    "id": "euractiv-eu-defence-budget-1022",
+    "title": {
+      "ru": "Европарламент допускает участие стран вне ЕС в следующем оборонном бюджете: 136,1 млрд евро на оборону и космос",
+      "en": "Parliament leaves door open to non-EU countries in next defence budget"
+    },
+    "domain": "rapporteur.com",
+    "url": "https://www.rapporteur.com/news/parliament-leaves-door-open-to-non-eu-countries-in-next-defence-budget/",
+    "publication_date": "2026-10-22",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Хост отдаёт 403 автоматическим проверкам (Cloudflare) — классификация linkcheck: blocked, не битая; материал доступен через RSS Euractiv."
+  },
+  {
+    "id": "mehr-ukraine-military-spending-1025",
+    "title": {
+      "ru": "Конфликт с Россией будет стоить Украине более 470 млн долларов в день",
+      "en": "Conflict with Russia to cost Ukraine over $470 mln per day"
+    },
+    "domain": "en.mehrnews.com",
+    "url": "https://en.mehrnews.com/news/248873/Conflict-with-Russia-to-cost-Ukraine-over-470-mln-per-day",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "cyberscoop-gru-nato-firms-1020",
+    "title": {
+      "ru": "Хакеры ГРУ атаковали судостроителя НАТО, производителя авиадвигателей и правоохранительное ведомство",
+      "en": "Russian GRU hackers hit NATO shipbuilder, aircraft engine maker, law enforcement agency in espionage campaign"
+    },
+    "domain": "cyberscoop.com",
+    "url": "https://cyberscoop.com/russian-hackers-apt28-target-nato-defense-firms/",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-merz-russia-destabilize-1024",
+    "title": {
+      "ru": "Мерц обвинил Россию в стремлении «дестабилизировать» Германию",
+      "en": "Merz accuses Russia of seeking to 'destabilize' Germany"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/merz-accuses-russia-of-seeking-to-destabilize-germany/4099528",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "balkaninsight-bulgaria-drone-controversy-1023",
+    "title": {
+      "ru": "Болгария: фаворит президентской гонки лидирует несмотря на споры вокруг дронов",
+      "en": "Bulgaria's Presidential Frontrunner Holds Lead Despite Drone Controversy"
+    },
+    "domain": "balkaninsight.com",
+    "url": "https://balkaninsight.com/2026/10/23/bulgarias-presidential-frontrunner-holds-lead-despite-drone-controversy/bi/",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Атаки дронов по болгарской зоне Чёрного моря 6 и 13 октября и по румынским водам в этом месяце — вне окна недели; материал подтверждает региональную атрибуцию balkans для D7.2."
+  },
+  {
+    "id": "aa-bulgaria-election-security-1025",
+    "title": {
+      "ru": "Болгария идёт на выборы на фоне региональных проблем безопасности",
+      "en": "Bulgaria heads to polls for presidential election amid regional security concerns"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/bulgaria-heads-to-polls-for-presidential-election-amid-regional-security-concerns/4099979",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "danas-latvia-drone-1024",
+    "title": {
+      "ru": "В Латвии обнаружен беспилотник неизвестного происхождения",
+      "en": "Drone of unknown origin found in Latvia"
+    },
+    "domain": "danas.rs",
+    "url": "https://www.danas.rs/svet/u-letoniji-pronadjena-bespilotna-letelica-nepoznatog-porekla/",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "civilge-iprm-135-1023",
+    "title": {
+      "ru": "В Эргнети прошла 135-я встреча Механизма предотвращения инцидентов и реагирования",
+      "en": "135th IPRM Meeting Held in Ergneti"
+    },
+    "domain": "civil.ge",
+    "url": "https://civil.ge/archives/755705",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

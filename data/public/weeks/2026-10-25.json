@@ -16,13 +16,13 @@
     "methodology": "3.0",
     "regions_taxonomy": "2.0",
     "data_state": "published",
-    "index": 69,
-    "delta": 5,
+    "index": 68,
+    "delta": 4,
     "state": "very",
-    "q": 0.9361,
+    "q": 1,
     "confidence": "full",
     "coverage_criteria": {
-      "covered": 31,
+      "covered": 36,
       "total": 46
     },
     "regions": [
@@ -34,38 +34,38 @@
       },
       {
         "id": "ukraine-moldova",
-        "index": 68,
-        "delta": 5,
+        "index": 69,
+        "delta": 6,
         "background": false
       },
       {
         "id": "baltic",
-        "index": 72,
-        "delta": 5,
-        "background": true
+        "index": 70,
+        "delta": 3,
+        "background": false
       },
       {
         "id": "balkans",
-        "index": 72,
-        "delta": 5,
-        "background": true
+        "index": 69,
+        "delta": 2,
+        "background": false
       },
       {
         "id": "eu-north-europe",
-        "index": 70,
-        "delta": 4,
+        "index": 68,
+        "delta": 2,
         "background": false
       },
       {
         "id": "south-caucasus",
         "index": 66,
         "delta": 5,
-        "background": true
+        "background": false
       },
       {
         "id": "central-asia",
-        "index": 68,
-        "delta": 5,
+        "index": 67,
+        "delta": 4,
         "background": true
       },
       {
@@ -76,8 +76,8 @@
       },
       {
         "id": "middle-east",
-        "index": 78,
-        "delta": 9,
+        "index": 79,
+        "delta": 10,
         "background": false
       },
       {
@@ -137,12 +137,12 @@
         "score": 0.6,
         "confidence": "high",
         "weight": 0.1175,
-        "weight_effective": 0.183,
+        "weight_effective": 0.171,
         "covered": {
           "criteria": 4,
           "total": 6
         },
-        "contribution_pp": 16.3,
+        "contribution_pp": 15.3,
         "top_criteria": [
           {
             "id": "D1.4",
@@ -185,15 +185,15 @@
           "ru": "Д2. Ядерная сигнальная активность",
           "en": "D2. Nuclear signaling activity"
         },
-        "score": 0.335,
+        "score": 0.29,
         "confidence": "medium",
         "weight": 0.1175,
-        "weight_effective": 0.128,
+        "weight_effective": 0.12,
         "covered": {
-          "criteria": 3,
+          "criteria": 4,
           "total": 5
         },
-        "contribution_pp": 6.3,
+        "contribution_pp": 5.2,
         "top_criteria": [
           {
             "id": "D2.1",
@@ -203,8 +203,19 @@
             },
             "dir": "esc",
             "value": 0.67,
-            "contribution": 0.335,
-            "share": 1
+            "contribution": 0.223,
+            "share": 0.77
+          },
+          {
+            "id": "D2.3",
+            "name": {
+              "ru": "Технические ядерные сигналы",
+              "en": "Technical nuclear signals"
+            },
+            "dir": "esc",
+            "value": 0.2,
+            "contribution": 0.067,
+            "share": 0.23
           }
         ]
       },
@@ -214,15 +225,15 @@
           "ru": "Д3. Дипломатическая эскалация и деэскалация",
           "en": "D3. Diplomatic escalation and de-escalation"
         },
-        "score": 0.267,
+        "score": 0.173,
         "confidence": "medium",
         "weight": 0.1175,
-        "weight_effective": 0.128,
+        "weight_effective": 0.12,
         "covered": {
-          "criteria": 4,
+          "criteria": 5,
           "total": 5
         },
-        "contribution_pp": 5,
+        "contribution_pp": 3.1,
         "top_criteria": [
           {
             "id": "D3.2",
@@ -232,8 +243,8 @@
             },
             "dir": "esc",
             "value": 0.67,
-            "contribution": 0.335,
-            "share": 0.477
+            "contribution": 0.223,
+            "share": 0.368
           },
           {
             "id": "D3.4",
@@ -244,7 +255,7 @@
             "dir": "deesc",
             "value": 0.67,
             "contribution": -0.167,
-            "share": -0.238
+            "share": -0.276
           },
           {
             "id": "D3.3",
@@ -254,8 +265,8 @@
             },
             "dir": "esc",
             "value": 0.3,
-            "contribution": 0.15,
-            "share": 0.214
+            "contribution": 0.1,
+            "share": 0.165
           }
         ]
       },
@@ -265,15 +276,15 @@
           "ru": "Д4. Экономические индикаторы конфликта",
           "en": "D4. Economic indicators of conflict"
         },
-        "score": 0.49,
+        "score": 0.4,
         "confidence": "high",
         "weight": 0.1175,
-        "weight_effective": 0.183,
+        "weight_effective": 0.171,
         "covered": {
-          "criteria": 4,
+          "criteria": 5,
           "total": 6
         },
-        "contribution_pp": 13.2,
+        "contribution_pp": 10.2,
         "top_criteria": [
           {
             "id": "D4.6",
@@ -283,19 +294,8 @@
             },
             "dir": "esc",
             "value": 1,
-            "contribution": 0.333,
-            "share": 0.375
-          },
-          {
-            "id": "D4.3",
-            "name": {
-              "ru": "Разрыв цепочек поставок",
-              "en": "Supply chain disruption"
-            },
-            "dir": "esc",
-            "value": 0.67,
-            "contribution": 0.223,
-            "share": 0.251
+            "contribution": 0.25,
+            "share": 0.313
           },
           {
             "id": "D4.5",
@@ -306,7 +306,18 @@
             "dir": "deesc",
             "value": 0.4,
             "contribution": -0.2,
-            "share": -0.225
+            "share": -0.25
+          },
+          {
+            "id": "D4.3",
+            "name": {
+              "ru": "Разрыв цепочек поставок",
+              "en": "Supply chain disruption"
+            },
+            "dir": "esc",
+            "value": 0.67,
+            "contribution": 0.168,
+            "share": 0.209
           }
         ]
       },
@@ -316,16 +327,39 @@
           "ru": "Д5. Информационная и киберсфера",
           "en": "D5. Information and cyber sphere"
         },
-        "score": null,
+        "score": 0.6,
         "confidence": "low",
         "weight": 0.1175,
-        "weight_effective": 0,
+        "weight_effective": 0.068,
         "covered": {
-          "criteria": 1,
+          "criteria": 2,
           "total": 4
         },
-        "contribution_pp": 0,
-        "top_criteria": []
+        "contribution_pp": 6.1,
+        "top_criteria": [
+          {
+            "id": "D5.1",
+            "name": {
+              "ru": "Эскалация военной риторики",
+              "en": "Escalation of war rhetoric"
+            },
+            "dir": "esc",
+            "value": 1,
+            "contribution": 0.5,
+            "share": 0.833
+          },
+          {
+            "id": "D5.2",
+            "name": {
+              "ru": "Кибероперации",
+              "en": "Cyber operations"
+            },
+            "dir": "esc",
+            "value": 0.2,
+            "contribution": 0.1,
+            "share": 0.167
+          }
+        ]
       },
       {
         "id": "D6",
@@ -336,12 +370,12 @@
         "score": 0.553,
         "confidence": "medium",
         "weight": 0.1175,
-        "weight_effective": 0.128,
+        "weight_effective": 0.12,
         "covered": {
           "criteria": 3,
           "total": 4
         },
-        "contribution_pp": 10.4,
+        "contribution_pp": 9.9,
         "top_criteria": [
           {
             "id": "D6.3",
@@ -384,15 +418,15 @@
           "ru": "Д7. Распространение и вовлечение третьих сторон",
           "en": "D7. Proliferation and third-party involvement"
         },
-        "score": 0.568,
+        "score": 0.602,
         "confidence": "high",
         "weight": 0.1175,
-        "weight_effective": 0.183,
+        "weight_effective": 0.171,
         "covered": {
           "criteria": 4,
           "total": 4
         },
-        "contribution_pp": 15.3,
+        "contribution_pp": 15.4,
         "top_criteria": [
           {
             "id": "D7.3",
@@ -403,7 +437,7 @@
             "dir": "esc",
             "value": 1,
             "contribution": 0.333,
-            "share": 0.371
+            "share": 0.358
           },
           {
             "id": "D7.2",
@@ -412,9 +446,9 @@
               "en": "Attacks beyond the theatre"
             },
             "dir": "esc",
-            "value": 0.7,
-            "contribution": 0.233,
-            "share": 0.26
+            "value": 0.8,
+            "contribution": 0.267,
+            "share": 0.286
           },
           {
             "id": "D7.1",
@@ -425,7 +459,7 @@
             "dir": "esc",
             "value": 0.5,
             "contribution": 0.167,
-            "share": 0.186
+            "share": 0.179
           }
         ]
       },
@@ -435,15 +469,15 @@
           "ru": "Д8. Подтверждённые деэскалирующие исходы",
           "en": "D8. Confirmed de-escalating outcomes"
         },
-        "score": 0.22,
+        "score": 0.165,
         "confidence": "low",
         "weight": 0.1175,
         "weight_effective": null,
         "covered": {
-          "criteria": 3,
+          "criteria": 4,
           "total": 4
         },
-        "contribution_pp": -2.3,
+        "contribution_pp": -1.7,
         "top_criteria": [
           {
             "id": "D8.2",
@@ -453,7 +487,7 @@
             },
             "dir": "deesc",
             "value": 0.33,
-            "contribution": 0.11,
+            "contribution": 0.083,
             "share": 0.5
           },
           {
@@ -464,7 +498,7 @@
             },
             "dir": "deesc",
             "value": 0.33,
-            "contribution": 0.11,
+            "contribution": 0.083,
             "share": 0.5
           }
         ]
@@ -478,12 +512,12 @@
         "score": 0.498,
         "confidence": "medium",
         "weight": 0.06,
-        "weight_effective": 0.065,
+        "weight_effective": 0.061,
         "covered": {
           "criteria": 5,
           "total": 8
         },
-        "contribution_pp": 4.8,
+        "contribution_pp": 4.5,
         "top_criteria": [
           {
             "id": "D9.3",
@@ -528,47 +562,47 @@
       },
       "to": {
         "week": "2026-10-25",
-        "index": 69
+        "index": 68
       },
       "steps": [
         {
           "driver": "D1",
-          "contribution_pp": 3.4
+          "contribution_pp": 2.7
         },
         {
           "driver": "D2",
-          "contribution_pp": 4.1
+          "contribution_pp": 3.4
         },
         {
           "driver": "D3",
-          "contribution_pp": -1.9
+          "contribution_pp": -3.2
         },
         {
           "driver": "D4",
-          "contribution_pp": -0.8
+          "contribution_pp": -2.9
         },
         {
           "driver": "D5",
-          "contribution_pp": -5.4
+          "contribution_pp": -1.5
         },
         {
           "driver": "D6",
-          "contribution_pp": 2.1
+          "contribution_pp": 1.6
         },
         {
           "driver": "D7",
-          "contribution_pp": 1.1
+          "contribution_pp": 1
         },
         {
           "driver": "D8",
-          "contribution_pp": 0.8
+          "contribution_pp": 1.1
         },
         {
           "driver": "D9",
-          "contribution_pp": 1.3
+          "contribution_pp": 1.1
         }
       ],
-      "residual_pp": 0.3,
+      "residual_pp": 0.7,
       "residual_reason": "saturation-inertia-coverage-rounding"
     },
     "what_would_change": {
@@ -577,29 +611,15 @@
         "down": {
           "state": "danger",
           "index": 61,
-          "gap_pp": -8
+          "gap_pp": -7
         },
         "up": {
           "state": "critical",
           "index": 81,
-          "gap_pp": 12
+          "gap_pp": 13
         }
       },
       "criteria": [
-        {
-          "id": "D4.6",
-          "name": {
-            "ru": "Стресс на финансовых и сырьевых рынках",
-            "en": "Financial and commodity market stress"
-          },
-          "driver": "D4",
-          "dir": "esc",
-          "value": 1,
-          "impact_pp": -5.9,
-          "effect": "down",
-          "crosses_state": false,
-          "breaks_driver": false
-        },
         {
           "id": "D7.3",
           "name": {
@@ -609,7 +629,21 @@
           "driver": "D7",
           "dir": "esc",
           "value": 1,
-          "impact_pp": -5.9,
+          "impact_pp": -5.6,
+          "effect": "down",
+          "crosses_state": false,
+          "breaks_driver": false
+        },
+        {
+          "id": "D7.2",
+          "name": {
+            "ru": "Атаки за пределами театра",
+            "en": "Attacks beyond the theatre"
+          },
+          "driver": "D7",
+          "dir": "esc",
+          "value": 0,
+          "impact_pp": -4.5,
           "effect": "down",
           "crosses_state": false,
           "breaks_driver": false
@@ -623,7 +657,7 @@
           "driver": "D1",
           "dir": "esc",
           "value": 0,
-          "impact_pp": -4.4,
+          "impact_pp": -4.2,
           "effect": "down",
           "crosses_state": false,
           "breaks_driver": false
@@ -632,9 +666,9 @@
       "method": "criterion-zeroed"
     },
     "sources": {
-      "count": 99,
-      "clusters": 4,
-      "state_affiliated": 50
+      "count": 111,
+      "clusters": 5,
+      "state_affiliated": 55
     },
     "trend": [
       {
@@ -691,7 +725,7 @@
       },
       {
         "date": "2026-10-25",
-        "value": 69,
+        "value": 68,
         "methodology": "3.0"
       }
     ]

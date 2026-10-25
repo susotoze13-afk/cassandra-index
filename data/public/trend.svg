@@ -3,7 +3,7 @@
   <desc id="trend-desc">Точки — опубликованный индекс по неделям; шкала 0–100 порядковая, расстояния между числами — соглашение. Точки разных версий методологии соединены отдельными линиями и между собой не сравниваются.</desc>
   <line x1="36" y1="280" x2="624" y2="280" style="stroke:var(--border, #232B36)"/>
   <polyline points="36.0,111.0 89.5,108.4 142.9,105.8" fill="none" style="stroke:var(--accent, #58A6FF);stroke-width:2"/>
-  <polyline points="196.4,147.4 249.8,170.8 303.3,168.2 356.7,134.4 410.2,157.8 463.6,160.4 517.1,134.4 570.5,113.6 624.0,100.6" fill="none" style="stroke:var(--accent, #58A6FF);stroke-width:2"/>
+  <polyline points="196.4,147.4 249.8,170.8 303.3,168.2 356.7,134.4 410.2,157.8 463.6,160.4 517.1,134.4 570.5,113.6 624.0,103.2" fill="none" style="stroke:var(--accent, #58A6FF);stroke-width:2"/>
   <text class="trend-axis-label" x="36.0" y="298.0" text-anchor="middle" style="fill:var(--text-secondary, #8B949E)">09.08</text>
   <circle cx="36.0" cy="111.0" r="4" style="fill:var(--accent, #58A6FF)"/>
   <text x="36.0" y="103.0" text-anchor="middle" style="fill:var(--text, #E6EDF3)">65</text>
@@ -38,6 +38,6 @@
   <circle cx="570.5" cy="113.6" r="4" style="fill:var(--accent, #58A6FF)"/>
   <text x="570.5" y="105.6" text-anchor="middle" style="fill:var(--text, #E6EDF3)">64</text>
   <text class="trend-axis-label" x="624.0" y="298.0" text-anchor="middle" style="fill:var(--text-secondary, #8B949E)">25.10</text>
-  <circle cx="624.0" cy="100.6" r="4" style="fill:var(--accent, #58A6FF)"/>
-  <text x="624.0" y="92.6" text-anchor="middle" style="fill:var(--text, #E6EDF3)">69</text>
+  <circle cx="624.0" cy="103.2" r="4" style="fill:var(--accent, #58A6FF)"/>
+  <text x="624.0" y="95.2" text-anchor="middle" style="fill:var(--text, #E6EDF3)">68</text>
 </svg>

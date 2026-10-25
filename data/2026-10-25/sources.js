@@ -1387,6 +1387,176 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "kommersant-austria-expels-1023",
+    "title": {
+      "ru": "Австрия объявила четырёх российских дипломатов персонами нон грата",
+      "en": "Austria declares four Russian diplomats personae non gratae"
+    },
+    "domain": "kommersant.ru",
+    "url": "https://www.kommersant.ru/doc/9045475",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-moldova-expels-diplomat-1024",
+    "title": {
+      "ru": "Россия обещает «жёсткий ответ» после высылки дипломата Молдовой",
+      "en": "Russia warns of 'firm response' after Moldova expels diplomat"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/world/russia-warns-of-firm-response-after-moldova-expels-diplomat/4099661",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "defensenews-france-uk-nuclear-drill-1023",
+    "title": {
+      "ru": "Франция и Великобритания впервые провели совместные учения с отработкой ядерного удара с воздуха",
+      "en": "France, UK carry out joint airborne nuclear-strike exercise for first time"
+    },
+    "domain": "defensenews.com",
+    "url": "https://www.defensenews.com/global/europe/2026/10/23/france-uk-carry-out-joint-airborne-nuclear-strike-exercise-for-first-time/",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "govuk-uk-france-nuclear-exercise-1023",
+    "title": {
+      "ru": "Великобритания и Франция укрепляют ядерное оборонное партнёрство на первых совместных учениях",
+      "en": "UK-France deepen nuclear defence ties in first joint exercise"
+    },
+    "domain": "gov.uk",
+    "url": "https://www.gov.uk/government/news/uk-france-deepen-nuclear-defence-ties-in-first-joint-exercise",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "primary",
+    "cluster_id": "C-registries",
+    "state_affiliated": true
+  },
+  {
+    "id": "euractiv-eu-defence-budget-1022",
+    "title": {
+      "ru": "Европарламент допускает участие стран вне ЕС в следующем оборонном бюджете: 136,1 млрд евро на оборону и космос",
+      "en": "Parliament leaves door open to non-EU countries in next defence budget"
+    },
+    "domain": "rapporteur.com",
+    "url": "https://www.rapporteur.com/news/parliament-leaves-door-open-to-non-eu-countries-in-next-defence-budget/",
+    "publication_date": "2026-10-22",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Хост отдаёт 403 автоматическим проверкам (Cloudflare) — классификация linkcheck: blocked, не битая; материал доступен через RSS Euractiv."
+  },
+  {
+    "id": "mehr-ukraine-military-spending-1025",
+    "title": {
+      "ru": "Конфликт с Россией будет стоить Украине более 470 млн долларов в день",
+      "en": "Conflict with Russia to cost Ukraine over $470 mln per day"
+    },
+    "domain": "en.mehrnews.com",
+    "url": "https://en.mehrnews.com/news/248873/Conflict-with-Russia-to-cost-Ukraine-over-470-mln-per-day",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "cyberscoop-gru-nato-firms-1020",
+    "title": {
+      "ru": "Хакеры ГРУ атаковали судостроителя НАТО, производителя авиадвигателей и правоохранительное ведомство",
+      "en": "Russian GRU hackers hit NATO shipbuilder, aircraft engine maker, law enforcement agency in espionage campaign"
+    },
+    "domain": "cyberscoop.com",
+    "url": "https://cyberscoop.com/russian-hackers-apt28-target-nato-defense-firms/",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-merz-russia-destabilize-1024",
+    "title": {
+      "ru": "Мерц обвинил Россию в стремлении «дестабилизировать» Германию",
+      "en": "Merz accuses Russia of seeking to 'destabilize' Germany"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/merz-accuses-russia-of-seeking-to-destabilize-germany/4099528",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "balkaninsight-bulgaria-drone-controversy-1023",
+    "title": {
+      "ru": "Болгария: фаворит президентской гонки лидирует несмотря на споры вокруг дронов",
+      "en": "Bulgaria's Presidential Frontrunner Holds Lead Despite Drone Controversy"
+    },
+    "domain": "balkaninsight.com",
+    "url": "https://balkaninsight.com/2026/10/23/bulgarias-presidential-frontrunner-holds-lead-despite-drone-controversy/bi/",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Атаки дронов по болгарской зоне Чёрного моря 6 и 13 октября и по румынским водам в этом месяце — вне окна недели; материал подтверждает региональную атрибуцию balkans для D7.2."
+  },
+  {
+    "id": "aa-bulgaria-election-security-1025",
+    "title": {
+      "ru": "Болгария идёт на выборы на фоне региональных проблем безопасности",
+      "en": "Bulgaria heads to polls for presidential election amid regional security concerns"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/bulgaria-heads-to-polls-for-presidential-election-amid-regional-security-concerns/4099979",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "danas-latvia-drone-1024",
+    "title": {
+      "ru": "В Латвии обнаружен беспилотник неизвестного происхождения",
+      "en": "Drone of unknown origin found in Latvia"
+    },
+    "domain": "danas.rs",
+    "url": "https://www.danas.rs/svet/u-letoniji-pronadjena-bespilotna-letelica-nepoznatog-porekla/",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "civilge-iprm-135-1023",
+    "title": {
+      "ru": "В Эргнети прошла 135-я встреча Механизма предотвращения инцидентов и реагирования",
+      "en": "135th IPRM Meeting Held in Ergneti"
+    },
+    "domain": "civil.ge",
+    "url": "https://civil.ge/archives/755705",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

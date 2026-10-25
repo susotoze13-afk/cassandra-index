@@ -159,13 +159,21 @@
      "cluster": "B-state-media",
      "type": "secondary",
      "state_affiliated": true
+    },
+    {
+     "url": "https://www.danas.rs/svet/u-letoniji-pronadjena-bespilotna-letelica-nepoznatog-porekla/",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
     }
    ],
    "regions": [
     "middle-east",
     "russia-belarus",
     "ukraine-moldova",
-    "africa"
+    "africa",
+    "baltic"
    ]
   },
   "D1.5": {
@@ -269,7 +277,28 @@
     }
    ]
   },
-  "D2.3": null,
+  "D2.3": {
+   "events": [
+    1
+   ],
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.defensenews.com/global/europe/2026/10/23/france-uk-carry-out-joint-airborne-nuclear-strike-exercise-for-first-time/",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://www.gov.uk/government/news/uk-france-deepen-nuclear-defence-ties-in-first-joint-exercise",
+     "date": "2026-10-25",
+     "cluster": "C-registries",
+     "type": "primary",
+     "state_affiliated": true
+    }
+   ]
+  },
   "D2.4": null,
   "D2.5": {
    "value": 0,
@@ -291,7 +320,33 @@
     }
    ]
   },
-  "D3.1": null,
+  "D3.1": {
+   "events": [
+    0.5,
+    0.5
+   ],
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.kommersant.ru/doc/9045475",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://www.aa.com.tr/en/world/russia-warns-of-firm-response-after-moldova-expels-diplomat/4099661",
+     "date": "2026-10-25",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    }
+   ],
+   "regions": [
+    "eu-north-europe",
+    "ukraine-moldova"
+   ]
+  },
   "D3.2": {
    "value": 0.67,
    "covered": true,
@@ -437,7 +492,26 @@
    ]
   },
   "D4.1": null,
-  "D4.2": null,
+  "D4.2": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.rapporteur.com/news/parliament-leaves-door-open-to-non-eu-countries-in-next-defence-budget/",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://en.mehrnews.com/news/248873/Conflict-with-Russia-to-cost-Ukraine-over-470-mln-per-day",
+     "date": "2026-10-25",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    }
+   ]
+  },
   "D4.3": {
    "value": 0.67,
    "covered": true,
@@ -611,7 +685,31 @@
     "north-america"
    ]
   },
-  "D5.2": null,
+  "D5.2": {
+   "events": [
+    1
+   ],
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://cyberscoop.com/russian-hackers-apt28-target-nato-defense-firms/",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://www.aa.com.tr/en/europe/merz-accuses-russia-of-seeking-to-destabilize-germany/4099528",
+     "date": "2026-10-25",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    }
+   ],
+   "regions": [
+    "eu-north-europe"
+   ]
+  },
   "D5.3": null,
   "D5.4": null,
   "D6.1": {
@@ -739,6 +837,7 @@
     1,
     1,
     1,
+    0.5,
     0.5
    ],
    "covered": true,
@@ -777,12 +876,27 @@
      "cluster": "A-mainstream",
      "type": "secondary",
      "state_affiliated": false
+    },
+    {
+     "url": "https://balkaninsight.com/2026/10/23/bulgarias-presidential-frontrunner-holds-lead-despite-drone-controversy/bi/",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://www.aa.com.tr/en/europe/bulgaria-heads-to-polls-for-presidential-election-amid-regional-security-concerns/4099979",
+     "date": "2026-10-25",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
     }
    ],
    "regions": [
     "middle-east",
     "russia-belarus",
-    "ukraine-moldova"
+    "ukraine-moldova",
+    "balkans"
    ]
   },
   "D7.3": {
@@ -910,14 +1024,44 @@
      "cluster": "A-mainstream",
      "type": "secondary",
      "state_affiliated": false
+    },
+    {
+     "url": "https://civil.ge/archives/755705",
+     "date": "2026-10-25",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
     }
    ],
    "regions": [
     "middle-east",
-    "africa"
+    "africa",
+    "south-caucasus"
    ]
   },
-  "D8.4": null,
+  "D8.4": {
+   "value": 0,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://www.aa.com.tr/en/world/4-palestinians-including-2-women-child-killed-in-latest-israeli-violations-of-gaza-ceasefire/4099465",
+     "date": "2026-10-24",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/oct/23/netanyahu-orders-very-extensive-operation-west-bank-two-israeli-soldiers-killed",
+     "date": "2026-10-23",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    }
+   ],
+   "regions": [
+    "middle-east"
+   ]
+  },
   "D9.1": null,
   "D9.2": {
    "value": 0.33,
@@ -1060,23 +1204,23 @@
  "driverConfidence": {
   "D1": {
    "level": "high",
-   "reason": "Покрыто 4/6 (D1.1, D1.2, D1.4, D1.5): боевые действия и развёртывание подтверждены кластерами A и B; логистика (D1.3) отсечена воротами независимости — только кластер A."
+   "reason": "Покрыто 4/6 (D1.1, D1.2, D1.4, D1.5): боевые действия и развёртывание подтверждены кластерами A и B, включая падение беспилотника неизвестного происхождения на территории Латвии (D1.4, регион baltic); логистика (D1.3) отсечена воротами независимости — только кластер A."
   },
   "D2": {
    "level": "medium",
-   "reason": "Покрыто 3/5: ядерные угрозы Тегерана (D2.1 = 0.67) подтверждены A и B; смены доктрины нет (D2.2 = 0), возврата к договорным механизмам нет (D2.5 = 0 — МАГАТЭ лишь призывает вернуть инспекторов). Технические сигналы (D2.3) отсечены воротами: только кластер A."
+   "reason": "Покрыто 4/5: ядерные угрозы Тегерана (D2.1 = 0.67) подтверждены A и B; смены доктрины нет (D2.2 = 0), возврата к договорным механизмам нет (D2.5 = 0 — МАГАТЭ лишь призывает вернуть инспекторов). Технические сигналы (D2.3 = 0.2) — первые совместные учения стратегической авиации Франции и Великобритании с отработкой ядерного удара (Defense News + пресс-релиз GOV.UK)."
   },
   "D3": {
    "level": "medium",
-   "reason": "Покрыто 4/5: ультиматумы (D3.2 = 0.67), переговоры через Пакистан и посредничество США по Олешкам (D3.4 = 0.67), санкционные решения (D3.3 = 0.3 — Минфин США по КНДР, Австралия по северокорейским компаниям, экспортный контроль Китая против Японии), гуманитарное перемирие (D3.5 = 0.2). Разрыв отношений (D3.1) отсечён воротами — только кластер B (Австрия, Молдова)."
+   "reason": "Покрыто 5/5: ультиматумы (D3.2 = 0.67), переговоры через Пакистан и посредничество США по Олешкам (D3.4 = 0.67), санкционные решения (D3.3 = 0.3 — Минфин США по КНДР, Австралия по северокорейским компаниям, экспортный контроль Китая против Японии), гуманитарное перемирие (D3.5 = 0.2), разрыв отношений (D3.1 = 0.2 — Австрия объявила четырёх российских дипломатов персонами нон грата, Молдова выслала дипломата РФ; кластеры A и B)."
   },
   "D4": {
    "level": "high",
-   "reason": "Покрыто 4/6: морская блокада Ормуза и ответное предложение Ирана (D4.4), стресс рынков (D4.6 = 1: Brent $116,7, ставки фрахта выросли в 10 раз), цепочки поставок (D4.3 = 0.67), снятие части ограничений (D4.5 = 0.4). Новые санкции и военные бюджеты (D4.1/D4.2) отсечены воротами независимости."
+   "reason": "Покрыто 5/6: морская блокада Ормуза и ответное предложение Ирана (D4.4), стресс рынков (D4.6 = 1: Brent $116,7, ставки фрахта выросли в 10 раз), цепочки поставок (D4.3 = 0.67), снятие части ограничений (D4.5 = 0.4), военные бюджеты (D4.2 = 0.33 — 136,1 млрд евро на оборону и космос в следующем MFF, Euractiv; военные расходы Украины 2027 — 473 млн долл. в день, Mehr). Новые санкции (D4.1) отсечены воротами независимости — только кластер B."
   },
   "D5": {
    "level": "low",
-   "reason": "Покрыт 1/4 (D5.1 = 1 — угрозы «апокалиптической войны» и уничтожения Израиля): дезинформационных кампаний и снижения пропаганды в окне нет, подтверждённых киберопераций против критической инфраструктуры с атрибуцией не зафиксировано. Драйвер слепой по порогу покрытия."
+   "reason": "Покрыто 2/4: эскалация военной риторики (D5.1 = 1 — угрозы «апокалиптической войны» и уничтожения Израиля); подтверждённые кибероперации с атрибуцией (D5.2 = 0.2 — кампания ГРУ/APT28 против оборонных предприятий и правоохранительного ведомства стран НАТО по данным Symantec, CyberScoop; обвинения канцлера Мерца в адрес России, Anadolu). Дезинформационных кампаний и снижения пропаганды в окне нет."
   },
   "D6": {
    "level": "medium",
@@ -1088,7 +1232,7 @@
   },
   "D8": {
    "level": "low",
-   "reason": "Покрыто 3/4: перемирие в Газе не соблюдается (D8.1 = 0), локальное гуманитарное перемирие в Олешках согласовано, но вступает в силу 27 октября (D8.2 = 0.33), наблюдение ограничено призывами МАГАТЭ и отчётами ООН (D8.3 = 0.33). Устойчивого снижения интенсивности нет."
+   "reason": "Покрыто 4/4: перемирие в Газе не соблюдается (D8.1 = 0), локальное гуманитарное перемирие в Олешках согласовано, но вступает в силу 27 октября (D8.2 = 0.33), наблюдение — призывы МАГАТЭ, отчёты ООН и 135-я встреча МПРИ в Эргнети (D8.3 = 0.33, регион south-caucasus); устойчивого снижения интенсивности нет (D8.4 = 0)."
   },
   "D9": {
    "level": "medium",
@@ -1098,16 +1242,11 @@
  "blindReasons": {
   "D1.3": "gate-failed",
   "D1.6": "searched-none",
-  "D2.3": "gate-failed",
   "D2.4": "searched-none",
-  "D3.1": "gate-failed",
   "D4.1": "gate-failed",
-  "D4.2": "gate-failed",
-  "D5.2": "searched-none",
   "D5.3": "searched-none",
   "D5.4": "searched-none",
   "D6.4": "searched-none",
-  "D8.4": "searched-none",
   "D9.1": "searched-none",
   "D9.5": "searched-none",
   "D9.7": "searched-none"
@@ -2498,6 +2637,176 @@
    "source_type": "secondary",
    "cluster_id": "B-state-media",
    "state_affiliated": true
+  },
+  {
+   "id": "kommersant-austria-expels-1023",
+   "title": {
+    "ru": "Австрия объявила четырёх российских дипломатов персонами нон грата",
+    "en": "Austria declares four Russian diplomats personae non gratae"
+   },
+   "domain": "kommersant.ru",
+   "url": "https://www.kommersant.ru/doc/9045475",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aa-moldova-expels-diplomat-1024",
+   "title": {
+    "ru": "Россия обещает «жёсткий ответ» после высылки дипломата Молдовой",
+    "en": "Russia warns of 'firm response' after Moldova expels diplomat"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/world/russia-warns-of-firm-response-after-moldova-expels-diplomat/4099661",
+   "publication_date": "2026-10-24",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "defensenews-france-uk-nuclear-drill-1023",
+   "title": {
+    "ru": "Франция и Великобритания впервые провели совместные учения с отработкой ядерного удара с воздуха",
+    "en": "France, UK carry out joint airborne nuclear-strike exercise for first time"
+   },
+   "domain": "defensenews.com",
+   "url": "https://www.defensenews.com/global/europe/2026/10/23/france-uk-carry-out-joint-airborne-nuclear-strike-exercise-for-first-time/",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "govuk-uk-france-nuclear-exercise-1023",
+   "title": {
+    "ru": "Великобритания и Франция укрепляют ядерное оборонное партнёрство на первых совместных учениях",
+    "en": "UK-France deepen nuclear defence ties in first joint exercise"
+   },
+   "domain": "gov.uk",
+   "url": "https://www.gov.uk/government/news/uk-france-deepen-nuclear-defence-ties-in-first-joint-exercise",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "primary",
+   "cluster_id": "C-registries",
+   "state_affiliated": true
+  },
+  {
+   "id": "euractiv-eu-defence-budget-1022",
+   "title": {
+    "ru": "Европарламент допускает участие стран вне ЕС в следующем оборонном бюджете: 136,1 млрд евро на оборону и космос",
+    "en": "Parliament leaves door open to non-EU countries in next defence budget"
+   },
+   "domain": "rapporteur.com",
+   "url": "https://www.rapporteur.com/news/parliament-leaves-door-open-to-non-eu-countries-in-next-defence-budget/",
+   "publication_date": "2026-10-22",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false,
+   "notes": "Хост отдаёт 403 автоматическим проверкам (Cloudflare) — классификация linkcheck: blocked, не битая; материал доступен через RSS Euractiv."
+  },
+  {
+   "id": "mehr-ukraine-military-spending-1025",
+   "title": {
+    "ru": "Конфликт с Россией будет стоить Украине более 470 млн долларов в день",
+    "en": "Conflict with Russia to cost Ukraine over $470 mln per day"
+   },
+   "domain": "en.mehrnews.com",
+   "url": "https://en.mehrnews.com/news/248873/Conflict-with-Russia-to-cost-Ukraine-over-470-mln-per-day",
+   "publication_date": "2026-10-25",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "cyberscoop-gru-nato-firms-1020",
+   "title": {
+    "ru": "Хакеры ГРУ атаковали судостроителя НАТО, производителя авиадвигателей и правоохранительное ведомство",
+    "en": "Russian GRU hackers hit NATO shipbuilder, aircraft engine maker, law enforcement agency in espionage campaign"
+   },
+   "domain": "cyberscoop.com",
+   "url": "https://cyberscoop.com/russian-hackers-apt28-target-nato-defense-firms/",
+   "publication_date": "2026-10-20",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "aa-merz-russia-destabilize-1024",
+   "title": {
+    "ru": "Мерц обвинил Россию в стремлении «дестабилизировать» Германию",
+    "en": "Merz accuses Russia of seeking to 'destabilize' Germany"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/europe/merz-accuses-russia-of-seeking-to-destabilize-germany/4099528",
+   "publication_date": "2026-10-24",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "balkaninsight-bulgaria-drone-controversy-1023",
+   "title": {
+    "ru": "Болгария: фаворит президентской гонки лидирует несмотря на споры вокруг дронов",
+    "en": "Bulgaria's Presidential Frontrunner Holds Lead Despite Drone Controversy"
+   },
+   "domain": "balkaninsight.com",
+   "url": "https://balkaninsight.com/2026/10/23/bulgarias-presidential-frontrunner-holds-lead-despite-drone-controversy/bi/",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false,
+   "notes": "Атаки дронов по болгарской зоне Чёрного моря 6 и 13 октября и по румынским водам в этом месяце — вне окна недели; материал подтверждает региональную атрибуцию balkans для D7.2."
+  },
+  {
+   "id": "aa-bulgaria-election-security-1025",
+   "title": {
+    "ru": "Болгария идёт на выборы на фоне региональных проблем безопасности",
+    "en": "Bulgaria heads to polls for presidential election amid regional security concerns"
+   },
+   "domain": "aa.com.tr",
+   "url": "https://www.aa.com.tr/en/europe/bulgaria-heads-to-polls-for-presidential-election-amid-regional-security-concerns/4099979",
+   "publication_date": "2026-10-25",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "danas-latvia-drone-1024",
+   "title": {
+    "ru": "В Латвии обнаружен беспилотник неизвестного происхождения",
+    "en": "Drone of unknown origin found in Latvia"
+   },
+   "domain": "danas.rs",
+   "url": "https://www.danas.rs/svet/u-letoniji-pronadjena-bespilotna-letelica-nepoznatog-porekla/",
+   "publication_date": "2026-10-24",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "civilge-iprm-135-1023",
+   "title": {
+    "ru": "В Эргнети прошла 135-я встреча Механизма предотвращения инцидентов и реагирования",
+    "en": "135th IPRM Meeting Held in Ergneti"
+   },
+   "domain": "civil.ge",
+   "url": "https://civil.ge/archives/755705",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
   }
  ]
 }
