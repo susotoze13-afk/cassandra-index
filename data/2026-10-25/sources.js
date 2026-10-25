@@ -1683,6 +1683,132 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "kyivpost-bundeswehr-medics-1023",
+    "title": {
+      "ru": "Уроки войны в Украине меняют подготовку санитаров Бундесвера: учебные программы, эвакуация раненых, защита полевых госпиталей",
+      "en": "Ukraine's Battlefield Lessons Reshape How Bundeswehr Trains Its Combat Medics"
+    },
+    "domain": "kyivpost.com",
+    "url": "https://www.kyivpost.com/post/88029",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "OSINT",
+    "cluster_id": "C-registries",
+    "state_affiliated": false
+  },
+  {
+    "id": "cbs-ukraine-drone-medevac-1020",
+    "title": {
+      "ru": "ВСУ впервые вывезли раненого бойца с передовой тяжёлым дроном",
+      "en": "Ukraine's military evacuates wounded soldier with aerial drone in apparent world-first"
+    },
+    "domain": "cbsnews.com",
+    "url": "https://www.cbsnews.com/news/ukraine-evacuation-soldier-aerial-drone-apparent-world-first/",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "defensepost-drone-medevac-1021",
+    "title": {
+      "ru": "Украинские силы впервые провели эвакуацию раненого с поля боя тяжёлым дроном",
+      "en": "Ukrainian Forces Evacuate Wounded Soldier by Aerial Drone for First Time"
+    },
+    "domain": "thedefensepost.com",
+    "url": "https://thedefensepost.com/2026/10/21/wounded-soldier-evacuate-aerial-drone/",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "guardian-istanbul-summit-iran-1023",
+    "title": {
+      "ru": "США и Израиль предостерегают от новых ударов по Ирану: саммит восьми стран в Стамбуле призывает к дипломатии",
+      "en": "US and Israel are warned against launching fresh strikes on Iran"
+    },
+    "domain": "theguardian.com",
+    "url": "https://www.theguardian.com/world/2026/oct/23/european-middle-eastern-ministers-summit-iran-us-israel",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "rg-iran-talks-impasse-1021",
+    "title": {
+      "ru": "Обогащённый уран снова стал яблоком раздора: почему переговоры США и Ирана зашли в тупик",
+      "en": "Enriched uranium is again the bone of contention: why US–Iran talks reached an impasse"
+    },
+    "domain": "rg.ru",
+    "url": "https://rg.ru/2026/10/21/obogashchennyj-uran-snova-stal-iablokom-razdora-v-peregovorah-ssha-i-irana.html",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "aljazeera-iran-uranium-war-odds-1021",
+    "title": {
+      "ru": "Иран намерен сохранить обогащённый уран на фоне роста военных рисков и череды встреч",
+      "en": "Iran determined to keep uranium amid increased war odds, flurry of meetings"
+    },
+    "domain": "aljazeera.com",
+    "url": "https://www.aljazeera.com/news/2026/10/21/iran-determined-to-keep-uranium-amid-increased-war-odds-flurry-of-meetings",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "riotimes-eu-frozen-assets-1019",
+    "title": {
+      "ru": "Замороженные российские активы ЕС и разрыв в 78 млрд долларов в финансировании Украины",
+      "en": "EU Frozen Russian Assets and the US$78B Ukraine Gap"
+    },
+    "domain": "riotimesonline.com",
+    "url": "https://www.riotimesonline.com/eu-frozen-russian-assets-ukraine-funding-2026/",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "ht-us-alerts-flight-disruption-1019",
+    "title": {
+      "ru": "США выпустили предупреждения по 12 странам Ближнего Востока и просят готовиться к перебоям с авиарейсами",
+      "en": "US issues security alerts across 12 Middle East nations, warns citizens to prepare for flight disruptions"
+    },
+    "domain": "hindustantimes.com",
+    "url": "https://www.hindustantimes.com/world-news/us-news/us-issues-security-alerts-across-12-middle-east-nations-including-uae-saudi-arabia-warns-citizens-to-prepare-for-flight-disruptions-101792380842983.html",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "cnn-diplomats-families-1023",
+    "title": {
+      "ru": "США незаметно выводят дипломатов и членов их семей из ряда стран Ближнего Востока",
+      "en": "US discreetly moves diplomats and families from multiple Middle Eastern countries as escalation fears grow"
+    },
+    "domain": "cnn.com",
+    "url": "https://www.cnn.com/2026/10/23/politics/us-moves-diplomats-middle-east-escalation-fears",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

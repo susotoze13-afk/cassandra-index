@@ -51,8 +51,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "middle-east": {
-    "index": 79,
-    "delta": 10,
+    "index": 78,
+    "delta": 9,
     "status": "very",
     "background": false
   },
@@ -63,14 +63,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 68,
-    "delta": 2,
+    "index": 67,
+    "delta": 1,
     "status": "very",
     "background": false
   },
   "africa": {
-    "index": 70,
-    "delta": 4,
+    "index": 69,
+    "delta": 3,
     "status": "very",
     "background": false
   }

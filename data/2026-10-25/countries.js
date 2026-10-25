@@ -17,8 +17,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 62,
-      "delta": -1,
+      "index": 61,
+      "delta": -2,
       "background": false,
       "region": "ukraine-moldova",
       "signals": 5,

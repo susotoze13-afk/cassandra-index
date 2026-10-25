@@ -5568,7 +5568,7 @@
       "q": 1,
       "confidence": "full",
       "coverage_criteria": {
-        "covered": 37,
+        "covered": 39,
         "total": 46
       },
       "regions": [
@@ -5622,8 +5622,8 @@
         },
         {
           "id": "middle-east",
-          "index": 79,
-          "delta": 10,
+          "index": 78,
+          "delta": 9,
           "background": false
         },
         {
@@ -5634,20 +5634,20 @@
         },
         {
           "id": "south-asia",
-          "index": 68,
-          "delta": 2,
+          "index": 67,
+          "delta": 1,
           "background": false
         },
         {
           "id": "africa",
-          "index": 70,
-          "delta": 4,
+          "index": 69,
+          "delta": 3,
           "background": false
         }
       ],
       "precursor": {
-        "value": 47,
-        "signaling_subgroups": 6
+        "value": 39,
+        "signaling_subgroups": 7
       },
       "precursor_present": true,
       "drivers": [
@@ -5688,7 +5688,7 @@
             "criteria": 4,
             "total": 6
           },
-          "contribution_pp": 15.3,
+          "contribution_pp": 15.5,
           "top_criteria": [
             {
               "id": "D1.4",
@@ -5739,7 +5739,7 @@
             "criteria": 4,
             "total": 5
           },
-          "contribution_pp": 5.2,
+          "contribution_pp": 5.3,
           "top_criteria": [
             {
               "id": "D2.1",
@@ -5830,7 +5830,7 @@
             "criteria": 5,
             "total": 6
           },
-          "contribution_pp": 10.3,
+          "contribution_pp": 10.4,
           "top_criteria": [
             {
               "id": "D4.6",
@@ -5921,7 +5921,7 @@
             "criteria": 3,
             "total": 4
           },
-          "contribution_pp": 9.9,
+          "contribution_pp": 10,
           "top_criteria": [
             {
               "id": "D6.3",
@@ -5972,7 +5972,7 @@
             "criteria": 4,
             "total": 4
           },
-          "contribution_pp": 15.4,
+          "contribution_pp": 15.7,
           "top_criteria": [
             {
               "id": "D7.3",
@@ -6023,7 +6023,7 @@
             "criteria": 4,
             "total": 4
           },
-          "contribution_pp": -1.7,
+          "contribution_pp": -1.8,
           "top_criteria": [
             {
               "id": "D8.2",
@@ -6055,15 +6055,15 @@
             "ru": "Д9. Косвенные индикаторы подготовки",
             "en": "D9. Indirect preparation indicators"
           },
-          "score": 0.47,
+          "score": 0.394,
           "confidence": "medium",
           "weight": 0.06,
           "weight_effective": 0.061,
           "covered": {
-            "criteria": 6,
+            "criteria": 8,
             "total": 8
           },
-          "contribution_pp": 4.3,
+          "contribution_pp": 3.6,
           "top_criteria": [
             {
               "id": "D9.3",
@@ -6073,8 +6073,8 @@
               },
               "dir": "esc",
               "value": 1,
-              "contribution": 0.167,
-              "share": 0.355
+              "contribution": 0.125,
+              "share": 0.317
             },
             {
               "id": "D9.6b",
@@ -6084,19 +6084,19 @@
               },
               "dir": "esc",
               "value": 0.5,
-              "contribution": 0.083,
-              "share": 0.177
+              "contribution": 0.063,
+              "share": 0.159
             },
             {
-              "id": "D9.2",
+              "id": "D9.1",
               "name": {
-                "ru": "Финансовая изоляция",
-                "en": "Financial isolation"
+                "ru": "Медицинская подготовка",
+                "en": "Medical preparation"
               },
               "dir": "esc",
               "value": 0.33,
-              "contribution": 0.055,
-              "share": 0.117
+              "contribution": 0.041,
+              "share": 0.105
             }
           ]
         }
@@ -6121,7 +6121,7 @@
           },
           {
             "driver": "D3",
-            "contribution_pp": -3.2
+            "contribution_pp": -3.3
           },
           {
             "driver": "D4",
@@ -6145,10 +6145,10 @@
           },
           {
             "driver": "D9",
-            "contribution_pp": 0.9
+            "contribution_pp": 0.5
           }
         ],
-        "residual_pp": 0.8,
+        "residual_pp": 1.3,
         "residual_reason": "saturation-inertia-coverage-rounding"
       },
       "what_would_change": {
@@ -6212,9 +6212,9 @@
         "method": "criterion-zeroed"
       },
       "sources": {
-        "count": 120,
+        "count": 129,
         "clusters": 5,
-        "state_affiliated": 60
+        "state_affiliated": 62
       },
       "trend": [
         {
