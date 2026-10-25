@@ -1,7 +1,7 @@
 // Приложение «Аудит 12 индексов» (таск 02, R01–R08, R13–R16, R19, A01):
 // страница indices-audit.html — производная генератора indices-audit-build.js.
 // Ожидания взяты из тикета, interfaces.md и статьи (98, 88, 73, 71, 70, 69, 69,
-// 58, 56, 48, 33, 0; 66 из 120; медиана 6; 5 из 12; полный цикл — один проект),
+// 69, 58, 48, 33, 0; 69 из 120; медиана 7; 6 из 12; полный цикл — один проект),
 // а не из разметки страницы.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -118,22 +118,22 @@ test('взвешенная шкала: 12 баллов из матрицы со�
   // Числа статьи — в порядке убывания балла (так они напечатаны в статье).
   const totals = [...rows].sort((a, b) => b.score - a.score || PROJECT_IDS.indexOf(a.id) - PROJECT_IDS.indexOf(b.id))
     .map((row) => row.total);
-  assert.deepEqual(totals, [98, 88, 73, 71, 70, 69, 69, 58, 56, 48, 33, 0]);
+  assert.deepEqual(totals, [98, 88, 73, 71, 70, 69, 69, 69, 58, 48, 33, 0]);
   // 70 баллов Cassandra — число из статьи.
   assert.equal(rows.find((row) => row.id === 'cassandra').total, 70);
 });
 
-test('matrixStats: 66 из 120, медиана 6, пять проверяемых, один полный цикл', () => {
+test('matrixStats: 69 из 120, медиана 7, шесть проверяемых, один полный цикл', () => {
   const stats = matrixStats(model);
-  assert.equal(stats.total, 66);
+  assert.equal(stats.total, 69);
   assert.equal(stats.possible, 120);
-  assert.equal(stats.median, 6);
-  assert.equal(stats.verifiable, 5);
+  assert.equal(stats.median, 7);
+  assert.equal(stats.verifiable, 6);
   assert.equal(stats.fullCycle, 1);
   assert.equal(stats.perCriterion.length, CRITERIA.length);
-  assert.equal(stats.perCriterion.reduce((sum, item) => sum + item.confirmed, 0), 66);
+  assert.equal(stats.perCriterion.reduce((sum, item) => sum + item.confirmed, 0), 69);
   assert.ok(stats.byBlock.length >= 2, 'ожидаются блоки признаков');
-  assert.equal(stats.byBlock.reduce((sum, block) => sum + block.confirmed, 0), 66);
+  assert.equal(stats.byBlock.reduce((sum, block) => sum + block.confirmed, 0), 69);
 });
 
 test('устойчивость ±5 п.п.: верх и низ не двигаются, в середине есть обмены', () => {
@@ -191,6 +191,39 @@ test('источник: INFORM/В не ссылается на файл, наз�
   assert.ok(!stubbed || !basis.includes(stubbed[0]), 'неподтверждённый XLSX не может быть основанием «В»');
 });
 
+test('источник: 403 и 000 — blocked, а не «не проверено» и не битая ссылка', () => {
+  const cellOf = (country, projectId) => {
+    const row = model.countries.rows.find((item) => item.name === country);
+    assert.ok(row, `нет строки страны «${country}»`);
+    return row.cells[PROJECT_IDS.indexOf(projectId)];
+  };
+  // CrisisWatch по Молдове: живой сайт заблокирован, записи в снимке нет.
+  assert.equal(cellOf('Молдова', 'crisiswatch').kind, 'blocked');
+  assert.match(cellOf('Молдова', 'crisiswatch').note, /403/);
+  assert.match(cellOf('Молдова', 'crisiswatch').note, /2026-10-25/);
+  // ACLED и GPI дают страновой уровень по всем четырнадцати — проверено снимками.
+  for (const row of model.countries.rows) {
+    assert.equal(row.cells[PROJECT_IDS.indexOf('acled')].kind, 'страна', `ACLED, ${row.name}`);
+    assert.equal(row.cells[PROJECT_IDS.indexOf('gpi')].kind, 'страна', `GPI, ${row.name}`);
+  }
+  // На странице — слово «заблокировано» и объяснение blocked, без старого «не проверено: 403».
+  assert.ok(page.includes('заблокировано: 403 Cloudflare'), 'нет пометки blocked в таблице стран');
+  assert.ok(!page.includes('не проверено: 403'), 'старая пометка «не проверено: 403» осталась');
+  assert.ok(page.includes('<code>blocked</code>'), 'нет объяснения, что 403/000 — blocked');
+});
+
+test('источник: ACLED «Г» и GPI «С»/«Н» подтверждены архивными документами', () => {
+  const acled = model.projects.find((project) => project.id === 'acled');
+  assert.match(acled.basis['Г'], /known data limitations|пробелов данных/i);
+  assert.match(acled.basis['Г'], /2026-07-12/);
+  const gpi = model.projects.find((project) => project.id === 'gpi');
+  assert.match(gpi.basis['С'], /источник/i);
+  assert.match(gpi.basis['С'], /23/);
+  assert.match(gpi.basis['Н'], /robustness|устойчивост/i);
+  assert.ok(model.unverified.some((row) => row.project === 'ACLED' && /blocked/.test(row.reason)));
+  assert.ok(model.unverified.some((row) => row.project === 'Global Peace Index' && /PDF/.test(row.reason)));
+});
+
 test('генератор: дата среза и число непроверенного берутся из модели, а не вписаны', () => {
   const mutated = { ...model, date: '2026-11-05', unverified: model.unverified.slice(0, 3) };
   const html = renderPage(mutated);
@@ -202,9 +235,9 @@ test('генератор: дата среза и число непроверен
 
 test('таблица устойчивости: у каждого сдвинувшегося проекта есть «было → стало»', () => {
   const html = renderPage(model);
-  // При +5 к открытости Cassandra поднимается с 5-го места на 3-е, при +5 к истории — опускается на 7-е.
+  // При +5 к открытости Cassandra поднимается с 5-го места на 3-е, при +5 к истории — опускается на 8-е.
   assert.ok(html.includes('Cassandra Index: 5 → 3'), 'нет позиции «было → стало» для Cassandra (открытость +5)');
-  assert.ok(html.includes('Cassandra Index: 5 → 7'), 'нет позиции «было → стало» для Cassandra (история +5)');
+  assert.ok(html.includes('Cassandra Index: 5 → 8'), 'нет позиции «было → стало» для Cassandra (история +5)');
 });
 
 test('фраза «все они — в середине списка» вычисляется, а не вписана', () => {
@@ -248,12 +281,12 @@ test('CLI без --write печатает сводку и не пишет фай
     cwd: ROOT,
     encoding: 'utf8',
   });
-  assert.match(stdout, /66 из 120/);
+  assert.match(stdout, /69 из 120/);
   assert.match(stdout, /медиана/i);
   assert.equal(existsSync(file) ? readFileSync(file, 'utf8') : null, before, 'CLI без --write не должен писать страницу');
 });
 
-test('HTML: head, один h1, 12 карточек, 120 ячеек, 66 ✔, 14 стран, 12 атрибутов', () => {
+test('HTML: head, один h1, 12 карточек, 120 ячеек, 69 ✔, 14 стран, 12 атрибутов', () => {
   assert.match(page, /^<!doctype html>\n<html lang="ru">/);
   assert.ok(page.includes('<link rel="canonical" href="https://cassindex.ru/indices-audit.html">'));
   assert.ok(page.includes('<body class="doc-page">'));
@@ -276,7 +309,7 @@ test('HTML: head, один h1, 12 карточек, 120 ячеек, 66 ✔, 14 �
   // Содержимое: карточки и развёртка.
   assert.equal((page.match(/<article\b/g) || []).length, 12, '12 карточек-статей');
   assert.equal((page.match(/id="cell-[a-z-]+-[a-z]+"/g) || []).length, 120, '120 строк развёртки');
-  assert.equal((page.match(/<td>✔/g) || []).length, 66, '66 подтверждённые клетки');
+  assert.equal((page.match(/<td>✔/g) || []).length, 69, '69 подтверждённые клетки');
   assert.equal((page.match(/id="country-[^"]+"/g) || []).length, 14, '14 строк стран');
   assert.equal((page.match(/id="attribute-[a-z-]+"/g) || []).length, 12, '12 строк атрибутов');
 
@@ -311,17 +344,17 @@ test('текст страницы: запрещённая лексика и до
   assert.ok(!/вторжени[а-я]*\s+в\s+Украин/i.test(page), 'оценка вторжения в Украину');
 });
 
-test('числа раздела «Пять из двенадцати» выводятся из матрицы, а не вписаны', () => {
-  // Снимаем подтверждение ACLED по С: проверяемых становится 4, остальных — 8.
+test('числа раздела «Кого можно перепроверить» выводятся из матрицы, а не вписаны', () => {
+  // Снимаем подтверждение ACLED и GPI по С: проверяемых становится 4, остальных — 8.
   const mutated = {
     ...model,
-    projects: model.projects.map((project) => (project.id === 'acled'
+    projects: model.projects.map((project) => (project.id === 'acled' || project.id === 'gpi'
       ? { ...project, matrix: { ...project.matrix, С: false }, basis: { ...project.basis, С: '— проверки нет' } }
       : project)),
   };
   const html = renderPage(mutated);
   assert.ok(html.includes('сжимает это до «4 и 8»'), 'раздел должен называть числа, посчитанные из матрицы');
-  assert.ok(!html.includes('«5 и 7»'), 'вписанное «5 и 7» не должно переживать изменение матрицы');
+  assert.ok(!html.includes('«6 и 6»'), 'вписанное «6 и 6» не должно переживать изменение матрицы');
 });
 
 test('ссылка на legalcode: хвостовая пунктуация не попадает в href', () => {

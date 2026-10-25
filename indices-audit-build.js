@@ -204,6 +204,8 @@ function parseSourceField(raw) {
 
 function countryCell(raw) {
   if (raw === 'страна' || raw === 'регион' || raw === 'нет') return { kind: raw, note: '' };
+  const blocked = /^заблокировано:\s*(.+)$/.exec(raw);
+  if (blocked) return { kind: 'blocked', note: blocked[1].trim() };
   const unverified = /^не проверено:\s*(.+)$/.exec(raw);
   if (unverified) return { kind: 'unverified', note: unverified[1].trim() };
   fail(`раздел «Страны»: неизвестное значение клетки «${raw}»`);
@@ -414,11 +416,11 @@ export function validateSource(model, { projectIds = PROJECT_IDS } = {}) {
       push(`страна «${row.name}»: ${row.cells.length} клеток вместо ${projectIds.length}`);
     }
     for (const cell of row.cells) {
-      if (!['страна', 'регион', 'нет', 'unverified'].includes(cell.kind)) {
+      if (!['страна', 'регион', 'нет', 'unverified', 'blocked'].includes(cell.kind)) {
         push(`страна «${row.name}»: неизвестный тип клетки «${cell.kind}»`);
       }
-      if (cell.kind === 'unverified' && !/\d{4}-\d{2}-\d{2}/.test(cell.note)) {
-        push(`страна «${row.name}»: у «не проверено» нет причины с датой`);
+      if ((cell.kind === 'unverified' || cell.kind === 'blocked') && !/\d{4}-\d{2}-\d{2}/.test(cell.note)) {
+        push(`страна «${row.name}»: у «${cell.kind === 'blocked' ? 'заблокировано' : 'не проверено'}» нет причины с датой`);
       }
     }
   }
@@ -737,7 +739,7 @@ export function renderPage(model) {
     ['criteria', 'Критерии'],
     ['matrix', 'Матрица'],
     ['result', 'Итог'],
-    ['five', 'Пять из двенадцати'],
+    ['five', 'Кого можно перепроверить'],
     ['cards', 'Карточки'],
     ['cells', 'Развёртка 120 ячеек'],
     ['scale', 'Взвешенная шкала'],
@@ -833,7 +835,7 @@ export function renderPage(model) {
     ),
   ]));
 
-  lines.push(...section('five', 'Пять из двенадцати', [
+  lines.push(...section('five', 'Кого можно перепроверить', [
     '      <p>Правило зафиксировано до подсчёта: «проверить до записи» значит, что данные открыты (Д), формула или веса опубликованы (Ф) и у отдельной записи назван источник (С).</p>',
     '      <ul>',
     `        <li><strong>Проверить до записи — ${verifiable.length} из ${model.projects.length}:</strong> ${escapeHtml(verifiable.map((project) => project.name).join(', '))}.</li>`,
@@ -934,7 +936,11 @@ export function renderPage(model) {
   const countryHead = ['Страна', ...model.projects.map((project) => project.name), 'Дата проверки'];
   const countryRows = model.countries.rows.map((row, index) => {
     const cells = row.cells.map((cell) => {
-      const text = cell.kind === 'unverified' ? `не проверено: ${cell.note}` : cell.kind;
+      const text = cell.kind === 'unverified'
+        ? `не проверено: ${cell.note}`
+        : cell.kind === 'blocked'
+          ? `заблокировано: ${cell.note}`
+          : cell.kind;
       return `<td>${inline(text)}</td>`;
     }).join('');
     return `<tr id="country-${index + 1}"><th scope="row">${escapeHtml(row.name)}</th>${cells}<td>${escapeHtml(model.countries.checked)}</td></tr>`;
@@ -948,7 +954,7 @@ export function renderPage(model) {
     + `<td>${escapeHtml(project.attributes.checked)}</td></tr>`
   ));
   lines.push(...section('countries', 'Страны', [
-    '      <p>Как читать: <code>страна</code> — у проекта есть страновой ряд или оценка именно по этой стране, подтверждённые страницей, файлом или API проекта; <code>регион</code> — только региональная или ситуационная группировка; <code>нет</code> — странового уровня по этой стране проект не публикует; <code>не проверено</code> — проверить не удалось, в клетке причина и дата. Отрицательный вывод из недоступности источника не делается.</p>',
+    '      <p>Как читать: <code>страна</code> — у проекта есть страновой ряд или оценка именно по этой стране, подтверждённые страницей, файлом или API проекта; <code>регион</code> — только региональная или ситуационная группировка; <code>нет</code> — странового уровня по этой стране проект не публикует; <code>заблокировано</code> — живой источник отвечает 403 или не отвечает из среды проверки (<code>blocked</code>, а не битая ссылка), поэтому клетка не подтверждена и не опровергнута. Отрицательный вывод из недоступности источника не делается.</p>',
     `      <p class="doc-meta">Дата проверки каждой клетки — ${escapeHtml(model.countries.checked)}. Строка Cassandra — «регион» по построению: 12 регионов таксономии v2, страна входит в регион через атрибуцию <code>regions[]</code>, страновых срезов нет.</p>`,
     ...renderTable(
       'Покрытие 14 стран двенадцатью проектами',
@@ -957,7 +963,7 @@ export function renderPage(model) {
       { widths: ['12%', ...Array(model.projects.length).fill('6.5%'), '10%'] },
     ),
     '      <h3>Атрибуты проектов</h3>',
-    `      <p>Разрешение, начало ряда, лаг публикации и адрес, по которому факт проверен. Для проектов, чьи страницы ${date} не открылись, год начала ряда помечен как неустановленный.</p>`,
+    `      <p>Разрешение, начало ряда, лаг публикации и адрес, по которому факт проверен. Для проектов, чьи живые страницы ${date} заблокированы (403/000), источником служит снимок Web Archive, а год начала ряда помечен как неустановленный, если документ его не называет.</p>`,
     ...renderTable(
       'Разрешение, начало ряда, лаг и адрес проверки по каждому проекту',
       ['Проект', 'Разрешение', 'С какого года', 'Лаг публикации', 'Где смотреть', 'Дата проверки'],
@@ -974,7 +980,7 @@ export function renderPage(model) {
     + `<td>${inline(row.reason)}</td></tr>`
   ));
   lines.push(...section('unverified', 'Что не удалось проверить', [
-    '      <p>Клетки, попавшие в этот список, в матрице кодированы по сохранённым документам и в счёт подтверждённого не идут. Код ответа или причина названы прямо, чтобы читатель видел границу проверки.</p>',
+    '      <p>Строка в этом списке означает, что живая страница или артефакт остались непроверенными. Коды 403 и 000 — это <code>blocked</code> (bot-защита или сброс соединения из среды проверки), а не битая ссылка: клетки матрицы кодированы по документам, прочитанным через снимки Web Archive, и подтверждение берётся оттуда, а не из факта недоступности.</p>',
     ...renderTable(
       `Что именно не удалось проверить ${date} и почему`,
       ['Проект', 'Что проверяли', 'Адрес', 'Дата', 'Код или причина'],
