@@ -45,6 +45,39 @@ export function statusLabel(lang, index, lower = true) {
   return id ? t(lang, `${lower ? 'statusLower' : 'status'}.${id}`) : '';
 }
 
+// Страновой под-блок «По странам» (R08i): чистый шов — строки опубликованных
+// стран из опционального блока snapshot.countries. null без блока / пустых rows
+// (недели раньше гейта слоя — под-блок не рендерится, секция прежняя). Строки
+// без числовой delta/index пропускаются; сортировка по |Δ|, при равенстве —
+// по алфавиту имени; имя — name.ru, fallback name.en, далее ISO2.
+export function countryRows(snapshot) {
+  const block = snapshot?.countries;
+  const data = block && typeof block === 'object' ? block.rows : null;
+  if (!data || typeof data !== 'object') return null;
+  const rows = [];
+  for (const [iso, d] of Object.entries(data)) {
+    if (!d || typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
+    if (typeof d.index !== 'number' || !Number.isFinite(d.index)) continue;
+    const nameRu = d.name && typeof d.name.ru === 'string' ? d.name.ru : '';
+    const nameEn = d.name && typeof d.name.en === 'string' ? d.name.en : '';
+    rows.push({
+      iso,
+      name: nameRu || nameEn || iso,
+      index: d.index,
+      delta: d.delta,
+      background: d.background === true,
+      region: d.region,
+    });
+  }
+  if (!rows.length) return null;
+  rows.sort((a, b) => {
+    const byAbs = Math.abs(b.delta) - Math.abs(a.delta);
+    if (byAbs !== 0) return byAbs;
+    return a.name.localeCompare(b.name, 'ru');
+  });
+  return rows;
+}
+
 // ---------- DOM ----------
 
 function deltaSpan(lang, value, extraClass = '') {
@@ -60,6 +93,39 @@ function deltaSpan(lang, value, extraClass = '') {
 // — честное объяснение, что индекс несёт глобальный фон. Тон --text-muted (CSS).
 function backgroundNote(lang) {
   return el('span', 'region-background', t(lang, 'region.background'));
+}
+
+// Пометка для слепой страны: вместо Δ — честное объяснение (тот же смысл, что
+// у регионов, тон --text-muted через CSS-класс .country-background).
+function countryBackgroundNote(lang) {
+  return el('span', 'country-background', t(lang, 'country.background'));
+}
+
+// Страновой под-блок после ranked-списка (R08i): семантический ul, строка =
+// страна + индекс + Δ (у слепой страны — пометка вместо Δ), сортировка по |Δ|
+// — на шве countryRows. Строки — только из словаря country.*; a11y-анонс
+// через live-регион, как в trend (R63).
+function buildCountryBlock(lang, rows) {
+  const block = el('div', 'country-block');
+
+  const head = el('h3', 'country-title');
+  head.append(el('span', 'country-title-text', t(lang, 'country.title')));
+  head.append(el('span', 'country-count', t(lang, 'country.count', { n: rows.length })));
+  block.append(head);
+
+  const list = el('ul', 'country-list');
+  rows.forEach((row) => {
+    const li = el('li', 'country-row');
+    li.append(el('span', 'country-name', row.name));
+    li.append(el('span', 'country-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
+    li.append(row.background ? countryBackgroundNote(lang) : deltaSpan(lang, row.delta));
+    list.append(li);
+  });
+  block.append(list);
+
+  const live = document.querySelector('[data-role="a11y-live"]');
+  if (live) live.textContent = `${t(lang, 'country.title')}: ${t(lang, 'country.count', { n: rows.length })}`;
+  return block;
 }
 
 // Источники драйвера — общий аккордеон-шаблон §4.3.1 из drivers.js (таск 11);
@@ -202,4 +268,9 @@ export function render(appState) {
     list.append(li);
   });
   host.append(list);
+
+  // Страновой под-блок (R08i): только при наличии блока countries в снапшоте;
+  // без него — секция прежняя.
+  const countries = countryRows(snapshot);
+  if (countries) host.append(buildCountryBlock(lang, countries));
 }

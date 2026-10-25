@@ -136,6 +136,21 @@
 - Строка страны: `{ index, delta, background, region, signals, name: { ru, en } }`.
 - Не реализован таской 01 (сознательно): `writeCountryLayer` — требует presence-gated `loadWeekParts` в calc.js (таск 02/03).
 
+### Выставлено таской 02
+
+- `loadWeekParts(week, root=ROOT)` подхватывает `countries.js` по наличию; `partOrder` допускает `countries` только у v2 сверх полного набора.
+- `writeCountryLayer(week, rows, root=ROOT)` — дозапись `countries.js` + пересборка `week.js`.
+- `countryLayerForWeek(week, input, g, prevWeek)` → null | {errors} | {rows} — шов решения «считать ли слой недели».
+- `js/data.js validateCountries(snapshot)` → {ok, errors}, подключён в `validate`.
+- Печать: «страны: опубликовано M из N (ISO, …)».
+- D## (показала сборка): пересборка `week.js` через `writeCountryLayer` обязана держать `CI_ASSET_REV` — паритет «CI_ASSET_REV = хеш всех week.js» пинит `tests/asset-rev.test.js` (механика параллельной сессии, `calc/asset-rev.js updateLatestRev`). Таск 03/ремонт обязан вызывать тот же шов.
+
+### Выставлено таской 05
+
+- `regions.js countryRows(snapshot)` → `[{iso, name, index, delta, background, region}]` | null.
+- i18n: `country.title`, `country.background`, `country.count` (plural one/few/many).
+- CSS: `.country-block/.country-title/.country-count/.country-list/.country-row/.country-name/.country-row-index/.country-background`.
+
 - Полная проверка: `node --test` (из корня, без аргументов; форма `node --test tests/` падает на Windows/Node 24).
 - Один файл: `node --test tests/<имя>.test.js`.
 - Сборка бандла после правки `js/**`: `node build.js` (обязательно, бандлы коммитятся).
