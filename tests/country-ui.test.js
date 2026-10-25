@@ -72,7 +72,7 @@ test('countryRows: строки без числовой delta (и index) про�
 });
 
 test('словарь: ключи country.* существуют, без опечаток, строки непустые', () => {
-  for (const key of ['country.title', 'country.background']) {
+  for (const key of ['country.title', 'country.background', 'country.note']) {
     assert.ok(key in DICTS.ru, `ключа ${key} нет в словаре`);
     assert.ok(DICTS.ru[key].length > 0, `${key} пуст`);
   }

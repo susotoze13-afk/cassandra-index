@@ -10,9 +10,12 @@ import vm from 'node:vm';
 
 import {
   loadCountryOverlay,
+  loadValidatedCountryOverlay,
   validateCountryOverlay,
   mergeCountryAttribution,
+  expandRegionAttribution,
   buildCountryRows,
+  countryAttributionWarnings,
   renderCountryPart,
 } from '../calc/country-layer.js';
 import { PARAMS } from '../calc/params.js';
@@ -180,4 +183,79 @@ test('renderCountryPart: текст части исполняется в vm и �
 // --- Дисковый шов: оверлея нет → null (недели без слоя) ---
 test('loadCountryOverlay: null, когда файла оверлея нет', () => {
   assert.equal(loadCountryOverlay('2026-08-30'), null);
+});
+
+// --- Инвариант «регион ⊇ страна» (ADR 0068) ---
+test('expandRegionAttribution: регион страны добавляется к regions[], вход не мутирует', () => {
+  const criteria = {
+    'D1.4': { covered: true, value: 2, regions: ['middle-east'], countries: ['RU', 'UA'], sources: [] },
+    'D1.5': { covered: true, value: 1, sources: [] },
+  };
+  const out = expandRegionAttribution(criteria, REF, '2.0');
+  assert.deepEqual(out['D1.4'].regions, ['middle-east', 'russia-belarus', 'ukraine-moldova']);
+  assert.deepEqual(out['D1.5'].regions, undefined, 'без countries[] атрибуция не трогается');
+  assert.deepEqual(criteria['D1.4'].regions, ['middle-east'], 'исходная карта не изменена');
+  assert.notEqual(out['D1.4'], criteria['D1.4'], 'запись — копия');
+});
+
+test('expandRegionAttribution: дубль региона не добавляется', () => {
+  const criteria = {
+    'D7.2': { covered: true, value: 1, regions: ['russia-belarus'], countries: ['RU'], sources: [] },
+  };
+  assert.deepEqual(expandRegionAttribution(criteria, REF, '2.0')['D7.2'].regions, ['russia-belarus']);
+});
+
+test('expandRegionAttribution: закрытый критерий и страна вне таксономии не расширяют атрибуцию', () => {
+  const criteria = {
+    'D1.4': { covered: false, regions: [], countries: ['RU'], sources: [] },
+    'D1.5': { covered: true, countries: ['XX'], sources: [] },
+  };
+  const out = expandRegionAttribution(criteria, REF, '2.0');
+  assert.deepEqual(out['D1.4'].regions, [], 'слепой критерий региональной модели не виден');
+  assert.deepEqual(out['D1.5'].regions, [], 'XX вне таксономии — регион не добавлен');
+});
+
+test('loadValidatedCountryOverlay: до гейта — null, валидный оверлей недели — { overlay, ref }', () => {
+  assert.equal(loadValidatedCountryOverlay('2026-10-18', { week: '2026-10-18', criteria: {} }), null);
+  const weekInput = JSON.parse(
+    readFileSync(new URL('../calc/input/2026-10-25.json', import.meta.url), 'utf8'),
+  );
+  const res = loadValidatedCountryOverlay('2026-10-25', weekInput);
+  assert.ok(res && res.overlay && res.ref, 'неделя слоя с валидным оверлеем');
+});
+
+// --- Независимость страновой атрибуции (ADR 0067 п. 8, предупреждение) ---
+test('countryAttributionWarnings: ≥2 кластера — предупреждений нет', () => {
+  const input = {
+    criteria: { 'D1.4': { sources: [{ url: GOOD_URL, cluster: 'A-mainstream' }] } },
+    sources: [{ url: ALT_URL, cluster_id: 'B-state-media' }],
+  };
+  const overlay = {
+    criteria: { 'D1.4': { countries: ['RU'], basis: 'x', sources: [GOOD_URL, ALT_URL] } },
+  };
+  assert.deepEqual(countryAttributionWarnings(overlay, input), []);
+});
+
+test('countryAttributionWarnings: один кластер — предупреждение на каждую страну записи', () => {
+  const input = {
+    criteria: { 'D1.4': { sources: [{ url: GOOD_URL, cluster: 'B-state-media' }] } },
+    sources: [],
+  };
+  const overlay = {
+    criteria: { 'D1.4': { countries: ['RU', 'UA'], basis: 'x', sources: [GOOD_URL] } },
+  };
+  const warnings = countryAttributionWarnings(overlay, input);
+  assert.equal(warnings.length, 2, 'по строке на страну');
+  assert.ok(warnings.every((w) => w.includes('D1.4') && w.includes('B-state-media')));
+  assert.ok(warnings.some((w) => w.includes('RU')) && warnings.some((w) => w.includes('UA')));
+});
+
+test('countryAttributionWarnings: неизвестный url — кластер не определён, тоже предупреждение', () => {
+  const input = { criteria: {}, sources: [] };
+  const overlay = {
+    criteria: { 'D7.2': { countries: ['RU'], basis: 'x', sources: [GOOD_URL] } },
+  };
+  const warnings = countryAttributionWarnings(overlay, input);
+  assert.equal(warnings.length, 1);
+  assert.ok(warnings[0].includes('кластер не определён'));
 });

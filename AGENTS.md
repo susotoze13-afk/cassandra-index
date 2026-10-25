@@ -20,7 +20,10 @@
 (основание + url источников недели), prevIndex страны наследуется: страна → регион →
 prevGlobal; публичный файл `data/public/countries/<неделя>.json` (схема
 `countries.schema.json`); сайт читает блок швом `countryRows`/`buildCountryRows`
-(секция регионов). История не бэкфиллится. Поток данных и границы
+(секция регионов). На неделях с валидным оверлеем действует инвариант **«регион ⊇
+страна»** (ADR 0068): атрибуция регионов расширяется регионами атрибутированных стран
+(`expandRegionAttribution` → `computeWeek(..., {regionCriteria})`), поэтому сигнал
+страны всегда виден её региону. История не бэкфиллится. Поток данных и границы
 модулей — `docs/architecture.md`.
 Стек: чистый HTML/CSS/JS, ноль зависимостей; Node ≥ 18; всё — ESM, кроме CommonJS `build.js`.
 
@@ -307,7 +310,7 @@ data/public/              производные (`public-export.js --write`; `v
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0066;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0068;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -385,7 +388,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           77 файлов, node --test (843 passed)
+tests/*.test.js           88 файлов, node --test (933 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -415,7 +418,11 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   ISO2 ∈ whitelist версии — union стран регионов таксономии из `data/regions/reference.json`;
   `basis` непустая; каждый `sources[]` — url из источников недели),
   `mergeCountryAttribution(weekInput, overlay)` → копия criteria с `countries[]`
-  (вход не мутируется), `countrySignals`/`countryIndex` (обёртки attributed* с
+  (вход не мутируется), `expandRegionAttribution(criteria, ref, taxonomy)` → копия
+  criteria с расширенными `regions[]` (инвариант «регион ⊇ страна», ADR 0068; вход не
+  мутируется), `loadValidatedCountryOverlay(week, weekInput)` → `{overlay, ref}` |
+  `{errors}` | null (один раз прочитанный/валидированный оверлей — общий для регионов
+  и строк стран), `countrySignals`/`countryIndex` (обёртки attributed* с
   attr='countries'), `buildCountryRows(week, globalOut, weekInput, overlay, prevSnapshot,
   ref, params)` → `{total, published, rows}` (строка: `{index, delta, background, region,
   signals, name:{ru,en}}`; имена — единый источник `data/geo/countries.js`, vm-чтение
@@ -782,7 +789,7 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (85 файлов, 909 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (88 файлов, 933 passed / 0 fail — подтверждено прогоном
 2026-10-25). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -961,6 +968,14 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   дедуп id); битый оверлей — строка «оверлей отклонён» и неделя пишется без слоя,
   запись не блокируется. Первая неделя слоя — 2026-10-25 (RU, UA; печать
   «страны: опубликовано M из N»).
+- Инвариант «регион ⊇ страна» (ADR 0068): на неделях с валидным оверлеем региональные
+  сигналы считаются по расширенной карте (`expandRegionAttribution` → `computeWeek(...,
+  {regionCriteria})`) — регион видит все сигналы своих стран. Поэтому пересчёт недели
+  слоя меняет не только `countries.js`, но и `regions.js`/`region-*.js`/`week.js`
+  (`node calc/calc.js --write <неделя>`), а публичный слой и дайджест пересобираются
+  штатным путём. Инвариант — вложенность сигналов, не равенство чисел: регион может быть
+  выше страны за счёт собственных сигналов (ukraine-moldova 68 при UA 61). Пин —
+  `tests/region-country-consistency.test.js`.
 - Граница прогона 2026-10-25: неделя `2026-10-25` и вход `calc/input/2026-10-25.json`
   принадлежат параллельной сессии — её части `global/regions/region-*/trend/drivers/
   sources` не редактировать и не перезаписывать; страновой слой пишет ТОЛЬКО новую

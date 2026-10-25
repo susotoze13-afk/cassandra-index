@@ -107,10 +107,14 @@ export function nextChainState(state, res) {
 // последнее региональное отклонение от глобального фона (prevRegions против
 // prevPublished прошлой недели). Персистентность Structural Break Override
 // (§5.4, 2 недели) ведётся здесь же.
-export function computeWeek(input, state = {}, params = PARAMS) {
+// opts.regionCriteria — карта критериев для региональных сигналов, если она
+// отличается от input.criteria (страновой слой недели расширяет атрибуцию
+// регионов, ADR 0068). Глобальный расчёт всегда идёт по input.
+export function computeWeek(input, state = {}, params = PARAMS, opts = {}) {
   const week = input.week;
   const st = state || {};
   const regionIds = regionIdsFor(taxonomyForWeek(week));
+  const regionCriteria = opts && opts.regionCriteria ? opts.regionCriteria : input.criteria;
 
   const drivers = buildDrivers(input, params);
   const ctx = {
@@ -123,7 +127,7 @@ export function computeWeek(input, state = {}, params = PARAMS) {
   const classification = classifyPublication(g, drivers, params);
 
   const prevRegions = st.prevRegions;
-  const signals = regionalSignals(input.criteria, regionIds, params, week);
+  const signals = regionalSignals(regionCriteria, regionIds, params, week);
   const regions = {};
   for (const id of regionIds) {
     const r = regionalIndex(

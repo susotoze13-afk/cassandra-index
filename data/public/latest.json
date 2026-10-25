@@ -28,8 +28,8 @@
     "regions": [
       {
         "id": "russia-belarus",
-        "index": 70,
-        "delta": 2,
+        "index": 66,
+        "delta": -2,
         "background": false
       },
       {

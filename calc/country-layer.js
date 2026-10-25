@@ -178,6 +178,84 @@ export function mergeCountryAttribution(weekInput, overlay) {
   return { ...input, criteria };
 }
 
+// --- Инвариант «регион ⊇ страна» (ADR 0068) ---
+// Критерий, атрибутированный стране, обязан быть виден и региону этой страны:
+// иначе региональный индекс и стровой расходятся без объяснения (регион
+// russia-belarus 70 при RU 66 — это дефект двух независимых слоёв атрибуции).
+// Возвращает копию карты критериев: у записей с countries[] в regions[]
+// добавлены регионы этих стран (по таксономии недели); порядок существующих
+// регионов сохраняется. Исходная карта не мутируется.
+export function expandRegionAttribution(criteria, ref, taxonomy) {
+  const r = ref || loadRegionRef();
+  const out = {};
+  for (const [id, entry] of Object.entries(criteria || {})) {
+    if (!entry || entry.covered !== true || !Array.isArray(entry.countries)) {
+      out[id] = entry;
+      continue;
+    }
+    const regions = Array.isArray(entry.regions) ? [...entry.regions] : [];
+    for (const iso of entry.countries) {
+      const region = regionOfCountry(iso, taxonomy, r);
+      if (region && !regions.includes(region)) regions.push(region);
+    }
+    out[id] = { ...entry, regions };
+  }
+  return out;
+}
+
+// --- Дисковый шов: валидный оверлей недели ---
+// null — неделя до гейта/без файла (поведение прежнее); { errors } — оверлей
+// отклонён; { overlay, ref } — валиден. Один раз прочитанный оверлей нужен
+// и регионам (expandRegionAttribution), и строкам стран — не читать дважды.
+export function loadValidatedCountryOverlay(week, weekInput) {
+  const from = PARAMS.countryLayerFrom;
+  if (typeof from !== 'string' || !from || week < from) return null;
+  const overlay = loadCountryOverlay(week);
+  if (!overlay) return null;
+  const ref = loadRegionRef();
+  const errors = validateCountryOverlay(overlay, weekInput, ref);
+  return errors.length ? { errors } : { overlay, ref };
+}
+
+// --- Независимость страновой атрибуции (ADR 0067 п. 8) ---
+// Для каждой записи оверлея и каждой заявленной в ней страны считает число
+// независимых кластеров источников, на которые опирается атрибуция. Правило
+// ADR 0067 п. 8 требует ≥2 кластеров (или primary|OSINT); здесь оно реализовано
+// ПРЕДУПРЕЖДЕНИЕМ, а не воротами: запись не блокируется (история не
+// переписывается), но редактор видит слабые атрибуции. Кластеры берутся из
+// источников недели: record.cluster_id (top-level R55) или record.cluster
+// (источники внутри критерия); url вне недели сюда не попадают — их отсекает
+// validateCountryOverlay.
+// → массив строк-предупреждений (пустой = все атрибуции проходят порог).
+export function countryAttributionWarnings(overlay, weekInput) {
+  const clusterByUrl = new Map();
+  const add = (s) => {
+    if (!s || typeof s.url !== 'string') return;
+    const c = typeof s.cluster_id === 'string' && s.cluster_id
+      ? s.cluster_id
+      : (typeof s.cluster === 'string' && s.cluster ? s.cluster : null);
+    if (c && !clusterByUrl.has(s.url)) clusterByUrl.set(s.url, c);
+  };
+  for (const entry of Object.values((weekInput && weekInput.criteria) || {})) {
+    for (const s of (entry && entry.sources) || []) add(s);
+  }
+  for (const s of (weekInput && weekInput.sources) || []) add(s);
+  const warnings = [];
+  for (const [id, entry] of Object.entries((overlay && overlay.criteria) || {})) {
+    if (!entry || !Array.isArray(entry.countries) || !Array.isArray(entry.sources)) continue;
+    const clusters = [...new Set(entry.sources.map((u) => clusterByUrl.get(u)).filter(Boolean))].sort();
+    if (clusters.length >= 2) continue;
+    const list = clusters.length ? clusters.join(', ') : 'кластер не определён';
+    for (const iso of entry.countries) {
+      warnings.push(
+        `${id} / ${iso} — кластеров: ${clusters.length} (${list}), ` +
+        `ниже порога ADR 0067 п. 8 (≥2 независимых кластера)`,
+      );
+    }
+  }
+  return warnings;
+}
+
 // --- Сигналы и индекс страны — формула §7 через размерностно-нейтральное ядро ---
 export function countrySignals(mergedCriteria, countryIds, params, week) {
   return attributedSignals(mergedCriteria, countryIds, params, week, 'countries');

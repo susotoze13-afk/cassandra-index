@@ -38,11 +38,12 @@ import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import { weekDebt, validateRejected, validateBlindReasons, weeksGenitive } from './history-debt.js';
 import {
-  loadCountryOverlay,
-  validateCountryOverlay,
+  loadValidatedCountryOverlay,
+  mergeCountryAttribution,
+  expandRegionAttribution,
   buildCountryRows,
+  countryAttributionWarnings,
   writeCountryLayer,
-  loadRegionRef,
 } from './country-layer.js';
 import { updateLatestRev } from './asset-rev.js';
 import * as audit from './audit.js';
@@ -465,16 +466,22 @@ function loadInput(week, regionIds) {
 // происходит, печатается «оверлей отклонён»); валидный — { rows } из
 // buildCountryRows. Считается в runWeek, а не на диске в writeWeek: ветке
 // формулы §7 страны нужен internal глобала, а на диске он не сохранён.
-export function countryLayerForWeek(week, input, g, prevWeek) {
+// resolved — уже прочитанный/валидированный оверлей ({ overlay, ref } | { errors }
+// | null), чтобы runWeek не читал файл и не валидировал его дважды; без
+// аргумента шов читает оверлей сам (прежнее поведение).
+export function countryLayerForWeek(week, input, g, prevWeek, resolved) {
   const from = PARAMS.countryLayerFrom;
   if (typeof from !== 'string' || !from || week < from) return null;
-  const overlay = loadCountryOverlay(week);
-  if (!overlay) return null;
-  const ref = loadRegionRef();
-  const errors = validateCountryOverlay(overlay, input, ref);
-  if (errors.length) return { errors };
+  const state = resolved === undefined ? loadValidatedCountryOverlay(week, input) : resolved;
+  if (!state) return null;
+  if (state.errors) return { errors: state.errors };
   const prevSnapshot = prevSnapshotForCountries(prevWeek);
-  return { rows: buildCountryRows(week, g, input, overlay, prevSnapshot, ref, PARAMS) };
+  return {
+    rows: buildCountryRows(week, g, input, state.overlay, prevSnapshot, state.ref, PARAMS),
+    // ADR 0067 п. 8 — предупреждение, не ворота: слабые (однокластерные)
+    // атрибуции видны редактору, снапшот и публикация не меняются.
+    warnings: countryAttributionWarnings(state.overlay, input),
+  };
 }
 
 // Опубликованные прошлой недели куски снапшота, нужные наследованию prevIndex
@@ -491,6 +498,22 @@ function prevSnapshotForCountries(prevWeek) {
   };
 }
 
+// --- Региональная атрибуция недели с учётом странового слоя (ADR 0068) ---
+// Инвариант «регион ⊇ страна»: карта критериев с regions[], расширенными
+// регионами атрибутированных стран. null — оверлея нет/неделя до гейта (тогда
+// регионы считаются по входу, как раньше). resolved — уже прочитанный оверлей.
+// Шов вынесен наружу: тот же путь используют runWeek и паритетные тесты,
+// чтобы «пересчёт как в --write» не расходился с публикацией.
+export function regionCriteriaForWeek(week, input, resolved) {
+  const state = resolved === undefined ? loadValidatedCountryOverlay(week, input) : resolved;
+  if (!state || !state.overlay) return null;
+  return expandRegionAttribution(
+    mergeCountryAttribution(input, state.overlay).criteria,
+    state.ref,
+    taxonomyForWeek(week),
+  );
+}
+
 // --- Прогон одной недели цепочки ---
 // state: {prevInternal, prevPublished, prevRegions, sbLeft, sbReason} —
 // состояние недельного цикла (инерция и персистентность override живут тут).
@@ -501,13 +524,19 @@ export function runWeek(week, state) {
 
   // Шаг недели — общий чистый модуль week-step.js (D03): маппинг → драйверы →
   // агрегация с контекстом цепочки → региональные сигналы → классификация.
+  // Страновой слой недели (ADR 0067) + инвариант «регион ⊇ страна» (ADR 0068):
+  // валидный оверлей расширяет атрибуцию критериев регионов ДО расчёта, поэтому
+  // регион видит все сигналы своих стран; тот же overlay/ref идёт в строки стран
+  // (loadValidatedCountryOverlay читает и валидирует файл один раз).
   // Регионы: регион с сигналами считается по ним (nReg > 0, background:false),
   // без сигналов — «слепой» веткой (nReg = 0, background:true), сохраняющей
   // последнее региональное отклонение от глобального фона (prevRegions против
   // prevPublished прошлой недели). Для insufficient-недели это расчётные числа
   // превью (публикация запрещена — число не уходит в global/trend, но файлы
   // регионов несут его для редакции).
-  const step = computeWeek(input, state, PARAMS);
+  const countryOverlay = loadValidatedCountryOverlay(week, input);
+  const regionCriteria = regionCriteriaForWeek(week, input, countryOverlay);
+  const step = computeWeek(input, state, PARAMS, regionCriteria ? { regionCriteria } : {});
   const { global: g, drivers, classification, regions, ctx, sbLeft, sbReason } = step;
   // Метрика чувствительности недели (R02, ADR 0019): leave-one-out по
   // доменам и кластерам критериальных источников при том же контексте
@@ -592,7 +621,7 @@ export function runWeek(week, state) {
     },
     // Страновой слой (ADR 0067): null до гейта/без оверлея, { errors } при
     // битом оверлее, { rows } при валидном. В глобальный индекс не входит.
-    countries: countryLayerForWeek(week, input, g, state.prevWeek),
+    countries: countryLayerForWeek(week, input, g, state.prevWeek, countryOverlay),
   };
 }
 
@@ -892,6 +921,7 @@ export function printWeek(res, writeMode, writeRejected = false) {
       const layer = res.countries.rows;
       const published = Object.keys(layer.rows).filter((iso) => !layer.rows[iso].background);
       lines.push(`страны: опубликовано ${layer.published} из ${layer.total} (${published.join(', ')})`);
+      for (const w of (res.countries.warnings || [])) lines.push(`  предупреждение (страны): ${w}`);
     }
   }
   const replaced = res.trend.filter((p) => RECALC_SET.has(p.date)).length;

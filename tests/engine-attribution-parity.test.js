@@ -10,6 +10,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 
 import { computeWeek, loadSnapshotPart, nextChainState, taxonomyForWeek } from '../calc/week-step.js';
+import { regionCriteriaForWeek } from '../calc/calc.js';
 import { PARAMS } from '../calc/params.js';
 import { regionIdsFor } from '../js/data.js';
 
@@ -45,7 +46,10 @@ test('паритет регионов цепочки 08-30…10-25: пересч
   for (const week of CHAIN) {
     const input = loadInput(week);
     assert.ok(input, `вход ${week} существует`);
-    const res = computeWeek(input, state, PARAMS);
+    // Регионы недель странового слоя считаются по расширенной атрибуции
+    // (ADR 0068) — тем же швом, что и штатный --write.
+    const regionCriteria = regionCriteriaForWeek(week, input);
+    const res = computeWeek(input, state, PARAMS, regionCriteria ? { regionCriteria } : {});
     const disk = loadSnapshotPart(week, 'regions');
     assert.ok(disk && disk.regions, `regions.js недели ${week} на диске`);
     for (const id of regionIdsFor(taxonomyForWeek(week))) {

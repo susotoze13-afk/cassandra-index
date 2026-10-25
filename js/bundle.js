@@ -1631,6 +1631,7 @@ const DICTS = {
     // Страновой под-блок в секции регионов (R08i): только строки из словаря.
     'country.title': 'По странам',
     'country.background': 'Индекс отражает глобальный фон; страновых данных недостаточно',
+    'country.note': 'Индекс страны считается по событиям, атрибутированным этой стране; индекс региона может включать и региональные события и не равен среднему по странам.',
     'country.count': '{n} {n, plural, one{страна} few{страны} many{стран} other{стран}}',
     'region.note': 'Это контекстный региональный риск, а не прогноз атаки на этот город.',
     'region.cta': 'Узнать риск для моего региона →',
@@ -5054,6 +5055,7 @@ function buildCountryBlock(lang, rows) {
     list.append(li);
   });
   block.append(list);
+  block.append(el('p', 'country-note', t(lang, 'country.note')));
 
   const live = document.querySelector('[data-role="a11y-live"]');
   if (live) live.textContent = `${t(lang, 'country.title')}: ${t(lang, 'country.count', { n: rows.length })}`;

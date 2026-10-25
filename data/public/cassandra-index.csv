@@ -90,7 +90,7 @@ cassandra-index-public,1,2026-10-18,2026-10-18,2026-10-18,3.0,2.0,published,nort
 cassandra-index-public,1,2026-10-18,2026-10-18,2026-10-18,3.0,2.0,published,south-asia,66,10,very,1,full,34,46,false
 cassandra-index-public,1,2026-10-18,2026-10-18,2026-10-18,3.0,2.0,published,africa,66,7,very,1,full,34,46,false
 cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,global,68,4,very,1,full,39,46,false
-cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,russia-belarus,70,2,very,1,full,39,46,false
+cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,russia-belarus,66,-2,very,1,full,39,46,false
 cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,ukraine-moldova,68,5,very,1,full,39,46,false
 cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,baltic,69,2,very,1,full,39,46,false
 cassandra-index-public,1,2026-10-25,2026-10-25,2026-10-25,3.0,2.0,published,balkans,69,2,very,1,full,39,46,false

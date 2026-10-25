@@ -36,7 +36,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T13:24:46.955Z",
+  "at": "2026-10-25T13:32:17.695Z",
   "reason": "Еженедельный пересчёт",
   "previous": 68,
   "methodologyBefore": "3.0",
@@ -45,8 +45,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "russia-belarus": {
-    "index": 70,
-    "delta": 2,
+    "index": 66,
+    "delta": -2,
     "status": "very",
     "background": false
   },
@@ -118,8 +118,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 70,
-  "delta": 2,
+  "index": 66,
+  "delta": -2,
   "status": "very",
   "background": false,
   "confidence": "high",

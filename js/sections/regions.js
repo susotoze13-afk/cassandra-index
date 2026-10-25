@@ -122,6 +122,7 @@ function buildCountryBlock(lang, rows) {
     list.append(li);
   });
   block.append(list);
+  block.append(el('p', 'country-note', t(lang, 'country.note')));
 
   const live = document.querySelector('[data-role="a11y-live"]');
   if (live) live.textContent = `${t(lang, 'country.title')}: ${t(lang, 'country.count', { n: rows.length })}`;
