@@ -2,28 +2,28 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
   s.global = {
-  "index": 70,
-  "delta": 6
+  "index": 69,
+  "delta": 5
 };
   s.published = "2026-10-25";
   s.through = "2026-10-25";
   s.methodology = "3.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
-  s.q = 0.9345;
-  s.nullWeight = 0.0655;
+  s.q = 0.9361;
+  s.nullWeight = 0.0639;
   s.coverage = {
   "coveredDrivers": 8,
   "totalDrivers": 9
 };
   s.confidence = "full";
-  s.sensitivity = 0;
+  s.sensitivity = 1.1;
   s.precursor = {
-  "value": 61,
-  "signalingSubgroups": 3
+  "value": 50,
+  "signalingSubgroups": 5
 };
   s.coverageCriteria = {
-  "covered": 28,
+  "covered": 31,
   "total": 46,
   "uncovered": [
     "D1.3",
@@ -36,20 +36,17 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "D5.2",
     "D5.3",
     "D5.4",
-    "D6.1",
     "D6.4",
     "D8.4",
     "D9.1",
-    "D9.2",
     "D9.5",
-    "D9.6a",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T05:50:28.500Z",
+  "at": "2026-10-25T06:06:35.971Z",
   "reason": "Еженедельный пересчёт",
-  "previous": null,
+  "previous": 70,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"

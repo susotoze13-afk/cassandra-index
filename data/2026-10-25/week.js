@@ -2,28 +2,28 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
   s.global = {
-  "index": 70,
-  "delta": 6
+  "index": 69,
+  "delta": 5
 };
   s.published = "2026-10-25";
   s.through = "2026-10-25";
   s.methodology = "3.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
-  s.q = 0.9345;
-  s.nullWeight = 0.0655;
+  s.q = 0.9361;
+  s.nullWeight = 0.0639;
   s.coverage = {
   "coveredDrivers": 8,
   "totalDrivers": 9
 };
   s.confidence = "full";
-  s.sensitivity = 0;
+  s.sensitivity = 1.1;
   s.precursor = {
-  "value": 61,
-  "signalingSubgroups": 3
+  "value": 50,
+  "signalingSubgroups": 5
 };
   s.coverageCriteria = {
-  "covered": 28,
+  "covered": 31,
   "total": 46,
   "uncovered": [
     "D1.3",
@@ -36,20 +36,17 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "D5.2",
     "D5.3",
     "D5.4",
-    "D6.1",
     "D6.4",
     "D8.4",
     "D9.1",
-    "D9.2",
     "D9.5",
-    "D9.6a",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T05:50:28.500Z",
+  "at": "2026-10-25T06:06:35.971Z",
   "reason": "Еженедельный пересчёт",
-  "previous": null,
+  "previous": 70,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
@@ -62,38 +59,38 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "ukraine-moldova": {
-    "index": 69,
-    "delta": 6,
-    "status": "very",
-    "background": false
-  },
-  "baltic": {
-    "index": 73,
-    "delta": 6,
-    "status": "very",
-    "background": true
-  },
-  "balkans": {
-    "index": 73,
-    "delta": 6,
-    "status": "very",
-    "background": true
-  },
-  "eu-north-europe": {
-    "index": 71,
+    "index": 68,
     "delta": 5,
     "status": "very",
     "background": false
   },
+  "baltic": {
+    "index": 72,
+    "delta": 5,
+    "status": "very",
+    "background": true
+  },
+  "balkans": {
+    "index": 72,
+    "delta": 5,
+    "status": "very",
+    "background": true
+  },
+  "eu-north-europe": {
+    "index": 70,
+    "delta": 4,
+    "status": "very",
+    "background": false
+  },
   "south-caucasus": {
-    "index": 67,
-    "delta": 6,
+    "index": 66,
+    "delta": 5,
     "status": "very",
     "background": true
   },
   "central-asia": {
-    "index": 69,
-    "delta": 6,
+    "index": 68,
+    "delta": 5,
     "status": "very",
     "background": true
   },
@@ -110,20 +107,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "north-america": {
-    "index": 73,
-    "delta": 7,
+    "index": 72,
+    "delta": 6,
     "status": "very",
     "background": false
   },
   "south-asia": {
-    "index": 69,
-    "delta": 3,
+    "index": 68,
+    "delta": 2,
     "status": "very",
     "background": false
   },
   "africa": {
-    "index": 72,
-    "delta": 6,
+    "index": 70,
+    "delta": 4,
     "status": "very",
     "background": false
   }
@@ -250,8 +247,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 69,
-  "delta": 6,
+  "index": 68,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -385,8 +382,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 73,
-  "delta": 6,
+  "index": 72,
+  "delta": 5,
   "status": "very",
   "background": true,
   "confidence": "low",
@@ -492,8 +489,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 73,
-  "delta": 6,
+  "index": 72,
+  "delta": 5,
   "status": "very",
   "background": true,
   "confidence": "medium",
@@ -585,8 +582,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 71,
-  "delta": 5,
+  "index": 70,
+  "delta": 4,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -720,8 +717,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 67,
-  "delta": 6,
+  "index": 66,
+  "delta": 5,
   "status": "very",
   "background": true,
   "confidence": "low",
@@ -827,8 +824,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 69,
-  "delta": 6,
+  "index": 68,
+  "delta": 5,
   "status": "very",
   "background": true,
   "confidence": "low",
@@ -1218,8 +1215,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 73,
-  "delta": 7,
+  "index": 72,
+  "delta": 6,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1339,8 +1336,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 69,
-  "delta": 3,
+  "index": 68,
+  "delta": 2,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1460,20 +1457,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 72,
-  "delta": 6,
+  "index": 70,
+  "delta": 4,
   "status": "very",
   "background": false,
   "confidence": "high",
   "drivers": [
     {
       "observation": {
-        "ru": "Судан: удары дронов убили не менее 306 человек за три недели, война перекинулась в Центральноафриканскую Республику, ООН предупреждает против преждевременного вывода миротворцев.",
-        "en": "Sudan: drone strikes killed at least 306 people in three weeks, the war has spilled into the Central African Republic, and the UN warns against a premature peacekeeper withdrawal."
+        "ru": "Судан: удары дронов убили не менее 306 человек за три недели, армия отчиталась о возвращении двух районов в Голубом Ниле, в Южном Дарфуре начал работу «Высший комитет мобилизации и народного сопротивления», а война перекинулась в Центральноафриканскую Республику.",
+        "en": "Sudan: drone strikes killed at least 306 people in three weeks, the army reported retaking two areas in Blue Nile, a \"Higher Committee for Mobilization and Popular Resistance\" began work in South Darfur, and the war has spilled into the Central African Republic."
       },
       "why": {
-        "ru": "Дроновая война и региональное распространение делают Судан устойчивым источником насилия.",
-        "en": "Drone warfare and regional spillover make Sudan a persistent source of violence."
+        "ru": "Дроновая война, мобилизационные структуры и региональное распространение делают Судан устойчивым источником насилия.",
+        "en": "Drone warfare, mobilization structures and regional spillover make Sudan a persistent source of violence."
       },
       "contribution": "high",
       "confidence": "high",
@@ -1519,6 +1516,34 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
           "source_type": "primary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
+        },
+        {
+          "id": "radiotamazuj-darfur-mobilization-1023",
+          "title": {
+            "ru": "Комитет мобилизации Южного Дарфура заявил о поддержке суданской армии",
+            "en": "New South Darfur mobilization committee pledges support for Sudan Army"
+          },
+          "domain": "radiotamazuj.org",
+          "url": "https://www.radiotamazuj.org/en/news/article/new-south-darfur-mobilization-committee-pledges-support-for-sudan-army",
+          "publication_date": "2026-10-23",
+          "accessed_date": "2026-10-25",
+          "source_type": "OSINT",
+          "cluster_id": "E-field-osint",
+          "state_affiliated": false
+        },
+        {
+          "id": "aa-sudan-blue-nile-1022",
+          "title": {
+            "ru": "Суданская армия вернула два стратегических района в штате Голубой Нил и сбила дрон",
+            "en": "Sudanese army retakes 2 strategic areas in Blue Nile state, downs drone"
+          },
+          "domain": "aa.com.tr",
+          "url": "https://www.aa.com.tr/en/africa/sudanese-army-retakes-2-strategic-areas-in-blue-nile-state-downs-drone/4097645",
+          "publication_date": "2026-10-22",
+          "accessed_date": "2026-10-25",
+          "source_type": "secondary",
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
         }
       ]
     },
@@ -1621,7 +1646,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-10-25",
-    "value": 70,
+    "value": 69,
     "methodology": "3.0"
   }
 ];
@@ -3091,6 +3116,188 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "domain": "aa.com.tr",
     "url": "https://www.aa.com.tr/en/politics/kremlin-says-china-russia-us-open-to-trilateral-talks-at-apec-summit/4096229",
     "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "rt-israel-sanctions-economy-1025",
+    "title": {
+      "ru": "Нетаньяху: Израилю нужна экономика, устойчивая к санкциям",
+      "en": "Israel needs sanctions-proof economy – Netanyahu"
+    },
+    "domain": "rt-english.com",
+    "url": "https://rt-english.com/news/647625-israel-sanctions-alternative-economy-netanyahu/",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "jpost-bibicoin-1024",
+    "title": {
+      "ru": "Эйзенкот раскритиковал план Нетаньяху по альтернативному финансированию государства",
+      "en": "Eisenkot slams Netanyahu's crypto plan for alternative funding"
+    },
+    "domain": "jpost.com",
+    "url": "https://www.jpost.com/israel-election-2026/article-912715",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-france-social-media-1025",
+    "title": {
+      "ru": "Франция просила операторов связи готовиться к ограничениям соцсетей",
+      "en": "France reportedly asked telecom operators to prepare for social media restrictions"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/france-reportedly-asked-telecom-operators-to-prepare-for-social-media-restrictions-report/4099923",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "scmp-china-censorship-1024",
+    "title": {
+      "ru": "Аккаунт ведущего китайского экономического комментатора Рен Цзепина ограничен",
+      "en": "Leading Chinese economic commentator Ren Zeping's social media account restricted"
+    },
+    "domain": "scmp.com",
+    "url": "https://www.scmp.com/news/china/money-wealth/article/3372032/leading-chinese-economic-commentator-ren-zepings-social-media-account-restricted",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "radiotamazuj-darfur-mobilization-1023",
+    "title": {
+      "ru": "Комитет мобилизации Южного Дарфура заявил о поддержке суданской армии",
+      "en": "New South Darfur mobilization committee pledges support for Sudan Army"
+    },
+    "domain": "radiotamazuj.org",
+    "url": "https://www.radiotamazuj.org/en/news/article/new-south-darfur-mobilization-committee-pledges-support-for-sudan-army",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "OSINT",
+    "cluster_id": "E-field-osint",
+    "state_affiliated": false
+  },
+  {
+    "id": "cgtn-china-export-japan-1021",
+    "title": {
+      "ru": "Китай ввёл экспортный контроль в отношении Японии",
+      "en": "China imposes export controls on Japan to curb its nuclear ambition"
+    },
+    "domain": "news.cgtn.com",
+    "url": "https://news.cgtn.com/news/2026-10-21/China-imposes-export-controls-on-Japan-to-curb-its-nuclear-ambition-1Rqtto6Dmx2/p.html",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "sputnik-iran-heu-1021",
+    "title": {
+      "ru": "Секретарь Совбеза Ирана: обогащённые ядерные материалы не покинут страну",
+      "en": "Head of Iran's Security Council Says Enriched Nuclear Materials Will Not Leave Country"
+    },
+    "domain": "sputnikglobe.com",
+    "url": "https://sputnikglobe.com/20261021/head-of-irans-security-council-says-enriched-nuclear-materials-will-not-leave-country-1124913190.html",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "scmp-singapore-gas-1025",
+    "title": {
+      "ru": "Сингапур требует от поставщиков выполнять обязательства после сокращения поставок газа из Индонезии",
+      "en": "Singapore tells suppliers to 'honour commitments' amid Indonesia's gas cut"
+    },
+    "domain": "scmp.com",
+    "url": "https://www.scmp.com/news/asia/southeast-asia/article/3372048/singapore-tells-suppliers-honour-commitments-amid-indonesias-gas-cut",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-brent-gas-1023",
+    "title": {
+      "ru": "Brent на пятимесячном максимуме, европейский газ — максимум с декабря 2022 года",
+      "en": "Brent hits 5-month high, European gas highest since December 2022 as supply risks mount"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/economy/brent-hits-5-month-high-european-gas-highest-since-december-2022-as-supply-risks-mount/4097999",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "mehr-israel-west-bank-1025",
+    "title": {
+      "ru": "Израильские силы рейдировали 400 точек на Западном берегу, 2 200 человек выселены",
+      "en": "Israeli forces raid 400 points in West Bank, 2,200 displaced"
+    },
+    "domain": "en.mehrnews.com",
+    "url": "https://en.mehrnews.com/news/248885/Israeli-forces-raid-400-points-in-West-Bank-2-200-displaced",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "defenseone-greenland-bases-1020",
+    "title": {
+      "ru": "Пентагон со следующего года начнёт расширять базы в Гренландии",
+      "en": "Pentagon to start expanding Greenland bases next year: official"
+    },
+    "domain": "defenseone.com",
+    "url": "https://www.defenseone.com/policy/2026/10/pentagon-expand-greenland-bases/416706/",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "sputnik-mirovka-1022",
+    "title": {
+      "ru": "Минобороны РФ заявило о взятии села Мировка в Запорожской области",
+      "en": "Russian Forces Liberate Mirovka Settlement in Zaporozhye Region - MoD"
+    },
+    "domain": "sputnikglobe.com",
+    "url": "https://sputnikglobe.com/20261022/russian-forces-liberate-mirovka-settlement-in-zaporozhye-region---mod-1124923329.html",
+    "publication_date": "2026-10-22",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "aa-sudan-blue-nile-1022",
+    "title": {
+      "ru": "Суданская армия вернула два стратегических района в штате Голубой Нил и сбила дрон",
+      "en": "Sudanese army retakes 2 strategic areas in Blue Nile state, downs drone"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/africa/sudanese-army-retakes-2-strategic-areas-in-blue-nile-state-downs-drone/4097645",
+    "publication_date": "2026-10-22",
     "accessed_date": "2026-10-25",
     "source_type": "secondary",
     "cluster_id": "B-state-media",

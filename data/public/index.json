@@ -5562,13 +5562,13 @@
       "methodology": "3.0",
       "regions_taxonomy": "2.0",
       "data_state": "published",
-      "index": 70,
-      "delta": 6,
+      "index": 69,
+      "delta": 5,
       "state": "very",
-      "q": 0.9345,
+      "q": 0.9361,
       "confidence": "full",
       "coverage_criteria": {
-        "covered": 28,
+        "covered": 31,
         "total": 46
       },
       "regions": [
@@ -5580,38 +5580,38 @@
         },
         {
           "id": "ukraine-moldova",
-          "index": 69,
-          "delta": 6,
-          "background": false
-        },
-        {
-          "id": "baltic",
-          "index": 73,
-          "delta": 6,
-          "background": true
-        },
-        {
-          "id": "balkans",
-          "index": 73,
-          "delta": 6,
-          "background": true
-        },
-        {
-          "id": "eu-north-europe",
-          "index": 71,
+          "index": 68,
           "delta": 5,
           "background": false
         },
         {
+          "id": "baltic",
+          "index": 72,
+          "delta": 5,
+          "background": true
+        },
+        {
+          "id": "balkans",
+          "index": 72,
+          "delta": 5,
+          "background": true
+        },
+        {
+          "id": "eu-north-europe",
+          "index": 70,
+          "delta": 4,
+          "background": false
+        },
+        {
           "id": "south-caucasus",
-          "index": 67,
-          "delta": 6,
+          "index": 66,
+          "delta": 5,
           "background": true
         },
         {
           "id": "central-asia",
-          "index": 69,
-          "delta": 6,
+          "index": 68,
+          "delta": 5,
           "background": true
         },
         {
@@ -5628,26 +5628,26 @@
         },
         {
           "id": "north-america",
-          "index": 73,
-          "delta": 7,
+          "index": 72,
+          "delta": 6,
           "background": false
         },
         {
           "id": "south-asia",
-          "index": 69,
-          "delta": 3,
+          "index": 68,
+          "delta": 2,
           "background": false
         },
         {
           "id": "africa",
-          "index": 72,
-          "delta": 6,
+          "index": 70,
+          "delta": 4,
           "background": false
         }
       ],
       "precursor": {
-        "value": 61,
-        "signaling_subgroups": 3
+        "value": 50,
+        "signaling_subgroups": 5
       },
       "precursor_present": true,
       "drivers": [
@@ -5683,12 +5683,12 @@
           "score": 0.6,
           "confidence": "high",
           "weight": 0.1175,
-          "weight_effective": 0.189,
+          "weight_effective": 0.183,
           "covered": {
             "criteria": 4,
             "total": 6
           },
-          "contribution_pp": 16.5,
+          "contribution_pp": 16.3,
           "top_criteria": [
             {
               "id": "D1.4",
@@ -5734,12 +5734,12 @@
           "score": 0.335,
           "confidence": "medium",
           "weight": 0.1175,
-          "weight_effective": 0.132,
+          "weight_effective": 0.128,
           "covered": {
             "criteria": 3,
             "total": 5
           },
-          "contribution_pp": 6.4,
+          "contribution_pp": 6.3,
           "top_criteria": [
             {
               "id": "D2.1",
@@ -5760,15 +5760,15 @@
             "ru": "Д3. Дипломатическая эскалация и деэскалация",
             "en": "D3. Diplomatic escalation and de-escalation"
           },
-          "score": 0.218,
+          "score": 0.267,
           "confidence": "medium",
           "weight": 0.1175,
-          "weight_effective": 0.132,
+          "weight_effective": 0.128,
           "covered": {
             "criteria": 4,
             "total": 5
           },
-          "contribution_pp": 4.2,
+          "contribution_pp": 5,
           "top_criteria": [
             {
               "id": "D3.2",
@@ -5779,7 +5779,7 @@
               "dir": "esc",
               "value": 0.67,
               "contribution": 0.335,
-              "share": 0.513
+              "share": 0.477
             },
             {
               "id": "D3.4",
@@ -5790,7 +5790,7 @@
               "dir": "deesc",
               "value": 0.67,
               "contribution": -0.167,
-              "share": -0.257
+              "share": -0.238
             },
             {
               "id": "D3.3",
@@ -5799,9 +5799,9 @@
                 "en": "Sanctions and legal measures"
               },
               "dir": "esc",
-              "value": 0.2,
-              "contribution": 0.1,
-              "share": 0.153
+              "value": 0.3,
+              "contribution": 0.15,
+              "share": 0.214
             }
           ]
         },
@@ -5814,12 +5814,12 @@
           "score": 0.49,
           "confidence": "high",
           "weight": 0.1175,
-          "weight_effective": 0.189,
+          "weight_effective": 0.183,
           "covered": {
             "criteria": 4,
             "total": 6
           },
-          "contribution_pp": 13.4,
+          "contribution_pp": 13.2,
           "top_criteria": [
             {
               "id": "D4.6",
@@ -5879,15 +5879,15 @@
             "ru": "Д6. Мобилизация общества",
             "en": "D6. Societal mobilization"
           },
-          "score": 0.665,
+          "score": 0.553,
           "confidence": "medium",
           "weight": 0.1175,
-          "weight_effective": 0.132,
+          "weight_effective": 0.128,
           "covered": {
-            "criteria": 2,
+            "criteria": 3,
             "total": 4
           },
-          "contribution_pp": 12.8,
+          "contribution_pp": 10.4,
           "top_criteria": [
             {
               "id": "D6.3",
@@ -5897,8 +5897,19 @@
               },
               "dir": "esc",
               "value": 1,
-              "contribution": 0.5,
-              "share": 0.752
+              "contribution": 0.333,
+              "share": 0.602
+            },
+            {
+              "id": "D6.1",
+              "name": {
+                "ru": "Военное положение и мобилизация",
+                "en": "Martial law and mobilisation"
+              },
+              "dir": "esc",
+              "value": 0.33,
+              "contribution": 0.11,
+              "share": 0.199
             },
             {
               "id": "D6.2",
@@ -5908,8 +5919,8 @@
               },
               "dir": "esc",
               "value": 0.33,
-              "contribution": 0.165,
-              "share": 0.248
+              "contribution": 0.11,
+              "share": 0.199
             }
           ]
         },
@@ -5922,12 +5933,12 @@
           "score": 0.568,
           "confidence": "high",
           "weight": 0.1175,
-          "weight_effective": 0.189,
+          "weight_effective": 0.183,
           "covered": {
             "criteria": 4,
             "total": 4
           },
-          "contribution_pp": 15.6,
+          "contribution_pp": 15.3,
           "top_criteria": [
             {
               "id": "D7.3",
@@ -6010,15 +6021,15 @@
             "ru": "Д9. Косвенные индикаторы подготовки",
             "en": "D9. Indirect preparation indicators"
           },
-          "score": 0.61,
-          "confidence": "low",
+          "score": 0.498,
+          "confidence": "medium",
           "weight": 0.06,
-          "weight_effective": 0.039,
+          "weight_effective": 0.065,
           "covered": {
-            "criteria": 3,
+            "criteria": 5,
             "total": 8
           },
-          "contribution_pp": 3.4,
+          "contribution_pp": 4.8,
           "top_criteria": [
             {
               "id": "D9.3",
@@ -6028,8 +6039,8 @@
               },
               "dir": "esc",
               "value": 1,
-              "contribution": 0.333,
-              "share": 0.546
+              "contribution": 0.2,
+              "share": 0.402
             },
             {
               "id": "D9.6b",
@@ -6039,19 +6050,19 @@
               },
               "dir": "esc",
               "value": 0.5,
-              "contribution": 0.167,
-              "share": 0.273
+              "contribution": 0.1,
+              "share": 0.201
             },
             {
-              "id": "D9.4",
+              "id": "D9.2",
               "name": {
-                "ru": "Стратегическое накопление",
-                "en": "Strategic stockpiling"
+                "ru": "Финансовая изоляция",
+                "en": "Financial isolation"
               },
               "dir": "esc",
               "value": 0.33,
-              "contribution": 0.11,
-              "share": 0.18
+              "contribution": 0.066,
+              "share": 0.133
             }
           ]
         }
@@ -6063,36 +6074,36 @@
         },
         "to": {
           "week": "2026-10-25",
-          "index": 70
+          "index": 69
         },
         "steps": [
           {
             "driver": "D1",
-            "contribution_pp": 3.7
+            "contribution_pp": 3.4
           },
           {
             "driver": "D2",
-            "contribution_pp": 4.2
+            "contribution_pp": 4.1
           },
           {
             "driver": "D3",
-            "contribution_pp": -2.4
+            "contribution_pp": -1.9
           },
           {
             "driver": "D4",
-            "contribution_pp": -0.6
+            "contribution_pp": -0.8
           },
           {
             "driver": "D5",
-            "contribution_pp": -5.3
+            "contribution_pp": -5.4
           },
           {
             "driver": "D6",
-            "contribution_pp": 3.6
+            "contribution_pp": 2.1
           },
           {
             "driver": "D7",
-            "contribution_pp": 1.4
+            "contribution_pp": 1.1
           },
           {
             "driver": "D8",
@@ -6100,10 +6111,10 @@
           },
           {
             "driver": "D9",
-            "contribution_pp": 0.4
+            "contribution_pp": 1.3
           }
         ],
-        "residual_pp": 0.2,
+        "residual_pp": 0.3,
         "residual_reason": "saturation-inertia-coverage-rounding"
       },
       "what_would_change": {
@@ -6112,29 +6123,15 @@
           "down": {
             "state": "danger",
             "index": 61,
-            "gap_pp": -9
+            "gap_pp": -8
           },
           "up": {
             "state": "critical",
             "index": 81,
-            "gap_pp": 11
+            "gap_pp": 12
           }
         },
         "criteria": [
-          {
-            "id": "D6.3",
-            "name": {
-              "ru": "Военная переориентация экономики",
-              "en": "Military reorientation of the economy"
-            },
-            "driver": "D6",
-            "dir": "esc",
-            "value": 1,
-            "impact_pp": -6.3,
-            "effect": "down",
-            "crosses_state": false,
-            "breaks_driver": false
-          },
           {
             "id": "D4.6",
             "name": {
@@ -6162,14 +6159,28 @@
             "effect": "down",
             "crosses_state": false,
             "breaks_driver": false
+          },
+          {
+            "id": "D1.4",
+            "name": {
+              "ru": "Актуальные боевые действия",
+              "en": "Active hostilities"
+            },
+            "driver": "D1",
+            "dir": "esc",
+            "value": 0,
+            "impact_pp": -4.4,
+            "effect": "down",
+            "crosses_state": false,
+            "breaks_driver": false
           }
         ],
         "method": "criterion-zeroed"
       },
       "sources": {
-        "count": 86,
-        "clusters": 3,
-        "state_affiliated": 42
+        "count": 99,
+        "clusters": 4,
+        "state_affiliated": 50
       },
       "trend": [
         {
@@ -6226,7 +6237,7 @@
         },
         {
           "date": "2026-10-25",
-          "value": 70,
+          "value": 69,
           "methodology": "3.0"
         }
       ]

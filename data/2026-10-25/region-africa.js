@@ -2,20 +2,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
   s.regions["africa"] = {
-  "index": 72,
-  "delta": 6,
+  "index": 70,
+  "delta": 4,
   "status": "very",
   "background": false,
   "confidence": "high",
   "drivers": [
     {
       "observation": {
-        "ru": "Судан: удары дронов убили не менее 306 человек за три недели, война перекинулась в Центральноафриканскую Республику, ООН предупреждает против преждевременного вывода миротворцев.",
-        "en": "Sudan: drone strikes killed at least 306 people in three weeks, the war has spilled into the Central African Republic, and the UN warns against a premature peacekeeper withdrawal."
+        "ru": "Судан: удары дронов убили не менее 306 человек за три недели, армия отчиталась о возвращении двух районов в Голубом Ниле, в Южном Дарфуре начал работу «Высший комитет мобилизации и народного сопротивления», а война перекинулась в Центральноафриканскую Республику.",
+        "en": "Sudan: drone strikes killed at least 306 people in three weeks, the army reported retaking two areas in Blue Nile, a \"Higher Committee for Mobilization and Popular Resistance\" began work in South Darfur, and the war has spilled into the Central African Republic."
       },
       "why": {
-        "ru": "Дроновая война и региональное распространение делают Судан устойчивым источником насилия.",
-        "en": "Drone warfare and regional spillover make Sudan a persistent source of violence."
+        "ru": "Дроновая война, мобилизационные структуры и региональное распространение делают Судан устойчивым источником насилия.",
+        "en": "Drone warfare, mobilization structures and regional spillover make Sudan a persistent source of violence."
       },
       "contribution": "high",
       "confidence": "high",
@@ -61,6 +61,34 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
           "source_type": "primary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
+        },
+        {
+          "id": "radiotamazuj-darfur-mobilization-1023",
+          "title": {
+            "ru": "Комитет мобилизации Южного Дарфура заявил о поддержке суданской армии",
+            "en": "New South Darfur mobilization committee pledges support for Sudan Army"
+          },
+          "domain": "radiotamazuj.org",
+          "url": "https://www.radiotamazuj.org/en/news/article/new-south-darfur-mobilization-committee-pledges-support-for-sudan-army",
+          "publication_date": "2026-10-23",
+          "accessed_date": "2026-10-25",
+          "source_type": "OSINT",
+          "cluster_id": "E-field-osint",
+          "state_affiliated": false
+        },
+        {
+          "id": "aa-sudan-blue-nile-1022",
+          "title": {
+            "ru": "Суданская армия вернула два стратегических района в штате Голубой Нил и сбила дрон",
+            "en": "Sudanese army retakes 2 strategic areas in Blue Nile state, downs drone"
+          },
+          "domain": "aa.com.tr",
+          "url": "https://www.aa.com.tr/en/africa/sudanese-army-retakes-2-strategic-areas-in-blue-nile-state-downs-drone/4097645",
+          "publication_date": "2026-10-22",
+          "accessed_date": "2026-10-25",
+          "source_type": "secondary",
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
         }
       ]
     },

@@ -9,38 +9,38 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "ukraine-moldova": {
-    "index": 69,
-    "delta": 6,
-    "status": "very",
-    "background": false
-  },
-  "baltic": {
-    "index": 73,
-    "delta": 6,
-    "status": "very",
-    "background": true
-  },
-  "balkans": {
-    "index": 73,
-    "delta": 6,
-    "status": "very",
-    "background": true
-  },
-  "eu-north-europe": {
-    "index": 71,
+    "index": 68,
     "delta": 5,
     "status": "very",
     "background": false
   },
+  "baltic": {
+    "index": 72,
+    "delta": 5,
+    "status": "very",
+    "background": true
+  },
+  "balkans": {
+    "index": 72,
+    "delta": 5,
+    "status": "very",
+    "background": true
+  },
+  "eu-north-europe": {
+    "index": 70,
+    "delta": 4,
+    "status": "very",
+    "background": false
+  },
   "south-caucasus": {
-    "index": 67,
-    "delta": 6,
+    "index": 66,
+    "delta": 5,
     "status": "very",
     "background": true
   },
   "central-asia": {
-    "index": 69,
-    "delta": 6,
+    "index": 68,
+    "delta": 5,
     "status": "very",
     "background": true
   },
@@ -57,20 +57,20 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "north-america": {
-    "index": 73,
-    "delta": 7,
+    "index": 72,
+    "delta": 6,
     "status": "very",
     "background": false
   },
   "south-asia": {
-    "index": 69,
-    "delta": 3,
+    "index": 68,
+    "delta": 2,
     "status": "very",
     "background": false
   },
   "africa": {
-    "index": 72,
-    "delta": 6,
+    "index": 70,
+    "delta": 4,
     "status": "very",
     "background": false
   }

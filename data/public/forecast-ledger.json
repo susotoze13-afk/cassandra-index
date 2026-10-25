@@ -141,9 +141,9 @@
       "verified": true,
       "expectedCluster": "very",
       "expectedDirection": "flat",
-      "actualIndex": 70,
+      "actualIndex": 69,
       "actualCluster": "very",
-      "actualDelta": 6,
+      "actualDelta": 5,
       "actualDirection": "up",
       "outcome": {
         "cluster": "hit",

@@ -211,7 +211,7 @@
       "discrepancies": [
         {
           "period": "2026-10",
-          "index_delta": 12,
+          "index_delta": 11.75,
           "external_delta": -3837
         }
       ],

@@ -1205,6 +1205,188 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "B-state-media",
     "state_affiliated": true
+  },
+  {
+    "id": "rt-israel-sanctions-economy-1025",
+    "title": {
+      "ru": "Нетаньяху: Израилю нужна экономика, устойчивая к санкциям",
+      "en": "Israel needs sanctions-proof economy – Netanyahu"
+    },
+    "domain": "rt-english.com",
+    "url": "https://rt-english.com/news/647625-israel-sanctions-alternative-economy-netanyahu/",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "jpost-bibicoin-1024",
+    "title": {
+      "ru": "Эйзенкот раскритиковал план Нетаньяху по альтернативному финансированию государства",
+      "en": "Eisenkot slams Netanyahu's crypto plan for alternative funding"
+    },
+    "domain": "jpost.com",
+    "url": "https://www.jpost.com/israel-election-2026/article-912715",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-france-social-media-1025",
+    "title": {
+      "ru": "Франция просила операторов связи готовиться к ограничениям соцсетей",
+      "en": "France reportedly asked telecom operators to prepare for social media restrictions"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/europe/france-reportedly-asked-telecom-operators-to-prepare-for-social-media-restrictions-report/4099923",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "scmp-china-censorship-1024",
+    "title": {
+      "ru": "Аккаунт ведущего китайского экономического комментатора Рен Цзепина ограничен",
+      "en": "Leading Chinese economic commentator Ren Zeping's social media account restricted"
+    },
+    "domain": "scmp.com",
+    "url": "https://www.scmp.com/news/china/money-wealth/article/3372032/leading-chinese-economic-commentator-ren-zepings-social-media-account-restricted",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "radiotamazuj-darfur-mobilization-1023",
+    "title": {
+      "ru": "Комитет мобилизации Южного Дарфура заявил о поддержке суданской армии",
+      "en": "New South Darfur mobilization committee pledges support for Sudan Army"
+    },
+    "domain": "radiotamazuj.org",
+    "url": "https://www.radiotamazuj.org/en/news/article/new-south-darfur-mobilization-committee-pledges-support-for-sudan-army",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "OSINT",
+    "cluster_id": "E-field-osint",
+    "state_affiliated": false
+  },
+  {
+    "id": "cgtn-china-export-japan-1021",
+    "title": {
+      "ru": "Китай ввёл экспортный контроль в отношении Японии",
+      "en": "China imposes export controls on Japan to curb its nuclear ambition"
+    },
+    "domain": "news.cgtn.com",
+    "url": "https://news.cgtn.com/news/2026-10-21/China-imposes-export-controls-on-Japan-to-curb-its-nuclear-ambition-1Rqtto6Dmx2/p.html",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "sputnik-iran-heu-1021",
+    "title": {
+      "ru": "Секретарь Совбеза Ирана: обогащённые ядерные материалы не покинут страну",
+      "en": "Head of Iran's Security Council Says Enriched Nuclear Materials Will Not Leave Country"
+    },
+    "domain": "sputnikglobe.com",
+    "url": "https://sputnikglobe.com/20261021/head-of-irans-security-council-says-enriched-nuclear-materials-will-not-leave-country-1124913190.html",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "scmp-singapore-gas-1025",
+    "title": {
+      "ru": "Сингапур требует от поставщиков выполнять обязательства после сокращения поставок газа из Индонезии",
+      "en": "Singapore tells suppliers to 'honour commitments' amid Indonesia's gas cut"
+    },
+    "domain": "scmp.com",
+    "url": "https://www.scmp.com/news/asia/southeast-asia/article/3372048/singapore-tells-suppliers-honour-commitments-amid-indonesias-gas-cut",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "aa-brent-gas-1023",
+    "title": {
+      "ru": "Brent на пятимесячном максимуме, европейский газ — максимум с декабря 2022 года",
+      "en": "Brent hits 5-month high, European gas highest since December 2022 as supply risks mount"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/economy/brent-hits-5-month-high-european-gas-highest-since-december-2022-as-supply-risks-mount/4097999",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "mehr-israel-west-bank-1025",
+    "title": {
+      "ru": "Израильские силы рейдировали 400 точек на Западном берегу, 2 200 человек выселены",
+      "en": "Israeli forces raid 400 points in West Bank, 2,200 displaced"
+    },
+    "domain": "en.mehrnews.com",
+    "url": "https://en.mehrnews.com/news/248885/Israeli-forces-raid-400-points-in-West-Bank-2-200-displaced",
+    "publication_date": "2026-10-25",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "defenseone-greenland-bases-1020",
+    "title": {
+      "ru": "Пентагон со следующего года начнёт расширять базы в Гренландии",
+      "en": "Pentagon to start expanding Greenland bases next year: official"
+    },
+    "domain": "defenseone.com",
+    "url": "https://www.defenseone.com/policy/2026/10/pentagon-expand-greenland-bases/416706/",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "sputnik-mirovka-1022",
+    "title": {
+      "ru": "Минобороны РФ заявило о взятии села Мировка в Запорожской области",
+      "en": "Russian Forces Liberate Mirovka Settlement in Zaporozhye Region - MoD"
+    },
+    "domain": "sputnikglobe.com",
+    "url": "https://sputnikglobe.com/20261022/russian-forces-liberate-mirovka-settlement-in-zaporozhye-region---mod-1124923329.html",
+    "publication_date": "2026-10-22",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "aa-sudan-blue-nile-1022",
+    "title": {
+      "ru": "Суданская армия вернула два стратегических района в штате Голубой Нил и сбила дрон",
+      "en": "Sudanese army retakes 2 strategic areas in Blue Nile state, downs drone"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/africa/sudanese-army-retakes-2-strategic-areas-in-blue-nile-state-downs-drone/4097645",
+    "publication_date": "2026-10-22",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
   }
 ];
 })();
