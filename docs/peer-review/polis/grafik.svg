@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="160mm" height="100mm" viewBox="0 0 160 100">
+<text x="14" y="6" font-size="3.9" font-weight="bold" font-family="'Times New Roman', Times, serif">Ряд индекса, методология 3.0 (index series)</text>
+<line x1="14" y1="40.5" x2="154" y2="40.5" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="41.8" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">0</text>
+<line x1="14" y1="34.1" x2="154" y2="34.1" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="35.4" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">20</text>
+<line x1="14" y1="27.7" x2="154" y2="27.7" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="29" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">40</text>
+<line x1="14" y1="21.3" x2="154" y2="21.3" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="22.6" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">60</text>
+<line x1="14" y1="14.899999999999999" x2="154" y2="14.899999999999999" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="16.2" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">80</text>
+<line x1="14" y1="8.5" x2="154" y2="8.5" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="9.8" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">100</text>
+<rect x="14" y="8.5" width="140" height="32" fill="none" stroke="#666" stroke-width="0.4"/>
+<polyline points="18,24.18 34.5,27.060000000000002 51,26.740000000000002 67.5,22.58 84,25.46 100.5,25.78 117,22.58 133.5,20.02 150,18.74" fill="none" stroke="#000" stroke-width="0.8"/>
+<circle cx="18" cy="24.18" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="18" y="21.38" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">51</text>
+<text x="18" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">30.08</text>
+<circle cx="34.5" cy="27.060000000000002" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="34.5" y="24.26" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">42</text>
+<text x="34.5" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">06.09</text>
+<circle cx="51" cy="26.740000000000002" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="51" y="23.94" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">43</text>
+<text x="51" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">13.09</text>
+<circle cx="67.5" cy="22.58" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="67.5" y="19.779999999999998" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">56</text>
+<text x="67.5" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">20.09</text>
+<circle cx="84" cy="25.46" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="84" y="22.66" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">47</text>
+<text x="84" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">27.09</text>
+<circle cx="100.5" cy="25.78" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="100.5" y="22.98" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">46</text>
+<text x="100.5" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">04.10</text>
+<circle cx="117" cy="22.58" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="117" y="19.779999999999998" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">56</text>
+<text x="117" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">11.10</text>
+<circle cx="133.5" cy="20.02" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="133.5" y="17.22" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">64</text>
+<text x="133.5" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">18.10</text>
+<circle cx="150" cy="18.74" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="150" y="15.939999999999998" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">68</text>
+<text x="150" y="44.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">25.10</text>
+<text x="84" y="48" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">Неделя расчёта (week of calculation)</text>
+<line x1="16" y1="51.3" x2="26" y2="51.3" stroke="#000" stroke-width="0.8"/>
+<circle cx="21" cy="51.3" r="1.5" fill="#fff" stroke="#000" stroke-width="0.6"/>
+<text x="28" y="52.4" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif">недельный индекс (weekly index)</text>
+<rect x="88" y="49.9" width="4.5" height="2.5" fill="#d9d9d9"/>
+<path d="M90.25,50.199999999999996 l1.5,1.5 l-1.5,1.5 l-1.5,-1.5 Z" fill="#000"/>
+<text x="95" y="52.4" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif">модельный индекс якоря (anchor index)</text>
+<rect x="16" y="53.5" width="4.5" height="2.5" fill="#d9d9d9"/>
+<text x="22" y="56" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif">ожидаемый диапазон кластера (expected cluster range)</text>
+<text x="14" y="60.8" font-size="3.9" font-weight="bold" text-anchor="start" font-family="'Times New Roman', Times, serif">Модельные якорья калибровки (calibration anchors)</text>
+<line x1="14" y1="84.6" x2="154" y2="84.6" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="85.89999999999999" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">0</text>
+<line x1="14" y1="80.24" x2="154" y2="80.24" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="81.53999999999999" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">20</text>
+<line x1="14" y1="75.88" x2="154" y2="75.88" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="77.17999999999999" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">40</text>
+<line x1="14" y1="71.52" x2="154" y2="71.52" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="72.82" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">60</text>
+<line x1="14" y1="67.16" x2="154" y2="67.16" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="68.46" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">80</text>
+<line x1="14" y1="62.8" x2="154" y2="62.8" stroke="#999" stroke-width="0.3" stroke-dasharray="1.6,1.6"/>
+<text x="12.2" y="64.1" font-size="3.9" font-weight="normal" text-anchor="end" font-family="'Times New Roman', Times, serif">100</text>
+<rect x="14" y="62.8" width="140" height="21.799999999999997" fill="none" stroke="#666" stroke-width="0.4"/>
+<rect x="14.75" y="62.8" width="4.5" height="0.8" fill="#d9d9d9"/>
+<path d="M17,61.318 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="19.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 19.7 64.2)">Карибский-62</text>
+<rect x="28.75" y="67.16" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M31,66.98599999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="33.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 33.7 64.2)">Судного дня-73</text>
+<rect x="42.75" y="63.672" width="4.5" height="3.269999999999996" fill="#d9d9d9"/>
+<path d="M45,65.02399999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="47.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 47.7 64.2)">Able Archer-83</text>
+<rect x="56.75" y="71.52" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M59,71.564 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="61.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 61.7 64.2)">Каргил-99</text>
+<rect x="70.75" y="67.16" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M73,67.204 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="75.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 75.7 64.2)">Ирак-03</text>
+<rect x="84.75" y="67.16" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M87,67.85799999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="89.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 89.7 64.2)">Грузия-08</text>
+<rect x="98.75" y="80.24" width="4.5" height="4.359999999999999" fill="#d9d9d9"/>
+<path d="M101,81.15599999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="103.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 103.7 64.2)">Рутина-13</text>
+<rect x="112.75" y="71.52" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M115,71.99999999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="117.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 117.7 64.2)">Крым-14</text>
+<rect x="126.75" y="75.88" width="4.5" height="4.141999999999996" fill="#d9d9d9"/>
+<path d="M129,75.70599999999999 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="131.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 131.7 64.2)">Прокси-18</text>
+<rect x="140.75" y="63.672" width="4.5" height="3.269999999999996" fill="#d9d9d9"/>
+<path d="M143,63.062 l1.7,1.7 l-1.7,1.7 l-1.7,-1.7 Z" fill="#000"/>
+<text x="145.7" y="64.2" font-size="3.9" font-weight="normal" text-anchor="start" font-family="'Times New Roman', Times, serif" transform="rotate(90 145.7 64.2)">Февраль-22</text>
+<text x="84" y="88.3" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif">Хронология якорей (anchor chronology)</text>
+<text x="3" y="91.2" font-size="3.9" fill="#444" font-family="'Times New Roman', Times, serif">Границы состояний (state boundaries): 0–20 спокойно (calm) · 21–40 напряжённо (tense)</text>
+<text x="3" y="94.8" font-size="3.9" fill="#444" font-family="'Times New Roman', Times, serif">41–60 опасно (danger) · 61–80 очень опасно (very) · 81–96 критически (critical)</text>
+<text x="3" y="98.4" font-size="3.9" fill="#444" font-family="'Times New Roman', Times, serif">97–100 предельно (extreme). Шкала порядковая, не вероятностная (ordinal, not probability)</text>
+<text x="4.4" y="47.5" font-size="3.9" font-weight="normal" text-anchor="middle" font-family="'Times New Roman', Times, serif" transform="rotate(-90 4.4 47.5)">Индекс, 0–100 (index, ordinal scale)</text>
+</svg>
