@@ -311,7 +311,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
   "schema": "cassandra-index-methodology",
   "schema_version": 1,
   "methodology": "3.0",
-  "project_version": "1.0.0",
+  "project_version": "1.1.0",
   "criteria_count": 46,
   "drivers_count": 9,
   "weights": { "D1": 0.1175, "D2": 0.1175, "D3": 0.1175, "D4": 0.1175, "D5": 0.1175, "D6": 0.1175, "D7": 0.1175, "D8": 0.1175, "D9": 0.06 },

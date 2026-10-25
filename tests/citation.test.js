@@ -59,9 +59,10 @@ test('CITATION.cff: форма CFF 1.2.0 и паритет версии с VERSI
   assert.ok(/^\s*given-names:\s*["']?Mikhail["']?\s*$/m.test(cff),
     'authors должен нести given-names: Mikhail');
 
-  // DOI версии 1.0.0 в Zenodo — постоянная ссылка датасета.
+  // DOI в CITATION.cff указывает на заархивированную версию. На 2026-10-25 это архив
+  // 1.0.0; после загрузки 1.1.0 в Zenodo значение заменяется (порядок — docs/peer-review/release.md).
   assert.equal(cffField(cff, 'doi'), '10.5281/zenodo.23458011',
-    'CITATION.cff.doi должен нести DOI версии 1.0.0');
+    'CITATION.cff.doi должен вести на архив Zenodo (сейчас — версия 1.0.0)');
 
   // date-released — календарная дата релиза, а не дата недели в прозе.
   const released = cffField(cff, 'date-released');
@@ -78,6 +79,10 @@ test('.zenodo.json: датасет с лицензией CC BY 4.0 и ссылк
   assert.ok(typeof meta.title === 'string' && meta.title.trim(), 'нет title');
   assert.ok(typeof meta.description === 'string' && meta.description.trim(), 'нет description');
   assert.equal(meta.license, 'cc-by-4.0');
+  // Версия архива и дата публикации обязаны совпадать с VERSION — иначе Zenodo
+  // опишет не тот код, который лежит в теге (паритет ловит расхождение при релизе).
+  assert.equal(meta.version, read('VERSION').trim(), '.zenodo.json.version не совпадает с VERSION');
+  assert.match(String(meta.publication_date), /^\d{4}-\d{2}-\d{2}$/, 'publication_date не ISO-дата');
   assert.ok(Array.isArray(meta.creators) && meta.creators.length > 0, 'нет creators');
   for (const creator of meta.creators) {
     assert.ok(typeof creator.name === 'string' && creator.name.trim(), 'у creators нет name');
