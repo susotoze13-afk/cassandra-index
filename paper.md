@@ -8,6 +8,7 @@ tags:
   - JavaScript
 authors:
   - name: Mikhail Zasidkevich
+    orcid: 0009-0000-4844-4338
     affiliation: "1"
 affiliations:
   - name: Independent researcher
