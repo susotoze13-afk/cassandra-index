@@ -11,7 +11,7 @@
 // loadCountryOverlay и справочники (reference.json, data/geo/countries.js, vm,
 // кэш в памяти процесса).
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -19,6 +19,9 @@ import vm from 'node:vm';
 import { PARAMS } from './params.js';
 import { CRITERIA, attributedSignals, attributedIndex } from './engine.js';
 import { taxonomyForWeek } from './week-step.js';
+// loadWeekParts/renderWeekCombined — presence-gated обвязка частей недели:
+// циклический импорт с calc.js безопасен (использование только на вызове).
+import { loadWeekParts, renderWeekCombined } from './calc.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
@@ -244,4 +247,21 @@ export function renderCountryPart(week, rows) {
     + `  var s = window.CI_DATA.snapshots[${JSON.stringify(week)}] = window.CI_DATA.snapshots[${JSON.stringify(week)}] || {};\n`;
   const footer = '})();\n';
   return `${header}  s.countries = ${JSON.stringify(rows, null, 2)};\n${footer}`;
+}
+
+// --- Дозапись странового слоя недели (дисковый шов) ---
+// Пишет часть data/<неделя>/countries.js и пересобирает week.js из дисковых
+// частей через loadWeekParts/renderWeekCombined (детерминированно); глобальные
+// и региональные части не трогает. rows — { total, published, rows } из
+// buildCountryRows: writeWeek передаёт свежий расчёт runWeek (internal глобала
+// на диске не сохранён, на диске его не восстановить). root — шов тестов на
+// временном дереве (по умолчанию корень репозитория).
+export function writeCountryLayer(week, rows, root = ROOT) {
+  const dir = path.join(root, 'data', week);
+  writeFileSync(path.join(dir, 'countries.js'), renderCountryPart(week, rows), 'utf8');
+  const parts = loadWeekParts(week, root);
+  if (!parts) {
+    throw new Error(`writeCountryLayer: частей недели ${week} нет на диске — week.js не пересобран`);
+  }
+  writeFileSync(path.join(dir, 'week.js'), renderWeekCombined(week, parts), 'utf8');
 }

@@ -148,6 +148,54 @@ test('loadWeekParts: набор частей недели — по её regions_
   assert.deepStrictEqual(Object.keys(parts).sort(), [...WEEK_PART_FILES].sort());
 });
 
+// --- Опциональная часть countries (страновой слой, недели ≥ PARAMS.countryLayerFrom) ---
+function v2PartsWithCountries() {
+  const V2 = regionIdsFor('2.0');
+  const parts = {
+    global: PART('  s.global = { "index": 68, "delta": 4 };\n  s.regions_taxonomy = "2.0";\n  s.published = "2026-10-25";\n  s.methodology = "3.0";\n  s.dataState = "published";\n  s.q = 1;'),
+    regions: PART('  s.regions = {};'),
+    trend: PART('  s.trend = [{ "date": "2026-10-25", "value": 68, "methodology": "3.0" }];'),
+    drivers: PART('  s.drivers = [];'),
+    sources: PART('  s.sources = [];'),
+    countries: PART('  s.countries = { "total": 2, "published": 1, "rows": { "RU": { "index": 70, "delta": 2, "background": false, "region": "russia-belarus", "signals": 2, "name": { "ru": "Россия", "en": "Russia" } }, "UA": { "index": 68, "delta": 0, "background": true, "region": "ukraine-moldova", "signals": 0, "name": { "ru": "Украина", "en": "Ukraine" } } } };'),
+  };
+  for (const id of V2) {
+    parts[`region-${id}`] = PART(`  s.regions[${JSON.stringify(id)}] = { "index": 68, "delta": 4, "background": true };`);
+  }
+  return parts;
+}
+
+test('renderWeekCombined: v2-набор 17+countries собирается, countries — после полного набора', () => {
+  const parts = v2PartsWithCountries();
+  const snap = runCombined('2026-10-25', parts);
+  assert.equal(snap.countries.total, 2);
+  assert.equal(snap.countries.published, 1);
+  assert.equal(snap.countries.rows.RU.index, 70);
+  assert.equal(snap.countries.rows.UA.background, true);
+  // countries не подменяет и не дублирует регионы: набор v2 цел.
+  assert.deepStrictEqual(Object.keys(snap.regions).sort(), [...regionIdsFor('2.0')].sort());
+});
+
+test('renderWeekCombined: countries у v1-недели — явная ошибка (доступна только наборам v2)', () => {
+  const parts = syntheticParts(); // v1-набор, декларации regions_taxonomy нет
+  parts.countries = PART('  s.countries = {};');
+  assert.throws(() => renderWeekCombined(W, parts), /countries.*v2|v2.*countries/);
+});
+
+test('renderWeekCombined: countries не закрывает недостающую часть v2-набора', () => {
+  const parts = v2PartsWithCountries();
+  delete parts.sources;
+  assert.throws(() => renderWeekCombined('2026-10-25', parts), /sources/);
+});
+
+test('loadWeekParts: недели до гейта странового слоя countries не возвращают', () => {
+  for (const week of ['2026-10-11', '2026-10-18']) {
+    const parts = loadWeekParts(week);
+    assert.ok(parts, `${week} на диске`);
+    assert.ok(!('countries' in parts), `${week}: countries не ожидается`);
+  }
+});
+
 test('renderWeekCombined: v2-набор частей (17) собирается целиком, двенадцать регионов', () => {
   const V2 = regionIdsFor('2.0');
   const parts = {

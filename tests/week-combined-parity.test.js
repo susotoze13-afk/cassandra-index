@@ -29,6 +29,12 @@ function snapshotFromParts(week) {
     Object.assign(expected, rest);
     Object.assign(expected.regions, regions);
   }
+  // Опциональная часть странового слоя (недели ≥ PARAMS.countryLayerFrom):
+  // presence-gated — недели без файла countries.js валидны и не меняются.
+  const countries = loadSnapshotPart(week, 'countries');
+  if (countries && countries.countries !== undefined) {
+    expected.countries = countries.countries;
+  }
   return expected;
 }
 

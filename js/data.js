@@ -235,7 +235,56 @@ export function validate(snapshot) {
   if (!Array.isArray(snapshot.sources) || !snapshot.sources.every(isSource)) {
     errors.push('sources: array of { title:{ru,en}, url, domain, date }');
   }
+  const vc = validateCountries(snapshot);
+  errors.push(...vc.errors);
   validateQuality(snapshot, errors);
+  return { ok: errors.length === 0, errors };
+}
+
+// Страновой слой (ADR 0067): опциональный блок countries недель
+// ≥ PARAMS.countryLayerFrom. Отсутствие — валидно (вся история до гейта);
+// битая форма — ошибка контракта с путями. Блок: { total, published, rows },
+// rows — объект с ключами /^[A-Z]{2}$/; строка: index 0..100, delta число,
+// background boolean, region — id региона версии снапшота, signals int ≥ 0,
+// name { ru, en }; published ≤ total.
+export function validateCountries(snapshot) {
+  const errors = [];
+  const c = snapshot ? snapshot.countries : undefined;
+  if (c === undefined) return { ok: true, errors };
+  if (!c || typeof c !== 'object' || Array.isArray(c)) {
+    return { ok: false, errors: ['countries: { total: int > 0, published: 0..total, rows } required'] };
+  }
+  if (!Number.isInteger(c.total) || c.total <= 0) errors.push('countries.total: int > 0');
+  if (!Number.isInteger(c.published) || c.published < 0
+    || (Number.isInteger(c.total) && c.published > c.total)) {
+    errors.push('countries.published: int 0..total');
+  }
+  if (!c.rows || typeof c.rows !== 'object' || Array.isArray(c.rows)) {
+    errors.push('countries.rows: object { <ISO2>: row } required');
+    return { ok: false, errors };
+  }
+  const taxonomy = snapshot.regions_taxonomy ?? '1.0';
+  const regionIds = new Set(regionIdsFor(taxonomy));
+  for (const [iso, row] of Object.entries(c.rows)) {
+    if (!/^[A-Z]{2}$/.test(iso)) {
+      errors.push(`countries.rows.${iso}: key must be ISO2 (^[A-Z]{2}$)`);
+      continue;
+    }
+    if (!row || typeof row !== 'object' || Array.isArray(row)) {
+      errors.push(`countries.rows.${iso}: row object required`);
+      continue;
+    }
+    if (!isIndex(row.index)) errors.push(`countries.rows.${iso}.index: 0..100`);
+    if (!isDelta(row.delta)) errors.push(`countries.rows.${iso}.delta: number`);
+    if (typeof row.background !== 'boolean') errors.push(`countries.rows.${iso}.background: boolean`);
+    if (typeof row.region !== 'string' || !regionIds.has(row.region)) {
+      errors.push(`countries.rows.${iso}.region: id региона версии ${taxonomy}`);
+    }
+    if (!Number.isInteger(row.signals) || row.signals < 0) {
+      errors.push(`countries.rows.${iso}.signals: int >= 0`);
+    }
+    if (!isLocalized(row.name)) errors.push(`countries.rows.${iso}.name: { ru, en }`);
+  }
   return { ok: errors.length === 0, errors };
 }
 

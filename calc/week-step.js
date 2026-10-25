@@ -29,8 +29,9 @@ export function taxonomyForWeek(week) {
 
 // --- Чтение файлов снапшота data/<week>/<file>.js через vm (без DOM) ---
 // Возвращает объект снапшота так, как его видит сайт в window.CI_DATA.
-export function loadSnapshotPart(week, file) {
-  const f = path.join(ROOT, 'data', week, `${file}.js`);
+// root — шов тестов на временном дереве (по умолчанию корень репозитория).
+export function loadSnapshotPart(week, file, root = ROOT) {
+  const f = path.join(root, 'data', week, `${file}.js`);
   if (!existsSync(f)) return null;
   const sandbox = { window: { CI_DATA: { snapshots: {}, latest: null } } };
   // region-*.js присваивает в s.regions[id] и предполагает, что s.regions

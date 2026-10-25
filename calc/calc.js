@@ -37,6 +37,14 @@ import { validateQuotes, verifyQuotes } from './quotes.js';
 import { validate as validateSnapshot, regionIdsFor } from '../js/data.js';
 import { checkSources } from './linkcheck.js';
 import { weekDebt, validateRejected, validateBlindReasons, weeksGenitive } from './history-debt.js';
+import {
+  loadCountryOverlay,
+  validateCountryOverlay,
+  buildCountryRows,
+  writeCountryLayer,
+  loadRegionRef,
+} from './country-layer.js';
+import { updateLatestRev } from './asset-rev.js';
 import * as audit from './audit.js';
 
 // Швы шага недели реэкспортируются для обратной совместимости: тесты и
@@ -311,16 +319,21 @@ function partOrder(parts) {
   const taxonomy = taxonomyOfParts(parts);
   const expected = weekPartFiles(taxonomy);
   const keys = parts && typeof parts === 'object' ? Object.keys(parts) : [];
+  // Часть countries (страновой слой) опциональна и presence-gated: допускается
+  // только у v2-наборов и только СВЕРХ полного набора версии — недостающую
+  // часть она не закрывает, рассинхрон остаётся явной ошибкой (не даунгрейд).
+  const hasCountries = keys.includes('countries');
   const miss = expected.filter((f) => !keys.includes(f));
-  const extra = keys.filter((k) => !expected.includes(k));
-  if (miss.length || extra.length) {
+  const extra = keys.filter((k) => k !== 'countries' && !expected.includes(k));
+  if (miss.length || extra.length || (hasCountries && taxonomy !== '2.0')) {
     throw new Error(
       `renderWeekCombined: набор частей не соответствует regions_taxonomy ${taxonomy}`
       + (miss.length ? `; нет: ${miss.join(', ')}` : '')
-      + (extra.length ? `; лишние: ${extra.join(', ')}` : ''),
+      + (extra.length ? `; лишние: ${extra.join(', ')}` : '')
+      + (hasCountries && taxonomy !== '2.0' ? '; countries доступна только наборам v2' : ''),
     );
   }
-  return expected;
+  return hasCountries ? [...expected, 'countries'] : expected;
 }
 
 
@@ -350,11 +363,14 @@ export function renderWeekCombined(week, parts) {
 // Чтение частей недели с диска (для week.js после --write и миграции).
 // Сначала читается global.js — из него узнаётся regions_taxonomy недели, —
 // затем части своего набора (weekPartFiles). Возвращает {global: '<текст>', …}
-// по набору; null, если недели или какой-то части на диске нет.
-export function loadWeekParts(week) {
-  const dir = path.join(ROOT, 'data', week);
+// по набору; null, если недели или какой-то части на диске нет. Опциональная
+// часть countries (страновой слой, недели ≥ PARAMS.countryLayerFrom) подхваты-
+// вается по наличию файла; набор частей по версии таксономии не меняется.
+// root — шов тестов на временном дереве (по умолчанию корень репозитория).
+export function loadWeekParts(week, root = ROOT) {
+  const dir = path.join(root, 'data', week);
   if (!existsSync(dir)) return null;
-  const globalSnap = loadSnapshotPart(week, 'global');
+  const globalSnap = loadSnapshotPart(week, 'global', root);
   if (!globalSnap) return null;
   const taxonomy = typeof globalSnap.regions_taxonomy === 'string' ? globalSnap.regions_taxonomy : '1.0';
   const parts = {};
@@ -363,6 +379,8 @@ export function loadWeekParts(week) {
     if (!existsSync(p)) return null;
     parts[f] = readFileSync(p, 'utf8');
   }
+  const countriesFile = path.join(dir, 'countries.js');
+  if (existsSync(countriesFile)) parts.countries = readFileSync(countriesFile, 'utf8');
   return parts;
 }
 
@@ -439,6 +457,38 @@ function loadInput(week, regionIds) {
     errors.push(...validateSourceIndependence(input, PARAMS));
   }
   return errors.length ? { errors } : { input };
+}
+
+// --- Страновой слой недели (ADR 0067): расчёт строк ≥ PARAMS.countryLayerFrom ---
+// Чистый шов поверх country-layer.js. Оверлей calc/input/countries/<неделя>.json:
+// null — слоя нет, поведение прежнее; битый — { errors } (запись части не
+// происходит, печатается «оверлей отклонён»); валидный — { rows } из
+// buildCountryRows. Считается в runWeek, а не на диске в writeWeek: ветке
+// формулы §7 страны нужен internal глобала, а на диске он не сохранён.
+export function countryLayerForWeek(week, input, g, prevWeek) {
+  const from = PARAMS.countryLayerFrom;
+  if (typeof from !== 'string' || !from || week < from) return null;
+  const overlay = loadCountryOverlay(week);
+  if (!overlay) return null;
+  const ref = loadRegionRef();
+  const errors = validateCountryOverlay(overlay, input, ref);
+  if (errors.length) return { errors };
+  const prevSnapshot = prevSnapshotForCountries(prevWeek);
+  return { rows: buildCountryRows(week, g, input, overlay, prevSnapshot, ref, PARAMS) };
+}
+
+// Опубликованные прошлой недели куски снапшота, нужные наследованию prevIndex
+// страны (ADR 0067): индекс страны прошлой недели → регион → prevGlobal.
+function prevSnapshotForCountries(prevWeek) {
+  if (!prevWeek) return null;
+  const g = loadSnapshotPart(prevWeek, 'global');
+  const r = loadSnapshotPart(prevWeek, 'regions');
+  const c = loadSnapshotPart(prevWeek, 'countries');
+  return {
+    global: g && g.global ? g.global : null,
+    regions: r && r.regions ? r.regions : {},
+    ...(c && c.countries ? { countries: c.countries } : {}),
+  };
 }
 
 // --- Прогон одной недели цепочки ---
@@ -540,6 +590,9 @@ export function runWeek(week, state) {
       ...coverageOf(input.criteria),
       drivers: classification.coveredDrivers,
     },
+    // Страновой слой (ADR 0067): null до гейта/без оверлея, { errors } при
+    // битом оверлее, { rows } при валидном. В глобальный индекс не входит.
+    countries: countryLayerForWeek(week, input, g, state.prevWeek),
   };
 }
 
@@ -713,11 +766,27 @@ export async function writeWeek(res, state) {
   // Комбинированный week.js — производная от записанных частей: читаем их
   // с диска, чтобы файл был байт-собран из того же источника, что и при
   // разовой миграции (calc/migrate-week-combined.js).
-  writeFileSync(
-    path.join(ROOT, 'data', week, 'week.js'),
-    renderWeekCombined(week, loadWeekParts(week)),
-    'utf8',
-  );
+  // Страновой слой (ADR 0067): неделя ≥ гейта с валидным оверлеем — часть
+  // countries.js и пересборка week.js идут через writeCountryLayer; битый
+  // оверлей — строка «оверлей отклонён» и week.js прежним путём (часть не
+  // пишется, запись недели не блокируется).
+  if (res.countries && res.countries.rows) {
+    writeCountryLayer(week, res.countries.rows);
+  } else {
+    if (res.countries && res.countries.errors) {
+      process.stdout.write(`${week}: оверлей стран отклонён: ${res.countries.errors.join('; ')}\n`);
+    }
+    writeFileSync(
+      path.join(ROOT, 'data', week, 'week.js'),
+      renderWeekCombined(week, loadWeekParts(week)),
+      'utf8',
+    );
+  }
+
+  // Ревизия данных для cache-buster в data/latest.js (?v=<8 hex> у week.js):
+  // считается по содержимому всех week.js, поэтому меняется и при пересчёте
+  // уже опубликованной недели, а не только при публикации новой.
+  updateLatestRev(ROOT);
 
   // Журнал аудита: recalc при каждой перезаписи (R35–R37), flash при
   // срабатывании триггера без пересчёта снапшота (R16–R19).
@@ -813,6 +882,17 @@ export function printWeek(res, writeMode, writeRejected = false) {
   lines.push(`regions (фоновые, nReg=0 → сохранено последнее региональное отклонение от глобального фона; с сигналами: ${nSignaled}):`);
   for (const [id, r] of Object.entries(res.regions)) {
     lines.push(`  ${id}: ${r.index} (${r.status}, Δ ${r.delta >= 0 ? '+' : ''}${r.delta})${r.background ? ' — фон' : ''}`);
+  }
+  // Страновой слой (ADR 0067): null до гейта/без оверлея — строки нет;
+  // битый оверлей — отказ с причинами; валидный — «опубликовано M из N (ISO)».
+  if (res.countries) {
+    if (res.countries.errors) {
+      lines.push(`страны: оверлей отклонён: ${res.countries.errors.join('; ')}`);
+    } else {
+      const layer = res.countries.rows;
+      const published = Object.keys(layer.rows).filter((iso) => !layer.rows[iso].background);
+      lines.push(`страны: опубликовано ${layer.published} из ${layer.total} (${published.join(', ')})`);
+    }
   }
   const replaced = res.trend.filter((p) => RECALC_SET.has(p.date)).length;
   const last = res.trend[res.trend.length - 1];
