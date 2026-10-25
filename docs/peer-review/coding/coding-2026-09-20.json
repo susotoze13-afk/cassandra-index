@@ -1,0 +1,1585 @@
+{
+  "sheet_version": 1,
+  "week": "2026-09-20",
+  "coder": "",
+  "instructions": [
+    "Заполните values: число 0…1 по правилам шкалы критерия либо null, если в окне недели сигнала нет.",
+    "Покрытие не дотягивается: если источников в окне нет — null, а не оценка по памяти.",
+    "Источники недели — в поле sources (это собранный корпус, привязка к критериям скрыта намеренно).",
+    "Значения первого кодировщика вам не показываются до сдачи листа."
+  ],
+  "values": {
+    "D1.1": null,
+    "D1.2": null,
+    "D1.3": null,
+    "D1.4": null,
+    "D1.5": null,
+    "D1.6": null,
+    "D2.1": null,
+    "D2.2": null,
+    "D2.3": null,
+    "D2.4": null,
+    "D2.5": null,
+    "D3.1": null,
+    "D3.2": null,
+    "D3.3": null,
+    "D3.4": null,
+    "D3.5": null,
+    "D4.1": null,
+    "D4.2": null,
+    "D4.3": null,
+    "D4.4": null,
+    "D4.5": null,
+    "D4.6": null,
+    "D5.1": null,
+    "D5.2": null,
+    "D5.3": null,
+    "D5.4": null,
+    "D6.1": null,
+    "D6.2": null,
+    "D6.3": null,
+    "D6.4": null,
+    "D7.1": null,
+    "D7.2": null,
+    "D7.3": null,
+    "D7.4": null,
+    "D8.1": null,
+    "D8.2": null,
+    "D8.3": null,
+    "D8.4": null,
+    "D9.1": null,
+    "D9.2": null,
+    "D9.3": null,
+    "D9.4": null,
+    "D9.5": null,
+    "D9.6a": null,
+    "D9.6b": null,
+    "D9.7": null
+  },
+  "definitions": {
+    "D1.1": {
+      "driver": "D1",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Перемещения войск и военных колонн",
+        "en": "Troop and military column movements"
+      },
+      "desc": {
+        "ru": "Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.",
+        "en": "Ground transfers, railway echelons and sealifts of troops near the theatre of operations or borders."
+      }
+    },
+    "D1.2": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Учения необычного масштаба",
+        "en": "Exercises of unusual scale"
+      },
+      "desc": {
+        "ru": "Анонсированные и фактические учения, необычные по масштабу, близости к границе или одновременности на нескольких фронтах.",
+        "en": "Announced and actual exercises unusual in scale, proximity to borders, or simultaneity across several fronts."
+      }
+    },
+    "D1.3": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Наращивание военной логистики",
+        "en": "Military logistics build-up"
+      },
+      "desc": {
+        "ru": "Склады боеприпасов, топливные резервы, развёртывание полевых госпиталей, мостов и переправ.",
+        "en": "Ammunition depots, fuel reserves, and deployment of field hospitals, bridges and crossings."
+      }
+    },
+    "D1.4": {
+      "driver": "D1",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Актуальные боевые действия",
+        "en": "Active hostilities"
+      },
+      "desc": {
+        "ru": "Обстрелы, авиаудары, пограничные инциденты и попытки прорыва; вторжение или открытие нового театра учитываются как наиболее тяжёлые события.",
+        "en": "Shelling, airstrikes, border incidents and breakthrough attempts; an invasion or a new theatre counts among the most severe events."
+      }
+    },
+    "D1.5": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Развёртывание стратегических систем",
+        "en": "Deployment of strategic systems"
+      },
+      "desc": {
+        "ru": "Переброска ПВО, надводных групп, подводных сил и ядерной инфраструктуры; ядерная риторика учитывается отдельным драйвером.",
+        "en": "Deployment of air defence, surface groups, submarines and nuclear infrastructure; nuclear rhetoric is tracked by a separate driver."
+      }
+    },
+    "D1.6": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Разведение сил",
+        "en": "Drawdown of forces"
+      },
+      "desc": {
+        "ru": "Подтверждённое разведение войск, вывод из позиций и сокращение активности.",
+        "en": "Confirmed troop drawdowns, withdrawal from positions and reduced activity."
+      }
+    },
+    "D2.1": {
+      "driver": "D2",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Публичные ядерные угрозы",
+        "en": "Public nuclear threats"
+      },
+      "desc": {
+        "ru": "Явные заявления о применении ядерного оружия на уровне глав государств и министров обороны или иностранных дел.",
+        "en": "Explicit statements about nuclear weapons use by heads of state and ministers of defence or foreign affairs."
+      }
+    },
+    "D2.2": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Смена доктрины и договоров",
+        "en": "Doctrine and treaty shifts"
+      },
+      "desc": {
+        "ru": "Изменения ядерной доктрины, выход из договоров по контролю над вооружениями, приостановка участия в механизмах уведомления.",
+        "en": "Changes to nuclear doctrine, withdrawal from arms-control treaties, suspension of notification mechanisms."
+      }
+    },
+    "D2.3": {
+      "driver": "D2",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Технические ядерные сигналы",
+        "en": "Technical nuclear signals"
+      },
+      "desc": {
+        "ru": "Учения стратегических сил, подвижки ракетных комплексов, подготовка полигонов, смена режима дежурств.",
+        "en": "Strategic force exercises, movements of missile systems, test-site preparations, changes in duty rotations."
+      }
+    },
+    "D2.4": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Повышение готовности ядерных сил",
+        "en": "Raised nuclear readiness"
+      },
+      "desc": {
+        "ru": "Публичные заявления о переводе ядерных сил на особый режим.",
+        "en": "Public announcements of moving nuclear forces to a special readiness regime."
+      }
+    },
+    "D2.5": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Отход от ядерной риторики",
+        "en": "Step back from nuclear rhetoric"
+      },
+      "desc": {
+        "ru": "Отказ от ядерных угроз, подтверждённое возвращение сил к штатному режиму, восстановление договорных механизмов.",
+        "en": "Renunciation of nuclear threats, confirmed return of forces to normal posture, restoration of treaty mechanisms."
+      }
+    },
+    "D3.1": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Разрыв дипломатических отношений",
+        "en": "Breakdown of diplomatic relations"
+      },
+      "desc": {
+        "ru": "Разрыв или понижение отношений, массовая высылка дипломатов, закрытие посольств.",
+        "en": "Rupture or downgrading of relations, mass expulsions of diplomats, embassy closures."
+      }
+    },
+    "D3.2": {
+      "driver": "D3",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Ультиматумы",
+        "en": "Ultimatums"
+      },
+      "desc": {
+        "ru": "Публично заявленные несовместимые требования сторон конфликта.",
+        "en": "Publicly stated incompatible demands by the parties to the conflict."
+      }
+    },
+    "D3.3": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Санкции и международно-правовые решения",
+        "en": "Sanctions and legal measures"
+      },
+      "desc": {
+        "ru": "Новые пакеты санкций, резолюции, признание сторон конфликта террористическими и подобные решения.",
+        "en": "New sanctions packages, resolutions, designations of parties as terrorist and similar measures."
+      }
+    },
+    "D3.4": {
+      "driver": "D3",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Переговоры и посредничество",
+        "en": "Talks and mediation"
+      },
+      "desc": {
+        "ru": "Возобновление или запуск переговоров, посредничество третьих стран и организаций.",
+        "en": "Resumption or launch of negotiations, mediation by third countries and organisations."
+      }
+    },
+    "D3.5": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "deesc",
+      "name": {
+        "ru": "Гуманитарные договорённости",
+        "en": "Humanitarian arrangements"
+      },
+      "desc": {
+        "ru": "Договорённости о коридорах, обменах пленными и доступе инспекций.",
+        "en": "Arrangements on corridors, prisoner exchanges and inspection access."
+      }
+    },
+    "D4.1": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Новые санкции и контрсанкции",
+        "en": "New sanctions and countersanctions"
+      },
+      "desc": {
+        "ru": "Ограничения на экспорт энергоносителей и критичных товаров; само решение об ограничениях учитывается дипломатическим драйвером.",
+        "en": "Restrictions on exports of energy and critical goods; the decision itself is tracked by the diplomatic driver."
+      }
+    },
+    "D4.2": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Военные расходы",
+        "en": "Military spending"
+      },
+      "desc": {
+        "ru": "Экстренные бюджетные ассигнования и переход экономики на военные рельсы по открытым бюджетам и официальным решениям.",
+        "en": "Emergency budget allocations and a shift of the economy onto a war footing, per open budgets and official decisions."
+      }
+    },
+    "D4.3": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Разрыв цепочек поставок",
+        "en": "Supply chain disruption"
+      },
+      "desc": {
+        "ru": "Перебои с критичными ресурсами: редкие металлы, микроэлектроника, компоненты оборонной промышленности.",
+        "en": "Disruptions in critical resources: rare metals, microelectronics, defence industry components."
+      }
+    },
+    "D4.4": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Конфискации и блокировка торговли",
+        "en": "Asset seizures and trade blockage"
+      },
+      "desc": {
+        "ru": "Конфискации и национализация активов конфликтующих сторон, блокировка торговых путей.",
+        "en": "Seizures and nationalisation of the parties’ assets, blockage of trade routes."
+      }
+    },
+    "D4.5": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снятие экономических ограничений",
+        "en": "Easing of economic restrictions"
+      },
+      "desc": {
+        "ru": "Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.",
+        "en": "Lifting of restrictions, restoration of trade ties, humanitarian economic exemptions."
+      }
+    },
+    "D4.6": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Стресс на финансовых и сырьевых рынках",
+        "en": "Financial and commodity market stress"
+      },
+      "desc": {
+        "ru": "Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.",
+        "en": "Commodity exchanges, bond and equity markets react to escalation earlier than other signals: index sell-offs, spikes in oil and gold prices, widening credit spreads."
+      }
+    },
+    "D5.1": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эскалация военной риторики",
+        "en": "Escalation of war rhetoric"
+      },
+      "desc": {
+        "ru": "Переход к языку неизбежности и дегуманизации противника в официальных государственных СМИ и заявлениях.",
+        "en": "A shift to the language of inevitability and dehumanisation of the enemy in official state media and statements."
+      }
+    },
+    "D5.2": {
+      "driver": "D5",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Кибероперации",
+        "en": "Cyber operations"
+      },
+      "desc": {
+        "ru": "Подтверждённые атаки на критическую инфраструктуру — энергетику, связь, транспорт, госорганы — с атрибуцией конфликтующей стороной.",
+        "en": "Confirmed attacks on critical infrastructure — power, communications, transport, government — attributed to a party to the conflict."
+      }
+    },
+    "D5.3": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Дезинформационные кампании",
+        "en": "Disinformation campaigns"
+      },
+      "desc": {
+        "ru": "Координированные кампании, разворачиваемые в преддверии военных действий, по отчётам проверенных аналитических центров.",
+        "en": "Coordinated campaigns rolled out ahead of hostilities, per reports of vetted analytical centres."
+      }
+    },
+    "D5.4": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снижение пропаганды",
+        "en": "Easing of propaganda"
+      },
+      "desc": {
+        "ru": "Снижение уровня военной пропаганды, закрытие каналов разжигания, публичные опровержения эскалационных нарративов.",
+        "en": "Lower levels of war propaganda, closure of incitement channels, public denials of escalatory narratives."
+      }
+    },
+    "D6.1": {
+      "driver": "D6",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Военное положение и мобилизация",
+        "en": "Martial law and mobilisation"
+      },
+      "desc": {
+        "ru": "Введение или расширение военного положения, мобилизационные законы, скрытая мобилизация по подтверждённым данным.",
+        "en": "Introduction or expansion of martial law, mobilisation laws, covert mobilisation per confirmed data."
+      }
+    },
+    "D6.2": {
+      "driver": "D6",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эвакуация населения",
+        "en": "Evacuation of population"
+      },
+      "desc": {
+        "ru": "Эвакуация из приграничных и прифронтовых зон, создание убежищ, учения гражданской обороны необычного масштаба.",
+        "en": "Evacuation from border and frontline areas, construction of shelters, civil defence drills of unusual scale."
+      }
+    },
+    "D6.3": {
+      "driver": "D6",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Военная переориентация экономики",
+        "en": "Military reorientation of the economy"
+      },
+      "desc": {
+        "ru": "Военные госзаказы, ограничение выезда для военнообязанных.",
+        "en": "Military state orders, exit restrictions for military-age citizens."
+      }
+    },
+    "D6.4": {
+      "driver": "D6",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Отмена мобилизационных мер",
+        "en": "Rollback of mobilisation measures"
+      },
+      "desc": {
+        "ru": "Отмена мобилизационных мер, возвращение гражданских режимов, возвращение эвакуированных.",
+        "en": "Cancellation of mobilisation measures, return of civilian regimes and of evacuees."
+      }
+    },
+    "D7.1": {
+      "driver": "D7",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Вовлечение новых государств",
+        "en": "Entry of new states"
+      },
+      "desc": {
+        "ru": "Прямое военное вовлечение новых государств: ввод войск, поставки оружия с эскалационным эффектом, базирование.",
+        "en": "Direct military entry of new states: troop deployments, arms deliveries with an escalatory effect, basing."
+      }
+    },
+    "D7.2": {
+      "driver": "D7",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Атаки за пределами театра",
+        "en": "Attacks beyond the theatre"
+      },
+      "desc": {
+        "ru": "Атаки на объекты за пределами основного театра: торговые суда, трубопроводы, дипмиссии, инфраструктура третьих стран.",
+        "en": "Attacks on objects outside the main theatre: merchant ships, pipelines, diplomatic missions, third countries’ infrastructure."
+      }
+    },
+    "D7.3": {
+      "driver": "D7",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Новые фронты",
+        "en": "New fronts"
+      },
+      "desc": {
+        "ru": "Открытие новых фронтов или театров в соседних регионах.",
+        "en": "Opening of new fronts or theatres in neighbouring regions."
+      }
+    },
+    "D7.4": {
+      "driver": "D7",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Выход третьих сторон",
+        "en": "Withdrawal of third parties"
+      },
+      "desc": {
+        "ru": "Выход третьих сторон из конфликта, прекращение поставок, закрытие базирования.",
+        "en": "Withdrawal of third parties from the conflict, cessation of supplies, closure of basing."
+      }
+    },
+    "D8.1": {
+      "driver": "D8",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Прекращение огня",
+        "en": "Ceasefire"
+      },
+      "desc": {
+        "ru": "Прекращение огня или перемирие, соблюдаемое в течение всего окна без нарушений.",
+        "en": "A ceasefire or truce observed throughout the window without violations."
+      }
+    },
+    "D8.2": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Мирные договорённости",
+        "en": "Peace arrangements"
+      },
+      "desc": {
+        "ru": "Подписанные мирные договорённости, разведение сил и тяжёлого вооружения по верифицируемым схемам.",
+        "en": "Signed peace arrangements, verified drawdown schemes for forces and heavy weapons."
+      }
+    },
+    "D8.3": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Наблюдение и верификация",
+        "en": "Monitoring and verification"
+      },
+      "desc": {
+        "ru": "Международное наблюдение: миссии, инспекции, мониторинг соблюдения режимов.",
+        "en": "International monitoring: missions, inspections, verification of compliance."
+      }
+    },
+    "D8.4": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снижение интенсивности событий",
+        "en": "Sustained drop in event intensity"
+      },
+      "desc": {
+        "ru": "Устойчивое снижение числа эскалационных инцидентов на протяжении нескольких недель подряд без нарушения режимов.",
+        "en": "A sustained decline in the number of escalation incidents over several consecutive weeks without regime violations."
+      }
+    },
+    "D9.1": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Медицинская подготовка",
+        "en": "Medical preparation"
+      },
+      "desc": {
+        "ru": "Необычные закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков.",
+        "en": "Unusual procurements of wound-care medicines, blood and plasma stockpiles, expansion of hospital bed capacity, accelerated training of military medics."
+      }
+    },
+    "D9.2": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Финансовая изоляция",
+        "en": "Financial isolation"
+      },
+      "desc": {
+        "ru": "Капитальные ограничения, отзыв активов из-за рубежа, приостановка выплат по внешнему долгу, военные займы, запреты на экспорт продовольствия и топлива.",
+        "en": "Capital controls, repatriation of assets from abroad, suspension of external debt payments, war loans, bans on food and fuel exports."
+      }
+    },
+    "D9.3": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Транспорт и страхование",
+        "en": "Transport and insurance"
+      },
+      "desc": {
+        "ru": "Рост военных страховых надбавок, отзыв страхового покрытия, массовая отмена авиарейсов, закрытие воздушного пространства, военные приоритеты на железных дорогах, изъятие подвижного состава.",
+        "en": "Rising war-risk insurance premiums, withdrawal of coverage, mass flight cancellations, airspace closures, military priorities on railways, requisition of rolling stock."
+      }
+    },
+    "D9.4": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Стратегическое накопление",
+        "en": "Strategic stockpiling"
+      },
+      "desc": {
+        "ru": "Аномальные закупки в госрезервы, круглосуточные режимы предприятий оборонной промышленности, мобилизационные заказы гражданским заводам, накопление топлива вблизи театра.",
+        "en": "Abnormal state reserve purchases, round-the-clock shifts at defence plants, mobilisation orders to civilian factories, fuel stockpiling near the theatre."
+      }
+    },
+    "D9.5": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Кадровые и мобилизационные меры",
+        "en": "Personnel and mobilisation measures"
+      },
+      "desc": {
+        "ru": "Изменение возраста и категорий призыва, расширение списков военнообязанных, ограничения выезда для отдельных категорий специалистов, изменения законов о военной службе без объявления мобилизации.",
+        "en": "Changes to draft age and categories, expanded military registers, exit restrictions for select categories of specialists, changes to military service laws without declared mobilisation."
+      }
+    },
+    "D9.6a": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Информационный суверенитет",
+        "en": "Information sovereignty"
+      },
+      "desc": {
+        "ru": "Усиление цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО и оборудования в критичных отраслях, «подогревка» госСМИ и военно-патриотические кампании, постановка помех спутниковой навигации.",
+        "en": "Tighter censorship and internet filtering, drills for autonomy from the global network, replacement of imported software and equipment in critical sectors, stoking of state media and military-patriotic campaigns, satellite navigation jamming."
+      }
+    },
+    "D9.6b": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эвакуация элит и активов",
+        "en": "Evacuation of elites and assets"
+      },
+      "desc": {
+        "ru": "Вывоз семей дипломатов и чиновников, отзыв студентов и специалистов из-за рубежа, эвакуация музейных ценностей и архивов, перебазирование командных пунктов и правительственных резервов.",
+        "en": "Evacuation of diplomats’ and officials’ families, recall of students and specialists from abroad, removal of museum collections and archives, relocation of command posts and government reserves."
+      }
+    },
+    "D9.7": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снятие «тихих» мер",
+        "en": "Lifting of quiet measures"
+      },
+      "desc": {
+        "ru": "Отмена капитального контроля, возвращение дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам, возвращение эвакуированных коллекций.",
+        "en": "Lifting of capital controls, return of diplomats’ families, resumption of statistics publication, return of plants to civilian regimes, return of evacuated collections."
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "www-kyivpost-com-post-84608",
+      "title": {
+        "ru": "ISW: оценка российского наступления, 15 сентября 2026",
+        "en": "ISW Russian Offensive Campaign Assessment, September 15, 2026"
+      },
+      "domain": "kyivpost.com",
+      "url": "https://www.kyivpost.com/post/84608",
+      "publication_date": "2026-09-15",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "www-riga-lv-namejs-2026-active-phase",
+      "title": {
+        "ru": "16–20 сентября: активная фаза учений Namejs 2026 пройдёт в Риге",
+        "en": "16–20 September: active phase of exercise Namejs 2026 will take place in Riga"
+      },
+      "domain": "riga.lv",
+      "url": "https://www.riga.lv/en/article/16-20-september-active-phase-exercise-namejs-2026-will-take-place-riga-soldiers-military-vehicles-and-exercise-checkpoints-will-be-visible-across-city",
+      "publication_date": "2026-09-16",
+      "source_type": "primary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "euromaidanpress-com-lithuania-exercises-12-municipalities",
+      "title": {
+        "ru": "Литва начала военные учения в 12 муниципалитетах на фоне проверок НАТО восточной границы",
+        "en": "Lithuania launches military exercises across 12 municipalities as Russia keeps probing NATO's eastern border"
+      },
+      "domain": "euromaidanpress.com",
+      "url": "https://euromaidanpress.com/2026/09/14/lithuania-launches-military-exercises-across-12-municipalities-as-russia-keeps-probing-natos-eastern-border/",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "spravzhne-media-gur-warehouse-zaporizhzhia",
+      "title": {
+        "ru": "ГУР уничтожило склад боеприпасов и горючего РФ в Запорожье",
+        "en": "Ukrainian military intelligence destroys Russian ammunition and fuel depot in Zaporizhzhia"
+      },
+      "domain": "spravzhne.media",
+      "url": "https://spravzhne.media/rus/war/1789900681-rossiyskiy-sklad-boepripasov-i-goryuchego-unichtozhili-na-zaporozhe",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-kyivpost-com-post-84787",
+      "title": {
+        "ru": "ISW: оценка российского наступления, 17 сентября 2026",
+        "en": "ISW Russian Offensive Campaign Assessment, September 17, 2026"
+      },
+      "domain": "kyivpost.com",
+      "url": "https://www.kyivpost.com/post/84787",
+      "publication_date": "2026-09-18",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "abcnews-com-ukrainian-drones-moscow-refinery-136595832",
+      "title": {
+        "ru": "Украинские дроны и ракеты атаковали Москву и нефтеперерабатывающий завод, есть погибшие",
+        "en": "Ukrainian drones and missiles target Moscow, oil refinery in deadly attack: officials"
+      },
+      "domain": "abcnews.com",
+      "url": "https://abcnews.com/International/ukrainian-drones-target-moscow-oil-refinery-deadly-attack/story?id=136595832",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "lenta-ru-glavnoe-k-utru-20-sentyabrya",
+      "title": {
+        "ru": "Главное 20 сентября. Массированная атака дронов на Москву и область",
+        "en": "Main news of 20 September: massed drone attack on Moscow and the region"
+      },
+      "domain": "lenta.ru",
+      "url": "https://lenta.ru/twz/chto-proiskhodit/glavnoe-k-utru-20-sentyabrya.htm",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "24tv-ua-ataka-shahedov-16-sentjabrja",
+      "title": {
+        "ru": "Россия била по Украине дронами и ракетами: карта воздушных тревог",
+        "en": "Russia struck Ukraine with drones and missiles: air-raid map"
+      },
+      "domain": "24tv.ua",
+      "url": "https://24tv.ua/ru/ataka-shahedov-16-sentjabrja-2026-goda-kuda-letjat-drony-karta-trevog_n3143369",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "abcnews-com-houthis-yemen-gains-strategic-strait-136485092",
+      "title": {
+        "ru": "Продвижение хуситов в Йемене ставит под вопрос контроль над стратегическим проливом и ключевыми городами",
+        "en": "Houthis' Yemen gains put control of strategic strait, key cities in focus"
+      },
+      "domain": "abcnews.com",
+      "url": "https://abcnews.com/International/houthis-yemen-gains-put-control-strategic-strait-key/story?id=136485092",
+      "publication_date": "2026-09-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-svoboda-org-a-udary-rossii-vblizi-granits-poljshi",
+      "title": {
+        "ru": "Удары России вблизи границ Польши",
+        "en": "Russian strikes near Poland's borders"
+      },
+      "domain": "svoboda.org",
+      "url": "https://www.svoboda.org/a/udary-rossii-vblizi-granits-poljshi/33854008.html",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "ria-ru-lukashenko-check-readiness-2117062795",
+      "title": {
+        "ru": "Минск проведет проверку боеготовности армии, вплоть до мобилизации",
+        "en": "Minsk to hold combat readiness checks of the army, up to mobilisation"
+      },
+      "domain": "ria.ru",
+      "url": "https://ria.ru/20260911/lukashenko-2117062795.html",
+      "publication_date": "2026-09-11",
+      "source_type": "primary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-reuters-com-north-korea-vice-defence-minister",
+      "title": {
+        "ru": "КНДР заявляет, что наращивание вооружений США оправдывает расширение ядерных сил",
+        "en": "North Korea says US-led arms buildup justifies expanding nuclear force"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/aerospace-defense/north-korea-vice-defence-minister-says-us-arms-buildup-justifies-expanding-2026-09-17/",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-reuters-com-north-korea-rejects-iaea-resolution",
+      "title": {
+        "ru": "КНДР назвала ядерный статус «необратимым» после резолюции МАГАТЭ",
+        "en": "North Korea says nuclear status 'irreversible' after UN watchdog resolution"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/north-korea-rejects-iaea-resolution-doubles-down-nuclear-status-kim-jong-un-2026-09-18/",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "iz-ru-kndr-iadernoe-oruzhiie-2167943",
+      "title": {
+        "ru": "КНДР предупредила США и Южную Корею о возможном применении ядерного оружия",
+        "en": "North Korea warns US and South Korea of possible nuclear weapon use"
+      },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/2167943/2026-09-16/kndr-predupredila-ssha-i-iuzhnuiu-koreiu-o-vozmozhnom-primenenii-iadernogo-oruzhiia",
+      "publication_date": "2026-09-16",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-reuters-com-north-korea-fires-two-missiles",
+      "title": {
+        "ru": "КНДР выпустила две предположительно баллистические ракеты у восточного побережья",
+        "en": "North Korea fires two suspected ballistic missiles off east coast within three hours"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/north-korea-fires-missile-off-east-coast-yonhap-says-2026-09-20/",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "ria-ru-renkhap-ballistic-2118896646",
+      "title": {
+        "ru": "СМИ: ракета, запущенная КНДР в сторону Японского моря, была баллистической",
+        "en": "Media: North Korean missile fired toward the Sea of Japan was ballistic"
+      },
+      "domain": "ria.ru",
+      "url": "https://ria.ru/20260920/renkhap-2118896646.html",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-pravda-com-ua-eng-german-consulate-closes-8054035",
+      "title": {
+        "ru": "Генеральное консульство Германии в России закрылось навсегда",
+        "en": "German Consulate General in Russia permanently closes"
+      },
+      "domain": "pravda.com.ua",
+      "url": "https://www.pravda.com.ua/eng/news/2026/09/18/8054035/",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-dw-com-russia-closing-german-consulate-a-79149908",
+      "title": {
+        "ru": "Россия объявила о закрытии генерального консульства Германии в Санкт-Петербурге",
+        "en": "Russia announces it is closing Germany's consulate in St. Petersburg"
+      },
+      "domain": "dw.com",
+      "url": "https://www.dw.com/en/russia-announces-it-is-closing-germanys-consulate-in-st-petersburg/a-79149908",
+      "publication_date": "2026-09-07",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-newindianexpress-com-iran-seven-conditions",
+      "title": {
+        "ru": "Иран выдвинул семь условий для переговоров с США через Катар и предупредил о «решающей войне»",
+        "en": "Iran sets seven conditions for talks with US through Qatar, warns of decisive war if Trump rejects demands"
+      },
+      "domain": "newindianexpress.com",
+      "url": "https://www.newindianexpress.com/world/2026/Sep/20/iran-sets-seven-conditions-for-talks-with-us-through-qatar-warns-of-decisive-war-if-trump-rejects-demands",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-presstv-co-uk-iran-conditions-776648",
+      "title": {
+        "ru": "Иран выдвинул 7 условий для выхода США из военной трясины",
+        "en": "Iran sets 7 conditions for US to escape war quagmire"
+      },
+      "domain": "presstv.co.uk",
+      "url": "https://www.presstv.co.uk/Detail/2026/09/20/776648/Iran-conditions-US-talks",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-reuters-com-eu-envoys-extend-russia-sanctions",
+      "title": {
+        "ru": "Послы ЕС продлили санкции против России на семь дней для обсуждения шестимесячного продления",
+        "en": "EU envoys extend Russia sanctions by seven days to debate six-month renewal"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/europe/eu-envoys-extend-russia-sanctions-by-seven-days-debate-six-month-renewal-eu-2026-09-14/",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-euractiv-com-extend-russia-sanctions-oligarch-stand-off",
+      "title": {
+        "ru": "Страны ЕС продлили санкции против России на фоне нового спора об олигархе",
+        "en": "EU countries extend Russia sanctions amid latest oligarch stand-off"
+      },
+      "domain": "euractiv.com",
+      "url": "https://www.euractiv.com/news/eu-countries-extend-russia-sanctions-amid-latest-oligarch-stand-off/",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "mezha-net-evening-digest-14-veresnia",
+      "title": {
+        "ru": "Вечерний дайджест: Украина и мир — 14 сентября 2026",
+        "en": "Evening Digest: Ukraine and the World — September 14, 2026"
+      },
+      "domain": "mezha.net",
+      "url": "https://mezha.net/eng/news/vechirnii-daidzhest-ukraina-ta-svit-14-veresnia-2026/",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "lenta-ru-kreml-predlozhil-sdelku-peskov-dva-usloviya",
+      "title": {
+        "ru": "Кремль предложил сделку Западу и Украине: Песков выдвинул два условия",
+        "en": "Kremlin unexpectedly offered a deal to the West and Ukraine: Peskov set two conditions"
+      },
+      "domain": "lenta.ru",
+      "url": "https://lenta.ru/news/2026/09/15/long-kreml-neozhidanno-predlozhil-sdelku-zapadu-i-ukraine-peskov-vydvinul-dva-usloviya/",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-dw-com-ru-obmen-telami-a-79313703",
+      "title": {
+        "ru": "Украина и Россия вновь обменялись телами погибших военных",
+        "en": "Ukraine and Russia exchange bodies of fallen soldiers again"
+      },
+      "domain": "dw.com",
+      "url": "https://www.dw.com/ru/ukraina-i-rossia-vnov-obmenalis-telami-pogibsih-voennyh/a-79313703",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-rbc-ru-obmen-telami-17-09-2026",
+      "title": {
+        "ru": "Россия и Украина провели обмен телами погибших военнослужащих",
+        "en": "Russia and Ukraine hold exchange of fallen service members' bodies"
+      },
+      "domain": "rbc.ru",
+      "url": "https://www.rbc.ru/politics/17/09/2026/6aabb5e1bbf383b65c1f8e89",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-reuters-com-trump-signs-russia-sanctions-bill",
+      "title": {
+        "ru": "Трамп подписал закон о санкциях против России",
+        "en": "Trump signs Russia sanctions bill into law"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/us/trump-signs-russia-sanctions-bill-into-law-2026-09-18/",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-dw-com-ru-zakon-grema-a-79335094",
+      "title": {
+        "ru": "Трамп подписал закон Грэма об «адских санкциях» против РФ",
+        "en": "Trump signs Graham Act on 'hellish sanctions' against Russia"
+      },
+      "domain": "dw.com",
+      "url": "https://www.dw.com/ru/tramp-podpisal-zakon-lindsi-grema-ob-adskih-sankciah-protiv-rossii/a-79335094",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-bloomberg-com-denmark-expedites-275-million",
+      "title": {
+        "ru": "Дания ускоряет пакет помощи Украине на $275 млн после инцидента с Россией",
+        "en": "Denmark Expedites $275 Million Ukraine Aid After Russia Bust-Up"
+      },
+      "domain": "bloomberg.com",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-18/denmark-expedites-275-million-ukraine-aid-after-russia-bust-up",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "www-cbsnews-com-air-defense-sale-ukraine",
+      "title": {
+        "ru": "Госдеп одобрил возможную продажу Украине средств ПВО на $2,6 млрд",
+        "en": "State Department approves potential sale of $2.6 billion in air defense equipment to Ukraine"
+      },
+      "domain": "cbsnews.com",
+      "url": "https://www.cbsnews.com/news/us-ukraine-russia-war-air-defense-state-department/",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-garant-ru-ukaz-661-ot-17-09-2026",
+      "title": {
+        "ru": "Указ Президента РФ от 17 сентября 2026 г. № 661",
+        "en": "Decree of the President of the Russian Federation No. 661 of 17 September 2026"
+      },
+      "domain": "garant.ru",
+      "url": "https://www.garant.ru/products/ipo/prime/doc/414830418/",
+      "publication_date": "2026-09-17",
+      "source_type": "primary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "meduza-io-putin-auchan-nestle",
+      "title": {
+        "ru": "Путин передал во временное управление активы «Ашан» и Nestlé",
+        "en": "Putin places Auchan and Nestlé assets under temporary management"
+      },
+      "domain": "meduza.io",
+      "url": "https://meduza.io/news/2026/09/17/putin-peredal-vo-vremennoe-upravlenie-aktivy-ashan-i-nestle",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "ria-ru-medvedev-voennoe-sderzhivanie-2118722131",
+      "title": {
+        "ru": "Медведев призвал ответить на санкции США языком военного сдерживания",
+        "en": "Medvedev calls for answering US sanctions with the language of military deterrence"
+      },
+      "domain": "ria.ru",
+      "url": "https://ria.ru/20260919/medvedev-2118722131.html",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-aa-com-tr-medvedev-voennoe-sderzhivanie-4061817",
+      "title": {
+        "ru": "Экс-президент РФ предложил ответить на «адские санкции» США языком военного сдерживания",
+        "en": "Ex-president of Russia proposes answering US 'hellish sanctions' with language of military deterrence"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/ru/%D0%BC%D0%B8%D1%80/%D1%8D%D0%BA%D1%81-%D0%BF%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%82-%D1%80%D1%84-%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B8%D0%BB-%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B8%D1%82%D1%8C-%D0%BD%D0%B0-%D0%B0%D0%B4%D1%81%D0%BA%D0%B8%D0%B5-%D1%81%D0%B0%D0%BD%D0%BA%D1%86%D0%B8%D0%B8-%D1%81%D1%88%D0%B0-%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%BC-%D0%B2%D0%BE%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D1%81%D0%B4%D0%B5%D1%80%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F/4061817",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-interfax-ru-cik-ddos-1117223",
+      "title": {
+        "ru": "Глава ЦИК РФ сообщила о более чем тысяче волн DDoS-атак на инфраструктуру в избирательном процессе",
+        "en": "Head of Russian Central Election Commission reports over a thousand waves of DDoS attacks on election infrastructure"
+      },
+      "domain": "interfax.ru",
+      "url": "https://www.interfax.ru/russia/1117223",
+      "publication_date": "2026-09-20",
+      "source_type": "primary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "therecord-media-russia-cyberattacks-during-election",
+      "title": {
+        "ru": "В России сообщают о тысячах кибератак на избирательную инфраструктуру во время голосования",
+        "en": "Russia reports thousands of cyberattacks on election infrastructure during vote"
+      },
+      "domain": "therecord.media",
+      "url": "https://therecord.media/russia-reports-cyberattacks-during-election",
+      "publication_date": "2026-09-21",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "dfrlab-org-storm-1516-baltic-states",
+      "title": {
+        "ru": "Операция Storm-1516 нацелена на прибалтийские государства",
+        "en": "Storm-1516 operation targets the Baltic states"
+      },
+      "domain": "dfrlab.org",
+      "url": "https://dfrlab.org/2026/09/17/storm-1516-operation-targets-the-baltic-states/",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "www-pravda-com-ua-rus-litva-gibridnye-ataki-8054030",
+      "title": {
+        "ru": "Литва подтвердила данные Польши о подготовке Россией гибридных атак против союзников Украины",
+        "en": "Lithuania confirms Polish reports of Russia preparing hybrid attacks against Ukraine's allies"
+      },
+      "domain": "pravda.com.ua",
+      "url": "https://www.pravda.com.ua/rus/news/2026/09/18/8054030/",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "unn-ua-donetsk-evacuation-zone",
+      "title": {
+        "ru": "В Донецкой области расширили зону принудительной эвакуации детей",
+        "en": "Forced evacuation zone for children expanded in Donetsk region"
+      },
+      "domain": "unn.ua",
+      "url": "https://unn.ua/ru/news/v-donetskoi-oblasti-rasshirili-zonu-prinuditelnoi-evakuatsii-detei",
+      "publication_date": "2026-09-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "eng-lsm-lv-namejs-drills-riga-a663399",
+      "title": {
+        "ru": "Учения Namejs проходят в Риге и её окрестностях",
+        "en": "Namejs military drills taking place in and around Rīga"
+      },
+      "domain": "eng.lsm.lv",
+      "url": "https://eng.lsm.lv/article/society/defence/16.09.2026-namejs-military-drills-taking-place-in-and-around-riga.a663399/",
+      "publication_date": "2026-09-16",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-reuters-com-kim-vows-expand-ties-russia",
+      "title": {
+        "ru": "Ким Чен Ын пообещал расширить связи с Россией и поддержать победу в «священной войне»",
+        "en": "North Korea's Kim vows to expand ties with Russia, backs victory in 'sacred war'"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-vows-expand-ties-with-russia-backs-victory-sacred-war-2026-09-14/",
+      "publication_date": "2026-09-14",
+      "source_type": "primary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "apostrophe-ua-korea-30-50-tys-soldat",
+      "title": {
+        "ru": "Северная Корея отправила в Россию от 30 до 50 тыс. солдат",
+        "en": "North Korea sent 30 to 50 thousand soldiers to Russia"
+      },
+      "domain": "apostrophe.ua",
+      "url": "https://apostrophe.ua/ru/world/obuchajutsja-rabotajut-s-dronami-severnaja-koreja-otpravila-v-rossiju-ot-30-do-50-tys-soldat.html",
+      "publication_date": "2026-09-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-thehindu-com-saudi-houthi-ballistic-article71486051",
+      "title": {
+        "ru": "Саудовская Аравия подтвердила: хуситы попытались атаковать её столицу баллистической ракетой",
+        "en": "Saudi Arabia confirms Yemen's Houthi rebels tried to attack its capital with ballistic missile"
+      },
+      "domain": "thehindu.com",
+      "url": "https://www.thehindu.com/news/international/saudi-arabia-confirms-yemens-houthi-rebels-tried-to-attack-its-capital-with-ballistic-missile/article71486051.ece",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-jpost-com-houthis-aramco-riyadh-909128",
+      "title": {
+        "ru": "Хуситы заявили об ударах по объекту Saudi Aramco и Эр-Рияду ракетами и дронами",
+        "en": "Houthis claim to have struck Saudi Aramco facility, Riyadh with missiles, drones"
+      },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/article-909128",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-middleeasteye-net-houthis-riyadh-yanbu",
+      "title": {
+        "ru": "Хуситы заявляют об ударах по Эр-Рияду и Янбу, саудовская коалиция сообщает об отражении атак",
+        "en": "Houthis claim strikes on Riyadh, Yanbu while Saudi coalition says attacks thwarted"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/news/houthis-claim-strikes-riyadh-yanbu-while-saudi-coalition-says-attacks-thwarted",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-aa-com-tr-houthis-saudi-capital-4062167",
+      "title": {
+        "ru": "Хуситы заявили о ракетно-дроновых атаках на саудовскую столицу",
+        "en": "Yemen's Houthis claim missile, drone attacks on Saudi capital"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-claim-missile-drone-attacks-on-saudi-capital/4062167",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-vedomosti-ru-diesel-export-ban-1229127",
+      "title": {
+        "ru": "Правительство продлит запрет на экспорт дизтоплива для производителей до ноября",
+        "en": "Government to extend ban on diesel fuel exports for producers until November"
+      },
+      "domain": "vedomosti.ru",
+      "url": "https://www.vedomosti.ru/business/articles/2026/09/15/1229127-pravitelstvo-prodlit-zapret",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-interfax-ru-diesel-export-ban-1116328",
+      "title": {
+        "ru": "СМИ сообщили о планах продлить запрет экспорта дизтоплива для производителей до ноября",
+        "en": "Media report plans to extend ban on diesel exports for producers until November"
+      },
+      "domain": "interfax.ru",
+      "url": "https://www.interfax.ru/business/1116328",
+      "publication_date": "2026-09-16",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-reuters-com-london-marine-insurers-black-sea",
+      "title": {
+        "ru": "Лондонские морские страховщики расширили высокорисковую зону в Чёрном море на фоне всплеска атак на суда",
+        "en": "London's marine insurers widen Black Sea high risk zone as shipping attacks surge"
+      },
+      "domain": "reuters.com",
+      "url": "https://www.reuters.com/business/londons-marine-insurers-widen-black-sea-high-risk-zone-shipping-attacks-surge-2026-09-18/",
+      "publication_date": "2026-09-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-rbc-ru-400-flights-delayed-20-09-2026",
+      "title": {
+        "ru": "Более 400 рейсов задержали в московских аэропортах из-за атаки беспилотников",
+        "en": "Over 400 flights delayed at Moscow airports due to drone attack"
+      },
+      "domain": "rbc.ru",
+      "url": "https://www.rbc.ru/politics/20/09/2026/6aaf7792201b0189cffa7df7",
+      "publication_date": "2026-09-20",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-kommersant-ru-sulfuric-acid-export-ban-8954462",
+      "title": {
+        "ru": "Правительство запретило экспорт серной кислоты до конца года",
+        "en": "Government bans sulfuric acid exports until end of year"
+      },
+      "domain": "kommersant.ru",
+      "url": "https://www.kommersant.ru/doc/8954462",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-interfax-ru-sulfuric-acid-ban-1116026",
+      "title": {
+        "ru": "РФ запретила экспорт серной кислоты до конца года",
+        "en": "Russia bans sulfuric acid exports until end of year"
+      },
+      "domain": "interfax.ru",
+      "url": "https://www.interfax.ru/business/1116026",
+      "publication_date": "2026-09-14",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "news-ru-mobilnyj-internet-15-sentyabrya",
+      "title": {
+        "ru": "Почему не работает мобильный интернет 15 сентября: причины сбоев в России",
+        "en": "Why mobile internet is down on 15 September: causes of outages in Russia"
+      },
+      "domain": "news.ru",
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-15-sentyabrya-prichiny-sboi-v-rossii",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "incidentia-ru-mobilnyy-internet-ogranichili",
+      "title": {
+        "ru": "Мобильный интернет в России ограничили из-за угрозы беспилотников",
+        "en": "Mobile internet restricted in Russia due to drone threat"
+      },
+      "domain": "incidentia.ru",
+      "url": "https://incidentia.ru/news/mobilnyy-internet-v-rossii-ogranichili-iz-2026-09-15",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "airlive-net-gps-jamming-sweden-2026-09-18",
+      "title": {
+        "ru": "Несколько рейсов сообщили о GPS-постановке помех над Швецией за последние сутки",
+        "en": "Multiple flights reported GPS jamming over Sweden in the past 24 hours"
+      },
+      "domain": "airlive.net",
+      "url": "https://airlive.net/news/2026/09/18/multiple-flights-reported-gps-jamming-over-sweden-in-the-past-24-hours/",
+      "publication_date": "2026-09-18",
+      "source_type": "OSINT",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-nytimes-com-ukraine-russia-talks-wtk",
+      "title": {
+        "ru": "Переговоры России и Украины: где находится мирный процесс, 5 сентября 2026",
+        "en": "Here Is Where Ukraine Peace Talks Stand, as a New Round Begins"
+      },
+      "domain": "nytimes.com",
+      "url": "https://www.nytimes.com/2026/09/05/world/europe/ukraine-russia-talks-wtk.html",
+      "publication_date": "2026-09-05",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "understandingwar-org-roca-september-17-2026",
+      "title": {
+        "ru": "ISW: оценка российского наступления, 17 сентября 2026",
+        "en": "ISW Russian Offensive Campaign Assessment, September 17, 2026"
+      },
+      "domain": "understandingwar.org",
+      "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-17-2026/",
+      "publication_date": "2026-09-17",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "www-nti-org-nuclear-security-index-2026",
+      "title": {
+        "ru": "Индекс ядерной безопасности NTI 2026: Россия и США сокращают участие в ядерной безопасности",
+        "en": "Russia and United States retreat from nuclear security as 12 countries step up, 2026 NTI Nuclear Security Index finds"
+      },
+      "domain": "nti.org",
+      "url": "https://www.nti.org/news/russia-and-united-states-retreat-from-nuclear-security-as-12-countries-step-up-2026-nti-nuclear-security-index-finds/",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "sanctionsnews-bakermckenzie-com-graham-act-tariff-powers",
+      "title": {
+        "ru": "Президент США подписал закон о санкциях против России и Ирана с новыми полномочиями на пошлины",
+        "en": "US President signs Russia and Iran sanctions bill with new tariff powers"
+      },
+      "domain": "sanctionsnews.bakermckenzie.com",
+      "url": "https://sanctionsnews.bakermckenzie.com/us-president-signs-russia-and-iran-sanctions-bill-with-new-tariff-powers/",
+      "publication_date": "2026-09-21",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-legal500-com-weekly-sanctions-update-2026-09-08",
+      "title": {
+        "ru": "Еженедельный обзор санкций, 8 сентября 2026: ЕС готовит пакет до 1600 листингов по ВПК России",
+        "en": "Weekly Sanctions Update: September 8, 2026"
+      },
+      "domain": "legal500.com",
+      "url": "https://www.legal500.com/intelligence/global/government-public-sector/weekly-sanctions-update-september-8-2026",
+      "publication_date": "2026-09-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "understandingwar-org-roca-september-18-2026",
+      "title": {
+        "ru": "ISW: оценка российского наступления, 18 сентября 2026",
+        "en": "ISW Russian Offensive Campaign Assessment, September 18, 2026"
+      },
+      "domain": "understandingwar.org",
+      "url": "https://understandingwar.org/research/russia-ukraine/russian-offensive-campaign-assessment-september-18-2026/",
+      "publication_date": "2026-09-19",
+      "source_type": "OSINT",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "24tv-ua-mobilizacija-rossija-300-tysjach-n3138153",
+      "title": {
+        "ru": "Зеленский заявил о планах России привлечь ещё 300 тысяч военнослужащих",
+        "en": "Zelensky says Russia plans to bring in 300,000 more troops"
+      },
+      "domain": "24tv.ua",
+      "url": "https://24tv.ua/ru/mobilizacija-v-rossii-v-sentjabre-2026-goda-rossija-planiruet-otpravit-na-front-300-tysjach-chelovek_n3138153",
+      "publication_date": "2026-09-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "nv-ua-isw-minoborony-prinuditelny-prizyv-50636768",
+      "title": {
+        "ru": "ISW: Минобороны РФ готовится к принудительному призыву осенью 2026 года",
+        "en": "ISW: Russian Defense Ministry prepares for compulsory call-up in autumn 2026"
+      },
+      "domain": "nv.ua",
+      "url": "https://nv.ua/world/countries/mobilizaciya-v-rossii-2026-minoborony-gotovitsya-k-prinuditelnomu-prizyvu-analiz-isw-50636768.html",
+      "publication_date": "2026-08-29",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "ru-themoscowtimes-com-zapasnik-vyezd-a205473",
+      "title": {
+        "ru": "В России начали ограничивать выезд запасников за границу по решению военкоматов",
+        "en": "Russia begins restricting reservists' exit from country by military commissariat decisions"
+      },
+      "domain": "ru.themoscowtimes.com",
+      "url": "https://ru.themoscowtimes.com/2026/09/07/v-rossii-nachali-ogranichivat-viezd-zapasnikov-za-granitsu-po-resheniyu-voenkomatov-a205473",
+      "publication_date": "2026-09-07",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "nv-ua-zapret-vyezda-zapasniku-50639309",
+      "title": {
+        "ru": "В России впервые не выпустили за границу военнообязанного запаса по решению военкомата",
+        "en": "Russia for first time bars military reservist from leaving country by military commissariat decision"
+      },
+      "domain": "nv.ua",
+      "url": "https://nv.ua/world/countries/mobilizaciya-v-rossii-vpervye-voennoobyazannomu-zapasa-zapretili-vyezd-po-resheniyu-voenkomata-50639309.html",
+      "publication_date": "2026-09-07",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tsn-ua-rossiyan-ostanavlivayut-granitse-3163967",
+      "title": {
+        "ru": "Россиян начали останавливать на границе: в чём причина",
+        "en": "Russians being stopped at the border: what is known"
+      },
+      "domain": "tsn.ua",
+      "url": "https://tsn.ua/ru/svit/rossiyan-nachali-ostanavlivat-na-granitse-v-chem-prichina-3163967.html",
+      "publication_date": "2026-09-07",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "fakty-com-ua-vyyizd-cholovikiv-1-veresnya",
+      "title": {
+        "ru": "Выезд мужчин за границу с 1 сентября 2026: кто имеет право и какие документы нужны",
+        "en": "Men's travel abroad from 1 September 2026: who is eligible and which documents are required"
+      },
+      "domain": "fakty.com.ua",
+      "url": "https://fakty.com.ua/ru/ukraine/20260901-vyyizd-cholovikiv-za-kordon-z-1-veresnya-hto-maye-pravo-ta-yaki-dokumenty-potribni/",
+      "publication_date": "2026-09-01",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-independent-co-uk-ukraine-russia-talks-envoys-b3045408",
+      "title": {
+        "ru": "Украина — Россия: эмиссары Трампа покинули переговоры, по Киеву ударили баллистическими ракетами",
+        "en": "Ukraine–Russia war: Trump's envoys leave talks as Kyiv hit by ballistic missiles"
+      },
+      "domain": "independent.co.uk",
+      "url": "https://www.independent.co.uk/news/world/europe/ukraine-russia-war-live-trump-putin-zelensky-talks-witkoff-kushner-b3045408.html",
+      "publication_date": "2026-09-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-iaea-org-update-366-ukraine-znpp",
+      "title": {
+        "ru": "МАГАТЭ: заявление гендиректора о ситуации на ЗАЭС, 11 сентября 2026",
+        "en": "IAEA Director General statement on situation in Ukraine, Update 366, 11 September 2026"
+      },
+      "domain": "iaea.org",
+      "url": "https://www.iaea.org/newscenter/pressreleases/update-366-iaea-director-general-statement-on-situation-in-ukraine",
+      "publication_date": "2026-09-11",
+      "source_type": "primary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "www-aa-com-tr-rosatom-grossi-znpp-vienna-4057265",
+      "title": {
+        "ru": "Глава «Росатома» и гендиректор МАГАТЭ обсудили безопасность ЗАЭС в Вене",
+        "en": "Rosatom chief, UN nuclear watchdog director general discuss Zaporizhzhia plant safety in Vienna"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/world/rosatom-chief-un-nuclear-watchdog-director-general-discuss-zaporizhzhia-nuclear-plant-s-safety-in-vienna/4057265",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "www-thehindubusinessline-com-iaea-kursk-npp-drone-71483674",
+      "title": {
+        "ru": "МАГАТЭ осудило атаки на ядерные объекты после удара дрона по градирне Курской АЭС",
+        "en": "IAEA condemns attacks on nuclear facilities after drone hits Kursk nuclear plant cooling tower"
+      },
+      "domain": "thehindubusinessline.com",
+      "url": "https://www.thehindubusinessline.com/news/world/iaea-condemns-attacks-on-nuclear-facilities-after-drone-hits-kursk-nuclear-plant-cooling-tower/article71483674.ece",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "www-forbes-ru-vysylka-150-diplomatov-germaniya",
+      "title": {
+        "ru": "Посольство России сообщило о высылке из Германии 150 дипломатов и членов их семей",
+        "en": "Russian embassy reports expulsion of 150 diplomats and their family members from Germany"
+      },
+      "domain": "forbes.ru",
+      "url": "https://www.forbes.ru/society/568359-posol-stvo-rossii-rasskazalo-o-vysylke-iz-germanii-150-diplomatov-i-clenov-ih-semej",
+      "publication_date": "2026-09-10",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "uawire-org-germany-150-russian-staff-leave",
+      "title": {
+        "ru": "Германия потребовала от более чем 150 сотрудников российских миссий и их родственников покинуть страну",
+        "en": "Germany orders over 150 Russian mission staff and relatives to leave"
+      },
+      "domain": "uawire.org",
+      "url": "https://uawire.org/germany-orders-over-150-russian-mission-staff-and-relatives-to-leave",
+      "publication_date": "2026-09-11",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "unn-ua-germany-expels-150-diplomats-leipzig",
+      "title": {
+        "ru": "Германия выдворяет более 150 российских дипломатов и членов их семей после инцидента в Лейпциге",
+        "en": "Germany expels more than 150 Russian diplomats and their family members following Leipzig incident"
+      },
+      "domain": "unn.ua",
+      "url": "https://unn.ua/en/news/germany-expels-more-than-150-russian-diplomats-and-their-family-members-following-sabotage-in-leipzig",
+      "publication_date": "2026-09-10",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aljazeera-coalition-intercept-houthi-missile-riyadh",
+      "title": {
+        "ru": "Коалиция во главе с Саудовской Аравией заявила о перехвате ракеты хуситов по Эр-Рияду",
+        "en": "Saudi-led coalition says defence intercepted Houthi missile fired at Riyadh"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/9/19/saudi-led-coalition-says-defences-intercept-houthi-missile-fired-at-riyadh",
+      "publication_date": "2026-09-19",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "aa-sudan-drones-0915",
+      "title": {
+        "ru": "Суданская армия сбила три беспилотника на востоке страны",
+        "en": "Sudanese army downs 3 drones in eastern Sudan"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/sudanese-army-downs-3-drones-in-eastern-sudan/4057370",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "nigerianeye-boko-haram-adamawa-0915",
+      "title": {
+        "ru": "Атака «Боко Харам» в штате Адамава: четверо погибших, сожжены дома",
+        "en": "Boko Haram Attack in Adamawa Leaves Four Dead and Homes Destroyed"
+      },
+      "domain": "nigerianeyenewspaper.com",
+      "url": "https://nigerianeyenewspaper.com/2026/09/15/boko-haram-attack-in-adamawa-leaves-four-dead-and-homes-destroyed/",
+      "publication_date": "2026-09-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    }
+  ]
+}

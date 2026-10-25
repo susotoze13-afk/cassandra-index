@@ -1,0 +1,1741 @@
+{
+  "sheet_version": 1,
+  "week": "2026-10-18",
+  "coder": "",
+  "instructions": [
+    "Заполните values: число 0…1 по правилам шкалы критерия либо null, если в окне недели сигнала нет.",
+    "Покрытие не дотягивается: если источников в окне нет — null, а не оценка по памяти.",
+    "Источники недели — в поле sources (это собранный корпус, привязка к критериям скрыта намеренно).",
+    "Значения первого кодировщика вам не показываются до сдачи листа."
+  ],
+  "values": {
+    "D1.1": null,
+    "D1.2": null,
+    "D1.3": null,
+    "D1.4": null,
+    "D1.5": null,
+    "D1.6": null,
+    "D2.1": null,
+    "D2.2": null,
+    "D2.3": null,
+    "D2.4": null,
+    "D2.5": null,
+    "D3.1": null,
+    "D3.2": null,
+    "D3.3": null,
+    "D3.4": null,
+    "D3.5": null,
+    "D4.1": null,
+    "D4.2": null,
+    "D4.3": null,
+    "D4.4": null,
+    "D4.5": null,
+    "D4.6": null,
+    "D5.1": null,
+    "D5.2": null,
+    "D5.3": null,
+    "D5.4": null,
+    "D6.1": null,
+    "D6.2": null,
+    "D6.3": null,
+    "D6.4": null,
+    "D7.1": null,
+    "D7.2": null,
+    "D7.3": null,
+    "D7.4": null,
+    "D8.1": null,
+    "D8.2": null,
+    "D8.3": null,
+    "D8.4": null,
+    "D9.1": null,
+    "D9.2": null,
+    "D9.3": null,
+    "D9.4": null,
+    "D9.5": null,
+    "D9.6a": null,
+    "D9.6b": null,
+    "D9.7": null
+  },
+  "definitions": {
+    "D1.1": {
+      "driver": "D1",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Перемещения войск и военных колонн",
+        "en": "Troop and military column movements"
+      },
+      "desc": {
+        "ru": "Наземные переброски, железнодорожные эшелоны и морские перевозки войск вблизи театра военных действий или границ.",
+        "en": "Ground transfers, railway echelons and sealifts of troops near the theatre of operations or borders."
+      }
+    },
+    "D1.2": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Учения необычного масштаба",
+        "en": "Exercises of unusual scale"
+      },
+      "desc": {
+        "ru": "Анонсированные и фактические учения, необычные по масштабу, близости к границе или одновременности на нескольких фронтах.",
+        "en": "Announced and actual exercises unusual in scale, proximity to borders, or simultaneity across several fronts."
+      }
+    },
+    "D1.3": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Наращивание военной логистики",
+        "en": "Military logistics build-up"
+      },
+      "desc": {
+        "ru": "Склады боеприпасов, топливные резервы, развёртывание полевых госпиталей, мостов и переправ.",
+        "en": "Ammunition depots, fuel reserves, and deployment of field hospitals, bridges and crossings."
+      }
+    },
+    "D1.4": {
+      "driver": "D1",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Актуальные боевые действия",
+        "en": "Active hostilities"
+      },
+      "desc": {
+        "ru": "Обстрелы, авиаудары, пограничные инциденты и попытки прорыва; вторжение или открытие нового театра учитываются как наиболее тяжёлые события.",
+        "en": "Shelling, airstrikes, border incidents and breakthrough attempts; an invasion or a new theatre counts among the most severe events."
+      }
+    },
+    "D1.5": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Развёртывание стратегических систем",
+        "en": "Deployment of strategic systems"
+      },
+      "desc": {
+        "ru": "Переброска ПВО, надводных групп, подводных сил и ядерной инфраструктуры; ядерная риторика учитывается отдельным драйвером.",
+        "en": "Deployment of air defence, surface groups, submarines and nuclear infrastructure; nuclear rhetoric is tracked by a separate driver."
+      }
+    },
+    "D1.6": {
+      "driver": "D1",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Разведение сил",
+        "en": "Drawdown of forces"
+      },
+      "desc": {
+        "ru": "Подтверждённое разведение войск, вывод из позиций и сокращение активности.",
+        "en": "Confirmed troop drawdowns, withdrawal from positions and reduced activity."
+      }
+    },
+    "D2.1": {
+      "driver": "D2",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Публичные ядерные угрозы",
+        "en": "Public nuclear threats"
+      },
+      "desc": {
+        "ru": "Явные заявления о применении ядерного оружия на уровне глав государств и министров обороны или иностранных дел.",
+        "en": "Explicit statements about nuclear weapons use by heads of state and ministers of defence or foreign affairs."
+      }
+    },
+    "D2.2": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Смена доктрины и договоров",
+        "en": "Doctrine and treaty shifts"
+      },
+      "desc": {
+        "ru": "Изменения ядерной доктрины, выход из договоров по контролю над вооружениями, приостановка участия в механизмах уведомления.",
+        "en": "Changes to nuclear doctrine, withdrawal from arms-control treaties, suspension of notification mechanisms."
+      }
+    },
+    "D2.3": {
+      "driver": "D2",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Технические ядерные сигналы",
+        "en": "Technical nuclear signals"
+      },
+      "desc": {
+        "ru": "Учения стратегических сил, подвижки ракетных комплексов, подготовка полигонов, смена режима дежурств.",
+        "en": "Strategic force exercises, movements of missile systems, test-site preparations, changes in duty rotations."
+      }
+    },
+    "D2.4": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Повышение готовности ядерных сил",
+        "en": "Raised nuclear readiness"
+      },
+      "desc": {
+        "ru": "Публичные заявления о переводе ядерных сил на особый режим.",
+        "en": "Public announcements of moving nuclear forces to a special readiness regime."
+      }
+    },
+    "D2.5": {
+      "driver": "D2",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Отход от ядерной риторики",
+        "en": "Step back from nuclear rhetoric"
+      },
+      "desc": {
+        "ru": "Отказ от ядерных угроз, подтверждённое возвращение сил к штатному режиму, восстановление договорных механизмов.",
+        "en": "Renunciation of nuclear threats, confirmed return of forces to normal posture, restoration of treaty mechanisms."
+      }
+    },
+    "D3.1": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Разрыв дипломатических отношений",
+        "en": "Breakdown of diplomatic relations"
+      },
+      "desc": {
+        "ru": "Разрыв или понижение отношений, массовая высылка дипломатов, закрытие посольств.",
+        "en": "Rupture or downgrading of relations, mass expulsions of diplomats, embassy closures."
+      }
+    },
+    "D3.2": {
+      "driver": "D3",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Ультиматумы",
+        "en": "Ultimatums"
+      },
+      "desc": {
+        "ru": "Публично заявленные несовместимые требования сторон конфликта.",
+        "en": "Publicly stated incompatible demands by the parties to the conflict."
+      }
+    },
+    "D3.3": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Санкции и международно-правовые решения",
+        "en": "Sanctions and legal measures"
+      },
+      "desc": {
+        "ru": "Новые пакеты санкций, резолюции, признание сторон конфликта террористическими и подобные решения.",
+        "en": "New sanctions packages, resolutions, designations of parties as terrorist and similar measures."
+      }
+    },
+    "D3.4": {
+      "driver": "D3",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Переговоры и посредничество",
+        "en": "Talks and mediation"
+      },
+      "desc": {
+        "ru": "Возобновление или запуск переговоров, посредничество третьих стран и организаций.",
+        "en": "Resumption or launch of negotiations, mediation by third countries and organisations."
+      }
+    },
+    "D3.5": {
+      "driver": "D3",
+      "scale": "count",
+      "dir": "deesc",
+      "name": {
+        "ru": "Гуманитарные договорённости",
+        "en": "Humanitarian arrangements"
+      },
+      "desc": {
+        "ru": "Договорённости о коридорах, обменах пленными и доступе инспекций.",
+        "en": "Arrangements on corridors, prisoner exchanges and inspection access."
+      }
+    },
+    "D4.1": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Новые санкции и контрсанкции",
+        "en": "New sanctions and countersanctions"
+      },
+      "desc": {
+        "ru": "Ограничения на экспорт энергоносителей и критичных товаров; само решение об ограничениях учитывается дипломатическим драйвером.",
+        "en": "Restrictions on exports of energy and critical goods; the decision itself is tracked by the diplomatic driver."
+      }
+    },
+    "D4.2": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Военные расходы",
+        "en": "Military spending"
+      },
+      "desc": {
+        "ru": "Экстренные бюджетные ассигнования и переход экономики на военные рельсы по открытым бюджетам и официальным решениям.",
+        "en": "Emergency budget allocations and a shift of the economy onto a war footing, per open budgets and official decisions."
+      }
+    },
+    "D4.3": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Разрыв цепочек поставок",
+        "en": "Supply chain disruption"
+      },
+      "desc": {
+        "ru": "Перебои с критичными ресурсами: редкие металлы, микроэлектроника, компоненты оборонной промышленности.",
+        "en": "Disruptions in critical resources: rare metals, microelectronics, defence industry components."
+      }
+    },
+    "D4.4": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Конфискации и блокировка торговли",
+        "en": "Asset seizures and trade blockage"
+      },
+      "desc": {
+        "ru": "Конфискации и национализация активов конфликтующих сторон, блокировка торговых путей.",
+        "en": "Seizures and nationalisation of the parties’ assets, blockage of trade routes."
+      }
+    },
+    "D4.5": {
+      "driver": "D4",
+      "scale": "count",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снятие экономических ограничений",
+        "en": "Easing of economic restrictions"
+      },
+      "desc": {
+        "ru": "Отмена ограничений, восстановление торговых связей, гуманитарные экономические исключения.",
+        "en": "Lifting of restrictions, restoration of trade ties, humanitarian economic exemptions."
+      }
+    },
+    "D4.6": {
+      "driver": "D4",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Стресс на финансовых и сырьевых рынках",
+        "en": "Financial and commodity market stress"
+      },
+      "desc": {
+        "ru": "Сырьевые биржи, рынки облигаций и ценных бумаг реагируют на эскалацию раньше других сигналов: обвал индексов, скачки цен на нефть и золото, разрыв кредитных спредов.",
+        "en": "Commodity exchanges, bond and equity markets react to escalation earlier than other signals: index sell-offs, spikes in oil and gold prices, widening credit spreads."
+      }
+    },
+    "D5.1": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эскалация военной риторики",
+        "en": "Escalation of war rhetoric"
+      },
+      "desc": {
+        "ru": "Переход к языку неизбежности и дегуманизации противника в официальных государственных СМИ и заявлениях.",
+        "en": "A shift to the language of inevitability and dehumanisation of the enemy in official state media and statements."
+      }
+    },
+    "D5.2": {
+      "driver": "D5",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Кибероперации",
+        "en": "Cyber operations"
+      },
+      "desc": {
+        "ru": "Подтверждённые атаки на критическую инфраструктуру — энергетику, связь, транспорт, госорганы — с атрибуцией конфликтующей стороной.",
+        "en": "Confirmed attacks on critical infrastructure — power, communications, transport, government — attributed to a party to the conflict."
+      }
+    },
+    "D5.3": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Дезинформационные кампании",
+        "en": "Disinformation campaigns"
+      },
+      "desc": {
+        "ru": "Координированные кампании, разворачиваемые в преддверии военных действий, по отчётам проверенных аналитических центров.",
+        "en": "Coordinated campaigns rolled out ahead of hostilities, per reports of vetted analytical centres."
+      }
+    },
+    "D5.4": {
+      "driver": "D5",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снижение пропаганды",
+        "en": "Easing of propaganda"
+      },
+      "desc": {
+        "ru": "Снижение уровня военной пропаганды, закрытие каналов разжигания, публичные опровержения эскалационных нарративов.",
+        "en": "Lower levels of war propaganda, closure of incitement channels, public denials of escalatory narratives."
+      }
+    },
+    "D6.1": {
+      "driver": "D6",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Военное положение и мобилизация",
+        "en": "Martial law and mobilisation"
+      },
+      "desc": {
+        "ru": "Введение или расширение военного положения, мобилизационные законы, скрытая мобилизация по подтверждённым данным.",
+        "en": "Introduction or expansion of martial law, mobilisation laws, covert mobilisation per confirmed data."
+      }
+    },
+    "D6.2": {
+      "driver": "D6",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эвакуация населения",
+        "en": "Evacuation of population"
+      },
+      "desc": {
+        "ru": "Эвакуация из приграничных и прифронтовых зон, создание убежищ, учения гражданской обороны необычного масштаба.",
+        "en": "Evacuation from border and frontline areas, construction of shelters, civil defence drills of unusual scale."
+      }
+    },
+    "D6.3": {
+      "driver": "D6",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Военная переориентация экономики",
+        "en": "Military reorientation of the economy"
+      },
+      "desc": {
+        "ru": "Военные госзаказы, ограничение выезда для военнообязанных.",
+        "en": "Military state orders, exit restrictions for military-age citizens."
+      }
+    },
+    "D6.4": {
+      "driver": "D6",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Отмена мобилизационных мер",
+        "en": "Rollback of mobilisation measures"
+      },
+      "desc": {
+        "ru": "Отмена мобилизационных мер, возвращение гражданских режимов, возвращение эвакуированных.",
+        "en": "Cancellation of mobilisation measures, return of civilian regimes and of evacuees."
+      }
+    },
+    "D7.1": {
+      "driver": "D7",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Вовлечение новых государств",
+        "en": "Entry of new states"
+      },
+      "desc": {
+        "ru": "Прямое военное вовлечение новых государств: ввод войск, поставки оружия с эскалационным эффектом, базирование.",
+        "en": "Direct military entry of new states: troop deployments, arms deliveries with an escalatory effect, basing."
+      }
+    },
+    "D7.2": {
+      "driver": "D7",
+      "scale": "count",
+      "dir": "esc",
+      "name": {
+        "ru": "Атаки за пределами театра",
+        "en": "Attacks beyond the theatre"
+      },
+      "desc": {
+        "ru": "Атаки на объекты за пределами основного театра: торговые суда, трубопроводы, дипмиссии, инфраструктура третьих стран.",
+        "en": "Attacks on objects outside the main theatre: merchant ships, pipelines, diplomatic missions, third countries’ infrastructure."
+      }
+    },
+    "D7.3": {
+      "driver": "D7",
+      "scale": "binary",
+      "dir": "esc",
+      "name": {
+        "ru": "Новые фронты",
+        "en": "New fronts"
+      },
+      "desc": {
+        "ru": "Открытие новых фронтов или театров в соседних регионах.",
+        "en": "Opening of new fronts or theatres in neighbouring regions."
+      }
+    },
+    "D7.4": {
+      "driver": "D7",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Выход третьих сторон",
+        "en": "Withdrawal of third parties"
+      },
+      "desc": {
+        "ru": "Выход третьих сторон из конфликта, прекращение поставок, закрытие базирования.",
+        "en": "Withdrawal of third parties from the conflict, cessation of supplies, closure of basing."
+      }
+    },
+    "D8.1": {
+      "driver": "D8",
+      "scale": "binary",
+      "dir": "deesc",
+      "name": {
+        "ru": "Прекращение огня",
+        "en": "Ceasefire"
+      },
+      "desc": {
+        "ru": "Прекращение огня или перемирие, соблюдаемое в течение всего окна без нарушений.",
+        "en": "A ceasefire or truce observed throughout the window without violations."
+      }
+    },
+    "D8.2": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Мирные договорённости",
+        "en": "Peace arrangements"
+      },
+      "desc": {
+        "ru": "Подписанные мирные договорённости, разведение сил и тяжёлого вооружения по верифицируемым схемам.",
+        "en": "Signed peace arrangements, verified drawdown schemes for forces and heavy weapons."
+      }
+    },
+    "D8.3": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Наблюдение и верификация",
+        "en": "Monitoring and verification"
+      },
+      "desc": {
+        "ru": "Международное наблюдение: миссии, инспекции, мониторинг соблюдения режимов.",
+        "en": "International monitoring: missions, inspections, verification of compliance."
+      }
+    },
+    "D8.4": {
+      "driver": "D8",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снижение интенсивности событий",
+        "en": "Sustained drop in event intensity"
+      },
+      "desc": {
+        "ru": "Устойчивое снижение числа эскалационных инцидентов на протяжении нескольких недель подряд без нарушения режимов.",
+        "en": "A sustained decline in the number of escalation incidents over several consecutive weeks without regime violations."
+      }
+    },
+    "D9.1": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Медицинская подготовка",
+        "en": "Medical preparation"
+      },
+      "desc": {
+        "ru": "Необычные закупки препаратов для лечения ранений, запасы крови и плазмы, расширение коечного фонда, ускоренная подготовка военных медиков.",
+        "en": "Unusual procurements of wound-care medicines, blood and plasma stockpiles, expansion of hospital bed capacity, accelerated training of military medics."
+      }
+    },
+    "D9.2": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Финансовая изоляция",
+        "en": "Financial isolation"
+      },
+      "desc": {
+        "ru": "Капитальные ограничения, отзыв активов из-за рубежа, приостановка выплат по внешнему долгу, военные займы, запреты на экспорт продовольствия и топлива.",
+        "en": "Capital controls, repatriation of assets from abroad, suspension of external debt payments, war loans, bans on food and fuel exports."
+      }
+    },
+    "D9.3": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Транспорт и страхование",
+        "en": "Transport and insurance"
+      },
+      "desc": {
+        "ru": "Рост военных страховых надбавок, отзыв страхового покрытия, массовая отмена авиарейсов, закрытие воздушного пространства, военные приоритеты на железных дорогах, изъятие подвижного состава.",
+        "en": "Rising war-risk insurance premiums, withdrawal of coverage, mass flight cancellations, airspace closures, military priorities on railways, requisition of rolling stock."
+      }
+    },
+    "D9.4": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Стратегическое накопление",
+        "en": "Strategic stockpiling"
+      },
+      "desc": {
+        "ru": "Аномальные закупки в госрезервы, круглосуточные режимы предприятий оборонной промышленности, мобилизационные заказы гражданским заводам, накопление топлива вблизи театра.",
+        "en": "Abnormal state reserve purchases, round-the-clock shifts at defence plants, mobilisation orders to civilian factories, fuel stockpiling near the theatre."
+      }
+    },
+    "D9.5": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Кадровые и мобилизационные меры",
+        "en": "Personnel and mobilisation measures"
+      },
+      "desc": {
+        "ru": "Изменение возраста и категорий призыва, расширение списков военнообязанных, ограничения выезда для отдельных категорий специалистов, изменения законов о военной службе без объявления мобилизации.",
+        "en": "Changes to draft age and categories, expanded military registers, exit restrictions for select categories of specialists, changes to military service laws without declared mobilisation."
+      }
+    },
+    "D9.6a": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Информационный суверенитет",
+        "en": "Information sovereignty"
+      },
+      "desc": {
+        "ru": "Усиление цензуры и фильтрации интернета, учения на автономность от глобальной сети, замена импортного ПО и оборудования в критичных отраслях, «подогревка» госСМИ и военно-патриотические кампании, постановка помех спутниковой навигации.",
+        "en": "Tighter censorship and internet filtering, drills for autonomy from the global network, replacement of imported software and equipment in critical sectors, stoking of state media and military-patriotic campaigns, satellite navigation jamming."
+      }
+    },
+    "D9.6b": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "esc",
+      "name": {
+        "ru": "Эвакуация элит и активов",
+        "en": "Evacuation of elites and assets"
+      },
+      "desc": {
+        "ru": "Вывоз семей дипломатов и чиновников, отзыв студентов и специалистов из-за рубежа, эвакуация музейных ценностей и архивов, перебазирование командных пунктов и правительственных резервов.",
+        "en": "Evacuation of diplomats’ and officials’ families, recall of students and specialists from abroad, removal of museum collections and archives, relocation of command posts and government reserves."
+      }
+    },
+    "D9.7": {
+      "driver": "D9",
+      "scale": "ordinal",
+      "dir": "deesc",
+      "name": {
+        "ru": "Снятие «тихих» мер",
+        "en": "Lifting of quiet measures"
+      },
+      "desc": {
+        "ru": "Отмена капитального контроля, возвращение дипломатических семей, возобновление публикации статистики, возврат предприятий к гражданским режимам, возвращение эвакуированных коллекций.",
+        "en": "Lifting of capital controls, return of diplomats’ families, resumption of statistics publication, return of plants to civilian regimes, return of evacuated collections."
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "aljazeera-egypt-saudi-help",
+      "title": {
+        "ru": "Саудовская коалиция перехватывает дроны, Египет взвешивает помощь",
+        "en": "Saudi-led coalition intercepts drones as Egypt weighs sending help"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/17/saudi-led-coalition-intercepts-drones-as-egypt-weighs-sending-help",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "guardian-uae-yemen-reentry",
+      "title": {
+        "ru": "ОАЭ договорились с Саудовской Аравией о возвращении в конфликт в Йемене",
+        "en": "UAE agrees with Saudi Arabia to re-enter Yemen conflict amid Houthi gains"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/uae-yemen-conflict-agreement-saudi-arabia-houthi-gains",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aa-iraq-pmf-ammo-blast",
+      "title": {
+        "ru": "5 пострадавших при взрыве боеприпасов на базе Сил народной мобилизации в Ираке",
+        "en": "5 injured in ammunition blast at Iraq's Popular Mobilization Forces base"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/5-injured-in-ammunition-blast-at-iraqs-popular-mobilization-forces-base/4092325",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "tass-air-defense-riyadh",
+      "title": {
+        "ru": "Европе сложно поставлять больше систем ПВО в Эр-Рияд — газета",
+        "en": "Europe has difficulties with supplying more air defense systems to Riyadh — newspaper"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2203601",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "aljazeera-hormuz-tankers-mines",
+      "title": {
+        "ru": "Иран сообщает: два танкера загорелись после подрыва на минах в Ормузском проливе",
+        "en": "Iran says two tankers catch fire after hitting mines in Strait of Hormuz"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/18/iran-says-two-tankers-catch-fire-after-hitting-mines-in-strait-of-hormuz",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "aljazeera-st-petersburg-drone-swarm",
+      "title": {
+        "ru": "Санкт-Петербург под атакой роя украинских дронов",
+        "en": "St Petersburg under attack from Ukrainian drone swarm"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/st-petersburg-under-attack-from-ukrainian-drone-swarm",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "tass-leningrad-largest-drone-attack",
+      "title": {
+        "ru": "Атака дронов на Ленинградскую область — одна из крупнейших за четыре года",
+        "en": "Drone attack on Leningrad Region one of largest in four years"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/emergencies/2203667",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "tass-dobropolye-drone-crews",
+      "title": {
+        "ru": "Удары России уничтожили половину из почти 500 украинских расчётов дронов под Добропольем",
+        "en": "Russian strikes destroy half of nearly 500 Ukrainian drone crews near Dobropolye"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2203653",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "jpost-iran-irgc-high-alert",
+      "title": {
+        "ru": "Санкции сжимают иранскую экономику; КСИР приведён в повышенную готовность из-за рисков беспорядков",
+        "en": "Sanctions strangle Iranian economy as IRGC goes on high alert over civil unrest risks"
+      },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/iran-news/article-911995",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "almonitor-trump-pickaxe-mountain",
+      "title": {
+        "ru": "Окно дипломатии с Ираном может закрываться: Трамп снова угрожает объекту Пик-Моунтин",
+        "en": "Window for diplomacy with Iran may be closing as Trump again threatens Pickaxe Mountain"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/10/window-diplomacy-iran-may-be-closing-trump-again-threatens-pickaxe-mountain",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tass-ukraine-checkmate",
+      "title": {
+        "ru": "Российский посланник называет ситуацию вокруг Украины «мат»",
+        "en": "Russian presidential envoy describes situation around Ukraine as checkmate"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2203539",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "ria-prison-military-clothing",
+      "title": {
+        "ru": "В российских колониях заключённые производят одежду для бойцов СВО",
+        "en": "In Russian colonies inmates produce clothing for SMO soldiers"
+      },
+      "domain": "ria.ru",
+      "url": "https://ria.ru/20261018/svo-2125201970.html",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "aa-lng-tanker-attacked-yemen",
+      "title": {
+        "ru": "Малый катер открыл огонь по СПГ-танкеру у берегов Йемена — морское агентство Британии",
+        "en": "Small boat approaches, opens fire on LNG tanker off Yemen's coast, UK maritime agency says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/small-boat-approaches-opens-fire-on-lng-tanker-off-yemen-s-coast-uk-maritime-agency-says/4092086",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "almonitor-egypt-sisi-saudi-defence",
+      "title": {
+        "ru": "Сиси просит парламент одобрить помощь в защите Саудовской Аравии по запросу",
+        "en": "Egypt's Sisi seeks parliament's backing to help defend Saudi Arabia if asked"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/10/egypts-sisi-seeks-parliaments-backing-help-defend-saudi-arabia-if-asked",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "guardian-france-protests",
+      "title": {
+        "ru": "Погромы и более 1200 задержанных: полиция столкнулась с протестующими по всей Франции",
+        "en": "Buildings set ablaze and more than 1,200 arrested as police clash with protesters across France"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/protests-france-high-prices-social-security-gilets-jaunes",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tasnimnews-eslami-nuclear-threat-2026-10-12",
+      "title": {
+        "ru": "Ислами осудил ядерную угрозу США против Ирана",
+        "en": "Eslami Condemns US Nuclear Threat against Iran"
+      },
+      "domain": "tasnimnews.ir",
+      "url": "https://tasnimnews.ir/en/news/2026/10/12/3720781/eslami-condemns-us-nuclear-threat-against-iran",
+      "publication_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "arabtimesonline-trump-rules-out-nuclear-2026-10-16",
+      "title": {
+        "ru": "Трамп исключил применение ядерного оружия против Ирана, но удар по Pickaxe Mountain остаётся возможным",
+        "en": "Trump Rules Out Nuclear Weapons Against Iran, But Pickaxe Mountain Strike Remains Possible"
+      },
+      "domain": "arabtimesonline.com",
+      "url": "https://www.arabtimesonline.com/news/trump-rules-out-nuclear-weapons-against-iran-but-pickaxe-mountain-strike-remains-possible/",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tass-nuclear-zero-postnikov-2026-10-17",
+      "title": {
+        "ru": "Россия считает идею «короткого пути к ядерному нулю» контрпродуктивной — дипломат Постников",
+        "en": "Russia views idea of shortcut to 'nuclear zero' as counterproductive — diplomat Postnikov"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2203555",
+      "publication_date": "2026-10-17",
+      "source_type": "primary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "forcesnews-steadfast-noon-italy-2026-10-13",
+      "title": {
+        "ru": "Единство и решимость: ядерные учения НАТО Steadfast Noon начались в Италии",
+        "en": "Unity and resolve: NATO's nuclear exercise Steadfast Noon begins in Italy"
+      },
+      "domain": "forcesnews.com",
+      "url": "https://www.forcesnews.com/nato/unity-and-resolve-natos-nuclear-exercise-steadfast-noon-begins-italy",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "channelnewsasia-nk-slcms-2026-10-14",
+      "title": {
+        "ru": "КНДР испытала два типа стратегических крылатых ракет подводного базирования",
+        "en": "North Korea test-fires two types of submarine-launched strategic cruise missiles"
+      },
+      "domain": "channelnewsasia.com",
+      "url": "https://www.channelnewsasia.com/east-asia/north-korea-tests-submarine-launched-strategic-cruise-missiles-6460706",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "rt-english-russian-submarine-drill-2026-10-15",
+      "title": {
+        "ru": "Российская атомная подлодка отработала ракетные стрельбы",
+        "en": "Russian nuclear submarine conducts missile firing drill"
+      },
+      "domain": "rt-english.com",
+      "url": "https://rt-english.com/russia/647240-russian-submarine-fire-drill",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "yahoo-trump-nuclear-bomb-iran-2026-10-16",
+      "title": {
+        "ru": "Трамп исключил применение ядерной бомбы против Ирана: почему это важно",
+        "en": "Trump rules out using a nuclear bomb on Iran: Why that matters"
+      },
+      "domain": "yahoo.com",
+      "url": "https://www.yahoo.com/news/politics/articles/trump-rules-using-nuclear-bomb-102112946.html",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "samaa-trump-nuclear-strike-2026-10-15",
+      "title": {
+        "ru": "Трамп исключил ядерный удар, Пезешкиан заявил, что Иран не сдастся",
+        "en": "Trump rules out nuclear strike, Pezeshkian says Iran won't surrender"
+      },
+      "domain": "samaa.tv",
+      "url": "https://www.samaa.tv/2087358549-trump-rules-out-nuclear-strike-pezeshkian-says-iran-won-t-surrender",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "nypost-nato-warns-russia-2026-10-13",
+      "title": {
+        "ru": "НАТО предупреждает Россию: «мы сломаем» силы и уничтожим «всё и вся» при нападении",
+        "en": "NATO warns Russia: 'We will break' forces, destroy 'anything and everything' if you attack"
+      },
+      "domain": "nypost.com",
+      "url": "https://nypost.com/2026/10/13/world-news/nato-warns-russia-we-will-break-forces-destroy-anything-and-everything-if-you-attack/",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "theweek-iran-counter-us-attack-2026-10-14",
+      "title": {
+        "ru": "Так Иран готовится отражать атаку США: «захваченные или убитые»",
+        "en": "This is how Iran prepares to counter US attack: 'Boots on the ground'"
+      },
+      "domain": "theweek.in",
+      "url": "https://www.theweek.in/news/middle-east/2026/10/14/this-is-how-iran-prepares-to-counter-us-attack-captured-or-killed.html",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "brusselstimes-eu-sanctions-1569-2026-10-12",
+      "title": {
+        "ru": "Крупнейший пакет санкций ЕС: 1 569 записей в военном чёрном списке России",
+        "en": "Largest EU sanctions package yet adds 1,569 to Russia military blacklist"
+      },
+      "domain": "brusselstimes.com",
+      "url": "https://www.brusselstimes.com/2357495/largest-eu-sanctions-package-yet-adds-1569-to-russia-military-blacklist",
+      "publication_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "iranwire-us-sanctions-iran-2026-10-15",
+      "title": {
+        "ru": "США атакуют иранские офшорные банки и нефтяные сети новым раундом санкций",
+        "en": "US Targets Iranian-Linked Offshore Banks and Oil Networks in New Sanctions Round"
+      },
+      "domain": "iranwire.com",
+      "url": "https://iranwire.com/en/features/158950-us-targets-iranian-linked-offshore-banks-and-oil-networks-in-new-sanctions-round/",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "trtworld-lebanon-israel-talks-2026-10-17",
+      "title": {
+        "ru": "Ливан примет участие в трёхсторонних переговорах с Израилем при поддержке США — Аун",
+        "en": "Lebanon to take part in US-backed trilateral talks with Israel: Aoun"
+      },
+      "domain": "trtworld.com",
+      "url": "https://www.trtworld.com/article/c2841d38185a",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tehrantimes-lavrov-tehran-2026-10-17",
+      "title": {
+        "ru": "Лавров посетит Тегеран в понедельник для переговоров с Арагчи",
+        "en": "Lavrov to visit Tehran on Monday for talks with Araghchi"
+      },
+      "domain": "tehrantimes.com",
+      "url": "https://www.tehrantimes.com/news/531178/Lavrov-to-visit-Tehran-on-Monday-for-talks-with-Araghchi",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "straitstimes-pope-putin-ceasefire-2026-10-16",
+      "title": {
+        "ru": "Из больницы папа Римский призвал Путина к прекращению огня в спорном городе Украины",
+        "en": "From hospital, Pope Leo pushes Putin for ceasefire in contested Ukraine city"
+      },
+      "domain": "straitstimes.com",
+      "url": "https://www.straitstimes.com/world/europe/from-hospital-pope-leo-pushes-putin-for-ceasefire-in-contested-ukraine-city",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aa-houthis-release-159-2026-10-17",
+      "title": {
+        "ru": "Хуситы Йемена освободили 159 задержанных в Сане — МККК",
+        "en": "Yemen's Houthis release 159 detainees in Sanaa: ICRC"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/yemen-s-houthis-release-159-detainees-in-sanaa-icrc/4092084",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "middleeasteye-houthis-release-159-2026-10-17",
+      "title": {
+        "ru": "Хуситы освободили 159 человек по амнистии под наблюдением МККК",
+        "en": "Houthis release 159 people under an amnesty under ICRC watch"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-release-159-people-under-amnesty-under-icrc-watch",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "safety4sea-eu-sanctions-russia-2026-10-13",
+      "title": {
+        "ru": "ЕС принял крупнейший в истории пакет санкций против России",
+        "en": "EU adopts largest-ever sanctions package targeting Russia"
+      },
+      "domain": "safety4sea.com",
+      "url": "https://safety4sea.com/eu-adopts-largest-ever-sanctions-package-targeting-russia/",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "theepochtimes-eu-china-trade-2026-10-16",
+      "title": {
+        "ru": "ЕС ищет новые торговые полномочия на фоне расширения дефицита с Китаем",
+        "en": "EU Seeks New Trade Powers as Deficit With China Widens"
+      },
+      "domain": "theepochtimes.com",
+      "url": "https://www.theepochtimes.com/world/eu-seeks-new-trade-powers-as-deficit-with-china-widens-6105278",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "breakingdefense-hegseth-ausa-2026-10-14",
+      "title": {
+        "ru": "Хегсет на AUSA продвигает автономность и «поколенческие» оборонные инвестиции",
+        "en": "Hegseth uses AUSA spotlight to push autonomy, 'generational' defense investment"
+      },
+      "domain": "breakingdefense.com",
+      "url": "https://breakingdefense.com/2026/10/hegseth-uses-ausa-spotlight-to-highlight-autonomy-generational-defense-investment/",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aa-turkiye-defense-229-2026-10-16",
+      "title": {
+        "ru": "Турция увеличила закупки вооружений на 229 % в 2027 году",
+        "en": "Türkiye raises defense equipment procurement by 229% in 2027"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/turkiye/turkiye-raises-defense-equipment-procurement-by-229-in-2027/4091132",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "breakingdefense-critical-minerals-2026-10-15",
+      "title": {
+        "ru": "На фоне приближения срока по критичным минералам армия США ожидает «некоторого влияния»",
+        "en": "As critical mineral deadline looms, Army expects to feel 'some impact'"
+      },
+      "domain": "breakingdefense.com",
+      "url": "https://breakingdefense.com/2026/10/as-critical-mineral-deadline-looms-army-expects-to-feel-some-impact/",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "businesstoday-my-china-rare-earth-eu-2026-10-15",
+      "title": {
+        "ru": "Китай требует взаимного сотрудничества ЕС по экспортным лицензиям на редкозёмы",
+        "en": "China Seeks Reciprocal EU Cooperation On Rare Earth Export License"
+      },
+      "domain": "businesstoday.com.my",
+      "url": "https://www.businesstoday.com.my/2026/10/15/china-seeks-reciprocal-eu-cooperation-on-rare-earth-export-license/",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "qatar-tribune-hormuz-tanker-mine-2026-10-17",
+      "title": {
+        "ru": "Второй нефтяной танкер горит в Ормузском проливе после подрыва на морской мине",
+        "en": "Second oil tanker burns in Strait of Hormuz after hitting naval mine"
+      },
+      "domain": "qatar-tribune.com",
+      "url": "https://www.qatar-tribune.com/article/259630/front/second-oil-tanker-burns-in-strait-of-hormuz-after-hitting-naval-mine",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "tbsnews-hormuz-tankers-mines-2026-10-17",
+      "title": {
+        "ru": "Два нефтяных танкера загорелись после подрыва на минах в Ормузском проливе — КСИР",
+        "en": "Two oil tankers catch fire after striking mines in Strait of Hormuz: IRGC"
+      },
+      "domain": "tbsnews.net",
+      "url": "https://www.tbsnews.net/worldbiz/middle-east/two-oil-tankers-catch-fire-after-striking-mines-strait-hormuz-irgc-1576151",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "eadaily-st-petersburg-oil-terminal-2026-10-18",
+      "title": {
+        "ru": "Нефтетерминал в Санкт-Петербурге загорелся после дроновой атаки",
+        "en": "The oil terminal caught fire in St. Petersburg after the drone attack"
+      },
+      "domain": "eadaily.com",
+      "url": "https://eadaily.com/en/news/2026/10/18/the-oil-terminal-caught-fire-in-st-petersburg-after-the-drone-attack",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "cnn-trump-waives-russia-sanctions-2026-10-16",
+      "title": {
+        "ru": "Трамп отсрочил санкции против России до их вступления в силу, вызвав критику",
+        "en": "Trump waives Russia-related sanctions before they kick in, prompting backlash"
+      },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/10/16/europe/us-ukraine-russia-sanctions-intl-hnk",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "firstpost-india-us-trade-deal-2026-10-15",
+      "title": {
+        "ru": "Сделка Индии и США: первая фаза завершена, идёт юридическая проработка",
+        "en": "India-US trade deal: First phase finalised, legal drafting underway"
+      },
+      "domain": "firstpost.com",
+      "url": "https://www.firstpost.com/business/findia-us-trade-deal-first-phase-finalised-legal-drafting-underway-14053110.html",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "cnbctv18-brent-110-explained-2026-10-16",
+      "title": {
+        "ru": "Объяснение: почему Brent впервые превысил $110",
+        "en": "Explained: What led to Brent crude prices crossing $110 for the first time"
+      },
+      "domain": "cnbctv18.com",
+      "url": "https://www.cnbctv18.com/market/commodities/crude-oil-prices-brent-wti-why-are-rates-rising-explained-saudi-houthis-hormuz-iran-us-russia-ukraine-20013997.htm",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "discoveryalert-brent-110-2026-10-17",
+      "title": {
+        "ru": "Нефть Brent достигла $110: риски Ормуза, Саудовской Аравии и России накапливаются",
+        "en": "Brent Oil Price Hits $110 as Hormuz, Saudi and Russia Risks Stack Up"
+      },
+      "domain": "discoveryalert.com",
+      "url": "https://discoveryalert.com/news/brent-oil-price-110-hormuz-saudi-russia-october-2026/",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "mee-tugboat-uae-ukmto",
+      "title": {
+        "ru": "Один пострадавший: снаряды попали в буксир у берегов ОАЭ, сообщает UKMTO",
+        "en": "One injured as projectiles hit tugboat off UAE coast, UKMTO says"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/one-injured-projectiles-hit-tugboat-uae-coast-ukmto-says",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "guardian-settlers-eu-diplomats",
+      "title": {
+        "ru": "Израильские поселенцы напали на европейских дипломатов на Западном берегу",
+        "en": "Israeli settlers attack European diplomats in West Bank"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/oct/17/israeli-settlers-attack-european-diplomats-in-west-bank",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aljazeera-taiz-siege-airstrikes",
+      "title": {
+        "ru": "Силы во главе с Саудовской Аравией авиаударами пытаются снять осаду Таиза хуситами",
+        "en": "Saudi-led forces try to break Houthi siege of Taiz with airstrikes"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/saudi-led-forces-try-to-break-houthi-siege-of-taiz-with-airstrikes",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "unicef-gaza-340-children-ceasefire",
+      "title": {
+        "ru": "Газа: 340 детей погибли несмотря на соглашение о прекращении огня — ЮНИСЕФ",
+        "en": "Gaza: 340 children killed despite ceasefire agreement - UNICEF"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/feed/view/en/story/2026/10/1168611",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "tass-zaporizhzhia-npp-drone-ceasefire",
+      "title": {
+        "ru": "Активность украинских беспилотников у Запорожской АЭС и Энергодара сохраняется несмотря на перемирие",
+        "en": "Ukrainian drone activity near Zaporozhye NPP, Energodar persists despite ceasefire"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2203639",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "aa-lebanon-israel-us-talks",
+      "title": {
+        "ru": "Ливан примет участие в трёхсторонних переговорах с Израилем при поддержке США 20 октября — президент",
+        "en": "Lebanon to take part in US-backed trilateral talks with Israel on Oct. 20, president says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/lebanon-to-take-part-in-us-backed-trilateral-talks-with-israel-on-oct-20-president-says/4092254",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "mee-araghchi-hormuz-proposal",
+      "title": {
+        "ru": "Арагчи: Иран представил «конкретное» предложение о разблокировке Ормузского пролива",
+        "en": "Araghchi says Iran has presented 'concrete' Hormuz reopening proposal"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/araghchi-says-iran-has-presented-concrete-hormuz-reopening-proposal",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "iaea-update-371-ukraine",
+      "title": {
+        "ru": "Обновление 371 — заявление генерального директора МАГАТЭ о ситуации в Украине",
+        "en": "Update 371 - IAEA Director General Statement on Situation in Ukraine"
+      },
+      "domain": "iaea.org",
+      "url": "https://www.iaea.org/newscenter/pressreleases/update-371-iaea-director-general-statement-on-situation-in-ukraine",
+      "publication_date": "2026-10-16",
+      "source_type": "primary",
+      "cluster_id": "C-registries"
+    },
+    {
+      "id": "mee-kpler-tanker-crisis",
+      "title": {
+        "ru": "Смягчение санкций США вряд ли ослабит кризис танкеров, считает Kpler",
+        "en": "US sanctions relief unlikely to ease tanker crisis, Kpler says"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-relief-unlikely-ease-tanker-crisis-kpler-says",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aljazeera-settlers-eu-diplomats-video",
+      "title": {
+        "ru": "Израильские поселенцы напали на европейских дипломатов на оккупированном Западном берегу",
+        "en": "Israeli settlers attack European diplomats in the occupied West Bank"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/israeli-settlers-attack-european-diplomats-in-the-occupied-west-bank",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "lithuania-drone-xinhua",
+      "title": {
+        "ru": "Латвия сняла воздушную тревогу в трёх самоуправлениях",
+        "en": "Latvia lifts air threat alert for 3 municipalities"
+      },
+      "domain": "english.news.cn",
+      "url": "https://english.news.cn/20261018/6ac1ff5d597c49b3925eae495974b62c/c.html",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "lithuania-drone-yahoo",
+      "title": {
+        "ru": "Литва сообщила о повреждениях после входа неопознанного дрона в воздушное пространство",
+        "en": "Lithuania reports damage caused by unidentified drone that entered its airspace"
+      },
+      "domain": "yahoo.com",
+      "url": "https://www.yahoo.com/news/world/articles/lithuania-reports-damage-caused-unidentified-110000268.html",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "moldova-drones-fakti",
+      "title": {
+        "ru": "Пять российских дронов упали в Молдове менее чем за сутки",
+        "en": "Five Russian drones crashed in Moldova in less than 24 hours"
+      },
+      "domain": "fakti.bg",
+      "url": "https://fakti.bg/en/world/1091179-pet-ruski-drona-padnaha-v-moldova-za-po-malko-ot-denonoshtie",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "sudan-nyala-anadolu",
+      "title": {
+        "ru": "Удары суданской армии нанесли тяжёлые потери RSF в Ньяле (Дарфур) — региональные власти",
+        "en": "Sudanese army strikes inflict heavy losses on RSF in Darfur's Nyala: Regional government"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/sudanese-army-strikes-inflict-heavy-losses-on-rsf-in-darfur-s-nyala-regional-government/4092539",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "sudan-kordofan-tamazuj",
+      "title": {
+        "ru": "Дроны ударили по кустарному золотому прииску в Южном Кордофане",
+        "en": "Drones hit gold mining site in South Kordofan"
+      },
+      "domain": "radiotamazuj.org",
+      "url": "https://www.radiotamazuj.org/en/news/article/drones-hit-gold-mining-site-in-south-kordofan",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "E-field-osint"
+    },
+    {
+      "id": "pakistan-afghan-clash-moneycontrol",
+      "title": {
+        "ru": "Пакистан и афганские талибы обменялись тяжёлым огнём на линии Дюранда: 7 военных убиты",
+        "en": "Pakistan, Afghan Taliban exchange heavy fire along Durand Line; 7 soldiers killed amid fresh tensions"
+      },
+      "domain": "moneycontrol.com",
+      "url": "https://www.moneycontrol.com/world/2-pakistan-afghan-taliban-exchange-heavy-fire-along-durand-line-7-soldiers-killed-amid-fresh-tensions-article-14054587.html",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "pakistan-balochistan-arabnews",
+      "title": {
+        "ru": "Пакистан сообщил о восьми уничтоженных боевиках в Белуджистане",
+        "en": "Pakistan says eight militants killed in operations in restive Balochistan province"
+      },
+      "domain": "arabnews.pk",
+      "url": "https://www.arabnews.pk/pakistan/pakistan-says-eight-militants-killed-in-operations-in-restive-balochistan-province-3004523",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "pakistan-iran-trade-arabnews",
+      "title": {
+        "ru": "Пакистан приостановил торговлю с Ираном из-за проблем безопасности: тысячи контейнеров застряли",
+        "en": "Pakistan suspends trade with Iran over security concerns, stranding thousands of containers"
+      },
+      "domain": "arabnews.pk",
+      "url": "https://www.arabnews.pk/pakistan/pakistan-suspends-trade-with-iran-over-security-concerns-stranding-thousands-of-containers-3004477",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "pakistan-iran-border-minutemirror",
+      "title": {
+        "ru": "Торговля Пакистана и Ирана остановлена — КПП Тафтан закрыт",
+        "en": "Pakistan-Iran trade halted as Taftan border shuts"
+      },
+      "domain": "minutemirror.com.pk",
+      "url": "https://minutemirror.com.pk/pakistan-iran-trade-halted-as-taftan-border-shuts-646723/",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "schmidt-dodik-6yka",
+      "title": {
+        "ru": "Шмидт предупреждает: Додик может попытаться отделить Республику Сербскую — территориальная целостность БиГ не обсуждается",
+        "en": "Schmidt warns: Dodik could attempt secession of Republika Srpska - Bosnia's territorial integrity is not up for discussion"
+      },
+      "domain": "6yka.com",
+      "url": "https://6yka.com/bih/schmidt-upozorava-dodik-bi-mogao-pokusati-otcjepljenje-srpske-teritorijalni-integritet-bih-nije-na-diskusiji/",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "rubio-central-asia-usnews",
+      "title": {
+        "ru": "Рубио направляется в Центральную Азию, пока другие чиновники США работают в горячих точках",
+        "en": "Rubio heads to Central Asia as some wonder if he's keeping the most pressing matters at a distance"
+      },
+      "domain": "usnews.com",
+      "url": "https://www.usnews.com/news/politics/articles/2026-10-18/rubio-heads-to-central-asia-as-some-wonder-if-hes-keeping-the-most-pressing-matters-at-a-distance",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "central-asia-security-presstv",
+      "title": {
+        "ru": "В Москве прошла конференция по безопасности в Центральной Азии и Афганистане",
+        "en": "Moscow hosts conference on security in Central Asia, Afghanistan"
+      },
+      "domain": "presstv.co.uk",
+      "url": "https://www.presstv.co.uk/Detail/2026/10/17/778559/Moscow-hosts-conference-on-security-in-Central-Asia,-Afghanistan",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "armenia-kyrgyzstan-armenpress",
+      "title": {
+        "ru": "Опубликовано совместное заявление премьер-министра Армении и президента Кыргызстана",
+        "en": "Joint statement signed by Armenian Prime Minister and Kyrgyz President published"
+      },
+      "domain": "armenpress.am",
+      "url": "https://armenpress.am/en/article/1263137",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "baku-cica-jpost",
+      "title": {
+        "ru": "Герцог встретился с главой МИД Бахрейна на саммите CICA в Азербайджане",
+        "en": "Isaac Herzog meets with Bahrain foreign minister at CICA summit hosted by Azerbaijan"
+      },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/article-912023",
+      "publication_date": "2026-10-18",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "dprk-torpedo-qazinform",
+      "title": {
+        "ru": "КНДР испытала новую торпеду с ИИ-наведением — ЦТАК",
+        "en": "North Korea tests new AI-powered precision-guided torpedo: KCNA"
+      },
+      "domain": "qazinform.com",
+      "url": "https://qazinform.com/news/north-korea-tests-new-ai-powered-precision-guided-torpedo-kcna-dd68a0",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "dprk-torpedo-star",
+      "title": {
+        "ru": "Новую торпедную систему испытали",
+        "en": "New torpedo weapon system put to the test"
+      },
+      "domain": "thestar.com.my",
+      "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/10/18/new-torpedo-weapon-system-put-to-the-test",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "xinhua-keen-sword-27",
+      "title": {
+        "ru": "Совместные учения Японии и США Keen Sword 27 — около 60 тыс. человек",
+        "en": "Japan-U.S. large-scale joint drills draw widespread concern, opposition"
+      },
+      "domain": "english.news.cn",
+      "url": "https://english.news.cn/20261017/6bfadc87604f41d7a6ddbc059f2b42cf/c.html",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "chosun-china-six-zones",
+      "title": {
+        "ru": "Учения КНР в шести морских зонах",
+        "en": "China's Unprecedented Drills Across Six Maritime Zones"
+      },
+      "domain": "chosun.com",
+      "url": "https://www.chosun.com/english/world-en/2026/10/14/V756J5U5ARCPHNLDBWC6H5LHHE/",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "izvestia-indra-2026",
+      "title": {
+        "ru": "Стартовали учения Россия–Индия Indra-2026",
+        "en": "Russia and India have deployed ships and aircraft in the Indra-2026 exercises"
+      },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/en/2184165/2026-10-14/russia-and-india-have-deployed-ships-and-aircraft-indra-2026-exercises",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "chinascoop-karakoram-2026",
+      "title": {
+        "ru": "Первые совместные учения КНР и Пакистана Karakoram 2026",
+        "en": "Karakoram 2026: China Trains for the Mountains Where Technology Meets Human Limits"
+      },
+      "domain": "chinascoop.org",
+      "url": "https://chinascoop.org/karakoram-2026-pla-pakistan-high-altitude-warfare/",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "E-field-osint"
+    },
+    {
+      "id": "toi-egypt-live-fire-drills",
+      "title": {
+        "ru": "Египет провёл крупные боевые стрельбы на фоне йеменской эскалации",
+        "en": "Egypt Holds Major Live-Fire Drills As Sisi Vows To Defend Saudi Arabia"
+      },
+      "domain": "timesofindia.indiatimes.com",
+      "url": "https://timesofindia.indiatimes.com/videos/international/egypt-holds-major-live-fire-drills-as-sisi-vows-to-defend-saudi-arabia-amid-yemen-war-tensions/videoshow/135020199.cms",
+      "publication_date": "2026-10-17",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "ap-ksl-sanaa-evacuation",
+      "title": {
+        "ru": "Саудовская коалиция просит жителей Саны эвакуироваться у нефтяного объекта",
+        "en": "Saudis tell Sanaa residents around oil facility to evacuate, and other Middle East developments"
+      },
+      "domain": "ksl.com",
+      "url": "https://www.ksl.com/article/51635649/saudis-tell-sanaa-residents-around-oil-facility-to-evacuate-and-other-middle-east-developments",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "aljazeera-sanaa-evacuation-aramco",
+      "title": {
+        "ru": "Хуситы ударили по Aramco после удара коалиции по нефтяному объекту в Сане",
+        "en": "Houthis strike Aramco hours after Saudi-led coalition hits Sanaa oil site"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/10/13/houthis-threaten-saudi-arabias-aramco-facilities-and-airports",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "afr-starlink-throttle-ukraine",
+      "title": {
+        "ru": "Украина воюет вслепую после ограничений Starlink со стороны Маска и Трампа",
+        "en": "Ukraine fights blind after Musk and Trump throttle Starlink"
+      },
+      "domain": "afr.com",
+      "url": "https://www.afr.com/world/europe/ukraine-fighting-blind-after-musk-and-trump-throttle-starlink-20261015-p615ol",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "cnn-starshield-ukraine",
+      "title": {
+        "ru": "Трамп: я не вмешивался в работу Starshield в Украине",
+        "en": "Trump says he didn't meddle with Elon Musk's Starshield in Ukraine"
+      },
+      "domain": "cnn.com",
+      "url": "https://www.cnn.com/2026/10/16/politics/ukraine-trump-russia-starlink",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "forces-uk-nhs-casualty-wargame",
+      "title": {
+        "ru": "Британские военные и NHS провели учения по приёму массовых потерь",
+        "en": "UK military and NHS wargame tests Britain's readiness to treat mass casualties in a future war"
+      },
+      "domain": "forcesnews.com",
+      "url": "https://www.forcesnews.com/services/tri-service/uk-military-and-nhs-wargame-tests-britains-readiness-treat-mass-casualties",
+      "publication_date": "2026-10-16",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "stripes-medevac-golden-hour",
+      "title": {
+        "ru": "«Золотой час» для эвакуации раненых объявлен устаревшим в обновлённом плане",
+        "en": "'Golden hour' for medevac of wounded troops treated as bygone in updated plan"
+      },
+      "domain": "stripes.com",
+      "url": "https://www.stripes.com/theaters/us/2026-10-14/military-medicine-modern-battlefield-23151474.html",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "japantimes-oil-stockpiling",
+      "title": {
+        "ru": "Япония призывает к накоплению нефти на фоне ближневосточных рисков",
+        "en": "Japan urges oil stockpiling and development as Mideast risks rise"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/business/2026/10/12/japan-trade-minister-energy-security/",
+      "publication_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "oilprice-asia-oil-reserves",
+      "title": {
+        "ru": "Япония призывает Азию наращивать нефтяные резервы",
+        "en": "Japan Urges Asia to Build Up Oil Reserves as Middle East Risks Mount"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Japan-Urges-Asia-to-Build-Up-Oil-Reserves-as-Middle-East-Risks-Mount.html",
+      "publication_date": "2026-10-12",
+      "source_type": "secondary",
+      "cluster_id": "F-financial"
+    },
+    {
+      "id": "bss-iran-internet-shutdown",
+      "title": {
+        "ru": "Общенациональное отключение интернета в Иране длится более 132 часов — монитор",
+        "en": "Iran nationwide internet shutdown has now lasted over 132 hours: monitor"
+      },
+      "domain": "bssnews.net",
+      "url": "https://www.bssnews.net/international/351020",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "toi-iran-starlink-crackdown",
+      "title": {
+        "ru": "Иран называет Starlink «инструментом войны» и обещает ужесточить ограничения",
+        "en": "Iran calls Musk's Starlink a 'tool of war', vows tighter crackdown amid US-Israel conflict"
+      },
+      "domain": "timesofindia.indiatimes.com",
+      "url": "https://timesofindia.indiatimes.com/world/middle-east/iran-calls-musks-starlink-a-tool-of-war-vows-tighter-crackdown-amid-us-israel-conflict/articleshow/134958965.cms",
+      "publication_date": "2026-10-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "bernama-azerbaijan-cyberattack",
+      "title": {
+        "ru": "Хакеры атаковали более 100 госдоменов Азербайджана",
+        "en": "Hackers Target Over 100 Azerbaijani Government Domains"
+      },
+      "domain": "bernama.com",
+      "url": "https://www.bernama.com/tv/news.php?id=2620362",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media"
+    },
+    {
+      "id": "ocmedia-azerbaijan-cyberattack",
+      "title": {
+        "ru": "Проиранские хакеры взяли ответственность за кибератаку на Азербайджан",
+        "en": "Pro-Iran hackers claim responsibility for cyberattack on Azerbaijan, citing hijab ban"
+      },
+      "domain": "oc-media.org",
+      "url": "https://oc-media.org/breaking-pro-iran-hackers-claim-responsibility-for-cyberattack-on-azerbaijan-citing-hijab-ban/",
+      "publication_date": "2026-10-14",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "balkaninsight-bulgaria-summons-envoy-2026-10-13",
+      "title": {
+        "ru": "Болгария вызвала российского посла из-за новых атак дронов в Чёрном море",
+        "en": "Bulgaria Summons Russian Envoy Over New Black Sea Drone Attacks"
+      },
+      "domain": "balkaninsight.com",
+      "url": "https://balkaninsight.com/2026/10/13/bulgaria-summons-russian-envoy-over-new-black-sea-drone-attacks/bi/",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    },
+    {
+      "id": "danas-drone-sank-ship-bulgaria-2026-10-13",
+      "title": {
+        "ru": "Дрон потопил судно в Болгарии — премьер вызвал российского посла",
+        "en": "Drone sank ship in Bulgaria, PM summoned Russian ambassador"
+      },
+      "domain": "danas.rs",
+      "url": "https://www.danas.rs/bbc-news-serbian/dron-potopio-brod-u-bugarskoj-premijer-pozvao-rusku-ambasadorku/",
+      "publication_date": "2026-10-13",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream"
+    }
+  ]
+}

@@ -149,3 +149,24 @@ test('путь к 3–4 месту: открытие «Р» даёт 85 балл
   assert.equal(place, 3, 'при открытой клетке «Р» Cassandra поднимается на 3-е место');
   assert.ok(cassandra().matrix['Р'] === false, 'реальная матрица не должна быть изменена тестом');
 });
+
+test('кодировочные листы в репозитории — пустые: значения автора не утекают', () => {
+  const dir = path.join(ROOT, DIR, 'coding');
+  const sheets = readdirSync(dir).filter((name) => /^coding-\d{4}-\d{2}-\d{2}\.json$/.test(name));
+  assert.ok(sheets.length >= 2, 'ожидаются листы двух недель (2026-09-20 и 2026-10-18)');
+  for (const name of sheets) {
+    const sheet = JSON.parse(readFileSync(path.join(dir, name), 'utf8'));
+    const week = name.replace(/^coding-|\.json$/g, '');
+    assert.equal(sheet.week, week, `${name}: неделя в файле не совпадает с именем`);
+    assert.equal(Object.keys(sheet.values).length, 46, `${name}: лист обязан покрывать 46 критериев`);
+    assert.equal(Object.values(sheet.values).filter((value) => value !== null).length, 0,
+      `${name}: в шаблоне не должно быть ни одного значения`);
+    assert.ok(sheet.sources.length > 0, `${name}: нет корпуса источников`);
+    for (const source of sheet.sources) {
+      assert.ok(!Object.hasOwn(source, 'criteria'),
+        `${name}: привязка «источник → критерий» — подсказка, её не должно быть`);
+    }
+    assert.ok(sheet.instructions.length >= 3, `${name}: нет памятки`);
+  }
+  assert.ok(existsSync(path.join(dir, 'coder-brief.md')), 'нет брифа для кодировщика');
+});
