@@ -57,7 +57,7 @@ Requires Node.js ≥ 18. No dependencies, no build step for the core:
 node calc/calc.js 2026-10-18            # recompute a week, print only
 node calc/calc.js --write <week>        # write snapshot (gate-checked)
 node calc/calibrate.js                  # k grid, anchor selection, sensitivity
-node --test                             # 927 tests, incl. published-number pins
+node --test                             # 940 tests, incl. published-number pins
 ```
 
 The public layer is regenerated with `node calc/public-export.js --write` and validated
