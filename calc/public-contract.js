@@ -116,6 +116,12 @@ export function criteriaDoc() {
 // methodologyDoc() — версия, веса, параметры агрегации, шкала состояний.
 // ADR 0062: раскрытие для машинного потребителя; UI-граница ADR 0045 не
 // меняется (страница «Методология» формулы и веса не показывает).
+// ADR 0067: параметры региональной модели ниже (region_clamp,
+// region_shock_delta, region_estruct_default, n0, gamma, kappa) —
+// размерностно-нейтральные: той же формулой §7 считается и страновой слой
+// (data/public/countries/<неделя>.json; гейт PARAMS.countryLayerFrom,
+// prevIndex страны наследуется: страна → регион → prevGlobal; чувствительность
+// стран — sensitivity недели, отдельная метрика по странам не считается).
 export function methodologyDoc() {
   return {
     schema: SCHEMA_NAMES.methodology,

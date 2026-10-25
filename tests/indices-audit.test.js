@@ -1,7 +1,7 @@
 // Приложение «Аудит 12 индексов» (таск 02, R01–R08, R13–R16, R19, A01):
 // страница indices-audit.html — производная генератора indices-audit-build.js.
-// Ожидания взяты из тикета, interfaces.md и статьи (98, 88, 73, 69, 69, 58, 56,
-// 56, 48, 45, 33, 0; 62 из 120; медиана 5,5; 5 из 12; полный цикл — один проект),
+// Ожидания взяты из тикета, interfaces.md и статьи (98, 88, 73, 71, 70, 69, 69,
+// 58, 56, 48, 33, 0; 66 из 120; медиана 6; 5 из 12; полный цикл — один проект),
 // а не из разметки страницы.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -118,22 +118,22 @@ test('взвешенная шкала: 12 баллов из матрицы со�
   // Числа статьи — в порядке убывания балла (так они напечатаны в статье).
   const totals = [...rows].sort((a, b) => b.score - a.score || PROJECT_IDS.indexOf(a.id) - PROJECT_IDS.indexOf(b.id))
     .map((row) => row.total);
-  assert.deepEqual(totals, [98, 88, 73, 69, 69, 58, 56, 56, 48, 45, 33, 0]);
-  // 58 баллов Cassandra — число из статьи.
-  assert.equal(rows.find((row) => row.id === 'cassandra').total, 58);
+  assert.deepEqual(totals, [98, 88, 73, 71, 70, 69, 69, 58, 56, 48, 33, 0]);
+  // 70 баллов Cassandra — число из статьи.
+  assert.equal(rows.find((row) => row.id === 'cassandra').total, 70);
 });
 
-test('matrixStats: 62 из 120, медиана 5,5, пять проверяемых, один полный цикл', () => {
+test('matrixStats: 66 из 120, медиана 6, пять проверяемых, один полный цикл', () => {
   const stats = matrixStats(model);
-  assert.equal(stats.total, 62);
+  assert.equal(stats.total, 66);
   assert.equal(stats.possible, 120);
-  assert.equal(stats.median, 5.5);
+  assert.equal(stats.median, 6);
   assert.equal(stats.verifiable, 5);
   assert.equal(stats.fullCycle, 1);
   assert.equal(stats.perCriterion.length, CRITERIA.length);
-  assert.equal(stats.perCriterion.reduce((sum, item) => sum + item.confirmed, 0), 62);
+  assert.equal(stats.perCriterion.reduce((sum, item) => sum + item.confirmed, 0), 66);
   assert.ok(stats.byBlock.length >= 2, 'ожидаются блоки признаков');
-  assert.equal(stats.byBlock.reduce((sum, block) => sum + block.confirmed, 0), 62);
+  assert.equal(stats.byBlock.reduce((sum, block) => sum + block.confirmed, 0), 66);
 });
 
 test('устойчивость ±5 п.п.: верх и низ не двигаются, в середине есть обмены', () => {
@@ -202,9 +202,9 @@ test('генератор: дата среза и число непроверен
 
 test('таблица устойчивости: у каждого сдвинувшегося проекта есть «было → стало»', () => {
   const html = renderPage(model);
-  // При +5 к открытости War Monitor поднимается с 10-го места на 9-е, GDELT опускается с 9-го на 10-е.
-  assert.ok(html.includes('GDELT: 9 → 10'), 'нет позиции «было → стало» для GDELT');
-  assert.ok(html.includes('War Monitor: 10 → 9'), 'нет позиции «было → стало» для War Monitor');
+  // При +5 к открытости Cassandra поднимается с 5-го места на 3-е, при +5 к истории — опускается на 7-е.
+  assert.ok(html.includes('Cassandra Index: 5 → 3'), 'нет позиции «было → стало» для Cassandra (открытость +5)');
+  assert.ok(html.includes('Cassandra Index: 5 → 7'), 'нет позиции «было → стало» для Cassandra (история +5)');
 });
 
 test('фраза «все они — в середине списка» вычисляется, а не вписана', () => {
@@ -248,12 +248,12 @@ test('CLI без --write печатает сводку и не пишет фай
     cwd: ROOT,
     encoding: 'utf8',
   });
-  assert.match(stdout, /62 из 120/);
+  assert.match(stdout, /66 из 120/);
   assert.match(stdout, /медиана/i);
   assert.equal(existsSync(file) ? readFileSync(file, 'utf8') : null, before, 'CLI без --write не должен писать страницу');
 });
 
-test('HTML: head, один h1, 12 карточек, 120 ячеек, 62 ✔, 14 стран, 12 атрибутов', () => {
+test('HTML: head, один h1, 12 карточек, 120 ячеек, 66 ✔, 14 стран, 12 атрибутов', () => {
   assert.match(page, /^<!doctype html>\n<html lang="ru">/);
   assert.ok(page.includes('<link rel="canonical" href="https://cassindex.ru/indices-audit.html">'));
   assert.ok(page.includes('<body class="doc-page">'));
@@ -276,7 +276,7 @@ test('HTML: head, один h1, 12 карточек, 120 ячеек, 62 ✔, 14 �
   // Содержимое: карточки и развёртка.
   assert.equal((page.match(/<article\b/g) || []).length, 12, '12 карточек-статей');
   assert.equal((page.match(/id="cell-[a-z-]+-[a-z]+"/g) || []).length, 120, '120 строк развёртки');
-  assert.equal((page.match(/<td>✔/g) || []).length, 62, '62 подтверждённые клетки');
+  assert.equal((page.match(/<td>✔/g) || []).length, 66, '66 подтверждённые клетки');
   assert.equal((page.match(/id="country-[^"]+"/g) || []).length, 14, '14 строк стран');
   assert.equal((page.match(/id="attribute-[a-z-]+"/g) || []).length, 12, '12 строк атрибутов');
 

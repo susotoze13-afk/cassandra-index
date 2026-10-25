@@ -57,6 +57,42 @@
 12. Forward-only: в `data/` поля нет ни у одной из 12 недель; бэкфилл не выполняется.
     Регрессионный пин расчёта — `tests/precursor.test.js` (10-18 = `value: 50`).
 
+## 3а. Поток странового слоя (ADR 0067)
+
+1. Оверлей `calc/input/countries/<week>.json` — редакционная атрибуция:
+   `criteria[id].countries[]` (ISO2 из whitelist версии недели) + `basis` +
+   `sources[]` (url из источников недели). Отдельный файл, а не поле входа:
+   атрибуция появляется отдельными прогонами (как africa-south-asia-sources),
+   а неделя 2026-10-25 принадлежала параллельной сессии.
+2. Гейт: слой пишется только для недель ≥ `PARAMS.countryLayerFrom`
+   (`2026-10-25`) и при валидном оверлее; `validateCountryOverlay` → errors[]
+   (неделя/критерий/ISO2/дедупликация/url), битый оверлей — «оверлей отклонён»
+   и часть не пишется. Бэкфилла нет (forward-only, как у precursor).
+3. Расчёт — то же ядро §7, обобщённое размерностно-нейтрально:
+   `engine.attributedSignals(criteria, ids, params, week, attr)` и
+   `engine.attributedIndex(global, unit, params)`; `countrySignals` =
+   `attributedSignals(..., 'countries')`, `countryIndex` = `attributedIndex`.
+   Регионы — тонкие обёртки, их выходы байт-в-байт прежние.
+4. `prevIndex` страны: опубликованный индекс страны прошлой недели → иначе
+   индекс её региона прошлой недели → иначе `prevGlobal` (аналогия ADR 0038:
+   первая неделя слоя обязана дать числовую дельту). Слепая страна (nReg = 0)
+   — `background: true`, число отражает глобальный фон.
+5. `buildCountryRows(week, globalOut, weekInput, overlay, prevSnapshot, ref, params)`
+   → `{total, published, rows}`; имена стран — из `data/geo/countries.js`
+   (vm-чтение, кэш) — единый источник имён.
+6. Запись: опциональная часть `countries.js` (`s.countries = {...}`) +
+   пересборка `week.js` через `loadWeekParts`/`renderWeekCombined`
+   (`writeCountryLayer`). Набор частей по версии не меняется (v1 = 11, v2 = 17):
+   часть presence-gated, `partOrder` допускает её только у v2 сверх полного набора.
+7. Контракт: `js/data.js` `validateCountries(snapshot)` — опциональный блок;
+   отсутствие валидно (все недели до гейта), битая форма — ошибка.
+8. Сайт: `js/sections/regions.js` `countryRows(snapshot)` → строки под-блока
+   «По странам» (сортировка по |Δ|, пометка `country.background`); без блока
+   под-блок скрыт. Публичный слой: новый файл `data/public/countries/<week>.json`
+   (конверт как у `weeks/<week>.json`, без `name`, с `sensitivity` недели —
+   отдельной страновой чувствительности не считается), схема
+   `countries.schema.json`; `PUBLIC_SCHEMA_VERSION` прежний, новых полей нет.
+
 ## 4. Форвардные якоря
 
 - Схема: `calc/input/anchors/forward-<week>.json` —
@@ -81,7 +117,8 @@
 - Обязательны `published`, `through`, `methodology`, `dataState`, набор регионов
   по `regions_taxonomy`, ровно 3 драйвера, тренд ровно 12 точек.
 - Опциональные поля: `coverageCriteria {covered,total,uncovered}`, `sensitivity`,
-  `precursor {value, signalingSubgroups}`, `background` у региона.
+  `precursor {value, signalingSubgroups}`, `background` у региона, `countries`
+  (`{total, published, rows}` по ISO2, ADR 0067 — опциональная часть, presence-gated).
 - `precursor` проверяется в `validateQuality` как поле верхнего уровня снапшота:
   целые `value 0..100`, `signalingSubgroups 0..8`; отсутствие валидно, битая форма —
   ошибка контракта, сайт на битой форме не падает.
@@ -114,7 +151,8 @@
 
 | Модуль | Владеет | Не знает |
 |---|---|---|
-| `calc/engine.js` | формулы §4–§7, `CRITERIA`, `D9_SUBGROUPS`, `validate` входа | диска, сети, сайта |
+| `calc/engine.js` | формулы §4–§7, `CRITERIA`, `D9_SUBGROUPS`, `validate` входа, размерностно-нейтральные `attributedSignals`/`attributedIndex` (обёртки `regionalSignals`/`regionalIndex`) | диска, сети, сайта |
+| `calc/country-layer.js` | страновой слой: оверлей, `validateCountryOverlay`, `buildCountryRows`, `writeCountryLayer` | сайта, публичного слоя |
 | `calc/params.js` | все числа и версия методологии | расчёта |
 | `calc/week-step.js` | шаг недели, `taxonomyForWeek`, `loadSnapshotPart`, `nextChainState` | ворот записи, CLI |
 | `calc/calc.js` | CLI, ворота, запись, рендер снапшотов | формул (зовёт движок и week-step) |

@@ -13,7 +13,14 @@
 версионируется отдельно от methodology.
 Публичный слой **Precursor Risk** — `precursor {value, signalingSubgroups}` (доля скора Д9,
 в индекс не входит, forward-only, ADR 0047); шкала объявлена порядковой (ADR 0048);
-форвардный якорь — ожидание редактора до записи недели (ADR 0049). Поток данных и границы
+форвардный якорь — ожидание редактора до записи недели (ADR 0049). **Страновой слой** —
+опциональная часть `countries.js` (`countries {total, published, rows}` по ISO2, RU/UA
+с 2026-10-25, гейт `PARAMS.countryLayerFrom`, ADR 0067): считается той же формулой §7
+что и регионы, атрибуция — редакционный оверлей `calc/input/countries/<неделя>.json`
+(основание + url источников недели), prevIndex страны наследуется: страна → регион →
+prevGlobal; публичный файл `data/public/countries/<неделя>.json` (схема
+`countries.schema.json`); сайт читает блок швом `countryRows`/`buildCountryRows`
+(секция регионов). История не бэкфиллится. Поток данных и границы
 модулей — `docs/architecture.md`.
 Стек: чистый HTML/CSS/JS, ноль зависимостей; Node ≥ 18; всё — ESM, кроме CommonJS `build.js`.
 
@@ -159,6 +166,19 @@ calc/quotes.js            цитаты источника: QUOTE_MAX_LEN/QUOTES_
                           тесты tests/quotes.test.js
 calc/sensitivity.js       sensitivityScore — leave-one-domain/leave-one-cluster метрика
                           (R02): max|ΔI| в п.п., поле sensitivity quality-блока снапшота
+calc/country-layer.js     страновой слой (ADR 0067): `loadCountryOverlay` (оверлей
+                          `calc/input/countries/<неделя>.json` → объект|null),
+                          `validateCountryOverlay` (неделя/критерий/ISO2-whitelist
+                          версии/дедупликация/url из источников недели → errors[]),
+                          `mergeCountryAttribution` (копия criteria + `countries[]`),
+                          `countrySignals`/`countryIndex` (обёртки
+                          `attributedSignals(..., 'countries')`/`attributedIndex`),
+                          `buildCountryRows` (`{total, published, rows}`, prevIndex:
+                          страна → регион → prevGlobal; имена из `data/geo/countries.js`,
+                          vm-чтение с кэшем), `renderCountryPart`, `writeCountryLayer`
+                          (запись `countries.js` + пересборка `week.js` через
+                          `loadWeekParts`/`renderWeekCombined`), `countryIdsFor`/
+                          `regionOfCountry`; чистые швы без диска/сети — тестируются
 calc/classify.js          чистый конвертер «черновик Jev v2 → штатный вход»
                           (docs/jev-classification.md §6.1, ADR 0018 доп.): ворота
                           правил 9–10, без сети и без вызова Jev; в CI не встроен;
@@ -252,7 +272,11 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA)
                           + week.js (комбинированный снапшот недели из частей своей версии
                           таксономии: v1 = 11, v2 = 17 — единственный файл, который грузит
-                          сайт; производная, руками не править);
+                          сайт; производная, руками не править); опциональная часть
+                          `countries.js` (блок `s.countries`, ADR 0067) — presence-gated:
+                          есть только у неделей ≥ `PARAMS.countryLayerFrom` с валидным
+                          оверлеем (первая — 2026-10-25, RU 66/Δ−2 из 8 сигналов, UA 62/Δ−1
+                          из 5, published 2 из 152);
                           global.js несёт `regions_taxonomy` ('1.0'/'2.0'), по нему читаются части;
                           поля `coverageCriteria` и `precursor` — forward-only: на диске
                           `precursor` нет ни у одной недели (не бэкфиллится, ADR 0047);
@@ -275,8 +299,10 @@ data/public/              производные (`public-export.js --write`; `v
                           index.json (все недели), latest.json, changelog.json, validation.json,
                           forecast-ledger.json, cassandra-index.csv, trend.svg; справочники
                           regions.json / criteria.json / methodology.json,
-                          weeks/<неделя>.json (конверт одной недели), 11 схем schema/v1/*.json
-                          (ADR 0062/0063/0064); digest/ — <неделя>.json + index.json
+                          weeks/<неделя>.json (конверт одной недели),
+                          countries/<неделя>.json (страновой слой неделей ≥ гейта, ADR 0067),
+                          12 схем schema/v1/*.json
+                          (ADR 0062/0063/0064/0067); digest/ — <неделя>.json + index.json
                           (digest-export.js --write)
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
@@ -321,7 +347,14 @@ docs/adr/                 зафиксированные архитектурн�
                           порог покрытия (эпсилон, forward-only с недели 10-25));
                           0066 — трактовка `verified:null` в forecast-ledger: pending +
                           actualIndex null = неделя не опубликована, иначе git-история
-                          недели недоступна (ADR 0064 доп., без нового поля)
+                          недели недоступна (ADR 0064 доп., без нового поля);
+                          0067 — страновой слой: формула §7
+                          размерностно-нейтральна (`attributedSignals`/`attributedIndex`),
+                          оверлей `calc/input/countries/<неделя>.json`, гейт
+                          `countryLayerFrom`, наследование prevIndex (страна → регион →
+                          prevGlobal), presence-gated часть `countries.js`, публичный файл
+                          `data/public/countries/<неделя>.json` вместо нового поля,
+                          бэкфилл запрещён
 docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
                           эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
                           каждый публичный JSON обязан иметь строку здесь и схему
@@ -385,6 +418,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   пересчитана по решению владельца O11, демо-недели 1.0 не трогались); читает
   `engine.regionalHypothesisParams`. ADR 0047: `precursorFrom` (`2026-10-25`) —
   гейт записи слоя Д9 в снапшот; пересчёт истории слой не бэкфиллит.
+  ADR 0067: `countryLayerFrom` (`2026-10-25`) — гейт странового слоя: часть
+  `countries.js` пишется только для недель ≥ даты И при валидном оверлее
+  `calc/input/countries/<неделя>.json`; недели раньше — поведение прежнее.
 - `calc/calibrate.js` — калибровка k на якорях: `buildDrivers(input, params)` — тонкая
   обёртка над общим ядром `engine.buildDriversCore` (используют и calibrate, и calc.js;
   маппинг в calibrate.js не дублируется). `loadAnchors(dir)` пропускает `*.json` без
@@ -432,9 +468,14 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   комбинированный снапшот: `weekPartFiles(taxonomy)` (v1 = 11 / v2 = 17 частей,
   `regions` до `region-*`), `WEEK_PART_FILES = weekPartFiles('1.0')` (обратная совместимость),
   `loadWeekParts(week)` — сначала `global.js`, из него `regions_taxonomy` → части своего
-  набора (vm), `renderWeekCombined(week, parts)` (чистый шов — единый IIFE
+  набора (vm), `loadWeekParts` подхватывает опциональную часть `countries.js` по
+  наличию (presence-gated, только v2 сверх полного набора, ADR 0067);
+  `renderWeekCombined(week, parts)` (чистый шов — единый IIFE
   в `window.CI_DATA.snapshots[week]`; версия из `regions_taxonomy`, рассинхрон набора и
   версии → явная ошибка, не даунгрейд), writeWeek — `--write` пишет week.js после частей
+  (для недель ≥ `PARAMS.countryLayerFrom` с валидным оверлеем `writeCountryLayer(week)`
+  дописывает `countries.js` и пересобирает `week.js`, иначе «оверлей отклонён: …»;
+  `runWeek` печатает «страны: опубликовано M из N (ISO, …)»)
 - `calc/check-sources.js` — CLI поверх `loadSnapshotPart`/`collectSourceItems`/`checkSources`;
   построчный отчёт ок/БИТАЯ/ЗАБЛОКИРОВАНА по каждому URL, итог, код 1 при битых.
 - `calc/quotes.js` — цитаты источников (ADR 0041/0042): `validateQuotes(sources, criteriaIds)`
@@ -480,6 +521,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   recalc, опциональные `coverageCriteria: {covered:int≥0, total:int>0, covered≤total}`
   (покрытых критериев из 46, ADR 0033) и `precursor: {value:int 0..100,
   signalingSubgroups:int 0..8}` (ADR 0047; отсутствие валидно, битая форма — ошибка);
+  опциональный блок `countries` (ADR 0067) валидирует `validateCountries(snapshot)`
+  → {ok, errors}: `rows` — объект `/^[A-Z]{2}$/`, `index 0..100`, `delta` число,
+  `background` boolean, `region` — id региона версии, `signals` int ≥ 0, `name {ru,en}`,
+  `published ≤ total`; отсутствие блока валидно (все недели до гейта);
   старые недели без обоих полей валидны, неделя
   insufficient обязана нести полный пакет непубликации); `PRECURSOR_SUBGROUPS = 8` —
   единственный источник числа подгрупп для сайта (паритет с `engine.D9_SUBGROUPS`
@@ -519,7 +564,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `js/sections/regions.js` (секция «Что это значит для моего региона?») — `rankedRegions
   (snapshot)` берёт набор `region.regionForTaxonomy(snapshot.regions_taxonomy)` (6/12 строк),
   сортировка по |Δ|; `render` пиннит личный регион классом `.region-row--pinned`, слепой
-  регион — пометкой `region.background` вместо Δ.
+  регион — пометкой `region.background` вместо Δ. Страновой под-блок «По странам»
+  (ADR 0067): чистый шов `countryRows(snapshot)` → `[{iso, index, delta, background,
+  region, name}]` | null (null без блока); строка — имя страны, индекс, Δ (для
+  background — пометка `country.background`), сортировка по |Δ|, ключи i18n `country.*`.
 - `js/sections/hero.js` — чистые швы `isBackgroundRegion(rdata)` (true только при
   `background === true`) — импортируется в js/sections/regions.js, и `refineRegionFromCoords
   (lat,lon)` (грубые bounding-box → v2-id, порядок боксов = приоритет, вне — null, столицы
@@ -614,7 +662,10 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   js/data.js → запись числовых файлов `data/<week>/` (global/regions/region-*/trend;
   sources.js — из входа, иначе прежние сохраняются) и производного комбинированного
   week.js поверх них (renderWeekCombined от частей набора недели — v1 = 11 / v2 = 17;
-  сайт грузит только его); записи регионов несут флаг background
+  сайт грузит только его); для недель ≥ `PARAMS.countryLayerFrom` с валидным оверлеем
+  `calc/input/countries/<неделя>.json` дописывается опциональная часть `countries.js`
+  и `week.js` пересобирается (`writeCountryLayer`, ADR 0067) — без оверлея неделя
+  пишется прежним набором; записи регионов несут флаг background
   (regions.js + region-*.js); published — защищённое поле из прежнего снапшота,
   methodology — из `PARAMS.methodology` (3.0), through = дата самой недели (окно W−7…W
   включительно); точка тренда недели несёт `{date, value, methodology}` — своя неделя берёт
@@ -740,6 +791,9 @@ through-конвенция: `tests/through.test.js`; список критери
 engine.CRITERIA): `tests/methodology-criteria.test.js`; аудит: `tests/audit.test.js`;
 механика недели автозапуска (addRecalcWeek/addLatestWeek, идемпотентность):
 `tests/prepare-week.test.js`;
+страновой слой: `tests/country-layer.test.js` (валидация оверлея, buildCountryRows,
+renderCountryPart), `tests/public-countries.test.js` (countriesDoc, запись
+`data/public/countries/<неделя>.json` только для недель с блоком);
 публичный слой и дайджест: `tests/public-export.test.js`, `tests/changelog.test.js`,
 `tests/public-contract.test.js` (ADR 0062: справочники, driver_breakdown, waterfall,
 what_would_change, минимальный JSON-Schema-валидатор на все публичные файлы; сторож —
