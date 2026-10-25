@@ -1557,6 +1557,132 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
     "state_affiliated": false
+  },
+  {
+    "id": "sb-kobalt-start-1019",
+    "title": {
+      "ru": "Учения ОДКБ «Кобальт-2026» начались в Таджикистане",
+      "en": "CSTO Kobalt-2026 exercises begin in Tajikistan"
+    },
+    "domain": "sb.by",
+    "url": "https://news.sb.by/articles/ucheniya-odkb-kobalt-2026-nachalis-v-tadzhikistane.html",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "sb-kobalt-end-1023",
+    "title": {
+      "ru": "В Таджикистане завершились учения сил спецназа ОДКБ",
+      "en": "CSTO special forces exercises conclude in Tajikistan"
+    },
+    "domain": "sb.by",
+    "url": "https://www.sb.by/articles/v-tadzhikistane-zavershilis-ucheniya-sil-spetsnaza-odkb.html",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "iz-csto-central-asia-1023",
+    "title": {
+      "ru": "Союзный рефлекс: как ОДКБ готовится отражать угрозы в Центральной Азии",
+      "en": "The Allied Reflex: How the CSTO Is Preparing to Counter Threats in Central Asia"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/2188766/sofia-sokolovskaia/kak-odkb-gotovitsya-otrazhat-ugrozy-v-centralnoy-azii",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "tasnim-termez-drills-1021",
+    "title": {
+      "ru": "Учения в Термезе: Россия и Узбекистан сосредоточились на обеспечении безопасности границ с Афганистаном",
+      "en": "Exercises in Termez: Russia and Uzbekistan focus on securing the Afghan border"
+    },
+    "domain": "tasnimnews.ir",
+    "url": "https://tasnimnews.ir/ru/news/2026/10/21/3728850/",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "anewz-csto-tajikistan-1023",
+    "title": {
+      "ru": "ОДКБ поставит Таджикистану вооружение на фоне роста угроз на афганской границе",
+      "en": "Russia-led organisation to arm Tajikistan as security concerns grow along Afghan border"
+    },
+    "domain": "anewz.tv",
+    "url": "https://anewz.tv/region/central-asia/25823/russia-csto-to-arm-tajikistan-for-afghan-border-security/news",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "gazeta-c51-1019",
+    "title": {
+      "ru": "Торговля, энергетика и безопасность: о чём заявили страны ЦА и США по итогам встречи C5+1",
+      "en": "Trade, energy and security: what Central Asian countries and the US said after the C5+1 meeting"
+    },
+    "domain": "gazeta.uz",
+    "url": "https://www.gazeta.uz/ru/2026/10/19/statement/",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "vestiabad-c51-1020",
+    "title": {
+      "ru": "Центральная Азия и США обсудили укрепление сотрудничества в формате C5+1",
+      "en": "Central Asia and the US discuss strengthening cooperation in the C5+1 format"
+    },
+    "domain": "vestiabad.ru",
+    "url": "https://vestiabad.ru/ru/news/centralnaia-aziia-i-ssa-obsudili-ukreplenie-sotrudnicestva-v-formate-c51",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "kaztag-military-reform-1021",
+    "title": {
+      "ru": "Казахстан меняет модель срочной службы — Токаев обсудил военную реформу с совбезом",
+      "en": "Kazakhstan changes its conscription model as Tokayev discusses military reform with Security Council"
+    },
+    "domain": "kaztag.kz",
+    "url": "https://kaztag.kz/ru/news/kazakhstan-menyaet-model-srochnoy-sluzhby-tokaev-obsudil-voennuyu-reformu-s-sovbezom",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "kursiv-military-reform-1024",
+    "title": {
+      "ru": "В Казахстане началась военная реформа: как изменятся армия и срочная служба",
+      "en": "Military reform begins in Kazakhstan: how the army and conscription will change"
+    },
+    "domain": "kz.kursiv.media",
+    "url": "https://kz.kursiv.media/2026-10-24/tsse-v-kazahstane-nachalas-voennaya-reforma-kak-izmenyatsya-armiya-i-srochnaya-sluzhb/",
+    "publication_date": "2026-10-24",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
   }
 ];
 })();

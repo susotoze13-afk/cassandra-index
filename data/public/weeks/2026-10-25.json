@@ -22,7 +22,7 @@
     "q": 1,
     "confidence": "full",
     "coverage_criteria": {
-      "covered": 36,
+      "covered": 37,
       "total": 46
     },
     "regions": [
@@ -34,14 +34,14 @@
       },
       {
         "id": "ukraine-moldova",
-        "index": 69,
-        "delta": 6,
+        "index": 68,
+        "delta": 5,
         "background": false
       },
       {
         "id": "baltic",
-        "index": 70,
-        "delta": 3,
+        "index": 69,
+        "delta": 2,
         "background": false
       },
       {
@@ -64,9 +64,9 @@
       },
       {
         "id": "central-asia",
-        "index": 67,
-        "delta": 4,
-        "background": true
+        "index": 65,
+        "delta": 2,
+        "background": false
       },
       {
         "id": "east-asia",
@@ -100,8 +100,8 @@
       }
     ],
     "precursor": {
-      "value": 50,
-      "signaling_subgroups": 5
+      "value": 47,
+      "signaling_subgroups": 6
     },
     "precursor_present": true,
     "drivers": [
@@ -284,7 +284,7 @@
           "criteria": 5,
           "total": 6
         },
-        "contribution_pp": 10.2,
+        "contribution_pp": 10.3,
         "top_criteria": [
           {
             "id": "D4.6",
@@ -335,7 +335,7 @@
           "criteria": 2,
           "total": 4
         },
-        "contribution_pp": 6.1,
+        "contribution_pp": 6.2,
         "top_criteria": [
           {
             "id": "D5.1",
@@ -509,15 +509,15 @@
           "ru": "Д9. Косвенные индикаторы подготовки",
           "en": "D9. Indirect preparation indicators"
         },
-        "score": 0.498,
+        "score": 0.47,
         "confidence": "medium",
         "weight": 0.06,
         "weight_effective": 0.061,
         "covered": {
-          "criteria": 5,
+          "criteria": 6,
           "total": 8
         },
-        "contribution_pp": 4.5,
+        "contribution_pp": 4.3,
         "top_criteria": [
           {
             "id": "D9.3",
@@ -527,8 +527,8 @@
             },
             "dir": "esc",
             "value": 1,
-            "contribution": 0.2,
-            "share": 0.402
+            "contribution": 0.167,
+            "share": 0.355
           },
           {
             "id": "D9.6b",
@@ -538,8 +538,8 @@
             },
             "dir": "esc",
             "value": 0.5,
-            "contribution": 0.1,
-            "share": 0.201
+            "contribution": 0.083,
+            "share": 0.177
           },
           {
             "id": "D9.2",
@@ -549,8 +549,8 @@
             },
             "dir": "esc",
             "value": 0.33,
-            "contribution": 0.066,
-            "share": 0.133
+            "contribution": 0.055,
+            "share": 0.117
           }
         ]
       }
@@ -595,14 +595,14 @@
         },
         {
           "driver": "D8",
-          "contribution_pp": 1.1
+          "contribution_pp": 1.2
         },
         {
           "driver": "D9",
-          "contribution_pp": 1.1
+          "contribution_pp": 0.9
         }
       ],
-      "residual_pp": 0.7,
+      "residual_pp": 0.8,
       "residual_reason": "saturation-inertia-coverage-rounding"
     },
     "what_would_change": {
@@ -629,7 +629,7 @@
           "driver": "D7",
           "dir": "esc",
           "value": 1,
-          "impact_pp": -5.6,
+          "impact_pp": -5.7,
           "effect": "down",
           "crosses_state": false,
           "breaks_driver": false
@@ -666,9 +666,9 @@
       "method": "criterion-zeroed"
     },
     "sources": {
-      "count": 111,
+      "count": 120,
       "clusters": 5,
-      "state_affiliated": 55
+      "state_affiliated": 60
     },
     "trend": [
       {

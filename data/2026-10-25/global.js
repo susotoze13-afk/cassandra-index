@@ -19,11 +19,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 1.1;
   s.precursor = {
-  "value": 50,
-  "signalingSubgroups": 5
+  "value": 47,
+  "signalingSubgroups": 6
 };
   s.coverageCriteria = {
-  "covered": 36,
+  "covered": 37,
   "total": 46,
   "uncovered": [
     "D1.3",
@@ -34,14 +34,13 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "D5.4",
     "D6.4",
     "D9.1",
-    "D9.5",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T11:50:02.216Z",
+  "at": "2026-10-25T12:14:54.070Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 69,
+  "previous": 68,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"

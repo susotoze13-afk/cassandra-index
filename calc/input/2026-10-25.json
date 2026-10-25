@@ -54,10 +54,46 @@
      "cluster": "B-state-media",
      "type": "secondary",
      "state_affiliated": true
+    },
+    {
+     "url": "https://news.sb.by/articles/ucheniya-odkb-kobalt-2026-nachalis-v-tadzhikistane.html",
+     "date": "2026-10-19",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://www.sb.by/articles/v-tadzhikistane-zavershilis-ucheniya-sil-spetsnaza-odkb.html",
+     "date": "2026-10-23",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://iz.ru/2188766/sofia-sokolovskaia/kak-odkb-gotovitsya-otrazhat-ugrozy-v-centralnoy-azii",
+     "date": "2026-10-23",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://tasnimnews.ir/ru/news/2026/10/21/3728850/",
+     "date": "2026-10-21",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://anewz.tv/region/central-asia/25823/russia-csto-to-arm-tajikistan-for-afghan-border-security/news",
+     "date": "2026-10-23",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
     }
    ],
    "regions": [
-    "east-asia"
+    "east-asia",
+    "central-asia"
    ]
   },
   "D1.3": null,
@@ -450,12 +486,27 @@
      "cluster": "B-state-media",
      "type": "secondary",
      "state_affiliated": true
+    },
+    {
+     "url": "https://www.gazeta.uz/ru/2026/10/19/statement/",
+     "date": "2026-10-19",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    },
+    {
+     "url": "https://vestiabad.ru/ru/news/centralnaia-aziia-i-ssa-obsudili-ukreplenie-sotrudnicestva-v-formate-c51",
+     "date": "2026-10-20",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
     }
    ],
    "regions": [
     "middle-east",
     "ukraine-moldova",
-    "east-asia"
+    "east-asia",
+    "central-asia"
    ]
   },
   "D3.5": {
@@ -1158,7 +1209,26 @@
     }
    ]
   },
-  "D9.5": null,
+  "D9.5": {
+   "value": 0.33,
+   "covered": true,
+   "sources": [
+    {
+     "url": "https://kaztag.kz/ru/news/kazakhstan-menyaet-model-srochnoy-sluzhby-tokaev-obsudil-voennuyu-reformu-s-sovbezom",
+     "date": "2026-10-21",
+     "cluster": "B-state-media",
+     "type": "secondary",
+     "state_affiliated": true
+    },
+    {
+     "url": "https://kz.kursiv.media/2026-10-24/tsse-v-kazahstane-nachalas-voennaya-reforma-kak-izmenyatsya-armiya-i-srochnaya-sluzhb/",
+     "date": "2026-10-24",
+     "cluster": "A-mainstream",
+     "type": "secondary",
+     "state_affiliated": false
+    }
+   ]
+  },
   "D9.6a": {
    "value": 0.33,
    "covered": true,
@@ -1204,7 +1274,7 @@
  "driverConfidence": {
   "D1": {
    "level": "high",
-   "reason": "Покрыто 4/6 (D1.1, D1.2, D1.4, D1.5): боевые действия и развёртывание подтверждены кластерами A и B, включая падение беспилотника неизвестного происхождения на территории Латвии (D1.4, регион baltic); логистика (D1.3) отсечена воротами независимости — только кластер A."
+   "reason": "Покрыто 4/6 (D1.1, D1.2, D1.4, D1.5): боевые действия и развёртывание подтверждены кластерами A и B, включая падение беспилотника неизвестного происхождения на территории Латвии (D1.4, регион baltic); учения (D1.2 = 0.33) включают спецназ ОДКБ «Кобальт-2026» в Таджикистане и российско-узбекские учения в Термезе у афганской границы (регион central-asia); логистика (D1.3) отсечена воротами независимости — только кластер A."
   },
   "D2": {
    "level": "medium",
@@ -1212,7 +1282,7 @@
   },
   "D3": {
    "level": "medium",
-   "reason": "Покрыто 5/5: ультиматумы (D3.2 = 0.67), переговоры через Пакистан и посредничество США по Олешкам (D3.4 = 0.67), санкционные решения (D3.3 = 0.3 — Минфин США по КНДР, Австралия по северокорейским компаниям, экспортный контроль Китая против Японии), гуманитарное перемирие (D3.5 = 0.2), разрыв отношений (D3.1 = 0.2 — Австрия объявила четырёх российских дипломатов персонами нон грата, Молдова выслала дипломата РФ; кластеры A и B)."
+   "reason": "Покрыто 5/5: ультиматумы (D3.2 = 0.67), переговоры через Пакистан и посредничество США по Олешкам, а также министерская встреча США — Центральная Азия в формате C5+1 (D3.4 = 0.67, регион central-asia), санкционные решения (D3.3 = 0.3 — Минфин США по КНДР, Австралия по северокорейским компаниям, экспортный контроль Китая против Японии), гуманитарное перемирие (D3.5 = 0.2), разрыв отношений (D3.1 = 0.2 — Австрия объявила четырёх российских дипломатов персонами нон грата, Молдова выслала дипломата РФ; кластеры A и B)."
   },
   "D4": {
    "level": "high",
@@ -1236,7 +1306,7 @@
   },
   "D9": {
    "level": "medium",
-   "reason": "Покрыто 5/8 подгрупп: транспорт и страхование (D9.3 = 1), стратегическое накопление (D9.4 = 0.33), эвакуация дипломатов и семей (D9.6b = 0.5), финансовая изоляция (D9.2 = 0.33 — курс Нетаньяху на «устойчивую к санкциям» экономику и альтернативное финансирование), информационный суверенитет (D9.6a = 0.33 — подготовка ограничений соцсетей во Франции, ограничение аккаунта китайского комментатора). Медицинская подготовка, кадровые меры и снятие «тихих» мер без сигналов."
+   "reason": "Покрыто 6/8 подгрупп: транспорт и страхование (D9.3 = 1), стратегическое накопление (D9.4 = 0.33), эвакуация дипломатов и семей (D9.6b = 0.5), финансовая изоляция (D9.2 = 0.33 — курс Нетаньяху на «устойчивую к санкциям» экономику и альтернативное финансирование), информационный суверенитет (D9.6a = 0.33 — подготовка ограничений соцсетей во Франции, ограничение аккаунта китайского комментатора). Кадровые и мобилизационные меры (D9.5 = 0.33): Казахстан одобрил на Совете безопасности план военной реформы с переходом к двухэтапной модели срочной службы и пересмотром мобилизационной подготовки и резерва (KazTAG + Kursiv, кластеры A и B). Медицинская подготовка и снятие «тихих» мер без сигналов."
   }
  },
  "blindReasons": {
@@ -1248,7 +1318,6 @@
   "D5.4": "searched-none",
   "D6.4": "searched-none",
   "D9.1": "searched-none",
-  "D9.5": "searched-none",
   "D9.7": "searched-none"
  },
  "sources": [
@@ -2803,6 +2872,132 @@
    "domain": "civil.ge",
    "url": "https://civil.ge/archives/755705",
    "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "sb-kobalt-start-1019",
+   "title": {
+    "ru": "Учения ОДКБ «Кобальт-2026» начались в Таджикистане",
+    "en": "CSTO Kobalt-2026 exercises begin in Tajikistan"
+   },
+   "domain": "sb.by",
+   "url": "https://news.sb.by/articles/ucheniya-odkb-kobalt-2026-nachalis-v-tadzhikistane.html",
+   "publication_date": "2026-10-19",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "sb-kobalt-end-1023",
+   "title": {
+    "ru": "В Таджикистане завершились учения сил спецназа ОДКБ",
+    "en": "CSTO special forces exercises conclude in Tajikistan"
+   },
+   "domain": "sb.by",
+   "url": "https://www.sb.by/articles/v-tadzhikistane-zavershilis-ucheniya-sil-spetsnaza-odkb.html",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "iz-csto-central-asia-1023",
+   "title": {
+    "ru": "Союзный рефлекс: как ОДКБ готовится отражать угрозы в Центральной Азии",
+    "en": "The Allied Reflex: How the CSTO Is Preparing to Counter Threats in Central Asia"
+   },
+   "domain": "iz.ru",
+   "url": "https://iz.ru/2188766/sofia-sokolovskaia/kak-odkb-gotovitsya-otrazhat-ugrozy-v-centralnoy-azii",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "tasnim-termez-drills-1021",
+   "title": {
+    "ru": "Учения в Термезе: Россия и Узбекистан сосредоточились на обеспечении безопасности границ с Афганистаном",
+    "en": "Exercises in Termez: Russia and Uzbekistan focus on securing the Afghan border"
+   },
+   "domain": "tasnimnews.ir",
+   "url": "https://tasnimnews.ir/ru/news/2026/10/21/3728850/",
+   "publication_date": "2026-10-21",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "anewz-csto-tajikistan-1023",
+   "title": {
+    "ru": "ОДКБ поставит Таджикистану вооружение на фоне роста угроз на афганской границе",
+    "en": "Russia-led organisation to arm Tajikistan as security concerns grow along Afghan border"
+   },
+   "domain": "anewz.tv",
+   "url": "https://anewz.tv/region/central-asia/25823/russia-csto-to-arm-tajikistan-for-afghan-border-security/news",
+   "publication_date": "2026-10-23",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "gazeta-c51-1019",
+   "title": {
+    "ru": "Торговля, энергетика и безопасность: о чём заявили страны ЦА и США по итогам встречи C5+1",
+    "en": "Trade, energy and security: what Central Asian countries and the US said after the C5+1 meeting"
+   },
+   "domain": "gazeta.uz",
+   "url": "https://www.gazeta.uz/ru/2026/10/19/statement/",
+   "publication_date": "2026-10-19",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "vestiabad-c51-1020",
+   "title": {
+    "ru": "Центральная Азия и США обсудили укрепление сотрудничества в формате C5+1",
+    "en": "Central Asia and the US discuss strengthening cooperation in the C5+1 format"
+   },
+   "domain": "vestiabad.ru",
+   "url": "https://vestiabad.ru/ru/news/centralnaia-aziia-i-ssa-obsudili-ukreplenie-sotrudnicestva-v-formate-c51",
+   "publication_date": "2026-10-20",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "A-mainstream",
+   "state_affiliated": false
+  },
+  {
+   "id": "kaztag-military-reform-1021",
+   "title": {
+    "ru": "Казахстан меняет модель срочной службы — Токаев обсудил военную реформу с совбезом",
+    "en": "Kazakhstan changes its conscription model as Tokayev discusses military reform with Security Council"
+   },
+   "domain": "kaztag.kz",
+   "url": "https://kaztag.kz/ru/news/kazakhstan-menyaet-model-srochnoy-sluzhby-tokaev-obsudil-voennuyu-reformu-s-sovbezom",
+   "publication_date": "2026-10-21",
+   "accessed_date": "2026-10-25",
+   "source_type": "secondary",
+   "cluster_id": "B-state-media",
+   "state_affiliated": true
+  },
+  {
+   "id": "kursiv-military-reform-1024",
+   "title": {
+    "ru": "В Казахстане началась военная реформа: как изменятся армия и срочная служба",
+    "en": "Military reform begins in Kazakhstan: how the army and conscription will change"
+   },
+   "domain": "kz.kursiv.media",
+   "url": "https://kz.kursiv.media/2026-10-24/tsse-v-kazahstane-nachalas-voennaya-reforma-kak-izmenyatsya-armiya-i-srochnaya-sluzhb/",
+   "publication_date": "2026-10-24",
    "accessed_date": "2026-10-25",
    "source_type": "secondary",
    "cluster_id": "A-mainstream",

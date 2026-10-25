@@ -9,14 +9,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "ukraine-moldova": {
-    "index": 69,
-    "delta": 6,
+    "index": 68,
+    "delta": 5,
     "status": "very",
     "background": false
   },
   "baltic": {
-    "index": 70,
-    "delta": 3,
+    "index": 69,
+    "delta": 2,
     "status": "very",
     "background": false
   },
@@ -39,10 +39,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "central-asia": {
-    "index": 67,
-    "delta": 4,
+    "index": 65,
+    "delta": 2,
     "status": "very",
-    "background": true
+    "background": false
   },
   "east-asia": {
     "index": 64,

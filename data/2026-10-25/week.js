@@ -19,11 +19,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 1.1;
   s.precursor = {
-  "value": 50,
-  "signalingSubgroups": 5
+  "value": 47,
+  "signalingSubgroups": 6
 };
   s.coverageCriteria = {
-  "covered": 36,
+  "covered": 37,
   "total": 46,
   "uncovered": [
     "D1.3",
@@ -34,14 +34,13 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "D5.4",
     "D6.4",
     "D9.1",
-    "D9.5",
     "D9.7"
   ]
 };
   s.recalc = {
-  "at": "2026-10-25T11:50:02.216Z",
+  "at": "2026-10-25T12:14:54.070Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 69,
+  "previous": 68,
   "methodologyBefore": "3.0",
   "methodologyAfter": "3.0",
   "approvedBy": "Editor-in-Chief"
@@ -54,14 +53,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "ukraine-moldova": {
-    "index": 69,
-    "delta": 6,
+    "index": 68,
+    "delta": 5,
     "status": "very",
     "background": false
   },
   "baltic": {
-    "index": 70,
-    "delta": 3,
+    "index": 69,
+    "delta": 2,
     "status": "very",
     "background": false
   },
@@ -84,10 +83,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "central-asia": {
-    "index": 67,
-    "delta": 4,
+    "index": 65,
+    "delta": 2,
     "status": "very",
-    "background": true
+    "background": false
   },
   "east-asia": {
     "index": 64,
@@ -242,8 +241,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 69,
-  "delta": 6,
+  "index": 68,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -377,8 +376,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 70,
-  "delta": 3,
+  "index": 69,
+  "delta": 2,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -819,107 +818,135 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 67,
-  "delta": 4,
+  "index": 65,
+  "delta": 2,
   "status": "very",
-  "background": true,
-  "confidence": "low",
+  "background": false,
+  "confidence": "medium",
   "drivers": [
     {
       "observation": {
-        "ru": "Россия, Китай и Индия наращивают координацию: спикер Госдумы прибыл в Нью-Дели, Москва и Дели заявляют о цели $100 млрд торговли к 2030 году, Кремль говорит об открытости трёхсторонних переговоров с США на саммите АТЭС.",
-        "en": "Russia, China and India deepen coordination: the Duma speaker visits New Delhi, Moscow and Delhi target $100bn of trade by 2030, and the Kremlin says trilateral talks with the US are possible at APEC."
+        "ru": "В Таджикистане прошли учения спецназа ОДКБ «Кобальт-2026»; по их итогам ОДКБ заявляет о поставках вооружения Таджикистану до конца 2026 года. В Термезе Россия и Узбекистан отработали обеспечение безопасности афганской границы.",
+        "en": "CSTO special forces held the Kobalt-2026 drills in Tajikistan, with pledges to supply weapons to Dushanbe before the end of 2026, while Russia and Uzbekistan trained for Afghan border security in Termez."
       },
       "why": {
-        "ru": "Для Центральной Азии это означает сохранение транзитной зависимости от российских и китайских маршрутов.",
-        "en": "For Central Asia this means continued transit dependence on Russian and Chinese routes."
+        "ru": "Для Центральной Азии это означает рост военной активности на южном фланге и перенос учений ближе к афганской границе.",
+        "en": "For Central Asia this means growing military activity on its southern flank and exercises moving closer to the Afghan border."
       },
       "contribution": "medium",
-      "confidence": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "tass-duma-delhi-1024",
+          "id": "sb-kobalt-start-1019",
           "title": {
-            "ru": "Спикер Госдумы прибыл с рабочей поездкой в Нью-Дели",
-            "en": "Duma speaker arrives on working visit to New Delhi"
+            "ru": "Учения ОДКБ «Кобальт-2026» начались в Таджикистане",
+            "en": "CSTO Kobalt-2026 exercises begin in Tajikistan"
           },
-          "domain": "tass.com",
-          "url": "https://tass.com/politics/2207347",
-          "publication_date": "2026-10-24",
+          "domain": "sb.by",
+          "url": "https://news.sb.by/articles/ucheniya-odkb-kobalt-2026-nachalis-v-tadzhikistane.html",
+          "publication_date": "2026-10-19",
           "accessed_date": "2026-10-25",
           "source_type": "secondary",
           "cluster_id": "B-state-media",
           "state_affiliated": true
         },
         {
-          "id": "tass-india-russia-1024",
+          "id": "sb-kobalt-end-1023",
           "title": {
-            "ru": "Индия рассчитывает на дальнейшее укрепление отношений с Россией, заявил спикер Лок Сабхи",
-            "en": "India wants relations with Russia to be further strengthened — Lok Sabha speaker"
+            "ru": "В Таджикистане завершились учения сил спецназа ОДКБ",
+            "en": "CSTO special forces exercises conclude in Tajikistan"
           },
-          "domain": "tass.com",
-          "url": "https://tass.com/world/2207293",
-          "publication_date": "2026-10-24",
+          "domain": "sb.by",
+          "url": "https://www.sb.by/articles/v-tadzhikistane-zavershilis-ucheniya-sil-spetsnaza-odkb.html",
+          "publication_date": "2026-10-23",
           "accessed_date": "2026-10-25",
           "source_type": "secondary",
           "cluster_id": "B-state-media",
           "state_affiliated": true
         },
         {
-          "id": "aa-apec-talks-1021",
+          "id": "iz-csto-central-asia-1023",
           "title": {
-            "ru": "Кремль: Китай, Россия и США открыты к трёхсторонним переговорам на саммите АТЭС",
-            "en": "Kremlin says China, Russia, US open to trilateral talks at APEC summit"
+            "ru": "Союзный рефлекс: как ОДКБ готовится отражать угрозы в Центральной Азии",
+            "en": "The Allied Reflex: How the CSTO Is Preparing to Counter Threats in Central Asia"
           },
-          "domain": "aa.com.tr",
-          "url": "https://www.aa.com.tr/en/politics/kremlin-says-china-russia-us-open-to-trilateral-talks-at-apec-summit/4096229",
+          "domain": "iz.ru",
+          "url": "https://iz.ru/2188766/sofia-sokolovskaia/kak-odkb-gotovitsya-otrazhat-ugrozy-v-centralnoy-azii",
+          "publication_date": "2026-10-23",
+          "accessed_date": "2026-10-25",
+          "source_type": "secondary",
+          "cluster_id": "B-state-media",
+          "state_affiliated": true
+        },
+        {
+          "id": "tasnim-termez-drills-1021",
+          "title": {
+            "ru": "Учения в Термезе: Россия и Узбекистан сосредоточились на обеспечении безопасности границ с Афганистаном",
+            "en": "Exercises in Termez: Russia and Uzbekistan focus on securing the Afghan border"
+          },
+          "domain": "tasnimnews.ir",
+          "url": "https://tasnimnews.ir/ru/news/2026/10/21/3728850/",
           "publication_date": "2026-10-21",
           "accessed_date": "2026-10-25",
           "source_type": "secondary",
           "cluster_id": "B-state-media",
           "state_affiliated": true
+        },
+        {
+          "id": "anewz-csto-tajikistan-1023",
+          "title": {
+            "ru": "ОДКБ поставит Таджикистану вооружение на фоне роста угроз на афганской границе",
+            "en": "Russia-led organisation to arm Tajikistan as security concerns grow along Afghan border"
+          },
+          "domain": "anewz.tv",
+          "url": "https://anewz.tv/region/central-asia/25823/russia-csto-to-arm-tajikistan-for-afghan-border-security/news",
+          "publication_date": "2026-10-23",
+          "accessed_date": "2026-10-25",
+          "source_type": "secondary",
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         }
       ]
     },
     {
       "observation": {
-        "ru": "Афганско-пакистанская напряжённость остаётся источником риска: Исламабад отверг заявления Кабула о неспособности влиять на безопасность и назвал их «отвлекающими», на границе продолжаются перестрелки.",
-        "en": "Afghan-Pakistani tension remains a risk source: Islamabad rejected Kabul’s claim of lacking capacity to affect security as \"diversionary\", and exchanges of fire continue along the border."
+        "ru": "США и страны Центральной Азии провели министерскую встречу C5+1: в итоговом заявлении — торговля, энергетика, критически важные минералы и безопасность.",
+        "en": "The US and Central Asian states held a C5+1 ministerial meeting, with trade, energy, critical minerals and security in the joint statement."
       },
       "why": {
-        "ru": "Нестабильность на южном фланге Центральной Азии ограничивает коридоры и повышает риск инфильтрации боевиков.",
-        "en": "Instability on Central Asia’s southern flank constrains corridors and raises the risk of militant infiltration."
+        "ru": "Формат закрепляет внешнее участие в региональной повестке безопасности и экономики, не меняя блоковой принадлежности стран.",
+        "en": "The format anchors external involvement in the region's security and economic agenda without changing the countries' alliance ties."
       },
-      "contribution": "medium",
-      "confidence": "low",
+      "contribution": "low",
+      "confidence": "medium",
       "sources": [
         {
-          "id": "dawn-islamabad-kabul-1024",
+          "id": "gazeta-c51-1019",
           "title": {
-            "ru": "Исламабад отверг заявления Кабула о неспособности влиять на безопасность в Пакистане",
-            "en": "Islamabad rebuts Kabul's stance on 'lacking capacity' to fuel insecurity in Pakistan"
+            "ru": "Торговля, энергетика и безопасность: о чём заявили страны ЦА и США по итогам встречи C5+1",
+            "en": "Trade, energy and security: what Central Asian countries and the US said after the C5+1 meeting"
           },
-          "domain": "dawn.com",
-          "url": "https://www.dawn.com/news/2039485/islamabad-rebuts-kabuls-stance-on-lacking-capacity-to-fuel-insecurity-in-pakistan-slams-diversionary-allegations",
-          "publication_date": "2026-10-24",
+          "domain": "gazeta.uz",
+          "url": "https://www.gazeta.uz/ru/2026/10/19/statement/",
+          "publication_date": "2026-10-19",
           "accessed_date": "2026-10-25",
           "source_type": "secondary",
           "cluster_id": "A-mainstream",
           "state_affiliated": false
         },
         {
-          "id": "aa-pakistan-gwadar-1023",
+          "id": "vestiabad-c51-1020",
           "title": {
-            "ru": "Армия Пакистана: 10 боевиков убиты в Гвадаре",
-            "en": "10 terrorists, including woman, killed in Gwadar: Pakistan army"
+            "ru": "Центральная Азия и США обсудили укрепление сотрудничества в формате C5+1",
+            "en": "Central Asia and the US discuss strengthening cooperation in the C5+1 format"
           },
-          "domain": "aa.com.tr",
-          "url": "https://www.aa.com.tr/en/asia-pacific/10-terrorists-including-woman-killed-in-gwadar-pakistan-army/4098663",
-          "publication_date": "2026-10-23",
+          "domain": "vestiabad.ru",
+          "url": "https://vestiabad.ru/ru/news/centralnaia-aziia-i-ssa-obsudili-ukreplenie-sotrudnicestva-v-formate-c51",
+          "publication_date": "2026-10-20",
           "accessed_date": "2026-10-25",
           "source_type": "secondary",
-          "cluster_id": "B-state-media",
-          "state_affiliated": true
+          "cluster_id": "A-mainstream",
+          "state_affiliated": false
         }
       ]
     }
@@ -3463,6 +3490,132 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "domain": "civil.ge",
     "url": "https://civil.ge/archives/755705",
     "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "sb-kobalt-start-1019",
+    "title": {
+      "ru": "Учения ОДКБ «Кобальт-2026» начались в Таджикистане",
+      "en": "CSTO Kobalt-2026 exercises begin in Tajikistan"
+    },
+    "domain": "sb.by",
+    "url": "https://news.sb.by/articles/ucheniya-odkb-kobalt-2026-nachalis-v-tadzhikistane.html",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "sb-kobalt-end-1023",
+    "title": {
+      "ru": "В Таджикистане завершились учения сил спецназа ОДКБ",
+      "en": "CSTO special forces exercises conclude in Tajikistan"
+    },
+    "domain": "sb.by",
+    "url": "https://www.sb.by/articles/v-tadzhikistane-zavershilis-ucheniya-sil-spetsnaza-odkb.html",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "iz-csto-central-asia-1023",
+    "title": {
+      "ru": "Союзный рефлекс: как ОДКБ готовится отражать угрозы в Центральной Азии",
+      "en": "The Allied Reflex: How the CSTO Is Preparing to Counter Threats in Central Asia"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/2188766/sofia-sokolovskaia/kak-odkb-gotovitsya-otrazhat-ugrozy-v-centralnoy-azii",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "tasnim-termez-drills-1021",
+    "title": {
+      "ru": "Учения в Термезе: Россия и Узбекистан сосредоточились на обеспечении безопасности границ с Афганистаном",
+      "en": "Exercises in Termez: Russia and Uzbekistan focus on securing the Afghan border"
+    },
+    "domain": "tasnimnews.ir",
+    "url": "https://tasnimnews.ir/ru/news/2026/10/21/3728850/",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "anewz-csto-tajikistan-1023",
+    "title": {
+      "ru": "ОДКБ поставит Таджикистану вооружение на фоне роста угроз на афганской границе",
+      "en": "Russia-led organisation to arm Tajikistan as security concerns grow along Afghan border"
+    },
+    "domain": "anewz.tv",
+    "url": "https://anewz.tv/region/central-asia/25823/russia-csto-to-arm-tajikistan-for-afghan-border-security/news",
+    "publication_date": "2026-10-23",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "gazeta-c51-1019",
+    "title": {
+      "ru": "Торговля, энергетика и безопасность: о чём заявили страны ЦА и США по итогам встречи C5+1",
+      "en": "Trade, energy and security: what Central Asian countries and the US said after the C5+1 meeting"
+    },
+    "domain": "gazeta.uz",
+    "url": "https://www.gazeta.uz/ru/2026/10/19/statement/",
+    "publication_date": "2026-10-19",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "vestiabad-c51-1020",
+    "title": {
+      "ru": "Центральная Азия и США обсудили укрепление сотрудничества в формате C5+1",
+      "en": "Central Asia and the US discuss strengthening cooperation in the C5+1 format"
+    },
+    "domain": "vestiabad.ru",
+    "url": "https://vestiabad.ru/ru/news/centralnaia-aziia-i-ssa-obsudili-ukreplenie-sotrudnicestva-v-formate-c51",
+    "publication_date": "2026-10-20",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false
+  },
+  {
+    "id": "kaztag-military-reform-1021",
+    "title": {
+      "ru": "Казахстан меняет модель срочной службы — Токаев обсудил военную реформу с совбезом",
+      "en": "Kazakhstan changes its conscription model as Tokayev discusses military reform with Security Council"
+    },
+    "domain": "kaztag.kz",
+    "url": "https://kaztag.kz/ru/news/kazakhstan-menyaet-model-srochnoy-sluzhby-tokaev-obsudil-voennuyu-reformu-s-sovbezom",
+    "publication_date": "2026-10-21",
+    "accessed_date": "2026-10-25",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true
+  },
+  {
+    "id": "kursiv-military-reform-1024",
+    "title": {
+      "ru": "В Казахстане началась военная реформа: как изменятся армия и срочная служба",
+      "en": "Military reform begins in Kazakhstan: how the army and conscription will change"
+    },
+    "domain": "kz.kursiv.media",
+    "url": "https://kz.kursiv.media/2026-10-24/tsse-v-kazahstane-nachalas-voennaya-reforma-kak-izmenyatsya-armiya-i-srochnaya-sluzhb/",
+    "publication_date": "2026-10-24",
     "accessed_date": "2026-10-25",
     "source_type": "secondary",
     "cluster_id": "A-mainstream",
