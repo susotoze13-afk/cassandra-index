@@ -1,0 +1,861 @@
+{
+ "schema_version": 1,
+ "week": "2026-10-25",
+ "artifact": "quotes-proposal",
+ "generated_at": "2026-10-25T13:21:03.397Z",
+ "method": "Цитаты извлечены дословно из скачанного корпуса calc/input/drafts/texts-2026-10-25/ (quoteFound). Критерий выбран по редакционному маппингу source→criterion из calc/input/2026-10-25.json (ключевое совпадение с названием/описанием критерия, иначе — лид статьи). Jev как решатель не использован: все вызовы jev_classify/jev_check/jev_decide возвращают HTTP 451 «Typesafe is not available in your region» — это зафиксировано в отчёте прогона.",
+ "jev_available": false,
+ "unquoted": [
+  {
+   "id": "hindu-iran-cables-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "un-iaea-inspectors-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "hindu-us-ops-signs-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "npr-reinforcements-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-trump-weighs-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "mehr-irgc-komala-1025",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "aj-houthis-aden-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "un-taiz-aid-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "un-sudan-drones-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "un-car-spillover-1020",
+   "reason": "no-text"
+  },
+  {
+   "id": "icrc-ethiopia-1020",
+   "reason": "unmapped"
+  },
+  {
+   "id": "dawn-islamabad-kabul-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "hindu-iran-india-air-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-austria-expels-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-serbia-elections-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-spyware-1019",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-trump-rally-1021",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-seoul-talks-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "guardian-nk-speakers-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "scmp-kim-army-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "hindu-taiwan-militia-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "oilprice-spr-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "defnews-denmark-missiles-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "defnews-155mm-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-duma-delhi-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-india-russia-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-apec-talks-1021",
+   "reason": "unmapped"
+  },
+  {
+   "id": "euractiv-eu-defence-budget-1022",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "sb-kobalt-end-1023",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "kursiv-military-reform-1024",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "kyivpost-bundeswehr-medics-1023",
+   "reason": "no-text"
+  }
+ ],
+ "totals": {
+  "sources": 129,
+  "quoted": 98,
+  "quotes": 99,
+  "skipped": 31,
+  "validateQuotesErrors": 0
+ },
+ "skipped": [
+  {
+   "id": "hindu-iran-cables-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "un-iaea-inspectors-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "hindu-us-ops-signs-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "npr-reinforcements-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-trump-weighs-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "mehr-irgc-komala-1025",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "aj-houthis-aden-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "un-taiz-aid-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "un-sudan-drones-1023",
+   "reason": "no-text"
+  },
+  {
+   "id": "un-car-spillover-1020",
+   "reason": "no-text"
+  },
+  {
+   "id": "icrc-ethiopia-1020",
+   "reason": "unmapped"
+  },
+  {
+   "id": "dawn-islamabad-kabul-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "hindu-iran-india-air-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-austria-expels-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-serbia-elections-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-spyware-1019",
+   "reason": "unmapped"
+  },
+  {
+   "id": "balkaninsight-trump-rally-1021",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-seoul-talks-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "guardian-nk-speakers-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "scmp-kim-army-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "hindu-taiwan-militia-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "oilprice-spr-1023",
+   "reason": "unmapped"
+  },
+  {
+   "id": "defnews-denmark-missiles-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "defnews-155mm-1022",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-duma-delhi-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "tass-india-russia-1024",
+   "reason": "unmapped"
+  },
+  {
+   "id": "aa-apec-talks-1021",
+   "reason": "unmapped"
+  },
+  {
+   "id": "euractiv-eu-defence-budget-1022",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "sb-kobalt-end-1023",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "kursiv-military-reform-1024",
+   "reason": "no-sentences"
+  },
+  {
+   "id": "kyivpost-bundeswehr-medics-1023",
+   "reason": "no-text"
+  }
+ ],
+ "quotes": {
+  "aa-trump-iran-deal-1024": [
+   {
+    "criterion": "D3.2",
+    "text": "US President Donald Trump on Saturday said Washington could strike Iran as soon as “tomorrow,” or reach a “big, beautiful” agreement with Tehran, amid reports that he's weighing renewed attacks on the Islamic Republic."
+   }
+  ],
+  "aa-warships-mideast-1024": [
+   {
+    "criterion": "D1.1",
+    "text": "US President Donald Trump is weighing renewed strikes against Iran as the US sends more warships and Marines to the Middle East, while intelligence officials warn that Iranian plots against American personnel have reached “advanced stages,” the Wall Street Journal reported Saturday."
+   }
+  ],
+  "aa-israel-alert-1024": [
+   {
+    "criterion": "D1.1",
+    "text": "The broadcaster said the army raised its readiness “to the highest level” ahead of the vote, deploying troops along the borders and across several fronts, including Gaza, Lebanon, the West Bank and areas surrounding Jerusalem."
+   }
+  ],
+  "cbs-iran-war-live-1025": [
+   {
+    "criterion": "D1.1",
+    "text": "The U.S. has in recent weeks dialed back military operations in favor of economic pressure, while Iran's leaders have said peace negotiations will only succeed without pressure and threats from Washington as the conflict remains locked in a stalemate."
+   },
+   {
+    "criterion": "D7.1",
+    "text": "The warning, contained in an unclassified memo that was sent to Secretary of State Marco Rubio and obtained by CBS News, comes as the State Department adjusts staffing at diplomatic posts across the Middle East , and the U.S. military pares back its footprint in the region, amid concerns about direct threats from Iran and threats from the Iranian-backed Houthi movement in Yemen."
+   }
+  ],
+  "tass-hormuz-proposal-1024": [
+   {
+    "criterion": "D1.5",
+    "text": "Iran has proposed reopening shipping in the Strait of Hormuz to the United States in exchange for lifting the US blockade on the Islamic Republic's ports, Al Arabiya reported."
+   }
+  ],
+  "jpost-tehran-nuclear-strike-1025": [
+   {
+    "criterion": "D3.2",
+    "text": "The warnings, issued publicly and over diplomatic communications, said that Iran would attack not only American bases and warships, but also natural energy infrastructure, natural gas pipelines, airports, and other civilian targets in the Persian Gulf region."
+   }
+  ],
+  "aa-iaea-ready-1023": [
+   {
+    "criterion": "D2.5",
+    "text": "Grossi said the IAEA had been working with these countries and others to help bring the situation back to a framework in which nuclear activities could be adequately verified."
+   }
+  ],
+  "mehr-irgc-apocalyptic-1024": [
+   {
+    "criterion": "D2.1",
+    "text": "IRGC spokesman Brigadier General Hossein Mohebbi has warned that the joint aggression by the United States and Israel could have repercussions beyond Iran and decide the fate of other nations in the region."
+   }
+  ],
+  "mehr-iran-uninhabitable-1025": [
+   {
+    "criterion": "D5.1",
+    "text": "A senior Iranian lawmaker said in a Hebrew-language post that any action against Iran's security or national interests would make the occupied territories uninhabitable in under an hour."
+   }
+  ],
+  "aa-iran-response-greater-1024": [
+   {
+    "criterion": "D5.1",
+    "text": "Iran’s Islamic Revolutionary Guard Corps warned on Saturday that even limited military action against the country would draw a response “several times greater,” saying its armed forces were prepared to act, the Fars news agency reported."
+   }
+  ],
+  "mehr-nuclear-sites-1024": [
+   {
+    "criterion": "D2.2",
+    "text": "They underscored that attacks or threats against nuclear facilities violate the principles of the UN Charter, international law and the IAEA Statute, adding that such actions are “profoundly inconsistent with the objects and purposes of the NPT,” referring to the Treaty on the Non-Proliferation of Nuclear Weapons."
+   }
+  ],
+  "yonhap-guam-1023": [
+   {
+    "criterion": "D1.5",
+    "text": "\"Guam's strategic location makes it an important part of U.S. military operations throughout the region by supporting joint force operations while making air and missile defense a critical part of protecting the forces and infrastructure needed to support those missions,\" the Army told USNI News."
+   }
+  ],
+  "defnews-china-carrier-1023": [
+   {
+    "criterion": "D1.5",
+    "text": "The Chinese carrier group launched and recovered aircraft in Japan’s maritime exclusive economic zone during its deployment, said Colin Karotam, senior resident fellow with the Defence Strategy Program at the Australian Strategic Policy Institute."
+   }
+  ],
+  "defnews-space-tail-1023": [
+   {
+    "criterion": "D1.5",
+    "text": "DiNanno called the Russian satellite’s behavior “threatening,” and said the country had been “intentionally maneuvering dangerously close to a commercial satellite, behaviors consistent with on-orbit weapons operations.”"
+   }
+  ],
+  "mehr-iraq-resistance-1024": [
+   {
+    "criterion": "D7.1",
+    "text": "The Islamic Resistance in Iraq has said that the Zionist-American aggression against the Islamic Republic is a conflict between rightnewss and falsehood, declaring that they will stand with rightful Iran."
+   }
+  ],
+  "tass-komala-drone-1024": [
+   {
+    "criterion": "D7.2",
+    "text": "A camp belonging to the Iranian opposition Kurdistan Workers' Party in the Erbil Governorate in northern Iraq was attacked by a drone, Iraq's Shafaq News outlet reported, citing a source in the security services."
+   }
+  ],
+  "jpost-iraq-militia-1024": [
+   {
+    "criterion": "D7.3",
+    "text": "FRANTZMAN OCTOBER 24, 2026 22:39 Iraq believes that Israel was behind recent strikes on two sites where Iran-backed militias had stockpiled “Chinese-made shoulder-fired air defense systems” sourced from Tehran, sources told London-based Arabic international newspaper Asharq Al-Awsat on Saturday."
+   }
+  ],
+  "aa-saudi-missiles-1024": [
+   {
+    "criterion": "D7.2",
+    "text": "The Saudi-led coalition in Yemen said it intercepted and destroyed two Houthi ballistic missiles targeting the Saudi cities of Taif and Yanbu."
+   }
+  ],
+  "aa-houthis-airports-1024": [
+   {
+    "criterion": "D1.4",
+    "text": "Other operations targeted Najran airport in southern Saudi Arabia, near the Yemeni border, and the Khamis Mushait air base in the southwest, with the group claiming direct hits."
+   }
+  ],
+  "aa-gaza-ceasefire-1024": [
+   {
+    "criterion": "D1.4",
+    "text": "Palestinians, including two women and a child, were killed and eight others wounded in Israeli attacks across the Gaza Strip on Saturday, medical sources told Anadolu."
+   }
+  ],
+  "guardian-hebron-1023": [
+   {
+    "criterion": "D1.4",
+    "text": "Israel has launched a campaign of collective punishment against Palestinians in Hebron after gunmen killed two Israeli soldiers and injured three near a checkpoint outside the city."
+   }
+  ],
+  "aa-hebron-2000-1025": [
+   {
+    "criterion": "D6.2",
+    "text": "Defense chief Israel Katz told public broadcaster KAN that displaced residents would not be allowed to return until what he called “Hamas infrastructure” in the city was dismantled."
+   }
+  ],
+  "jpost-hebron-evac-1024": [
+   {
+    "criterion": "D6.2",
+    "text": "The IDF carried out multiple temporary evacuations at that time and even sent in the Palestinian Authority to fight large and organized terror groups before undertaking the mass evacuation and destroying several structures in those areas."
+   }
+  ],
+  "hindu-mali-1025": [
+   {
+    "criterion": "D1.4",
+    "text": "The attacks hit the restive west African country’s Menaka region, where gunmen reportedly rode in on motorcycles and opened fire on camps mainly housing members of the Daoussahak community."
+   }
+  ],
+  "aa-pakistan-gwadar-1023": [
+   {
+    "criterion": "D1.4",
+    "text": "The Pakistan army said Friday it killed at least 10 “terrorists,” including a woman, after they “attempted to carry out terrorist activities” in Gwadar district of southwestern Balochistan province."
+   }
+  ],
+  "aa-mecca-pact-1023": [
+   {
+    "criterion": "D7.1",
+    "text": "Pakistan has completed the ratification processes for the Mecca Joint Defense Agreement, Foreign Office spokesperson Sajjad Haider Khan told a news conference on Friday."
+   }
+  ],
+  "defnews-fr-uk-nuclear-1023": [
+   {
+    "criterion": "D2.3",
+    "text": "France’s Air and Space Force regularly holds simulated nuclear-strike exercises called Poker."
+   }
+  ],
+  "aa-merz-russia-1024": [
+   {
+    "criterion": "D5.2",
+    "text": "Merz warned that the threat extends beyond Ukraine, citing cyberattacks, sabotage and attempted attacks on critical infrastructure across Europe."
+   }
+  ],
+  "aa-moldova-expel-1024": [
+   {
+    "criterion": "D3.1",
+    "text": "“The real aim of these actions is to severely hamper the work of the Russian Embassy in Chisinau,” the ministry said, adding that Moldovan citizens were among those who “suffer most” because of limited access to consular services and other assistance from Russian diplomatic missions."
+   }
+  ],
+  "aa-turkiye-canada-defense-1022": [
+   {
+    "criterion": "D6.3",
+    "text": "Türkiye and Canada signed on Thursday three agreements on defense industry, air transport and energy cooperation in the presence of President Recep Tayyip Erdogan and Prime Minister Mark Carney."
+   }
+  ],
+  "balkaninsight-dodik-1020": [
+   {
+    "criterion": "D4.5",
+    "text": "Back in October 2025, Milorad Dodik, leader of Republika Srpska’s ruling SNSD party and former president of the Serb-led entity, met Russian Foreign Minister Sergey Lavrov in Minsk, Belarus, and spoke of the “high level of strategic cooperation” between Republika Srpska and Moscow."
+   }
+  ],
+  "yonhap-sk-nk-talks-1023": [
+   {
+    "criterion": "D3.4",
+    "text": "\"Different perceptions remain over the Military Demarcation Line (MDL),\" Deputy Defense Minister Kim Hong-cheol said in a press briefing, referring to the border separating the two Koreas."
+   }
+  ],
+  "guardian-kim-china-1024": [
+   {
+    "criterion": "D3.4",
+    "text": "He met Wang Huning, a member of the standing committee of China’s Communist party."
+   }
+  ],
+  "yonhap-us-treasury-nk-1023": [
+   {
+    "criterion": "D3.3",
+    "text": "\"The proposed regulations would strengthen the existing Outbound Investment Security Program to prevent our adversaries from using U.S. investment to develop critical technologies that threaten U.S. national security,\" Treasury Secretary Scott Bessent said in a statement."
+   }
+  ],
+  "aa-australia-sanctions-nk-1023": [
+   {
+    "criterion": "D3.3",
+    "text": "Australia has sanctioned two North Korean companies and two “financial brokers” for \"financing\" the country's \"unlawful weapons programs,\" an official statement said Friday."
+   }
+  ],
+  "yonhap-sk-drills-1023": [
+   {
+    "criterion": "D1.2",
+    "text": "23 (Yonhap) -- The Army's Ground Operations Command (GOC) has conducted an annual counterfire field training exercise (FTX) to enhance its readiness for wartime operations, the armed service said Friday."
+   }
+  ],
+  "aa-indonesia-highway-1022": [
+   {
+    "criterion": "D1.2",
+    "text": "The Indonesian Air Force (TNI AU) conducted take-off and landing exercises on a toll road in East Java to test its suitability as an alternative runway as part of an operational readiness exercise, state-run Antara news agency reported Thursday."
+   }
+  ],
+  "aa-brent-highest-1023": [
+   {
+    "criterion": "D4.6",
+    "text": "Oil prices extended their increases on Friday as fears of renewed US strikes on Iran and escalating regional tensions heightened supply concerns, pushing Brent crude to its highest level since June 2022."
+   }
+  ],
+  "aa-global-markets-1023": [
+   {
+    "criterion": "D4.6",
+    "text": "Gold dropped 2.8% to $4,024 per ounce on Thursday amid rising oil prices pressuring the precious metal by fueling inflation concerns and expectations of higher interest rates for a longer period."
+   }
+  ],
+  "oilprice-brent-high-1023": [
+   {
+    "criterion": "D4.6",
+    "text": "Iraq's Basrah Medium, for example, was recently sold at a discount of $10 per barrel to the Dubai benchmark, compared to near parity to Dubai crude a month ago, traders told Bloomberg on Friday."
+   }
+  ],
+  "oilprice-tanker-rates-1024": [
+   {
+    "criterion": "D4.3",
+    "text": "Oil tanker freight rates have surged tenfold amid the Iran war, with shipping crude from the U.S."
+   }
+  ],
+  "hindu-indonesia-gas-1024": [
+   {
+    "criterion": "D4.3",
+    "text": "“EMA understands that ​our importers will ‌pursue all relevant recourse in their contracts for the gas supply disruption,” the Energy Market Authority spokesperson said."
+   }
+  ],
+  "aa-iea-energy-crisis-1023": [
+   {
+    "criterion": "D4.3",
+    "text": "International Energy Agency Executive Director Fatih Birol said Friday he expects the energy crisis to continue into 2027, warning that the world will still be dealing with its consequences as governments seek alternative energy sources and strengthen supply security."
+   }
+  ],
+  "aa-kremlin-diesel-1023": [
+   {
+    "criterion": "D4.5",
+    "text": "Putin said Russian diesel supplies to US and global markets would benefit the world economy, while Ukrainian President Volodymyr Zelenskyy criticized the deal, warning that easing restrictions on Russian diesel exports could help finance its war effort."
+   }
+  ],
+  "hindu-canada-tariffs-1024": [
+   {
+    "criterion": "D4.5",
+    "text": "President Donald Trump’s administration lifted some tariffs on Canadian imports on Friday (October 23, 2026), two weeks ahead of midterm elections, after a vulnerable Republican candidate said she’d lobbied for the change."
+   }
+  ],
+  "defnews-italy-contracts-1023": [
+   {
+    "criterion": "D6.3",
+    "text": "The orders are for the supply of the A2CS combat vehicles and the new-generation MBT tanks and are part of Italy’s wider military modernization program, the Italian financial daily added."
+   }
+  ],
+  "guardian-telford-1022": [
+   {
+    "criterion": "D9.4",
+    "text": "Wes Streeting, defence secretary, inspects the equipment used by Rheinmetall to produce large-calibre weapons."
+   }
+  ],
+  "defnews-saudi-missiles-1023": [
+   {
+    "criterion": "D9.4",
+    "text": "A satellite image shows the solid propellant motor plant in Al Duwadimi, Saudi Arabia, on Sept."
+   }
+  ],
+  "aa-travel-advisory-1024": [
+   {
+    "criterion": "D9.6b",
+    "text": "For Saudi Arabia, the embassy warned of “an increase in potential armed attacks by the Iranian-supported Houthis and Iranian efforts to target U.S. government officials in the region.”"
+   }
+  ],
+  "tass-belgorod-1024": [
+   {
+    "criterion": "D1.4",
+    "text": "The center of Belgorod in western Russia came under a massive Ukrainian drone strike, which caused significant damage and casualties, Mayor Valentin Demidov reported."
+   }
+  ],
+  "tass-airdef-1297-1024": [
+   {
+    "criterion": "D1.4",
+    "text": "Russian air defense systems downed a SCALP air-launched cruise missile, four Neptune long-range cruise missiles, and 1,297 Ukrainian fixed-wing drones over the past 24 hours, the Russian Defense Ministry reported."
+   }
+  ],
+  "tass-omsk-drone-1024": [
+   {
+    "criterion": "D7.2",
+    "text": "An Ozon logistics center in Omsk came under a Ukrainian attack on Saturday, no one has been reported injured, according to preliminary information, the online retailer said."
+   }
+  ],
+  "aa-starshield-restored-1024": [
+   {
+    "criterion": "D7.4",
+    "text": "Ukrainian Defense Minister Yevhenii Khmara said Saturday that restrictions on Starshield connection speeds have been lifted following high-level contacts."
+   }
+  ],
+  "cbs-musk-starlink-1024": [
+   {
+    "criterion": "D7.4",
+    "text": "Elon Musk said on Saturday that his company SpaceX had throttled the Starlink satellite internet service in Ukraine, disrupting operations that the country relies on to defend itself against Russia."
+   }
+  ],
+  "tass-alyoshki-1024": [
+   {
+    "criterion": "D3.5",
+    "text": "\"[I and Ukrainian ombudsman Dmitry Lubinets] discussed earlier coordinated details [toward a humanitarian mission in Alyoshki], everything is proceeding in accordance with the arrangements that have been agreed."
+   }
+  ],
+  "aa-zelensky-oleshky-1024": [
+   {
+    "criterion": "D3.5",
+    "text": "Zelenskyy said the truce would allow the humanitarian operation to proceed, including reopening access to the city, delivering food and medicine, and enabling civilians to leave the combat zone."
+   }
+  ],
+  "cbs-melania-ceasefire-1023": [
+   {
+    "criterion": "D3.4",
+    "text": "First lady Melania Trump's office on Friday said she -- not President Trump or another top official -- has secured a temporary ceasefire between Russia and Ukraine for the Russian-occupied Ukrainian city of Oleshky for humanitarian reasons."
+   }
+  ],
+  "hindu-ceasefire-oct27-1024": [
+   {
+    "criterion": "D3.5",
+    "text": "Ukraine's top negotiator involved in a humanitarian mission led by U.S. first lady Melania Trump told The Associated Press that a local ceasefire with Russia will start Tuesday (October 27, 2026) — two days before the mission begins — and last several days."
+   }
+  ],
+  "tass-locomotives-1025": [
+   {
+    "criterion": "D9.3",
+    "text": "However, replacing the lost units with new ones will cost Kiev at least two billion dollars."
+   }
+  ],
+  "rt-israel-sanctions-economy-1025": [
+   {
+    "criterion": "D9.2",
+    "text": "Israeli Prime Minister Benjamin Netanyahu has said his country must prepare to adapt its economy to global sanctions, citing declining international support and a potential end to US financial and military aid."
+   }
+  ],
+  "jpost-bibicoin-1024": [
+   {
+    "criterion": "D9.2",
+    "text": "\"All of our money is at risk,\" the campaign video said, showing Netanyahu in his earlier Channel 10 interview saying that Israel must \"prepare for an alternative economy\" amid the myriad of international sanctions facing the country ."
+   }
+  ],
+  "aa-france-social-media-1025": [
+   {
+    "criterion": "D9.6a",
+    "text": "reportedly asked telecom operators to be prepared to suspend access to social media platforms in the event of potential violence during protests this weekend, according to media reports."
+   }
+  ],
+  "scmp-china-censorship-1024": [
+   {
+    "criterion": "D9.6a",
+    "text": "Chinese internet users on Saturday noticed that the WeChat account of Ren Zeping, known for his outspoken comments on investments and policies, had been stopped from gaining new followers and a member of his team said posting had been suspended."
+   }
+  ],
+  "radiotamazuj-darfur-mobilization-1023": [
+   {
+    "criterion": "D6.1",
+    "text": "Speaking to Radio Tamazuj, South Darfur State Governor Bashir Mursal said the committee was committed to uniting public and official efforts and mobilizing all available resources and capabilities in support of the armed forces."
+   }
+  ],
+  "cgtn-china-export-japan-1021": [
+   {
+    "criterion": "D3.3",
+    "text": "China has imposed export controls on Japan with the objective of thwarting Tokyo's remilitarization and attempts to acquire nuclear weapons, foreign ministry spokesperson Mao Ning said on Wednesday."
+   }
+  ],
+  "sputnik-iran-heu-1021": [
+   {
+    "criterion": "D2.2",
+    "text": "The Israeli and US military launched Operation Epic Fury against Iran on February 28, 2026, over its alleged development of a nuclear program."
+   }
+  ],
+  "scmp-singapore-gas-1025": [
+   {
+    "criterion": "D4.3",
+    "text": "Singapore expects all parties who have signed commercial contracts for gas supplies to “honour their commitments”, said Prime Minister Lawrence Wong on Sunday after Indonesia cut its exports."
+   }
+  ],
+  "aa-brent-gas-1023": [
+   {
+    "criterion": "D4.6",
+    "text": "European gas prices, meanwhile, extended their rally as disruptions to Gulf supplies kept the global liquefied natural gas (LNG) market tight ahead of winter."
+   }
+  ],
+  "mehr-israel-west-bank-1025": [
+   {
+    "criterion": "D6.2",
+    "text": "The Zionist regime’s Minister of War Israel Katz, announced that Israeli forces have expelled approximately 2,000 Palestinians from their homes in Hebron, located in the West Bank."
+   }
+  ],
+  "defenseone-greenland-bases-1020": [
+   {
+    "criterion": "D1.5",
+    "text": "The Trump administration announced in September that military outposts at Mestersvig and Narsarsuaq would become U.S. bases, while expanding the existing U.S. footprint at Pituffik Space Base ."
+   }
+  ],
+  "sputnik-mirovka-1022": [
+   {
+    "criterion": "D1.4",
+    "text": "On February 24, 2022 Russia launched a special military operation in Ukraine, aiming to liberate the Donbass region where the people's republics of Donetsk and Lugansk had been living under regular attacks from Kiev's forces."
+   }
+  ],
+  "aa-sudan-blue-nile-1022": [
+   {
+    "criterion": "D1.4",
+    "text": "The Sudanese army announced Thursday that it had regained control of two strategic areas in southeastern Blue Nile state and shot down a drone that it said had entered the country from Ethiopia."
+   }
+  ],
+  "kommersant-austria-expels-1023": [
+   {
+    "criterion": "D3.1",
+    "text": "Министерство иностранных дел Австрии объявило четырех живущих в Вене российских дипломатов персонами нон грата, передает Reuters."
+   }
+  ],
+  "aa-moldova-expels-diplomat-1024": [
+   {
+    "criterion": "D3.1",
+    "text": "“The real aim of these actions is to severely hamper the work of the Russian Embassy in Chisinau,” the ministry said, adding that Moldovan citizens were among those who “suffer most” because of limited access to consular services and other assistance from Russian diplomatic missions."
+   }
+  ],
+  "defensenews-france-uk-nuclear-drill-1023": [
+   {
+    "criterion": "D2.3",
+    "text": "France’s Air and Space Force regularly holds simulated nuclear-strike exercises called Poker."
+   }
+  ],
+  "govuk-uk-france-nuclear-exercise-1023": [
+   {
+    "criterion": "D2.3",
+    "text": "This exercise shows the UK’s commitment to standing united against any threat, strengthening deterrence and protecting peace and security alongside European Allies to protect national security."
+   }
+  ],
+  "mehr-ukraine-military-spending-1025": [
+   {
+    "criterion": "D4.2",
+    "text": "Ukraine’s military spending in 2027 will amount to $473 million per day if the conflict with Russia continues, according to a media estimate."
+   }
+  ],
+  "cyberscoop-gru-nato-firms-1020": [
+   {
+    "criterion": "D5.2",
+    "text": "It’s the work of the infamous group behind the attacks on Democrats during the 2016 presidential election, Symantec said."
+   }
+  ],
+  "aa-merz-russia-destabilize-1024": [
+   {
+    "criterion": "D5.2",
+    "text": "Merz warned that the threat extends beyond Ukraine, citing cyberattacks, sabotage and attempted attacks on critical infrastructure across Europe."
+   }
+  ],
+  "balkaninsight-bulgaria-drone-controversy-1023": [
+   {
+    "criterion": "D7.2",
+    "text": "Bulgaria is heading to presidential elections this Sunday and expectations are that the Ukraine-skeptic acting President Iliana Iotova will win."
+   }
+  ],
+  "aa-bulgaria-election-security-1025": [
+   {
+    "criterion": "D7.2",
+    "text": "If no candidate meets the requirements, a runoff between the two leading candidates will be held next Sunday, Nov."
+   }
+  ],
+  "danas-latvia-drone-1024": [
+   {
+    "criterion": "D1.4",
+    "text": "„Okolnosti događaja su predmet istrage, a pokrenuta je i interna provera kako bi se utvrdilo kako je došlo do incidenta i razjasnile prateće okolnosti“, navela je vojska i dodala da nema izveštaja o povređenima niti o pričinjenoj šteti."
+   }
+  ],
+  "civilge-iprm-135-1023": [
+   {
+    "criterion": "D8.3",
+    "text": "IPRM meetings have been held regularly in Ergneti, near the Tskhinvali occupation line, with the participation of representatives from Tbilisi and the Tskhinvali de facto authorities."
+   }
+  ],
+  "sb-kobalt-start-1019": [
+   {
+    "criterion": "D1.2",
+    "text": "На территории Таджикистана начались специальные учения со спецподразделениями органов внутренних дел, национальной безопасности, внутренних войск (национальной гвардии), специальных и антинаркотических служб, а также спасательных подразделений, входящих в состав формирований сил специального назначения Коллективных сил оперативного реагирования ОДКБ, под условным наименованием «Кобальт-2026»."
+   }
+  ],
+  "iz-csto-central-asia-1023": [
+   {
+    "criterion": "D1.2",
+    "text": "Вместе с тем в последние годы стороны активизировали дипломатические контакты, рассказал «Известиям» руководитель отдела Средней Азии Института стран СНГ Андрей Грозин."
+   }
+  ],
+  "tasnim-termez-drills-1021": [
+   {
+    "criterion": "D1.2",
+    "text": "Pоссия и Узбекистан начали совместные учения «Хамкорлик-2026», направленные на противодействие вооружённым группировкам вблизи границы с Афганистаном."
+   }
+  ],
+  "anewz-csto-tajikistan-1023": [
+   {
+    "criterion": "D1.2",
+    "text": "The announcement marks a new stage in a five-year programme approved by CSTO leaders in Astana in November 2024."
+   }
+  ],
+  "gazeta-c51-1019": [
+   {
+    "criterion": "D3.4",
+    "text": "Министры иностранных дел Узбекистана, Казахстана, Кыргызстана, Таджикистана и Туркменистана и госсекретарь США подписали совместное заявление по итогам министерской встречи в формате С5+1 в Самарканде 19 октября."
+   }
+  ],
+  "vestiabad-c51-1020": [
+   {
+    "criterion": "D3.4",
+    "text": "Участники также отметили значимость сотрудничества в сфере ядерной безопасности, мирного использования ядерной энергии, сохранения культурного наследия, развития образовательных и культурных обменов и туризма."
+   }
+  ],
+  "kaztag-military-reform-1021": [
+   {
+    "criterion": "D9.5",
+    "text": "Предусмотрено также развитие единой системы военно-патриотической подготовки «Жас айбын» на основе концепции «Адал азамат», расширение сети специализированных военных школ и совершенствование начальной военной подготовки», - сообщили в пресс-службе."
+   }
+  ],
+  "cbs-ukraine-drone-medevac-1020": [
+   {
+    "criterion": "D9.1",
+    "text": "Ukraine's military says it carried out a front-line medical evacuation by aerial drone -- an apparent world-first for the drone-savvy nation -- as Russia's full-scale invasion nears the five-year mark."
+   }
+  ],
+  "defensepost-drone-medevac-1021": [
+   {
+    "criterion": "D9.1",
+    "text": "Drone manufacturer Gurzuf Defence said enemy drones and landmines in the area made a conventional evacuation too dangerous, prompting the use of one of its heavy-lift hexacopters to extract an injured infantryman from Ukraine’s 30th Mechanized Brigade."
+   }
+  ],
+  "guardian-istanbul-summit-iran-1023": [
+   {
+    "criterion": "D9.7",
+    "text": "Foreign ministers at a summit of eight European and Middle Eastern countries have urged the US and Israel not to renews their attacks on Iran, warning a fresh outbreak of fighting would spread conflict and push oil prices even higher."
+   }
+  ],
+  "rg-iran-talks-impasse-1021": [
+   {
+    "criterion": "D9.7",
+    "text": "Возобновившиеся дипломатические усилия по прекращению американо-израильской войны против Ирана вновь зашли в тупик из-за ядерной программы Тегерана, которая и стала поводом для начала конфликта в феврале."
+   }
+  ],
+  "aljazeera-iran-uranium-war-odds-1021": [
+   {
+    "criterion": "D9.7",
+    "text": "Tehran had ‘nothing new’ to tell Washington after latest nuclear proposals reportedly offered by mediators."
+   }
+  ],
+  "riotimes-eu-frozen-assets-1019": [
+   {
+    "criterion": "D9.2",
+    "text": "The Union would issue debt in capital markets and lend or grant the proceeds to Ukraine, using the EU budget and member-state commitments as the credit foundation."
+   }
+  ],
+  "ht-us-alerts-flight-disruption-1019": [
+   {
+    "criterion": "D9.3",
+    "text": "The United States has issued security alerts across 12 locations in the Middle East, warning Americans of potential flight cancellations, airspace closures and travel disruptions amid a complex regional security environment."
+   }
+  ],
+  "cnn-diplomats-families-1023": [
+   {
+    "criterion": "D9.6b",
+    "text": "“Families that had barely returned to their posts and re-enrolled their children in school are being told to prepare to evacuate again without being advised as to what level of financial support they can count on,” it said in a statement Thursday."
+   }
+  ]
+ }
+}
