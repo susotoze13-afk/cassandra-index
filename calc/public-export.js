@@ -50,6 +50,7 @@ import {
   regionsDoc,
   schemaDocs,
   weekDoc,
+  countriesDoc,
 } from './public-contract.js';
 import { CHANGELOG, sortedDesc, validateChangelog } from './changelog-entries.js';
 import { readLatestWeeks } from './prepare-week.js';
@@ -470,11 +471,21 @@ export function writePublicData({
   for (const week of dataset.weeks) {
     outputs.push([path.join(publicDir, 'weeks', `${week.week}.json`), jsonText(weekDoc(week))]);
   }
+  // Страновой слой (ADR 0067): файл только у недель, чей снапшот несёт блок
+  // countries. Снапшот читается той же функцией, что и ряд — детерминизм и
+  // паритет с сайтом; недели без слоя файлов не получают.
+  for (const week of dataset.weeks) {
+    const doc = countriesDoc(week.week, loadSnapshot(week.week));
+    if (doc) {
+      outputs.push([path.join(publicDir, 'countries', `${week.week}.json`), jsonText(doc)]);
+    }
+  }
   for (const [name, schema] of Object.entries(schemaDocs())) {
     outputs.push([path.join(publicDir, 'schema', 'v1', name), jsonText(schema)]);
   }
   mkdirSync(publicDir, { recursive: true });
   mkdirSync(path.join(publicDir, 'weeks'), { recursive: true });
+  mkdirSync(path.join(publicDir, 'countries'), { recursive: true });
   mkdirSync(path.join(publicDir, 'schema', 'v1'), { recursive: true });
   for (const [file, content] of outputs) writeFileSync(file, content, 'utf8');
   return { files: outputs.map(([file]) => file) };
@@ -672,7 +683,8 @@ function main() {
       'data/public/cassandra-index.csv', 'data/public/trend.svg',
       'data/public/changelog.json', 'data/public/regions.json',
       'data/public/criteria.json', 'data/public/methodology.json',
-      'data/public/weeks/<неделя>.json', 'data/public/schema/v1/*.json',
+      'data/public/weeks/<неделя>.json', 'data/public/countries/<неделя>.json',
+      'data/public/schema/v1/*.json',
       'data/analysis.js', 'changelog.html',
     ];
     lines.push(`недель: ${dataset.weeks.length}, последняя ${last.week} — индекс ${last.index}, `

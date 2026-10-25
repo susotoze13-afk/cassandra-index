@@ -18,6 +18,7 @@ import {
 } from '../calc/contributions.js';
 import {
   criteriaDoc,
+  countriesDoc,
   methodologyDoc,
   regionsDoc,
   schemaDocs,
@@ -277,6 +278,13 @@ function validateNode(data, schema, name, schemas, at = '$') {
       for (const key of Object.keys(data)) {
         if (!(key in props)) errors.push(`${at}: лишнее поле ${key}`);
       }
+    } else if (schema.additionalProperties && typeof schema.additionalProperties === 'object') {
+      // additionalProperties как схема (динамические ключи, напр. ISO2 в rows).
+      for (const key of Object.keys(data)) {
+        if (!(key in props)) {
+          errors.push(...validateNode(data[key], schema.additionalProperties, name, schemas, `${at}.${key}`));
+        }
+      }
     }
     for (const [key, sub] of Object.entries(props)) {
       if (key in data) errors.push(...validateNode(data[key], sub, name, schemas, `${at}.${key}`));
@@ -307,6 +315,7 @@ function schemaNameFor(rel) {
   if (rel === 'index.json') return 'index.schema.json';
   if (rel === 'latest.json') return 'latest.schema.json';
   if (rel.startsWith('weeks/')) return 'week.schema.json';
+  if (rel.startsWith('countries/')) return 'countries.schema.json';
   if (rel === 'digest/index.json') return 'digest-index.schema.json';
   if (rel.startsWith('digest/')) return 'digest.schema.json';
   return `${path.posix.basename(rel, '.json')}.schema.json`;
@@ -315,6 +324,7 @@ function schemaNameFor(rel) {
 // Путь в docs/api.md: конкретные даты не перечисляются, шаблоны — да.
 function docPathFor(rel) {
   if (rel.startsWith('weeks/')) return 'weeks/<YYYY-MM-DD>.json';
+  if (rel.startsWith('countries/')) return 'countries/<YYYY-MM-DD>.json';
   if (rel.startsWith('digest/') && rel !== 'digest/index.json') return 'digest/<week>.json';
   return rel;
 }
@@ -396,10 +406,10 @@ test('сторож: каждый публичный JSON упомянут в doc
   }
 });
 
-test('schemaDocs: одиннадцать схем, по одной на каждый публичный JSON', () => {
+test('schemaDocs: двенадцать схем, по одной на каждый публичный JSON', () => {
   const names = Object.keys(schemaDocs());
-  assert.equal(names.length, 11);
-  for (const name of ['changelog', 'digest-index', 'digest', 'validation', 'forecast-ledger']) {
+  assert.equal(names.length, 12);
+  for (const name of ['changelog', 'digest-index', 'digest', 'validation', 'forecast-ledger', 'countries']) {
     assert.ok(names.includes(`${name}.schema.json`), `нет ${name}.schema.json`);
   }
 });
@@ -486,6 +496,46 @@ test('схемы: nullable-пути недели допускают null (все
   assert.notDeepEqual(
     validateNode(bad, schemas['week.schema.json'], 'week.schema.json', schemas), [],
   );
+});
+
+test('схемы: countriesDoc проходит countries.schema.json, sensitivity nullable', () => {
+  const schemas = schemaDocs();
+  const snapshot = {
+    methodology: PARAMS.methodology,
+    sensitivity: 1.1,
+    countries: {
+      total: 2,
+      published: 1,
+      rows: {
+        RU: { index: 66, delta: 3, background: false, region: 'russia-belarus', signals: 2, name: { ru: 'Россия', en: 'Russia' } },
+        FR: { index: 68, delta: 4, background: true, region: 'western-europe', signals: 0, name: { ru: 'Франция', en: 'France' } },
+      },
+    },
+  };
+  const doc = countriesDoc('2026-10-25', snapshot);
+  assert.ok(doc, 'countriesDoc должен собраться');
+  const errors = validateNode(doc, schemas['countries.schema.json'], 'countries.schema.json', schemas);
+  assert.deepEqual(errors, [], `countries.schema.json: ${errors.slice(0, 5).join('; ')}`);
+  // Nullable: sensitivity и methodology допускают null.
+  const noSens = countriesDoc('2026-10-25', { ...snapshot, sensitivity: undefined, methodology: undefined });
+  assert.equal(noSens.sensitivity, null);
+  assert.equal(noSens.methodology, null);
+  assert.deepEqual(
+    validateNode(noSens, schemas['countries.schema.json'], 'countries.schema.json', schemas), [],
+  );
+  // Негативный контроль: name в строке (поле справочника) отклоняется.
+  const withName = structuredClone(doc);
+  withName.countries.rows.RU.name = { ru: 'Россия', en: 'Russia' };
+  assert.notDeepEqual(
+    validateNode(withName, schemas['countries.schema.json'], 'countries.schema.json', schemas), [],
+  );
+  // Негативный контроль: битая строка (index вне 0..100) отклоняется.
+  const bad = structuredClone(doc);
+  bad.countries.rows.RU.index = 101;
+  assert.notDeepEqual(
+    validateNode(bad, schemas['countries.schema.json'], 'countries.schema.json', schemas), [],
+  );
+  assert.equal(countriesDoc('2026-10-18', { methodology: '3.0' }), null);
 });
 
 test('схемы: nullable-пути regions и forecast-ledger допускают null', () => {

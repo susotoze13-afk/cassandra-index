@@ -39,6 +39,7 @@ export const SCHEMA_NAMES = {
   digestWeek: 'cassandra-index-digest',
   validation: 'cassandra-index-validation',
   forecastLedger: 'cassandra-index-forecast-ledger',
+  countries: 'cassandra-index-countries',
 };
 
 // Лицензионный конверт данных (CC BY 4.0) — общий для всех файлов.
@@ -176,6 +177,53 @@ export function weekDoc(week, extra = {}) {
     },
   };
   return out;
+}
+
+// --- Страновой слой (ADR 0067) ---
+
+// Строка страны в публичном файле: без name — имена отдаёт справочник
+// (data/public/regions.json + data/geo/*), конверт файла их не дублирует.
+const COUNTRY_ROW_NOTE = 'Страновой слой наследует sensitivity недели: чувствительность '
+  + 'страновых индексов к исключению доменов/кластеров источников раскрывается '
+  + 'числом недели, отдельной метрики по странам не считается.';
+
+function countryRowOf(row) {
+  return {
+    index: row.index,
+    delta: row.delta,
+    background: row.background === true,
+    region: row.region,
+    signals: row.signals,
+  };
+}
+
+// countriesDoc(week, snapshot) — файл data/public/countries/<неделя>.json для
+// недель со страновым слоем; null без блока countries в снапшоте. Конверт — как
+// у weekDoc (schema/schema_version/site/license) + week/methodology.
+export function countriesDoc(week, snapshot) {
+  const s = snapshot && typeof snapshot === 'object' ? snapshot : {};
+  const c = s.countries;
+  if (!c || typeof c !== 'object' || Array.isArray(c) || !c.rows
+    || typeof c.rows !== 'object' || Array.isArray(c.rows)) {
+    return null;
+  }
+  const rows = {};
+  for (const [iso, row] of Object.entries(c.rows)) {
+    rows[iso] = countryRowOf(row && typeof row === 'object' ? row : {});
+  }
+  return {
+    schema: SCHEMA_NAMES.countries,
+    schema_version: PUBLIC_SCHEMA_VERSION,
+    site: SITE,
+    license: { ...PUBLIC_LICENSE },
+    week,
+    methodology: typeof s.methodology === 'string' ? s.methodology : null,
+    countries: { total: c.total, published: c.published, rows },
+    sensitivity: typeof s.sensitivity === 'number' && Number.isFinite(s.sensitivity)
+      ? s.sensitivity
+      : null,
+    note: COUNTRY_ROW_NOTE,
+  };
 }
 
 // --- JSON Schema (draft 2020-12) ---
@@ -966,6 +1014,57 @@ const FORECAST_LEDGER_SCHEMA = {
   },
 };
 
+// countries.schema.json — страновой слой недели (ADR 0067). Конверт как у
+// weekDoc (site+license). Ключи rows — динамические ISO2, поэтому без
+// additionalProperties:false на rows; name в строке нет (см. COUNTRY_ROW_NOTE).
+const COUNTRIES_SCHEMA = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://cassindex.ru/data/public/schema/v1/countries.schema.json',
+  title: 'Cassandra Index — страновой слой недели',
+  type: 'object',
+  required: [
+    'schema', 'schema_version', 'site', 'license', 'week', 'methodology',
+    'countries', 'sensitivity', 'note',
+  ],
+  additionalProperties: false,
+  properties: {
+    schema: { const: SCHEMA_NAMES.countries },
+    schema_version: { const: PUBLIC_SCHEMA_VERSION },
+    site: { const: SITE },
+    license: LICENSE_SCHEMA,
+    week: { type: 'string', pattern: DATE_RE },
+    methodology: { type: ['string', 'null'] },
+    countries: {
+      type: 'object',
+      required: ['total', 'published', 'rows'],
+      additionalProperties: false,
+      properties: {
+        total: { type: 'integer', minimum: 1 },
+        published: { type: 'integer', minimum: 0 },
+        // Ключи — ISO2 стран версии недели; число и состав фиксирует
+        // data/regions/reference.json, схеме — только форма строки.
+        rows: {
+          type: 'object',
+          additionalProperties: {
+            type: 'object',
+            required: ['index', 'delta', 'background', 'region', 'signals'],
+            additionalProperties: false,
+            properties: {
+              index: { type: 'integer', minimum: 0, maximum: 100 },
+              delta: { type: 'number' },
+              background: { type: 'boolean' },
+              region: { type: 'string' },
+              signals: { type: 'integer', minimum: 0 },
+            },
+          },
+        },
+      },
+    },
+    sensitivity: { type: ['number', 'null'] },
+    note: { type: 'string', minLength: 1 },
+  },
+};
+
 // schemaDocs() — карта «имя файла → объект схемы». Порядок фиксирован, чтобы
 // запись была детерминированной.
 export function schemaDocs() {
@@ -981,5 +1080,6 @@ export function schemaDocs() {
     'digest.schema.json': DIGEST_SCHEMA,
     'validation.schema.json': VALIDATION_SCHEMA,
     'forecast-ledger.schema.json': FORECAST_LEDGER_SCHEMA,
+    'countries.schema.json': COUNTRIES_SCHEMA,
   };
 }

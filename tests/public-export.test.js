@@ -319,11 +319,12 @@ test('writePublicData: ряд, справочники, понедельные ф
     loadSnapshot,
     entries: CHANGELOG,
   });
-  // 9 файлов ряда, зеркало analysis.js и changelog + 2 недели + 11 схем (ADR 0062).
+  // 9 файлов ряда, зеркало analysis.js и changelog + 2 недели + 12 схем
+  // (ADR 0062 + countries.schema.json странового слоя, ADR 0067).
   assert.deepEqual(first.files.map((f) => path.basename(f)).sort(), [
     '2026-10-11.json', '2026-10-18.json', 'analysis.js',
     'cassandra-index.csv', 'changelog.html', 'changelog.json',
-    'changelog.schema.json', 'criteria.json', 'criteria.schema.json',
+    'changelog.schema.json', 'countries.schema.json', 'criteria.json', 'criteria.schema.json',
     'digest-index.schema.json', 'digest.schema.json',
     'forecast-ledger.schema.json', 'index.json', 'index.schema.json', 'latest.json',
     'latest.schema.json', 'methodology.json', 'methodology.schema.json',

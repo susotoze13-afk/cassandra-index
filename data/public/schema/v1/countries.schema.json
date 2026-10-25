@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cassindex.ru/data/public/schema/v1/countries.schema.json",
+  "title": "Cassandra Index — страновой слой недели",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "site",
+    "license",
+    "week",
+    "methodology",
+    "countries",
+    "sensitivity",
+    "note"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "cassandra-index-countries"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "site": {
+      "const": "https://cassindex.ru"
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "url",
+        "attribution",
+        "note",
+        "placeholder"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "CC BY 4.0"
+        },
+        "url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/legalcode"
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placeholder": {
+          "const": false
+        }
+      }
+    },
+    "week": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "methodology": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "countries": {
+      "type": "object",
+      "required": [
+        "total",
+        "published",
+        "rows"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "published": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rows": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "index",
+              "delta",
+              "background",
+              "region",
+              "signals"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "delta": {
+                "type": "number"
+              },
+              "background": {
+                "type": "boolean"
+              },
+              "region": {
+                "type": "string"
+              },
+              "signals": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "sensitivity": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
