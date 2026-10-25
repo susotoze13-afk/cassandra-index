@@ -45,7 +45,9 @@
 7. `data/<week>/week.js` получает поле verbatim: `renderWeekCombined` конкатенирует тела
    частей, `global` идёт первым; отдельной части у слоя нет.
 8. Сайт: `data/latest.js` грузит `week.js` → `js/app.js` → `render.renderAll` →
-   `js/sections/precursor.js`.
+   `js/sections/precursor.js`. Загрузчик подключает `week.js?v=<CI_ASSET_REV>`
+   (хеш содержимого всех week.js, пересобирается записью недели через
+   `calc/asset-rev.js`) — cache-buster против `max-age=600` GitHub Pages.
 9. `precursorFacts(snapshot)` возвращает `{value, signaling, total}` только для
    `dataState === 'published'`, непустого `global` и валидной формы поля; иначе `null`.
 10. `render` пишет в `[data-section="precursor"]` и снимает/ставит `hidden` у

@@ -261,7 +261,10 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           south-asia — в 08-30/09-06/09-27/10-04; в 10-18 покрыты все 12
                           регионов — атрибуция расширена прогоном regional-source-coverage,
                           ADR 0038)
-data/latest.js            CI_WEEKS + CI_LATEST + document.write-загрузка ТОЛЬКО week.js
+data/latest.js            CI_WEEKS + CI_LATEST + CI_ASSET_REV (8 hex — хеш содержимого
+                          всех week.js, cache-buster `?v=`: Pages отдаёт статику с
+                          max-age=600; пересобирается записью недели, calc/asset-rev.js)
+                          + document.write-загрузка ТОЛЬКО week.js
                           (по одному запросу на неделю вместо 11–17 частей; 12 недель)
 data/analysis.js          ГЕНЕРИРУЕТСЯ public-export.js --write (ADR 0062): зеркало
                           развёртки для сайта, window.CI_ANALYSIS {weeks{<дата>:
@@ -853,6 +856,16 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   производная (calc.js --write пишет его после частей; `node calc/migrate-week-combined.js`
   идемпотентно пересобирает от частей), руками не править. Новая неделя = вход в
   `calc/input/` + запись через calc.js.
+- GitHub Pages отдаёт статику с `Cache-Control: max-age=600`, поэтому загрузчик
+  подключает `week.js?v=<CI_ASSET_REV>` — иначе после выката браузер до 10 минут
+  показывает старые числа (симптом: регион «Средняя Азия 67 / индекс отражает
+  глобальный фон» при уже опубликованных 65 и `background:false`). Ревизию
+  пересобирает `updateLatestRev` в `writeWeek` (calc/asset-rev.js), т.е. меняется и
+  при пересчёте уже опубликованной недели; `data/latest.js` руками не править —
+  паритет «CI_ASSET_REV = хеш всех week.js» пинит `tests/asset-rev.test.js`.
+  Сам `latest.js` тоже кэшируется на те же 10 минут — это нижняя граница
+  свежести данных, обойти её на Pages нельзя, но обновление стало атомарным:
+  после latest.js приходят сразу все недели своей ревизии.
 - Страницы грузят СОБРАННЫЕ `js/bundle.js`/`js/bundle-privacy.js`, а не ES-модули (CORS на file://).
   После правки `js/**` обязателен `node build.js` — иначе коммиченный бандл молча останется
   старым. bundle руками не править; тесты идут против исходников.

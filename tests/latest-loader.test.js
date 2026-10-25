@@ -43,8 +43,9 @@ test('загрузчик: ровно по одному document.write data/<week
   const ci = sandbox.window.CI_WEEKS;
   assert.equal(writes.length, ci.length,
     `записей ${writes.length}, недель в CI_WEEKS ${ci.length}`);
+  // ?v=<CI_ASSET_REV> — cache-buster (GitHub Pages max-age=600), см. calc/asset-rev.js
   const expected = ci.map(
-    (w) => `<script src="data/${w}/week.js"><\/script>`,
+    (w) => `<script src="data/${w}/week.js?v=${sandbox.window.CI_ASSET_REV}"><\/script>`,
   );
   assert.equal(writes.join('\n'), expected.join('\n'));
 });
