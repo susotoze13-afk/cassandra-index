@@ -287,12 +287,12 @@ test('data/public/forecast-ledger.json опубликован и несёт сх
   assert.equal(ledger.license.name, 'CC BY 4.0');
   assert.ok(ledger.entries.length >= 1);
   assert.ok(ledger.misses.length >= 1, 'журнал без промахов бессмысленен (R24.1)');
-  // Baseline — только цепочка RECALC_WEEKS: 7 записей 09-06…10-18, разрыв методик
+  // Baseline — только цепочка RECALC_WEEKS: 8 записей 09-06…10-25, разрыв методик
   // 08-23→08-30 в журнал не попадает.
   const baseline = ledger.entries.filter((e) => e.kind === 'baseline');
-  assert.equal(baseline.length, 7);
+  assert.equal(baseline.length, 8);
   assert.equal(baseline[0].week, '2026-09-06');
-  assert.equal(baseline[baseline.length - 1].week, '2026-10-18');
+  assert.equal(baseline[baseline.length - 1].week, '2026-10-25');
   assert.ok(!ledger.entries.some((e) => e.week < '2026-09-06'));
   assert.ok(!ledger.misses.some((m) => m.week === '2026-08-30'));
   assert.ok(!ledger.entries.some((e) => e.week === '2026-08-30'));

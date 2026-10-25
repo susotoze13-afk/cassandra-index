@@ -1,0 +1,78 @@
+window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
+(function () {
+  var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
+  s.regions = {
+  "russia-belarus": {
+    "index": 70,
+    "delta": 2,
+    "status": "very",
+    "background": false
+  },
+  "ukraine-moldova": {
+    "index": 69,
+    "delta": 6,
+    "status": "very",
+    "background": false
+  },
+  "baltic": {
+    "index": 73,
+    "delta": 6,
+    "status": "very",
+    "background": true
+  },
+  "balkans": {
+    "index": 73,
+    "delta": 6,
+    "status": "very",
+    "background": true
+  },
+  "eu-north-europe": {
+    "index": 71,
+    "delta": 5,
+    "status": "very",
+    "background": false
+  },
+  "south-caucasus": {
+    "index": 67,
+    "delta": 6,
+    "status": "very",
+    "background": true
+  },
+  "central-asia": {
+    "index": 69,
+    "delta": 6,
+    "status": "very",
+    "background": true
+  },
+  "east-asia": {
+    "index": 64,
+    "delta": -2,
+    "status": "very",
+    "background": false
+  },
+  "middle-east": {
+    "index": 78,
+    "delta": 9,
+    "status": "very",
+    "background": false
+  },
+  "north-america": {
+    "index": 73,
+    "delta": 7,
+    "status": "very",
+    "background": false
+  },
+  "south-asia": {
+    "index": 69,
+    "delta": 3,
+    "status": "very",
+    "background": false
+  },
+  "africa": {
+    "index": 72,
+    "delta": 6,
+    "status": "very",
+    "background": false
+  }
+};
+})();

@@ -16,7 +16,7 @@ import { trustFacts } from '../js/sections/trust.js';
 export const DEFAULT_BASE = 'https://cassindex.ru';
 // Список недель сайта — 12 (data/latest.js CI_WEEKS); расхождение = прод
 // отдаёт не то, что собрано.
-export const EXPECTED_WEEK_COUNT = 12;
+export const EXPECTED_WEEK_COUNT = 13;
 // Недели с корпусом текстов и цитатами (T02): у них цитаты обязаны быть.
 export const QUOTE_WEEKS = ['2026-09-20', '2026-09-27'];
 

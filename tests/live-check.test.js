@@ -57,11 +57,12 @@ test('live-check: локальная раздача data/ проходит пр�
   const result = await checkSite({ base: 'http://localhost:8080', fetchImpl });
 
   assert.equal(result.ok, true, formatReport(result));
-  assert.equal(EXPECTED_WEEK_COUNT, 12);
-  assert.equal(result.weeks.length, 12);
+  assert.equal(EXPECTED_WEEK_COUNT, 13);
+  assert.equal(result.weeks.length, 13);
   assert.deepEqual(result.weeks.map((r) => r.week), [
     '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30', '2026-09-06',
     '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18',
+    '2026-10-25',
   ]);
   for (const row of result.weeks) {
     assert.equal(row.contractOk, true, `${row.week}: ${row.errors.join('; ')}`);
@@ -81,7 +82,7 @@ test('live-check: локальная раздача data/ проходит пр�
 
   const report = formatReport(result);
   assert.match(report, /OK/);
-  assert.match(report, new RegExp(`недель в latest\\.js: 12`));
+  assert.match(report, new RegExp(`недель в latest\\.js: ${EXPECTED_WEEK_COUNT}`));
   assert.match(report, /2026-09-20 .*цитат/);
 });
 

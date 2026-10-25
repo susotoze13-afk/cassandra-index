@@ -45,7 +45,7 @@ export { classifyPublication, nextChainState, loadSnapshotPart, taxonomyForWeek,
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.dirname(HERE);
-export const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18'];
+export const RECALC_WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18', '2026-10-25'];
 export const PREV_WEEK = '2026-08-23'; // опубликованная демо-неделя перед цепочкой
 const RECALC_SET = new Set(RECALC_WEEKS);
 
