@@ -34,7 +34,7 @@ function cffList(text, key) {
 test('VERSION: одна строка semver без префикса v', () => {
   assert.ok(existsSync(path.join(ROOT, 'VERSION')), 'в корне нет файла VERSION');
   const raw = read('VERSION');
-  assert.equal(raw, '1.0.0\n', 'VERSION обязан быть ровно одной строкой 1.0.0 и переводом строки');
+  assert.equal(raw, '1.1.0\n', 'VERSION обязан быть ровно одной строкой 1.1.0 и переводом строки');
   assert.match(raw.trim(), /^\d+\.\d+\.\d+$/, 'VERSION не semver');
 });
 

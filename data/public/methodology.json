@@ -2,7 +2,7 @@
   "schema": "cassandra-index-methodology",
   "schema_version": 1,
   "methodology": "3.0",
-  "project_version": "1.0.0",
+  "project_version": "1.1.0",
   "criteria_count": 46,
   "drivers_count": 9,
   "weights": {

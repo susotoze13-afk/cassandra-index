@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "Если вы используете Cassandra Index, цитируйте его по этим метаданным."
 title: "Cassandra Index"
-version: "1.0.0"
-date-released: "2026-10-18"
+version: "1.1.0"
+date-released: "2026-10-25"
 url: "https://cassindex.ru"
 repository-code: "https://github.com/susotoze13-afk/cassandra-index"
 license: "CC-BY-4.0"
