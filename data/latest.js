@@ -2,7 +2,7 @@
 // дата в CI_WEEKS ниже. Код (js/) и index.html не меняются.
 window.CI_WEEKS = ["2026-08-02","2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25"];
 window.CI_LATEST = "2026-10-25";
-window.CI_ASSET_REV = "fc872a90";
+window.CI_ASSET_REV = "7b09ad4b";
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 window.CI_DATA.latest = window.CI_LATEST;
 // Синхронная подгрузка комбинированных снапшотов недель (document.write в момент

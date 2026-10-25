@@ -124,13 +124,30 @@ test('buildCountryRows: первая неделя — страна с сигна
   const ua = res.rows.UA;
   assert.equal(ua.background, false);
   assert.equal(ua.delta, ua.index - 70);
-  // Страна без сигналов — слепая ветка §7: прежнее отклонение = 0 (prev = prevGlobal).
+  // Строки есть только у заявленных оверлеем стран: незаявленная отсутствует,
+  // а не рисуется фоновой (иначе «страновой ряд» возникал бы из ниоткуда).
+  assert.equal(res.rows.FR, undefined, 'незаявленная страна в блок не входит');
+  assert.deepEqual(Object.keys(res.rows).sort(), ['RU', 'UA']);
+  // total — всё же число стран версии (знаменатель покрытия), не число строк.
+  assert.ok(res.total > Object.keys(res.rows).length);
+});
+
+test('buildCountryRows: заявленная, но без сигналов страна — слепая ветка §7 (background:true)', () => {
+  // Сигналы страны считаются только по подходящим драйверам (ADR 0022): запись,
+  // заявленная на Д2 (ядерная сфера), сигналом стране не станет.
+  const o = goodOverlay();
+  o.criteria['D2.1'] = { countries: ['FR'], basis: 'заявлена на неподходящем драйвере', sources: [ALT_URL] };
+  const input = weekInput();
+  input.criteria['D2.1'] = { covered: true, value: 1, sources: [] };
+  const prev = { global: { index: 64 }, regions: { 'eu-north-europe': { index: 68 } } };
+  const g = { index: 68, internal: 68.25, delta: 4 };
+  const res = buildCountryRows('2026-10-25', g, input, o, prev, REF, PARAMS);
   const fr = res.rows.FR;
   assert.equal(fr.background, true);
   assert.equal(fr.region, 'eu-north-europe');
-  assert.equal(fr.index, 68);
   assert.equal(fr.signals, 0);
-  assert.equal(res.total, Object.keys(res.rows).length);
+  assert.equal(typeof fr.delta, 'number', 'у слепой заявленной страны дельта прежнего отклонения');
+  assert.equal(res.published, 2, 'слепая заявленная страна published не считает');
 });
 
 test('buildCountryRows: вторая неделя — prevIndex прошлой недели страны', () => {

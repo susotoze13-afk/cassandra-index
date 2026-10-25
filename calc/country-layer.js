@@ -197,12 +197,24 @@ export function countryIndex(globalOut, unit, params) {
 // { index, delta, background, region, signals, name: { ru, en } }.
 // prevIndex страны: опубликованный индекс страны прошлой недели, иначе индекс
 // её региона прошлой недели, иначе prevGlobal (ADR 0067).
+// Строки публикуются ТОЛЬКО для стран, заявленных оверлеем (union countries[]
+// его записей): строка без сигналов — это заявленная, но слепая страна
+// (background:true, честная пометка); незаявленные страны в блок не входят
+// вовсе — отсутствие строки = «данных по стране нет», а не «индекс = фон».
+// Публикация всех ~150 стран таксономии с background:true выглядела бы как
+// страновой ряд там, где атрибуции не было, — это недопустимо (ADR 0067).
 export function buildCountryRows(week, globalOut, weekInput, overlay, prevSnapshot, ref, params) {
   const p = params || PARAMS;
   const taxonomy = taxonomyForWeek(week);
   const ids = countryIdsFor(taxonomy, ref);
   const merged = mergeCountryAttribution(weekInput, overlay);
   const signals = countrySignals(merged.criteria, ids, p, week);
+  const claimed = new Set();
+  for (const entry of Object.values(overlay.criteria || {})) {
+    if (Array.isArray(entry && entry.countries)) {
+      for (const iso of entry.countries) claimed.add(iso);
+    }
+  }
   const prevCountries = prevSnapshot && prevSnapshot.countries && prevSnapshot.countries.rows
     ? prevSnapshot.countries.rows : {};
   const prevRegions = prevSnapshot && prevSnapshot.regions ? prevSnapshot.regions : {};
@@ -211,7 +223,7 @@ export function buildCountryRows(week, globalOut, weekInput, overlay, prevSnapsh
   const geo = loadGeoCountries();
   const rows = {};
   let published = 0;
-  for (const iso of ids) {
+  for (const iso of [...claimed].sort()) {
     const region = regionOfCountry(iso, taxonomy, ref);
     const sig = signals[iso];
     const prevCountryIndex = prevCountries[iso] && typeof prevCountries[iso].index === 'number'
