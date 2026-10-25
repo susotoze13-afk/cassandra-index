@@ -72,8 +72,13 @@ node calc/coding-reliability.js template 2026-10-18 --out coding-2026-10-18.json
 
 ## 5. Как считаем
 
+Лист автора не собирается руками — он выводится из опубликованного входа той же
+нормировкой, что и движок (`engine.normalizeCriterion`, включая счётную шкалу
+`events → min(1, Σsev/capCount)`):
+
 ```
-node calc/coding-reliability.js compare coding-09-20.json author-09-20.json
+node calc/coding-reliability.js author 2026-09-20 --out author-2026-09-20.json
+node calc/coding-reliability.js compare author-2026-09-20.json coding-2026-09-20.json
 ```
 
 Отчёт содержит:

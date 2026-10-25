@@ -10,6 +10,7 @@ import {
   SHEET_VERSION,
   bandOf,
   blankSheet,
+  authorSheet,
   driverOf,
   normalizeSheet,
   kappaNominal,
@@ -178,4 +179,72 @@ test('CLI template: лист на реальный вход недели, зна
   assert.equal(Object.values(parsed.values).filter((value) => value !== null).length, 0, 'значения автора не утекают в шаблон');
   assert.ok(parsed.sources.length > 20, 'корпус источников недели нужен кодировщику');
   assert.ok(parsed.instructions.length >= 3);
+});
+
+test('blankSheet: notes — пустые строки на каждый критерий, памятка про перенос Д2', () => {
+  const criteria = [
+    { id: 'D2.1', driver: 'D2', scale: 'ordinal', dir: 'esc', name: { ru: 'Тест', en: 'Test' }, desc: { ru: 'т', en: 't' } },
+  ];
+  const blank = blankSheet('2026-10-18', criteria, [], '');
+  assert.deepEqual(blank.notes, { 'D2.1': '' });
+  assert.match(blank.instructions.join(' '), /notes/);
+  assert.match(blank.instructions.join(' '), /перенос Д2/);
+
+  const badNotes = normalizeSheet({ week: '2026-10-18', coder: 'A', values: { 'D2.1': null }, notes: { 'D2.1': 5 } });
+  assert.match(badNotes.errors.join(' '), /notes\.D2\.1/);
+  const okNotes = normalizeSheet({ week: '2026-10-18', coder: 'A', values: { 'D2.1': null }, notes: { 'D2.1': 'carryover 10-11' } });
+  assert.deepEqual(okNotes.errors, []);
+  const noNotes = normalizeSheet({ week: '2026-10-18', coder: 'A', values: { 'D2.1': null } });
+  assert.deepEqual(noNotes.errors, [], 'листы без notes (старая версия) остаются валидными');
+});
+
+test('authorSheet: значения из входа недели, слепой критерий — null', () => {
+  const criteria = [
+    { id: 'D1.1', driver: 'D1', scale: 'count', dir: 'esc', name: { ru: 'Тест', en: 'Test' }, desc: { ru: 'т', en: 't' } },
+    { id: 'D2.1', driver: 'D2', scale: 'ordinal', dir: 'esc', name: { ru: 'Тест 2', en: 'Test 2' }, desc: { ru: 'т', en: 't' } },
+    { id: 'D9.7', driver: 'D9', scale: 'ordinal', dir: 'deesc', name: { ru: 'Тест 3', en: 'Test 3' }, desc: { ru: 'т', en: 't' } },
+  ];
+  const input = {
+    criteria: {
+      'D1.1': { value: 0.6, covered: true, sources: ['src-1'] },
+      'D2.1': { value: 0, covered: true, sources: ['src-2'] },
+      'D9.7': null,
+    },
+  };
+  const authored = authorSheet('2026-10-18', criteria, input);
+  assert.equal(authored.coder, 'author');
+  assert.deepEqual(authored.values, { 'D1.1': 0.6, 'D2.1': 0, 'D9.7': null }, 'ноль — покрытое «нет сигнала», не null');
+  assert.equal(authored.sources.length, 0, 'корпус листу автора не нужен');
+  assert.throws(() => authorSheet('2026-10-18', criteria, {}), /criteria/);
+  assert.throws(() => authorSheet('2026-10-18', [], input), /список критериев/);
+
+  // Сквозное сравнение: лист автора против заполненного листа кодировщика.
+  const coderSheet = {
+    week: '2026-10-18', coder: 'Второй кодировщик',
+    values: { 'D1.1': 0.6, 'D2.1': 0, 'D9.7': null },
+    notes: { 'D1.1': '', 'D2.1': 'перенос с 10-11', 'D9.7': '' },
+  };
+  const report = reliability(authored, coderSheet);
+  assert.equal(report.ok, true);
+  assert.equal(report.coverage.kappa, 1);
+  assert.equal(report.values.kappa, 1);
+});
+
+test('CLI author: лист на реальный вход недели 2026-09-20, покрытие совпадает с входом', () => {
+  const stdout = execFileSync(process.execPath, [path.join(ROOT_DIR, 'calc', 'coding-reliability.js'), 'author', '2026-09-20'], {
+    cwd: ROOT_DIR,
+    encoding: 'utf8',
+    maxBuffer: 20 * 1024 * 1024,
+  });
+  const parsed = JSON.parse(stdout);
+  assert.equal(parsed.week, '2026-09-20');
+  assert.equal(parsed.coder, 'author');
+  assert.equal(Object.keys(parsed.values).length, 46);
+  assert.equal(Object.values(parsed.values).filter((value) => value !== null).length, 43,
+    'покрытие 09-20 = 43/46, слепые критерии остаются null');
+  for (const value of Object.values(parsed.values)) {
+    if (value !== null) {
+      assert.ok(value >= 0 && value <= 1, 'значение в диапазоне 0…1');
+    }
+  }
 });

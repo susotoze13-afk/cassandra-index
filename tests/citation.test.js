@@ -61,8 +61,8 @@ test('CITATION.cff: форма CFF 1.2.0 и паритет версии с VERSI
 
   // DOI в CITATION.cff указывает на заархивированную версию. На 2026-10-25 это архив
   // 1.0.0; после загрузки 1.1.0 в Zenodo значение заменяется (порядок — docs/peer-review/release.md).
-  assert.equal(cffField(cff, 'doi'), '10.5281/zenodo.23458011',
-    'CITATION.cff.doi должен вести на архив Zenodo (сейчас — версия 1.0.0)');
+  assert.equal(cffField(cff, 'doi'), '10.5281/zenodo.23458010',
+    'CITATION.cff.doi должен вести на архив Zenodo (концепт-DOI: всегда последняя версия)');
 
   // date-released — календарная дата релиза, а не дата недели в прозе.
   const released = cffField(cff, 'date-released');

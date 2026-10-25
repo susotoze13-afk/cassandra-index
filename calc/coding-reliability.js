@@ -5,15 +5,19 @@
 // Модуль сравнивает два независимых кодировочных листа одной недели и считает
 // согласие по покрытию (критерий покрыт / не покрыт) и по значениям (0…1).
 //
-// Два шва:
+// Три шва:
 //   blankSheet(week, criteria, sources) — лист для второго кодировщика БЕЗ значений
 //     автора и БЕЗ привязки источников к критериям (иначе это подсказка, а не
 //     независимая разметка);
+//   authorSheet(week, criteria, input) — лист автора из опубликованного входа
+//     недели (calc/input/<неделя>.json): значения критериев как есть, null у
+//     слепых; нужен второй стороной сравнения, когда лист кодировщика вернулся;
 //   reliability(sheetA, sheetB) — чистое сравнение: покрытие (номинальная κ),
 //     значения (линейно взвешенная κ), разбивка по драйверам.
 //
 // CLI:
 //   node calc/coding-reliability.js template <неделя> [--out <файл>]
+//   node calc/coding-reliability.js author <неделя> [--out <файл>]
 //   node calc/coding-reliability.js compare <a.json> <b.json>
 //
 // Диска и сети в чистых функциях нет; CLI читает вход недели только для шаблона.
@@ -22,6 +26,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CRITERIA_LIST } from '../js/criteria.js';
+import { normalizeCriterion } from './engine.js';
 
 export const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 export const SHEET_VERSION = 1;
@@ -74,7 +79,17 @@ export function normalizeSheet(sheet) {
     }
     if (value < 0 || value > 1) errors.push(`values.${id}: значение вне 0…1`);
   }
-  return { sheet: { week: sheet.week, coder: sheet.coder.trim(), values }, errors };
+  const notes = sheet.notes;
+  if (notes !== undefined) {
+    if (typeof notes !== 'object' || notes === null || Array.isArray(notes)) {
+      errors.push('notes: ожидается объект «критерий → строка»');
+    } else {
+      for (const [id, note] of Object.entries(notes)) {
+        if (typeof note !== 'string') errors.push(`notes.${id}: ожидается строка`);
+      }
+    }
+  }
+  return { sheet: { week: sheet.week, coder: sheet.coder.trim(), values, notes }, errors };
 }
 
 // Лист для второго кодировщика: определения критериев и корпус источников недели
@@ -84,8 +99,10 @@ export function blankSheet(week, criteria, sources, coder = '') {
   if (!Array.isArray(criteria) || criteria.length === 0) throw new Error('blankSheet: нужен список критериев');
   const values = {};
   const definitions = {};
+  const notes = {};
   for (const item of criteria) {
     values[item.id] = null;
+    notes[item.id] = '';
     definitions[item.id] = {
       driver: item.driver,
       scale: item.scale,
@@ -103,8 +120,10 @@ export function blankSheet(week, criteria, sources, coder = '') {
       'Покрытие не дотягивается: если источников в окне нет — null, а не оценка по памяти.',
       'Источники недели — в поле sources (это собранный корпус, привязка к критериям скрыта намеренно).',
       'Значения первого кодировщика вам не показываются до сдачи листа.',
+      'Поле notes — необязательная строка «почему» для спорного решения; перенос Д2 из прошлой недели обязан быть помечен там.',
     ],
     values,
+    notes,
     definitions,
     sources: (sources || []).map((item) => ({
       id: item.id,
@@ -116,6 +135,24 @@ export function blankSheet(week, criteria, sources, coder = '') {
       cluster_id: item.cluster_id,
     })),
   };
+}
+
+// Лист автора: значения берутся из опубликованного входа недели. Слепой критерий
+// (criteria[id] = null) остаётся null. Диска здесь нет — вход передаётся вызывающим.
+export function authorSheet(week, criteria, input, coder = 'author') {
+  if (!ISO_DATE.test(String(week))) throw new Error('authorSheet: неделя должна быть датой YYYY-MM-DD');
+  if (!Array.isArray(criteria) || criteria.length === 0) throw new Error('authorSheet: нужен список критериев');
+  if (!input || typeof input !== 'object' || typeof input.criteria !== 'object' || input.criteria === null) {
+    throw new Error('authorSheet: нужен вход недели с объектом criteria');
+  }
+  const sheet = blankSheet(week, criteria, [], coder);
+  for (const item of criteria) {
+    const entry = input.criteria[item.id];
+    // Покрытый критерий нормируется тем же швом, что и движок: value либо events
+    // (счётная шкала, value = min(1, Σsev/capCount)); слепой (null) остаётся null.
+    sheet.values[item.id] = entry ? normalizeCriterion(entry) : null;
+  }
+  return sheet;
 }
 
 function bothSheets(a, b) {
@@ -299,6 +336,22 @@ function main(argv) {
     return 0;
   }
 
+  if (command === 'author') {
+    const week = rest.find((arg) => ISO_DATE.test(arg));
+    if (!week) throw new Error('author: укажите неделю YYYY-MM-DD');
+    const input = readJson(path.join(ROOT, 'calc', 'input', `${week}.json`));
+    const sheet = authorSheet(week, CRITERIA_LIST, input);
+    const out = option('--out');
+    const text = `${JSON.stringify(sheet, null, 2)}\n`;
+    if (out) {
+      writeFileSync(out, text);
+      console.log(`лист автора: ${out} (покрыто ${Object.values(sheet.values).filter((v) => v !== null).length} из ${CRITERIA_LIST.length})`);
+    } else {
+      process.stdout.write(text);
+    }
+    return 0;
+  }
+
   if (command === 'compare') {
     const [a, b] = rest.filter((arg) => !arg.startsWith('--'));
     if (!a || !b) throw new Error('compare: нужны два файла листов');
@@ -308,6 +361,7 @@ function main(argv) {
   }
 
   console.log('node calc/coding-reliability.js template <неделя> [--out <файл>]');
+  console.log('node calc/coding-reliability.js author <неделя> [--out <файл>]');
   console.log('node calc/coding-reliability.js compare <a.json> <b.json>');
   return 1;
 }

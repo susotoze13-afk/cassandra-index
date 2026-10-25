@@ -10,7 +10,7 @@
 | Repository URL | `https://github.com/susotoze13-afk/cassandra-index` |
 | Submitting author | Mikhail Zasidkevich (единственный автор) |
 | Software version | `v1.1.0` (git-тег) |
-| Archive DOI | `10.5281/zenodo.…` — **подставить DOI версии 1.1.0 после загрузки в Zenodo** |
+| Archive DOI | `10.5281/zenodo.23458010` — концепт-DOI Zenodo (пуш тега `v1.1.0` сам пишет архив под ним; в форму можно вписать сразу, не дожидаясь индексации) |
 | Paper title | `Cassandra Index: a deterministic, dependency-free pipeline for a weekly open-data conflict-risk index` |
 | Paper file | `/paper.md` (в корне репозитория), библиография — `/paper.bib` |
 | License | Apache License 2.0 (`LICENSE`); данные — CC BY 4.0 (`LICENSE-DATA`) |

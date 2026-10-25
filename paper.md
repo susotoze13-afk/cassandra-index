@@ -94,5 +94,8 @@ published data.
 
 # Acknowledgements
 
-Data attribution: GeoNames (CC BY 4.0) for the city and country reference. The archived
-version is available at Zenodo (`10.5281/zenodo.23458011`). The project has no funding.
+Data attribution: GeoNames (CC BY 4.0) for the city and country reference. Version `v1.1.0`
+of the software described here is archived at Zenodo; the concept DOI
+`10.5281/zenodo.23458010` always resolves to the latest archived version (the version
+archived at submission time is the one named in the submission form). The project has no
+funding.
