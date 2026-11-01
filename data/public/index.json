@@ -6275,6 +6275,717 @@
           "methodology": "3.0"
         }
       ]
+    },
+    {
+      "week": "2026-11-01",
+      "published": "2026-11-01",
+      "through": "2026-11-01",
+      "methodology": "3.0",
+      "regions_taxonomy": "2.0",
+      "data_state": "published",
+      "index": 70,
+      "delta": 2,
+      "state": "very",
+      "q": 1,
+      "confidence": "full",
+      "coverage_criteria": {
+        "covered": 34,
+        "total": 46
+      },
+      "regions": [
+        {
+          "id": "russia-belarus",
+          "index": 71,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "ukraine-moldova",
+          "index": 73,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "baltic",
+          "index": 71,
+          "delta": 2,
+          "background": true
+        },
+        {
+          "id": "balkans",
+          "index": 71,
+          "delta": 2,
+          "background": false
+        },
+        {
+          "id": "eu-north-europe",
+          "index": 69,
+          "delta": 1,
+          "background": false
+        },
+        {
+          "id": "south-caucasus",
+          "index": 68,
+          "delta": 2,
+          "background": true
+        },
+        {
+          "id": "central-asia",
+          "index": 67,
+          "delta": 2,
+          "background": true
+        },
+        {
+          "id": "east-asia",
+          "index": 70,
+          "delta": 6,
+          "background": false
+        },
+        {
+          "id": "middle-east",
+          "index": 83,
+          "delta": 5,
+          "background": false
+        },
+        {
+          "id": "north-america",
+          "index": 72,
+          "delta": 0,
+          "background": false
+        },
+        {
+          "id": "south-asia",
+          "index": 69,
+          "delta": 2,
+          "background": true
+        },
+        {
+          "id": "africa",
+          "index": 71,
+          "delta": 2,
+          "background": false
+        }
+      ],
+      "precursor": {
+        "value": 44,
+        "signaling_subgroups": 5
+      },
+      "precursor_present": true,
+      "drivers": [
+        {
+          "label": {
+            "ru": "Ормуз: мины, горящие танкеры и «ответ без географических ограничений»",
+            "en": "Hormuz: limpet mines, burning tankers and a response \"without geographic limits\""
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Вашингтон и Тегеран: удар «за десять минут» и переговоры в Дохе",
+            "en": "Washington and Tehran: a strike \"in ten minutes\" and talks in Doha"
+          },
+          "contribution": "high"
+        },
+        {
+          "label": {
+            "ru": "Олешки: эвакуация завершилась, фронт — нет",
+            "en": "Oleshky: the evacuation is over, the front is not"
+          },
+          "contribution": "medium"
+        }
+      ],
+      "driver_breakdown": [
+        {
+          "id": "D1",
+          "name": {
+            "ru": "Д1. Военная активность",
+            "en": "D1. Military activity"
+          },
+          "score": 0.465,
+          "confidence": "high",
+          "weight": 0.1175,
+          "weight_effective": 0.162,
+          "covered": {
+            "criteria": 4,
+            "total": 6
+          },
+          "contribution_pp": 11.2,
+          "top_criteria": [
+            {
+              "id": "D1.4",
+              "name": {
+                "ru": "Актуальные боевые действия",
+                "en": "Active hostilities"
+              },
+              "dir": "esc",
+              "value": 0.9,
+              "contribution": 0.225,
+              "share": 0.484
+            },
+            {
+              "id": "D1.2",
+              "name": {
+                "ru": "Учения необычного масштаба",
+                "en": "Exercises of unusual scale"
+              },
+              "dir": "esc",
+              "value": 0.33,
+              "contribution": 0.083,
+              "share": 0.177
+            },
+            {
+              "id": "D1.5",
+              "name": {
+                "ru": "Развёртывание стратегических систем",
+                "en": "Deployment of strategic systems"
+              },
+              "dir": "esc",
+              "value": 0.33,
+              "contribution": 0.083,
+              "share": 0.177
+            }
+          ]
+        },
+        {
+          "id": "D2",
+          "name": {
+            "ru": "Д2. Ядерная сигнальная активность",
+            "en": "D2. Nuclear signaling activity"
+          },
+          "score": 0,
+          "confidence": "medium",
+          "weight": 0.1175,
+          "weight_effective": 0.114,
+          "covered": {
+            "criteria": 4,
+            "total": 5
+          },
+          "contribution_pp": 0,
+          "top_criteria": [
+            {
+              "id": "D2.5",
+              "name": {
+                "ru": "Отход от ядерной риторики",
+                "en": "Step back from nuclear rhetoric"
+              },
+              "dir": "deesc",
+              "value": 0.33,
+              "contribution": -0.165,
+              "share": -0.832
+            },
+            {
+              "id": "D2.3",
+              "name": {
+                "ru": "Технические ядерные сигналы",
+                "en": "Technical nuclear signals"
+              },
+              "dir": "esc",
+              "value": 0.1,
+              "contribution": 0.033,
+              "share": 0.168
+            }
+          ]
+        },
+        {
+          "id": "D3",
+          "name": {
+            "ru": "Д3. Дипломатическая эскалация и деэскалация",
+            "en": "D3. Diplomatic escalation and de-escalation"
+          },
+          "score": 0.268,
+          "confidence": "high",
+          "weight": 0.1175,
+          "weight_effective": 0.162,
+          "covered": {
+            "criteria": 4,
+            "total": 5
+          },
+          "contribution_pp": 6.4,
+          "top_criteria": [
+            {
+              "id": "D3.2",
+              "name": {
+                "ru": "Ультиматумы",
+                "en": "Ultimatums"
+              },
+              "dir": "esc",
+              "value": 0.67,
+              "contribution": 0.335,
+              "share": 0.417
+            },
+            {
+              "id": "D3.3",
+              "name": {
+                "ru": "Санкции и международно-правовые решения",
+                "en": "Sanctions and legal measures"
+              },
+              "dir": "esc",
+              "value": 0.4,
+              "contribution": 0.2,
+              "share": 0.249
+            },
+            {
+              "id": "D3.4",
+              "name": {
+                "ru": "Переговоры и посредничество",
+                "en": "Talks and mediation"
+              },
+              "dir": "deesc",
+              "value": 0.67,
+              "contribution": -0.167,
+              "share": -0.209
+            }
+          ]
+        },
+        {
+          "id": "D4",
+          "name": {
+            "ru": "Д4. Экономические индикаторы конфликта",
+            "en": "D4. Economic indicators of conflict"
+          },
+          "score": 0.525,
+          "confidence": "high",
+          "weight": 0.1175,
+          "weight_effective": 0.162,
+          "covered": {
+            "criteria": 5,
+            "total": 6
+          },
+          "contribution_pp": 12.6,
+          "top_criteria": [
+            {
+              "id": "D4.6",
+              "name": {
+                "ru": "Стресс на финансовых и сырьевых рынках",
+                "en": "Financial and commodity market stress"
+              },
+              "dir": "esc",
+              "value": 1,
+              "contribution": 0.25,
+              "share": 0.345
+            },
+            {
+              "id": "D4.3",
+              "name": {
+                "ru": "Разрыв цепочек поставок",
+                "en": "Supply chain disruption"
+              },
+              "dir": "esc",
+              "value": 0.67,
+              "contribution": 0.168,
+              "share": 0.231
+            },
+            {
+              "id": "D4.4",
+              "name": {
+                "ru": "Конфискации и блокировка торговли",
+                "en": "Asset seizures and trade blockage"
+              },
+              "dir": "esc",
+              "value": 0.5,
+              "contribution": 0.125,
+              "share": 0.172
+            }
+          ]
+        },
+        {
+          "id": "D5",
+          "name": {
+            "ru": "Д5. Информационная и киберсфера",
+            "en": "D5. Information and cyber sphere"
+          },
+          "score": 0.585,
+          "confidence": "medium",
+          "weight": 0.1175,
+          "weight_effective": 0.114,
+          "covered": {
+            "criteria": 3,
+            "total": 4
+          },
+          "contribution_pp": 9.9,
+          "top_criteria": [
+            {
+              "id": "D5.1",
+              "name": {
+                "ru": "Эскалация военной риторики",
+                "en": "Escalation of war rhetoric"
+              },
+              "dir": "esc",
+              "value": 1,
+              "contribution": 0.5,
+              "share": 0.546
+            },
+            {
+              "id": "D5.2",
+              "name": {
+                "ru": "Кибероперации",
+                "en": "Cyber operations"
+              },
+              "dir": "esc",
+              "value": 0.5,
+              "contribution": 0.25,
+              "share": 0.273
+            },
+            {
+              "id": "D5.4",
+              "name": {
+                "ru": "Снижение пропаганды",
+                "en": "Easing of propaganda"
+              },
+              "dir": "deesc",
+              "value": 0.33,
+              "contribution": -0.165,
+              "share": -0.18
+            }
+          ]
+        },
+        {
+          "id": "D6",
+          "name": {
+            "ru": "Д6. Мобилизация общества",
+            "en": "D6. Societal mobilization"
+          },
+          "score": 1,
+          "confidence": "medium",
+          "weight": 0.1175,
+          "weight_effective": 0.114,
+          "covered": {
+            "criteria": 2,
+            "total": 4
+          },
+          "contribution_pp": 16.9,
+          "top_criteria": [
+            {
+              "id": "D6.2",
+              "name": {
+                "ru": "Эвакуация населения",
+                "en": "Evacuation of population"
+              },
+              "dir": "esc",
+              "value": 1,
+              "contribution": 0.5,
+              "share": 0.5
+            },
+            {
+              "id": "D6.3",
+              "name": {
+                "ru": "Военная переориентация экономики",
+                "en": "Military reorientation of the economy"
+              },
+              "dir": "esc",
+              "value": 1,
+              "contribution": 0.5,
+              "share": 0.5
+            }
+          ]
+        },
+        {
+          "id": "D7",
+          "name": {
+            "ru": "Д7. Распространение и вовлечение третьих сторон",
+            "en": "D7. Proliferation and third-party involvement"
+          },
+          "score": 0.65,
+          "confidence": "medium",
+          "weight": 0.1175,
+          "weight_effective": 0.114,
+          "covered": {
+            "criteria": 2,
+            "total": 4
+          },
+          "contribution_pp": 10.9,
+          "top_criteria": [
+            {
+              "id": "D7.2",
+              "name": {
+                "ru": "Атаки за пределами театра",
+                "en": "Attacks beyond the theatre"
+              },
+              "dir": "esc",
+              "value": 0.7,
+              "contribution": 0.35,
+              "share": 0.538
+            },
+            {
+              "id": "D7.1",
+              "name": {
+                "ru": "Вовлечение новых государств",
+                "en": "Entry of new states"
+              },
+              "dir": "esc",
+              "value": 0.6,
+              "contribution": 0.3,
+              "share": 0.462
+            }
+          ]
+        },
+        {
+          "id": "D8",
+          "name": {
+            "ru": "Д8. Подтверждённые деэскалирующие исходы",
+            "en": "D8. Confirmed de-escalating outcomes"
+          },
+          "score": 0.165,
+          "confidence": "low",
+          "weight": 0.1175,
+          "weight_effective": null,
+          "covered": {
+            "criteria": 4,
+            "total": 4
+          },
+          "contribution_pp": -1.7,
+          "top_criteria": [
+            {
+              "id": "D8.2",
+              "name": {
+                "ru": "Мирные договорённости",
+                "en": "Peace arrangements"
+              },
+              "dir": "deesc",
+              "value": 0.33,
+              "contribution": 0.083,
+              "share": 0.5
+            },
+            {
+              "id": "D8.3",
+              "name": {
+                "ru": "Наблюдение и верификация",
+                "en": "Monitoring and verification"
+              },
+              "dir": "deesc",
+              "value": 0.33,
+              "contribution": 0.083,
+              "share": 0.5
+            }
+          ]
+        },
+        {
+          "id": "D9",
+          "name": {
+            "ru": "Д9. Косвенные индикаторы подготовки",
+            "en": "D9. Indirect preparation indicators"
+          },
+          "score": 0.443,
+          "confidence": "medium",
+          "weight": 0.06,
+          "weight_effective": 0.058,
+          "covered": {
+            "criteria": 6,
+            "total": 8
+          },
+          "contribution_pp": 3.8,
+          "top_criteria": [
+            {
+              "id": "D9.3",
+              "name": {
+                "ru": "Транспорт и страхование",
+                "en": "Transport and insurance"
+              },
+              "dir": "esc",
+              "value": 1,
+              "contribution": 0.167,
+              "share": 0.376
+            },
+            {
+              "id": "D9.6b",
+              "name": {
+                "ru": "Эвакуация элит и активов",
+                "en": "Evacuation of elites and assets"
+              },
+              "dir": "esc",
+              "value": 0.67,
+              "contribution": 0.112,
+              "share": 0.252
+            },
+            {
+              "id": "D9.1",
+              "name": {
+                "ru": "Медицинская подготовка",
+                "en": "Medical preparation"
+              },
+              "dir": "esc",
+              "value": 0.33,
+              "contribution": 0.055,
+              "share": 0.124
+            }
+          ]
+        }
+      ],
+      "waterfall": {
+        "from": {
+          "week": "2026-10-25",
+          "index": 68
+        },
+        "to": {
+          "week": "2026-11-01",
+          "index": 70
+        },
+        "steps": [
+          {
+            "driver": "D1",
+            "contribution_pp": -2.5
+          },
+          {
+            "driver": "D2",
+            "contribution_pp": -3.2
+          },
+          {
+            "driver": "D3",
+            "contribution_pp": 2.1
+          },
+          {
+            "driver": "D4",
+            "contribution_pp": 1.6
+          },
+          {
+            "driver": "D5",
+            "contribution_pp": 2.4
+          },
+          {
+            "driver": "D6",
+            "contribution_pp": 4.4
+          },
+          {
+            "driver": "D7",
+            "contribution_pp": -2.7
+          },
+          {
+            "driver": "D8",
+            "contribution_pp": 0
+          },
+          {
+            "driver": "D9",
+            "contribution_pp": 0.2
+          }
+        ],
+        "residual_pp": -0.3,
+        "residual_reason": "saturation-inertia-coverage-rounding"
+      },
+      "what_would_change": {
+        "state": "very",
+        "thresholds": {
+          "down": {
+            "state": "danger",
+            "index": 61,
+            "gap_pp": -9
+          },
+          "up": {
+            "state": "critical",
+            "index": 81,
+            "gap_pp": 11
+          }
+        },
+        "criteria": [
+          {
+            "id": "D5.1",
+            "name": {
+              "ru": "Эскалация военной риторики",
+              "en": "Escalation of war rhetoric"
+            },
+            "driver": "D5",
+            "dir": "esc",
+            "value": 1,
+            "impact_pp": -5.4,
+            "effect": "down",
+            "crosses_state": false,
+            "breaks_driver": false
+          },
+          {
+            "id": "D6.2",
+            "name": {
+              "ru": "Эвакуация населения",
+              "en": "Evacuation of population"
+            },
+            "driver": "D6",
+            "dir": "esc",
+            "value": 1,
+            "impact_pp": -5.4,
+            "effect": "down",
+            "crosses_state": false,
+            "breaks_driver": false
+          },
+          {
+            "id": "D6.3",
+            "name": {
+              "ru": "Военная переориентация экономики",
+              "en": "Military reorientation of the economy"
+            },
+            "driver": "D6",
+            "dir": "esc",
+            "value": 1,
+            "impact_pp": -5.4,
+            "effect": "down",
+            "crosses_state": false,
+            "breaks_driver": false
+          }
+        ],
+        "method": "criterion-zeroed"
+      },
+      "sources": {
+        "count": 126,
+        "clusters": 4,
+        "state_affiliated": 43
+      },
+      "trend": [
+        {
+          "date": "2026-08-16",
+          "value": 66
+        },
+        {
+          "date": "2026-08-23",
+          "value": 67
+        },
+        {
+          "date": "2026-08-30",
+          "value": 51,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-06",
+          "value": 42,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-13",
+          "value": 43,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-20",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-09-27",
+          "value": 47,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-04",
+          "value": 46,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-11",
+          "value": 56,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 64,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-10-25",
+          "value": 68,
+          "methodology": "3.0"
+        },
+        {
+          "date": "2026-11-01",
+          "value": 70,
+          "methodology": "3.0"
+        }
+      ]
     }
   ]
 }

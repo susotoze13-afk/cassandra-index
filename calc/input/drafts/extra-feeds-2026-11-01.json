@@ -1,0 +1,924 @@
+{
+ "window": {
+  "from": "2026-10-26",
+  "to": "2026-11-01"
+ },
+ "fetched_at": "2026-11-01T06:10:43.207Z",
+ "stats": [
+  "dip-eeas: HTTP 404",
+  "dip-state: ok 10/10",
+  "inf-accessnow: ok 3/15",
+  "inf-cpj: ERR fetch failed",
+  "inf-dfrlab: ok 0/10",
+  "inf-euvsdisinfo: ERR fetch failed",
+  "inf-isd: ERR fetch failed",
+  "inf-netblocks: ERR fetch failed",
+  "inf-ooni: ok 0/112",
+  "inf-roskomsvoboda: ERR fetch failed",
+  "log-armyinform: ERR fetch failed",
+  "log-breakingdefense: ok 15/15",
+  "log-defensenews: ok 10/10",
+  "log-mil-ua: ERR fetch failed",
+  "log-militaryland: ERR fetch failed",
+  "log-nato: HTTP 404",
+  "log-navalnews: ok 10/10",
+  "med-icrc: ok 2/20",
+  "med-msf: ERR fetch failed",
+  "med-who: ok 0/109",
+  "mob-belarus: ERR fetch failed",
+  "mob-istories: ERR fetch failed",
+  "mob-meduza: ERR fetch failed",
+  "mob-ovdinfo: ERR fetch failed",
+  "mob-rada: ERR fetch failed",
+  "mob-reform: ERR fetch failed",
+  "nuc-38north: ERR fetch failed",
+  "nuc-armscontrol: ERR fetch failed",
+  "nuc-bulletin: HTTP 403",
+  "nuc-csis-missile: ok 0/10",
+  "nuc-iaea: ERR fetch failed",
+  "nuc-janes: ERR fetch failed",
+  "nuc-kcna: HTTP 404",
+  "nuc-nknews: ERR The operation was aborted due to timeout",
+  "nuc-sipri: ok 0/0",
+  "osint-acled: HTTP 403",
+  "osint-bellingcat: ERR fetch failed",
+  "osint-crisisgroup: ok 0/10",
+  "osint-isw: HTTP 403",
+  "osint-longwar: ERR fetch failed",
+  "osint-twz: ok 24/33",
+  "san-consilium: ERR fetch failed",
+  "san-eu-sanctions: HTTP 404",
+  "san-gov-uk: ok 20/20",
+  "san-ofac: HTTP 404",
+  "san-treasury: HTTP 403",
+  "stock-eia: ok 2/22",
+  "stock-iea: ERR fetch failed",
+  "stock-rosrezerv: ERR fetch failed"
+ ],
+ "items": [
+  {
+   "title": "‘Open the hives’ — Why France is turning tank gunners into FPV pilots",
+   "link": "https://www.defensenews.com/global/europe/2026/10/30/open-the-hives-why-france-is-turning-tank-gunners-into-fpv-pilots/",
+   "date": "Fri, 30 Oct 2026 17:57:48 +0000",
+   "desc": "Cpl. Igor started a new job this year, swapping the sights of a 105 mm gun on the French Army's AMX 10 RC reconnaissance vehicle for first-person view goggles and a handheld controller.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "From tanks to space, Norway and Germany forge ahead with ‘Hansa’ defense pact",
+   "link": "https://www.defensenews.com/global/europe/2026/10/30/from-tanks-to-space-norway-and-germany-forge-ahead-with-hansa-defense-pact/",
+   "date": "Fri, 30 Oct 2026 15:58:31 +0000",
+   "desc": "German tank maker KNDS and Norway’s Ritek have begun producing Leopard 2A8 tanks in Norway, adding a land-based industrial foothold to a security partnership spanning submarines, missiles and military operations in Europe’s north.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "Ukraine completes work on new missile defense system, awaits European partner components",
+   "link": "https://www.defensenews.com/global/europe/2026/10/30/ukraine-completes-work-on-new-missile-defense-system-awaits-european-partner-components/",
+   "date": "Fri, 30 Oct 2026 14:56:47 +0000",
+   "desc": "Ukraine has completed its share of Freyja, the multinational antiballistic shield that Europe and Kyiv are racing to bring together.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "EOS Defense Systems Prepares to Build Slinger Counter-Drone Systems",
+   "link": "https://www.defensenews.com/video/2026/10/30/eos-defense-systems-prepares-to-build-slinger-counter-drone-systems/",
+   "date": "Fri, 30 Oct 2026 14:28:39 +0000",
+   "desc": "EOS Defense Systems discusses plans for U.S. production of its Slinger counter-drone system, AI-assisted targeting and adjustable levels of autonomy.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "Pentagon tells Europeans to cool their rhetoric on Russia, sources say",
+   "link": "https://www.defensenews.com/global/europe/2026/10/30/pentagon-tells-europeans-to-cool-their-rhetoric-on-russia-sources-say/",
+   "date": "Fri, 30 Oct 2026 10:48:59 +0000",
+   "desc": "Pentagon officials have in recent weeks asked several NATO countries to tone down their rhetoric regarding the threat posed by Russia, sources told Reuters.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "Hasty US exit from Europe could drive allies away from American arms, RAND says",
+   "link": "https://www.defensenews.com/pentagon/2026/10/29/hasty-us-exit-from-europe-could-drive-allies-away-from-american-arms-rand-says/",
+   "date": "Thu, 29 Oct 2026 22:25:13 +0000",
+   "desc": "A rapid, uncoordinated U.S. military drawdown from Europe could push key NATO allies further away from American weapons, a RAND study found.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "New tactical comms system for US ground troops aims to break network silos",
+   "link": "https://www.defensenews.com/industry/techwatch/2026/10/29/new-tactical-comms-system-for-us-ground-troops-aims-to-break-network-silos/",
+   "date": "Thu, 29 Oct 2026 19:44:45 +0000",
+   "desc": "\"We've spent the past 50 years building siloed networks, siloed applications and siloed environments to collaborate internally with our own data. We can no longer do that,\" a Pentagon official said.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "Record deployment for destroyer USS Spruance casts doubt over US Navy maintenance",
+   "link": "https://www.defensenews.com/naval/2026/10/29/record-deployment-for-destroyer-uss-spruance-casts-doubt-over-us-navy-maintenance/",
+   "date": "Thu, 29 Oct 2026 19:15:42 +0000",
+   "desc": "The Arleigh-Burke class destroyer USS Spruance has set a post-World War II record for a U.S. Navy destroyer deployment and is raising questions about the maintenance work that could follow its eventual return.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "Senior US general fired, accused of leaking classified information",
+   "link": "https://www.defensenews.com/pentagon/2026/10/29/senior-us-general-fired-accused-of-leaking-classified-information/",
+   "date": "Thu, 29 Oct 2026 18:52:30 +0000",
+   "desc": "U.S. Army Lt. Gen. Brett Sylvia, a senior military planner on the Pentagon's Joint Staff, was fired over accusations he leaked classified information to the public.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "At pivotal summit, Canadian-European security cooperation is a central focus",
+   "link": "https://www.defensenews.com/global/europe/2026/10/29/at-pivotal-summit-canadian-european-security-cooperation-is-a-central-focus/",
+   "date": "Thu, 29 Oct 2026 18:04:20 +0000",
+   "desc": "The proposed measures would advance a broader strategic partnership that calls for Canada and Europe to assume greater responsibility for shared security while reinforcing NATO.",
+   "feed_id": "log-defensenews",
+   "feed_name": "Defense News",
+   "region": null
+  },
+  {
+   "title": "US greenlights 500 Patriot missiles for Ukraine, with $2.1 billion to be paid by allies",
+   "link": "https://breakingdefense.com/2026/10/us-greenlights-500-patriot-missiles-for-ukraine-with-2-1-billion-to-be-paid-by-allies/",
+   "date": "Fri, 30 Oct 2026 20:17:22 +0000",
+   "desc": "The announcement comes amid heightened tensions between Kyiv and Washington, including purported delays in the transfer of interceptors.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Bilateral no more: PACOM officials highlight multi-national data sharing network",
+   "link": "https://breakingdefense.com/2026/10/bilateral-no-more-pacom-officials-highlight-multi-national-data-sharing-network/",
+   "date": "Fri, 30 Oct 2026 17:33:00 +0000",
+   "desc": "“For the first time, PACOM and several key allies and partners communicated, collaborated, planned, and executed with common tools, common data flows and language translation,” PACOM deputy commander Lt. Gen. George Rowell, said.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Pentagon reveals FY26 intelligence budget at $30.9 billion",
+   "link": "https://breakingdefense.com/2026/10/pentagon-reveals-fy26-intelligence-budget-at-30-9-billion/",
+   "date": "Fri, 30 Oct 2026 17:28:09 +0000",
+   "desc": "Meanwhile, the National Intelligence Program budget was revealed at $78.1 billion.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "New UK policy requires foreign defense contractors to invest locally for all £50M+ deals",
+   "link": "https://breakingdefense.com/2026/10/new-uk-policy-requires-foreign-defense-contractors-to-invest-locally-for-all-50m-deals/",
+   "date": "Fri, 30 Oct 2026 16:45:00 +0000",
+   "desc": "The new policy is due to come into effect in April 2027 and make sure that “British workers and businesses still benefit,” from contracts inked with foreign firms, according to the UK.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Navy flexes new acquisition muscles with TOTE&#8217;s $269M LSM award to Hanwha",
+   "link": "https://breakingdefense.com/2026/10/navy-flexes-new-acquisition-muscles-with-totes-269m-lsm-award-to-hanwha/",
+   "date": "Fri, 30 Oct 2026 16:16:18 +0000",
+   "desc": "The award marks the first shipyard selection from TOTE Services as the vessel construction manager of the LSM program for the Navy.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Pentagon eyes &#8216;public-private partnerships&#8217; to help fund FORTRESS America homeland base plan",
+   "link": "https://breakingdefense.com/2026/10/pentagon-eyes-public-private-partnerships-to-help-fund-fortress-america-homeland-base-plan/",
+   "date": "Fri, 30 Oct 2026 15:35:59 +0000",
+   "desc": "“The model that we&#8217;re trying to drive on is not me having to go back up on Capitol Hill with my hand out,” Assistant Secretary of Defense for Energy, Installations, and Environment Dale Marks told Breaking Defense.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Qatar’s domestic weapons, Turkey’s drone arsenal and the Mecca pact’s next test",
+   "link": "https://breakingdefense.com/2026/10/qatars-domestic-weapons-turkeys-drone-arsenal-and-the-mecca-pacts-next-test/",
+   "date": "Fri, 30 Oct 2026 14:45:56 +0000",
+   "desc": "Middle East Bureau Chief Agnes Helou breaks down efforts by Turkey and Gulf nations to bolster their defense capabilities amid ongoing regional instability.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "3 congressional races that matter for defense",
+   "link": "https://breakingdefense.com/2026/10/3-congressional-races-that-matter-for-defense/",
+   "date": "Thu, 29 Oct 2026 20:41:31 +0000",
+   "desc": "Several lawmakers with major influence over defense policy and spending are fighting for their political futures.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Canada unveils first national security strategy in more than 20 years",
+   "link": "https://breakingdefense.com/2026/10/canada-unveils-first-national-security-strategy-in-more-than-20-years/",
+   "date": "Thu, 29 Oct 2026 20:07:11 +0000",
+   "desc": "The strategy comes amid tension between Canada and its North American neighbor over tense trade negotiations.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Army’s MV-75 production award could slip due to CR, raising program costs: Textron",
+   "link": "https://breakingdefense.com/2026/10/armys-mv-75-production-award-could-slip-due-to-cr-raising-program-costs-textron/",
+   "date": "Thu, 29 Oct 2026 19:32:11 +0000",
+   "desc": "Bell Textron executives warned that a delay in the helicopter’s first low-rate production contract could increase the program’s expected financial hit to as much as $150 million.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Beyond autopilot: Understanding the five levels of battlefield drone autonomy",
+   "link": "https://breakingdefense.com/2026/10/beyond-autopilot-understanding-the-five-levels-of-battlefield-drone-autonomy/",
+   "date": "Thu, 29 Oct 2026 19:22:59 +0000",
+   "desc": "[Sponsored] By going beyond simple automation, drones can carry out tasks with minimal input from operators.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Taiwan 2027 conflict window remains valid, Army Pacific commander says",
+   "link": "https://breakingdefense.com/2026/10/taiwan-2027-conflict-window-remains-valid-army-pacific-commander-says/",
+   "date": "Thu, 29 Oct 2026 17:57:54 +0000",
+   "desc": "Army Pacific is positioning personnel and equipment across the Pacific to meet the 2027 “Davidson window” benchmark and deter a potential Chinese attack on Taiwan, Gen. Ronald Clark said.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "US, Japan reach agreements for AMRAAM assembly, SM-3 production boost: Japanese MoD",
+   "link": "https://breakingdefense.com/2026/10/us-japan-ink-agreements-for-amraam-production-sm-3-production-boost-japanese-mod/",
+   "date": "Thu, 29 Oct 2026 16:45:18 +0000",
+   "desc": "The “groundbreaking agreement” on AMRAAM production “will not only ensure the acquisition of equipment needed by both Japan and the United States, but will also strengthen Japan&#8217;s defense industry base,” said Japanese Defense Minister Shinjiro Koizumi.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Giving counter-UAS operators 75 km of advance warning throws the advantage to them",
+   "link": "https://breakingdefense.com/2026/10/giving-counter-uas-operators-75-km-of-advance-warning-throws-the-advantage-to-them/",
+   "date": "Thu, 29 Oct 2026 15:00:14 +0000",
+   "desc": "[Sponsored] SkyValor extends RF detection range, providing more time to assess and respond to drone threats.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Kaliningrad is more than the Suwałki Gap, and NATO cannot ignore it",
+   "link": "https://breakingdefense.com/2026/10/kaliningrad-is-more-than-the-suwalki-gap-and-nato-cannot-ignore-it/",
+   "date": "Thu, 29 Oct 2026 14:25:49 +0000",
+   "desc": "In an age of drones and long-range precision weapons, Kaliningrad’s location shows Europe&#8217;s security isn’t neatly divided between frontline states and everyone else.",
+   "feed_id": "log-breakingdefense",
+   "feed_name": "Breaking Defense",
+   "region": null
+  },
+  {
+   "title": "Secretary of State Marco Rubio at a Press Availability",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-of-state-marco-rubio-at-a-press-availability-2/",
+   "date": "Sat, 31 Oct 2026 21:08:19 +0000",
+   "desc": "Marco Rubio, Secretary of State Atlanta, Georgia Loews Atlanta Secretary of State Marco Rubio at a Press Availability Remarks October 31, 2026 MODERATOR: Thank you, guys. The Secretary of State of the United States, Marco Rubio. SECRETARY RUBIO: Thank you. It’s kind of strange. I think you guys know who I am. You wouldn’t be here if you didn’t know who I was. So – but thank you. Well, I want to th",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "G20 Chair’s Statement G20 Foreign Ministers’ Meeting",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/g20-chairs-statement-g20-foreign-ministers-meeting/",
+   "date": "Sat, 31 Oct 2026 18:30:15 +0000",
+   "desc": "Office of the Spokesman G20 Chair’s Statement G20 Foreign Ministers’ Meeting Media Note October 31, 2026 The G20 Foreign Ministers met in Atlanta, Georgia on October 30 and October 31, 2026, in the 250th year of the United States’ independence. The U.S. presidency has pursued taking the G20 back to basics, focusing on its core mission of discussing global economic challenges and proposing solution",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Quad Joint Press Release on Economic Prosperity and Security",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/quad-joint-press-release-on-economic-prosperity-and-security/",
+   "date": "Sat, 31 Oct 2026 18:14:27 +0000",
+   "desc": "Office of the Spokesman Quad Joint Press Release on Economic Prosperity and Security Media Note October 31, 2026 The text of the following statement was released by the Secretary of State of the United States, the Foreign Minister of Australia, the External Affairs Minister of India, and the Foreign Minister of Japan. Begin text: The Secretary of State of the United States and the Foreign Minister",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Secretary of State Marco Rubio at the G20 Foreign Ministers’ Meeting Welcome Reception",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-of-state-marco-rubio-at-the-g20-foreign-ministers-meeting-welcome-reception/",
+   "date": "Sat, 31 Oct 2026 00:01:52 +0000",
+   "desc": "Marco Rubio, Secretary of State Atlanta, Georgia Georgia Aquarium Secretary of State Marco Rubio at the G20 Foreign Ministers’ Meeting Welcome Reception Remarks October 30, 2026 SECRETARY RUBIO: Thank you. Thank you. Good evening. Well, those lights are bright. Now I can see you. Anyway. But good evening, and thank you all for coming, and welcome to Atlanta. This is what I think has been a very pr",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "United States-Japan-Republic of Korea (ROK) Trilateral Foreign Ministers’ Meeting",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/united-states-japan-republic-of-korea-rok-trilateral-foreign-ministers-meeting-2/",
+   "date": "Fri, 30 Oct 2026 23:06:55 +0000",
+   "desc": "Office of the Spokesman United States-Japan-Republic of Korea (ROK) Trilateral Foreign Ministers’ Meeting Readout October 30, 2026 Secretary of State Marco Rubio met today with Japanese Foreign Minister Motegi Toshimitsu and ROK Foreign Minister Cho Hyun on the margins of the G20 in Atlanta to review progress across the trilateral partnership that advances security and prosperity in a free and ope",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Secretary Rubio Announces U.S. Participation in World Expo 2030 in Riyadh, Saudi Arabia",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-rubio-announces-u-s-participation-in-world-expo-2030-in-riyadh-saudi-arabia/",
+   "date": "Fri, 30 Oct 2026 23:01:07 +0000",
+   "desc": "Office of the Spokesman Secretary Rubio Announces U.S. Participation in World Expo 2030 in Riyadh, Saudi Arabia Media Note October 30, 2026 Secretary of State Marco Rubio and Saudi Minister of Foreign Affairs Faisal bin Farhan signed the participation contract for Expo 2030 Riyadh today on the sidelines of the G20 Foreign Ministers’ Meeting in Atlanta, Georgia. The signing formalizes U.S. particip",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Secretary of State Marco Rubio and Saudi Foreign Minister Prince Faisal bin Farhan al Saud at an Expo 2030 Riyadh Participation Contract Signing Ceremony",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-of-state-marco-rubio-and-saudi-foreign-minister-prince-faisal-bin-farhan-al-saud-at-an-expo-2030-riyadh-participation-contract-signing-ceremony/",
+   "date": "Fri, 30 Oct 2026 22:52:07 +0000",
+   "desc": "Marco Rubio, Secretary of State Prince Faisal bin Farhan al Saud, Saudi Foreign Minister Atlanta, Georgia Loews Atlanta Secretary of State Marco Rubio and Saudi Foreign Minister Prince Faisal bin Farhan al Saud at an Expo 2030 Riyadh Participation Contract Signing Ceremony Readout October 30, 2026 SECRETARY RUBIO: Well, we’re – thank you all for covering this. We’re excited to sign this contract t",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Secretary Rubio’s Meeting with Saudi Foreign Minister Prince Faisal bin Farhan Al Saud",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-rubios-meeting-with-saudi-foreign-minister-prince-faisal-bin-farhan-al-saud-3/",
+   "date": "Fri, 30 Oct 2026 22:21:44 +0000",
+   "desc": "Office of the Spokesman Secretary Rubio’s Meeting with Saudi Foreign Minister Prince Faisal bin Farhan Al Saud Readout October 30, 2026 Secretary Rubio met today with Saudi Foreign Minister Prince Faisal bin Farhan Al Saud on the sidelines of the G-20 Ministerial in Atlanta, Georgia. They discussed bilateral cooperation on a number of regional issues, including in Iran, Sudan, and Yemen. Secretary",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Secretary Rubio’s Meeting with Turkish Foreign Minister Fidan",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/secretary-rubios-meeting-with-turkish-foreign-minister-fidan-2/",
+   "date": "Fri, 30 Oct 2026 22:15:55 +0000",
+   "desc": "Office of the Spokesman Secretary Rubio’s Meeting with Turkish Foreign Minister Fidan Readout October 30, 2026 Secretary of State Marco Rubio met today with Turkish Foreign Minister Fidan on the margins of the G20 Foreign Ministers’ Meeting. They discussed ways to advance U.S.-Turkish ties ahead of the upcoming G20 Leaders’ Summit in December. Secretary Rubio emphasized the importance of broad int",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Joint Statement from the International Contact Group for the Great Lakes Region (ICG)",
+   "link": "https://www.state.gov/releases/office-of-the-spokesman/2026/10/joint-statement-from-the-international-contact-group-for-the-great-lakes-region-icg/",
+   "date": "Fri, 30 Oct 2026 21:33:09 +0000",
+   "desc": "Office of the Spokesman Joint Statement from the International Contact Group for the Great Lakes Region (ICG) Media Note October 30, 2026 The United States, Belgium, Canada, Denmark, the European Union, France, Germany, the Netherlands, Sweden, Switzerland, and the United Kingdom, as members of the International Contact Group (ICG) for the Great Lakes region, chaired by France, issue the following",
+   "feed_id": "dip-state",
+   "feed_name": "US State Dept",
+   "region": "north-america"
+  },
+  {
+   "title": "Belgium Transfers First Tripartite Minehunter BNS Bellis to Bulgarian Navy",
+   "link": "https://www.navalnews.com/naval-news/2026/10/belgium-transfers-first-tripartite-minehunter-bns-bellis-to-bulgarian-navy/",
+   "date": "Sat, 31 Oct 2026 09:54:43 +0000",
+   "desc": "Belgium has transferred the first of four Tripartite-class minehunters, BNS Bellis, to the Bulgarian Navy to strengthen NATO security in the Black Sea. The post Belgium Transfers First Tripartite Minehunter BNS Bellis to Bulgarian Navy appeared first on Naval News .",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "Chess Dynamics Wins £3M Contract for Indonesian Bung Tomo-Class Frigates",
+   "link": "https://www.navalnews.com/naval-news/2026/10/chess-dynamics-wins-3m-contract-for-indonesian-bung-tomo-class-frigates/",
+   "date": "Sat, 31 Oct 2026 07:48:30 +0000",
+   "desc": "UK-based Chess Dynamics announced on October 28 that it had secured a contract worth around £ 3 million from Indonesian state-owned defense electronics company PT Len Industri to supply SeaEagle Fire Control Electro-Optical (FCEO) systems for two Indonesian Navy (TNI AL) Bung Tomo-class light frigates/corvettes. According to Chess Dynamics, this latest order completes the planned ... The post Ches",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "Hellenic Navy Receives Its Second FDI Frigate Built by Naval Group",
+   "link": "https://www.navalnews.com/naval-news/2026/10/hellenic-navy-receives-its-second-fdi-frigate-built-by-naval-group/",
+   "date": "Fri, 30 Oct 2026 17:40:22 +0000",
+   "desc": "The Hellenic Navy has received the second of four Defense and Intervention Frigates (FDI HN) built by Naval Group.&#160;The second frigate, Nearchos (F602), differs from the lead ship, Kimon, by featuring enhanced combat capabilities associated with the Standard 2 configuration. Naval Group press release On October 30, in Lorient, Naval Group delivered the second FDI ... The post Hellenic Navy Rec",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "Hanwha Philly Shipyard Selected to Build US Navy Medium Landing Ship (LSM)",
+   "link": "https://www.navalnews.com/naval-news/2026/10/hanwha-philly-shipyard-selected-to-build-us-navy-medium-landing-ship-lsm/",
+   "date": "Fri, 30 Oct 2026 14:16:41 +0000",
+   "desc": "TOTE Services has selected Hanwha Defense USA to build the U.S. Navy's first Medium Landing Ship (LSM) at Hanwha Philly Shipyard in a $269 million deal. The post Hanwha Philly Shipyard Selected to Build US Navy Medium Landing Ship (LSM) appeared first on Naval News .",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "KONGSBERG secures US government contract for underwater capabilities",
+   "link": "https://www.navalnews.com/naval-news/2026/10/kongsberg-secures-us-government-contract-for-underwater-capabilities/",
+   "date": "Fri, 30 Oct 2026 13:53:45 +0000",
+   "desc": "Kongsberg Gruppen ASA has been awarded a major contract modification by the Department of War Innovation Unit (DIU) for autonomous underwater capabilities. Kongsberg press release The modification to the Prototype Other Transaction Agreement, valued at USD 54 million, is primarily driven by the delivery of a broad range of autonomous underwater vehicles (AUVs), alongside associated ... The post KO",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "Four Decades of Naval Expertise, A New Global Chapter for Hanwha Ocean",
+   "link": "https://www.navalnews.com/features/2026/10/four-decades-of-naval-expertise-a-new-global-chapter-for-hanwha-ocean/",
+   "date": "Fri, 30 Oct 2026 09:33:04 +0000",
+   "desc": "Around the world, governments are reassessing fleet requirements against a more uncertain security environment. At the same time, the pressures facing naval procurement have broadened. Performance remains fundamental, but increasingly it is only part of the equation. Navies also need to know who can build at scale, who can deliver when promised, who can sustain ... The post Four Decades of Naval E",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "China Expands Construction Of Type 071 Amphibious Warfare Ships To Guangzhou",
+   "link": "https://www.navalnews.com/naval-news/2026/10/china-expands-construction-of-type-071-amphibious-warfare-ships-to-guangzhou/",
+   "date": "Fri, 30 Oct 2026 08:58:28 +0000",
+   "desc": "New satellite imagery shows two new Type 071 amphibious warfare ships for the Chinese Navy under construction at a shipyard in Guangzhou. The post China Expands Construction Of Type 071 Amphibious Warfare Ships To Guangzhou appeared first on Naval News .",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "€1.786 Billion for the EPC Programme: Now Spain Must Explain Which Corvettes the Armada Will Get",
+   "link": "https://www.navalnews.com/naval-news/2026/10/e1-786-billion-for-the-epc-programme-now-spain-must-explain-which-corvettes-the-armada-will-get/",
+   "date": "Fri, 30 Oct 2026 08:31:42 +0000",
+   "desc": "The Spanish government approved the pre-financing for Spain’s participation in the European Patrol Corvette programme to develop and build six corvettes. This is a step forward that deserves recognition, but several questions remain unanswered. By Jorge Estévez-Bujez / Defensa y Seguridad If there are decisions that allow us to look towards the future of the ... The post €1.786 Billion for the EPC",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "New Details on PT PAL’s Very Light Attack Craft (KSSR)",
+   "link": "https://www.navalnews.com/naval-news/2026/10/new-details-on-pt-pals-very-light-attack-craft-kssr/",
+   "date": "Fri, 30 Oct 2026 07:41:09 +0000",
+   "desc": "New details have emerged about Very Light Attack Craft (Kapal Serang Sangat Ringan / KSSR), developed by PT PAL Indonesia The post New Details on PT PAL’s Very Light Attack Craft (KSSR) appeared first on Naval News .",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "French Navy and DGA Evaluate Exail DriX O-16 USV in the Mediterranean",
+   "link": "https://www.navalnews.com/naval-news/2026/10/french-navy-evaluates-exail-drix-o-16-usv/",
+   "date": "Thu, 29 Oct 2026 15:26:30 +0000",
+   "desc": "The French Navy and DGA are conducting extensive at-sea evaluations of the Exail DriX O-16 USV in the Mediterranean for ASW and maritime surveillance missions. The post French Navy and DGA Evaluate Exail DriX O-16 USV in the Mediterranean appeared first on Naval News .",
+   "feed_id": "log-navalnews",
+   "feed_name": "Naval News",
+   "region": null
+  },
+  {
+   "title": "We urge those who did not support the US’ resolution to seek to find a solution on the basis of that draft: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/we-urge-those-who-did-not-support-the-us-resolution-to-seek-to-find-a-solution-on-the-basis-of-that-draft-uk-statement-at-the-un-security-council",
+   "date": "2026-10-30T20:57:58+00:00",
+   "desc": "Explanation of Vote by Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Western Sahara.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Russia’s decision to veto this draft resolution risks setting back progress on the political process for the Western Sahara: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/russias-decision-to-veto-this-draft-resolution-risks-setting-back-progress-on-the-political-process-for-the-western-sahara-uk-statement-at-the-un-secu",
+   "date": "2026-10-30T20:56:00+00:00",
+   "desc": "Explanation of Vote by Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Western Sahara.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "This mandate will strengthen UNSMIL’s ability to advance a Libyan-led and Libyan-owned political process: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/this-mandate-will-strengthen-unsmils-ability-to-advance-a-libyan-led-and-libyan-owned-political-process-uk-statement-at-the-un-security-council",
+   "date": "2026-10-30T19:26:00+00:00",
+   "desc": "Explanation of Vote by Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Libya.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Minister McNeill speech: From Hunger Hotspots to political action",
+   "link": "https://www.gov.uk/government/speeches/minister-mcneill-speech-from-hunger-hotspots-to-political-action",
+   "date": "2026-10-30T16:48:12+00:00",
+   "desc": "From Hunger Hotspots to political action: What should the UK do when a hunger crisis is coming? Speech from Development Minister, Kirsty McNeill, on 28 October.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "We support Bosnia and Herzegovina's Euro-Atlantic ambitions, as reflected in the will of the majority of her citizens: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/we-support-bosnia-and-herzegovinas-euro-atlantic-ambitions-as-reflected-in-the-will-of-the-majority-of-her-citizens-uk-statement-at-the-un-security-co",
+   "date": "2026-10-30T15:56:54+00:00",
+   "desc": "Statement by Ambassador Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Bosnia and Herzegovina.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "The Peace Agreement remains central to tackling the factors that sustain conflict in Colombia: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/the-peace-agreement-remains-central-to-tackling-the-factors-that-sustain-conflict-in-colombia-uk-statement-at-the-un-security-council",
+   "date": "2026-10-30T15:45:47+00:00",
+   "desc": "Explanation of Vote by Ambassador Sarah MacIntosh, UK Permanent Representative to the UN, following the UN Security Council vote on Colombia.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Berlin Process Leaders’ Summit 2026: UK statement to the OSCE",
+   "link": "https://www.gov.uk/government/speeches/berlin-process-leaders-summit-2026-uk-statement-to-the-osce",
+   "date": "2026-10-29T16:20:57+00:00",
+   "desc": "Ambassador Holland congratulates Montenegro on a successful Berlin Process Summit, and welcomes the practical progress the Berlin Process is delivering on integration, resilience and reconciliation in the Western Balkans.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Professor Akande brings the independence, legal rigour, judgement and breadth of perspective that the Court needs: UK National Statement at the UN General Assembly",
+   "link": "https://www.gov.uk/government/speeches/professor-akande-brings-the-independence-legal-rigour-judgement-and-breadth-of-perspective-that-the-court-needs-uk-national-statement-at-the-un-genera",
+   "date": "2026-10-29T16:14:00+00:00",
+   "desc": "Statement by Rt Hon Alex Norris MP, Lord Chancellor and Secretary of State for Justice, on the presentation of the Annual Report of the International Court of Justice.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "The UK is ready to work across the wider UN membership to ensure emerging technologies help deliver safer seas: UK Statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/the-uk-is-ready-to-work-across-the-wider-un-membership-to-ensure-emerging-technologies-help-deliver-safer-seas-uk-statement-at-the-un-security-council",
+   "date": "2026-10-29T15:28:29+00:00",
+   "desc": "Statement by Chris Elmore MP, Parliamentary Under-Secretary of State, Foreign Commonwealth &amp; Development Office at the UN Security Council Meeting on Maritime Security",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Russia’s justifications for its war do not withstand scrutiny: UK statement to the OSCE",
+   "link": "https://www.gov.uk/government/speeches/russias-justifications-for-its-war-do-not-withstand-scrutiny-uk-statement-to-the-osce",
+   "date": "2026-10-29T13:21:38+00:00",
+   "desc": "The UK challenged Russia’s shifting justifications for its war of aggression against Ukraine, calling on Russia to explain how its use of force and attempts to alter Ukraine’s borders are compatible with the principles of th…",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Defending ODIHR’s independence and the OSCE human dimension: UK statement to the OSCE, October 2026",
+   "link": "https://www.gov.uk/government/speeches/defending-odihrs-independence-and-the-osce-human-dimension-uk-statement-to-the-osce-october-2026",
+   "date": "2026-10-29T12:53:59+00:00",
+   "desc": "Ambassador Neil Holland, reaffirmed the UK's unwavering political and financial support for ODIHR and called on participating States to protect its independence. The UK urges stronger action on human rights violations, d…",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Russia's war against Ukraine is costing more and achieving less: UK statement to the FSC",
+   "link": "https://www.gov.uk/government/speeches/russias-war-against-ukraine-is-costing-more-and-achieving-less-uk-statement-to-the-fsc",
+   "date": "2026-10-28T13:28:52+00:00",
+   "desc": "Politico-Military Counsellor Arron Newble says Russia is spending a growing share of its budget on the war for limited gains, and asks how this fits its Code of Conduct commitments.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Change of His Majesty’s Ambassador to Seoul",
+   "link": "https://www.gov.uk/government/news/change-of-his-majestys-ambassador-to-seoul",
+   "date": "2026-10-28T11:16:10+00:00",
+   "desc": "Dr Rachel Emma-Jane Fentem CMG has been appointed His Majesty’s Ambassador to the Republic of Korea in succession to Mr Colin James Crooks LVO, who will be leaving the Diplomatic Service.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Peace cannot be sustainable while half the population is shut out of shaping it: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/peace-cannot-be-sustainable-while-half-the-population-is-shut-out-of-shaping-it-uk-statement-at-the-un-security-council",
+   "date": "2026-10-27T20:32:00+00:00",
+   "desc": "Statement by Ambassador Kate Foster, UK Deputy Permanent Representative to the UN, at the UN Security Council meeting on Women, Peace and Security.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Iran must allow the return of IAEA inspectors to all nuclear sites: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/iran-must-allow-the-return-of-iaea-inspectors-to-all-nuclear-sites",
+   "date": "2026-10-27T15:51:00+00:00",
+   "desc": "Statement by Ambassador Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Iran.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "UK Human Rights Ambassador visits Tanzania ahead of UN review",
+   "link": "https://www.gov.uk/government/news/uk-human-rights-ambassador-visits-tanzania-ahead-of-un-review",
+   "date": "2026-10-27T12:15:00+00:00",
+   "desc": "The UK’s Ambassador for Human Rights, Eleanor Sanders, visits Tanzania ahead of the UN’s forthcoming review of the status of Tanzania’s human rights landscape",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "The United Kingdom remains committed to working with Iraq, Kuwait, and the Tripartite Commission to provide answers for families of missing loved ones: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/the-united-kingdom-remains-committed-to-working-with-iraq-kuwait-and-the-tripartite-commission-to-provide-answers-for-families-of-missing-loved-ones-u",
+   "date": "2026-10-26T20:07:23+00:00",
+   "desc": "Statement by Ambassador Kate Foster, UK Deputy Permanent Representative to the UN, at the UN Security Council meeting on the situation between Iraq and Kuwait.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "We must protect and build on 30 years of work supporting the protection of children in conflicts: UK statement at the UN Security Council",
+   "link": "https://www.gov.uk/government/speeches/we-must-protect-and-build-on-30-years-of-work-supporting-the-protection-of-children-in-conflicts-uk-statement-at-the-un-security-council",
+   "date": "2026-10-26T17:27:21+00:00",
+   "desc": "Statement by Ambassador Sarah MacIntosh, UK Permanent Representative to the UN, at the UN Security Council meeting on Children and Armed Conflict.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "Statement from the Coalition on Atrocity Prevention and Justice for Sudan: one year on from the 26 October 2025 Atrocity in El Fasher",
+   "link": "https://www.gov.uk/government/news/statement-from-the-coalition-on-atrocity-prevention-and-justice-for-sudan-one-year-on-from-the-26-october-2025-atrocity-in-el-fasher",
+   "date": "2026-10-26T11:13:00+00:00",
+   "desc": "Statement on the 26 October 2025 Atrocity in El Fasher from members of the Coalition on Atrocity Prevention and Justice for Sudan: Canada, Denmark, the European Union, France, Germany, Ireland, the Netherlands, Norway, Sierr…",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "UK sanctions senior commanders implicated in campaign of rape in Sudan and unveils new support for survivors",
+   "link": "https://www.gov.uk/government/news/uk-sanctions-senior-commanders-implicated-in-campaign-of-rape-in-sudan-and-unveils-new-support-for-survivors",
+   "date": "2026-10-26T10:10:00+00:00",
+   "desc": "One year after the fall of El Fasher, the UK is bringing forward a new package of action designed to shine a spotlight on the horrific violence seen during the siege of the city.",
+   "feed_id": "san-gov-uk",
+   "feed_name": "UK FCDO",
+   "region": "eu-north-europe"
+  },
+  {
+   "title": "CPJ outraged by Egypt court conviction of journalist Lina Attalah, order of Mada Masr’s closure",
+   "link": "https://www.accessnow.org/press-release/mada-masrs-closure/",
+   "date": "Wed, 28 Oct 2026 20:26:06 +0000",
+   "desc": "The post CPJ outraged by Egypt court conviction of journalist Lina Attalah, order of Mada Masr’s closure appeared first on Access Now .",
+   "feed_id": "inf-accessnow",
+   "feed_name": "Access Now",
+   "region": null
+  },
+  {
+   "title": "EU transforms Frontex into a high-tech deportation command centre",
+   "link": "https://www.accessnow.org/press-release/eu-transforms-frontex-into-a-high-tech-deportation-command-centre/",
+   "date": "Wed, 28 Oct 2026 14:49:23 +0000",
+   "desc": "The post EU transforms Frontex into a high-tech deportation command centre appeared first on Access Now .",
+   "feed_id": "inf-accessnow",
+   "feed_name": "Access Now",
+   "region": null
+  },
+  {
+   "title": "#NoExamShutdown: One step forward, another step back",
+   "link": "https://www.accessnow.org/noexamshutdown-one-step-forward-another-step-back/?pk_campaign=feed&#038;pk_kwd=noexamshutdown-one-step-forward-another-step-back",
+   "date": "Tue, 27 Oct 2026 08:00:00 +0000",
+   "desc": "Across the MENA region, governments are imposing internet shutdowns during student exams. Read our exam shutdown report card and join the call for governments to keep this academic year free of internet shutdowns. The post #NoExamShutdown: One step forward, another step back appeared first on Access Now .",
+   "feed_id": "inf-accessnow",
+   "feed_name": "Access Now",
+   "region": null
+  },
+  {
+   "title": "Surface-To-Air Missiles Deployed To Protect Trump’s Mar-a-Lago Estate",
+   "link": "https://www.twz.com/land/avenger-assemble-surface-to-air-missiles-deployed-to-protect-trumps-mar-a-lago-estate",
+   "date": "Fri, 30 Oct 2026 20:19:01 -0400",
+   "desc": "AN/TWQ-1 Avengers fire FIM-92 Stinger missiles and have been joined by counter-drone fly-away sensor and jammer kits from U.S. Northern Command. The post Surface-To-Air Missiles Deployed To Protect Trump&#8217;s Mar-a-Lago Estate appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Bunker Talk: Let’s Talk About All The Things We Did And Didn’t Cover This Week",
+   "link": "https://www.twz.com/news-features/bunker-talk-lets-talk-about-all-the-things-we-did-and-didnt-cover-this-week-213",
+   "date": "Fri, 30 Oct 2026 18:33:00 -0400",
+   "desc": "I wonder if there area any birds left outside? The post Bunker Talk: Let’s Talk About All The Things We Did And Didn’t Cover This Week appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Stealthy GJ-21 Drone Has Launched And Recovered From Type 076 Amphibious Assault Ship, China Claims",
+   "link": "https://www.twz.com/air/stealthy-gj-21-drone-has-launched-and-recovered-from-type-076-amphibious-assault-ship-china-claims",
+   "date": "Fri, 30 Oct 2026 17:32:50 -0400",
+   "desc": "Signs that the PLAN has been building up to this significant milestone in naval airpower have been growing for more than a year. The post Stealthy GJ-21 Drone Has Launched And Recovered From Type 076 Amphibious Assault Ship, China Claims appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Highlights From North Korea’s Drone-A-Palooza",
+   "link": "https://www.twz.com/air/highlights-from-north-koreas-drone-a-palooza",
+   "date": "Fri, 30 Oct 2026 16:34:48 -0400",
+   "desc": "Here’s what Pyongyang put on display as it showcased a growing arsenal of recon and attack drones, including a very aspirational stealthy UCAV concept. The post Highlights From North Korea&#8217;s Drone-A-Palooza appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Iran Used Limpet Mine Placed On Ship’s Hull In Latest Strait Of Hormuz Attack: Report",
+   "link": "https://www.twz.com/news-features/iran-used-limpet-mine-placed-on-ships-hull-in-latest-strait-of-hormuz-attack-report",
+   "date": "Fri, 30 Oct 2026 14:33:46 -0400",
+   "desc": "More air defenses, ships, troops, ammo and supplies are flowing into the Middle East as the clock ticks down to the potential start of a new air campaign against Iran. The post Iran Used Limpet Mine Placed On Ship&#8217;s Hull In Latest Strait Of Hormuz Attack: Report appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "USAF F-16s Back On Alert Duty In Aleutian Islands For First Time In Decades",
+   "link": "https://www.twz.com/air/usaf-f-16s-back-on-alert-duty-in-aleutian-islands-for-first-time-in-decades",
+   "date": "Fri, 30 Oct 2026 13:50:19 -0400",
+   "desc": "NORAD’s return to fighter alert ops on remote Shemya Island is yet another reminder of the eroding security environment in the Pacific and the Arctic. The post USAF F-16s Back On Alert Duty In Aleutian Islands For First Time In Decades appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "General Atomics Developing Strike-Recon Flying Wing Called NextGen That Uses Hybrid-Electric Propulsion",
+   "link": "https://www.twz.com/news-features/general-atomics-developing-strike-recon-flying-wing-called-nextgen-that-uses-hybrid-electric-propulsion",
+   "date": "Fri, 30 Oct 2026 12:14:23 -0400",
+   "desc": "The company is also aiming to trial an air-to-ground derivative of their FQ-42 Vengeance CCA in live-fire tests next year. The post General Atomics Developing Strike-Recon Flying Wing Called NextGen That Uses Hybrid-Electric Propulsion appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Japan To Assemble AMRAAM Missiles As U.S. Moves To Dramatically Boost AIM-120 Production",
+   "link": "https://www.twz.com/air/japan-to-assemble-amraam-missiles-as-u-s-moves-to-dramatically-boost-aim-120-production",
+   "date": "Thu, 29 Oct 2026 17:59:58 -0400",
+   "desc": "As part of a multibillion-dollar missile-production expansion, Washington and Tokyo also seek to accelerate production of the SM-3 Block IIA interceptor. The post Japan To Assemble AMRAAM Missiles As U.S. Moves To Dramatically Boost AIM-120 Production appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Polish MiG-29s, F-16 Cannon Ammo Reportedly Headed To Ukraine As Bitter Warsaw-Kyiv Rift Heals",
+   "link": "https://www.twz.com/news-features/polish-mig-29s-f-16-cannon-ammo-reportedly-headed-to-ukraine-as-bitter-warsaw-kyiv-rift-heals",
+   "date": "Thu, 29 Oct 2026 14:58:29 -0400",
+   "desc": "Relations between Ukraine and Poland soured in the Spring, leading to Warsaw calling off the MiG-29 deal in June. The post Polish MiG-29s, F-16 Cannon Ammo Reportedly Headed To Ukraine As Bitter Warsaw-Kyiv Rift Heals appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Let’s Talk About The U.S. Target Drone Iran Claims To Have Recovered Intact",
+   "link": "https://www.twz.com/news-features/lets-talk-about-the-u-s-target-drone-iran-claims-to-have-recovered-intact",
+   "date": "Thu, 29 Oct 2026 14:01:13 -0400",
+   "desc": "The target drone could be of particular use in stimulating Iran's air defenses to help collect intelligence on them, among other possible tasks. The post Let&#8217;s Talk About The U.S. Target Drone Iran Claims To Have Recovered Intact appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "U.S. Intel Warns China’s Space-Based Directed Energy Weapons Could Soon Threaten Satellites",
+   "link": "https://www.twz.com/space/u-s-intel-warns-chinas-space-based-directed-energy-weapons-could-soon-threaten-satellites",
+   "date": "Wed, 28 Oct 2026 15:53:21 -0400",
+   "desc": "Battlefield space is heating up as the DIA warns that China could use orbital directed energy weapons to take down satellites by the end of the decade. The post U.S. Intel Warns China&#8217;s Space-Based Directed Energy Weapons Could Soon Threaten Satellites appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "China’s CE-25A Electric Commuter Airliner Demonstrator Emerges",
+   "link": "https://www.twz.com/air/chinas-ce-25a-electric-commuter-airliner-demonstrator-emerges-in-photos",
+   "date": "Wed, 28 Oct 2026 14:26:01 -0400",
+   "desc": "The 19-seat aircraft features an unusual array of ducted fans, and the technology behind it could have implications beyond civilian aviation. The post China’s CE-25A Electric Commuter Airliner Demonstrator Emerges appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Ethiopia Gets 12 Russian Su-35 Fighters, Eyes S-400 Air Defenses",
+   "link": "https://www.twz.com/air/ethiopia-gets-12-russian-su-35-fighters-eyes-s-400-air-defenses",
+   "date": "Wed, 28 Oct 2026 13:54:35 -0400",
+   "desc": "The Ethiopian leader says the multirole fighter jets arrived a year ahead of schedule, with four S-400 batteries also planned under the deal. The post Ethiopia Gets 12 Russian Su-35 Fighters, Eyes S-400 Air Defenses appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Hardened Shelters Critical To Survival Of USAF’s Tanker Fleet: Study",
+   "link": "https://www.twz.com/news-features/hardened-shelters-critical-to-survival-of-usafs-tanker-fleet-study",
+   "date": "Wed, 28 Oct 2026 13:28:45 -0400",
+   "desc": "An independent assessment calls for new action to prevent critical aerial refueling assets from being neutralized before they even get in the air. The post Hardened Shelters Critical To Survival Of USAF&#8217;s Tanker Fleet: Study appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Confessions Of An SR-71 Blackbird Pilot",
+   "link": "https://www.twz.com/air/confessions-of-an-sr-71-blackbird-pilot",
+   "date": "Wed, 28 Oct 2026 11:44:30 -0400",
+   "desc": "What it was like to sit at the controls of the Skunk Works' legendary Blackbird while hurtling over hostile territory at Mach 3.3. The post Confessions Of An SR-71 Blackbird Pilot appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Where Are The Aircraft Carriers?: October 27, 2026",
+   "link": "https://www.twz.com/sea/where-are-the-aircraft-carriers-october-27-2026",
+   "date": "Tue, 27 Oct 2026 19:43:17 -0400",
+   "desc": "The Makin Island amphibious ready group pulls into Yokosuka a week behind the Theodore Roosevelt carrier strike group, as the carrier's jets conduct a simulated strike during exercise Keen Sword 27. The post Where Are The Aircraft Carriers?: October 27, 2026 appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "This Serbian Truck Carries A Truly Massive Mortar",
+   "link": "https://www.twz.com/land/this-serbian-truck-carries-a-truly-massive-mortar",
+   "date": "Tue, 27 Oct 2026 18:18:39 -0400",
+   "desc": "The TSMB M-25 represents a modern attempt to combine great destructive potential with very high mobility. The post This Serbian Truck Carries A Truly Massive Mortar appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "U.S. Intel Confirms This Is China’s Secret Spaceplane (Updated)",
+   "link": "https://www.twz.com/news-features/u-s-intel-confirms-this-is-chinas-secret-spaceplane",
+   "date": "Tue, 27 Oct 2026 17:33:06 -0400",
+   "desc": "The Chinese spaceplane design is unsurprisingly very similar to the U.S. Space Force's history-making X-37B. The post U.S. Intel Confirms This Is China&#8217;s Secret Spaceplane (Updated) appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Ukraine’s StarGate Drone Now Evacuating Wounded Soldiers",
+   "link": "https://www.twz.com/air/ukraines-stargate-drone-now-evacuating-wounded-soldiers",
+   "date": "Tue, 27 Oct 2026 12:32:30 -0400",
+   "desc": "The purpose-built aerial CASEVAC platform is claimed to have completed two battlefield evacuations in a week, including a mission under electronic attack. The post Ukraine’s StarGate Drone Now Evacuating Wounded Soldiers appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "USAF Orders ARRW Hypersonic Missile Into Production, The Same Weapon It Nearly Cancelled",
+   "link": "https://www.twz.com/air/usaf-orders-arrw-hypersonic-missile-into-production-the-same-weapon-it-nearly-cancelled",
+   "date": "Mon, 26 Oct 2026 20:04:14 -0400",
+   "desc": "The fortunes of the AGM-183A, which is now set to arm B-52 and B-1 bombers, have now been fully reversed. The post USAF Orders ARRW Hypersonic Missile Into Production, The Same Weapon It Nearly Cancelled appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Last-Ditch Meeting In Iran Seeks To Stave-Off A Restart Of All-Out Fighting In The Region",
+   "link": "https://www.twz.com/news-features/last-ditch-meeting-in-iran-seeks-to-stave-off-a-restart-of-all-out-fighting-in-the-region",
+   "date": "Mon, 26 Oct 2026 19:23:37 -0400",
+   "desc": "The meeting between Pakistan, Saudi Arabia, Turkey, and Iran took place as the U.S. and Israel are spinning-up for a new round of strikes. The post Last-Ditch Meeting In Iran Seeks To Stave-Off A Restart Of All-Out Fighting In The Region appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "90 Days No Help: Fortress America’s Goal To Make Bases Resilient Bastions In A Crisis",
+   "link": "https://www.twz.com/nuclear/90-days-no-help-fortress-americas-goal-to-make-bases-resilient-bastions-in-a-crisis",
+   "date": "Mon, 26 Oct 2026 18:20:20 -0400",
+   "desc": "Cyber threats against critical infrastructure are exploding, with worries enemies could neuter U.S. military units before they even leave their garrisons. The post 90 Days No Help: Fortress America&#8217;s Goal To Make Bases Resilient Bastions In A Crisis appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "Britain’s Final Plan To Kill Argentina’s Super Étendard Attack Jets",
+   "link": "https://www.twz.com/sea/britains-final-plan-to-kill-argentinas-super-etendards-attack-jets",
+   "date": "Mon, 26 Oct 2026 17:11:58 -0400",
+   "desc": "Britain's last bid to destroy Argentina’s fleet threatening Exocet anti-ship missile-armed combat jets during the Falklands War. The post Britain’s Final Plan To Kill Argentina’s Super Étendard Attack Jets appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "British Type 31 Frigate Variant Offered To The U.S. Navy",
+   "link": "https://www.twz.com/sea/british-type-31-frigate-variant-offered-to-the-u-s-navy",
+   "date": "Mon, 26 Oct 2026 15:53:56 -0400",
+   "desc": "Babcock is looking to pitch its Arrowhead 140 design for an American frigate requirement, potentially in partnership with a major U.S. shipbuilder. The post British Type 31 Frigate Variant Offered To The U.S. Navy appeared first on TWZ .",
+   "feed_id": "osint-twz",
+   "feed_name": "The War Zone",
+   "region": null
+  },
+  {
+   "title": "COP31: The ICRC's call to strengthen climate action and finance to reach people in conflict settings",
+   "link": "https://www.icrc.org/en/article/cop31-icrc-call-strengthen-climate-action-and-finance",
+   "date": "Thu, 29 Oct 2026 11:40:17 +0100",
+   "desc": "",
+   "feed_id": "med-icrc",
+   "feed_name": "ICRC",
+   "region": null
+  },
+  {
+   "title": "UN Security Council: ICRC statement in the open debate on women, peace and security",
+   "link": "https://www.icrc.org/en/statement/statement-women-peace-and-security",
+   "date": "Thu, 29 Oct 2026 11:41:04 +0100",
+   "desc": "",
+   "feed_id": "med-icrc",
+   "feed_name": "ICRC",
+   "region": null
+  },
+  {
+   "title": "The share of solar generation with co-located battery storage is increasing",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68384",
+   "date": "Fri, 30 Oct 2026 09:00:00 EST",
+   "desc": "Utility-scale solar developers are increasingly co-locating battery storage with new solar photovoltaic capacity. As of September 2026, over 16% of new utility-scale solar capacity added this year is co-located with operable battery storage, compared with 2% in 2017, according to data reported to EIA by operators.",
+   "feed_id": "stock-eia",
+   "feed_name": "EIA",
+   "region": "north-america"
+  },
+  {
+   "title": "LNG imports make up increasing share of Colombia's natural gas supply",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68364",
+   "date": "Thu, 29 Oct 2026 09:00:00 EST",
+   "desc": "Colombia is importing more liquefied natural gas (LNG) as domestic production continues to fall. A potential drought this fall and winter could limit the availability of hydroelectric generation and boost the country's demand for natural gas power generation. Colombia's government has declared a national disaster in anticipation of a drought resulting from an expected strong El Ni�o.",
+   "feed_id": "stock-eia",
+   "feed_name": "EIA",
+   "region": "north-america"
+  }
+ ]
+}

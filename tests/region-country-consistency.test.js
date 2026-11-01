@@ -2,7 +2,7 @@
 // критерий, атрибутированный стране страновым оверлеем, обязан попадать и в
 // сигналы её региона. Иначе два независимых слоя атрибуции дают несогласованные
 // числа (регион russia-belarus выше собственной страны RU без объяснения).
-// Проверка на реальной неделе слоя 2026-10-25 + пин совпадения индексов.
+// Проверка на последней неделе цепочки (2026-11-01) + пин совпадения индексов.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -21,7 +21,7 @@ import { taxonomyForWeek, loadSnapshotPart } from '../calc/week-step.js';
 import { runWeek, nextChainState, RECALC_WEEKS, PREV_WEEK } from '../calc/calc.js';
 import { regionIdsFor } from '../js/data.js';
 
-const WEEK = '2026-10-25';
+const WEEK = RECALC_WEEKS[RECALC_WEEKS.length - 1];
 const input = JSON.parse(readFileSync(new URL(`../calc/input/${WEEK}.json`, import.meta.url), 'utf8'));
 const ref = loadRegionRef();
 const taxonomy = taxonomyForWeek(WEEK);
@@ -57,7 +57,7 @@ test('инвариант регион ⊇ страна: сигналы стра�
   }
 });
 
-test('неделя 2026-10-25: индекс региона russia-belarus совпадает с индексом страны RU', () => {
+test('последняя неделя цепочки: индекс региона russia-belarus совпадает с индексом страны RU', () => {
   const prevGlobal = loadSnapshotPart(PREV_WEEK, 'global');
   const prevRegions = loadSnapshotPart(PREV_WEEK, 'regions');
   const state = {

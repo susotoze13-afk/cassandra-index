@@ -1,0 +1,65 @@
+{
+  "week": "2026-11-01",
+  "criteria": {
+    "D1.4": {
+      "countries": ["RU", "UA"],
+      "basis": "Удары по украинской энергетике и логистике в окне недели: Киевская ТЭЦ-6, железнодорожный вокзал в Днепре (13 погибших), гибель двух девушек в Чернигове. Атрибуция России: удары нанесены российской стороной (sputnikglobe.com, B-state-media; причастность в источниках недели названа только российской стороной — независимого подтверждения атрибуции нет, факт удара и потерь подтверждён news.un.org и africanews.com). Атрибуция Украины: пострадавшая сторона ударов",
+      "sources": [
+        "https://sputnikglobe.com/20261031/russian-forces-hit-kiev-chpp-6-supplying-energy-to-ukrainian-military-logistics---mod-1124982131.html",
+        "https://news.un.org/feed/view/en/story/2026/10/1168702",
+        "http://www.africanews.com/2026/10/30/ukraine-russian-strike-kills-two-teenage-girls-in-chernihiv/"
+      ]
+    },
+    "D3.5": {
+      "countries": ["RU", "UA"],
+      "basis": "Гуманитарная миссия в Олешках (Алёшках): жителей оккупированного города вывезли в Украину, они воссоединились с семьями; омбудсмен РФ объявил о завершении миссии и договорённости о регулярных гуманитарных миссиях",
+      "sources": [
+        "https://www.cbsnews.com/news/residents-evacuated-oleshky-arrive-ukraine-temporary-us-brokered-ceasefire/",
+        "https://sputnikglobe.com/20261030/humanitarian-mission-in-alyoshki-coming-to-end---russian-ombudswoman-1124980382.html",
+        "https://tass.com/society/2211421"
+      ]
+    },
+    "D4.2": {
+      "countries": ["UA"],
+      "basis": "США одобрили продажу Украине ракет Patriot на $2,1 млрд — внешние поставки средств ПВО украинской стороне",
+      "sources": [
+        "https://www.aa.com.tr/en/world/us-approves-21b-patriot-missile-sale-to-ukraine/4106902",
+        "https://www.hindustantimes.com/world-news/us-approves-2-1-billion-patriot-missile-sale-to-ukraine-101793412576155.html"
+      ]
+    },
+    "D7.1": {
+      "countries": ["RU", "UA"],
+      "basis": "Поставки и подготовка авиатехники: США одобрили продажу Украине ракет Patriot на $2,1 млрд, польские МиГ-29 и боеприпасы для F-16, как сообщается, направлены в Украину",
+      "sources": [
+        "https://www.aa.com.tr/en/world/us-approves-21b-patriot-missile-sale-to-ukraine/4106902",
+        "https://www.twz.com/news-features/polish-mig-29s-f-16-cannon-ammo-reportedly-headed-to-ukraine-as-bitter-warsaw-kyiv-rift-heals"
+      ]
+    },
+    "D7.2": {
+      "countries": ["RU", "UA"],
+      "basis": "Удары по судоходству: российские силы поразили грузовое судно южнее Одессы и судно со снабжением украинских сил в Чёрном море; ФСБ сообщила о предупреждении США о готовящемся теракте в Москве",
+      "sources": [
+        "https://tass.com/defense/2211383",
+        "https://sputnikglobe.com/20261029/russia-strikes-ship-with-supplies-to-ukrainian-forces-in-black-sea--mod-1124975973.html",
+        "https://www.straitstimes.com/world/europe/fsb-says-us-warned-russia-of-possible-moscow-attack"
+      ]
+    },
+    "D8.2": {
+      "countries": ["RU", "UA"],
+      "basis": "Локальное гуманитарное перемирие в Олешках соблюдалось: эвакуация завершилась, омбудсмен РФ подтвердил полное соблюдение перемирия — деэскалационный сигнал обеих сторон",
+      "sources": [
+        "https://www.cbsnews.com/news/residents-evacuated-oleshky-arrive-ukraine-temporary-us-brokered-ceasefire/",
+        "https://sputnikglobe.com/20261029/alyoshki-ceasefire-fully-observed--russian-rights-commissioner-1124972192.html"
+      ]
+    },
+    "D9.3": {
+      "countries": ["RU", "UA"],
+      "basis": "Экономический ущерб от войны: удары по энергетике Украины (Киевская ТЭЦ-6), Зеленский говорит о сложной ситуации с энергоснабжением; черноморские страны НАТО осудили перенос войны на коммерческое судоходство",
+      "sources": [
+        "https://sputnikglobe.com/20261031/russian-forces-hit-kiev-chpp-6-supplying-energy-to-ukrainian-military-logistics---mod-1124982131.html",
+        "https://tass.com/economy/2211361",
+        "https://www.defensenews.com/global/europe/2026/10/29/natos-black-sea-nations-decry-ukraine-war-spillover-endangering-commercial-ship-traffic/"
+      ]
+    }
+  }
+}
