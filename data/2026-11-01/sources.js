@@ -1966,6 +1966,112 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-turkiye-kazakhstan-defense-industry",
+    "title": {
+      "ru": "Турция и Казахстан договорились углубить военно-промышленное сотрудничество",
+      "en": "Türkiye, Kazakhstan to deepen defense industry cooperation"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/turkiye/turkiye-kazakhstan-to-deepen-defense-industry-cooperation/4104253",
+    "publication_date": "2026-10-28",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "hurriyet-kazakhstan-defense-ties",
+    "title": {
+      "ru": "Турция углубит оборонно-промышленные связи с Казахстаном",
+      "en": "Türkiye to deepen defense industry ties with Kazakhstan"
+    },
+    "domain": "hurriyetdailynews.com",
+    "url": "https://www.hurriyetdailynews.com/turkiye-to-deepen-defense-industry-ties-with-kazakhstan-228731",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "timeslive-kim-drone-dominance",
+    "title": {
+      "ru": "Ким призвал КНДР к господству дронов: удары по mock-целям США и РК",
+      "en": "Kim urges North Korea drone dominance amid border tensions"
+    },
+    "domain": "timeslive.co.za",
+    "url": "https://www.timeslive.co.za/news/world/2026-10-30-kim-urges-north-korea-drone-dominance-amid-border-tensions/",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "yenisafak-merz-nk-threat",
+    "title": {
+      "ru": "Мерц: КНДР угрожает свободе Центральной Европы, солдаты КНДР в Донбассе",
+      "en": "German chancellor warns North Korea threatens freedom across Europe"
+    },
+    "domain": "en.yenisafak.com",
+    "url": "https://en.yenisafak.com/world/german-chancellor-warns-north-korea-threatens-freedom-across-europe-3724970",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "shiftdelete-mke-jordan",
+    "title": {
+      "ru": "MKE завершила второй завод боеприпасов в Иордании",
+      "en": "MKE completes second ammunition production facility in Jordan"
+    },
+    "domain": "shiftdelete.net",
+    "url": "https://shiftdelete.net/en/mke-completes-second-ammunition-production-facility-in-jordan",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "dailysabah-mke-jordan",
+    "title": {
+      "ru": "Турецкая MKE завершила цех сборки боеприпасов в Иордании",
+      "en": "Türkiye's MKE completes ammunition assembly facility in Jordan"
+    },
+    "domain": "dailysabah.com",
+    "url": "https://www.dailysabah.com/business/defense/turkiyes-mke-completes-ammunition-assembly-facility-in-jordan",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "yahoo-sumy-children-evacuated",
+    "title": {
+      "ru": "Все дети эвакуированы из приграничных районов Сумской области, но 34 000 мирных жителей остаются",
+      "en": "All children evacuated from Sumy Oblast's border areas, but 34,000 civilians remain"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/world/articles/children-evacuated-sumy-oblasts-border-093100432.html",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "notes": "Зеркало Ukrainska Pravda (zenfs en/ukrayinska_pravda_articles); оригинал en.pravda.com.ua из среды не открывается",
+    "origin": "collected-in-week"
   }
 ];
 })();

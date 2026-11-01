@@ -39,14 +39,14 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "central-asia": {
-    "index": 67,
-    "delta": 2,
+    "index": 71,
+    "delta": 6,
     "status": "very",
-    "background": true
+    "background": false
   },
   "east-asia": {
-    "index": 70,
-    "delta": 6,
+    "index": 73,
+    "delta": 9,
     "status": "very",
     "background": false
   },
