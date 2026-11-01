@@ -2,8 +2,9 @@
 // доступных снапшотов (≥6), просмотр старого снапшота с пометкой и датами,
 // раскрытие смены версии методологии (§8.5), демо-разборы «где ошиблись / где
 // были правы / где неопределённость» (§8.4), список источников недели.
-// Плюс футер: «Следующая публикация» — ближайший вторник 12:00 UTC, показанный
-// в локальном времени через Intl (§9, R62.1).
+// Плюс футер: «Следующая публикация» — ближайшее воскресенье 11:00 МСК
+// (= 08:00 UTC; МСК круглый год UTC+3), показанное через Intl в фиксированном
+// часовом поясе Europe/Moscow и подписанное «по мск» (§9, R62.1).
 // Чистые швы (nextPublication, publicationLabel, methodologyNote, regionalGridNote,
 // DEMO_REVIEWS, reviewFor) — без DOM, тестируются.
 
@@ -20,28 +21,33 @@ import { deltaClass } from '../ui.js';
 
 const LOCALES = { ru: 'ru-RU', en: 'en-US' };
 
-// Ближайшая публикация — следующий вторник 12:00 UTC (§9). Возвращает момент
-// времени; отображение в локальном времени — через publicationLabel.
+// Ближайшая публикация — следующее воскресенье 11:00 МСК (§9). МСК не имеет
+// перехода на летнее время (круглый год UTC+3), поэтому 11:00 МСК = 08:00 UTC.
+// Возвращает момент времени; показ в фиксированном поясе — publicationLabel.
 export function nextPublication(from = new Date()) {
-  const d = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate(), 12, 0, 0));
-  const add = (2 - d.getUTCDay() + 7) % 7; // 2 = вторник
+  const d = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate(), 8, 0, 0));
+  const add = (0 - d.getUTCDay() + 7) % 7; // 0 = воскресенье
   if (add === 0 && from.getTime() >= d.getTime()) {
-    d.setUTCDate(d.getUTCDate() + 7); // вторник после 12:00 UTC — следующая неделя
+    d.setUTCDate(d.getUTCDate() + 7); // воскресенье после 08:00 UTC — следующая неделя
   } else {
     d.setUTCDate(d.getUTCDate() + add);
   }
   return d;
 }
 
-// «вторник, 09:05» / «Tuesday, 09:05» — локальный формат через Intl (R62.1).
-// Собирается из formatToParts, чтобы не зависеть от суффиксов ICU.
+// «воскресенье, 11:00 по мск» / «Sunday, 11:00 MSK» — формат фиксированного
+// часового пояса Europe/Moscow (не локального): публикация привязана к МСК,
+// а не к поясу читателя (R62.1). Собирается из formatToParts, чтобы не
+// зависеть от суффиксов ICU.
 export function publicationLabel(lang, d) {
   const locale = LOCALES[lang] ?? LOCALES.ru;
   const parts = new Intl.DateTimeFormat(locale, {
     weekday: 'long', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+    timeZone: 'Europe/Moscow',
   }).formatToParts(d);
   const get = (type) => (parts.find((p) => p.type === type) ?? {}).value ?? '';
-  return `${get('weekday')}, ${get('hour')}:${get('minute')}`;
+  const tz = lang === 'en' ? 'MSK' : 'по мск';
+  return `${get('weekday')}, ${get('hour')}:${get('minute')} ${tz}`;
 }
 
 // §8.5: смена версии методологии между просматриваемой неделей и текущей

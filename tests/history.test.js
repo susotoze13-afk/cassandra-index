@@ -9,32 +9,32 @@ import {
   reviewFor,
 } from '../js/sections/history.js';
 
-// Следующая публикация — ближайший вторник 12:00 UTC (§9). Входы заданы в UTC
-// (ISO-строки), ожидания сверяются через toISOString() — тест не зависит
-// от системного часового пояса машины.
-test('nextPublication: со среды → ближайший вторник 12:00 UTC', () => {
-  const next = nextPublication(new Date('2026-09-16T15:30:00Z')); // среда
-  assert.equal(next.toISOString(), '2026-09-22T12:00:00.000Z');
+// Следующая публикация — ближайшее воскресенье 11:00 МСК = 08:00 UTC (§9).
+// Входы заданы в UTC (ISO-строки), ожидания сверяются через toISOString() —
+// тест не зависит от системного часового пояса машины.
+test('nextPublication: с понедельника → ближайшее воскресенье 08:00 UTC', () => {
+  const next = nextPublication(new Date('2026-09-21T15:30:00Z')); // понедельник
+  assert.equal(next.toISOString(), '2026-09-27T08:00:00.000Z');
 });
 
-test('nextPublication: со вторника до 12:00 UTC — тот же день, после — через неделю', () => {
-  assert.equal(nextPublication(new Date('2026-09-22T10:00:00Z')).toISOString(),
-    '2026-09-22T12:00:00.000Z');
-  assert.equal(nextPublication(new Date('2026-09-22T13:00:00Z')).toISOString(),
-    '2026-09-29T12:00:00.000Z');
+test('nextPublication: с воскресенья до 08:00 UTC — тот же день, после — через неделю', () => {
+  assert.equal(nextPublication(new Date('2026-09-27T06:00:00Z')).toISOString(),
+    '2026-09-27T08:00:00.000Z');
+  assert.equal(nextPublication(new Date('2026-09-27T09:00:00Z')).toISOString(),
+    '2026-10-04T08:00:00.000Z');
 });
 
-test('nextPublication: с понедельника → завтрашний вторник', () => {
-  assert.equal(nextPublication(new Date('2026-09-21T08:00:00Z')).toISOString(),
-    '2026-09-22T12:00:00.000Z');
+test('nextPublication: во вторник → воскресенье той же недели', () => {
+  assert.equal(nextPublication(new Date('2026-09-22T08:00:00Z')).toISOString(),
+    '2026-09-27T08:00:00.000Z');
 });
 
-// Подпись «вторник, 12:00» локализована через Intl (R62.1). Дата собирается
-// локальным конструктором (вторник 09:05 в любом поясе), поэтому ожидания
-// — константы, не зависящие от системного часового пояса.
-test('publicationLabel: RU для даты вторника', () => {
-  const tuesday = new Date(2026, 8, 22, 9, 5); // вторник, 09:05 локально в любом TZ
-  assert.equal(publicationLabel('ru', tuesday), 'вторник, 09:05');
+// Подпись «воскресенье, 11:00 по мск» — фиксированный пояс Europe/Moscow
+// (R62.1): дата — момент 08:00 UTC, тождественный 11:00 МСК в любом поясе.
+test('publicationLabel: RU подпись в поясе публикации', () => {
+  const sunday = new Date('2026-09-27T08:00:00Z');
+  assert.equal(publicationLabel('ru', sunday), 'воскресенье, 11:00 по мск');
+  assert.equal(publicationLabel('en', sunday), 'Sunday, 11:00 MSK');
 });
 
 // §8.5: смена версии методологии между просматриваемой неделей и текущей

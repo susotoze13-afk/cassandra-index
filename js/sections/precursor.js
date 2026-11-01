@@ -67,6 +67,7 @@ export function render(appState) {
   const lang = appState?.lang ?? 'ru';
 
   const row = el('div', 'precursor-row');
+  row.appendChild(el('p', 'precursor-note', t(lang, 'precursor.intro')));
   row.appendChild(el('div', 'precursor-value', t(lang, 'precursor.value', { value: facts.value })));
   row.appendChild(el('p', 'precursor-note',
     t(lang, 'precursor.signals', { n: facts.signaling, total: PRECURSOR_SUBGROUPS })));

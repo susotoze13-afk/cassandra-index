@@ -104,7 +104,7 @@ test('i18n: ключи блока, плейсхолдеры и запрет ци
   const ru = DICTS.ru;
   for (const key of [
     'precursor.title', 'precursor.value', 'precursor.signals', 'precursor.none',
-    'precursor.note', 'precursor.disclaimer',
+    'precursor.intro', 'precursor.note', 'precursor.disclaimer',
   ]) {
     assert.equal(typeof ru[key], 'string', `нет ключа ${key}`);
     assert.ok(ru[key].trim() !== '', `пустой ключ ${key}`);
@@ -120,7 +120,7 @@ test('i18n: ключи блока, плейсхолдеры и запрет ци
     !/\d/.test(ru['precursor.signals'].replace(/Д9/g, '')),
     'в precursor.signals не должно быть числа подгрупп литералом',
   );
-  assert.equal(ru['precursor.note'], 'доля сигналов Д9, не сравнимо с индексом');
+  assert.equal(ru['precursor.note'], 'Это доля косвенных сигналов Д9 — отдельный показатель, не сравнимо с индексом');
   assert.ok(ru['precursor.note'].includes('не сравнимо с индексом'), 'подпись без оговорки');
   // Цифра — только id драйвера «Д9»: числовых значений в подписи быть не должно.
   assert.ok(!/\d/.test(ru['precursor.note'].replace(/Д9/g, '')), 'в precursor.note не должно быть чисел');
