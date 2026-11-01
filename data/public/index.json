@@ -6307,9 +6307,9 @@
         },
         {
           "id": "baltic",
-          "index": 71,
-          "delta": 2,
-          "background": true
+          "index": 68,
+          "delta": -1,
+          "background": false
         },
         {
           "id": "balkans",
@@ -6325,9 +6325,9 @@
         },
         {
           "id": "south-caucasus",
-          "index": 68,
-          "delta": 2,
-          "background": true
+          "index": 71,
+          "delta": 5,
+          "background": false
         },
         {
           "id": "central-asia",
@@ -6355,9 +6355,9 @@
         },
         {
           "id": "south-asia",
-          "index": 69,
-          "delta": 2,
-          "background": true
+          "index": 71,
+          "delta": 4,
+          "background": false
         },
         {
           "id": "africa",
@@ -6922,9 +6922,9 @@
         "method": "criterion-zeroed"
       },
       "sources": {
-        "count": 126,
+        "count": 131,
         "clusters": 4,
-        "state_affiliated": 43
+        "state_affiliated": 44
       },
       "trend": [
         {

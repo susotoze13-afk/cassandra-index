@@ -41,7 +41,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-11-01T06:21:55.051Z",
+  "at": "2026-11-01T08:28:37.898Z",
   "reason": "Еженедельный пересчёт",
   "previous": 70,
   "methodologyBefore": "3.0",
@@ -62,10 +62,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "baltic": {
-    "index": 71,
-    "delta": 2,
+    "index": 68,
+    "delta": -1,
     "status": "very",
-    "background": true
+    "background": false
   },
   "balkans": {
     "index": 71,
@@ -80,10 +80,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-caucasus": {
-    "index": 68,
-    "delta": 2,
+    "index": 71,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "central-asia": {
     "index": 67,
@@ -110,10 +110,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 69,
-    "delta": 2,
+    "index": 71,
+    "delta": 4,
     "status": "very",
-    "background": true
+    "background": false
   },
   "africa": {
     "index": 71,
@@ -377,10 +377,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 71,
-  "delta": 2,
+  "index": 68,
+  "delta": -1,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "low",
   "drivers": [
     {
@@ -698,10 +698,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 68,
-  "delta": 2,
+  "index": 71,
+  "delta": 5,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "low",
   "drivers": [
     {
@@ -1258,10 +1258,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 69,
-  "delta": 2,
+  "index": 71,
+  "delta": 4,
   "status": "very",
-  "background": true,
+  "background": false,
   "confidence": "low",
   "drivers": [
     {
@@ -3726,6 +3726,81 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "source_type": "primary",
     "cluster_id": "C-registries",
     "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "newsam-pentagon-baltic-rhetoric",
+    "title": {
+      "ru": "Пентагон призвал европейские страны сбавить риторику об угрозе со стороны России — источники",
+      "en": "Pentagon officials tell European countries to cool their rhetoric on Russian threat, sources say"
+    },
+    "domain": "news.am",
+    "url": "https://news.am/en/news/1071414",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "lrt-pentagon-baltic-tone-down",
+    "title": {
+      "ru": "Пентагон призвал прибалтийские государства смягчить риторику в отношении России — СМИ",
+      "en": "Pentagon urges Baltic states to tone down rhetoric on Russia – media"
+    },
+    "domain": "lrt.lt",
+    "url": "https://www.lrt.lt/en/news-in-english/19/3098101/pentagon-urges-baltic-states-to-tone-down-rhetoric-on-russia-media",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "newsam-bayramov-peace-demands",
+    "title": {
+      "ru": "Азербайджан продолжает выдвигать требования Армении",
+      "en": "Azerbaijan continues making demands on Armenia"
+    },
+    "domain": "news.am",
+    "url": "https://news.am/en/news/1071482",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "newsam-pashinyan-constitution-refusal",
+    "title": {
+      "ru": "Премьер Армении: мы ясно говорим Азербайджану, что не намерены обсуждать конституционный вопрос",
+      "en": "Armenia premier: We clearly tell Azerbaijan that we are not going to discuss constitution matter with them"
+    },
+    "domain": "news.am",
+    "url": "https://news.am/en/news/1071013",
+    "publication_date": "2026-10-28",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "newsam-india-ammo-ukraine-allies",
+    "title": {
+      "ru": "Индия почти в 18 раз увеличила объёмы поставок боеприпасов европейским союзникам Украины",
+      "en": "India increases amount of ammunition supplied to Ukraine's European allies nearly 18 times"
+    },
+    "domain": "news.am",
+    "url": "https://news.am/en/news/1070859",
+    "publication_date": "2026-10-28",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
     "origin": "collected-in-week"
   }
 ];

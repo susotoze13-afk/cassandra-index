@@ -15,10 +15,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "baltic": {
-    "index": 71,
-    "delta": 2,
+    "index": 68,
+    "delta": -1,
     "status": "very",
-    "background": true
+    "background": false
   },
   "balkans": {
     "index": 71,
@@ -33,10 +33,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-caucasus": {
-    "index": 68,
-    "delta": 2,
+    "index": 71,
+    "delta": 5,
     "status": "very",
-    "background": true
+    "background": false
   },
   "central-asia": {
     "index": 67,
@@ -63,10 +63,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "background": false
   },
   "south-asia": {
-    "index": 69,
-    "delta": 2,
+    "index": 71,
+    "delta": 4,
     "status": "very",
-    "background": true
+    "background": false
   },
   "africa": {
     "index": 71,
