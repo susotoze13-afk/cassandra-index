@@ -57,7 +57,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-11-01",
-    "value": 70,
+    "value": 72,
     "methodology": "3.0"
   }
 ];
