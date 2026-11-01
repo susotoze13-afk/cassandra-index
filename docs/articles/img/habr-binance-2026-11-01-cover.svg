@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
+  <title id="t">Событие - критерий - скор - +2,3 п.п.: как кража $6,3 млрд у Binance попала в индекс</title>
+  <desc id="d">Схема из пяти шагов: кража 6,3 млрд долларов у Binance 29 октября 2026 года, критерий Д5.2 Кибероперации с весами событий 1+1+0,5 при CAP 5, значение критерия 0,5, скор драйвера Д5 0,585, вклад в движение недели +2,3 п.п. при индексе 72 (+4).</desc>
+
+  <rect width="1200" height="630" fill="#0A0E12"/>
+
+  <g font-family="Segoe UI, Inter, Arial, sans-serif">
+    <!-- header -->
+    <text x="60" y="66" fill="#8B949E" font-size="15" letter-spacing="2.4">НЕДЕЛЯ 2026-11-01 · МЕТОДОЛОГИЯ 3.0</text>
+    <text x="60" y="112" fill="#E6EDF3" font-size="34" font-weight="600">Как событие стало +2,3 п.п.</text>
+    <text x="60" y="146" fill="#8B949E" font-size="17">Один сюжет недели - от кражи у Binance до движения индекса риска</text>
+
+    <!-- cards -->
+    <g>
+      <!-- card 1 -->
+      <rect x="60" y="186" width="196" height="186" rx="12" fill="#121820" stroke="#243040"/>
+      <text x="78" y="216" fill="#58A6FF" font-size="12" letter-spacing="1.6">СОБЫТИЕ</text>
+      <text x="78" y="252" fill="#E6EDF3" font-size="19" font-weight="600">Кража</text>
+      <text x="78" y="278" fill="#E6EDF3" font-size="19" font-weight="600">$6,3 млрд</text>
+      <text x="78" y="310" fill="#8B949E" font-size="13">Binance, горячие</text>
+      <text x="78" y="328" fill="#8B949E" font-size="13">кошельки, 29.10</text>
+      <text x="78" y="352" fill="#6B7280" font-size="12">ФБР: TraderTraitor</text>
+
+      <!-- arrow -->
+      <path d="M264 279 L288 279" stroke="#58A6FF" stroke-width="2" stroke-linecap="round"/>
+      <path d="M282 273 L290 279 L282 285" fill="none" stroke="#58A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- card 2 -->
+      <rect x="296" y="186" width="196" height="186" rx="12" fill="#121820" stroke="#243040"/>
+      <text x="314" y="216" fill="#58A6FF" font-size="12" letter-spacing="1.6">КРИТЕРИЙ</text>
+      <text x="314" y="252" fill="#E6EDF3" font-size="19" font-weight="600">Д5.2</text>
+      <text x="314" y="276" fill="#E6EDF3" font-size="16">Кибероперации</text>
+      <text x="314" y="310" fill="#8B949E" font-size="13">веса событий</text>
+      <text x="314" y="330" fill="#E6EDF3" font-size="14">1 + 1 + 0,5 = 2,5</text>
+      <text x="314" y="352" fill="#6B7280" font-size="12">потолок CAP = 5</text>
+
+      <!-- arrow -->
+      <path d="M500 279 L524 279" stroke="#58A6FF" stroke-width="2" stroke-linecap="round"/>
+      <path d="M518 273 L526 279 L518 285" fill="none" stroke="#58A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- card 3 -->
+      <rect x="532" y="186" width="196" height="186" rx="12" fill="#121820" stroke="#243040"/>
+      <text x="550" y="216" fill="#58A6FF" font-size="12" letter-spacing="1.6">ЗНАЧЕНИЕ</text>
+      <text x="550" y="272" fill="#E6EDF3" font-size="40" font-weight="600">0,5</text>
+      <text x="550" y="310" fill="#8B949E" font-size="13">min(1, 2,5 / 5)</text>
+      <text x="550" y="336" fill="#6B7280" font-size="12">счётная шкала,</text>
+      <text x="550" y="354" fill="#6B7280" font-size="12">нормировка по CAP</text>
+
+      <!-- arrow -->
+      <path d="M736 279 L760 279" stroke="#58A6FF" stroke-width="2" stroke-linecap="round"/>
+      <path d="M754 273 L762 279 L754 285" fill="none" stroke="#58A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- card 4 -->
+      <rect x="768" y="186" width="196" height="186" rx="12" fill="#121820" stroke="#243040"/>
+      <text x="786" y="216" fill="#58A6FF" font-size="12" letter-spacing="1.6">СКОР ДРАЙВЕРА</text>
+      <text x="786" y="272" fill="#E6EDF3" font-size="40" font-weight="600">0,585</text>
+      <text x="786" y="300" fill="#E6EDF3" font-size="14">Д5</text>
+      <text x="786" y="322" fill="#8B949E" font-size="13">Информационная</text>
+      <text x="786" y="340" fill="#8B949E" font-size="13">и киберсфера</text>
+      <text x="786" y="360" fill="#6B7280" font-size="12">3 из 4 критериев</text>
+
+      <!-- arrow -->
+      <path d="M972 279 L996 279" stroke="#D17F52" stroke-width="2" stroke-linecap="round"/>
+      <path d="M990 273 L998 279 L990 285" fill="none" stroke="#D17F52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- card 5 -->
+      <rect x="1004" y="186" width="136" height="186" rx="12" fill="#121820" stroke="#D17F52"/>
+      <text x="1022" y="216" fill="#D17F52" font-size="12" letter-spacing="1.6">В ИНДЕКСЕ</text>
+      <text x="1022" y="272" fill="#D17F52" font-size="34" font-weight="600">+2,3</text>
+      <text x="1022" y="298" fill="#E6EDF3" font-size="15">п.п. движения</text>
+      <text x="1022" y="330" fill="#8B949E" font-size="13">неделя:</text>
+      <text x="1022" y="350" fill="#E6EDF3" font-size="14">72 (+4)</text>
+    </g>
+
+    <!-- formula strip -->
+    <rect x="60" y="410" width="1080" height="104" rx="12" fill="#0F151B" stroke="#243040"/>
+    <text x="84" y="444" fill="#8B949E" font-size="13" letter-spacing="1.4">ФОРМУЛА</text>
+    <text x="84" y="478" fill="#E6EDF3" font-size="19" font-family="Consolas, Menlo, monospace">s(Д5) = (1,0 + 0,5)/2 - 0,5 × 0,33 = 0,585</text>
+    <text x="84" y="502" fill="#8B949E" font-size="14">среднее по эскалационным критериям минус половина среднего по деэскалационным</text>
+    <text x="1116" y="478" fill="#D17F52" font-size="17" text-anchor="end" font-weight="600">вклад Д5 = 9,5 п.п.</text>
+
+    <!-- regions strip -->
+    <text x="60" y="548" fill="#8B949E" font-size="13" letter-spacing="1.4">РЕГИОНАЛЬНАЯ АТРИБУЦИЯ КРИТЕРИЯ</text>
+    <g font-size="15" fill="#E6EDF3">
+      <text x="60" y="578">Восточная Азия <tspan fill="#D17F52" font-weight="600">74 (+10)</tspan></text>
+      <text x="286" y="578">Северная Америка <tspan fill="#E6EDF3" font-weight="600">74 (+2)</tspan></text>
+      <text x="560" y="578" fill="#8B949E">Южная Азия <tspan fill="#E6EDF3" font-weight="600">73 (+6)</tspan> - её тянул Ормуз, не киберповестка</text>
+    </g>
+
+    <!-- divider + footer -->
+    <line x1="60" y1="598" x2="1140" y2="598" stroke="#1B2430" stroke-width="1"/>
+    <text x="60" y="620" fill="#6B7280" font-size="12">Источник: Cassandra Index, публичный слой недели 2026-11-01</text>
+    <text x="1140" y="620" fill="#6B7280" font-size="12" text-anchor="end">cassindex.ru</text>
+  </g>
+</svg>
