@@ -6289,7 +6289,7 @@
       "q": 1,
       "confidence": "full",
       "coverage_criteria": {
-        "covered": 34,
+        "covered": 35,
         "total": 46
       },
       "regions": [
@@ -6367,8 +6367,8 @@
         }
       ],
       "precursor": {
-        "value": 44,
-        "signaling_subgroups": 5
+        "value": 48,
+        "signaling_subgroups": 6
       },
       "precursor_present": true,
       "drivers": [
@@ -6409,7 +6409,7 @@
             "criteria": 4,
             "total": 6
           },
-          "contribution_pp": 11.2,
+          "contribution_pp": 11.1,
           "top_criteria": [
             {
               "id": "D1.4",
@@ -6602,7 +6602,7 @@
             "criteria": 3,
             "total": 4
           },
-          "contribution_pp": 9.9,
+          "contribution_pp": 9.8,
           "top_criteria": [
             {
               "id": "D5.1",
@@ -6653,7 +6653,7 @@
             "criteria": 2,
             "total": 4
           },
-          "contribution_pp": 16.9,
+          "contribution_pp": 16.8,
           "top_criteria": [
             {
               "id": "D6.2",
@@ -6765,15 +6765,15 @@
             "ru": "Д9. Косвенные индикаторы подготовки",
             "en": "D9. Indirect preparation indicators"
           },
-          "score": 0.443,
+          "score": 0.476,
           "confidence": "medium",
           "weight": 0.06,
           "weight_effective": 0.058,
           "covered": {
-            "criteria": 6,
+            "criteria": 7,
             "total": 8
           },
-          "contribution_pp": 3.8,
+          "contribution_pp": 4.1,
           "top_criteria": [
             {
               "id": "D9.3",
@@ -6783,8 +6783,19 @@
               },
               "dir": "esc",
               "value": 1,
-              "contribution": 0.167,
-              "share": 0.376
+              "contribution": 0.143,
+              "share": 0.3
+            },
+            {
+              "id": "D9.5",
+              "name": {
+                "ru": "Кадровые и мобилизационные меры",
+                "en": "Personnel and mobilisation measures"
+              },
+              "dir": "esc",
+              "value": 0.67,
+              "contribution": 0.096,
+              "share": 0.201
             },
             {
               "id": "D9.6b",
@@ -6794,19 +6805,8 @@
               },
               "dir": "esc",
               "value": 0.67,
-              "contribution": 0.112,
-              "share": 0.252
-            },
-            {
-              "id": "D9.1",
-              "name": {
-                "ru": "Медицинская подготовка",
-                "en": "Medical preparation"
-              },
-              "dir": "esc",
-              "value": 0.33,
-              "contribution": 0.055,
-              "share": 0.124
+              "contribution": 0.096,
+              "share": 0.201
             }
           ]
         }
@@ -6855,10 +6855,10 @@
           },
           {
             "driver": "D9",
-            "contribution_pp": 0.2
+            "contribution_pp": 0.3
           }
         ],
-        "residual_pp": -0.3,
+        "residual_pp": -0.4,
         "residual_reason": "saturation-inertia-coverage-rounding"
       },
       "what_would_change": {
@@ -6922,9 +6922,9 @@
         "method": "criterion-zeroed"
       },
       "sources": {
-        "count": 138,
+        "count": 140,
         "clusters": 4,
-        "state_affiliated": 47
+        "state_affiliated": 48
       },
       "trend": [
         {

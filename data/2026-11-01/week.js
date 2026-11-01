@@ -19,11 +19,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 0.6;
   s.precursor = {
-  "value": 44,
-  "signalingSubgroups": 5
+  "value": 48,
+  "signalingSubgroups": 6
 };
   s.coverageCriteria = {
-  "covered": 34,
+  "covered": 35,
   "total": 46,
   "uncovered": [
     "D1.3",
@@ -36,12 +36,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "D6.4",
     "D7.3",
     "D7.4",
-    "D9.5",
     "D9.6a"
   ]
 };
   s.recalc = {
-  "at": "2026-11-01T09:09:47.440Z",
+  "at": "2026-11-01T09:26:34.113Z",
   "reason": "Еженедельный пересчёт",
   "previous": 70,
   "methodologyBefore": "3.0",
@@ -3907,6 +3906,36 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "notes": "Зеркало Ukrainska Pravda (zenfs en/ukrayinska_pravda_articles); оригинал en.pravda.com.ua из среды не открывается",
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "iz-ukraine-martial-law-extension",
+    "title": {
+      "ru": "Военное положение и мобилизация в Украине могут быть продлены до конца января 2027",
+      "en": "Martial law and mobilization may be extended in Ukraine until the end of January 2027"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/node/2190598",
+    "publication_date": "2026-10-26",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "fakti-ukraine-martial-law-extension",
+    "title": {
+      "ru": "Украина продлевает военное положение до 29 января 2027",
+      "en": "Ukraine extends martial law until January 29, 2027"
+    },
+    "domain": "fakti.bg",
+    "url": "https://fakti.bg/en/world/1094065-ukraine-extends-martial-law-until-january-29-2027",
+    "publication_date": "2026-10-26",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
     "origin": "collected-in-week"
   }
 ];
