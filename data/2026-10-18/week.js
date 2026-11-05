@@ -2957,4 +2957,16 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "origin": "editorial-backfill"
   }
 ];
+  s.regions["russia-belarus"].signals = 7;
+  s.regions["ukraine-moldova"].signals = 5;
+  s.regions["baltic"].signals = 2;
+  s.regions["balkans"].signals = 2;
+  s.regions["eu-north-europe"].signals = 2;
+  s.regions["south-caucasus"].signals = 2;
+  s.regions["central-asia"].signals = 1;
+  s.regions["east-asia"].signals = 2;
+  s.regions["middle-east"].signals = 18;
+  s.regions["north-america"].signals = 1;
+  s.regions["south-asia"].signals = 3;
+  s.regions["africa"].signals = 1;
 })();

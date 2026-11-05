@@ -83,6 +83,23 @@ test('renderWeekCombined: части region-* присваивают в s.region
   assert.equal(snap.regions.africa.index, 40);
 });
 
+test('renderWeekCombined: signals из части regions переживает перезапись region-* (ADR 0069)', () => {
+  // regions.js несёт signals; части region-* перезаписывают запись региона
+  // целиком и поля не касаются (контракт частей). Комбинированный снапшот
+  // обязан вернуть signals обратно — иначе сайт не покажет маркер
+  // «мало региональных сигналов», а datasetOf проецирует поле из снапшота.
+  const parts = syntheticParts();
+  parts.regions = PART(
+    '  s.regions = { "europe": { "index": 40, "delta": -2, "background": false, "signals": 4 },'
+    + ' "africa": { "index": 40, "delta": -2, "background": false, "signals": 0 } };',
+  );
+  const snap = runCombined(W, parts);
+  assert.equal(snap.regions.europe.signals, 4);
+  assert.equal(snap.regions.africa.signals, 0);
+  // регион без signals в regions-части (демо-недели) — без фантомного поля
+  assert.equal(snap.regions['middle-east'].signals, undefined);
+});
+
 test('renderWeekCombined: бросает при отсутствующей или бесшаблонной части', () => {
   const parts = syntheticParts();
   delete parts.sources;

@@ -1402,4 +1402,10 @@ s.drivers = [
     "state_affiliated": false
   }
 ];
+  s.regions["europe"].signals = 1;
+  s.regions["east-asia"].signals = 0;
+  s.regions["middle-east"].signals = 5;
+  s.regions["north-america"].signals = 0;
+  s.regions["south-asia"].signals = 3;
+  s.regions["africa"].signals = 1;
 })();

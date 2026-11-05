@@ -12,6 +12,7 @@ import {
   loadSnapshotPart, weekPartFiles, taxonomyForWeek, loadWeekParts, renderWeekCombined,
 } from '../calc/calc.js';
 import { readLatestWeeks } from '../calc/prepare-week.js';
+import { PARAMS } from '../calc/params.js';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 
@@ -27,7 +28,17 @@ function snapshotFromParts(week) {
     assert.ok(part, `${week}: части ${f} нет на диске`);
     const { regions, ...rest } = JSON.parse(JSON.stringify(part));
     Object.assign(expected, rest);
-    Object.assign(expected.regions, regions);
+    // Часть regions несёт signals (ADR 0069), части region-* перезаписывают
+    // запись региона целиком без поля — эталон сохраняет signals из части
+    // regions (именно так собирает week.js renderWeekCombined).
+    for (const [id, entry] of Object.entries(regions)) {
+      const prev = expected.regions[id];
+      if (prev && prev.signals !== undefined && entry.signals === undefined) {
+        expected.regions[id] = { ...entry, signals: prev.signals };
+      } else {
+        expected.regions[id] = entry;
+      }
+    }
   }
   // Опциональная часть странового слоя (недели ≥ PARAMS.countryLayerFrom):
   // presence-gated — недели без файла countries.js валидны и не меняются.
@@ -59,6 +70,20 @@ for (const week of WEEKS) {
     assert.deepStrictEqual(snapshotFromCombined(week), snapshotFromParts(week));
   });
 }
+
+// ADR 0069: маркер «мало региональных сигналов» и datasetOf висят на
+// комбинированном снапшоте — signals обязан дойти до week.js, хотя части
+// region-* запись региона перезаписывают. Демо-недели 1.0 поля не несут.
+test('week.js цепочки 4.0 несёт signals у каждого региона (ADR 0069)', () => {
+  for (const week of WEEKS) {
+    const g = loadSnapshotPart(week, 'global');
+    if (!g || g.methodology !== PARAMS.methodology) continue; // демо-недели без signals
+    const snap = snapshotFromCombined(week);
+    for (const [id, r] of Object.entries(snap.regions)) {
+      assert.ok(Number.isInteger(r.signals) && r.signals >= 0, `${week}/${id}: signals целое ≥ 0, got ${r && r.signals}`);
+    }
+  }
+});
 
 // Migrate-week-combined идемпотентен: week.js на диске байт-в-байт равен
 // renderWeekCombined(loadWeekParts) — для всех недель содержимое не меняется.

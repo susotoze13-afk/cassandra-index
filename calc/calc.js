@@ -344,7 +344,8 @@ function partOrder(parts) {
 // в одну обёртку. Контракт window.CI_DATA не меняется — сайт не замечает.
 // parts: {global: '<текст global.js>', ...} — полные тексты частей (строки).
 export function renderWeekCombined(week, parts) {
-  const bodies = partOrder(parts).map((f) => {
+  const order = partOrder(parts);
+  const bodies = order.map((f) => {
     const content = parts ? parts[f] : undefined;
     if (typeof content !== 'string') throw new Error(`week.js ${week}: нет части ${f}`);
     const lines = content.split('\n');
@@ -358,7 +359,30 @@ export function renderWeekCombined(week, parts) {
     if (!shapeOk) throw new Error(`week.js ${week}: часть ${f} не в шаблоне генератора`);
     return lines.slice(3, -1).join('\n');
   });
-  return header(week) + bodies.join('\n') + '\n' + FOOTER;
+  // ADR 0069: часть regions несёт signals, но части region-* присваивают
+  // s.regions[id] целиком и поле теряют (контракт частей не меняем). Сайт и
+  // публичный слой читают week.js — после всех частей переносим signals из
+  // regions-части в итоговые записи. Демо-недели (1.0, часть без signals) —
+  // без изменений: непустой хвост появляется только когда signals есть.
+  const regionsBody = bodies[order.indexOf('regions')];
+  let signalsTail = '';
+  if (typeof regionsBody === 'string') {
+    const m = /^\s*s\.regions = (\{[\s\S]*\});?\s*$/.exec(regionsBody);
+    if (m) {
+      let regionsObj = null;
+      try { regionsObj = JSON.parse(m[1]); } catch { regionsObj = null; }
+      if (regionsObj) {
+        const lines = [];
+        for (const [id, r] of Object.entries(regionsObj)) {
+          if (r && typeof r.signals === 'number') {
+            lines.push(`  s.regions[${JSON.stringify(id)}].signals = ${JSON.stringify(r.signals)};`);
+          }
+        }
+        if (lines.length) signalsTail = lines.join('\n') + '\n';
+      }
+    }
+  }
+  return header(week) + bodies.join('\n') + '\n' + signalsTail + FOOTER;
 }
 
 // Чтение частей недели с диска (для week.js после --write и миграции).

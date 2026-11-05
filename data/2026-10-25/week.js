@@ -3786,4 +3786,16 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     }
   }
 };
+  s.regions["russia-belarus"].signals = 8;
+  s.regions["ukraine-moldova"].signals = 8;
+  s.regions["baltic"].signals = 1;
+  s.regions["balkans"].signals = 1;
+  s.regions["eu-north-europe"].signals = 4;
+  s.regions["south-caucasus"].signals = 1;
+  s.regions["central-asia"].signals = 2;
+  s.regions["east-asia"].signals = 5;
+  s.regions["middle-east"].signals = 14;
+  s.regions["north-america"].signals = 6;
+  s.regions["south-asia"].signals = 2;
+  s.regions["africa"].signals = 3;
 })();

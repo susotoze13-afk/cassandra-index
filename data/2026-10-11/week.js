@@ -2176,4 +2176,10 @@ s.drivers = [
     "state_affiliated": false
   }
 ];
+  s.regions["europe"].signals = 14;
+  s.regions["east-asia"].signals = 5;
+  s.regions["middle-east"].signals = 9;
+  s.regions["north-america"].signals = 5;
+  s.regions["south-asia"].signals = 0;
+  s.regions["africa"].signals = 2;
 })();
