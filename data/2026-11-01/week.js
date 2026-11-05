@@ -7,7 +7,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.published = "2026-11-01";
   s.through = "2026-11-01";
-  s.methodology = "3.0";
+  s.methodology = "4.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
   s.q = 1;
@@ -40,90 +40,102 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-11-01T09:51:39.772Z",
+  "at": "2026-11-04T10:49:39.431Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 70,
+  "previous": 72,
   "methodologyBefore": "3.0",
-  "methodologyAfter": "3.0",
+  "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };
   s.regions = {
   "russia-belarus": {
-    "index": 73,
-    "delta": 7,
+    "index": 72.4,
+    "delta": 5.3,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 6
   },
   "ukraine-moldova": {
-    "index": 75,
-    "delta": 7,
+    "index": 71.6,
+    "delta": 3.7,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 10
   },
   "baltic": {
-    "index": 72,
-    "delta": 3,
+    "index": 71.6,
+    "delta": 3.6,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 3
   },
   "balkans": {
-    "index": 73,
-    "delta": 4,
+    "index": 72.3,
+    "delta": 4.5,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 1
   },
   "eu-north-europe": {
-    "index": 73,
-    "delta": 5,
+    "index": 71.3,
+    "delta": 3.9,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 5
   },
   "south-caucasus": {
-    "index": 73,
-    "delta": 7,
+    "index": 72.6,
+    "delta": 4.9,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 1
   },
   "central-asia": {
-    "index": 73,
-    "delta": 8,
+    "index": 72.2,
+    "delta": 5.1,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 1
   },
   "east-asia": {
-    "index": 74,
-    "delta": 10,
+    "index": 72.4,
+    "delta": 5.4,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 7
   },
   "middle-east": {
-    "index": 80,
-    "delta": 2,
+    "index": 72.5,
+    "delta": 2.6,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 14
   },
   "north-america": {
-    "index": 74,
-    "delta": 2,
+    "index": 72.8,
+    "delta": 3.9,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 4
   },
   "south-asia": {
-    "index": 73,
-    "delta": 6,
+    "index": 72.2,
+    "delta": 4.7,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 1
   },
   "africa": {
-    "index": 73,
-    "delta": 4,
+    "index": 72.9,
+    "delta": 5,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 3
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 73,
-  "delta": 7,
+  "index": 72.4,
+  "delta": 5.3,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -249,8 +261,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 75,
-  "delta": 7,
+  "index": 71.6,
+  "delta": 3.7,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -376,8 +388,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 72,
-  "delta": 3,
+  "index": 71.6,
+  "delta": 3.6,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -503,8 +515,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 73,
-  "delta": 4,
+  "index": 72.3,
+  "delta": 4.5,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -600,8 +612,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 73,
-  "delta": 5,
+  "index": 71.3,
+  "delta": 3.9,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -727,8 +739,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 73,
-  "delta": 7,
+  "index": 72.6,
+  "delta": 4.9,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -824,8 +836,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 73,
-  "delta": 8,
+  "index": 72.2,
+  "delta": 5.1,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -921,8 +933,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 74,
-  "delta": 10,
+  "index": 72.4,
+  "delta": 5.4,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1033,8 +1045,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 80,
-  "delta": 2,
+  "index": 72.5,
+  "delta": 2.6,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1160,8 +1172,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 74,
-  "delta": 2,
+  "index": 72.8,
+  "delta": 3.9,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1287,8 +1299,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 73,
-  "delta": 6,
+  "index": 72.2,
+  "delta": 4.7,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -1399,8 +1411,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 73,
-  "delta": 4,
+  "index": 72.9,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1537,52 +1549,52 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   {
     "date": "2026-08-30",
     "value": 51,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-06",
     "value": 42,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-13",
     "value": 43,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-20",
     "value": 56,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-27",
     "value": 47,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-10-04",
     "value": 46,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-10-11",
     "value": 56,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-10-18",
     "value": 64,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-10-25",
     "value": 68,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-11-01",
     "value": 72,
-    "methodology": "3.0"
+    "methodology": "4.0"
   }
 ];
   s.drivers = [
@@ -4035,8 +4047,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "published": 2,
   "rows": {
     "RU": {
-      "index": 73,
-      "delta": 7,
+      "index": 72.4,
+      "delta": 5.3,
       "background": false,
       "region": "russia-belarus",
       "signals": 6,
@@ -4046,8 +4058,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 73,
-      "delta": 5,
+      "index": 72.4,
+      "delta": 4.3,
       "background": false,
       "region": "ukraine-moldova",
       "signals": 6,

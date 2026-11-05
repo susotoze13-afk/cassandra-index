@@ -3,76 +3,88 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-10-25"] = window.CI_DATA.snapshots["2026-10-25"] || {};
   s.regions = {
   "russia-belarus": {
-    "index": 66,
-    "delta": -2,
+    "index": 67.1,
+    "delta": 1.7,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 8
   },
   "ukraine-moldova": {
-    "index": 68,
-    "delta": 5,
+    "index": 67.9,
+    "delta": 3.1,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 8
   },
   "baltic": {
-    "index": 69,
-    "delta": 2,
-    "status": "very",
-    "background": false
-  },
-  "balkans": {
-    "index": 69,
-    "delta": 2,
-    "status": "very",
-    "background": false
-  },
-  "eu-north-europe": {
     "index": 68,
-    "delta": 2,
-    "status": "very",
-    "background": false
-  },
-  "south-caucasus": {
-    "index": 66,
-    "delta": 5,
-    "status": "very",
-    "background": false
-  },
-  "central-asia": {
-    "index": 65,
-    "delta": 2,
-    "status": "very",
-    "background": false
-  },
-  "east-asia": {
-    "index": 64,
-    "delta": -2,
-    "status": "very",
-    "background": false
-  },
-  "middle-east": {
-    "index": 78,
-    "delta": 9,
-    "status": "very",
-    "background": false
-  },
-  "north-america": {
-    "index": 72,
-    "delta": 6,
-    "status": "very",
-    "background": false
-  },
-  "south-asia": {
-    "index": 67,
-    "delta": 1,
-    "status": "very",
-    "background": false
-  },
-  "africa": {
-    "index": 69,
     "delta": 3,
     "status": "very",
-    "background": false
+    "background": false,
+    "signals": 1
+  },
+  "balkans": {
+    "index": 67.8,
+    "delta": 2.8,
+    "status": "very",
+    "background": false,
+    "signals": 1
+  },
+  "eu-north-europe": {
+    "index": 67.4,
+    "delta": 2.6,
+    "status": "very",
+    "background": false,
+    "signals": 4
+  },
+  "south-caucasus": {
+    "index": 67.7,
+    "delta": 4.3,
+    "status": "very",
+    "background": false,
+    "signals": 1
+  },
+  "central-asia": {
+    "index": 67.1,
+    "delta": 3.2,
+    "status": "very",
+    "background": false,
+    "signals": 2
+  },
+  "east-asia": {
+    "index": 67,
+    "delta": 2.5,
+    "status": "very",
+    "background": false,
+    "signals": 5
+  },
+  "middle-east": {
+    "index": 69.9,
+    "delta": 5.5,
+    "status": "very",
+    "background": false,
+    "signals": 14
+  },
+  "north-america": {
+    "index": 68.9,
+    "delta": 3.9,
+    "status": "very",
+    "background": false,
+    "signals": 6
+  },
+  "south-asia": {
+    "index": 67.5,
+    "delta": 3,
+    "status": "very",
+    "background": false,
+    "signals": 2
+  },
+  "africa": {
+    "index": 67.9,
+    "delta": 3.2,
+    "status": "very",
+    "background": false,
+    "signals": 3
   }
 };
 })();

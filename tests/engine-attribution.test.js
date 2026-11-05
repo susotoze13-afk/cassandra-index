@@ -20,9 +20,16 @@ test('attributedIndex ≡ regionalIndex: сигнальная ветка (nReg >
   const g = { index: 68, internal: 68.25, delta: 4 };
   const unit = {
     nReg: 3, eStruct: 0.5, eDyn: 0.2, hasDeescSignals: false,
-    iWith: 74.1, iWithout: 66.3, prevIndex: 63, prevGlobal: 64,
+    deltaRegion: 6.2, prevIndex: 63, prevGlobal: 64,
   };
-  assert.deepEqual(attributedIndex(g, unit, PARAMS), regionalIndex(g, unit, PARAMS));
+  const a = attributedIndex(g, unit, PARAMS);
+  const b = regionalIndex(g, unit, PARAMS);
+  assert.deepEqual(a, b);
+  // Ручной разбор §7 (ADR 0069): e_r = 0.35 → 68.25 + 0.35·6.2 = 70.42 →
+  // index 70.4 (round1), delta round1(70.4 − 63) = 7.4.
+  assert.ok(Math.abs(a.internal - 70.42) < 1e-9);
+  assert.equal(a.index, 70.4);
+  assert.equal(a.delta, 7.4);
 });
 
 test('attributedIndex ≡ regionalIndex: слепая ветка (nReg = 0), прежнее отклонение сохраняется', () => {
@@ -34,8 +41,8 @@ test('attributedIndex ≡ regionalIndex: слепая ветка (nReg = 0), п�
   // Ручной разбор §7: offset = clamp(72 − 64, ±40) = 8 → internal = 68.25 + 8.
   assert.equal(a.background, true);
   assert.equal(a.internal, 76.25);
-  assert.equal(a.index, 76);
-  assert.equal(a.delta, 4); // 76 − 72
+  assert.equal(a.index, 76.3); // round1, половины вверх
+  assert.equal(a.delta, 4.3);  // round1(76.3 − 72)
 });
 
 test('attributedSignals ≡ regionalSignals: обёртка — прежняя функция для attr="regions"', () => {
@@ -72,18 +79,17 @@ test('attributedSignals: сигналы стран по полю countries[]', (
   assert.equal(out.RU.nReg, 2); // D1.1, D1.4
   assert.equal(out.RU.eDyn, 2 / 5);
   assert.equal(out.RU.eStruct, 0.5);
+  assert.equal(typeof out.RU.deltaRegion, 'number'); // мера отклонения §7 (ADR 0069)
   assert.equal(out.UA.nReg, 2); // D1.1, D3.1
   assert.equal(out.UA.eDyn, 2 / 5);
   assert.equal(out.FR, undefined); // сигналов нет — записи нет
-  assert.equal(typeof out.RU.iWith, 'number');
-  assert.equal(typeof out.RU.iWithout, 'number');
 });
 
 test('attributedSignals: гипотетики без недели — правило действует всегда (порог эпсилон, ADR 0065)', () => {
   const criteria = { 'D1.1': { covered: true, value: 1, countries: ['RU'], sources: [] } };
   const out = attributedSignals(criteria, ['RU'], PARAMS, undefined, 'countries');
   assert.equal(out.RU.nReg, 1);
-  assert.ok(out.RU.iWith > 0, 'с эпсилон-порогом одиночный критерий покрывает драйвер');
+  assert.ok(typeof out.RU.deltaRegion === 'number');
 });
 
 test('attributedSignals: params не мутируется', () => {

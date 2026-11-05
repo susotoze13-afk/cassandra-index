@@ -121,12 +121,14 @@ test('buildCountryRows: первая неделя — страна с сигна
   assert.equal(ru.background, false);
   assert.equal(ru.region, 'russia-belarus');
   assert.equal(ru.signals, 1);
-  assert.equal(ru.delta, ru.index - 72, 'delta от унаследованного prevIndex региона');
+  // delta от унаследованного prevIndex региона (округление — round1, одна
+  // десятичная; сравнение с сырой разностью — с допуском float-шума).
+  assert.ok(Math.abs(ru.delta - (ru.index - 72)) < 1e-9, 'delta от унаследованного prevIndex региона');
   assert.equal(typeof ru.delta, 'number');
   assert.deepEqual(ru.name, { ru: 'Россия', en: 'Russia' });
   const ua = res.rows.UA;
   assert.equal(ua.background, false);
-  assert.equal(ua.delta, ua.index - 70);
+  assert.ok(Math.abs(ua.delta - (ua.index - 70)) < 1e-9);
   // Строки есть только у заявленных оверлеем стран: незаявленная отсутствует,
   // а не рисуется фоновой (иначе «страновой ряд» возникал бы из ниоткуда).
   assert.equal(res.rows.FR, undefined, 'незаявленная страна в блок не входит');
@@ -161,7 +163,7 @@ test('buildCountryRows: вторая неделя — prevIndex прошлой �
   };
   const g = { index: 71, internal: 71.1, delta: 3 };
   const res = buildCountryRows('2026-11-01', g, weekInput(), goodOverlay(), prev, REF, PARAMS);
-  assert.equal(res.rows.RU.delta, res.rows.RU.index - 79, 'prevIndex страны, не региона');
+  assert.ok(Math.abs(res.rows.RU.delta - (res.rows.RU.index - 79)) < 1e-9, 'prevIndex страны, не региона');
 });
 
 // --- Форма части countries.js ---

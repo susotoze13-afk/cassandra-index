@@ -15,6 +15,7 @@ import {
   normalizeCriterion,
   independenceWarnings,
   regionalIndex,
+  round1,
   stateOf,
   validate,
 } from '../calc/engine.js';
@@ -457,7 +458,7 @@ test('aggregateDrivers: override из контекста (персистентн
   assert.equal(r.structuralBreak.reason, 'активация на прошлой неделе');
 });
 
-// --- §7: региональная модель отклонения ---
+// --- §7: региональная модель отклонения (ADR 0069: Δ_region по драйверам) ---
 
 const GLOBAL = { index: 72, internal: 72, delta: 12 };
 
@@ -477,73 +478,92 @@ test('regionalIndex: слепой регион сохраняет последн
   assert.equal(eu.background, true);
   assert.equal(eu.internal, 85); // 72 + clamp(73−60) = 85
   assert.equal(eu.index, 85);
-  assert.equal(eu.delta, 12); // 85 − 73
+  assert.equal(eu.delta, 12); // round1(85 − 73)
   const af = regionalIndex(g, { nReg: 0, prevIndex: 51, prevGlobal: 60 }, PARAMS);
   assert.equal(af.internal, 63); // 72 − 9
   assert.equal(af.index, 63);
   assert.equal(af.delta, 12);
 });
 
-test('regionalIndex: модель отклонения — e_r = 0.5·(e_struct+e_dyn), m = n/(n+5)', () => {
+test('regionalIndex: модель отклонения — internal = gInternal + e_r·Δ_region (ADR 0069, без m/n0)', () => {
   const r = regionalIndex(GLOBAL, {
-    iWith: 80, iWithout: 60, nReg: 10, eStruct: 0.8, eDyn: 0.4,
+    deltaRegion: 20, nReg: 10, eStruct: 0.8, eDyn: 0.4,
     hasDeescSignals: false, prevIndex: 70,
   }, PARAMS);
-  // Δ = 80−60 = 20; m = 10/15; e_r = 0.6 → 72 + 0.6·(2/3)·20 = 80
-  assert.equal(r.internal, 80);
-  assert.equal(r.index, 80);
+  // e_r = 0.5·0.8 + 0.5·0.4 = 0.6 → 72 + 0.6·20 = 84
+  assert.equal(r.internal, 84);
+  assert.equal(r.index, 84);
   assert.equal(r.background, false);
-  assert.equal(r.delta, 10); // 80 − prevIndex 70
-  assert.equal(r.state, 'very');
+  assert.equal(r.delta, 14); // round1(84 − 70)
+  assert.equal(r.state, 'critical'); // 84 > 80 — за пределами «очень опасно»
 });
 
 test('regionalIndex: отрицательное отклонение снижает индекс', () => {
   const r = regionalIndex(GLOBAL, {
-    iWith: 60, iWithout: 80, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
+    deltaRegion: -20, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
   }, PARAMS);
-  assert.equal(r.internal, 64); // 72 + 0.6·(2/3)·(−20)
-  assert.equal(r.index, 64);
+  assert.equal(r.internal, 60); // 72 + 0.6·(−20)
+  assert.equal(r.index, 60);
 });
 
-test('regionalIndex: clamp Δ_region ±40', () => {
+test('regionalIndex: clamp Δ_region ±40 (regionClamp)', () => {
   const r = regionalIndex(GLOBAL, {
-    iWith: 200, iWithout: 0, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
+    deltaRegion: 200, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
   }, PARAMS);
-  assert.equal(r.internal, 88); // 72 + 0.6·(2/3)·40
+  assert.equal(r.internal, 96); // 72 + 0.6·40
   const down = regionalIndex(GLOBAL, {
-    iWith: 0, iWithout: 200, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
+    deltaRegion: -200, nReg: 10, eStruct: 0.8, eDyn: 0.4, hasDeescSignals: false,
   }, PARAMS);
-  assert.equal(down.internal, 56); // 72 − 16
+  assert.equal(down.internal, 48); // 72 − 24
+});
+
+test('regionalIndex: индекс и дельта — одна десятичная, без float-артефактов (ADR 0069 Q8)', () => {
+  const g = { index: 73, internal: 73.5, delta: 1 };
+  const r = regionalIndex(g, {
+    deltaRegion: 0, nReg: 2, eStruct: 1, eDyn: 1, hasDeescSignals: false, prevIndex: 72.1,
+  }, PARAMS);
+  // internal 73.5 → index 73.5; round1(73.5 − 72.1) убирает 1.4000000000000057
+  assert.equal(r.index, 73.5);
+  assert.equal(r.delta, 1.4);
+});
+
+test('regionalIndex: round1 — половины вверх, целые без дробной части', () => {
+  assert.equal(round1(73.44), 73.4);
+  assert.equal(round1(73.45), 73.5);
+  assert.equal(round1(72), 72);
+  assert.equal(round1(0.05), 0.1);
 });
 
 test('regionalIndex: зеркалирование шока — Δ_global ≥ +15 и нет деэск. сигналов → max(κ·e_struct·I_global)', () => {
   const g = { index: 72, internal: 72, delta: 16 };
   const r = regionalIndex(g, {
-    iWith: 40, iWithout: 60, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: false,
+    deltaRegion: -10, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: false,
   }, PARAMS);
-  // базовое: 72 + 0.6·(2/3)·(−20) = 64 < 0.85·1·72 = 61.2? нет: 64 > 61.2 — зеркало ниже
+  // базовое: e_r = 0.6 → 72 − 6 = 66 > 0.85·1·72 = 61.2 — зеркало ниже, не срабатывает
+  assert.equal(r.internal, 66);
   assert.equal(r.mirrored, false);
   const low = regionalIndex(g, {
-    iWith: 20, iWithout: 80, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: false,
+    deltaRegion: -20, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: false,
   }, PARAMS);
-  // базовое: 72 + 0.4·(2/3)·(−60→−40) = 72 − 10.67 = 61.33… < 61.2? проверка точная ниже
-  assert.ok(low.internal >= 0.85 * 72 - 1e-9);
-  assert.equal(low.mirrored, low.internal === 0.85 * 72);
+  // базовое: 72 − 12 = 60 < 61.2 → поднято до пола, зеркало зафиксировано
+  assert.ok(Math.abs(low.internal - 0.85 * 72) < 1e-9);
+  assert.equal(low.mirrored, true);
+  assert.equal(low.index, 61.2); // round1(61.2)
 });
 
 test('regionalIndex: деэскалационные сигналы региона блокируют зеркалирование', () => {
   const g = { index: 72, internal: 72, delta: 16 };
   const r = regionalIndex(g, {
-    iWith: 20, iWithout: 80, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: true,
+    deltaRegion: -20, nReg: 10, eStruct: 1, eDyn: 0.2, hasDeescSignals: true,
   }, PARAMS);
   assert.equal(r.mirrored, false);
-  assert.ok(r.internal < 0.85 * 72);
+  assert.equal(r.internal, 60); // 72 − 12 — ниже пола, но блокировка честнее
 });
 
-test('regionalIndex: e_struct = 0 — зеркало ничего не требует', () => {
+test('regionalIndex: e_struct = 0 и e_dyn = 0 — экспозиция нулевая, отклонение не применяется', () => {
   const g = { index: 72, internal: 72, delta: 16 };
   const r = regionalIndex(g, {
-    iWith: 20, iWithout: 80, nReg: 10, eStruct: 0, eDyn: 0, hasDeescSignals: false,
+    deltaRegion: -20, nReg: 10, eStruct: 0, eDyn: 0, hasDeescSignals: false,
   }, PARAMS);
   assert.equal(r.mirrored, false);
   assert.equal(r.internal, 72); // e_r = 0 → отклонение сжато к нулю, шок не зеркалится
@@ -565,8 +585,21 @@ test('stateOf: границы всех шести диапазонов', () => {
   assert.equal(stateOf(97, PARAMS), 'extreme');
   assert.equal(stateOf(100, PARAMS), 'extreme');
   assert.equal(stateOf(101, PARAMS), null);
-  assert.equal(stateOf(-1, PARAMS), null);
+  // Gapless-паритет с js/risk.js status(): первое состояние с index <= max,
+  // поэтому -1 попадает в «calm» (значения вне 0..100 расчётом не производятся).
+  assert.equal(stateOf(-1, PARAMS), 'calm');
   assert.equal(stateOf(NaN, PARAMS), null);
+});
+
+test('stateOf: gapless — дробные индексы регионов не проваливаются в null (ADR 0069)', () => {
+  // Прежний min/max-перебор давал null на 80.4/40.5/96.5; правило «index <= max»
+  // (паритет с js/risk.js status()) закрывает дыры без смены целочисленного
+  // поведения (границы выше — без изменений).
+  assert.equal(stateOf(40.5, PARAMS), 'danger');   // 40.5 > 40, < 41 — прежде null
+  assert.equal(stateOf(80.4, PARAMS), 'critical'); // 80.4 > 80, < 81 — прежде null
+  assert.equal(stateOf(96.5, PARAMS), 'extreme');  // 96.5 > 96, < 97 — прежде null
+  assert.equal(stateOf(0.4, PARAMS), 'calm');
+  assert.equal(stateOf(100, PARAMS), 'extreme');
 });
 
 // --- calc/params.js ---
@@ -585,6 +618,15 @@ test('params: веса Д1–Д8 по 0.1175, Д9 0.06, сумма ровно 1'
   assert.equal(PARAMS.betaUp, 0.9);
   assert.equal(PARAMS.betaDown, 0.5);
   assert.equal(PARAMS.k, 1.95); // откалибровано на якорях §9 (docs/calibration-journal.md)
+  assert.equal(PARAMS.regionClamp, 40);
+  assert.equal(PARAMS.regionShockDelta, 15);
+  assert.equal(PARAMS.regionEstructDefault, 0.5);
+});
+
+test('params: методология 4.0 (ADR 0069), объёмное сжатие n0 удалено', () => {
+  assert.equal(PARAMS.methodology, '4.0');
+  assert.ok(!('n0' in PARAMS), 'PARAMS.n0 удалён (ADR 0069 Q6b)');
+  assert.ok(!('n0' in list()), 'list() — глубокая копия без n0');
 });
 
 test('params: поля v0.7 — capCount, severityValues, dataCoverage, clusters, flashTriggers, qualityThresholds, ipConfidenceLadder', () => {

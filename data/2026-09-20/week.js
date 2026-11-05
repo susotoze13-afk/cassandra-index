@@ -7,7 +7,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.published = "2026-09-20";
   s.through = "2026-09-20";
-  s.methodology = "3.0";
+  s.methodology = "4.0";
   s.regions_taxonomy = "1.0";
   s.dataState = "published";
   s.q = 1;
@@ -28,54 +28,60 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-10-24T18:00:40.634Z",
+  "at": "2026-11-04T10:18:20.861Z",
   "reason": "Еженедельный пересчёт",
   "previous": 56,
   "methodologyBefore": "3.0",
-  "methodologyAfter": "3.0",
+  "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };
   s.regions = {
   "europe": {
-    "index": 44,
-    "delta": 7,
+    "index": 53.5,
+    "delta": 10.9,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 18
   },
   "east-asia": {
-    "index": 53,
-    "delta": 19,
+    "index": 55,
+    "delta": 21.3,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 2
   },
   "middle-east": {
-    "index": 60,
-    "delta": 18,
+    "index": 56.8,
+    "delta": 13.5,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 4
   },
   "north-america": {
-    "index": 37,
-    "delta": 13,
+    "index": 36.4,
+    "delta": 12.7,
     "status": "tense",
-    "background": true
+    "background": true,
+    "signals": 0
   },
   "south-asia": {
-    "index": 59,
-    "delta": 13,
+    "index": 56.1,
+    "delta": 12.7,
     "status": "danger",
-    "background": true
+    "background": true,
+    "signals": 0
   },
   "africa": {
-    "index": 57,
-    "delta": 14,
+    "index": 55.9,
+    "delta": 13.1,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 1
   }
 };
   s.regions["europe"] = {
-  "index": 44,
-  "delta": 7,
+  "index": 53.5,
+  "delta": 10.9,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -181,8 +187,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 53,
-  "delta": 19,
+  "index": 55,
+  "delta": 21.3,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -296,8 +302,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 60,
-  "delta": 18,
+  "index": 56.8,
+  "delta": 13.5,
   "status": "danger",
   "background": false,
   "confidence": "high",
@@ -407,8 +413,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 37,
-  "delta": 13,
+  "index": 36.4,
+  "delta": 12.7,
   "status": "tense",
   "background": true,
   "confidence": "high",
@@ -500,8 +506,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 59,
-  "delta": 13,
+  "index": 56.1,
+  "delta": 12.7,
   "status": "danger",
   "background": true,
   "confidence": "medium",
@@ -597,8 +603,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 57,
-  "delta": 14,
+  "index": 55.9,
+  "delta": 13.1,
   "status": "danger",
   "background": false,
   "confidence": "medium",
@@ -729,22 +735,22 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   {
     "date": "2026-08-30",
     "value": 51,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-06",
     "value": 42,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-13",
     "value": 43,
-    "methodology": "3.0"
+    "methodology": "4.0"
   },
   {
     "date": "2026-09-20",
     "value": 56,
-    "methodology": "3.0"
+    "methodology": "4.0"
   }
 ];
   // Редакционный сид недели 2026-09-20: три главных драйвера недели.

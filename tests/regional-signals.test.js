@@ -38,9 +38,10 @@ test('regionalIndex: дельта слепого региона по постр�
 // --- ADR 0038: регион без истории стартует от прошлого глобального фона ---
 // Регион с сигналами (nReg > 0), но без prevIndex (первая неделя нового id
 // таксономии v2) обязан получить числовую дельту index − prevGlobal, а не null:
-// иначе контракт js/data.js отклонит запись недели.
+// иначе контракт js/data.js отклонит запись недели. Мера отклонения — Δ_region
+// по драйверам (ADR 0069 §1): internal = gInternal + e_r·Δ_region.
 const SIGNAL_REGION = {
-  nReg: 3, eStruct: 0.5, eDyn: 0.3, hasDeescSignals: false, iWith: 78, iWithout: 66,
+  nReg: 3, eStruct: 0.5, eDyn: 0.3, hasDeescSignals: false, deltaRegion: 10,
 };
 
 test('regionalIndex: регион с сигналами без prevIndex получает дельту от prevGlobal (ADR 0038)', () => {
@@ -48,13 +49,16 @@ test('regionalIndex: регион с сигналами без prevIndex пол�
   const r = regionalIndex(g, { ...SIGNAL_REGION, prevGlobal: 56 }, PARAMS);
   assert.equal(r.background, false);
   assert.equal(typeof r.delta, 'number');
-  assert.equal(r.delta, r.index - 56);
+  // e_r = 0.5·0.5 + 0.5·0.3 = 0.4; internal = 64.4 + 0.4·10 = 68.4
+  assert.equal(r.internal, 68.4);
+  assert.equal(r.index, 68.4);
+  assert.equal(r.delta, 12.4); // round1(68.4 − 56) — одна десятичная
 });
 
 test('regionalIndex: регион со своей историей считает дельту от prevIndex, а не от глобала', () => {
   const g = { index: 64, internal: 64.4, delta: 8 };
   const r = regionalIndex(g, { ...SIGNAL_REGION, prevIndex: 40, prevGlobal: 56 }, PARAMS);
-  assert.equal(r.delta, r.index - 40);
+  assert.equal(r.delta, 28.4); // round1(68.4 − 40)
 });
 
 test('regionalIndex: слепая ветка при отсутствии prevIndex не меняется — дельта равна глобальной', () => {
@@ -64,12 +68,15 @@ test('regionalIndex: слепая ветка при отсутствии prevInd
   assert.equal(r.delta, g.delta);
 });
 
-// --- regionalSignals ---
+// --- regionalSignals: мера отклонения Δ_region по драйверам (ADR 0069 §1) ---
+// Δ_region = 100 · Σ_d w_d·shrink_d·(s_d^reg − s_d^glob) / Σ_d w_d по допустимым
+// драйверам (Д1, Д3, Д5–Д8, Д9 только D9.3); знаменатель — константа из весов,
+// отсутствующий драйвер входит нулём; обе ноги — с epsilon-порогом ADR 0065.
 
-// Ручной прогон: params с единственным весом D1 (остальные драйверы вне
-// нормировки), k = 1.95. Драйвер Д1 по 3 покрытым критериям из 6:
-// score = mean(esc) − α·mean(deesc) = mean(0.8, 0.6) − 0.5·0.4 = 0.5.
-// Насыщающая кривая §5.2: 100·(1−e^{−1.95·0.5})/(1−e^{−1.95}) ≈ 72.61.
+// Ручной прогон (P: единственный вес D1): Д1 покрыт глобально 4 критериями из 6
+// (D1.1, D1.2, D1.6, D1.3): s_glob = mean(0.8, 0.6, 0.2) − 0.5·0.4 = 0.3333.
+// У Европы 3 сигнала Д1: s_reg = mean(0.8, 0.6) − 0.5·0.4 = 0.5; shrink = 3/4.
+// Вклад = 1·(3/4)·(0.5 − 0.3333) = 0.125; Δ = 100·0.125/1 = 12.5.
 const P = list();
 P.weights = { D1: 1 };
 
@@ -90,21 +97,73 @@ test('regionalSignals: смешанная неделя — только реги
   assert.equal(eu.eStruct, 0.5); // нейтральный стартовый default (ADR 0022)
   assert.equal(eu.eDyn, 3 / 5);  // доля сигналов региона в общем потоке (5 покрытых)
   assert.equal(eu.hasDeescSignals, true); // D1.6 deesc, value > 0
-  assert.ok(Math.abs(eu.iWith - 72.61) < 0.01); // ручной прогон выше
-  // iWithout: без сигналов Европы D1 покрыт 1/6 (D1.3) — по глобальному порогу
-  // 50 % это null, но гипотетики считаются по правилу «≥1 покрытого критерия»
-  // (ADR 0065, эпсилон): S = 0.2; curve(0.2) = 100·(1−e^{−0.39})/(1−e^{−1.95})
-  // ≈ 37.65.
-  assert.ok(Math.abs(eu.iWithout - 37.65) < 0.01);
+  assert.ok(Math.abs(eu.deltaRegion - 12.5) < 1e-9); // ручной прогон выше
 
   const af = out.africa;
   assert.equal(af.nReg, 1);
   assert.equal(af.eDyn, 1 / 5);
   assert.equal(af.hasDeescSignals, false);
-  assert.equal(af.iWith, 0); // D5 вне весов теста → гипотетика по сигналам Африки = 0
-  // iWithout: неделя без сигналов Африки — D1 покрыт 4/6: mean(0.8, 0.6, 0.2) − 0.5·0.4
-  // = 0.5333 − 0.2 = 0.3333; curve(1/3) = 100·(1−e^{−0.65})/(1−e^{−1.95}) ≈ 55.72.
-  assert.ok(Math.abs(af.iWithout - 55.72) < 0.01);
+  // Д5 вне весов теста (w = 0) — вклад нулевой, запись есть, Δ = 0.
+  assert.equal(af.deltaRegion, 0);
+});
+
+test('regionalSignals: Δ_region — постоянный знаменатель 0.765 из PARAMS.weights (ADR 0069 Q10)', () => {
+  // Полные веса. Д1: s_reg = 0.8, s_glob = mean(0.8, 0.4) = 0.6, shrink = 1/2 →
+  // вклад 0.1175·0.5·0.2 = 0.01175. Д9: региональная нога — только D9.3:
+  // aggregateD9 по одной подгруппе даёт 0.8·0.5 = 0.4 (короборация 0.5);
+  // глобальная нога — весь покрытый Д9: aggregateD9([D9.3:0.8, D9.1:1]) с
+  // короборацией 0.5 обеих подгрупп = 0.5·0.8·0.5 + 0.5·1·0.5 = 0.45;
+  // shrink = 1/2 → вклад 0.06·0.5·(0.4 − 0.45) = −0.0015. Σ = 0.01025;
+  // Δ = 100·0.01025/0.765 ≈ 1.34. Драйверы без сигналов региона входят нулём,
+  // но остаются в знаменателе (иначе Δ = 100·0.01025/0.1775 ≈ 5.77).
+  const criteria = {
+    'D1.1': { covered: true, value: 0.8, regions: ['europe'] },
+    'D1.2': { covered: true, value: 0.4 },
+    'D9.3': { covered: true, value: 0.8, regions: ['europe'] },
+    'D9.1': { covered: true, value: 1 },
+  };
+  const out = regionalSignals(criteria, V1, list());
+  assert.ok(Math.abs(out.europe.deltaRegion - 1.025 / 0.765) < 1e-9);
+});
+
+test('regionalSignals: epsilon-порог ADR 0065 применяется к обеим ногам (ADR 0069 Q11)', () => {
+  // Д9 покрыт 2 подгруппами из 8 (25 % < глобальных 50 %): при epsilon-пороге
+  // глобальная нога покрыта (s_glob = 0.25 — ручной разбор: aggregateD9
+  // [D9.3:0.8, D9.1:0.2] с короборацией 0.5 обеих = 0.5·0.8·0.5 + 0.5·0.2·0.5),
+  // региональная — тоже (1/8 ≥ эпсилон; s_reg = 0.8·0.5 = 0.4 по одной
+  // подгруппе); shrink = 1/2 → Δ = 100·(0.06·0.5·0.15)/0.06 = 7.5.
+  const criteria = {
+    'D9.3': { covered: true, value: 0.8, regions: ['europe'] },
+    'D9.1': { covered: true, value: 0.2 },
+  };
+  const pEps = list();
+  pEps.weights = { D9: 0.06 };
+  const on = regionalSignals(criteria, V1, pEps, undefined);
+  assert.ok(Math.abs(on.europe.deltaRegion - 7.5) < 1e-9);
+  // Подмена порога на глобальные 50 % (Д1): региональная нога Д1 региона с
+  // одним сигналом из 6 критериев драйвера (1/6 < 50 %) не покрыта → вклад 0;
+  // глобальная нога при 2/6 тоже не покрыта. Порог на Д9 не действует по §4.2
+  // (композитный драйвер) — отдельный случай, эпсилон для неё без эффекта.
+  const pHalf = list();
+  pHalf.weights = { D1: 1 };
+  pHalf.regionHypothesisThreshold = 0.5;
+  const off = regionalSignals(
+    { 'D1.1': { covered: true, value: 0.8, regions: ['europe'] }, 'D1.2': { covered: true, value: 0.2 } },
+    V1,
+    pHalf,
+    undefined,
+  );
+  assert.equal(off.europe.deltaRegion, 0);
+  // Контроль того же набора при эпсилоне: Δ = 100·1·(1/2)·(0.8 − 0.5) = 15.
+  const onD1 = list();
+  onD1.weights = { D1: 1 };
+  const onD1Out = regionalSignals(
+    { 'D1.1': { covered: true, value: 0.8, regions: ['europe'] }, 'D1.2': { covered: true, value: 0.2 } },
+    V1,
+    onD1,
+    undefined,
+  );
+  assert.ok(Math.abs(onD1Out.europe.deltaRegion - 15) < 1e-9);
 });
 
 test('regionalSignals: пустой объект, если атрибуции нет', () => {
@@ -135,6 +194,9 @@ test('regionalSignals: Д2/Д4 и Д9 (кроме Д9.3) не участвуют
     P,
   );
   assert.equal(with93.europe.nReg, 1);
+  assert.equal(typeof with93.europe.deltaRegion, 'number');
+  // P несёт вес только D1: w.D9 = 0 → вклад Д9 нулевой.
+  assert.equal(with93.europe.deltaRegion, 0);
 });
 
 test('regionalSignals: сигнал с нулевым значением — объём данных, не деэскалация', () => {
@@ -153,13 +215,15 @@ test('regionalSignals: сигнал с нулевым значением — о�
 import { renderRegions, renderRegionFile } from '../calc/calc.js';
 import { validate as validateSnapshot } from '../js/data.js';
 
-test('renderRegions: флаг background сериализуется в regions.js (true — слепой регион)', () => {
+test('renderRegions: флаг background и поле signals сериализуются в regions.js', () => {
   const out = renderRegions('2026-10-11', {
-    europe: { index: 50, delta: -2, status: 'danger', background: true },
-    africa: { index: 61, delta: 3, status: 'very', background: false },
+    europe: { index: 50, delta: -2, status: 'danger', background: true, signals: 0 },
+    africa: { index: 61, delta: 3, status: 'very', background: false, signals: 4 },
   });
   assert.ok(out.includes('"background": true'));
   assert.ok(out.includes('"background": false'));
+  assert.ok(out.includes('"signals": 0'));
+  assert.ok(out.includes('"signals": 4'));
   assert.ok(out.includes('s.regions ='));
 });
 
@@ -245,6 +309,14 @@ test('validate (js/data.js): background не-boolean отклоняется', ()
   assert.ok(bad.errors.some((e) => e.includes('regions.europe.background')));
 });
 
+test('validate (js/data.js): опциональное signals региона (ADR 0069) — целое ≥ 0 принимается, отсутствие валидно', () => {
+  // Демо-недели (1.0) поля не несут — валидны; недели 4.0 несут целое ≥ 0.
+  const without = validateSnapshot(snapshotWith(SIX_REGIONS(() => ({}))));
+  assert.equal(without.ok, true, JSON.stringify(without.errors));
+  const withSignals = validateSnapshot(snapshotWith(SIX_REGIONS(() => ({ signals: 2 }))));
+  assert.equal(withSignals.ok, true, JSON.stringify(withSignals.errors));
+});
+
 // Набор регионов снапшота — по версии (R07, ADR 0028): поле regions_taxonomy
 // опционально (отсутствие = '1.0'), но если есть — валидны только '1.0'|'2.0';
 // требуются ровно id своей версии, не единственная шестёрка.
@@ -311,4 +383,24 @@ test('validate: regions критерия — whitelist по третьему п�
   assert.ok(wrongForV2[0].includes('europe'));
   assert.ok(wrongForV2[0].includes('russia-belarus')); // ошибка называет переданный whitelist
   assert.deepEqual(validate(inputWithRegions(['europe', 'africa']), PARAMS, regionIdsFor('1.0')), []);
+});
+
+// --- Проводка поля signals в блок регионов снапшота (ADR 0069) ---
+import { computeWeek } from '../calc/week-step.js';
+
+test('computeWeek: регион несёт signals = nReg, слепой регион — signals 0', () => {
+  const input = {
+    week: '2026-10-11', // v1-неделя: набор из шести регионов
+    criteria: {
+      'D1.1': { covered: true, value: 0.5, regions: ['europe'] },
+      'D3.1': { covered: true, value: 0.4, regions: ['europe'] },
+    },
+  };
+  const res = computeWeek(input, { prevInternal: 50, prevPublished: 50, prevRegions: {} }, PARAMS);
+  assert.equal(res.regions.europe.signals, 2);
+  assert.equal(res.regions.europe.background, false);
+  assert.equal(res.regions.africa.signals, 0);
+  assert.equal(res.regions.africa.background, true);
+  assert.equal(typeof res.regions.europe.index, 'number');
+  assert.equal(typeof res.regions.europe.delta, 'number');
 });

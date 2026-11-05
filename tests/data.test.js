@@ -428,17 +428,22 @@ test('диск: демо-неделя 2026-08-23 валидна прежней �
   assert.equal(v.ok, true);
 });
 
-// coverageCriteria — опциональное поле (таск 01): дисковые недели записаны без
-// него и обязаны остаться валидными; поле появится на следующем штатном
-// пересчёте, не в этом прогоне.
-test('диск: все 11 недель без coverageCriteria по-прежнему проходят validate', () => {
-  const WEEKS = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30',
-    '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
+// coverageCriteria — опциональное поле (ADR 0033): демо-недели 1.0 записаны без
+// него и обязаны остаться валидными; недели цепочки 4.0 его несут (ADR 0045).
+test('диск: демо-недели 1.0 без coverageCriteria по-прежнему проходят validate', () => {
+  const WEEKS = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23'];
   for (const w of WEEKS) {
     const v = validate(loadFullSnapshot(w));
     assert.deepEqual(v.errors, [], `${w}: ${v.errors.join('; ')}`);
     assert.equal(v.ok, true, w);
   }
+});
+
+test('диск: пересчитанная 2026-09-13 несёт coverageCriteria {covered,total,uncovered} (ADR 0045)', () => {
+  const snap = loadFullSnapshot('2026-09-13');
+  assert.ok(snap.coverageCriteria && typeof snap.coverageCriteria.covered === 'number');
+  assert.equal(snap.coverageCriteria.total, 46);
+  assert.ok(Array.isArray(snap.coverageCriteria.uncovered));
 });
 
 test('диск: пересчитанная 2026-09-13 — published с полным покрытием', () => {
@@ -455,13 +460,13 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
   assert.equal(snap.published, '2026-09-13');
   assert.ok(snap.recalc && typeof snap.recalc.reason === 'string');
   const recalcPoints = snap.trend.filter((p) => p.date >= '2026-08-30');
-  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => typeof p.value === 'number' && p.methodology === '3.0'));
+  assert.ok(recalcPoints.length > 0 && recalcPoints.every((p) => typeof p.value === 'number' && p.methodology === '4.0'));
   // Точка собственной недели обязана нести версию записываемого снапшота
   // (регресс-защита: до-записная версия с диска отсекала бы её в
-  // selectMethodology → дыра в серии 3.0).
+  // selectMethodology → дыра в серии 4.0).
   const own = snap.trend[snap.trend.length - 1];
   assert.equal(own.date, '2026-09-13');
-  assert.equal(own.methodology, '3.0');
+  assert.equal(own.methodology, '4.0');
 });
 
 // Пин регионального охвата africa/south-asia после пересчёта под источники
@@ -470,11 +475,10 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
 // 09-27, 10-04; остальные недели south-asia честно слепые. Покрытый регион
 // (background:false) считается по своим сигналам; слепой несёт глобальный фон.
 // Совпадение пары {index, delta} с глобальной у покрытого региона — законный
-// результат, а не признак слепой ветки: после ADR 0065 (эпсилон в гипотетиках
-// §7, региональный пересчёт истории) отклонение разрежённого региона может
-// быть меньше шага округления (10-04/africa: iWith − iWithout ≈ 0.36 п.п.).
-// Поэтому пин проверяет флаги, числовые значения и то, что сигналы реально
-// доезжают до числа: регрессионный якорь 09-20/africa и счётчик несовпадений.
+// результат, а не признак слепой ветки: после ADR 0069 (отклонение по
+// драйверам) регион, чьи сигналы покрывают все покрытые критерии драйвера,
+// получает вклад 0 и стоит на глобальном фоне. Пин проверяет флаги, числовые
+// значения и регрессионный якорь 09-20/africa.
 test('диск: africa/south-asia — background по неделям цепочки, покрытые считаются по сигналам', () => {
   const WEEKS = ['2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11'];
   const covered = {
@@ -498,11 +502,14 @@ test('диск: africa/south-asia — background по неделям цепоч�
       }
     }
   }
-  // Регрессионный якорь: 09-20/africa = 57 (+14) против глобальных 56 (+13).
+  // Регрессионный якорь после пересчёта 4.0 (ADR 0069): 09-20/africa = 55.9
+  // (+13.1) против глобальных 56 (+13) — один сигнал, вклад мал, округление
+  // одна десятичная.
   const anchor = loadSnapshotPart('2026-09-20', 'regions').regions.africa;
-  assert.equal(anchor.index, 57);
-  assert.equal(anchor.delta, 14);
+  assert.equal(anchor.index, 55.9);
+  assert.equal(anchor.delta, 13.1);
   assert.equal(anchor.background, false);
+  assert.equal(anchor.signals, 1);
   // Почти все покрытые регион-недели отходят от глобального фона; единичные
   // совпадения — округление малого отклонения (см. комментарий выше).
   assert.ok(differing >= coveredCount - 2, `совпало с фоном: ${coveredCount - differing} из ${coveredCount}`);

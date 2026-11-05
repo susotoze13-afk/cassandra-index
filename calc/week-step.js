@@ -102,7 +102,8 @@ export function nextChainState(state, res) {
 // Возвращает {week, drivers, ctx, global, classification, regions, sbLeft,
 // sbReason}: ctx — контекст агрегации (нужен sensitivityScore недели), regions —
 // проекция региональной модели в форму снапшота {index, delta, status,
-// background}. Регион с сигналами считается по ним (nReg > 0, background:false),
+// background, signals} (signals = nReg, ADR 0069; слепой регион — 0). Регион с
+// сигналами считается по ним (nReg > 0, background:false),
 // без сигналов — «слепой» веткой (nReg = 0, background:true), сохраняющей
 // последнее региональное отклонение от глобального фона (prevRegions против
 // prevPublished прошлой недели). Персистентность Structural Break Override
@@ -127,19 +128,22 @@ export function computeWeek(input, state = {}, params = PARAMS, opts = {}) {
   const classification = classifyPublication(g, drivers, params);
 
   const prevRegions = st.prevRegions;
-  const signals = regionalSignals(regionCriteria, regionIds, params, week);
+  const signalsByRegion = regionalSignals(regionCriteria, regionIds, params, week);
   const regions = {};
   for (const id of regionIds) {
+    const unit = signalsByRegion[id] || { nReg: 0 };
     const r = regionalIndex(
       { index: g.index, internal: g.internal, delta: g.delta },
       {
-        ...(signals[id] || { nReg: 0 }),
+        ...unit,
         prevIndex: prevRegions[id],
         prevGlobal: st.prevPublished,
       },
       params,
     );
-    regions[id] = { index: r.index, delta: r.delta, status: r.state, background: r.background };
+    // signals: n — число региональных сигналов недели (nReg; ADR 0069) —
+    // паритет со строками страновых блоков; слепой регион — 0.
+    regions[id] = { index: r.index, delta: r.delta, status: r.state, background: r.background, signals: unit.nReg };
   }
 
   const sb = g.structuralBreak;

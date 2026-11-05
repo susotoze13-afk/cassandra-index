@@ -420,7 +420,8 @@ export function renderRegions(week, regions) {
   return header(week) + `  s.regions = ${j(regions)};\n` + FOOTER;
 }
 
-// region-*.js: пересчитываются только index/delta/status/background; confidence
+// region-*.js: пересчитываются только index/delta/status/background; поле
+// signals часть не получает (оно живёт в regions.js, ADR 0069); confidence
 // и narrative-поля (drivers) сохраняются из уже опубликованного файла.
 function mergedRegion(prev, index, delta, status, background) {
   return { index, delta, status, background, confidence: prev.confidence, drivers: prev.drivers };
@@ -828,7 +829,7 @@ export async function writeWeek(res, state) {
     changed_at: recalc.at,
     reason: recalc.reason,
     parameters_changed: [],
-    recalculation_method: 'aggregateDrivers v3.0',
+    recalculation_method: `aggregateDrivers v${PARAMS.methodology}`,
     diff: recalcDiff(snap, globalOut, meta),
     approved_by: 'Editor-in-Chief',
   });

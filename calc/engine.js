@@ -17,12 +17,21 @@ function roundHalfUp(x) {
   return Math.round(x);
 }
 
+// Региональный и страновой слой публикуется с одной десятичной (ADR 0069):
+// 73.4, +1.4. Глобальный слой — roundHalfUp (целые), без изменений.
+export function round1(x) {
+  return Math.round(x * 10) / 10;
+}
+
 // --- §9: маппинг индекса в состояние (пороги из params.states) ---
+// Gapless: первое состояние с index <= s.max (паритет с js/risk.js status()) —
+// дробные индексы регионов (80.4/40.5/96.5) не проваливаются в null, как было
+// у прежнего перебора min/max. Целочисленное поведение не меняется.
 export function stateOf(index, params) {
   const states = (params && params.states) || null;
   if (!states) return null;
   if (typeof index !== 'number' || !Number.isFinite(index)) return null;
-  const hit = states.find((s) => index >= s.min && index <= s.max);
+  const hit = states.find((s) => index <= s.max);
   return hit ? hit.id : null;
 }
 
@@ -240,15 +249,11 @@ export function buildDrivers(input, params = PARAMS) {
   );
 }
 
-// --- §5 (шаги 2–6): гипотетический индекс по карте критериев ---
+// --- §5 (шаги 2–6): внутренний прогон агрегации по готовым драйверам ---
 // Контрфактический прогон внутри недели: без контекста цепочки, поэтому q-сжатие
 // (шаг 7) и инерция/override (шаг 8) не применяются — предыдущего значения у
 // гипотетики нет (трактовка — ADR 0022). Возвращает внутреннее float-значение
 // (округление — только на выходе публикуемого индекса).
-function hypotheticalIndex(criteriaIn, params) {
-  const drivers = buildDriversCore(criteriaIn, {}, params);
-  return aggregateDrivers(drivers, params, {}).internal;
-}
 
 // --- §7.3: нормировка счётного критерия ---
 // entry: {value} (старые входы) или {events: [sev…]}, sev ∈ params.severityValues.
@@ -491,13 +496,17 @@ export function aggregateDrivers(drivers, params, context) {
 
 // --- §7: размерностно-нейтральная модель отклонения (регионы и страны) ---
 // global: {index, internal, delta} — результат aggregateDrivers.
-// unit: атрибутированная единица ({iWith, iWithout — внутренние значения
-//   гипотетических прогонов §5 по её сигналам и без них; nReg — число
-//   независимых сигналов за окно; eStruct, eDyn ∈ [0,1]; hasDeescSignals: bool;
+// unit: атрибутированная единица ({deltaRegion — отклонение по драйверам §7,
+//   ADR 0069; nReg — число независимых сигналов за окно; eStruct, eDyn ∈ [0,1]; hasDeescSignals: bool;
 //   prevIndex — опубликованный индекс единицы прошлой недели (для Δ; у страны
 //   без истории — индекс её региона, ADR 0067); prevGlobal — опубликованный
 //   глобальный индекс той же прошлой недели (для переноса последнего
 //   отклонения)}.
+// Уровень: internal = clamp(gInternal + e_r·Δ_region, 0, 100), e_r = γ·eStruct
+// + (1−γ)·eDyn (ADR 0069 Q6b: объёмное сжатие отклонения снято, параметр
+// объёма удалён).
+// Индекс и дельта публикуются с одной десятичной (round1), дельта — от
+// округлённого индекса (убирает float-артефакты вида 1.4000000000000057).
 // Слепая единица (nReg = 0) сохраняет последнее отклонение относительно
 // глобального фона, а не схлопывается в I_global.
 export function attributedIndex(global, unit, params) {
@@ -505,7 +514,6 @@ export function attributedIndex(global, unit, params) {
   const g = global || {};
   const r = unit || {};
   const gInternal = typeof g.internal === 'number' ? g.internal : g.index;
-  const gIndex = typeof g.index === 'number' ? g.index : roundHalfUp(gInternal);
   const nReg = typeof r.nReg === 'number' ? r.nReg : 0;
   const clampR = p.regionClamp != null ? p.regionClamp : PARAMS.regionClamp;
   if (nReg <= 0) {
@@ -519,11 +527,11 @@ export function attributedIndex(global, unit, params) {
       ? clamp(prevIndex - prevGlobal, -clampR, clampR)
       : 0;
     const internal = clamp(gInternal + offset, 0, 100);
-    const index = roundHalfUp(internal);
+    const index = round1(internal);
     return {
       index,
       state: stateOf(index, p),
-      delta: prevIndex != null ? index - prevIndex : (typeof g.delta === 'number' ? g.delta : null),
+      delta: prevIndex != null ? round1(index - prevIndex) : (typeof g.delta === 'number' ? g.delta : null),
       internal,
       background: true,
       mirrored: false,
@@ -531,10 +539,8 @@ export function attributedIndex(global, unit, params) {
   }
   const gamma = p.gamma != null ? p.gamma : PARAMS.gamma;
   const e_r = gamma * (r.eStruct || 0) + (1 - gamma) * (r.eDyn || 0);
-  const n0 = p.n0 != null ? p.n0 : PARAMS.n0;
-  const m = nReg / (nReg + n0);
-  const deltaRegion = clamp((r.iWith != null ? r.iWith : gInternal) - (r.iWithout != null ? r.iWithout : gInternal), -clampR, clampR);
-  let internal = gInternal + e_r * m * deltaRegion;
+  const deltaRegion = clamp(typeof r.deltaRegion === 'number' ? r.deltaRegion : 0, -clampR, clampR);
+  let internal = clamp(gInternal + e_r * deltaRegion, 0, 100);
   // Зеркалирование глобального шока, взвешенное по структурной экспозиции (§7).
   const gDelta = typeof g.delta === 'number' ? g.delta : 0;
   const threshold = p.regionShockDelta != null ? p.regionShockDelta : PARAMS.regionShockDelta;
@@ -547,7 +553,7 @@ export function attributedIndex(global, unit, params) {
       mirrored = true;
     }
   }
-  const index = roundHalfUp(internal);
+  const index = round1(internal);
   // ADR 0038: регион без собственной истории (id, впервые появившийся в
   // таксономии v2) стартует от прошлого глобального фона — по ADR 0028 он и
   // стоял на этом фоне, пока своих данных не было. Без подстановки дельта
@@ -559,7 +565,7 @@ export function attributedIndex(global, unit, params) {
   return {
     index,
     state: stateOf(index, p),
-    delta: prevIndex != null ? index - prevIndex : null,
+    delta: prevIndex != null ? round1(index - prevIndex) : null,
     internal,
     background: false,
     mirrored,
@@ -572,9 +578,9 @@ export function regionalIndex(global, region, params) {
   return attributedIndex(global, region, params);
 }
 
-// --- §7 (ADR 0065): параметры гипотетик iWith/iWithout ---
-// Порог покрытия гипотетик: драйвер покрыт, если в региональном подмножестве
-// есть хотя бы один его покрытый критерий (regionHypothesisThreshold, эпсилон
+// --- §7 (ADR 0065): параметры порога покрытия региональных скоров ---
+// Порог покрытия скоров драйвера: драйвер покрыт, если в подмножестве есть
+// хотя бы один его покрытый критерий (regionHypothesisThreshold, эпсилон
 // вместо глобальных 50 % §4.2). Гейт forward-only: недели раньше
 // regionHypothesisFrom считаются по глобальному порогу — опубликованная история
 // не переписывается. Пустая/отсутствующая дата гейта и вызов без недели (чистый
@@ -597,8 +603,8 @@ export function regionalHypothesisParams(params, week) {
 // отсутствие недели — новое правило действует (чистый юнит).
 // attr: имя атрибутивного поля записи критерия ('regions' | 'countries') —
 // размерность атрибуции; логика агрегации общая (одна формула §7).
-// Возвращает { [id]: {nReg, eStruct, eDyn, hasDeescSignals, iWith,
-// iWithout} } только для единиц с ≥1 сигналом; {} при
+// Возвращает { [id]: {nReg, eStruct, eDyn, hasDeescSignals, deltaRegion} }
+// только для единиц с ≥1 сигналом; {} при
 // отсутствии атрибуции. Результат — готовый вход engine.attributedIndex.
 // Трактовка шкал §7, которую методология не определяет однозначно, —
 // зафиксирована в docs/adr/0022-regional-signals-interpretation.md:
@@ -610,11 +616,11 @@ export function regionalHypothesisParams(params, week) {
 //   - запись с intersection: true (§4.1.5, ADR 0046) — вторичный учёт уже
 //     посчитанного события: региональной/страновой моделью она не считается
 //     вообще — ни сигналом (nReg), ни потоком недели (знаменатель eDyn), ни
-//     членом гипотетических прогонов iWith/iWithout. Иначе повторное событие
-//     сдвигало бы индексы при неизменном глобальном скоре. Единица, у которой
-//     все сигналы — пересечения, остаётся без сигналов (nReg = 0 → слепая
-//     ветка background:true), а не получает фантомный сдвиг. Покрытие недели
-//     это не меняет: счётчик покрытых критериев живёт в calc/calc.js и считает
+//     членом отклонения Δ_region. Иначе повторное событие сдвигало бы индексы
+//     при неизменном глобальном скоре. Единица, у которой все сигналы —
+//     пересечения, остаётся без сигналов (nReg = 0 → слепая ветка
+//     background:true), а не получает фантомный сдвиг. Покрытие недели это не
+//     меняет: счётчик покрытых критериев живёт в calc/calc.js и считает
 //     по covered;
 //   - Д2 и Д4, а также Д9 кроме Д9.3, в агрегацию не входят: §7 относит их
 //     эффект к экспозиции единицы, а не к дублированию сигнала;
@@ -625,12 +631,23 @@ export function regionalHypothesisParams(params, week) {
 //     задел методологии 3.0); eDyn = nReg / (число покрытых критериев недели)
 //     — доля сигналов единицы в общем потоке (компонента «близость к активным
 //     событиям» недоступна во входе недели — ADR 0022);
-//   - iWith — гипотетический индекс §5 (шаги 2–6) по сигналам единицы;
-//     iWithout — тот же прогон по всем покрытым критериям недели без сигналов
-//     единицы (сигналы других единиц остаются).
+//   - deltaRegion — отклонение по драйверам §7 (ADR 0069 §1):
+//     Δ_region = 100 · Σ_d w_d·shrink_d·(s_d^reg − s_d^glob) / Σ_d w_d, где d —
+//     допустимые драйверы (Д1, Д3, Д5–Д8, Д9 только D9.3; предикат eligible);
+//     s_d — скор драйвера §4.2 (engine.driverScore, Д8 — d8Strength, Д9 — по
+//     D9.3) на подмножестве критериев драйвера, обе ноги — с epsilon-порогом
+//     гейта (ADR 0065, ADR 0069 Q11); shrink_d = n_cov_region,d / n_cov_global,d
+//     (доля покрытых критериев драйвера, представленных у единицы; при нулевом
+//     глобальном покрытии драйвера вклад 0); знаменатель — константа: сумма
+//     весов допустимых драйверов из PARAMS.weights (0.1175·6 + 0.06 = 0.765) —
+//     отсутствующий драйвер входит нулём, а не исключается из нормировки;
+//     clamp ±regionClamp как страховка шкалы. Глобальная нога — весь покрытый
+//     набор недели (для Д9 — все покрытые подгруппы).
+const DEVIATION_DRIVERS = ['D1', 'D3', 'D5', 'D6', 'D7', 'D8', 'D9'];
+
 export function attributedSignals(criteria, ids, params, week, attr = 'regions') {
   const p = params || PARAMS;
-  // Гипотетики считаются с порогом из гейта (ADR 0065), остальные поля — из p.
+  // Скоры драйверов считаются с порогом из гейта (ADR 0065), остальные поля — из p.
   const pRegion = regionalHypothesisParams(p, week);
   const whitelist = Array.isArray(ids) && ids.length ? ids : REGION_IDS;
   const map = criteria && typeof criteria === 'object' && !Array.isArray(criteria) ? criteria : {};
@@ -641,35 +658,102 @@ export function attributedSignals(criteria, ids, params, week, attr = 'regions')
     if (m.driver === 'D9' && id !== 'D9.3') return false;
     return true;
   };
-  const attributed = {}; // regionId -> [{id, entry}]
+  // Глобальная нога Δ_region: покрытая (не-пересечение) неделя целиком —
+  // скоры допустимых драйверов и число покрытых критериев по драйверам.
+  const globalMap = {};
+  const nCovGlobal = {}; // driver -> число покрытых критериев недели
   let nCovered = 0;
   for (const [id, entry] of Object.entries(map)) {
     if (!entry || entry.covered !== true) continue;
-    // §4.1.5 (ADR 0046): пересечение — вторичный учёт посчитанного события.
-    // Региональная модель его не видит совсем (сигнал, поток, гипотетика) —
-    // прогон равен прогону без записи; глобальный скор и покрытие недели
-    // считают её отдельно (buildDriversCore / coverageOf).
+    // §4.1.5 (ADR 0046): пересечение региональная/страновая модель не видит
+    // (ни сигналом, ни потоком, ни ногой Δ) — прогон равен прогону без записи;
+    // глобальный скор и покрытие недели считают её отдельно.
     if (entry.intersection === true) continue;
     nCovered += 1;
+    globalMap[id] = entry;
+    const driver = CRITERIA[id].driver;
+    nCovGlobal[driver] = (nCovGlobal[driver] || 0) + 1;
+  }
+  const globalDrivers = buildDriversCore(globalMap, {}, pRegion);
+  const globalScore = {};
+  for (const d of globalDrivers) {
+    if (typeof d.score === 'number') globalScore[d.id] = d.score;
+  }
+  const attributed = {}; // unitId -> [{id, entry}]
+  for (const [id, entry] of Object.entries(globalMap)) {
     if (!eligible(id) || !Array.isArray(entry[attr])) continue;
     for (const rid of entry[attr]) {
       if (!whitelist.includes(rid)) continue;
       (attributed[rid] = attributed[rid] || []).push({ id, entry });
     }
   }
+  const w = p.weights || PARAMS.weights;
+  let weightSum = 0;
+  for (const driver of DEVIATION_DRIVERS) weightSum += w[driver] || 0;
+  const clampR = p.regionClamp != null ? p.regionClamp : PARAMS.regionClamp;
   const eStructDefault = p.regionEstructDefault != null ? p.regionEstructDefault : 0.5;
+  // Региональная нога драйвера: скор по полному набору критериев драйвера
+  // (непокрытые — covered:false), где покрыты только сигналы единицы —
+  // иначе порог гейта (ADR 0065) неизбежно «покрыт» и не работает. Д8 —
+  // d8Strength, Д9 — только D9.3 (eligible отфильтровал остальные подгруппы),
+  // агрегация aggregateD9. Null при покрытии ниже порога — драйвер не даёт
+  // вклада.
+  const regionDriverScore = (driver, signals) => {
+    const have = new Map(signals.map((s) => [s.id, s.entry]));
+    const ids = Object.keys(CRITERIA).filter((id) => CRITERIA[id].driver === driver);
+    if (driver === 'D9') {
+      const subgroups = ids.map((id) => {
+        const entry = have.get(id);
+        return {
+          id,
+          score: entry ? normalizeCriterion(entry, p) : null,
+          acyclic: !!entry && entry.acyclic === true,
+          rejected: !!entry && entry.rejected === true,
+        };
+      });
+      return aggregateD9(subgroups, pRegion).score;
+    }
+    if (driver === 'D8') {
+      return d8Strength(
+        ids.map((id) => ({
+          value: have.has(id) ? normalizeCriterion(have.get(id), p) : 0,
+          covered: have.has(id),
+        })),
+        pRegion.coverageThreshold,
+      );
+    }
+    return driverScore(
+      ids.map((id) => ({
+        dir: CRITERIA[id].dir,
+        value: have.has(id) ? normalizeCriterion(have.get(id), p) : 0,
+        covered: have.has(id),
+      })),
+      pRegion.alpha,
+      pRegion.coverageThreshold,
+    );
+  };
   const out = {};
   for (const rid of whitelist) {
     const signals = attributed[rid];
     if (!signals || signals.length === 0) continue;
-    const withMap = {};
-    for (const { id, entry } of signals) withMap[id] = entry;
-    const withoutMap = {};
-    for (const [id, entry] of Object.entries(map)) {
-      if (entry && entry.covered === true && entry.intersection !== true && !signals.some((s) => s.id === id)) {
-        withoutMap[id] = entry;
-      }
+    const byDriver = {};
+    for (const s of signals) {
+      const driver = CRITERIA[s.id].driver;
+      (byDriver[driver] = byDriver[driver] || []).push(s);
     }
+    let acc = 0;
+    for (const driver of DEVIATION_DRIVERS) {
+      const list = byDriver[driver];
+      if (!list) continue; // нет сигналов единицы в драйвере — вклад 0
+      const nGlobal = nCovGlobal[driver] || 0;
+      if (nGlobal === 0) continue; // нет глобального покрытия — вклад 0
+      const sReg = regionDriverScore(driver, list);
+      const sGlob = globalScore[driver];
+      if (typeof sReg !== 'number' || typeof sGlob !== 'number') continue;
+      const shrink = list.length / nGlobal;
+      acc += (w[driver] || 0) * shrink * (sReg - sGlob);
+    }
+    const deltaRegion = weightSum > 0 ? clamp((100 * acc) / weightSum, -clampR, clampR) : 0;
     out[rid] = {
       nReg: signals.length,
       eStruct: eStructDefault,
@@ -677,15 +761,14 @@ export function attributedSignals(criteria, ids, params, week, attr = 'regions')
       hasDeescSignals: signals.some(
         ({ id, entry }) => CRITERIA[id].dir === 'deesc' && normalizeCriterion(entry, p) > 0,
       ),
-      iWith: hypotheticalIndex(withMap, pRegion),
-      iWithout: hypotheticalIndex(withoutMap, pRegion),
+      deltaRegion,
     };
   }
   return out;
 }
 
 // regionalSignals — прежнее имя attributedSignals для размерности 'regions'
-// (тонкая обёртка: выходы всех 13 недель не сдвигаются, байт-пин —
+// (тонкая обёртка; байт-пин выходов недель цепочки —
 // tests/engine-attribution-parity.test.js).
 export function regionalSignals(criteria, regionIds, params, week) {
   return attributedSignals(criteria, regionIds, params, week, 'regions');

@@ -6,8 +6,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "published": 2,
   "rows": {
     "RU": {
-      "index": 73,
-      "delta": 7,
+      "index": 72.4,
+      "delta": 5.3,
       "background": false,
       "region": "russia-belarus",
       "signals": 6,
@@ -17,8 +17,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 73,
-      "delta": 5,
+      "index": 72.4,
+      "delta": 4.3,
       "background": false,
       "region": "ukraine-moldova",
       "signals": 6,

@@ -7,7 +7,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.published = "2026-10-18";
   s.through = "2026-10-18";
-  s.methodology = "3.0";
+  s.methodology = "4.0";
   s.regions_taxonomy = "2.0";
   s.dataState = "published";
   s.q = 1;
@@ -37,11 +37,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-10-24T18:22:10.121Z",
+  "at": "2026-11-04T10:42:43.783Z",
   "reason": "Еженедельный пересчёт",
   "previous": 64,
   "methodologyBefore": "3.0",
-  "methodologyAfter": "3.0",
+  "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };
 })();

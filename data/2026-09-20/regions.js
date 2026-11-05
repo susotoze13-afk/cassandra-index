@@ -3,40 +3,46 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-09-20"] = window.CI_DATA.snapshots["2026-09-20"] || {};
   s.regions = {
   "europe": {
-    "index": 44,
-    "delta": 7,
+    "index": 53.5,
+    "delta": 10.9,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 18
   },
   "east-asia": {
-    "index": 53,
-    "delta": 19,
+    "index": 55,
+    "delta": 21.3,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 2
   },
   "middle-east": {
-    "index": 60,
-    "delta": 18,
+    "index": 56.8,
+    "delta": 13.5,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 4
   },
   "north-america": {
-    "index": 37,
-    "delta": 13,
+    "index": 36.4,
+    "delta": 12.7,
     "status": "tense",
-    "background": true
+    "background": true,
+    "signals": 0
   },
   "south-asia": {
-    "index": 59,
-    "delta": 13,
+    "index": 56.1,
+    "delta": 12.7,
     "status": "danger",
-    "background": true
+    "background": true,
+    "signals": 0
   },
   "africa": {
-    "index": 57,
-    "delta": 14,
+    "index": 55.9,
+    "delta": 13.1,
     "status": "danger",
-    "background": false
+    "background": false,
+    "signals": 1
   }
 };
 })();

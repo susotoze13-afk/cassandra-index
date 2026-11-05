@@ -1,9 +1,10 @@
 // engine-attribution-parity.test.js — байт-пин регионов после обобщения ядра §7
-// в attributedSignals/attributedIndex: пересчёт регионов цепочки 08-30…10-25
-// из calc/input/<неделя>.json тем же шагом недели (week-step.computeWeek),
-// что и штатный --write, должен дать index/delta/background, равные опубликованным
-// данным data/<неделя>/regions.js. Демо-недели 08-02…08-23 (методология 1.0)
-// непересчитываемы — пинятся с диска как есть (набор и фон).
+// в attributedSignals/attributedIndex: пересчёт регионов цепочки 08-30…11-01
+// (10 недель, методология 4.0) из calc/input/<неделя>.json тем же шагом недели
+// (week-step.computeWeek), что и штатный --write, должен дать index/delta/
+// background, равные опубликованным данным data/<неделя>/regions.js. Демо-недели
+// 08-02…08-23 (методология 1.0) непересчитываемы — пинятся с диска как есть
+// (набор и фон).
 // Ожидаемые значения — опубликованные файлы (независимый источник, не код под тестом).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -17,6 +18,7 @@ import { regionIdsFor } from '../js/data.js';
 const CHAIN = [
   '2026-08-30', '2026-09-06', '2026-09-13', '2026-09-20',
   '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18', '2026-10-25',
+  '2026-11-01',
 ];
 const DEMO = ['2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23'];
 const PREV_WEEK = '2026-08-23';
@@ -27,7 +29,7 @@ function loadInput(week) {
   return JSON.parse(readFileSync(f, 'utf8'));
 }
 
-test('паритет регионов цепочки 08-30…10-25: пересчёт = опубликованным index/delta/background', () => {
+test('паритет регионов цепочки 08-30…11-01: пересчёт = опубликованным index/delta/background', () => {
   const prevGlobal = loadSnapshotPart(PREV_WEEK, 'global');
   const prevRegions = loadSnapshotPart(PREV_WEEK, 'regions');
   assert.ok(prevGlobal && prevRegions, 'старт цепочки — опубликованный снапшот 08-23');
