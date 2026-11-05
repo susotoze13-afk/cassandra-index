@@ -10,7 +10,7 @@
 - `data/` — граница: `.js`-файлы в `window.CI_DATA`, не JSON (сайт работает с `file://`).
 - Расчёту разрешено импортировать контракт `js/data.js` (`validate`, `regionIdsFor`);
   обратного импорта нет.
-- `calc/params.js` — единственный источник чисел (`k = 1.95`, `methodology = '3.0'`).
+- `calc/params.js` — единственный источник чисел (`k = 1.95`, `methodology = '4.0'`).
 - Всё ESM, кроме CommonJS `build.js`; ноль зависимостей; Node ≥ 18.
 
 ## 2. Поток расчёта недели
@@ -54,7 +54,8 @@
     `.precursor-section`; при `null` блок скрыт, а не показывает «0 %».
 11. Тексты — `js/i18n.js` (`precursor.*`, `method.scale.*`); число подгрупп —
     `PRECURSOR_SUBGROUPS = 8` из `js/data.js`, паритет с `engine.D9_SUBGROUPS`.
-12. Forward-only: в `data/` поля нет ни у одной из 12 недель; бэкфилл не выполняется.
+12. Forward-only: поле есть только у недель ≥ гейта 10-25 (10-25 = 39, 11-01 = 48),
+    у более ранних отсутствует; бэкфилл не выполняется.
     Регрессионный пин расчёта — `tests/precursor.test.js` (10-18 = `value: 50`).
 
 ## 3а. Поток странового слоя (ADR 0067)
@@ -84,7 +85,8 @@
    `engine.attributedSignals(criteria, ids, params, week, attr)` и
    `engine.attributedIndex(global, unit, params)`; `countrySignals` =
    `attributedSignals(..., 'countries')`, `countryIndex` = `attributedIndex`.
-   Регионы — тонкие обёртки, их выходы байт-в-байт прежние.
+   Регионы — тонкие обёртки той же функции: мера отклонения и точность у них общие
+   (ADR 0069).
 4. `prevIndex` страны: опубликованный индекс страны прошлой недели → иначе
    индекс её региона прошлой недели → иначе `prevGlobal` (аналогия ADR 0038:
    первая неделя слоя обязана дать числовую дельту). Слепая страна (nReg = 0)
@@ -103,7 +105,40 @@
    под-блок скрыт. Публичный слой: новый файл `data/public/countries/<week>.json`
    (конверт как у `weeks/<week>.json`, без `name`, с `sensitivity` недели —
    отдельной страновой чувствительности не считается), схема
-   `countries.schema.json`; `PUBLIC_SCHEMA_VERSION` прежний, новых полей нет.
+   `countries.schema.json`; `PUBLIC_SCHEMA_VERSION = 2` (ADR 0069), новых полей у
+   самой страны нет.
+
+## 3б. Региональное отклонение по драйверам (ADR 0069, методология 4.0)
+
+1. Регион — не самостоятельный индекс, а **отклонение** от глобального скора тех же
+   драйверов: `Δ_region = 100 · Σ_d w_d · shrink_d · (s_d^region − s_d^global) / Σ_d w_d`.
+   Допустимые драйверы — Д1, Д3, Д5–Д8 и Д9 только по D9.3 (предикат `eligible` в
+   `engine.attributedSignals`, ADR 0022 без изменений); у Д9 региональная нога — D9.3,
+   глобальная — все покрытые подгруппы.
+2. `shrink_d = n_cov_region,d / n_cov_global,d` считается из данных недели (не параметр);
+   знаменатель — сумма весов допустимых драйверов (`0.1175·6 + 0.06 = 0.765`) из
+   `PARAMS.weights`, не литерал. Отсутствующий у региона драйвер входит нулём. Порог
+   покрытия — эпсилон ADR 0065 (`regionalHypothesisParams`) на **обеих** ногах.
+3. Уровень: `attributedIndex` → `internal = clamp(gInternal + e_r · Δ_region, 0, 100)`;
+   `e_r = γ·e_struct + (1−γ)·e_dyn`, `e_struct = PARAMS.regionEstructDefault = 0.5`
+   (открытый плейсхолдер, квартального реестра нет). Объёмное сжатие `m`/`n0` снято,
+   `PARAMS.n0` удалён. `index`/`delta` — `round1` (одна десятичная), дельта от
+   округлённого индекса; глобальный слой — целый `roundHalfUp` и не менялся.
+4. `signals` = `nReg` в блоке региона (`week-step.js` → `regions.js`); слепой регион —
+   `0` и `background: true`, части `region-*.js` поле не несут. Сайт сортирует секцию
+   по индексу убыванию (при равенстве — по id, `rankedRegions`), личный регион
+   переставляется первой строкой, маркер `signals < 2` — ключ `region.signals.low`.
+5. `stateOf` стал gapless (`index <= s.max`) — дробный индекс не проваливается в `null`;
+   паритет с `js/risk.js status()`, `PARAMS.states` не менялся.
+6. Цепочка 08-30…11-01 (10 недель) пересчитана `calc.js --write`; глобальные числа,
+   `q`, покрытие, `sensitivity`, `precursor` байт-в-байт прежние, аудит —
+   `aggregateDrivers v4.0`. Факт 11-01: индексы регионов 71.3…72.9 (разброс 1.6 п.п.,
+   глобальный 72), ветка зеркалирования шока не срабатывала (max |Δглобала| = 13 < 15).
+7. Публичный слой: `PUBLIC_SCHEMA_VERSION = 2`, `regions[].index/delta` и
+   `countries.rows[].index/delta` — `number`, `regions[].signals` — опциональное
+   целое ≥ 0; схемы в `data/public/schema/v2/` (каталог `v1` удалён при регенерации).
+8. Страновой слой наследует меру автоматически (ADR 0067): одна функция на обе
+   размерности; инвариант «регион ⊇ страна» (ADR 0068) не менялся.
 
 ## 4. Форвардные якоря
 
@@ -129,7 +164,8 @@
 - Обязательны `published`, `through`, `methodology`, `dataState`, набор регионов
   по `regions_taxonomy`, ровно 3 драйвера, тренд ровно 12 точек.
 - Опциональные поля: `coverageCriteria {covered,total,uncovered}`, `sensitivity`,
-  `precursor {value, signalingSubgroups}`, `background` у региона, `countries`
+  `precursor {value, signalingSubgroups}`, `background` у региона, `signals` у региона
+  (целое ≥ 0, ADR 0069; отсутствие валидно — демо-недели его не несут), `countries`
   (`{total, published, rows}` по ISO2, ADR 0067 — опциональная часть, presence-gated).
 - `precursor` проверяется в `validateQuality` как поле верхнего уровня снапшота:
   целые `value 0..100`, `signalingSubgroups 0..8`; отсутствие валидно, битая форма —
@@ -223,7 +259,7 @@ data/<week>/{global,regions,trend,drivers,sources,region-*}.js
             │                                                    ├─ data/public/cassandra-index.csv
             │                                                    ├─ data/public/trend.svg
             │                                                    ├─ data/public/{regions,criteria,methodology}.json
-            │                                                    ├─ data/public/schema/v1/*.json
+            │                                                    ├─ data/public/schema/v2/*.json
             │                                                    └─ changelog.json + changelog.html
             │                                                       (из calc/changelog-entries.js)
             └─ calc/digest.js ─ buildDigest(snapshot, {site, prev, chartUrl})
@@ -271,8 +307,10 @@ classic script для `file://`), его грузит `index.html` рядом с
 - Порядок сборки недели: `calc.js --write` → `public-export.js --write` →
   `digest-export.js --write` → `node build.js` → `node --test`; так же в
   `weekly-calc.yml`, где публичный слой и дайджест пересобираются до тестов.
-- Публичная схема версионируется отдельно (`PUBLIC_SCHEMA_VERSION = 1`), таймстемпов в
-  выводе нет: повторный `--write` без изменения данных даёт тот же файл.
+- Публичная схема версионируется отдельно (`PUBLIC_SCHEMA_VERSION = 2`, ADR 0069 —
+  смена типа `integer → number` у регионов и стран потребовала новой папки
+  `schema/v2/`), таймстемпов в выводе нет: повторный `--write` без изменения данных
+  даёт тот же файл.
 - `digest-export.js` по умолчанию берёт только недели текущей `PARAMS.methodology`;
   `--week` добавляет одну, архив на диске не теряется (merge по неделе).
 - Идемпотентность доставки — пара «неделя+канал»: `--reserve` пишет `pending` до
@@ -327,7 +365,7 @@ calc/ledger.js ─ buildLedger ─ data/public/forecast-ledger.json
 ### Инварианты
 
 - Ряд индекса для сравнения — только опубликованные недели `PARAMS.methodology`
-  (3.0); демо-недели 1.0 исключены. GPR выравнивается по окну `[W−6, W]`
+  (4.0); демо-недели 1.0 исключены. GPR выравнивается по окну `[W−6, W]`
   (нужно ≥ 4 дня), месячные ряды — по среднему индекса за месяц.
 - Ниже `MIN_PAIRS = 6` пар коэффициент не публикуется: `value: null`,
   `status: 'insufficient'`, на странице — «—» с причиной. До 19 пар —

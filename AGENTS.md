@@ -5,8 +5,16 @@
 по открытым данным. Две половины репо: сайт (статика, `index.html` + `js/` + `data/`)
 и расчётный пайплайн (`calc/`: входные сигналы → детерминированный движок → снапшоты
 в `data/`). Не предсказывает дату войны и не является вероятностью войны.
-Текущая методология — **3.0** (46 критериев, включая рыночный стресс-критерий D4.6
+Текущая методология — **4.0** (46 критериев, включая рыночный стресс-критерий D4.6
 драйвера Д4); недели 08-02…08-23 — непересчитываемая демо-история методологии 1.0.
+4.0 (ADR 0069) — региональное отклонение §7 по драйверам
+(`Δ_region = 100·Σ_d w_d·shrink_d·(s_d^reg − s_d^glob)/Σ_d w_d`, допустимые
+Д1/Д3/Д5–Д8 и Д9 только D9.3, знаменатель 0.765 из `PARAMS.weights`, эпсилон
+ADR 0065 на обеих ногах, `shrink_d = n_cov_region/n_cov_global`), снятие
+объёмного сжатия `n0`/`m`, дробная точность регионов и стран (одна десятичная;
+глобальный — целый), поле `signals` у региона, сортировка секции регионов
+по индексу, `PUBLIC_SCHEMA_VERSION = 2` (`data/public/schema/v2/`), пересчёт
+цепочки 08-30…11-01 (10 недель) с неизменными глобальными числами.
 Регионы — таксономия **v2** (12 id, `CURRENT_TAXONOMY`, граница `TAXONOMY_V2_FROM`
 = `2026-10-18`, forward-only); недели ≤ 10-11 — v1 (6 id), `2026-10-18` — первая
 неделя v2 (12 регионов, `week.js` из 17 частей). Версия таксономии
@@ -41,7 +49,7 @@ prevGlobal; публичный файл `data/public/countries/<неделя>.js
 | Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
-| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `schema/v1/*.json` (11 схем, включая `changelog`, `digest`, `validation`, `forecast-ledger`) и `changelog.html`; `--root <dir>` — другой корень |
+| Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `countries/<неделя>.json`, `schema/v2/*.json` (12 схем, включая `changelog`, `digest`, `validation`, `forecast-ledger`, `countries`) и `changelog.html`; `--root <dir>` — другой корень |
 | Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
@@ -134,12 +142,14 @@ js/region.js              REGIONS_V1 (6, легаси) / REGIONS_V2 (12, тек�
                           search(q, catalog?) — префиксный матч ru/en, .broad:boolean
 calc/engine.js            ядро формул: скор драйвера (§4.2), короборация Д9 (§4.3),
                           глобальная агрегация §5 (шаги 1–8), инерция и Structural
-                          Break Override (§5.4), региональная модель (§7): regionalIndex
-                          + агрегация атрибуции regionalSignals, общее ядро маппинга
-                          buildDriversCore, validate входов, константы CRITERIA (46,
-                          D4.6 — ordinal-шкала 0/0.33/0.67/1)
+                          Break Override (§5.4), региональная модель §7 (ADR 0069):
+                          attributedSignals (Δ_region по драйверам, shrink_d,
+                          знаменатель 0.765, эпсилон на обеих ногах, clamp ±40) +
+                          attributedIndex, round1, gapless stateOf, общее ядро
+                          маппинга buildDriversCore, validate входов, константы
+                          CRITERIA (46, D4.6 — ordinal-шкала 0/0.33/0.67/1)
 calc/params.js            PARAMS — единственный источник чисел (k = 1.95,
-                          methodology = '3.0')
+                          methodology = '4.0'; n0 удалён — ADR 0069)
 calc/week-step.js         чистый шаг недели: computeWeek (вход → buildDrivers →
                           aggregateDrivers с ctx → regionalSignals → classifyPublication),
                           taxonomyForWeek, loadSnapshotPart (vm), nextChainState;
@@ -209,7 +219,7 @@ calc/backfill-report.js   CLI долга истории: сводка + чек-�
 calc/migrate-week-combined.js  идемпотентная разовая миграция: `data/<week>/week.js`
                           из дисковых частей той же функцией, что и calc.js --write
                           (renderWeekCombined + loadWeekParts из calc.js)
-calc/public-export.js     публичный слой (PUBLIC_SCHEMA_VERSION = 1): datasetOf/
+calc/public-export.js     публичный слой (PUBLIC_SCHEMA_VERSION = 2): datasetOf/
                           buildDataset/toCsv/toTrendSvg (polyline-сегменты по
                           methodology, точка без версии — «без версии»)/
                           renderChangelogPage/waterfallReasonFor (причина null-водопада,
@@ -221,9 +231,9 @@ calc/contributions.js     модельная развёртка (ADR 0062): crit
                           (steps + residual_pp = published delta), whatWouldChange
                           (контрфактика criterion-zeroed), analyseWeek; чистая, без диска
 calc/public-contract.js   машинный контракт (ADR 0062): regionsDoc/criteriaDoc/
-                          methodologyDoc/weekDoc и 11 JSON Schema draft 2020-12
-                          (schemaDocs, SCHEMA_NAMES); чистые сборщики, reference.json/
-                          VERSION — на импорте
+                          methodologyDoc/weekDoc и 12 JSON Schema draft 2020-12
+                          (schemaDocs, SCHEMA_NAMES); каталог data/public/schema/v2/;
+                          чистые сборщики, reference.json/ VERSION — на импорте
 calc/changelog-entries.js курируемый CHANGELOG, KINDS, validateChangelog, sortedDesc
 calc/backtest.js          внешняя сверка (ADR 0063): comparatorOf (note несёт и
                           insufficient-предложение, и пометку неполного месяца —
@@ -268,12 +278,13 @@ data/geo/                 статический справочник (ADR 0029)
                           countries.js (window.CI_GEO_COUNTRIES, 252 ISO2, у каждой записи
                           capital {ru,en}|null — столица для блока регионального индекса); дамп GeoNames
                           (*.zip/*.txt) в .gitignore — коммитятся только генератор и вывод
-data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчитываемая демо-история
-                          (methodology "1.0"), 08-30…10-18 — пересчитанные published
-                          (methodology "3.0"; index 51/42/43/56/47/46/56/64, delta
-                          −10/−9/+1/+13/−9/−1/+10/+8; q=1 у 08-30…09-20, 0.9071 у 09-27,
-                          0.9293 у 10-04, 0.8622 у 10-11; у 10-18 после дозабора
-                          q = 1.000):
+data/<YYYY-MM-DD>/        14 недель: 08-02…08-23 — непересчитываемая демо-история
+                          (methodology "1.0", целые числа), 08-30…11-01 — пересчитанные
+                          published (methodology "4.0", ADR 0069; index
+                          51/42/43/56/47/46/56/64/68/72, delta
+                          −10/−9/+1/+13/−9/−1/+10/+8/+4/+4; q=1 у 08-30…09-20 и
+                          10-18…11-01, 0.9071 у 09-27, 0.9293 у 10-04, 0.8622 у
+                          10-11; precursor есть у недель ≥ гейта 10-25):
                           global/regions/region-*/trend/drivers/sources (.js в window.CI_DATA)
                           + week.js (комбинированный снапшот недели из частей своей версии
                           таксономии: v1 = 11, v2 = 17 — единственный файл, который грузит
@@ -284,17 +295,21 @@ data/<YYYY-MM-DD>/        12 недель: 08-02…08-23 — непересчи�
                           из 5, published 2 из 152);
                           global.js несёт `regions_taxonomy` ('1.0'/'2.0'), по нему читаются части;
                           поля `coverageCriteria` и `precursor` — forward-only: на диске
-                          `precursor` нет ни у одной недели (не бэкфиллится, ADR 0047);
-                          запись региона несёт background (true = слепой регион; в v1-неделях
-                          слепых 2/3/3/2/2/0/1 из 6, africa покрыт во всех 7 v1-неделях,
-                          south-asia — в 08-30/09-06/09-27/10-04; в 10-18 покрыты все 12
-                          регионов — атрибуция расширена прогоном regional-source-coverage,
-                          ADR 0038)
+                          `coverageCriteria` есть у всех 10 пересчитанных недель,
+                          `precursor` — только у 10-25 (39) и 11-01 (48), раньше гейта
+                          поля нет (не бэкфиллится, ADR 0047);
+                          запись региона несёт background (true = слепой регион) и signals
+                          (число сигналов; у слепого 0; демо-недели поля не несут;
+                          в v1-неделях слепых 2/3/3/2/2/0/1 из 6, africa покрыт во всех
+                          7 v1-неделях, south-asia — в 08-30/09-06/09-27/10-04; в v2-неделях
+                          10-18/10-25/11-01 покрыты все 12 регионов — атрибуция расширена
+                          прогоном regional-source-coverage, ADR 0038;
+                          индексы/дельты регионов — одна десятичная, ADR 0069)
 data/latest.js            CI_WEEKS + CI_LATEST + CI_ASSET_REV (8 hex — хеш содержимого
                           всех week.js, cache-buster `?v=`: Pages отдаёт статику с
                           max-age=600; пересобирается записью недели, calc/asset-rev.js)
                           + document.write-загрузка ТОЛЬКО week.js
-                          (по одному запросу на неделю вместо 11–17 частей; 12 недель)
+                          (по одному запросу на неделю вместо 11–17 частей; 14 недель)
 data/analysis.js          ГЕНЕРИРУЕТСЯ public-export.js --write (ADR 0062): зеркало
                           развёртки для сайта, window.CI_ANALYSIS {weeks{<дата>:
                           {driver_breakdown, waterfall, what_would_change}}};
@@ -306,8 +321,9 @@ data/public/              производные (`public-export.js --write`; `v
                           regions.json / criteria.json / methodology.json,
                           weeks/<неделя>.json (конверт одной недели),
                           countries/<неделя>.json (страновой слой неделей ≥ гейта, ADR 0067),
-                          12 схем schema/v1/*.json
-                          (ADR 0062/0063/0064/0067); digest/ — <неделя>.json + index.json
+                          12 схем schema/v2/*.json (ADR 0062/0063/0064/0067;
+                          PUBLIC_SCHEMA_VERSION = 2 — ADR 0069, каталог v1 удалён);
+                          digest/ — <неделя>.json + index.json
                           (digest-export.js --write)
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
@@ -361,12 +377,16 @@ docs/adr/                 зафиксированные архитектурн�
                           `data/public/countries/<неделя>.json` вместо нового поля,
                           бэкфилл запрещён; 0068 — инвариант «регион ⊇ страна»
                           (атрибуция региона расширяется регионами его стран);
-                          **0069 — ПРЕДЛОЖЕНО, не реализовано**: региональное
+                          **0069 — реализовано (методология 4.0)**: региональное
                           отклонение §7 по драйверам (Σ w_d·shrink_d·(s_d^reg − s_d^glob)
-                          / Σ w_d, константный знаменатель, эпсилон ADR 0065), снятие
-                          объёмного сжатия `n0`, дробная точность (1 знак) у регионов и
-                          стран + `PUBLIC_SCHEMA_VERSION` 2, методология 4.0 с пересчётом
-                          08-30…11-01; глобальный ряд не меняется
+                          / Σ w_d, константный знаменатель 0.765, эпсилон ADR 0065
+                          на обеих ногах), снятие объёмного сжатия `n0`, дробная
+                          точность (1 знак) у регионов и стран + `PUBLIC_SCHEMA_VERSION`
+                          2 (`schema/v2/`), поле `signals` у региона, сортировка секции
+                          регионов по индексу; цепочка 08-30…11-01 (10 недель)
+                          пересчитана, глобальный ряд не изменился; таблица прототипа
+                          в ADR — эскиз, фактическое распределение 11-01 — 71.3…72.9
+                          (статус ADR переводится оркестратором после приёмки G4)
 docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
                           эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
                           каждый публичный JSON обязан иметь строку здесь и схему
@@ -384,7 +404,9 @@ docs/llm-pilot-journal.md аудиторский след пилота маши�
 docs/calibration-journal.md  аудиторский след калибровки k (2026-09-21; доп. 2026-10-11 —
                           ввод D4.6, methodology 3.0, k = 1.95 подтверждён; 2026-10-18 —
                           «Интервальность шкалы» (10 якорей, ADR 0048) и «Форвардный
-                          журнал» (ADR 0049, таблица пуста))
+                          журнал» (ADR 0049, таблица пуста); прогон 4 (2026-11-04) —
+                          методология 4.0, ADR 0069: параметры не калибровались,
+                          пересчёт 10 недель, факт 11-01 = 71.3…72.9)
 docs/metrics-journal.md   аудиторский след продуктовых метрик ADR 0033 (доля share-переходов,
                           брендовые запросы, регулярность визита): baseline-таблица (заполняет
                           владелец вручную из Cloudflare Web Analytics) + правила ведения
@@ -397,7 +419,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           88 файлов, node --test (937 passed)
+tests/*.test.js           89 файлов, node --test (971 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -407,20 +429,23 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 - `calc/engine.js` — чистые функции методологии: `driverScore`, `d8Strength`, `aggregateD9`,
   `aggregateDrivers` (→ `{index, state, delta, internal, q, parts, structuralBreak}`),
   `applyInertia`, `detectStructuralBreak`, `detectFlashTriggers`, `regionalIndex`, `stateOf`,
-  константы `CRITERIA` (46, D4.6 — Д4/esc/ordinal), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
+  `round1`, константы `CRITERIA` (46, D4.6 — Д4/esc/ordinal), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
   `buildDriversCore(criteriaIn, confidenceLevels, params)` — общее ядро маппинга критериев →
   драйверы (делегируют calibrate.js и calc.js) и `regionalSignals(criteria, regionIds, params)`
   — агрегация региональной атрибуции критериев (`regions: string[]` из набора версии,
   whitelist — третий аргумент `validate(input, params, regionIds)`; дефолт — текущая
   двенадцатка) в
   сигналы региона для regionalIndex (ветка nReg>0); трактовки §7 — docs/adr/0022,
-  `PARAMS.regionEstructDefault = 0.5`. Округление только
-  на выходе; внутренние float течёт в инерцию следующей недели.
+  `PARAMS.regionEstructDefault = 0.5` (открытый плейсхолдер, ADR 0069). Округление только
+  на выходе (глобал — целый `roundHalfUp`, регион/страна — `round1`); внутренние float
+  текут в инерцию следующей недели.
   Страновой слой (ADR 0067) — размерностно-нейтральное ядро: `attributedSignals
   (criteria, ids, params, week, attr = 'regions'|'countries')` (бывшая regionalSignals)
   и `attributedIndex(global, unit, params)` (бывшая regionalIndex, формула §7 целиком);
-  `regionalSignals`/`regionalIndex` — тонкие обёртки, пин: выходы регионов всех
-  13 недель байт-в-байт прежние.
+  `regionalSignals`/`regionalIndex` — тонкие обёртки; `attributedSignals` отдаёт
+  `deltaRegion` (мера §7 по ADR 0069), `attributedIndex` — `{index, delta, state,
+  internal, background, mirrored}`. Пин: на неделях до 4.0 выходы регионов были
+  байт-в-байт прежними; 4.0 меняет региональный слой целенаправленно (ADR 0069).
 - `calc/country-layer.js` — владелец странового слоя (ADR 0067): `loadCountryOverlay
   (week)` → объект|null, `validateCountryOverlay(overlay, weekInput, ref)` → errors[]
   (неделя совпадает; критерий известен и covered; дедуп id внутри `countries[]`;
@@ -445,17 +470,19 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   Диск — только в loadCountryOverlay/writeCountryLayer, остальное чисто.
 - `calc/params.js` — `PARAMS` + `list()` (глубокая копия). Все числа здесь; engine
   только подставляет их как дефолты. k = 1.95 — калиброван на якорях (журнал);
-  `PARAMS.methodology = '3.0'` — единственный источник версии перевыпуска
+  `PARAMS.methodology = '4.0'` — единственный источник версии перевыпуска
   (renderGlobal берёт её отсюда; `published` — защищённое поле из прежнего снапшота).
+  ADR 0069: `n0` удалён (поля нет), веса/`regionClamp`/`gamma`/`kappa`/
+  `regionShockDelta`/`regionEstructDefault` не менялись.
   ADR 0040: `blindReasonFrom` (`2026-10-25` — с этой недели причина слепоты
   обязательна), `backfillWindow` (4) и `backfillCriteria` (39 id: esc ∪
   Д1/Д3/Д5/Д6/Д7) — процедура дозабора при смене методологии; паритет списка
   с правилом пинит `tests/history-debt.test.js`.
-  ADR 0065: `regionHypothesisThreshold` (1e-9) — в региональных гипотетиках §7
+  ADR 0065: `regionHypothesisThreshold` (1e-9) — в региональном отклонении §7
   драйвер покрыт при ≥1 покрытом критерии, и `regionHypothesisFrom`
-  (`2026-08-30` — первая пересчитанная неделя цепочки 3.0; история 08-30…10-18
-  пересчитана по решению владельца O11, демо-недели 1.0 не трогались); читает
-  `engine.regionalHypothesisParams`. ADR 0047: `precursorFrom` (`2026-10-25`) —
+  (`2026-08-30` — первая пересчитанная неделя цепочки; история 08-30…11-01
+  пересчитана, демо-недели 1.0 не трогались); читает
+  `engine.regionalHypothesisParams`, эпсилон применяется к обеим ногам Δ_region. ADR 0047: `precursorFrom` (`2026-10-25`) —
   гейт записи слоя Д9 в снапшот; пересчёт истории слой не бэкфиллит.
   ADR 0067: `countryLayerFrom` (`2026-10-25`) — гейт странового слоя: часть
   `countries.js` пишется только для недель ≥ даты И при валидном оверлее
@@ -528,7 +555,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   (в `.gitignore`), поэтому чтение недели без корпуса работает. Поле опциональное:
   в `data/` оно есть у 09-20 (8 источников) и 09-27 (6 источников, 7 цитат).
 - `calc/live-check.js` — сверка живого сайта: `checkSite({base, fetchImpl})` → отчёт,
-  `node calc/live-check.js [--base …]` (12 недель, контракт, цитаты 09-20/09-27, exit 1 при
+  `node calc/live-check.js [--base …]` (14 недель, контракт, цитаты 09-20/09-27, exit 1 при
   расхождениях); скачанный JS исполняется в `vm` — доверять только своему домену (report).
 - `calc/sensitivity.js` — `sensitivityScore(input, ctx, params)` → число|null: пересчёт
   `aggregateDrivers` при исключении каждого домена и каждого кластера источников,
@@ -709,12 +736,13 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   и `week.js` пересобирается (`writeCountryLayer`, ADR 0067) — без оверлея неделя
   пишется прежним набором; записи регионов несут флаг background
   (regions.js + region-*.js); published — защищённое поле из прежнего снапшота,
-  methodology — из `PARAMS.methodology` (3.0), through = дата самой недели (окно W−7…W
+  methodology — из `PARAMS.methodology` (4.0), through = дата самой недели (окно W−7…W
   включительно); точка тренда недели несёт `{date, value, methodology}` — своя неделя берёт
   версию записываемого снапшота (PARAMS), более ранние — из их `global.js` на диске;
   глобальный drivers.js генератор не трогает (редакционный сид); после записи —
   append в data/audit.jsonl (recalc: `version_before` из снапшота, `version_after` из
-  PARAMS, `recalculation_method: 'aggregateDrivers v3.0'`; flash).
+  PARAMS, `recalculation_method: \`aggregateDrivers v${PARAMS.methodology}\`` — с 4.0
+  это 'aggregateDrivers v4.0'; flash).
 - Поток слоя precursor: вход недели → `buildDrivers` (драйвер Д9: `score`,
   `signalingSubgroups`) → `precursorOf(drivers)` → `runWeek.precursor` → `writeWeek`
   (`meta` и `full`) → `renderGlobal` условно пишет `s.precursor` в `global.js` →
@@ -746,7 +774,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   с инъекцией, sections/trust — `trustFacts`/`factsLine`/`showSensitivity`,
   sections/precursor — `precursorFacts`/`showsNoSignals`).
   CLI — тонкая обвязка.
-- Схема источника R55 (во всех 12 неделях, включая региональные drivers): id,
+- Схема источника R55 (во всех 10 неделях входов 08-30…11-01, включая региональные drivers): id,
   title{ru,en}, domain, url, publication_date, accessed_date, source_type
   (primary|secondary|OSINT), cluster_id (whitelist из PARAMS.clusters),
   state_affiliated:boolean + опциональные author/archive_url/archive_date/confidence/
@@ -800,8 +828,8 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (88 файлов, 937 passed / 0 fail — подтверждено прогоном
-2026-10-25). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (89 файлов, 971 passed / 0 fail — подтверждено прогоном
+2026-11-05). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
 `loadGeo`/`resolveRegion` над инъекцией — без сети). Расчётное ядро: `tests/calc-engine.test.js` (включая
@@ -852,16 +880,16 @@ what_would_change, минимальный JSON-Schema-валидатор на в
 `tests/digest.test.js` (выпуск, архив, digest.html, sent.json — включая легаси-формат),
 `tests/digest-send.test.js` (поддельный fetchImpl, redact, резерв, превью редактору), `tests/seo-pages.test.js`,
 `tests/site-pages.test.js` (каждый *.html корня обязан быть в cp-строке deploy.yml);
-отсечение точек не-3.0 на тренде, подпись v2 и подписи оси
+отсечение точек не-4.0 на тренде, подпись v2 и подписи оси
 (selectMethodology, summaryTextV2, axisLabels): `tests/trend.test.js`; состав
 разметки страницы (отсутствие скрытой секции #sources
 и ссылки навигации — чтение index.html с диска, без DOM): `tests/page-structure.test.js`;
 комбинированный снапшот и версии набора: `tests/week-combined.test.js` (renderWeekCombined
 на синтетике, taxonomyForWeek/weekPartFiles, v1 = 11 / v2 = 17, рассинхрон → ошибка),
-`tests/week-combined-parity.test.js` (паритет week.js ↔ дисковые части для всех 12 недель,
+`tests/week-combined-parity.test.js` (паритет week.js ↔ дисковые части для всех 14 недель,
 набор частей — `weekPartFiles(taxonomyForWeek(week))`) и `tests/latest-loader.test.js`
-(latest.js грузит только week.js; 12 недель, 12 `document.write`) — оба пина обновлены
-вместе с неделей 10-18, как и `tests/page-smoke.test.js` (снапшот каждой недели проходит
+(latest.js грузит только week.js; 14 недель, по одному `document.write` на неделю) — пины
+обновляются вместе с новой неделей, как и `tests/page-smoke.test.js` (снапшот каждой недели проходит
 `validate` и даёт витрину по `taxonomyForWeek(week)`); meta-CSP обеих
 страниц пинит `tests/csp.test.js` (разрешение static.cloudflareinsights.com осознанно —
 живой js/analytics.js, beacon только после согласия);
@@ -891,7 +919,8 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `forecast-ledger.json` — `ledger.js --write`), иначе `node --test` ловит расхождение.
   Сюда же относится контракт ADR 0062: `regions.json`, `criteria.json`,
   `methodology.json`, `weeks/<неделя>.json`, `countries/<неделя>.json` (ADR 0067),
-  `schema/v1/*.json` (12 схем, включая `countries.schema.json`) — генерируются,
+  `schema/v2/*.json` (12 схем, включая `countries.schema.json`; каталог `v1` удалён
+  при переходе на `PUBLIC_SCHEMA_VERSION = 2`, ADR 0069) — генерируются,
   ручная правка ловится `tests/public-contract.test.js`.
   `data/analysis.js` — тоже генерируемый (зеркало развёртки для сайта, не
   `data/public/*`: сайт публичный слой не грузит); паритет пинит
@@ -1016,8 +1045,8 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   REDTEAM_QUESTIONS в calc/audit.js = governance §3.2 пословно), record-тип `redteam`
   в hash-цепочке аудита, advisory. Опубликованные недели до 10-11 ворота не видят.
 - Недели 08-02…08-23 в `data/` — непересчитываемая демо-история (methodology "1.0" у них,
-  у пересчитанной цепочки "3.0" — разрыв версии реален); calc.js откажется считать неделю
-  вне RECALC_WEEKS. На тренде точки не-3.0 не показываются (см. ниже про selectMethodology);
+  у пересчитанной цепочки "4.0" — разрыв версии реален); calc.js откажется считать неделю
+  вне RECALC_WEEKS. На тренде точки не-4.0 не показываются (см. ниже про selectMethodology);
   несопоставимость версий раскрывается в секции истории (`methodologyNote`,
   `history.methodology.note`) при просмотре недели другой версии.
 - Таксономия регионов версионируется ОТДЕЛЬНО от methodology (ADR 0028): версия недели —
@@ -1051,11 +1080,14 @@ what_would_change, минимальный JSON-Schema-валидатор на в
 - Фикстура `tests/data.test.js` пинит точные выходные числа пайплайна для дисковых недель
   цепочки (index/delta/q/through) — после каждого пересчёта её нужно актуализировать;
   это конвенция, не баг. Текущий пин: 09-13 index 43, delta +1, q 1, trend-точки недель
-  цепочки несут methodology '3.0' (своя неделя — версию записываемого снапшота).
-  Пин регионального охвата там же — только по семи v1-неделям (africa/south-asia) и
-  10-18 не покрывает; v2-неделя проверяется в `tests/page-smoke.test.js` (12 строк витрины).
+  цепочки несут methodology '4.0' (своя неделя — версию записываемого снапшота).
+  Пин регионального охвата там же — только по семи v1-неделям (africa/south-asia),
+  10-18 в него не входит; v2-неделя проверяется в `tests/page-smoke.test.js`
+  (12 строк витрины), регрессионный якорь 4.0 — 09-20/africa 55.9 (+13.1, signals 1).
   `tests/sensitivity.test.js` пинит sensitivity реальной недели 10-04 = 5.4 (через прогон
   цепочки тем же кодом, что и --write) — тоже обновляется после пересчёта.
+  `tests/regional-deviation.test.js` — сторож ADR 0069: разброс индексов 11-01
+  ≥ 1.5 п.п. и форма распределения (после пересчёта 71.3…72.9, 1.6 п.п.).
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищено только published.
 - Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
@@ -1072,10 +1104,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   Долг истории считается по причине `not-collected` и печатается только в
   консоль (`calc/history-debt.js`), в `data/` не публикуется; окно дозабора —
   4 недели **назад от недели первого покрытия** критерия, а не от «сегодня».
-- `coverageCriteria` (ADR 0033) — опциональное поле quality-блока снапшота; его несёт
-  только неделя, пересчитанная после правки — на диске это **одна 10-18** (34/46;
-  `grep coverageCriteria data/*/global.js`), 10-04/10-11 пересчитывались раньше и поля
-  не имеют; `week.js` переносит поле verbatim при миграции/паритете. Панель доверия показывает «н/д» при
+- `coverageCriteria` (ADR 0033) — опциональное поле quality-блока снапшота; после
+  пересчёта 4.0 его несут все 10 недель цепочки (27–43 покрытых из 46), демо-недели
+  1.0 — нет; `week.js` переносит поле verbatim при миграции/паритете. Панель доверия показывает «н/д» при
   отсутствии/битой форме (`trustFacts.coverage = null`), не падает.
 - Дозабор недели 10-18 (2026-10-18, два прохода; реестр —
   `docs/backfill/2026-10-18-sources.md`): слепых было 19, покрытие 27 → 28/46 первым
@@ -1098,6 +1129,17 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   D2.1–D2.5 из предыдущей недели (их источники старше окна) при явном раскрытии в
   `driverConfidence`, иначе D2 = 1/5 → `insufficient`; так сделано в 09-27 и 10-04 —
   конвенция, не баг.
+- Региональное отклонение (ADR 0069, 4.0): `engine.attributedSignals` считает
+  `Δ_region = 100·Σ_d w_d·shrink_d·(s_d^reg − s_d^glob)/Σ_d w_d` по допустимым
+  драйверам (Д1, Д3, Д5–Д8 и Д9 только D9.3), `shrink_d = n_cov_region/n_cov_global`,
+  знаменатель — 0.765 из `PARAMS.weights`, эпсилон ADR 0065 на обеих ногах,
+  clamp ±40; `attributedIndex` даёт `internal = gInternal + e_r·Δ_region` без
+  объёмного сжатия, `index` и `delta` — `round1` (одна десятичная, глобал целый).
+  `signals` = nReg в блоке региона (`0` у слепого; части `region-*.js` поля не
+  несут). Секция регионов сортируется по индексу убыванию (при равенстве — по id),
+  личный регион переставляется первой строкой, пометка `signals < 2` — ключ
+  i18n `region.signals.low`. Прототип в ADR — эскиз; факт 11-01: 71.3…72.9
+  (1.6 п.п.), ветка зеркалирования не срабатывала (max |Δглобала| = 13 < 15).
 - Региональная атрибуция и слепые регионы: критерий входа может нести `regions: string[]`
   (⊆ whitelist версии недели: 6 id у v1-недели, 12 у v2); регион без единого сигнала в неделе — слепой (nReg = 0,
   background:true), смешанная неделя (часть регионов с сигналами, часть без) допустима.
@@ -1107,9 +1149,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   региональное отклонение от глобального фона, а не схлопывание в I_global (иначе все
   регионы одинаковы и локальные аномалии маскируются). Стартовое отклонение первой
   недели цепочки сидируется из демо-недели 08-23 методологии 1.0 (prevRegions против
-  prevGlobal) — намеренно: регионы 3.0 наследуют якоря v1. Следствие формулы: дельта
+  prevGlobal) — намеренно: регионы цепочки 4.0 наследуют якоря v1. Следствие формулы: дельта
   слепого региона по построению равна глобальной — подача честная через флаг background
-  и пометку `region.background`, не баг. Недели цепочки 3.0 смешанные: входы несут
+  и пометку `region.background`, не баг. Недели цепочки 4.0 смешанные: входы несут
   атрибуцию `regions[]` на части критериев, поэтому у недели есть регионы с сигналами
   (background:false) и слепые (background:true; в v1-неделях слепых 2/3/3/2/2/0/1 из 6 у
   08-30…10-11). Прогон africa-south-asia-sources: africa получила региональные
@@ -1142,12 +1184,12 @@ what_would_change, минимальный JSON-Schema-валидатор на в
 - `rankedRegions` (js/sections/regions.js) пропускает записи с нечисловым delta
   (typeof !== 'number' / не finite) — нечисловую дельту в данные НЕ вводить, честность
   недостатка данных — через флаг background, а не через костыль формата.
-- Тренд (`js/sections/trend.js`) показывает только точки методологии 3.0: `selectMethodology`
+- Тренд (`js/sections/trend.js`) показывает только точки методологии 4.0: `selectMethodology`
   отсекает точки других версий на входе секции (построены по другой методике,
   несопоставимы) — осознанно. Точка тренда несёт `{date, value, methodology}`; неделя
   W берёт версию записываемого снапшота, предыдущие — из их `global.js` на диске
   (регресс-защита: своя неделя не должна брать до-записную версию и выпадать из серии).
-  Подпись — `summaryTextV2(lang, points, version = '3.0')` (i18n-ключи
+  Подпись — `summaryTextV2(lang, points, version = '4.0')` (i18n-ключи
   `trend.summary.v2`/`trend.weeks`; `trend.summary.v2` требует плейсхолдер `{version}`);
   «за N недель» в подписи считает число опубликованных точек v2, а не
   календарный спан окна. Подписи горизонтальной оси — чистый шов
@@ -1164,6 +1206,10 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `version_before '2.0'` → `version_after '3.0'`, `recalculation_method
   'aggregateDrivers v3.0'`; flash-записи оставлены version_before=version_after.
   Неделя 10-18 = `recalc-0054` + `flash-0055` (D7.3 = 1, snapshot unchanged).
+  Перевыпуск 4.0 (ADR 0069): recalc-0118…0132, `version_before '3.0'` →
+  `version_after '4.0'`, `recalculation_method 'aggregateDrivers v4.0'`
+  (динамическая строка из `PARAMS.methodology`); региональный слой переписан,
+  глобальный diff пуст.
 - `calc.js --write` пишет ДВА ворот до диска: сначала ссылки (любой broken → отказ,
   blocked — только предупреждение), затем контракт `validate` из js/data.js; при
   провале любого из них диск не тронут.
@@ -1246,8 +1292,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   список цитат недели живёт в витрине доверия (`quotedSources`). Проверка дословности —
   ворота `writeWeek`: без корпуса неделя с цитатой не пишется (ADR 0042).
 - `calc/live-check.js` исполняет скачанный с сайта JS в `vm` — это не песочница: гонять
-  только против своего домена; ожидание «12 недель» зашито (`EXPECTED_WEEK_COUNT`).
-- Слой `precursor` — forward-only (ADR 0047): на диске его нет ни у одной из 12 недель;
+  только против своего домена; ожидание «14 недель» зашито (`EXPECTED_WEEK_COUNT`).
+- Слой `precursor` — forward-only (ADR 0047): на диске он есть только у недель ≥ гейта
+  10-25 (10-25 = 39, 11-01 = 48), у более ранних отсутствует;
   бэкфилл запрещён, ноль и отсутствие поля — разные вещи (сайт прячет блок, а не рисует
   «0 %»). Контракт проверяет `js/data.js`, число подгрупп — `PRECURSOR_SUBGROUPS = 8`
   (паритет с `engine.D9_SUBGROUPS`). Не поднимать methodology ради поля: расчёт не менялся.
@@ -1259,7 +1306,7 @@ what_would_change, минимальный JSON-Schema-валидатор на в
 - Поле `intersection` (ADR 0046, чужой прогон): критерий остаётся покрытым (q и порог
   драйвера его видят), но в скор драйвера/Д8/Д9 не входит; `validate` допускает только
   `boolean` и только на `covered: true`. Снапшот и `PARAMS.methodology` не меняются;
-  во входах 12 недель флага пока нет.
+  во входах 14 недель флага пока нет.
 - Таблица состояния и порогов §9 / §1.2 / `js/risk.js` — три места одного числа:
   паритет пинит `tests/risk-scale-methodology.test.js`; `CLUSTERS` форвардных якорей
   сверяется с `SCALE` тем же тестом — переименование состояния ломает тест, а не журнал.
