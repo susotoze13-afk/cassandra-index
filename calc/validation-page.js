@@ -221,9 +221,24 @@ function discrepanciesBlock(comparator) {
   return lines;
 }
 
-function comparatorSection(comparator, thresholds) {
+// Факты ряда для текста ACLED: число недель, версия методологии и границы
+// берутся из validation.json, а не из литерала — иначе подпись «восемью
+// неделями методологии 3.0» переживает пересчёт на 4.0 (ремонт по ревью).
+function seriesFacts(validation) {
+  const weeks = validation && Array.isArray(validation.weeks) ? validation.weeks : [];
+  return {
+    count: weeks.length,
+    from: weeks.length ? weeks[0] : DASH,
+    to: weeks.length ? weeks[weeks.length - 1] : DASH,
+    methodology: validation && typeof validation.methodology === 'string' && validation.methodology
+      ? validation.methodology : DASH,
+  };
+}
+
+function comparatorSection(comparator, thresholds, series) {
   if (!comparator || typeof comparator !== 'object') return [];
   const id = comparator.id;
+  const facts = series || { count: 0, from: DASH, to: DASH, methodology: DASH };
   const minPairs = thresholds && isNum(thresholds.min_pairs) ? thresholds.min_pairs : 6;
   const title = typeof comparator.title === 'string' && comparator.title ? comparator.title : id;
   const lines = [
@@ -251,11 +266,13 @@ function comparatorSection(comparator, thresholds) {
     lines.push(`      <div class="doc-note"><p>${escapeHtml(comparator.note)}</p></div>`);
   }
   if (id === 'acled') {
+    const seriesText = `${escapeHtml(facts.methodology)} из ${facts.count} недель `
+      + `(${escapeHtml(facts.from)} — ${escapeHtml(facts.to)})`;
     lines.push(
       '      <h3 id="acled-conflict-index">Почему сравнение идёт по данным о событиях, а не по Conflict Index</h3>',
       '      <p>Conflict Index — страновой композит, который ACLED публикует раз в полгода; '
-        + 'машинного доступа к нему нет, а пересечения с восемью неделями методологии 3.0 '
-        + '(с 30 августа по 18 октября 2026 года) не возникает. Поэтому сравнение идёт по '
+        + 'машинного доступа к нему нет, а пересечения с рядом методологии '
+        + seriesText + ' не возникает. Поэтому сравнение идёт по '
         + 'помесячным данным ACLED о событиях политического насилия: число событий за месяц '
         + 'против среднего индекса по неделям этого месяца. Это разные конструкты — счёт '
         + 'произошедших событий и сводная оценка состояния риска, — и сходимость таких рядов '
@@ -545,6 +562,7 @@ export function renderValidationPage(validation, ledger) {
   const l = ledger && typeof ledger === 'object' ? ledger : {};
   const comparators = Array.isArray(v.comparators) ? v.comparators : [];
   const thresholds = v.thresholds || {};
+  const series = seriesFacts(v);
   const byId = new Map(comparators.map((c) => [c.id, c]));
   const ordered = COMPARATOR_IDS.map((id) => ({ id, comparator: byId.get(id) || null }));
   for (const c of comparators) {
@@ -607,7 +625,7 @@ export function renderValidationPage(validation, ledger) {
     '    </section>',
     '',
     ...ordered.flatMap(({ id, comparator }) => ['',
-      ...(comparator ? comparatorSection(comparator, thresholds) : missingComparatorSection(id))]),
+      ...(comparator ? comparatorSection(comparator, thresholds, series) : missingComparatorSection(id))]),
     '',
     ...limitsSection(),
     '',

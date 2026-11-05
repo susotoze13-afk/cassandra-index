@@ -469,6 +469,41 @@ test('диск: пересчитанная 2026-09-13 — published с полн�
   assert.equal(own.methodology, '4.0');
 });
 
+// --- История 15 (R19): литеральный пин глобальных чисел 10 недель ---
+// Ожидания — таблица «Результат пересчёта» из docs/calibration-journal.md
+// (10 недель 4.0), а не пересчёт тем же кодом: сравнение пересчёта с диском,
+// пересобранным тем же прогоном, ничего не доказывает. Расхождение любого
+// числа — стоп и отчёт оркестратору, а не «актуализировать пин».
+const CHAIN_GLOBAL_PIN = [
+  // [неделя, index, delta, q, dataState]
+  ['2026-08-30', 51, -10, 1, 'published'],
+  ['2026-09-06', 42, -9, 1, 'published'],
+  ['2026-09-13', 43, 1, 1, 'published'],
+  ['2026-09-20', 56, 13, 1, 'published'],
+  ['2026-09-27', 47, -9, 0.9071, 'published'],
+  ['2026-10-04', 46, -1, 0.9293, 'published'],
+  ['2026-10-11', 56, 10, 0.8622, 'published'],
+  ['2026-10-18', 64, 8, 1, 'published'],
+  ['2026-10-25', 68, 4, 1, 'published'],
+  ['2026-11-01', 72, 4, 1, 'published'],
+];
+
+test('диск: глобальные числа 10 недель цепочки 08-30…11-01 — литеральный пин', () => {
+  assert.equal(CHAIN_GLOBAL_PIN.length, 10, 'цепочка 4.0 — десять недель');
+  for (const [week, index, delta, q, dataState] of CHAIN_GLOBAL_PIN) {
+    const snap = loadFullSnapshot(week);
+    assert.equal(snap.methodology, '4.0', `${week}: методология недели`);
+    assert.equal(snap.global.index, index, `${week}: index`);
+    assert.equal(snap.global.delta, delta, `${week}: delta`);
+    assert.equal(snap.q, q, `${week}: q`);
+    assert.equal(snap.through, week, `${week}: through — дата самой недели`);
+    assert.equal(snap.dataState, dataState, `${week}: dataState`);
+    // Глобальный слой остаётся целым (дробная точность — только у регионов/стран).
+    assert.ok(Number.isInteger(snap.global.index), `${week}: индекс глобала целый`);
+    assert.ok(Number.isInteger(snap.global.delta), `${week}: дельта глобала целая`);
+  }
+});
+
 // Пин регионального охвата africa/south-asia после пересчёта под источники
 // (прогон africa-asia-sources). Ожидание — из спецификации прогона:
 // africa покрыт во всех 7 неделях цепочки, south-asia — в 08-30, 09-06,

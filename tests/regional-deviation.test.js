@@ -80,7 +80,7 @@ test('диск: цепочка 08-30…11-01 несёт methodology 4.0 и signa
 });
 
 // --- История 3 (R03): удалённые сущности не возвращаются в calc/ ---
-function sourcesOf(dir) {
+function sourcesOf(dir, extensions = ['.js']) {
   const out = [];
   const walk = (d) => {
     for (const name of readdirSync(d)) {
@@ -89,12 +89,14 @@ function sourcesOf(dir) {
         walk(full);
         continue;
       }
-      if (name.endsWith('.js')) out.push(full);
+      if (extensions.some((ext) => name.endsWith(ext))) out.push(full);
     }
   };
   walk(dir);
   return out;
 }
+
+const PUBLIC_TEXT_EXT = ['.json', '.csv', '.svg'];
 
 test('calc/: n0, m = n/(n+n0), iWith, iWithout, hypotheticalIndex отсутствуют (ADR 0069)', () => {
   for (const file of sourcesOf(path.join(ROOT, 'calc'))) {
@@ -116,11 +118,23 @@ test('calc.js: recalculation_method аудита собирается динам
 });
 
 // --- История 19 (R13): Δ_region — внутренняя величина, наружу не уходит ---
-test('deltaRegion отсутствует в js/ и data/public/ (допустимы только calc/ и тесты)', () => {
-  for (const dir of ['js', path.join('data', 'public')]) {
-    for (const file of sourcesOf(path.join(ROOT, dir))) {
-      const text = readFileSync(file, 'utf8');
-      assert.ok(!text.includes('deltaRegion'), `${path.relative(ROOT, file)}: deltaRegion наружу не публикуется`);
-    }
+// Сторож обязан читать то, что реально лежит на диске: в `data/public/**` нет
+// ни одного `.js` (47 json + 1 csv + 1 svg), поэтому прежний фильтр по `.js`
+// давал пустой цикл и тест не мог упасть. Теперь сканируются `.json/.csv/.svg`
+// публичного слоя и зеркало развёртки `data/analysis.js`; непустота набора
+// проверяется отдельной строкой, чтобы сторож не выродился снова.
+test('deltaRegion отсутствует в js/, data/public/** (.json/.csv/.svg) и data/analysis.js', () => {
+  const publicFiles = sourcesOf(path.join(ROOT, 'data', 'public'), PUBLIC_TEXT_EXT);
+  assert.ok(
+    publicFiles.length >= 40,
+    `просканировано ${publicFiles.length} файлов публичного слоя — ожидалось ≥ 40`,
+  );
+  const jsFiles = sourcesOf(path.join(ROOT, 'js'));
+  assert.ok(jsFiles.length > 0, 'js/ просканирован');
+  const analysis = path.join(ROOT, 'data', 'analysis.js');
+  assert.ok(statSync(analysis).isFile(), 'data/analysis.js существует');
+  for (const file of [...jsFiles, ...publicFiles, analysis]) {
+    const text = readFileSync(file, 'utf8');
+    assert.ok(!text.includes('deltaRegion'), `${path.relative(ROOT, file)}: deltaRegion наружу не публикуется`);
   }
 });
