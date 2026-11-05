@@ -59,6 +59,16 @@ function assertWeekSmoke(w) {
     `${w}: витрина не по набору таксономии ${version}`);
   assert.notDeepStrictEqual(rows.map((r) => r.id).sort(), [],
     `${w}: строки витрины без id`);
+  // ADR 0069 §2: витрина отсортирована по индексу убыванию, при равенстве — по id.
+  for (let i = 1; i < rows.length; i += 1) {
+    const prev = rows[i - 1];
+    const cur = rows[i];
+    const byIndex = prev.index - cur.index;
+    assert.ok(byIndex >= 0, `${w}: ${cur.id} (${cur.index}) выше ${prev.id} (${prev.index})`);
+    if (byIndex === 0) {
+      assert.ok(prev.id < cur.id, `${w}: равенство индексов ${prev.id}/${cur.id} не по id`);
+    }
+  }
 }
 
 test('сквозная v1: недели таксономии 1.0 — витрина из шести строк (нет unavailable)', () => {

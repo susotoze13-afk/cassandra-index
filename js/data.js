@@ -190,6 +190,11 @@ export function validate(snapshot) {
       if (r.background !== undefined && typeof r.background !== 'boolean') {
         errors.push(`regions.${id}.background: boolean`);
       }
+      // Число региональных сигналов (ADR 0069 §2): опциональное целое ≥ 0;
+      // отсутствие валидно — демо-недели 1.0 поля не несут (это не «0»).
+      if (r.signals !== undefined && (!Number.isInteger(r.signals) || r.signals < 0)) {
+        errors.push(`regions.${id}.signals: int >= 0`);
+      }
     }
   }
   if (!Array.isArray(snapshot.trend) || snapshot.trend.length !== 12) {

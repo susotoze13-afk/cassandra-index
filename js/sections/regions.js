@@ -1,11 +1,13 @@
 // Секция «Что это значит для моего региона?» (регистрируется как 'regions'):
-// ranked-лист всех 6 регионов по недельному изменению (§4.6, §5.1).
+// ranked-лист регионов набора недели по индексу убыванию — «где выше риск»
+// (ADR 0069 §2: не по |Δ|).
 // Семантический ol/li — не карта: карта не может быть единственным источником
 // значения. Клик/фокус раскрывает карточку: статус, Δ, драйверы, уверенность
 // (с причиной при сниженной), источники — тот же аккордеон-шаблон, что в таске 03
 // (переиспользуются чистые швы confidenceInfo/levelLabel и общий аккордеон
 // источников buildSourcesAccordion из drivers.js — таск 11).
-// Чистые швы (rankedRegions, statusLabel) — без DOM, тестируются.
+// Чистые швы (rankedRegions, orderedForDisplay, formatIndex, needsSignalsNote,
+// statusLabel) — без DOM, тестируются.
 
 import { t } from '../i18n.js';
 import * as risk from '../risk.js';
@@ -14,10 +16,11 @@ import { el, deltaClass } from '../ui.js';
 import { formatDelta, deltaArrow, isBackgroundRegion } from './hero.js';
 import { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion, quoteLookup } from './drivers.js';
 
-// Ranked-лист: все регионы набора отображаемой недели по убыванию |Δ|; при
-// равенстве |Δ| рост выше снижения, дальше — порядок справочника. Набор — по
-// версии таксономии недели (ADR 0028): 6 строк на v1-неделе, 12 на v2.
-// Битые записи пропускаем.
+// Ranked-лист: все регионы набора отображаемой недели по индексу убыванию;
+// при равенстве индекса — по id (ADR 0069 §2), чтобы порядок не зависел от
+// порядка справочника и был воспроизводим. Набор — по версии таксономии
+// недели (ADR 0028): 6 строк на v1-неделе, 12 на v2. Битые записи
+// (нечисловой индекс/Δ) пропускаем — нечисловую дельту в данные не вводить.
 export function rankedRegions(snapshot) {
   const regs = snapshot?.regions;
   if (!regs || typeof regs !== 'object') return [];
@@ -25,17 +28,40 @@ export function rankedRegions(snapshot) {
   const rows = [];
   for (const r of set) {
     const d = regs[r.id];
-    if (!d || typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
+    if (!d || typeof d.index !== 'number' || !Number.isFinite(d.index)) continue;
+    if (typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
     rows.push({ id: r.id, ...d });
   }
-  const order = new Map(set.map((r, i) => [r.id, i]));
   rows.sort((a, b) => {
-    const byAbs = Math.abs(b.delta) - Math.abs(a.delta);
-    if (byAbs !== 0) return byAbs;
-    if (b.delta !== a.delta) return b.delta - a.delta;
-    return order.get(a.id) - order.get(b.id);
+    if (a.index !== b.index) return b.index - a.index;
+    if (a.id === b.id) return 0;
+    return a.id < b.id ? -1 : 1;
   });
   return rows;
+}
+
+// Q16a: личный регион показывается первой строкой в DOM, остальные сохраняют
+// строгий порядок по индексу (перестановка, а не вторая сортировка). Чистый
+// шов — порядок строк проверяется без DOM.
+export function orderedForDisplay(rows, personal) {
+  const list = Array.isArray(rows) ? rows : [];
+  if (!personal) return list.slice();
+  const own = list.filter((r) => r.id === personal);
+  if (!own.length) return list.slice();
+  return [...own, ...list.filter((r) => r.id !== personal)];
+}
+
+// Формат индекса региона — строго из данных (ADR 0069 §2, Q2): 73.4 → «73.4»,
+// целое 73 → «73», `.0` не навязывается (образец — formatPp в contribution.js).
+// Нечисловое значение — пустая строка: ячейка не рисуется, «NaN» не печатается.
+export function formatIndex(value) {
+  return typeof value === 'number' && Number.isFinite(value) ? String(value) : '';
+}
+
+// Q13: пометка «мало региональных сигналов» при signals < 2. Поле опционально:
+// демо-недели его не несут, и отсутствие — это «неизвестно», а не ноль сигналов.
+export function needsSignalsNote(row) {
+  return typeof row?.signals === 'number' && Number.isFinite(row.signals) && row.signals < 2;
 }
 
 // Слово статуса: нижний регистр — для встроенной строки (как в hero), верхний —
@@ -93,6 +119,12 @@ function deltaSpan(lang, value, extraClass = '') {
 // — честное объяснение, что индекс несёт глобальный фон. Тон --text-muted (CSS).
 function backgroundNote(lang) {
   return el('span', 'region-background', t(lang, 'region.background'));
+}
+
+// Пометка «мало региональных сигналов» (Q13, ADR 0069 §2): текст, не только
+// цвет — отклонение региона при 0–1 сигнале опирается на узкий набор данных.
+function signalsNote(lang) {
+  return el('span', 'region-signals-low', t(lang, 'region.signals.low'));
 }
 
 // Пометка для слепой страны: вместо Δ — честное объяснение (тот же смысл, что
@@ -173,7 +205,7 @@ function buildDetail(lang, row, data, personal, lookup) {
   // R02: у слепого региона (background:true) Δ не подаётся как региональная — пометка.
   const head = el('p', 'region-detail-head');
   head.append(el('span', 'status', statusLabel(lang, row.index, false)));
-  head.append(el('span', 'region-detail-index', `${row.index} ${t(lang, 'hero.index.of')}`));
+  head.append(el('span', 'region-detail-index', `${formatIndex(row.index)} ${t(lang, 'hero.index.of')}`));
   if (isBackgroundRegion(row)) {
     head.append(backgroundNote(lang));
   } else {
@@ -181,6 +213,7 @@ function buildDetail(lang, row, data, personal, lookup) {
     d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
     head.append(d);
   }
+  if (needsSignalsNote(row)) head.append(signalsNote(lang));
   detail.append(head);
 
   // Уверенность по региону — словами; причина — если снапшот её отдаёт (поле
@@ -220,15 +253,19 @@ export function render(appState) {
     host.append(el('p', 'region-unavailable', t(lang, 'region.unavailable')));
     return;
   }
+  // Место в строгом порядке по индексу — номер строки не зависит от
+  // перестановки личного региона (он остаётся на своей позиции по индексу).
+  const rankOf = new Map(rows.map((r, i) => [r.id, i + 1]));
   const lookup = quoteLookup(snapshot);
 
   const list = el('ol', 'regions-list');
-  rows.forEach((row, i) => {
+  orderedForDisplay(rows, personal).forEach((row) => {
     const li = el('li', 'region-row');
     if (row.id === personal) {
       li.classList.add('is-personal');
-      // ADR 0028: на узких экранах витрина — 12 строк, поэтому личный регион
-      // пиннится вверху (класс-модификатор строки; раскладку делает CSS по нему).
+      // ADR 0028/0069: личный регион пиннится вверху — первой строкой в DOM,
+      // а на узких экранах ещё и CSS-порядком (класс-модификатор). Бейдж
+      // «ваш регион» остаётся отдельным сигналом, порядок — не единственный.
       li.classList.add('region-row--pinned');
     }
 
@@ -238,21 +275,28 @@ export function render(appState) {
     head.setAttribute('aria-expanded', 'false');
     const detailId = `region-detail-${row.id}`;
     head.setAttribute('aria-controls', detailId);
-    head.append(el('span', 'region-rank', String(i + 1)));
+    head.append(el('span', 'region-rank', String(rankOf.get(row.id) ?? '')));
     head.append(el('span', 'region-name', region.get(row.id)?.name[lang] ?? row.id));
     if (row.id === personal) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
       const bg = isBackgroundRegion(row);
-      head.setAttribute('aria-label',
-        bg
-          ? `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}`
-          : `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+      const signalsAria = needsSignalsNote(row) ? `, ${t(lang, 'region.signals.low')}` : '';
+      const place = region.get(row.id)?.name[lang] ?? row.id;
+      if (bg) {
+        head.setAttribute('aria-label',
+          `${place}, ${formatIndex(row.index)} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}${signalsAria}`);
+      } else {
+        head.setAttribute('aria-label',
+          `${place}, ${formatIndex(row.index)} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}${signalsAria}`);
+      }
     }
-    if (typeof row.index === 'number' && Number.isFinite(row.index)) {
-      head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
+    const indexText = formatIndex(row.index);
+    if (indexText) {
+      head.append(el('span', 'region-row-index', `${indexText} ${t(lang, 'hero.index.of')}`));
     }
     head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
+    if (needsSignalsNote(row)) head.append(signalsNote(lang));
 
     const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal, lookup);
     detail.id = detailId;

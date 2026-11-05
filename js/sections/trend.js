@@ -97,9 +97,9 @@ export function summaryText(lang, points) {
 }
 
 // Подпись для тренда, показывающего только текущую версию методологии
-// (по умолчанию 3.0): недельное Δ и Δ за всё окно из точек этой версии.
+// (по умолчанию 4.0, ADR 0069): недельное Δ и Δ за всё окно из точек этой версии.
 // Именно этот формат используется секцией после отсечения точек старых версий.
-export function summaryTextV2(lang, points, version = '3.0') {
+export function summaryTextV2(lang, points, version = '4.0') {
   const filtered = selectMethodology(points, version);
   const list = filtered.filter((p) => typeof p?.value === 'number');
   if (list.length < 2) return '';
@@ -179,10 +179,10 @@ function methOf(p) {
   return p && typeof p.methodology === 'string' && p.methodology !== '' ? p.methodology : null;
 }
 
-// Точки тренда для показа: только методология version (по умолчанию «3.0»).
-// Точки старых версий не показываются: они построены по другой методике и
-// несопоставимы.
-export function selectMethodology(points, version = '3.0') {
+// Точки тренда для показа: только методология version (по умолчанию «4.0»,
+// ADR 0069). Точки старых версий не показываются: они построены по другой
+// методике и несопоставимы.
+export function selectMethodology(points, version = '4.0') {
   return (Array.isArray(points) ? points : []).filter((p) => methOf(p) === version);
 }
 

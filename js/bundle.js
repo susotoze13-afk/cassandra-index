@@ -723,6 +723,11 @@ function validate(snapshot) {
       if (r.background !== undefined && typeof r.background !== 'boolean') {
         errors.push(`regions.${id}.background: boolean`);
       }
+      // Число региональных сигналов (ADR 0069 §2): опциональное целое ≥ 0;
+      // отсутствие валидно — демо-недели 1.0 поля не несут (это не «0»).
+      if (r.signals !== undefined && (!Number.isInteger(r.signals) || r.signals < 0)) {
+        errors.push(`regions.${id}.signals: int >= 0`);
+      }
     }
   }
   if (!Array.isArray(snapshot.trend) || snapshot.trend.length !== 12) {
@@ -1628,6 +1633,7 @@ const DICTS = {
     'region.change': 'изменить',
     'region.unavailable': 'данные по региону временно недоступны',
     'region.background': 'Индекс отражает глобальный фон; региональных данных недостаточно',
+    'region.signals.low': 'мало региональных сигналов',
     // Страновой под-блок в секции регионов (R08i): только строки из словаря.
     'country.title': 'По странам',
     'country.background': 'Индекс отражает глобальный фон; страновых данных недостаточно',
@@ -1928,6 +1934,7 @@ const DICTS = {
     'method.gaps.3': 'При плохом покрытии новое значение сжимается к предыдущему, а доля неопределённости показывается в интерфейсе отдельно.',
     'method.gaps.4': 'Наблюдаемость снижения напряжения асимметрична: подписанные договорённости запаздывают относительно реального снижения, а закрытые переговоры не видны открытым источникам до публикации.',
     'method.gaps.5': 'Репрезентативной выборки мирового инфополя нет: полный обход всех открытых источников по мощностям недоступен, покрытие — дисциплинированный обход по фиксированным критериям, а не полный учёт. Это граница метода, а не изъян отдельной недели.',
+    'method.regional.lowSignals': 'У региона с числом региональных сигналов меньше двух рядом с индексом стоит пометка «мало региональных сигналов»: отклонение такого региона опирается на узкий набор данных, и это раскрывается, а не сглаживается.',
     'method.sources.title': 'Как выбираются источники',
     'method.sources.1': 'Отбор: 46 критериев фиксированы заранее и не подгоняются под результат. Источник закрывает критерий по правилу независимости — минимум два независимых кластера происхождения либо один первичный источник. Входные сигналы каждой недели публикуются открыто: ссылки, даты и классификация каждого источника.',
     'method.sources.2': 'Проверка: ссылки источников проверяются автоматически перед публикацией — неделя с битой ссылкой не выходит. Выбор источников проходит чек-лист красной команды из семи вопросов, итоги фиксируются в журнале аудита.',
@@ -4474,9 +4481,9 @@ function summaryText(lang, points) {
 }
 
 // Подпись для тренда, показывающего только текущую версию методологии
-// (по умолчанию 3.0): недельное Δ и Δ за всё окно из точек этой версии.
+// (по умолчанию 4.0, ADR 0069): недельное Δ и Δ за всё окно из точек этой версии.
 // Именно этот формат используется секцией после отсечения точек старых версий.
-function summaryTextV2(lang, points, version = '3.0') {
+function summaryTextV2(lang, points, version = '4.0') {
   const filtered = selectMethodology(points, version);
   const list = filtered.filter((p) => typeof p?.value === 'number');
   if (list.length < 2) return '';
@@ -4556,10 +4563,10 @@ function methOf(p) {
   return p && typeof p.methodology === 'string' && p.methodology !== '' ? p.methodology : null;
 }
 
-// Точки тренда для показа: только методология version (по умолчанию «3.0»).
-// Точки старых версий не показываются: они построены по другой методике и
-// несопоставимы.
-function selectMethodology(points, version = '3.0') {
+// Точки тренда для показа: только методология version (по умолчанию «4.0»,
+// ADR 0069). Точки старых версий не показываются: они построены по другой
+// методике и несопоставимы.
+function selectMethodology(points, version = '4.0') {
   return (Array.isArray(points) ? points : []).filter((p) => methOf(p) === version);
 }
 
@@ -4941,19 +4948,22 @@ const { el, deltaClass } = __ci_require("js/ui.js");
 const { formatDelta, deltaArrow, isBackgroundRegion } = __ci_require("js/sections/hero.js");
 const { confidenceInfo, levelLabel, driverLabel, buildSourcesAccordion, quoteLookup } = __ci_require("js/sections/drivers.js");
 // Секция «Что это значит для моего региона?» (регистрируется как 'regions'):
-// ranked-лист всех 6 регионов по недельному изменению (§4.6, §5.1).
+// ranked-лист регионов набора недели по индексу убыванию — «где выше риск»
+// (ADR 0069 §2: не по |Δ|).
 // Семантический ol/li — не карта: карта не может быть единственным источником
 // значения. Клик/фокус раскрывает карточку: статус, Δ, драйверы, уверенность
 // (с причиной при сниженной), источники — тот же аккордеон-шаблон, что в таске 03
 // (переиспользуются чистые швы confidenceInfo/levelLabel и общий аккордеон
 // источников buildSourcesAccordion из drivers.js — таск 11).
-// Чистые швы (rankedRegions, statusLabel) — без DOM, тестируются.
+// Чистые швы (rankedRegions, orderedForDisplay, formatIndex, needsSignalsNote,
+// statusLabel) — без DOM, тестируются.
 
 
-// Ranked-лист: все регионы набора отображаемой недели по убыванию |Δ|; при
-// равенстве |Δ| рост выше снижения, дальше — порядок справочника. Набор — по
-// версии таксономии недели (ADR 0028): 6 строк на v1-неделе, 12 на v2.
-// Битые записи пропускаем.
+// Ranked-лист: все регионы набора отображаемой недели по индексу убыванию;
+// при равенстве индекса — по id (ADR 0069 §2), чтобы порядок не зависел от
+// порядка справочника и был воспроизводим. Набор — по версии таксономии
+// недели (ADR 0028): 6 строк на v1-неделе, 12 на v2. Битые записи
+// (нечисловой индекс/Δ) пропускаем — нечисловую дельту в данные не вводить.
 function rankedRegions(snapshot) {
   const regs = snapshot?.regions;
   if (!regs || typeof regs !== 'object') return [];
@@ -4961,17 +4971,40 @@ function rankedRegions(snapshot) {
   const rows = [];
   for (const r of set) {
     const d = regs[r.id];
-    if (!d || typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
+    if (!d || typeof d.index !== 'number' || !Number.isFinite(d.index)) continue;
+    if (typeof d.delta !== 'number' || !Number.isFinite(d.delta)) continue;
     rows.push({ id: r.id, ...d });
   }
-  const order = new Map(set.map((r, i) => [r.id, i]));
   rows.sort((a, b) => {
-    const byAbs = Math.abs(b.delta) - Math.abs(a.delta);
-    if (byAbs !== 0) return byAbs;
-    if (b.delta !== a.delta) return b.delta - a.delta;
-    return order.get(a.id) - order.get(b.id);
+    if (a.index !== b.index) return b.index - a.index;
+    if (a.id === b.id) return 0;
+    return a.id < b.id ? -1 : 1;
   });
   return rows;
+}
+
+// Q16a: личный регион показывается первой строкой в DOM, остальные сохраняют
+// строгий порядок по индексу (перестановка, а не вторая сортировка). Чистый
+// шов — порядок строк проверяется без DOM.
+function orderedForDisplay(rows, personal) {
+  const list = Array.isArray(rows) ? rows : [];
+  if (!personal) return list.slice();
+  const own = list.filter((r) => r.id === personal);
+  if (!own.length) return list.slice();
+  return [...own, ...list.filter((r) => r.id !== personal)];
+}
+
+// Формат индекса региона — строго из данных (ADR 0069 §2, Q2): 73.4 → «73.4»,
+// целое 73 → «73», `.0` не навязывается (образец — formatPp в contribution.js).
+// Нечисловое значение — пустая строка: ячейка не рисуется, «NaN» не печатается.
+function formatIndex(value) {
+  return typeof value === 'number' && Number.isFinite(value) ? String(value) : '';
+}
+
+// Q13: пометка «мало региональных сигналов» при signals < 2. Поле опционально:
+// демо-недели его не несут, и отсутствие — это «неизвестно», а не ноль сигналов.
+function needsSignalsNote(row) {
+  return typeof row?.signals === 'number' && Number.isFinite(row.signals) && row.signals < 2;
 }
 
 // Слово статуса: нижний регистр — для встроенной строки (как в hero), верхний —
@@ -5029,6 +5062,12 @@ function deltaSpan(lang, value, extraClass = '') {
 // — честное объяснение, что индекс несёт глобальный фон. Тон --text-muted (CSS).
 function backgroundNote(lang) {
   return el('span', 'region-background', t(lang, 'region.background'));
+}
+
+// Пометка «мало региональных сигналов» (Q13, ADR 0069 §2): текст, не только
+// цвет — отклонение региона при 0–1 сигнале опирается на узкий набор данных.
+function signalsNote(lang) {
+  return el('span', 'region-signals-low', t(lang, 'region.signals.low'));
 }
 
 // Пометка для слепой страны: вместо Δ — честное объяснение (тот же смысл, что
@@ -5109,7 +5148,7 @@ function buildDetail(lang, row, data, personal, lookup) {
   // R02: у слепого региона (background:true) Δ не подаётся как региональная — пометка.
   const head = el('p', 'region-detail-head');
   head.append(el('span', 'status', statusLabel(lang, row.index, false)));
-  head.append(el('span', 'region-detail-index', `${row.index} ${t(lang, 'hero.index.of')}`));
+  head.append(el('span', 'region-detail-index', `${formatIndex(row.index)} ${t(lang, 'hero.index.of')}`));
   if (isBackgroundRegion(row)) {
     head.append(backgroundNote(lang));
   } else {
@@ -5117,6 +5156,7 @@ function buildDetail(lang, row, data, personal, lookup) {
     d.append(el('span', 'region-detail-week', ` ${t(lang, 'hero.week.change')}`));
     head.append(d);
   }
+  if (needsSignalsNote(row)) head.append(signalsNote(lang));
   detail.append(head);
 
   // Уверенность по региону — словами; причина — если снапшот её отдаёт (поле
@@ -5156,15 +5196,19 @@ function render(appState) {
     host.append(el('p', 'region-unavailable', t(lang, 'region.unavailable')));
     return;
   }
+  // Место в строгом порядке по индексу — номер строки не зависит от
+  // перестановки личного региона (он остаётся на своей позиции по индексу).
+  const rankOf = new Map(rows.map((r, i) => [r.id, i + 1]));
   const lookup = quoteLookup(snapshot);
 
   const list = el('ol', 'regions-list');
-  rows.forEach((row, i) => {
+  orderedForDisplay(rows, personal).forEach((row) => {
     const li = el('li', 'region-row');
     if (row.id === personal) {
       li.classList.add('is-personal');
-      // ADR 0028: на узких экранах витрина — 12 строк, поэтому личный регион
-      // пиннится вверху (класс-модификатор строки; раскладку делает CSS по нему).
+      // ADR 0028/0069: личный регион пиннится вверху — первой строкой в DOM,
+      // а на узких экранах ещё и CSS-порядком (класс-модификатор). Бейдж
+      // «ваш регион» остаётся отдельным сигналом, порядок — не единственный.
       li.classList.add('region-row--pinned');
     }
 
@@ -5174,21 +5218,28 @@ function render(appState) {
     head.setAttribute('aria-expanded', 'false');
     const detailId = `region-detail-${row.id}`;
     head.setAttribute('aria-controls', detailId);
-    head.append(el('span', 'region-rank', String(i + 1)));
+    head.append(el('span', 'region-rank', String(rankOf.get(row.id) ?? '')));
     head.append(el('span', 'region-name', region.get(row.id)?.name[lang] ?? row.id));
     if (row.id === personal) {
       // Бейдж текстом + aria — пометка не единственным полаганием на цвет (§12).
       head.append(el('span', 'region-yours', t(lang, 'regions.yours')));
       const bg = isBackgroundRegion(row);
-      head.setAttribute('aria-label',
-        bg
-          ? `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}`
-          : `${region.get(row.id)?.name[lang] ?? row.id}, ${row.index} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}`);
+      const signalsAria = needsSignalsNote(row) ? `, ${t(lang, 'region.signals.low')}` : '';
+      const place = region.get(row.id)?.name[lang] ?? row.id;
+      if (bg) {
+        head.setAttribute('aria-label',
+          `${place}, ${formatIndex(row.index)} ${t(lang, 'hero.index.of')}, ${t(lang, 'region.background')}, ${t(lang, 'regions.yours')}${signalsAria}`);
+      } else {
+        head.setAttribute('aria-label',
+          `${place}, ${formatIndex(row.index)} ${t(lang, 'hero.index.of')}, ${formatDelta(row.delta)}, ${t(lang, 'regions.yours')}${signalsAria}`);
+      }
     }
-    if (typeof row.index === 'number' && Number.isFinite(row.index)) {
-      head.append(el('span', 'region-row-index', `${row.index} ${t(lang, 'hero.index.of')}`));
+    const indexText = formatIndex(row.index);
+    if (indexText) {
+      head.append(el('span', 'region-row-index', `${indexText} ${t(lang, 'hero.index.of')}`));
     }
     head.append(isBackgroundRegion(row) ? backgroundNote(lang) : deltaSpan(lang, row.delta));
+    if (needsSignalsNote(row)) head.append(signalsNote(lang));
 
     const detail = buildDetail(lang, row, snapshot.regions[row.id], row.id === personal, lookup);
     detail.id = detailId;
@@ -5213,6 +5264,9 @@ function render(appState) {
 }
 
 exports["rankedRegions"] = rankedRegions;
+exports["orderedForDisplay"] = orderedForDisplay;
+exports["formatIndex"] = formatIndex;
+exports["needsSignalsNote"] = needsSignalsNote;
 exports["statusLabel"] = statusLabel;
 exports["countryRows"] = countryRows;
 exports["render"] = render;
@@ -5467,7 +5521,8 @@ const { CRITERIA_LIST } = __ci_require("js/criteria.js");
 const LIST_KEYS = {
   measures: ['method.measures.1'],
   notMeasures: ['method.not.1', 'method.not.2', 'method.not.3'],
-  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4', 'method.gaps.5'],
+  gaps: ['method.gaps.1', 'method.gaps.2', 'method.gaps.3', 'method.gaps.4', 'method.gaps.5',
+    'method.regional.lowSignals'],
   sources: ['method.sources.1', 'method.sources.2', 'method.sources.3'],
   conflicts: ['method.conflicts.1', 'method.conflicts.2', 'method.conflicts.3'],
   failures: ['method.failures.1', 'method.failures.2', 'method.failures.3'],

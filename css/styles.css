@@ -333,6 +333,23 @@ main {
   font-size: 13px;
 }
 
+/* Q13/ADR 0069: «мало региональных сигналов» — текстовая пометка рядом с
+   индексом (не только цветом, §12). Тон вторичный, не статусный. */
+.region-signals-low {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* На узком экране пометки занимают свои строки под именем региона. */
+@media (max-width: 480px) {
+  .region-signals-low {
+    flex-basis: 100%;
+    order: 3;
+  }
+}
+
 /* На узком экране пометка занимает всю строку под именем региона — иначе
    сжимается в узкую колонку из одних слов и выталкивает Δ и chevron. */
 @media (max-width: 480px) {

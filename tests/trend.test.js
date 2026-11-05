@@ -13,6 +13,7 @@ import {
   trendSegments,
   axisLabels,
 } from '../js/sections/trend.js';
+import { loadSnapshotPart } from '../calc/calc.js';
 
 // §4.4 / История 13 — подпись «текущее / неделю назад / направление»: Δ со знаком.
 test('signedDelta: +6 / -3 / 0', () => {
@@ -144,42 +145,57 @@ test('trendSegments: однородный ряд — один сегмент б�
   assert.deepEqual(breaks, []);
 });
 
-// Тренд показывает только точки текущей версии методологии (по умолчанию 3.0):
-// точки старых версий отсекаются на входе секции (несопоставимы).
-test('selectMethodology: по умолчанию только точки версии 3.0, без v1/v2 и без methodology', () => {
+// Тренд показывает только точки текущей версии методологии (по умолчанию 4.0,
+// ADR 0069): точки старых версий отсекаются на входе секции (несопоставимы).
+test('selectMethodology: по умолчанию только точки версии 4.0, без v1/v2/3.0 и без methodology', () => {
   const points = [
     { date: '2026-07-12', value: 59 },
     { date: '2026-08-23', value: 67, methodology: '1.0' },
     { date: '2026-08-30', value: 51, methodology: '2.0' },
     { date: '2026-09-06', value: 42, methodology: '3.0' },
-    { date: '2026-09-13', value: 41, methodology: '3.0' },
-    { date: '2026-09-20', value: null, methodology: '3.0' },
+    { date: '2026-09-13', value: 41, methodology: '4.0' },
+    { date: '2026-09-20', value: null, methodology: '4.0' },
   ];
   assert.deepEqual(selectMethodology(points).map((p) => p.date), [
-    '2026-09-06',
     '2026-09-13',
     '2026-09-20',
   ]);
+  assert.deepEqual(selectMethodology(points, '3.0').map((p) => p.date), ['2026-09-06']);
   assert.deepEqual(selectMethodology(points, '2.0').map((p) => p.date), ['2026-08-30']);
   assert.deepEqual(selectMethodology(points, '1.0'), [{ date: '2026-08-23', value: 67, methodology: '1.0' }]);
   assert.deepEqual(selectMethodology([]), []);
 });
 
-test('summaryTextV2: Δ по неделям только методологии 3.0, версия — в подписи', () => {
+test('summaryTextV2: Δ по неделям только методологии 4.0, версия — в подписи', () => {
   const points = [
     { date: '2026-07-12', value: 59 },
     { date: '2026-08-23', value: 67, methodology: '1.0' },
     { date: '2026-08-30', value: 51, methodology: '2.0' },
     { date: '2026-09-06', value: 42, methodology: '3.0' },
-    { date: '2026-09-13', value: 41, methodology: '3.0' },
-    { date: '2026-09-20', value: 32, methodology: '3.0' },
+    { date: '2026-09-13', value: 41, methodology: '4.0' },
+    { date: '2026-09-20', value: 32, methodology: '4.0' },
   ];
-  // руками: недельное Δ = 32−41 = −9; Δ окна = 32−42 = −10 по 3 оценённым точкам
+  // руками: недельное Δ = 32−41 = −9; Δ окна = 32−41 = −9 по 2 оценённым точкам
   const ru = summaryTextV2('ru', points);
   assert.match(ru, /За неделю индекс изменился на -9 пунктов/);
-  assert.match(ru, /3 недели/);
-  assert.match(ru, /методологии 3\.0/);
-  assert.match(ru, /на -10 пунктов/);
+  assert.match(ru, /2 недели/);
+  assert.match(ru, /методологии 4\.0/);
+  assert.match(ru, /на -9 пунктов/);
+});
+
+// R16.1: после пересчёта цепочки под 4.0 ряд не исчезает — 10 точек 4.0,
+// без разрыва методологии (точки демо-недель 1.0 отсекаются на входе).
+test('диск: тренд 11-01 — 10 точек методологии 4.0 без разрыва', () => {
+  const { trend } = loadSnapshotPart('2026-11-01', 'trend');
+  const points = selectMethodology(trend);
+  assert.equal(points.length, 10);
+  assert.ok(points.every((p) => p.methodology === '4.0'));
+  assert.ok(points.every((p) => typeof p.value === 'number'));
+  const { segments, breaks } = trendSegments(points);
+  assert.equal(segments.length, 1);
+  assert.deepEqual(breaks, []);
+  // подпись секции строится по тем же точкам и знает версию
+  assert.match(summaryTextV2('ru', points), /методологии 4\.0/);
 });
 
 // R01: подписи горизонтальной оси — дата расчёта индекса каждой недели
