@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-countries",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -10,21 +10,21 @@
     "placeholder": false
   },
   "week": "2026-10-25",
-  "methodology": "3.0",
+  "methodology": "4.0",
   "countries": {
     "total": 152,
     "published": 2,
     "rows": {
       "RU": {
-        "index": 66,
-        "delta": -2,
+        "index": 67.1,
+        "delta": 1.7,
         "background": false,
         "region": "russia-belarus",
         "signals": 8
       },
       "UA": {
-        "index": 68,
-        "delta": 5,
+        "index": 68.1,
+        "delta": 3.3,
         "background": false,
         "region": "ukraine-moldova",
         "signals": 7

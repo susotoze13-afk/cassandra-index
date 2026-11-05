@@ -34,7 +34,9 @@ const PUBLIC_DIR = path.join('data', 'public');
 const LEDGER_FILE = 'forecast-ledger.json';
 
 export const LEDGER_SCHEMA = 'cassandra-index-forecast-ledger';
-export const LEDGER_SCHEMA_VERSION = 1;
+// Версия формы публичного файла (ADR 0062/0069): реестр живёт в data/public
+// и следует версии публичной схемы, schema/vN/.
+export const LEDGER_SCHEMA_VERSION = 2;
 export const DIRECTION_DEADBAND = 2;
 
 const SITE = 'https://cassindex.ru';

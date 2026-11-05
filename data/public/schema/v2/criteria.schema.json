@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/criteria.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/criteria.schema.json",
   "type": "object",
   "required": [
     "schema",
@@ -16,7 +16,7 @@
       "const": "cassandra-index-criteria"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "methodology": {
       "type": "string"

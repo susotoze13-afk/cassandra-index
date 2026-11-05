@@ -1,7 +1,7 @@
 {
   "schema": "cassandra-index-methodology",
-  "schema_version": 1,
-  "methodology": "3.0",
+  "schema_version": 2,
+  "methodology": "4.0",
   "project_version": "1.1.0",
   "criteria_count": 46,
   "drivers_count": 9,
@@ -37,7 +37,6 @@
       "medium": 0.7,
       "low": 0.4
     },
-    "n0": 5,
     "gamma": 0.5,
     "kappa": 0.85,
     "region_clamp": 40,

@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-regions",
-  "schema_version": 1,
+  "schema_version": 2,
   "taxonomy_version": "2.0",
   "taxonomy_v2_from": "2026-10-18",
   "current": "2.0",

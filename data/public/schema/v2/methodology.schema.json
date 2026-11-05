@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/methodology.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/methodology.schema.json",
   "type": "object",
   "required": [
     "schema",
@@ -23,7 +23,7 @@
       "const": "cassandra-index-methodology"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "methodology": {
       "type": "string"

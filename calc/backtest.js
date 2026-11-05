@@ -39,7 +39,9 @@ const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const FIXTURES_DIR = path.join(ROOT, 'calc', 'backtest-fixtures');
 
 export const BACKTEST_SCHEMA = 'cassandra-index-validation';
-export const BACKTEST_SCHEMA_VERSION = 1;
+// Версия формы публичного файла (ADR 0062/0069): validation.json живёт в
+// data/public и следует версии публичной схемы, schema/vN/.
+export const BACKTEST_SCHEMA_VERSION = 2;
 export const MIN_PAIRS = 6;
 export const PRELIMINARY_BELOW = 20;
 export const MAX_DISCREPANCIES = 12;

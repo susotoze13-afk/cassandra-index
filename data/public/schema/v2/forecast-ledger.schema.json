@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/forecast-ledger.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/forecast-ledger.schema.json",
   "title": "Cassandra Index — реестр прогнозов и их проверки",
   "type": "object",
   "required": [
@@ -19,7 +19,7 @@
       "const": "cassandra-index-forecast-ledger"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "site": {
       "const": "https://cassindex.ru"

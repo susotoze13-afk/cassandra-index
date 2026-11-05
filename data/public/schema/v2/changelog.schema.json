@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/changelog.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/changelog.schema.json",
   "title": "Cassandra Index — история изменений публичного слоя",
   "type": "object",
   "required": [
@@ -14,7 +14,7 @@
       "const": "cassandra-index-changelog"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "entries": {
       "type": "array",

@@ -1,6 +1,6 @@
 // public-contract.js — машинный контракт публичного слоя (ADR 0062):
 // справочники data/public/{regions,criteria,methodology}.json, понедельные
-// файлы data/public/weeks/<date>.json и JSON Schema в data/public/schema/v1/.
+// файлы data/public/weeks/<date>.json и JSON Schema в data/public/schema/v2/.
 // Чистые сборщики документов: ни диска, ни сети (reference.json и VERSION
 // читаются один раз на импорте — это статические файлы репозитория).
 //
@@ -25,7 +25,7 @@ const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const REFERENCE = JSON.parse(readFileSync(path.join(ROOT, 'data', 'regions', 'reference.json'), 'utf8'));
 const VERSION = readFileSync(path.join(ROOT, 'VERSION'), 'utf8').trim();
 
-export const PUBLIC_SCHEMA_VERSION = 1;
+export const PUBLIC_SCHEMA_VERSION = 2;
 export const SITE = 'https://cassindex.ru';
 
 export const SCHEMA_NAMES = {
@@ -117,11 +117,12 @@ export function criteriaDoc() {
 // ADR 0062: раскрытие для машинного потребителя; UI-граница ADR 0045 не
 // меняется (страница «Методология» формулы и веса не показывает).
 // ADR 0067: параметры региональной модели ниже (region_clamp,
-// region_shock_delta, region_estruct_default, n0, gamma, kappa) —
+// region_shock_delta, region_estruct_default, gamma, kappa) —
 // размерностно-нейтральные: той же формулой §7 считается и страновой слой
 // (data/public/countries/<неделя>.json; гейт PARAMS.countryLayerFrom,
 // prevIndex страны наследуется: страна → регион → prevGlobal; чувствительность
 // стран — sensitivity недели, отдельная метрика по странам не считается).
+// ADR 0069: объёмное сжатие снято, параметр n0 не раскрывается.
 export function methodologyDoc() {
   return {
     schema: SCHEMA_NAMES.methodology,
@@ -144,7 +145,6 @@ export function methodologyDoc() {
       beta_down: PARAMS.betaDown,
       structural_break: { ...PARAMS.structuralBreak },
       confidence: { ...PARAMS.confidence },
-      n0: PARAMS.n0,
       gamma: PARAMS.gamma,
       kappa: PARAMS.kappa,
       region_clamp: PARAMS.regionClamp,
@@ -391,7 +391,7 @@ const WHAT_WOULD_CHANGE_SCHEMA = {
 
 const WEEK_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/week.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/week.schema.json',
   title: 'Cassandra Index — неделя (публичная проекция)',
   type: 'object',
   required: [
@@ -441,9 +441,13 @@ const WEEK_SCHEMA = {
             additionalProperties: false,
             properties: {
               id: { type: 'string' },
-              index: nullable('integer'),
-              delta: nullable('integer'),
+              // ADR 0069: региональный слой — одна десятичная; глобальный — целый.
+              index: nullable('number'),
+              delta: nullable('number'),
               background: { type: 'boolean' },
+              // Число региональных сигналов (nReg); опционально — демо-недели 1.0
+              // поля не имеют, и отсутствие валидно.
+              signals: { type: 'integer', minimum: 0 },
             },
           },
         },
@@ -509,7 +513,7 @@ const WEEK_SCHEMA = {
 function envelopeSchema(name, schemaName, extraProps) {
   return {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: `https://cassindex.ru/data/public/schema/v1/${name}.schema.json`,
+    $id: `https://cassindex.ru/data/public/schema/v2/${name}.schema.json`,
     type: 'object',
     required: ['schema', 'schema_version', 'site', 'license', ...Object.keys(extraProps)],
     additionalProperties: false,
@@ -534,7 +538,7 @@ const LATEST_SCHEMA = envelopeSchema('latest', SCHEMA_NAMES.index, {
 
 const REGIONS_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/regions.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/regions.schema.json',
   type: 'object',
   required: ['schema', 'schema_version', 'taxonomy_version', 'taxonomy_v2_from', 'current', 'taxonomies'],
   additionalProperties: false,
@@ -581,7 +585,7 @@ const REGIONS_SCHEMA = {
 
 const CRITERIA_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/criteria.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/criteria.schema.json',
   type: 'object',
   required: ['schema', 'schema_version', 'methodology', 'criteria_count', 'drivers', 'criteria'],
   additionalProperties: false,
@@ -624,7 +628,7 @@ const CRITERIA_SCHEMA = {
 
 const METHODOLOGY_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/methodology.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/methodology.schema.json',
   type: 'object',
   required: [
     'schema', 'schema_version', 'methodology', 'project_version', 'criteria_count',
@@ -672,7 +676,7 @@ const METHODOLOGY_SCHEMA = {
 // Лицензионного конверта и site в файле нет: это метаданные проекта.
 const CHANGELOG_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/changelog.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/changelog.schema.json',
   title: 'Cassandra Index — история изменений публичного слоя',
   type: 'object',
   required: ['schema', 'schema_version', 'entries'],
@@ -702,7 +706,7 @@ const CHANGELOG_SCHEMA = {
 // digest/index.json — архив выпусков: только даты, без конверта.
 const DIGEST_INDEX_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/digest-index.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/digest-index.schema.json',
   title: 'Cassandra Index — индекс выпусков дайджеста',
   type: 'object',
   required: ['schema', 'schema_version', 'weeks'],
@@ -718,7 +722,7 @@ const DIGEST_INDEX_SCHEMA = {
 // поэтому тип — ['string', 'null'] (валидатор не знает anyOf).
 const DIGEST_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/digest.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/digest.schema.json',
   title: 'Cassandra Index — выпуск дайджеста',
   type: 'object',
   required: ['schema', 'schema_version', 'week', 'subject', 'text', 'html', 'telegram', 'meta'],
@@ -749,7 +753,7 @@ const STATUS_ENUM = ['preliminary', 'descriptive', 'insufficient', 'ok'];
 
 const VALIDATION_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/validation.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/validation.schema.json',
   title: 'Cassandra Index — внешняя сверка ряда',
   type: 'object',
   required: [
@@ -901,7 +905,7 @@ const VALIDATION_SCHEMA = {
 // forecast-ledger.json — реестр прогнозов (ADR 0064). Конверт site+license есть.
 const FORECAST_LEDGER_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/forecast-ledger.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/forecast-ledger.schema.json',
   title: 'Cassandra Index — реестр прогнозов и их проверки',
   type: 'object',
   required: ['schema', 'schema_version', 'site', 'license', 'rule', 'entries', 'summary', 'misses'],
@@ -1025,7 +1029,7 @@ const FORECAST_LEDGER_SCHEMA = {
 // additionalProperties:false на rows; name в строке нет (см. COUNTRY_ROW_NOTE).
 const COUNTRIES_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'https://cassindex.ru/data/public/schema/v1/countries.schema.json',
+  $id: 'https://cassindex.ru/data/public/schema/v2/countries.schema.json',
   title: 'Cassandra Index — страновой слой недели',
   type: 'object',
   required: [
@@ -1056,7 +1060,7 @@ const COUNTRIES_SCHEMA = {
             required: ['index', 'delta', 'background', 'region', 'signals'],
             additionalProperties: false,
             properties: {
-              index: { type: 'integer', minimum: 0, maximum: 100 },
+              index: { type: 'number', minimum: 0, maximum: 100 },
               delta: { type: 'number' },
               background: { type: 'boolean' },
               region: { type: 'string' },

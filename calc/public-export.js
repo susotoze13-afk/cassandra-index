@@ -4,12 +4,14 @@
 // частей data/<week>/, что грузит сайт (через loadWeekParts/renderWeekCombined),
 // поэтому паритет с сайтом проверяется одним тестом.
 //
-// Схема публичного файла (schema_version 1): неделя —
+// Схема публичного файла (schema_version 2): неделя —
 //   week, published, through, methodology, regions_taxonomy, data_state,
 //   index, delta, state, q, confidence, coverage_criteria,
-//   regions [{id, index, delta, background}], precursor|null,
+//   regions [{id, index, delta, background, signals?}], precursor|null,
 //   precursor_present, drivers [{label, contribution}],
 //   sources {count, clusters, state_affiliated}, trend [{date, value, methodology?}].
+// ADR 0069: индекс и дельта регионов — с одной десятичной, поле signals
+// (число региональных сигналов) опционально; глобальный индекс остаётся целым.
 // state — engine.stateOf(index, PARAMS): пороги состояний не дублируются.
 // precursor отсутствует на диске у всех недель (ADR 0047): публикуется null +
 // precursor_present: false — «не публиковалось» ≠ «ноль сигналов».
@@ -28,7 +30,7 @@
 // CLI: `node calc/public-export.js` — печать сводки; `--write` — запись;
 // `--root <dir>` — другой корень (нужен тестам битого снапшота).
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -124,12 +126,18 @@ export function datasetOf(snapshot, week, analysis) {
   const g = s.global && typeof s.global === 'object' ? s.global : null;
   const regions = regionIdsFor(taxonomy).map((id) => {
     const r = (s.regions && s.regions[id]) || {};
-    return {
+    const row = {
       id,
       index: isNum(r.index) ? r.index : null,
       delta: isNum(r.delta) ? r.delta : null,
       background: r.background === true,
     };
+    // signals — число региональных сигналов (ADR 0069): поле опционально,
+    // демо-недели 1.0 его не имеют, и отсутствие не превращается в ноль.
+    if (isNum(r.signals) && Number.isInteger(r.signals) && r.signals >= 0) {
+      row.signals = r.signals;
+    }
+    return row;
   });
   const sources = Array.isArray(s.sources) ? s.sources : [];
   const precursor = precursorOf(s);
@@ -481,12 +489,15 @@ export function writePublicData({
     }
   }
   for (const [name, schema] of Object.entries(schemaDocs())) {
-    outputs.push([path.join(publicDir, 'schema', 'v1', name), jsonText(schema)]);
+    outputs.push([path.join(publicDir, 'schema', 'v2', name), jsonText(schema)]);
   }
   mkdirSync(publicDir, { recursive: true });
   mkdirSync(path.join(publicDir, 'weeks'), { recursive: true });
   mkdirSync(path.join(publicDir, 'countries'), { recursive: true });
-  mkdirSync(path.join(publicDir, 'schema', 'v1'), { recursive: true });
+  mkdirSync(path.join(publicDir, 'schema', 'v2'), { recursive: true });
+  // Смена версии схемы = новая папка (docs/api.md): прежний каталог удаляется,
+  // чтобы v1 и v2 не сосуществовали и потребитель не читал устаревшую форму.
+  rmSync(path.join(publicDir, 'schema', 'v1'), { recursive: true, force: true });
   for (const [file, content] of outputs) writeFileSync(file, content, 'utf8');
   return { files: outputs.map(([file]) => file) };
 }
@@ -684,7 +695,7 @@ function main() {
       'data/public/changelog.json', 'data/public/regions.json',
       'data/public/criteria.json', 'data/public/methodology.json',
       'data/public/weeks/<неделя>.json', 'data/public/countries/<неделя>.json',
-      'data/public/schema/v1/*.json',
+      'data/public/schema/v2/*.json',
       'data/analysis.js', 'changelog.html',
     ];
     lines.push(`недель: ${dataset.weeks.length}, последняя ${last.week} — индекс ${last.index}, `

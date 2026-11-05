@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-week",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -13,7 +13,7 @@
     "week": "2026-10-11",
     "published": "2026-10-11",
     "through": "2026-10-11",
-    "methodology": "3.0",
+    "methodology": "4.0",
     "regions_taxonomy": "1.0",
     "data_state": "published",
     "index": 56,
@@ -28,39 +28,45 @@
     "regions": [
       {
         "id": "europe",
-        "index": 56,
-        "delta": 12,
-        "background": false
+        "index": 55.2,
+        "delta": 9.2,
+        "background": false,
+        "signals": 14
       },
       {
         "id": "east-asia",
-        "index": 59,
-        "delta": 13,
-        "background": false
+        "index": 56,
+        "delta": 10.3,
+        "background": false,
+        "signals": 5
       },
       {
         "id": "middle-east",
-        "index": 67,
-        "delta": 28,
-        "background": false
+        "index": 57.5,
+        "delta": 11.8,
+        "background": false,
+        "signals": 9
       },
       {
         "id": "north-america",
-        "index": 52,
-        "delta": 9,
-        "background": false
+        "index": 57.2,
+        "delta": 11.2,
+        "background": false,
+        "signals": 5
       },
       {
         "id": "south-asia",
-        "index": 56,
-        "delta": 10,
-        "background": true
+        "index": 55.9,
+        "delta": 10.2,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "africa",
-        "index": 59,
-        "delta": 13,
-        "background": false
+        "index": 57.1,
+        "delta": 11.4,
+        "background": false,
+        "signals": 2
       }
     ],
     "precursor": null,
@@ -587,37 +593,37 @@
       {
         "date": "2026-08-30",
         "value": 51,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-06",
         "value": 42,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-13",
         "value": 43,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-20",
         "value": 56,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-27",
         "value": 47,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-10-04",
         "value": 46,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-10-11",
         "value": 56,
-        "methodology": "3.0"
+        "methodology": "4.0"
       }
     ]
   }

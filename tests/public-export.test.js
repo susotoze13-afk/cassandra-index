@@ -159,6 +159,23 @@ test('datasetOf: precursor публикуется, когда поле есть'
   assert.equal(p.precursor_present, true);
 });
 
+test('datasetOf: signals региона проецируется, отсутствие поля — не ноль', () => {
+  const snap = snapshotFor('2026-10-18');
+  snap.regions['russia-belarus'] = {
+    index: 65.4, delta: 9.4, background: false, status: 'very', signals: 7,
+  };
+  snap.regions.baltic = { index: 65, delta: 9, background: false, status: 'very', signals: 0 };
+  const p = datasetOf(snap, '2026-10-18');
+  const rb = p.regions.find((r) => r.id === 'russia-belarus');
+  const baltic = p.regions.find((r) => r.id === 'baltic');
+  assert.equal(rb.index, 65.4, 'дробный индекс не округляется');
+  assert.equal(rb.delta, 9.4, 'дробная дельта не округляется');
+  assert.equal(rb.signals, 7);
+  assert.equal(baltic.signals, 0, 'ноль сигналов — значение, а не отсутствие');
+  const plain = datasetOf(snapshotFor('2026-10-18'), '2026-10-18');
+  assert.ok(!('signals' in plain.regions[0]), 'без поля signals ключа нет (демо-недели)');
+});
+
 test('datasetOf: insufficient-неделя не падает (index/delta/state = null)', () => {
   const p = datasetOf(
     snapshotFor('2026-10-18', { dataState: 'insufficient', global: null }),
@@ -177,7 +194,7 @@ test('buildDataset: schema, schema_version, site, license, weeks по поряд
   const ds = buildDataset(weeks, byWeek(weeks));
   assert.equal(ds.schema, 'cassandra-index-public');
   assert.equal(ds.schema_version, PUBLIC_SCHEMA_VERSION);
-  assert.equal(PUBLIC_SCHEMA_VERSION, 1);
+  assert.equal(PUBLIC_SCHEMA_VERSION, 2);
   assert.equal(ds.site, 'https://cassindex.ru');
   assert.equal(typeof ds.license, 'object');
   assert.equal(ds.license.name, 'CC BY 4.0');
@@ -208,7 +225,7 @@ test('toCsv: фиксированная шапка, неделя × област
   }
   const globalRow = lines[1].split(',');
   assert.equal(globalRow[0], 'cassandra-index-public');
-  assert.equal(globalRow[1], '1');
+  assert.equal(globalRow[1], '2');
   assert.equal(globalRow[2], '2026-10-11');
   assert.equal(globalRow[8], 'global');
   assert.equal(globalRow[9], '64');

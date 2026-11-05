@@ -23,6 +23,7 @@ import {
   regionsDoc,
   schemaDocs,
   weekDoc,
+  PUBLIC_SCHEMA_VERSION,
 } from '../calc/public-contract.js';
 import { buildDrivers, aggregateDrivers, CRITERIA } from '../calc/engine.js';
 import { PARAMS } from '../calc/params.js';
@@ -406,12 +407,42 @@ test('сторож: каждый публичный JSON упомянут в doc
   }
 });
 
-test('schemaDocs: двенадцать схем, по одной на каждый публичный JSON', () => {
+test('схемы: двенадцать схем, по одной на каждый публичный JSON', () => {
   const names = Object.keys(schemaDocs());
   assert.equal(names.length, 12);
   for (const name of ['changelog', 'digest-index', 'digest', 'validation', 'forecast-ledger', 'countries']) {
     assert.ok(names.includes(`${name}.schema.json`), `нет ${name}.schema.json`);
   }
+});
+
+test('версия 2: дробные регионы и страны, опциональные signals, каталог v2, без n0', () => {
+  assert.equal(PUBLIC_SCHEMA_VERSION, 2);
+  const schemas = schemaDocs();
+  for (const [name, schema] of Object.entries(schemas)) {
+    assert.match(schema.$id, /\/schema\/v2\/[^/]+\.json$/, `${name}: $id не на v2`);
+  }
+  const week = schemas['week.schema.json'].$defs.week;
+  const props = week.properties;
+  // Глобальный ряд — целый, регионы — одна десятичная (ADR 0069 §1).
+  assert.deepEqual(props.index.type, ['integer', 'null']);
+  assert.deepEqual(props.delta.type, ['integer', 'null']);
+  const region = props.regions.items.properties;
+  assert.ok(region.index.type.includes('number'), 'regions[].index не number');
+  assert.ok(region.delta.type.includes('number'), 'regions[].delta не number');
+  assert.deepEqual(region.signals, { type: 'integer', minimum: 0 });
+  assert.ok(!week.required.includes('signals'), 'signals обязан быть опциональным');
+  assert.deepEqual(props.regions.items.required, ['id', 'index', 'delta', 'background']);
+  const country = schemas['countries.schema.json'].properties.countries
+    .properties.rows.additionalProperties.properties;
+  assert.ok(country.index.type.includes('number'), 'countries.rows[].index не number');
+  assert.ok(country.delta.type.includes('number'), 'countries.rows[].delta не number');
+  const method = methodologyDoc();
+  assert.ok(!('n0' in method.parameters), 'methodologyDoc не должен раскрывать n0');
+  assert.equal(method.parameters.region_estruct_default, PARAMS.regionEstructDefault);
+  assert.equal(method.parameters.gamma, PARAMS.gamma);
+  assert.ok(existsSync(path.join(PUBLIC_DIR, 'schema', 'v2', 'week.schema.json')),
+    'нет data/public/schema/v2/week.schema.json');
+  assert.ok(!existsSync(path.join(PUBLIC_DIR, 'schema', 'v1')), 'каталог v1 должен быть удалён');
 });
 
 test('схемы: nullable-поля допускают null (digest.week, все пути validation)', () => {
@@ -599,7 +630,7 @@ test('паритет: справочники и понедельные файл�
     assert.equal(file.week.driver_breakdown.length, expected, `${week}: развёртка драйверов`);
   }
   for (const [name, schema] of Object.entries(schemaDocs())) {
-    assert.deepEqual(readPublic(`schema/v1/${name}`), schema, `${name}: схема на диске устарела`);
+    assert.deepEqual(readPublic(`schema/v2/${name}`), schema, `${name}: схема на диске устарела`);
   }
 });
 

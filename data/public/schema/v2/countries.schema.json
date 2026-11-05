@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/countries.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/countries.schema.json",
   "title": "Cassandra Index — страновой слой недели",
   "type": "object",
   "required": [
@@ -20,7 +20,7 @@
       "const": "cassandra-index-countries"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "site": {
       "const": "https://cassindex.ru"
@@ -96,7 +96,7 @@
             "additionalProperties": false,
             "properties": {
               "index": {
-                "type": "integer",
+                "type": "number",
                 "minimum": 0,
                 "maximum": 100
               },

@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/index.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/latest.schema.json",
   "type": "object",
   "required": [
     "schema",
     "schema_version",
     "site",
     "license",
-    "weeks"
+    "week"
   ],
   "additionalProperties": false,
   "properties": {
@@ -15,7 +15,7 @@
       "const": "cassandra-index-public"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "site": {
       "const": "https://cassindex.ru"
@@ -50,12 +50,8 @@
         }
       }
     },
-    "weeks": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "$ref": "week.schema.json#/$defs/week"
-      }
+    "week": {
+      "$ref": "week.schema.json#/$defs/week"
     }
   }
 }

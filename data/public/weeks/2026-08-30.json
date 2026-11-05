@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-week",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -13,7 +13,7 @@
     "week": "2026-08-30",
     "published": "2026-08-30",
     "through": "2026-08-30",
-    "methodology": "3.0",
+    "methodology": "4.0",
     "regions_taxonomy": "1.0",
     "data_state": "published",
     "index": 51,
@@ -28,39 +28,45 @@
     "regions": [
       {
         "id": "europe",
-        "index": 48,
-        "delta": -20,
-        "background": false
+        "index": 50.3,
+        "delta": -17.7,
+        "background": false,
+        "signals": 16
       },
       {
         "id": "east-asia",
-        "index": 42,
-        "delta": -10,
-        "background": true
+        "index": 41.6,
+        "delta": -10.4,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "middle-east",
-        "index": 49,
-        "delta": -31,
-        "background": false
+        "index": 50.7,
+        "delta": -29.3,
+        "background": false,
+        "signals": 1
       },
       {
         "id": "north-america",
-        "index": 32,
-        "delta": -10,
-        "background": true
+        "index": 31.6,
+        "delta": -10.4,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "south-asia",
-        "index": 49,
-        "delta": -9,
-        "background": false
+        "index": 50.5,
+        "delta": -7.5,
+        "background": false,
+        "signals": 1
       },
       {
         "id": "africa",
-        "index": 53,
-        "delta": 6,
-        "background": false
+        "index": 51,
+        "delta": 4,
+        "background": false,
+        "signals": 2
       }
     ],
     "precursor": null,
@@ -530,7 +536,7 @@
       {
         "date": "2026-08-30",
         "value": 51,
-        "methodology": "3.0"
+        "methodology": "4.0"
       }
     ]
   }

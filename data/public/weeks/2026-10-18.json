@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-week",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -13,7 +13,7 @@
     "week": "2026-10-18",
     "published": "2026-10-18",
     "through": "2026-10-18",
-    "methodology": "3.0",
+    "methodology": "4.0",
     "regions_taxonomy": "2.0",
     "data_state": "published",
     "index": 64,
@@ -28,75 +28,87 @@
     "regions": [
       {
         "id": "russia-belarus",
-        "index": 68,
-        "delta": 12,
-        "background": false
+        "index": 65.4,
+        "delta": 9.4,
+        "background": false,
+        "signals": 7
       },
       {
         "id": "ukraine-moldova",
-        "index": 63,
-        "delta": 7,
-        "background": false
+        "index": 64.8,
+        "delta": 8.8,
+        "background": false,
+        "signals": 5
       },
       {
         "id": "baltic",
-        "index": 67,
-        "delta": 11,
-        "background": false
+        "index": 65,
+        "delta": 9,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "balkans",
-        "index": 67,
-        "delta": 11,
-        "background": false
+        "index": 65,
+        "delta": 9,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "eu-north-europe",
-        "index": 66,
-        "delta": 10,
-        "background": false
+        "index": 64.8,
+        "delta": 8.8,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "south-caucasus",
-        "index": 61,
-        "delta": 5,
-        "background": false
+        "index": 63.4,
+        "delta": 7.4,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "central-asia",
-        "index": 63,
-        "delta": 7,
-        "background": false
+        "index": 63.9,
+        "delta": 7.9,
+        "background": false,
+        "signals": 1
       },
       {
         "id": "east-asia",
-        "index": 66,
-        "delta": 7,
-        "background": false
+        "index": 64.5,
+        "delta": 8.5,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "middle-east",
-        "index": 69,
-        "delta": 2,
-        "background": false
+        "index": 64.4,
+        "delta": 6.9,
+        "background": false,
+        "signals": 18
       },
       {
         "id": "north-america",
-        "index": 66,
-        "delta": 14,
-        "background": false
+        "index": 65,
+        "delta": 7.8,
+        "background": false,
+        "signals": 1
       },
       {
         "id": "south-asia",
-        "index": 66,
-        "delta": 10,
-        "background": false
+        "index": 64.5,
+        "delta": 8.6,
+        "background": false,
+        "signals": 3
       },
       {
         "id": "africa",
-        "index": 66,
-        "delta": 7,
-        "background": false
+        "index": 64.7,
+        "delta": 7.6,
+        "background": false,
+        "signals": 1
       }
     ],
     "precursor": null,
@@ -687,42 +699,42 @@
       {
         "date": "2026-08-30",
         "value": 51,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-06",
         "value": 42,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-13",
         "value": 43,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-20",
         "value": 56,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-27",
         "value": 47,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-10-04",
         "value": 46,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-10-11",
         "value": 56,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-10-18",
         "value": 64,
-        "methodology": "3.0"
+        "methodology": "4.0"
       }
     ]
   }

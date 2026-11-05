@@ -55,10 +55,12 @@ export function validateArticle(article) {
   if (!s || typeof s !== 'object' || !Number.isInteger(s.index) || !Number.isFinite(s.delta)) {
     errors.push('summary: { index: int, delta: number } required');
   }
+  // ADR 0069: индекс и дельта региона — число с одной десятичной (целое тоже
+  // валидно); глобальный индекс остаётся целым (summary выше).
   if (!Array.isArray(article.regionRows) || !article.regionRows.every(
-    (r) => r && Number.isInteger(r.index) && Number.isFinite(r.delta),
+    (r) => r && Number.isFinite(r.index) && Number.isFinite(r.delta),
   )) {
-    errors.push('regionRows: array of { index, delta } required');
+    errors.push('regionRows: array of { index: number, delta: number } required');
   }
   return errors;
 }

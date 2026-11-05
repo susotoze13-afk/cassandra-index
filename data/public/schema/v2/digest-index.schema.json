@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/digest-index.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/digest-index.schema.json",
   "title": "Cassandra Index — индекс выпусков дайджеста",
   "type": "object",
   "required": [
@@ -14,7 +14,7 @@
       "const": "cassandra-index-digest-index"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "weeks": {
       "type": "array",

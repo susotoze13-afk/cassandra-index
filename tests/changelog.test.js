@@ -30,6 +30,19 @@ test('CHANGELOG: есть методология 3.0, таксономия 2.0, 
   assert.ok(hit((e) => e.kind === 'schema'), 'нет записи о схеме публичных данных');
 });
 
+test('CHANGELOG: переход на методологию 4.0 виден пользователям', () => {
+  const e = CHANGELOG.find((x) => x.version === '4.0' && x.kind === 'methodology');
+  assert.ok(e, 'нет записи о методологии 4.0');
+  assert.equal(e.date, '2026-11-04');
+  assert.ok(
+    `${e.title} ${e.body}`.includes('4.0: региональное отклонение по драйверам, '
+      + 'дробная точность слоя, снятие объёмного сжатия'),
+    'запись 4.0 не называет суть перехода дословно',
+  );
+  // История 3.0 не переписывается: девять курируемых записей остаются как были.
+  assert.equal(CHANGELOG.filter((x) => x.version === '3.0').length, 9);
+});
+
 test('sortedDesc: новые записи первыми, исходный массив не мутирует', () => {
   const before = CHANGELOG.map((e) => e.date);
   const desc = sortedDesc(CHANGELOG);

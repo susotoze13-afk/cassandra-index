@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-week",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -13,7 +13,7 @@
     "week": "2026-09-06",
     "published": "2026-09-06",
     "through": "2026-09-06",
-    "methodology": "3.0",
+    "methodology": "4.0",
     "regions_taxonomy": "1.0",
     "data_state": "published",
     "index": 42,
@@ -28,39 +28,45 @@
     "regions": [
       {
         "id": "europe",
-        "index": 44,
-        "delta": -4,
-        "background": false
+        "index": 44.3,
+        "delta": -6,
+        "background": false,
+        "signals": 16
       },
       {
         "id": "east-asia",
-        "index": 33,
-        "delta": -9,
-        "background": true
+        "index": 32.9,
+        "delta": -8.7,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "middle-east",
-        "index": 40,
-        "delta": -9,
-        "background": true
+        "index": 42,
+        "delta": -8.7,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "north-america",
-        "index": 23,
-        "delta": -9,
-        "background": true
+        "index": 22.9,
+        "delta": -8.7,
+        "background": true,
+        "signals": 0
       },
       {
         "id": "south-asia",
-        "index": 45,
-        "delta": -4,
-        "background": false
+        "index": 42.6,
+        "delta": -7.9,
+        "background": false,
+        "signals": 2
       },
       {
         "id": "africa",
-        "index": 44,
-        "delta": -9,
-        "background": false
+        "index": 42.3,
+        "delta": -8.7,
+        "background": false,
+        "signals": 1
       }
     ],
     "precursor": null,
@@ -619,12 +625,12 @@
       {
         "date": "2026-08-30",
         "value": 51,
-        "methodology": "3.0"
+        "methodology": "4.0"
       },
       {
         "date": "2026-09-06",
         "value": 42,
-        "methodology": "3.0"
+        "methodology": "4.0"
       }
     ]
   }

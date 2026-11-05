@@ -38,12 +38,15 @@ function parseInline(text) {
 }
 
 // ---------- Числа (ворота согласованности) ----------
+// Точность слоя (ADR 0069): индекс/дельта региона — число с одной десятичной,
+// целое значение остаётся валидным; разбор принимает обе формы.
+const NUM = '\\d+(?:\\.\\d+)?';
 function parseIntOf(s) {
-  const m = s.match(/\*\*(\d+) из 100\*\*/);
+  const m = s.match(new RegExp(`\\*\\*(${NUM}) из 100\\*\\*`));
   return m ? Number(m[1]) : null;
 }
 function parseDeltaOf(s) {
-  const m = s.match(/за неделю \*\*([+\u2212-]?\d+)\*\*/);
+  const m = s.match(new RegExp(`за неделю \\*\\*([+\u2212-]?${NUM})\\*\\*`));
   if (!m) return null;
   const raw = m[1];
   const neg = raw[0] === '-' || raw[0] === '\u2212';
@@ -210,7 +213,8 @@ function parseArticleMarkdown(md) {
     if (tableHead === null) return;
     const rows = tableRows.map((cells) => {
       // Индекс (колонка 2) и дельта (колонка 3) — для ворот согласованности чисел.
-      const idx = /^\d+$/.test(cells[1]) ? Number(cells[1]) : null;
+      // ADR 0069: индекс региона — число с одной десятичной, целое тоже валидно.
+      const idx = /^\d+(?:\.\d+)?$/.test(cells[1]) ? Number(cells[1]) : null;
       const d = parseTableDelta(cells[2]);
       if (idx != null && d != null) regionRows.push({ index: idx, delta: d });
       return cells.map((c) => ({ seg: parseInline(c) }));
@@ -220,7 +224,7 @@ function parseArticleMarkdown(md) {
     tableRows = [];
   }
   function parseTableDelta(s) {
-    const m = /^([+\u2212-]?)(\d+)$/.exec(s);
+    const m = /^([+\u2212-]?)(\d+(?:\.\d+)?)$/.exec(s);
     if (!m) return null;
     const n = Number(m[2]);
     return m[1] === '-' || m[1] === '\u2212' ? -n : n;

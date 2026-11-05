@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-public",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -554,7 +554,7 @@
       "week": "2026-08-30",
       "published": "2026-08-30",
       "through": "2026-08-30",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 51,
@@ -569,39 +569,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 48,
-          "delta": -20,
-          "background": false
+          "index": 50.3,
+          "delta": -17.7,
+          "background": false,
+          "signals": 16
         },
         {
           "id": "east-asia",
-          "index": 42,
-          "delta": -10,
-          "background": true
+          "index": 41.6,
+          "delta": -10.4,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "middle-east",
-          "index": 49,
-          "delta": -31,
-          "background": false
+          "index": 50.7,
+          "delta": -29.3,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "north-america",
-          "index": 32,
-          "delta": -10,
-          "background": true
+          "index": 31.6,
+          "delta": -10.4,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "south-asia",
-          "index": 49,
-          "delta": -9,
-          "background": false
+          "index": 50.5,
+          "delta": -7.5,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "africa",
-          "index": 53,
-          "delta": 6,
-          "background": false
+          "index": 51,
+          "delta": 4,
+          "background": false,
+          "signals": 2
         }
       ],
       "precursor": null,
@@ -1071,7 +1077,7 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -1079,7 +1085,7 @@
       "week": "2026-09-06",
       "published": "2026-09-06",
       "through": "2026-09-06",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 42,
@@ -1094,39 +1100,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 44,
-          "delta": -4,
-          "background": false
+          "index": 44.3,
+          "delta": -6,
+          "background": false,
+          "signals": 16
         },
         {
           "id": "east-asia",
-          "index": 33,
-          "delta": -9,
-          "background": true
+          "index": 32.9,
+          "delta": -8.7,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "middle-east",
-          "index": 40,
-          "delta": -9,
-          "background": true
+          "index": 42,
+          "delta": -8.7,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "north-america",
-          "index": 23,
-          "delta": -9,
-          "background": true
+          "index": 22.9,
+          "delta": -8.7,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "south-asia",
-          "index": 45,
-          "delta": -4,
-          "background": false
+          "index": 42.6,
+          "delta": -7.9,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "africa",
-          "index": 44,
-          "delta": -9,
-          "background": false
+          "index": 42.3,
+          "delta": -8.7,
+          "background": false,
+          "signals": 1
         }
       ],
       "precursor": null,
@@ -1685,12 +1697,12 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -1698,7 +1710,7 @@
       "week": "2026-09-13",
       "published": "2026-09-13",
       "through": "2026-09-13",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 43,
@@ -1713,39 +1725,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 37,
-          "delta": -7,
-          "background": false
+          "index": 42.6,
+          "delta": -1.7,
+          "background": false,
+          "signals": 15
         },
         {
           "id": "east-asia",
-          "index": 34,
-          "delta": 1,
-          "background": true
+          "index": 33.7,
+          "delta": 0.8,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "middle-east",
-          "index": 42,
-          "delta": 2,
-          "background": false
+          "index": 43.3,
+          "delta": 1.3,
+          "background": false,
+          "signals": 3
         },
         {
           "id": "north-america",
-          "index": 24,
-          "delta": 1,
-          "background": true
+          "index": 23.7,
+          "delta": 0.8,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "south-asia",
-          "index": 46,
-          "delta": 1,
-          "background": true
+          "index": 43.4,
+          "delta": 0.8,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "africa",
-          "index": 43,
-          "delta": -1,
-          "background": false
+          "index": 42.8,
+          "delta": 0.5,
+          "background": false,
+          "signals": 2
         }
       ],
       "precursor": null,
@@ -2312,17 +2330,17 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -2330,7 +2348,7 @@
       "week": "2026-09-20",
       "published": "2026-09-20",
       "through": "2026-09-20",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 56,
@@ -2345,39 +2363,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 44,
-          "delta": 7,
-          "background": false
+          "index": 53.5,
+          "delta": 10.9,
+          "background": false,
+          "signals": 18
         },
         {
           "id": "east-asia",
-          "index": 53,
-          "delta": 19,
-          "background": false
+          "index": 55,
+          "delta": 21.3,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "middle-east",
-          "index": 60,
-          "delta": 18,
-          "background": false
+          "index": 56.8,
+          "delta": 13.5,
+          "background": false,
+          "signals": 4
         },
         {
           "id": "north-america",
-          "index": 37,
-          "delta": 13,
-          "background": true
+          "index": 36.4,
+          "delta": 12.7,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "south-asia",
-          "index": 59,
-          "delta": 13,
-          "background": true
+          "index": 56.1,
+          "delta": 12.7,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "africa",
-          "index": 57,
-          "delta": 14,
-          "background": false
+          "index": 55.9,
+          "delta": 13.1,
+          "background": false,
+          "signals": 1
         }
       ],
       "precursor": null,
@@ -2984,22 +3008,22 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -3007,7 +3031,7 @@
       "week": "2026-09-27",
       "published": "2026-09-27",
       "through": "2026-09-27",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 47,
@@ -3022,39 +3046,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 45,
-          "delta": 1,
-          "background": false
+          "index": 47.2,
+          "delta": -6.3,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "east-asia",
-          "index": 44,
+          "index": 46,
           "delta": -9,
-          "background": true
+          "background": true,
+          "signals": 0
         },
         {
           "id": "middle-east",
-          "index": 48,
-          "delta": -12,
-          "background": false
+          "index": 47.9,
+          "delta": -8.9,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "north-america",
-          "index": 28,
+          "index": 27.4,
           "delta": -9,
-          "background": true
+          "background": true,
+          "signals": 0
         },
         {
           "id": "south-asia",
-          "index": 49,
-          "delta": -10,
-          "background": false
+          "index": 47.7,
+          "delta": -8.4,
+          "background": false,
+          "signals": 3
         },
         {
           "id": "africa",
           "index": 47,
-          "delta": -10,
-          "background": false
+          "delta": -8.9,
+          "background": false,
+          "signals": 1
         }
       ],
       "precursor": null,
@@ -3579,27 +3609,27 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -3607,7 +3637,7 @@
       "week": "2026-10-04",
       "published": "2026-10-04",
       "through": "2026-10-04",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 46,
@@ -3622,39 +3652,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 44,
-          "delta": -1,
-          "background": false
+          "index": 46,
+          "delta": -1.2,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "east-asia",
-          "index": 46,
-          "delta": 2,
-          "background": false
+          "index": 45.7,
+          "delta": -0.3,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "middle-east",
-          "index": 39,
-          "delta": -9,
-          "background": false
+          "index": 45.7,
+          "delta": -2.2,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "north-america",
-          "index": 43,
-          "delta": 15,
-          "background": false
+          "index": 46,
+          "delta": 18.6,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "south-asia",
-          "index": 46,
-          "delta": -3,
-          "background": false
+          "index": 45.7,
+          "delta": -2,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "africa",
-          "index": 46,
-          "delta": -1,
-          "background": false
+          "index": 45.7,
+          "delta": -1.3,
+          "background": false,
+          "signals": 1
         }
       ],
       "precursor": null,
@@ -4197,32 +4233,32 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-04",
           "value": 46,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -4230,7 +4266,7 @@
       "week": "2026-10-11",
       "published": "2026-10-11",
       "through": "2026-10-11",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "1.0",
       "data_state": "published",
       "index": 56,
@@ -4245,39 +4281,45 @@
       "regions": [
         {
           "id": "europe",
-          "index": 56,
-          "delta": 12,
-          "background": false
+          "index": 55.2,
+          "delta": 9.2,
+          "background": false,
+          "signals": 14
         },
         {
           "id": "east-asia",
-          "index": 59,
-          "delta": 13,
-          "background": false
+          "index": 56,
+          "delta": 10.3,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "middle-east",
-          "index": 67,
-          "delta": 28,
-          "background": false
+          "index": 57.5,
+          "delta": 11.8,
+          "background": false,
+          "signals": 9
         },
         {
           "id": "north-america",
-          "index": 52,
-          "delta": 9,
-          "background": false
+          "index": 57.2,
+          "delta": 11.2,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "south-asia",
-          "index": 56,
-          "delta": 10,
-          "background": true
+          "index": 55.9,
+          "delta": 10.2,
+          "background": true,
+          "signals": 0
         },
         {
           "id": "africa",
-          "index": 59,
-          "delta": 13,
-          "background": false
+          "index": 57.1,
+          "delta": 11.4,
+          "background": false,
+          "signals": 2
         }
       ],
       "precursor": null,
@@ -4804,37 +4846,37 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-04",
           "value": 46,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-11",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -4842,7 +4884,7 @@
       "week": "2026-10-18",
       "published": "2026-10-18",
       "through": "2026-10-18",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "2.0",
       "data_state": "published",
       "index": 64,
@@ -4857,75 +4899,87 @@
       "regions": [
         {
           "id": "russia-belarus",
-          "index": 68,
-          "delta": 12,
-          "background": false
+          "index": 65.4,
+          "delta": 9.4,
+          "background": false,
+          "signals": 7
         },
         {
           "id": "ukraine-moldova",
-          "index": 63,
-          "delta": 7,
-          "background": false
+          "index": 64.8,
+          "delta": 8.8,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "baltic",
-          "index": 67,
-          "delta": 11,
-          "background": false
+          "index": 65,
+          "delta": 9,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "balkans",
-          "index": 67,
-          "delta": 11,
-          "background": false
+          "index": 65,
+          "delta": 9,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "eu-north-europe",
-          "index": 66,
-          "delta": 10,
-          "background": false
+          "index": 64.8,
+          "delta": 8.8,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "south-caucasus",
-          "index": 61,
-          "delta": 5,
-          "background": false
+          "index": 63.4,
+          "delta": 7.4,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "central-asia",
-          "index": 63,
-          "delta": 7,
-          "background": false
+          "index": 63.9,
+          "delta": 7.9,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "east-asia",
-          "index": 66,
-          "delta": 7,
-          "background": false
+          "index": 64.5,
+          "delta": 8.5,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "middle-east",
-          "index": 69,
-          "delta": 2,
-          "background": false
+          "index": 64.4,
+          "delta": 6.9,
+          "background": false,
+          "signals": 18
         },
         {
           "id": "north-america",
-          "index": 66,
-          "delta": 14,
-          "background": false
+          "index": 65,
+          "delta": 7.8,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "south-asia",
-          "index": 66,
-          "delta": 10,
-          "background": false
+          "index": 64.5,
+          "delta": 8.6,
+          "background": false,
+          "signals": 3
         },
         {
           "id": "africa",
-          "index": 66,
-          "delta": 7,
-          "background": false
+          "index": 64.7,
+          "delta": 7.6,
+          "background": false,
+          "signals": 1
         }
       ],
       "precursor": null,
@@ -5516,42 +5570,42 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-04",
           "value": 46,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-11",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-18",
           "value": 64,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -5559,7 +5613,7 @@
       "week": "2026-10-25",
       "published": "2026-10-25",
       "through": "2026-10-25",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "2.0",
       "data_state": "published",
       "index": 68,
@@ -5574,75 +5628,87 @@
       "regions": [
         {
           "id": "russia-belarus",
-          "index": 66,
-          "delta": -2,
-          "background": false
+          "index": 67.1,
+          "delta": 1.7,
+          "background": false,
+          "signals": 8
         },
         {
           "id": "ukraine-moldova",
-          "index": 68,
-          "delta": 5,
-          "background": false
+          "index": 67.9,
+          "delta": 3.1,
+          "background": false,
+          "signals": 8
         },
         {
           "id": "baltic",
-          "index": 69,
-          "delta": 2,
-          "background": false
+          "index": 68,
+          "delta": 3,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "balkans",
-          "index": 69,
-          "delta": 2,
-          "background": false
+          "index": 67.8,
+          "delta": 2.8,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "eu-north-europe",
-          "index": 68,
-          "delta": 2,
-          "background": false
+          "index": 67.4,
+          "delta": 2.6,
+          "background": false,
+          "signals": 4
         },
         {
           "id": "south-caucasus",
-          "index": 66,
-          "delta": 5,
-          "background": false
+          "index": 67.7,
+          "delta": 4.3,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "central-asia",
-          "index": 65,
-          "delta": 2,
-          "background": false
+          "index": 67.1,
+          "delta": 3.2,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "east-asia",
-          "index": 64,
-          "delta": -2,
-          "background": false
+          "index": 67,
+          "delta": 2.5,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "middle-east",
-          "index": 78,
-          "delta": 9,
-          "background": false
+          "index": 69.9,
+          "delta": 5.5,
+          "background": false,
+          "signals": 14
         },
         {
           "id": "north-america",
-          "index": 72,
-          "delta": 6,
-          "background": false
+          "index": 68.9,
+          "delta": 3.9,
+          "background": false,
+          "signals": 6
         },
         {
           "id": "south-asia",
-          "index": 67,
-          "delta": 1,
-          "background": false
+          "index": 67.5,
+          "delta": 3,
+          "background": false,
+          "signals": 2
         },
         {
           "id": "africa",
-          "index": 69,
-          "delta": 3,
-          "background": false
+          "index": 67.9,
+          "delta": 3.2,
+          "background": false,
+          "signals": 3
         }
       ],
       "precursor": {
@@ -6232,47 +6298,47 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-04",
           "value": 46,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-11",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-18",
           "value": 64,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-25",
           "value": 68,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     },
@@ -6280,7 +6346,7 @@
       "week": "2026-11-01",
       "published": "2026-11-01",
       "through": "2026-11-01",
-      "methodology": "3.0",
+      "methodology": "4.0",
       "regions_taxonomy": "2.0",
       "data_state": "published",
       "index": 72,
@@ -6295,75 +6361,87 @@
       "regions": [
         {
           "id": "russia-belarus",
-          "index": 73,
-          "delta": 7,
-          "background": false
+          "index": 72.4,
+          "delta": 5.3,
+          "background": false,
+          "signals": 6
         },
         {
           "id": "ukraine-moldova",
-          "index": 75,
-          "delta": 7,
-          "background": false
+          "index": 71.6,
+          "delta": 3.7,
+          "background": false,
+          "signals": 10
         },
         {
           "id": "baltic",
-          "index": 72,
-          "delta": 3,
-          "background": false
+          "index": 71.6,
+          "delta": 3.6,
+          "background": false,
+          "signals": 3
         },
         {
           "id": "balkans",
-          "index": 73,
-          "delta": 4,
-          "background": false
+          "index": 72.3,
+          "delta": 4.5,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "eu-north-europe",
-          "index": 73,
-          "delta": 5,
-          "background": false
+          "index": 71.3,
+          "delta": 3.9,
+          "background": false,
+          "signals": 5
         },
         {
           "id": "south-caucasus",
-          "index": 73,
-          "delta": 7,
-          "background": false
+          "index": 72.6,
+          "delta": 4.9,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "central-asia",
-          "index": 73,
-          "delta": 8,
-          "background": false
+          "index": 72.2,
+          "delta": 5.1,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "east-asia",
-          "index": 74,
-          "delta": 10,
-          "background": false
+          "index": 72.4,
+          "delta": 5.4,
+          "background": false,
+          "signals": 7
         },
         {
           "id": "middle-east",
-          "index": 80,
-          "delta": 2,
-          "background": false
+          "index": 72.5,
+          "delta": 2.6,
+          "background": false,
+          "signals": 14
         },
         {
           "id": "north-america",
-          "index": 74,
-          "delta": 2,
-          "background": false
+          "index": 72.8,
+          "delta": 3.9,
+          "background": false,
+          "signals": 4
         },
         {
           "id": "south-asia",
-          "index": 73,
-          "delta": 6,
-          "background": false
+          "index": 72.2,
+          "delta": 4.7,
+          "background": false,
+          "signals": 1
         },
         {
           "id": "africa",
-          "index": 73,
-          "delta": 4,
-          "background": false
+          "index": 72.9,
+          "delta": 5,
+          "background": false,
+          "signals": 3
         }
       ],
       "precursor": {
@@ -6938,52 +7016,52 @@
         {
           "date": "2026-08-30",
           "value": 51,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-06",
           "value": 42,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-13",
           "value": 43,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-20",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-09-27",
           "value": 47,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-04",
           "value": 46,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-11",
           "value": 56,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-18",
           "value": 64,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-10-25",
           "value": 68,
-          "methodology": "3.0"
+          "methodology": "4.0"
         },
         {
           "date": "2026-11-01",
           "value": 72,
-          "methodology": "3.0"
+          "methodology": "4.0"
         }
       ]
     }

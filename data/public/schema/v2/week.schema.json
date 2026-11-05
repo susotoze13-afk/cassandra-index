@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cassindex.ru/data/public/schema/v1/week.schema.json",
+  "$id": "https://cassindex.ru/data/public/schema/v2/week.schema.json",
   "title": "Cassandra Index — неделя (публичная проекция)",
   "type": "object",
   "required": [
@@ -16,7 +16,7 @@
       "const": "cassandra-index-week"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "site": {
       "const": "https://cassindex.ru"
@@ -203,18 +203,22 @@
               },
               "index": {
                 "type": [
-                  "integer",
+                  "number",
                   "null"
                 ]
               },
               "delta": {
                 "type": [
-                  "integer",
+                  "number",
                   "null"
                 ]
               },
               "background": {
                 "type": "boolean"
+              },
+              "signals": {
+                "type": "integer",
+                "minimum": 0
               }
             }
           }

@@ -106,6 +106,36 @@ test('ворота ловят расхождение чисел и чужой и
   assert.deepEqual(src.missing, ['nonexistent']);
 });
 
+test('конвертер: дробные индекс и дельта регионов (ADR 0069)', () => {
+  const md = [
+    '---',
+    'week: 2026-10-18',
+    'title: "Проба"',
+    '---',
+    '',
+    'Индекс: **64 из 100** · неделей ранее **56** · за неделю **+8** · состояние **очень опасно** · покрыто **34 из 46** критериев.',
+    '',
+    '## Один регион',
+    '',
+    'Индекс: **64.4 из 100** · за неделю **+6.9** · состояние **очень опасно**.',
+    '',
+    '| Регион | Индекс | За неделю | Что дало сигнал |',
+    '| --- | --- | --- | --- |',
+    '| Балтия | 65 | +9 | проба |',
+    '',
+  ].join('\n');
+  const p = builder.parseArticleMarkdown(md);
+  assert.deepEqual(p.summary, { index: 64, delta: 8, covered: 34, total: 46 });
+  assert.deepEqual(p.regionRows, [{ index: 64.4, delta: 6.9 }, { index: 65, delta: 9 }]);
+});
+
+test('контракт выпуска принимает дробные индексы и дельты регионов', () => {
+  const fractional = { ...article, regionRows: [{ index: 64.4, delta: 6.9 }, { index: 65, delta: -1.2 }] };
+  assert.deepEqual(validateArticle(fractional), []);
+  const broken = { ...article, regionRows: [{ index: '64.4', delta: 6.9 }] };
+  assert.ok(validateArticle(broken).length > 0);
+});
+
 test('старые снапшоты без article валидны (forward-only)', () => {
   const { article: _drop, ...rest } = snapshot;
   assert.equal(validate(rest).ok, true);

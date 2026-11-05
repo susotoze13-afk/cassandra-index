@@ -1,6 +1,6 @@
 {
   "schema": "cassandra-index-validation",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -9,7 +9,7 @@
     "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
     "placeholder": false
   },
-  "methodology": "3.0",
+  "methodology": "4.0",
   "weeks": [
     "2026-08-30",
     "2026-09-06",

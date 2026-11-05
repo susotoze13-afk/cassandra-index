@@ -1,7 +1,7 @@
 {
   "schema": "cassandra-index-criteria",
-  "schema_version": 1,
-  "methodology": "3.0",
+  "schema_version": 2,
+  "methodology": "4.0",
   "criteria_count": 46,
   "drivers": [
     {

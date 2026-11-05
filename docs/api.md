@@ -6,8 +6,8 @@ JSON/CSV/SVG на том же домене, что и сайт: отдельно
 любой HTTP-клиент, `curl`, `fetch`, `pd.read_json` подходят одинаково.
 
 - База: `https://cassindex.ru`
-- Версия схемы: `1` (`schema_version` в каждом JSON)
-- Версия методологии: `3.0` (поле `methodology` у `methodology.json`,
+- Версия схемы: `2` (`schema_version` в каждом JSON)
+- Версия методологии: `4.0` (поле `methodology` у `methodology.json`,
   `validation.json` и объекта недели; конверт `index.json` его не несёт)
 - Лицензия данных: **CC BY 4.0** (`LICENSE-DATA`), атрибуция обязательна
 - Формат: UTF-8, LF, без BOM; JSON — два пробела отступа, ключи в стабильном
@@ -31,7 +31,7 @@ Cassandra Index — порядковая шкала уровня и направ
 | `/data/public/cassandra-index.csv` | плоская таблица «неделя × область» | еженедельно |
 | `/data/public/changelog.json` | машинная история изменений методологии/схемы | по событиям |
 | `/data/public/trend.svg` | кривая 12 недель без внешних ресурсов | еженедельно |
-| `/data/public/schema/v1/*.json` | JSON Schema draft 2020-12 на каждый файл | при смене схемы |
+| `/data/public/schema/v2/*.json` | JSON Schema draft 2020-12 на каждый файл | при смене схемы |
 | `/data/public/digest/index.json` | архив еженедельных дайджестов | еженедельно |
 | `/data/public/digest/<week>.json` | один выпуск дайджеста: тема, текст, HTML, Telegram | еженедельно |
 | `/data/public/validation.json` | внешняя сверка ряда с GPR, ACLED и CrisisWatch | по прогону сверки |
@@ -58,8 +58,8 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
 | Поле | Где | Что значит |
 |---|---|---|
-| `schema_version` | все JSON | версия формы публичного файла; сейчас `1` |
-| `methodology` | `methodology.json`, `validation.json`, `week.methodology` | версия методики расчёта; сейчас `3.0` |
+| `schema_version` | все JSON | версия формы публичного файла; сейчас `2` |
+| `methodology` | `methodology.json`, `validation.json`, `week.methodology` | версия методики расчёта; сейчас `4.0` |
 | `regions_taxonomy` | `week.regions_taxonomy` | версия таксономии регионов недели: `1.0` (6) или `2.0` (12) |
 | `project_version` | `methodology.json` | версия проекта из `VERSION` (semver) |
 
@@ -72,6 +72,10 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 - недели не переписываются задним числом; недели до `2026-08-30` — демо-история
   методологии `1.0` и не пересчитываются. Фильтруйте по `methodology`, если
   строите непрерывный ряд.
+- версия `2` (методология 4.0, ADR 0069): региональные и страновые
+  `index`/`delta` — числа с одной десятичной, у региона появилось опциональное
+  поле `signals`; глобальный ряд остался целым. Каталог схем — `schema/v2/`,
+  `schema/v1/` удалён.
 
 ## Конверт
 
@@ -81,7 +85,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 ```json
 {
   "schema": "cassandra-index-public",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -116,12 +120,12 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 | `regions_taxonomy` | `"1.0"`\|`"2.0"` | набор регионов недели |
 | `data_state` | строка | `published` / `updating` / `delayed` / `insufficient` / `unavailable` |
 | `index` | целое\|null | глобальный индекс 0–100; `null` только при `insufficient`/`unavailable` |
-| `delta` | целое\|null | изменение к прошлой опубликованной неделе |
+| `delta` | целое\|null | изменение глобального индекса к прошлой опубликованной неделе |
 | `state` | строка\|null | состояние шкалы: `calm` … `extreme` |
 | `q` | число\|null | коэффициент покрытия драйверов 0–1 |
 | `confidence` | строка\|null | `full` / `reduced` / `none` |
 | `coverage_criteria` | объект\|null | `{covered, total}` — покрытых критериев из 46 |
-| `regions` | массив | `{id, index, delta, background}` по набору недели |
+| `regions` | массив | `{id, index, delta, background, signals?}` по набору недели |
 | `precursor` | объект\|null | слой Д9: `{value 0–100, signaling_subgroups?}`; в индекс не входит |
 | `precursor_present` | bool | `false` означает «не публиковалось», а не «0 сигналов» |
 | `drivers` | массив | **редакционные** драйверы: `{label, contribution: high\|medium\|low}` |
@@ -134,6 +138,15 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 `regions[].background: true` — регион слепой в этой неделе: индекс отражает
 глобальный фон, а не региональные данные. Дельту такого региона нельзя читать
 как региональную.
+
+Точность (методология 4.0, ADR 0069): глобальные `index`/`delta` — целые,
+региональные и страновые `index`/`delta` — с одной десятичной (`65.4`, `+9.4`),
+без искусственных `.0`. Это значения снапшота, а не пересчёт публичного слоя.
+
+`regions[].signals` — число региональных сигналов (покрытых критериев, из
+которых регион получил отклонение). Поле опционально: отсутствие — «не
+публиковалось», а не ноль. Значение `0` означает, что регион в этой неделе
+слепой (`background: true`).
 
 Различайте два поля: `drivers` — три сюжета недели от редакции, они не
 складываются в индекс; `driver_breakdown` — девять драйверов модели, их вклады
@@ -260,7 +273,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 ```json
 {
   "schema": "cassandra-index-regions",
-  "schema_version": 1,
+  "schema_version": 2,
   "taxonomy_version": "2.0",
   "taxonomy_v2_from": "2026-10-18",
   "current": "2.0",
@@ -283,8 +296,8 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 ```json
 {
   "schema": "cassandra-index-criteria",
-  "schema_version": 1,
-  "methodology": "3.0",
+  "schema_version": 2,
+  "methodology": "4.0",
   "criteria_count": 46,
   "drivers": [{ "id": "D1", "name": { "ru": "Д1. Военная активность", "en": "D1. Military activity" } }],
   "criteria": [{
@@ -309,8 +322,8 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 ```json
 {
   "schema": "cassandra-index-methodology",
-  "schema_version": 1,
-  "methodology": "3.0",
+  "schema_version": 2,
+  "methodology": "4.0",
   "project_version": "1.1.0",
   "criteria_count": 46,
   "drivers_count": 9,
@@ -339,7 +352,9 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 Веса, `k`, CAP и пороги раскрыты для машинного потребителя (ADR 0062).
 Публичная страница «Методология» по-прежнему показывает только шкалу,
 направление и названия критериев (ADR 0045): формула и веса — для тех, кто
-воспроизводит расчёт, а не для чтения на сайте.
+воспроизводит расчёт, а не для чтения на сайте. Параметр объёмного сжатия `n0`
+снят в методологии 4.0 (ADR 0069) и в `parameters` не раскрывается; региональная
+экспозиция `region_estruct_default` и `gamma` остаются открытыми.
 
 Числа `parameters` — снапшот `calc/params.js` на момент сборки. Меняются
 только с версией методологии; сравнивайте `methodology`, прежде чем смешивать
@@ -354,7 +369,8 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 получают. Конверт — как у `weeks/<YYYY-MM-DD>.json`
 (`schema`/`schema_version`/`site`/`license`), плюс `week`, `methodology`,
 `sensitivity` и `countries`: `{total, published, rows}` со строкой страны
-`{index, delta, background, region, signals}` под ISO2-ключом. Имена стран в
+`{index, delta, background, region, signals}` под ISO2-ключом. `index`/`delta`
+строки — с одной десятичной (методология 4.0). Имена стран в
 файле не дублируются — их отдают справочники `regions.json` и `data/geo/*`.
 Страновой слой наследует чувствительность недели: поле `sensitivity` —
 число недели, отдельная метрика по странам не считается (раскрыто в `note`
@@ -374,7 +390,7 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 ```json
 {
   "schema": "cassandra-index-changelog",
-  "schema_version": 1,
+  "schema_version": 2,
   "entries": [
     {
       "date": "2026-10-18",
@@ -395,14 +411,14 @@ HTTP-заголовки задаёт GitHub Pages, а не приложение:
 
 ### `digest/index.json`
 
-Архив выпусков: `{schema: "cassandra-index-digest-index", schema_version: 1,
+Архив выпусков: `{schema: "cassandra-index-digest-index", schema_version: 2,
 weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронологическом порядке. Конверта
 `site`/`license` нет; данные — CC BY 4.0 по `LICENSE-DATA`.
 
 ```json
 {
   "schema": "cassandra-index-digest-index",
-  "schema_version": 1,
+  "schema_version": 2,
   "weeks": ["2026-10-18", "2026-10-11"]
 }
 ```
@@ -414,7 +430,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 ```json
 {
   "schema": "cassandra-index-digest",
-  "schema_version": 1,
+  "schema_version": 2,
   "week": "2026-10-18",
   "subject": "Cassandra Index, неделя 18 октября 2026 года: 64 из 100, очень опасно, +8",
   "text": "Cassandra Index — неделя 18 октября 2026 года",
@@ -445,7 +461,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 ```json
 {
   "schema": "cassandra-index-validation",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -454,8 +470,8 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
     "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
     "placeholder": false
   },
-  "methodology": "3.0",
-  "weeks": ["2026-08-30", "2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18"],
+  "methodology": "4.0",
+  "weeks": ["2026-08-30", "2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"],
   "thresholds": { "min_pairs": 6, "preliminary_below": 20, "lags": [-2, -1, 0, 1, 2] },
   "comparators": [{
     "id": "gpr",
@@ -501,7 +517,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 ```json
 {
   "schema": "cassandra-index-forecast-ledger",
-  "schema_version": 1,
+  "schema_version": 2,
   "site": "https://cassindex.ru",
   "license": {
     "name": "CC BY 4.0",
@@ -556,7 +572,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 - `scope` — `global` или id региона набора недели (`regions_taxonomy`).
 - `background` — `true` у слепого региона: индекс отражает глобальный фон.
 - Пустые поля — «нет данных» (`null` в JSON), а не ноль. `schema` каждой строки —
-`cassandra-index-public`, `schema_version` — `1`.
+`cassandra-index-public`, `schema_version` — `2`.
 
 ### `trend.svg`
 
@@ -567,7 +583,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 
 ## Схемы
 
-`data/public/schema/v1/`:
+`data/public/schema/v2/`:
 
 | Файл | На что |
 |---|---|
@@ -582,6 +598,7 @@ weeks: ["YYYY-MM-DD", …]}`. Даты — в обратном хронолог�
 | `digest.schema.json` | `digest/<date>.json` |
 | `validation.schema.json` | `validation.json` |
 | `forecast-ledger.schema.json` | `forecast-ledger.json` |
+| `countries.schema.json` | `countries/<date>.json` |
 
 JSON Schema draft 2020-12. Схемы разрешают только описанные поля
 (`additionalProperties: false`) — это контракт, а не подсказка. `index.json` и

@@ -183,7 +183,7 @@ test('data/analysis.js: зеркало совпадает с генератор�
   vm.createContext(sandbox);
   vm.runInContext(source, sandbox);
   const store = sandbox.window.CI_ANALYSIS;
-  assert.equal(store.schema_version, 1);
+  assert.equal(store.schema_version, 2);
   assert.equal(store.latest, LATEST);
   const latest = analysisFor(store, LATEST);
   assert.ok(latest, `${LATEST}: нет развёртки в зеркале`);

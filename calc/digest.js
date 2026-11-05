@@ -25,7 +25,9 @@ import { regionForTaxonomy } from '../js/region.js';
 export const DIGEST_ITEMS = 5;
 export const DIGEST_REGIONS = 3;
 export const DIGEST_SCHEMA = 'cassandra-index-digest';
-export const DIGEST_SCHEMA_VERSION = 1;
+// Версия формы публичного файла: выпуск живёт в data/public и следует версии
+// публичной схемы (схемы — data/public/schema/vN/, ADR 0062/0069).
+export const DIGEST_SCHEMA_VERSION = 2;
 
 const DEFAULT_SITE = 'https://cassindex.ru';
 
