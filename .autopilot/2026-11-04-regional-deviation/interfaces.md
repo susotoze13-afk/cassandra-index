@@ -161,13 +161,51 @@ validate) не ослабляются.
 - `docs/api.md` — точность, `schema/v2`, `signals`; `docs/architecture.md`,
   `AGENTS.md`, `docs/calibration-journal.md` — запись о 4.0 (спецификация, #12).
 
+### INTERFACES (закрыто тикетом 01, `done`)
+
+- `engine.round1(x) -> number` — `Math.round(x*10)/10`; экспорт.
+- `engine.stateOf(index, params)` — gapless (`index <= s.max` по упорядоченным
+  состояниям); целые поведение прежнее.
+- `engine.attributedSignals(criteria, ids, params, week, attr) -> { [unitId]: {
+  nReg, eStruct, eDyn, hasDeescSignals, deltaRegion } }` — **`deltaRegion` вместо
+  `iWith`/`iWithout`**; формула ADR 0069 §1 (допустимые драйверы, `shrink_d`,
+  знаменатель из `PARAMS.weights`, эпсилон ADR 0065 на обеих ногах, clamp ±40).
+- `engine.attributedIndex(global, unit, params) -> { index, delta, state,
+  internal, background, mirrored }` — `internal = clamp(gInternal + e_r·deltaRegion,
+  0, 100)` без `m`; `index = round1(internal)`; `delta = round1(index −
+  prevIndex)` по округлённому индексу.
+- `PARAMS.methodology = '4.0'`; `PARAMS.n0` удалён (поле отсутствует).
+- Снапшот: `regions[id].signals = nReg` (слепой — 0); части `region-*.js`
+  поле не получают.
+- Аудит: `recalculation_method: \`aggregateDrivers v${PARAMS.methodology}\``.
+- Факт после пересчёта: глобальные числа 10 недель (index/delta/q/through/
+  dataState/sensitivity/precursor) байт-в-байт прежние; разброс индексов
+  11-01 = 1.6 п.п.; ветка зеркалирования ни разу не сработала (max |Δглобала| = 13).
+- Заметка: региональная нога Д9 не порогуется эпсилоном (композитный драйвер, §4.2) —
+  осознанно, глобальная нога порогуется.
+- Разбор расхождения с прототипом ADR (ремонт после ревью, 11-01): прототип читал
+  `entry.value`, игнорируя нормировку счётных критериев §7.3 (events → Σsev/CAP);
+  при `value||0` на обеих ногах 9/12 его чисел воспроизводятся ±0.03; «перевёрнутые
+  знаки» baltic/eu-north-europe/africa — следствие заниженных у прототипа глобальных
+  ног Д1/Д5/Д7 обнулёнными счётными (D5.2 ev=0.5, D1.4 ev=0.9, D7.x); остаток ±0.6 —
+  противоречивое обнуление прототипом Д8-вклада (единое правило из 12 чисел не
+  восстанавливается — признак кустарности эскиза, не дефекта формулы); выброс 80.0
+  (middle-east) — артефакт старой меры `iWith`, который ADR 0069 именно устраняет,
+  и прототип его не воспроизводил; наследование prevIndex по цепочке на Δ_region
+  не влияет. Факт 11-01: индексы 71.3–72.9, разброс 1.6 п.п., сторож формы —
+  ≥4 региона на ≥0.3 п.п. от глобала, ≤3 ровно на нём (тест
+  `tests/regional-deviation.test.js`). Таблица прототипа в ADR — эскиз, постфактум
+  не воспроизводит ожидаемые значения (пометка добавляется тикетом 04).
+
 ### Тестовые швы (минимум, существующие предпочтительны)
 
-`round1`/`stateOf`/`attributedSignals`/`attributedIndex` (чистые) → юниты;
-`rankedRegions` (чистый) → порядок/пин; `validate` (js/data.js) → `signals`;
-`schemaDocs()` (public-contract) → типы/версия; прогон `computeWeek` на реальных
-входах → паритет с диском (`engine-attribution-parity`); пин в `tests/data.test.js`
-→ глобальные числа 10 недель.
+`round1`/`stateOf`/`attributedSignals`/`attributedIndex` (чистые) → юниты
+(новый `tests/regional-deviation.test.js` + обновлённые calc-engine/
+engine-attribution/regional-signals/regional-hypothesis); `rankedRegions`
+(чистый) → порядок/пин; `validate` (js/data.js) → `signals`; `schemaDocs()`
+(public-contract) → типы/версия; прогон `computeWeek` на реальных входах →
+паритет с диском (`engine-attribution-parity`); пин в `tests/data.test.js` →
+глобальные числа 10 недель (предыдущие, неизменные) + обновлённые региональные.
 
 ### Чего не касаемся (границы соседей)
 

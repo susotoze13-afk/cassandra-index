@@ -43,16 +43,17 @@ prevGlobal; публичный файл `data/public/countries/<неделя>.js
 | Тесты (все) | `node --test` — из корня, без аргументов (форма `node --test tests/` падает на Windows/Node 24) |
 | Один тест-файл | `node --test tests/<имя>.test.js` |
 | Сборка бандла | `node build.js` — обязателен после ЛЮБОЙ правки `js/**`; бандлы коммитятся |
-| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11 → 10-18); после частей пишет и производный `week.js` |
-| Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы |
+| Расчёт недели | `node calc/calc.js <неделя>` — только печать; `node calc/calc.js --write [неделя …]` — запись в `data/` (без недели — вся цепочка 08-30 → 09-06 → 09-13 → 09-20 → 09-27 → 10-04 → 10-11 → 10-18 → 10-25 → 11-01); после частей пишет и производный `week.js` |
+| Миграция week.js | `node calc/migrate-week-combined.js [недели…]` — идемпотентная перегенерация `data/<week>/week.js` от дисковых частей; без аргументов — все CI_WEEKS; пишет файлы; сам `CI_ASSET_REV` НЕ пересчитывает — после ручной миграции дозвать `updateLatestRev(ROOT)` (calc/asset-rev.js), иначе падает `tests/asset-rev.test.js` |
 | Калибровка k | `node calc/calibrate.js` — сетка k, выбор, verify-якоря, чувствительность ±20 % |
 | Форвардный якорь | `node --test tests/forward-anchors.test.js` — схема `calc/input/anchors/forward-<неделя>.json`; CLI нет, файл пишет редактор (ADR 0049) |
 | Проверка ссылок источников | `node calc/check-sources.js [недели…]` — перепроверка ссылок опубликованных снапшотов; без аргументов — все недели `data/`. Код выхода 1 при битых; 401/403/406/нет-ответа = заблокирована, не битая |
 | Долг истории источников | `node calc/backfill-report.js [--window N] [--weeks a,b]` — сводка «долг истории» + чек-лист дозабора (критерий × неделя × причина), ADR 0040. Только чтение и печать: источники не собирает, файлы не пишет |
 | Публичный слой данных | `node calc/public-export.js` — печать; `--write` — пишет `data/public/{index,latest,changelog}.json`, `cassandra-index.csv`, `trend.svg`, `regions.json`, `criteria.json`, `methodology.json`, `weeks/<неделя>.json`, `countries/<неделя>.json`, `schema/v2/*.json` (12 схем, включая `changelog`, `digest`, `validation`, `forecast-ledger`, `countries`) и `changelog.html`; `--root <dir>` — другой корень |
-| Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
+| Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063; саму страницу собирает `calc/validation-page.js`: число недель/диапазон/методология берутся из `validation.json`, а не из литералов, пин — `tests/validation-page.test.js`); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
+| Статья недели (рубрика) | `node article-build.js [--write]` — конвертер ADR 0037: `docs/articles/weekly/<неделя>.md` → `data/<неделя>/article.js` (сид, вне week.js) + `data/articles.js`; без `--write` — печать и валидация (идемпотентно); парсеры чисел принимают дробные индексы/дельты регионов (ADR 0069/0070) |
 | Страница аудита индексов | `node indices-audit-build.js` — печать сводки; `--write` — `indices-audit.html` из `docs/articles/indices-audit-app-source.md`; числа (69/120, медиана, «6 из 12», баллы, ±5 п.п.) считаются из матрицы источника; паритет пинит `tests/indices-audit.test.js` |
 | Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
@@ -145,7 +146,7 @@ calc/engine.js            ядро формул: скор драйвера (§4.
                           Break Override (§5.4), региональная модель §7 (ADR 0069):
                           attributedSignals (Δ_region по драйверам, shrink_d,
                           знаменатель 0.765, эпсилон на обеих ногах, clamp ±40) +
-                          attributedIndex, round1, gapless stateOf, общее ядро
+                          attributedIndex, round1, gapless stateOf (ADR 0071), общее ядро
                           маппинга buildDriversCore, validate входов, константы
                           CRITERIA (46, D4.6 — ordinal-шкала 0/0.33/0.67/1)
 calc/params.js            PARAMS — единственный источник чисел (k = 1.95,
@@ -328,7 +329,7 @@ data/public/              производные (`public-export.js --write`; `v
 data/digest/sent.json     реестр доставки v2: {weeks[], channels{неделя:[канал]},
                           pending{неделя:{канал:runId}}}; появляется после первой отправки
 data/audit.jsonl          журнал аудита пересчётов и flash-срабатываний
-docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0069;
+docs/adr/                 зафиксированные архитектурные решения (нумерация 0001–0072;
                           0028 — таксономия регионов v2; 0029 — справочник городов/стран
                           GeoNames; 0030/0031 — обработка RU-имён городов/стран в справочнике;
                           0032 — версия таксономии недели выводится из её даты, forward-only),
@@ -386,14 +387,22 @@ docs/adr/                 зафиксированные архитектурн�
                           регионов по индексу; цепочка 08-30…11-01 (10 недель)
                           пересчитана, глобальный ряд не изменился; таблица прототипа
                           в ADR — эскиз, фактическое распределение 11-01 — 71.3…72.9
-                          (статус ADR переводится оркестратором после приёмки G4)
+                          (статус ADR — реализовано); 0070 — переиздание недели обновляет структурированный
+                          выпуск (`article-build.js`/`js/article.js` принимают дробные
+                          числа; статья 10-18 переиздана под 4.0, выпуски 10-25/11-01
+                          остались 3.0); 0071 — состояние региона по верхней границе
+                          интервала (gapless `stateOf`: `index <= s.max`); 0072 —
+                          региональное отклонение остаётся внутренней величиной:
+                          `deltaRegion` не публикуется наружу (сторож
+                          `tests/regional-deviation.test.js` сканирует
+                          `.json/.csv/.svg` в `data/public/`)
 docs/api.md               публичный контракт всего `data/public/**` (ADR 0062–0064):
                           эндпоинты, поля, версии, лицензия, примеры, смысл residual_pp;
                           каждый публичный JSON обязан иметь строку здесь и схему
 docs/architecture.md      поток данных расчёта и сайта, границы модулей, конвенции;
                           источник для агента, впервые открывшего репозиторий
 docs/jev-classification.md  логика классификации источников Jev-ом по критериям
-                          D1…D9 (текст документа ещё говорит «45» — под 46/3.0 не
+                          D1…D9 (текст документа ещё говорит «45» — под 46 и 4.0 не
                           обновлён):
                           роли (Jev → редактор → код), правила (окно, цитата,
                           events[], дедупликация, Д9-кластеры, carryover Д2),
@@ -419,7 +428,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           89 файлов, node --test (971 passed)
+tests/*.test.js           89 файлов, node --test (972 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -428,7 +437,8 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
 
 - `calc/engine.js` — чистые функции методологии: `driverScore`, `d8Strength`, `aggregateD9`,
   `aggregateDrivers` (→ `{index, state, delta, internal, q, parts, structuralBreak}`),
-  `applyInertia`, `detectStructuralBreak`, `detectFlashTriggers`, `regionalIndex`, `stateOf`,
+  `applyInertia`, `detectStructuralBreak`, `detectFlashTriggers`, `regionalIndex`, `stateOf`
+  (gapless: `index <= s.max` — дробный индекс не проваливается в null, ADR 0071),
   `round1`, константы `CRITERIA` (46, D4.6 — Д4/esc/ordinal), `D9_SUBGROUPS` (8), `validate(input) -> errors[]`. Плюс
   `buildDriversCore(criteriaIn, confidenceLevels, params)` — общее ядро маппинга критериев →
   драйверы (делегируют calibrate.js и calc.js) и `regionalSignals(criteria, regionIds, params)`
@@ -509,7 +519,7 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   ретраи 2 попытки с паузой 1 c, AbortController на 10 c, браузерный User-Agent),
   `checkSources(items: {url, where})` → `{checked, ok, broken, blocked}`; ворота падают
   только по broken, blocked — предупреждение. Проверка последовательная — не долбить сайты.
-- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-11','2026-10-18'], старт
+- `calc/calc.js` — цепочка RECALC_WEEKS = ['2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-11','2026-10-18','2026-10-25','2026-11-01'] (10 недель), старт
   от опубликованного PREV_WEEK = '2026-08-23'; набор регионов недели — по версии:
   `taxonomyForWeek(week)` ('2.0' от `PARAMS.taxonomyV2From`, иначе '1.0'), whitelist входа
   `regionIdsFor(taxonomyForWeek(week))`; runWeek зовёт `computeWeek` из week-step.js
@@ -538,7 +548,9 @@ design/cassandra-index.pen макет pen.dev (текстовый JSON), чит�
   наличию (presence-gated, только v2 сверх полного набора, ADR 0067);
   `renderWeekCombined(week, parts)` (чистый шов — единый IIFE
   в `window.CI_DATA.snapshots[week]`; версия из `regions_taxonomy`, рассинхрон набора и
-  версии → явная ошибка, не даунгрейд), `countryLayerForWeek(week, input, g, prevWeek)`
+  версии → явная ошибка, не даунгрейд; после сборки переносит `signals` из части
+  `regions` в записи итоговых `region-*` — сами части поля не несут, ADR 0069;
+  демо-недели 1.0 без `signals` не трогаются), `countryLayerForWeek(week, input, g, prevWeek)`
   → null | {errors} | {rows} — шов решения «считать ли страновой слой недели»;
   writeWeek — `--write` пишет week.js после частей
   (для недель ≥ `PARAMS.countryLayerFrom` с валидным оверлеем
@@ -828,7 +840,7 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (89 файлов, 971 passed / 0 fail — подтверждено прогоном
+`node --test` без аргументов (89 файлов, 972 passed / 0 fail — подтверждено прогоном
 2026-11-05). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
@@ -846,7 +858,9 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 конвертер черновика Jev: `tests/classify.test.js` (ворота 9–10, merge, not_found → null,
 сквозной позитив: эмитированный вход проходит engine.validate и маппится в 9 драйверов);
 контракт данных: `tests/data.test.js` (пинит точные выходы пересчитанных недель и
-региональный охват africa/south-asia — см. подводные камни); схема источников R55:
+региональный охват africa/south-asia — см. подводные камни; `CHAIN_GLOBAL_PIN` —
+литеральный пин глобальных чисел всех 10 недель цепочки: index/delta/q/dataState,
+длина пина = 10); схема источников R55:
 `tests/sources-schema.test.js` (включая опциональные `quotes`);
 цитаты источника и их дословность (ADR 0041/0042): `tests/quotes.test.js` (форма,
 лимиты, корпус, отказ без корпуса) и `tests/live-check.test.js` (сверка живого сайта
@@ -1087,7 +1101,10 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `tests/sensitivity.test.js` пинит sensitivity реальной недели 10-04 = 5.4 (через прогон
   цепочки тем же кодом, что и --write) — тоже обновляется после пересчёта.
   `tests/regional-deviation.test.js` — сторож ADR 0069: разброс индексов 11-01
-  ≥ 1.5 п.п. и форма распределения (после пересчёта 71.3…72.9, 1.6 п.п.).
+  ≥ 1.5 п.п. и форма распределения (после пересчёта 71.3…72.9, 1.6 п.п.); тот же файл —
+  сторож ADR 0072 (`deltaRegion` отсутствует в `js/`, `data/public/**` `.json/.csv/.svg`
+  и `data/analysis.js` — наружу не публикуется) и снятия объёмного сжатия ADR 0069
+  (в `calc/` нет `n0`, `m`, `iWith`, `iWithout`, `hypotheticalIndex`).
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищено только published.
 - Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
@@ -1138,7 +1155,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `signals` = nReg в блоке региона (`0` у слепого; части `region-*.js` поля не
   несут). Секция регионов сортируется по индексу убыванию (при равенстве — по id),
   личный регион переставляется первой строкой, пометка `signals < 2` — ключ
-  i18n `region.signals.low`. Прототип в ADR — эскиз; факт 11-01: 71.3…72.9
+  i18n `region.signals.low` + CSS-класс `.region-signals-low`. Дробный индекс
+  в UI — `formatIndex` (js/sections/regions.js): 73 → «73», 72.4 → «72.4»,
+  без навязанного нуля (пин tests/regions.test.js). Прототип в ADR — эскиз; факт 11-01: 71.3…72.9
   (1.6 п.п.), ветка зеркалирования не срабатывала (max |Δглобала| = 13 < 15).
 - Региональная атрибуция и слепые регионы: критерий входа может нести `regions: string[]`
   (⊆ whitelist версии недели: 6 id у v1-недели, 12 у v2); регион без единого сигнала в неделе — слепой (nReg = 0,

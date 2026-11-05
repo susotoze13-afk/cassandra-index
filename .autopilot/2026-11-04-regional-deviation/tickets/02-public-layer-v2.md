@@ -1,8 +1,8 @@
 # 02 — Публичный слой: версия 2, дробная точность, производные и changelog
 
-**Требования:** R04, R10 (публичная часть), R13, R18, R22i, R16.3 (производные)
+**Требования:** R04, R10 (публичная часть), R13, R18, R22i, R16.3 (производные), D01
 **Зависит от:** 01
-**Зона:** `calc/public-contract.js` · `calc/public-export.js` · `calc/changelog-entries.js` · `data/public/**` · `docs/api.md` · тесты публичного слоя (`tests/public-*`, `tests/changelog*`, `tests/contribution-ui*`)
+**Зона:** `calc/public-contract.js` · `calc/public-export.js` · `calc/changelog-entries.js` · `docs/article-build.js` → `calc/article-build.js` · `js/article.js` · `data/public/**` · `docs/api.md` · `docs/articles/weekly/2026-10-18.md` · `data/2026-10-18/article.js` · тесты публичного слоя (`tests/public-*`, `tests/changelog*`, `tests/contribution-ui*`, `tests/article.test.js`)
 **Волна:** 2
 **Ревью:** да — фундамент
 **Модель:** сильная
@@ -49,3 +49,4 @@
 - [ ] `deltaRegion` отсутствует в `data/public/**` (grep)
 - [ ] Инвариант «регион ⊇ страна», страновой слой, precursor, витрина доверия, `intersection`, `history-debt`, `asset-rev` — зелёные (`node --test` из корня без аргументов)
 - [ ] Полный `node --test`: 0 fail (красные из списка волны 1 закрыты регенерацией)
+- [ ] Структурированный выпуск 2026-10-18 (D01): числа прозы черновика `docs/articles/weekly/2026-10-18.md` приведены к пересчитанному снапшоту (утверждения ворота `tests/article.test.js` не ослаблены — правится проза, не тест), сид `data/2026-10-18/article.js` пересобран штатным генератором из черновика, `tests/article.test.js` зелёный; после правки черновика перезапущен `node blog-build.js --write`
