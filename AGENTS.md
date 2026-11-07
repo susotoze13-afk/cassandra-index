@@ -53,7 +53,7 @@ prevGlobal; публичный файл `data/public/countries/<неделя>.js
 | Внешняя сверка и прогнозы | `node calc/backtest.js [--write]` — сверка ряда с GPR/ACLED/CrisisWatch → `data/public/validation.json` + `validation.html` (ADR 0063; саму страницу собирает `calc/validation-page.js`: число недель/диапазон/методология берутся из `validation.json`, а не из литералов, пин — `tests/validation-page.test.js`); `node calc/ledger.js [--write]` — реестр прогнозов → `data/public/forecast-ledger.json` (ADR 0064); без `--write` — печать |
 | Архив дайджеста | `node calc/digest-export.js [--week <дата>]` — печать; `--write` — `data/public/digest/<неделя>.json` + `index.json` + `digest.html` |
 | Блог: статическая сборка | `node blog-build.js` — печать; `--write` — `blog/index.html`, `blog/<неделя>.html`, `blog/feed.xml`, `sitemap.xml`, `llms.txt` (ADR 0061; вход — `docs/articles/weekly/*.md` + `data/<неделя>/week.js`) |
-| Статья недели (рубрика) | `node article-build.js [--write]` — конвертер ADR 0037: `docs/articles/weekly/<неделя>.md` → `data/<неделя>/article.js` (сид, вне week.js) + `data/articles.js`; без `--write` — печать и валидация (идемпотентно); парсеры чисел принимают дробные индексы/дельты регионов (ADR 0069/0070) |
+| Статья недели (рубрика) | `node article-build.js [--write]` — конвертер ADR 0037: `docs/articles/weekly/<неделя>.md` → `data/<неделя>/article.js` (сид, вне week.js) + `data/articles.js`; без `--write` — печать и валидация (идемпотентно); парсеры чисел принимают индексы/дельты регионов ровно с одной десятичной (`NUM = '\d+(?:\.\d)?'` в article-build.js, 64.44 отклоняется; `js/article.js` хелпер `oneDecimal`, эпсилон 1e-9 — ADR 0069/0070, точность enforced) |
 | Страница аудита индексов | `node indices-audit-build.js` — печать сводки; `--write` — `indices-audit.html` из `docs/articles/indices-audit-app-source.md`; числа (69/120, медиана, «6 из 12», баллы, ±5 п.п.) считаются из матрицы источника; паритет пинит `tests/indices-audit.test.js` |
 | Дайджест вручную | `node calc/digest-send.js` — dry-run (печать письма); `--send` — доставка; `--reserve --week <дата> --run-id <id>` — захват канала до отправки (идемпотентность ретраев); `--preview` — черновик в чат редактора (`TELEGRAM_EDITOR_CHAT_ID`), `sent.json` не трогает |
 | Пересборка справочника geo | `node data/geo/generate.js [--zip <p> \| --cities-json <p>] [--country-info <p>] [--ru-labels <p>] [--out <dir>]` — пишет `data/geo/cities.js` + `countries.js`; `--zip` берёт дамп GeoNames (сеть только здесь), `--cities-json` — экспорт-зеркало opendatasoft, когда download.geonames.org недоступен; без них берёт дамп из системного temp |
@@ -428,7 +428,7 @@ docs/articles/            черновики статей для внешних 
 docs/preproduction-decisions.md  сверху только нерешённые вопросы (P2 O1–O9),
                           всё решённое — в архиве «Решено» (v1.2); O7–O9 — отложенные
                           тикеты ADR 0033 (инфошум/действия → 3.1, RSS, форвард-пилот Jev)
-tests/*.test.js           89 файлов, node --test (972 passed)
+tests/*.test.js           89 файлов, node --test (977 passed)
 build.js                  CommonJS-сборщик ESM js/** → classic scripts js/bundle*.js
 design/cassandra-index.pen макет pen.dev (текстовый JSON), читается tests/pen.test.js
 ```
@@ -840,8 +840,8 @@ URL в тексте выпуска), `DIGEST_CHART_URL` (ссылка на ка�
 
 ## Тесты
 
-`node --test` без аргументов (89 файлов, 972 passed / 0 fail — подтверждено прогоном
-2026-11-05). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
+`node --test` без аргументов (89 файлов, 977 passed / 0 fail — подтверждено прогоном
+2026-11-07; ремонт F1–F4 дал +5 тестов). Один файл: `node --test tests/<имя>.test.js`. Покрыты только чистые модули
 без DOM, тест-фреймворков нет. Таксономия регионов: `tests/region.test.js` (две версии,
 `regionForTaxonomy`, поиск) и `tests/geo.test.js` (генератор/форма `data/geo/*`,
 `loadGeo`/`resolveRegion` над инъекцией — без сети). Расчётное ядро: `tests/calc-engine.test.js` (включая
@@ -941,6 +941,12 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   `tests/contribution-ui.test.js`. После правки `js/**` — `node build.js`.
 - Новый файл в `data/public/**` без схемы в `schemaDocs()` или без строки в `docs/api.md`
   роняет `tests/public-contract.test.js`: сначала схема/документ, потом генератор.
+- Устаревшие каталоги схем удаляются чистым швом `staleSchemaDirs(existing,
+  currentVersion)` (calc/public-export.js) — `schema/vN` с N < PUBLIC_SCHEMA_VERSION
+  чистится перед записью; литерального `rmSync(...'v1')` больше нет. Создание/запись
+  схем по-прежнему литеральны (`schema/v2`) — при будущем бампе на v3 mkdir v2
+  посчитается stale и удалится до записи, поэтому бамп остаётся ручной операцией
+  с правкой литералов.
 - `trend.svg` — по `<polyline>`-сегменту на версию methodology (несопоставимые версии
   не соединяются); точка без версии подписана «без версии», не выдуманным номером.
   Причина null-водопада — отдельный шов `waterfallReasonFor`, печатается main(), не
@@ -997,7 +1003,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   не баг и не удалять. Грузит ТОЛЬКО комбинированные `week.js` (1 на неделю); части
   (global/regions/…/sources) остаются на диске для пайплайна и тестов, week.js —
   производная (calc.js --write пишет его после частей; `node calc/migrate-week-combined.js`
-  идемпотентно пересобирает от частей), руками не править. Новая неделя = вход в
+  идемпотентно пересобирает от частей), руками не править. `renderWeekCombined` бросает
+  явную ошибку, если часть `regions` не парсится как JSON или не в форме
+  `s.regions = {…}` — молчаливой потери переноса `signals` (ADR 0069) больше нет. Новая неделя = вход в
   `calc/input/` + запись через calc.js.
 - GitHub Pages отдаёт статику с `Cache-Control: max-age=600`, поэтому загрузчик
   подключает `week.js?v=<CI_ASSET_REV>` — иначе после выката браузер до 10 минут
@@ -1104,7 +1112,9 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   ≥ 1.5 п.п. и форма распределения (после пересчёта 71.3…72.9, 1.6 п.п.); тот же файл —
   сторож ADR 0072 (`deltaRegion` отсутствует в `js/`, `data/public/**` `.json/.csv/.svg`
   и `data/analysis.js` — наружу не публикуется) и снятия объёмного сжатия ADR 0069
-  (в `calc/` нет `n0`, `m`, `iWith`, `iWithout`, `hypotheticalIndex`).
+  (в `calc/` нет `n0`, `m`, `iWith`, `iWithout`, `hypotheticalIndex`; исключений из
+  скана нет — `calc/public-contract.js` страж читает наравне с остальными: раскрытие
+  параметров в methodologyDoc ADR 0062 обязано быть без n0, есть негативный тест).
 - Поле `through` («Данные по») у недель цепочки — дата самой недели (окно W−7…W
   включительно), не защищённое поле; защищено только published.
 - Входы цепочки несут R55-источники (20–82 записи на неделю), покрытие 27–43/46;
@@ -1169,7 +1179,8 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   регионы одинаковы и локальные аномалии маскируются). Стартовое отклонение первой
   недели цепочки сидируется из демо-недели 08-23 методологии 1.0 (prevRegions против
   prevGlobal) — намеренно: регионы цепочки 4.0 наследуют якоря v1. Следствие формулы: дельта
-  слепого региона по построению равна глобальной — подача честная через флаг background
+  слепого региона по построению совпадает с глобальной с точностью до округления (4.0:
+  08-30 east-asia −10.4 при глобальном −10) — подача честная через флаг background
   и пометку `region.background`, не баг. Недели цепочки 4.0 смешанные: входы несут
   атрибуцию `regions[]` на части критериев, поэтому у недели есть регионы с сигналами
   (background:false) и слепые (background:true; в v1-неделях слепых 2/3/3/2/2/0/1 из 6 у
@@ -1243,6 +1254,12 @@ what_would_change, минимальный JSON-Schema-валидатор на в
   ignoredRegionalAttribution). Паритет движок↔сайт пинит tests/methodology-criteria.test.js.
 - Пересохранение `design/cassandra-index.pen` в pen.dev перезаписывает `"version"` →
   ломает `tests/pen.test.js` (жёстко ожидает текущую версию).
+- Известный баг (предсуществует с faca399, не чинился): `node article-build.js` падает
+  с exit 1 на выпуске 2026-10-25 — лексический ворот FORBIDDEN ловит «шаг к» (зеркало
+  Avoid-списка PRD §11.5) во фразе «шаг к снижению напряжения» опубликованной статьи
+  `docs/articles/weekly/2026-10-25.md:24`. `blog-build.js` ворот не применяет и статью
+  собирает; `data/2026-10-25/article.js` нет и не было. Лечение — редакционный
+  перефраз статьи либо решение о точности ворота.
 - `js/share.js`: `share.announce` получает язык через `resolveLang()` — всегда 'ru' (сайт одноязычный).
 - Тренд: 12 точек на ширину экрана физически не дают hit-target 44px каждая (r=20 SVG).
 - Workflow не включает Pages сам: в НОВОМ репозитории нужен одноразовый шаг

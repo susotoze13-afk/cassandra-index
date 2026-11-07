@@ -2,7 +2,7 @@ window.STATE =
 {
   "version": 2,
   "slug": "code-review-fix",
-  "dir": "2026-11-07-code-review-fix--wip",
+  "dir": "2026-11-07-code-review-fix",
   "title": "Ревью кода 4.0, устранение недостатков и выкат в master",
   "mode": "full",
   "depth": "normal",
@@ -11,10 +11,10 @@ window.STATE =
   "memoryFile": "AGENTS.md",
   "memoryOwner": "autopilot",
   "skillDir": "C:\\Users\\1\\.agents\\skills\\autopilot",
-  "baseCommit": null,
+  "baseCommit": "220fdf5",
   "startedAt": "2026-11-07T09:32:04+03:00",
-  "updatedAt": "2026-11-07T09:41:27+03:00",
-  "finishedAt": null,
+  "updatedAt": "2026-11-07T10:47:02+03:00",
+  "finishedAt": "2026-11-07T10:47:02+03:00",
   "stages": [
     {
       "id": "preflight",
@@ -37,29 +37,38 @@ window.STATE =
     },
     {
       "id": "spec",
-      "status": "active",
-      "startedAt": "2026-11-07T09:40:24+03:00"
+      "status": "done",
+      "startedAt": "2026-11-07T09:40:24+03:00",
+      "finishedAt": "2026-11-07T10:33:48+03:00"
     },
     {
       "id": "plan",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-11-07T10:33:48+03:00",
+      "finishedAt": "2026-11-07T10:33:48+03:00"
     },
     {
       "id": "build",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-11-07T10:33:55+03:00",
+      "finishedAt": "2026-11-07T10:33:55+03:00"
     },
     {
       "id": "review",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-11-07T10:33:48+03:00",
+      "finishedAt": "2026-11-07T10:38:17+03:00"
     },
     {
       "id": "final",
-      "status": "pending"
+      "status": "done",
+      "startedAt": "2026-11-07T10:38:19+03:00",
+      "finishedAt": "2026-11-07T10:47:02+03:00"
     }
   ],
   "requirements": {
     "total": 5,
-    "done": 0,
+    "done": 3,
     "inTicket": 0,
     "inSpec": 0,
     "placeholder": 0,
@@ -88,9 +97,11 @@ window.STATE =
       ],
       "review": "нет",
       "model": "сильная",
-      "status": "pending",
+      "status": "done",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "startedAt": "2026-11-07T09:42:23+03:00",
+      "finishedAt": "2026-11-07T10:33:28+03:00"
     },
     {
       "id": "02",
@@ -110,12 +121,17 @@ window.STATE =
       ],
       "review": "нет",
       "model": "обычная",
-      "status": "pending",
+      "status": "done",
       "retries": 0,
-      "repairs": 0
+      "repairs": 0,
+      "startedAt": "2026-11-07T09:50:05+03:00",
+      "finishedAt": "2026-11-07T10:33:29+03:00"
     }
   ],
-  "tests": null,
+  "tests": {
+    "passed": 977,
+    "failed": 0
+  },
   "debt": {
     "placeholders": [],
     "assumptions": [
@@ -134,7 +150,11 @@ window.STATE =
     ]
   },
   "concerns": [],
-  "blind": null,
+  "blind": {
+    "checked": 4,
+    "matched": 4,
+    "mismatches": []
+  },
   "beats": [
     "2026-11-07T09:32:04+03:00",
     "2026-11-07T09:32:47+03:00",
@@ -145,9 +165,24 @@ window.STATE =
     "2026-11-07T09:40:24+03:00",
     "2026-11-07T09:41:25+03:00",
     "2026-11-07T09:41:26+03:00",
-    "2026-11-07T09:41:27+03:00"
+    "2026-11-07T09:41:27+03:00",
+    "2026-11-07T09:41:37+03:00",
+    "2026-11-07T09:42:23+03:00",
+    "2026-11-07T09:50:05+03:00",
+    "2026-11-07T10:33:28+03:00",
+    "2026-11-07T10:33:29+03:00",
+    "2026-11-07T10:33:30+03:00",
+    "2026-11-07T10:33:48+03:00",
+    "2026-11-07T10:33:55+03:00",
+    "2026-11-07T10:33:56+03:00",
+    "2026-11-07T10:37:49+03:00",
+    "2026-11-07T10:38:17+03:00",
+    "2026-11-07T10:38:19+03:00",
+    "2026-11-07T10:41:02+03:00",
+    "2026-11-07T10:47:01+03:00",
+    "2026-11-07T10:47:02+03:00"
   ],
-  "rev": 12,
+  "rev": 28,
   "waiting": null,
   "waits": [],
   "log": [
@@ -213,18 +248,117 @@ window.STATE =
       "t": "2026-11-07T09:41:27+03:00",
       "k": "tier",
       "v": "T1"
+    },
+    {
+      "t": "2026-11-07T09:42:23+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-11-07T09:50:05+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "start"
+    },
+    {
+      "t": "2026-11-07T10:33:28+03:00",
+      "k": "ticket",
+      "ids": [
+        "01"
+      ],
+      "act": "done"
+    },
+    {
+      "t": "2026-11-07T10:33:29+03:00",
+      "k": "ticket",
+      "ids": [
+        "02"
+      ],
+      "act": "done"
+    },
+    {
+      "t": "2026-11-07T10:33:30+03:00",
+      "k": "tests",
+      "passed": 977,
+      "failed": 0
+    },
+    {
+      "t": "2026-11-07T10:33:48+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "start"
+    },
+    {
+      "t": "2026-11-07T10:33:55+03:00",
+      "k": "stage",
+      "id": "build",
+      "act": "done"
+    },
+    {
+      "t": "2026-11-07T10:33:56+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "start"
+    },
+    {
+      "t": "2026-11-07T10:37:49+03:00",
+      "k": "add",
+      "key": "report",
+      "n": 2
+    },
+    {
+      "t": "2026-11-07T10:37:49+03:00",
+      "k": "add",
+      "key": "report",
+      "n": 2
+    },
+    {
+      "t": "2026-11-07T10:38:17+03:00",
+      "k": "stage",
+      "id": "review",
+      "act": "done"
+    },
+    {
+      "t": "2026-11-07T10:38:19+03:00",
+      "k": "stage",
+      "id": "final",
+      "act": "start"
+    },
+    {
+      "t": "2026-11-07T10:41:02+03:00",
+      "k": "gate",
+      "g": "G4",
+      "ok": true,
+      "checked": 4,
+      "matched": 4
+    },
+    {
+      "t": "2026-11-07T10:47:01+03:00",
+      "k": "tests",
+      "passed": 977,
+      "failed": 0
+    },
+    {
+      "t": "2026-11-07T10:47:02+03:00",
+      "k": "finish",
+      "result": "Ревью диффа 4.0, ремонт F1–F4 (+5 тестов, 977/0), G4 без расхождений, push в master"
     }
   ],
   "reqList": [
     {
       "id": "R01",
       "text": "«Проведи ревью кода»",
-      "status": "open"
+      "status": "done"
     },
     {
       "id": "R02",
       "text": "«устрани недостатки»",
-      "status": "open"
+      "status": "done"
     },
     {
       "id": "R03",
@@ -234,7 +368,7 @@ window.STATE =
     {
       "id": "R04i",
       "text": "(подразумевается) после правок проект остаётся рабочим",
-      "status": "open"
+      "status": "done"
     },
     {
       "id": "R05i",
@@ -260,7 +394,19 @@ window.STATE =
       "ok": true,
       "at": "2026-11-07T09:41:26+03:00",
       "problems": 0
+    },
+    "G4": {
+      "ok": true,
+      "at": "2026-11-07T10:41:02+03:00",
+      "checked": 4,
+      "matched": 4
     }
   },
-  "result": null
+  "result": "Ревью диффа 4.0, ремонт F1–F4 (+5 тестов, 977/0), G4 без расхождений, push в master",
+  "report": [
+    "F3 односторонняя: удаление старых schema/vN производно от PUBLIC_SCHEMA_VERSION (staleSchemaDirs), но создание/запись схем литеральны (schema/v2 — public-export.js:504,509). При бампе на v3 mkdir v2 удалит v2 как stale и запись упадёт — бамп и так ручной (правка литералов + \\), но комментарий обещает чистую смену версии.",
+    "calc/public-export.js:504,509",
+    "node article-build.js падает (exit 1) на выпуске 2026-10-25: ворото FORBIDDEN 'шаг к' (зеркало PRD §11.5) vs фраза 'шаг к снижению напряжения' в опубликованной статье. Предсуществует в master с faca399, blog собирается (gate не применяет) — вред только неработоспособная задокументированная команда. Лечение редакционное/спецификационное.",
+    "article-build.js:19, docs/articles/weekly/2026-10-25.md:24"
+  ]
 }
