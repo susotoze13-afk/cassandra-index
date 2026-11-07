@@ -56,11 +56,14 @@ export function validateArticle(article) {
     errors.push('summary: { index: int, delta: number } required');
   }
   // ADR 0069: индекс и дельта региона — число с одной десятичной (целое тоже
-  // валидно); глобальный индекс остаётся целым (summary выше).
+  // валидно; две и более десятичных — нет: 72.4 ок, 72.44 нет); глобальный
+  // индекс остаётся целым (summary выше).
+  const oneDecimal = (x) => Math.abs(x * 10 - Math.round(x * 10)) < 1e-9;
   if (!Array.isArray(article.regionRows) || !article.regionRows.every(
-    (r) => r && Number.isFinite(r.index) && Number.isFinite(r.delta),
+    (r) => r && Number.isFinite(r.index) && Number.isFinite(r.delta)
+      && oneDecimal(r.index) && oneDecimal(r.delta),
   )) {
-    errors.push('regionRows: array of { index: number, delta: number } required');
+    errors.push('regionRows: array of { index: one-decimal, delta: one-decimal } required');
   }
   return errors;
 }

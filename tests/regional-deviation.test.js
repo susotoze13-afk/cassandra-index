@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 
 import { loadSnapshotPart } from '../calc/week-step.js';
 import { PARAMS } from '../calc/params.js';
+import { methodologyDoc } from '../calc/public-contract.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const CHAIN = [
@@ -103,12 +104,22 @@ test('calc/: n0, m = n/(n+n0), iWith, iWithout, hypotheticalIndex отсутст
     const text = readFileSync(file, 'utf8');
     const base = path.basename(file);
     assert.ok(!/\biWith\b|\biWithout\b|\bhypotheticalIndex\b/.test(text), `${base}: iWith/iWithout/hypotheticalIndex`);
-    // public-contract.js раскрывает n0 в methodologyDoc — зона тикета 02,
-    // там n0 удаляется своим прогоном; здесь закрепляем остальное ядро.
-    if (base === 'public-contract.js') continue;
+    // Без исключений: public-contract.js раскрывает параметры в methodologyDoc
+    // (ADR 0062) — именно поэтому возврат n0 туда страж обязан ловить наравне
+    // с остальными файлами calc/.
     assert.ok(!/\bn0\b/.test(text), `${base}: n0`);
     assert.ok(!/nReg\s*\/\s*\(\s*nReg\s*\+\s*n0\s*\)/.test(text), `${base}: m = n/(n+n0)`);
   }
+});
+
+// Негативный контроль к стражу выше: возврат n0 в раскрытие методологии
+// (methodologyDoc — публикующий файл, ADR 0062) обязан ловиться. Тест читает
+// вывод сборщика документа: появление ключа n0 (или слова в сериализации) —
+// регресс ADR 0069, страж calc/ его поймает, здесь закрепляем источник.
+test('public-contract: methodologyDoc не раскрывает n0 (ADR 0069)', () => {
+  const doc = methodologyDoc();
+  assert.ok(!Object.prototype.hasOwnProperty.call(doc, 'n0'), 'methodologyDoc: нет ключа n0');
+  assert.ok(!/\bn0\b/.test(JSON.stringify(doc)), 'methodologyDoc: n0 нет в сериализации');
 });
 
 test('calc.js: recalculation_method аудита собирается динамически из PARAMS.methodology', () => {

@@ -30,7 +30,7 @@
 // CLI: `node calc/public-export.js` — печать сводки; `--write` — запись;
 // `--root <dir>` — другой корень (нужен тестам битого снапшота).
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -439,6 +439,18 @@ export function analysisBundle(dataset) {
   ].join('\n');
 }
 
+// Чистое правило уборки схем (F3): из списка существующих каталогов schema/vN
+// отбирает устаревшие — те, чей номер меньше текущей PUBLIC_SCHEMA_VERSION.
+// Каталог текущей версии и младшие «другие» имена (не v<число>) не трогаются.
+export function staleSchemaDirs(existing, currentVersion) {
+  return existing
+    .filter((name) => {
+      const m = /^v(\d+)$/.exec(name);
+      return m !== null && Number(m[1]) < currentVersion;
+    })
+    .sort();
+}
+
 // writePublicData({rootDir, weeks, loadSnapshot, entries, analyzeWeek}) —
 // собирает всё в память и только потом пишет: упавший снапшот не оставляет
 // полузаписанных файлов. Возвращает {files} — пути записанного.
@@ -495,9 +507,20 @@ export function writePublicData({
   mkdirSync(path.join(publicDir, 'weeks'), { recursive: true });
   mkdirSync(path.join(publicDir, 'countries'), { recursive: true });
   mkdirSync(path.join(publicDir, 'schema', 'v2'), { recursive: true });
-  // Смена версии схемы = новая папка (docs/api.md): прежний каталог удаляется,
-  // чтобы v1 и v2 не сосуществовали и потребитель не читал устаревшую форму.
-  rmSync(path.join(publicDir, 'schema', 'v1'), { recursive: true, force: true });
+  // Смена версии схемы = новая папка (docs/api.md): устаревшие каталоги
+  // удаляются, чтобы соседние версии не сосуществовали и потребитель не читал
+  // устаревшую форму. Список к удалению — производное правило от текущей
+  // PUBLIC_SCHEMA_VERSION (не литерал конкретной версии): при бампе на v3
+  // устаревшая schema/v2 удалится вместе с v1. Чистое ядро — staleSchemaDirs.
+  const schemaDir = path.join(publicDir, 'schema');
+  const existingSchema = existsSync(schemaDir)
+    ? readdirSync(schemaDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+    : [];
+  for (const stale of staleSchemaDirs(existingSchema, PUBLIC_SCHEMA_VERSION)) {
+    rmSync(path.join(schemaDir, stale), { recursive: true, force: true });
+  }
   for (const [file, content] of outputs) writeFileSync(file, content, 'utf8');
   return { files: outputs.map(([file]) => file) };
 }

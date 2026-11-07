@@ -18,6 +18,7 @@ import {
   toTrendSvg,
   renderChangelogPage,
   writePublicData,
+  staleSchemaDirs,
   loadSnapshotFromDisk,
   loadAnalysisFromDisk,
   waterfallReasonFor,
@@ -207,6 +208,17 @@ test('buildDataset: schema, schema_version, site, license, weeks по поряд
 });
 
 // --- CSV ---
+
+test('staleSchemaDirs: устаревшие каталоги schema/vN производны от PUBLIC_SCHEMA_VERSION (не литерал v1)', () => {
+  // Бамп на v3: устаревшая schema/v2 удаляется вместе с v1 (F3).
+  assert.deepStrictEqual(staleSchemaDirs(['v1', 'v2'], 3), ['v1', 'v2']);
+  assert.deepStrictEqual(staleSchemaDirs(['v1', 'v2'], 2), ['v1']);
+  assert.deepStrictEqual(staleSchemaDirs(['v1', 'v2'], PUBLIC_SCHEMA_VERSION), ['v1']);
+  // Текущая версия и не-версионные имена не трогаются.
+  assert.deepStrictEqual(staleSchemaDirs(['v2'], 2), []);
+  assert.deepStrictEqual(staleSchemaDirs(['archive', 'v10x'], 2), []);
+  assert.deepStrictEqual(staleSchemaDirs([], 2), []);
+});
 
 test('toCsv: фиксированная шапка, неделя × область, без запятых и CRLF', () => {
   const weeks = ['2026-10-11', '2026-10-18'];

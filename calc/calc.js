@@ -379,7 +379,11 @@ export function renderWeekCombined(week, parts) {
           }
         }
         if (lines.length) signalsTail = lines.join('\n') + '\n';
+      } else {
+        throw new Error(`week.js ${week}: часть regions не парсится как JSON — signals не переносятся; поправьте форму части`);
       }
+    } else {
+      throw new Error(`week.js ${week}: часть regions не в форме «s.regions = {…}» — signals не переносятся; поправьте форму части`);
     }
   }
   return header(week) + bodies.join('\n') + '\n' + signalsTail + FOOTER;

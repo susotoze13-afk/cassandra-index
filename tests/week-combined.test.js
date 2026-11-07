@@ -75,6 +75,19 @@ test('renderWeekCombined: выполнение в vm не зависит от п
   assert.deepStrictEqual(runCombined(W, shuffled), runCombined(W, parts));
 });
 
+test('renderWeekCombined: regions-часть вне формы «s.regions = {…}» — явная ошибка, не молчаливая потеря signals', () => {
+  // F1: ручная правка формы части (например, однострочная запись без пробелов
+  // вокруг «=») раньше давала пустой хвост signals без ошибки — week.js
+  // записывался без полей. Теперь — throw с именем недели.
+  const parts = syntheticParts();
+  parts.regions = PART('  s.regions={"europe": {"signals": 2}};');
+  assert.throws(() => renderWeekCombined(W, parts), new RegExp(`week\\.js ${W}: часть regions`));
+  // Битый JSON внутри матча — тоже явная ошибка, не пустой хвост.
+  const bad = syntheticParts();
+  bad.regions = PART('  s.regions = { "europe": ; };');
+  assert.throws(() => renderWeekCombined(W, bad), /часть regions не парсится как JSON/);
+});
+
 test('renderWeekCombined: части region-* присваивают в s.regions после regions (регионы не затираются)', () => {
   const parts = syntheticParts();
   parts.regions = PART('  s.regions = { "europe": { "index": 99 } };');

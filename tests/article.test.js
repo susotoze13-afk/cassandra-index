@@ -129,11 +129,47 @@ test('конвертер: дробные индекс и дельта регио
   assert.deepEqual(p.regionRows, [{ index: 64.4, delta: 6.9 }, { index: 65, delta: 9 }]);
 });
 
+test('конвертер: две и более десятичных не принимаются (ADR 0069, F4)', () => {
+  const md = [
+    '---',
+    'week: 2026-10-18',
+    'title: "Проба"',
+    '---',
+    '',
+    'Индекс: **64 из 100** · неделей ранее **56** · за неделю **+8** · состояние **очень опасно** · покрыто **34 из 46** критериев.',
+    '',
+    '## Один регион',
+    '',
+    'Индекс: **64.44 из 100** · за неделю **+6.9** · состояние **очень опасно**.',
+    '',
+    '## Таблица',
+    '',
+    '| Регион | Индекс | За неделю | Что дало сигнал |',
+    '| --- | --- | --- | --- |',
+    '| Балтия | 65.55 | +9.99 | проба |',
+    '| Вторая | 65 | +9 | проба |',
+    '',
+  ].join('\n');
+  const p = builder.parseArticleMarkdown(md);
+  // 64.44 и 65.55/9.99 не парсятся — в воротах остаётся только валидная строка.
+  assert.deepEqual(p.regionRows, [{ index: 65, delta: 9 }]);
+});
+
 test('контракт выпуска принимает дробные индексы и дельты регионов', () => {
   const fractional = { ...article, regionRows: [{ index: 64.4, delta: 6.9 }, { index: 65, delta: -1.2 }] };
   assert.deepEqual(validateArticle(fractional), []);
   const broken = { ...article, regionRows: [{ index: '64.4', delta: 6.9 }] };
   assert.ok(validateArticle(broken).length > 0);
+});
+
+test('контракт выпуска: две и более десятичных отклоняются (ADR 0069, F4)', () => {
+  // Точность слоя — одна десятичная: 72.4 ок, 72.44 нет.
+  const badIndex = { ...article, regionRows: [{ index: 64.44, delta: 6.9 }] };
+  assert.ok(validateArticle(badIndex).length > 0);
+  const badDelta = { ...article, regionRows: [{ index: 64.4, delta: 6.94 }] };
+  assert.ok(validateArticle(badDelta).length > 0);
+  const okOne = { ...article, regionRows: [{ index: 72.4, delta: -0.5 }] };
+  assert.deepEqual(validateArticle(okOne), []);
 });
 
 test('старые снапшоты без article валидны (forward-only)', () => {

@@ -122,7 +122,7 @@ export function criteriaDoc() {
 // (data/public/countries/<неделя>.json; гейт PARAMS.countryLayerFrom,
 // prevIndex страны наследуется: страна → регион → prevGlobal; чувствительность
 // стран — sensitivity недели, отдельная метрика по странам не считается).
-// ADR 0069: объёмное сжатие снято, параметр n0 не раскрывается.
+// ADR 0069: объёмное сжатие снято, его параметр не раскрывается.
 export function methodologyDoc() {
   return {
     schema: SCHEMA_NAMES.methodology,
