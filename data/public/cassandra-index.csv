@@ -108,10 +108,10 @@ cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,ukra
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,baltic,71.6,3.6,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,balkans,72.3,4.5,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,eu-north-europe,71.3,3.9,very,1,full,35,46,false
-cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,south-caucasus,72.6,4.9,very,1,full,35,46,false
-cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,central-asia,72.2,5.1,very,1,full,35,46,false
+cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,south-caucasus,72.4,4.7,very,1,full,35,46,false
+cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,central-asia,71.9,4.8,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,east-asia,72.4,5.4,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,middle-east,72.5,2.6,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,north-america,72.8,3.9,very,1,full,35,46,false
-cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,south-asia,72.2,4.7,very,1,full,35,46,false
+cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,south-asia,72.5,5,very,1,full,35,46,false
 cassandra-index-public,2,2026-11-01,2026-11-01,2026-11-01,4.0,2.0,published,africa,72.9,5,very,1,full,35,46,false

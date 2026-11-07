@@ -40,10 +40,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-11-04T10:49:39.431Z",
+  "at": "2026-11-07T09:05:54.039Z",
   "reason": "Еженедельный пересчёт",
   "previous": 72,
-  "methodologyBefore": "3.0",
+  "methodologyBefore": "4.0",
   "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };

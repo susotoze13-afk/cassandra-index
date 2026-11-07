@@ -28,7 +28,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "delta": 4.5,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "eu-north-europe": {
     "index": 71.3,
@@ -38,18 +38,18 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "signals": 5
   },
   "south-caucasus": {
-    "index": 72.6,
-    "delta": 4.9,
+    "index": 72.4,
+    "delta": 4.7,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "central-asia": {
-    "index": 72.2,
-    "delta": 5.1,
+    "index": 71.9,
+    "delta": 4.8,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "east-asia": {
     "index": 72.4,
@@ -73,11 +73,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "signals": 4
   },
   "south-asia": {
-    "index": 72.2,
-    "delta": 4.7,
+    "index": 72.5,
+    "delta": 5,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "africa": {
     "index": 72.9,

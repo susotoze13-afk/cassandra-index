@@ -40,10 +40,10 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-11-04T10:49:39.431Z",
+  "at": "2026-11-07T09:05:54.039Z",
   "reason": "Еженедельный пересчёт",
   "previous": 72,
-  "methodologyBefore": "3.0",
+  "methodologyBefore": "4.0",
   "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };
@@ -74,7 +74,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "delta": 4.5,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "eu-north-europe": {
     "index": 71.3,
@@ -84,18 +84,18 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "signals": 5
   },
   "south-caucasus": {
-    "index": 72.6,
-    "delta": 4.9,
+    "index": 72.4,
+    "delta": 4.7,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "central-asia": {
-    "index": 72.2,
-    "delta": 5.1,
+    "index": 71.9,
+    "delta": 4.8,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "east-asia": {
     "index": 72.4,
@@ -119,11 +119,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "signals": 4
   },
   "south-asia": {
-    "index": 72.2,
-    "delta": 4.7,
+    "index": 72.5,
+    "delta": 5,
     "status": "very",
     "background": false,
-    "signals": 1
+    "signals": 2
   },
   "africa": {
     "index": 72.9,
@@ -739,8 +739,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 72.6,
-  "delta": 4.9,
+  "index": 72.4,
+  "delta": 4.7,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -836,8 +836,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 72.2,
-  "delta": 5.1,
+  "index": 71.9,
+  "delta": 4.8,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -1299,8 +1299,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 72.2,
-  "delta": 4.7,
+  "index": 72.5,
+  "delta": 5,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -4040,6 +4040,111 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "civilge-georgia-azerbaijan-border",
+    "title": {
+      "ru": "Грузия и Азербайджан договорились ускорить делимитацию границы",
+      "en": "Georgia, Azerbaijan Hold Intergovernmental Meeting, Talk 'Speeding Up' Border Process"
+    },
+    "domain": "civil.ge",
+    "url": "https://civil.ge/archives/756119",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "ocmedia-armenia-azerbaijan-peace",
+    "title": {
+      "ru": "МИД Армении: требование об извинениях не способствует мирному процессу с Азербайджаном",
+      "en": "Armenian FM says Azerbaijani presidential aide's apology demand 'does not contribute to peace'"
+    },
+    "domain": "oc-media.org",
+    "url": "https://oc-media.org/armenian-fm-says-azerbaijani-presidential-aides-apology-demand-does-not-contribute-to-peace/",
+    "publication_date": "2026-10-28",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "dailystar-afghan-pak-clash",
+    "title": {
+      "ru": "Столкновение на афгано-пакистанской границе: один погиб, пять ранены",
+      "en": "Afghan-Pak border clash kills one, injures five"
+    },
+    "domain": "thedailystar.net",
+    "url": "https://www.thedailystar.net/news/world/news/afghan-pak-border-clash-kills-one-injures-five-4310186",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "uza-ots-summit-consultations",
+    "title": {
+      "ru": "Президент Узбекистана выдвинул инициативы на саммите Организации тюркских государств",
+      "en": "President Shavkat Mirziyoyev puts forward key initiatives at OTS Summit"
+    },
+    "domain": "uza.uz",
+    "url": "https://uza.uz/en/posts/president-shavkat-mirziyoyev-puts-forward-key-initiatives-at-ots-summit_930582",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "astanatimes-ots-summit",
+    "title": {
+      "ru": "Токаев поддержал укрепление сотрудничества тюркских государств на саммите в Анкаре",
+      "en": "Tokayev Highlights Trade Growth, Backs Stronger Cooperation Among Turkic States"
+    },
+    "domain": "astanatimes.com",
+    "url": "https://astanatimes.com/2026/10/tokayev-highlights-trade-growth-backs-stronger-cooperation-among-turkic-states/",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "anewz-ots-foreign-ministers",
+    "title": {
+      "ru": "Министры иностранных дел тюркских государств встретились в Анкаре перед саммитом",
+      "en": "Turkic states' foreign ministers meet in Ankara ahead of key summit"
+    },
+    "domain": "anewz.tv",
+    "url": "https://anewz.tv/region/central-asia/26078/turkic-states-meet-in-ankara-ahead-of-leaders-summit/news",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "astanatimes-kazakhstan-drone-industry",
+    "title": {
+      "ru": "Казахстан планирует развивать собственное производство дронов к 2029 году",
+      "en": "Kazakhstan Targets Domestic Drone Industry Development by 2029"
+    },
+    "domain": "astanatimes.com",
+    "url": "https://astanatimes.com/2026/10/kazakhstan-targets-domestic-drone-industry-development-by-2029/",
+    "publication_date": "2026-10-27",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
   }
 ];
   s.countries = {
@@ -4073,13 +4178,13 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.regions["russia-belarus"].signals = 6;
   s.regions["ukraine-moldova"].signals = 10;
   s.regions["baltic"].signals = 3;
-  s.regions["balkans"].signals = 1;
+  s.regions["balkans"].signals = 2;
   s.regions["eu-north-europe"].signals = 5;
-  s.regions["south-caucasus"].signals = 1;
-  s.regions["central-asia"].signals = 1;
+  s.regions["south-caucasus"].signals = 2;
+  s.regions["central-asia"].signals = 2;
   s.regions["east-asia"].signals = 7;
   s.regions["middle-east"].signals = 14;
   s.regions["north-america"].signals = 4;
-  s.regions["south-asia"].signals = 1;
+  s.regions["south-asia"].signals = 2;
   s.regions["africa"].signals = 3;
 })();

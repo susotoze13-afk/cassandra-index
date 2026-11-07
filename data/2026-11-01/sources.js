@@ -2163,6 +2163,111 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "A-mainstream",
     "state_affiliated": false,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "civilge-georgia-azerbaijan-border",
+    "title": {
+      "ru": "Грузия и Азербайджан договорились ускорить делимитацию границы",
+      "en": "Georgia, Azerbaijan Hold Intergovernmental Meeting, Talk 'Speeding Up' Border Process"
+    },
+    "domain": "civil.ge",
+    "url": "https://civil.ge/archives/756119",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "ocmedia-armenia-azerbaijan-peace",
+    "title": {
+      "ru": "МИД Армении: требование об извинениях не способствует мирному процессу с Азербайджаном",
+      "en": "Armenian FM says Azerbaijani presidential aide's apology demand 'does not contribute to peace'"
+    },
+    "domain": "oc-media.org",
+    "url": "https://oc-media.org/armenian-fm-says-azerbaijani-presidential-aides-apology-demand-does-not-contribute-to-peace/",
+    "publication_date": "2026-10-28",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "dailystar-afghan-pak-clash",
+    "title": {
+      "ru": "Столкновение на афгано-пакистанской границе: один погиб, пять ранены",
+      "en": "Afghan-Pak border clash kills one, injures five"
+    },
+    "domain": "thedailystar.net",
+    "url": "https://www.thedailystar.net/news/world/news/afghan-pak-border-clash-kills-one-injures-five-4310186",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "uza-ots-summit-consultations",
+    "title": {
+      "ru": "Президент Узбекистана выдвинул инициативы на саммите Организации тюркских государств",
+      "en": "President Shavkat Mirziyoyev puts forward key initiatives at OTS Summit"
+    },
+    "domain": "uza.uz",
+    "url": "https://uza.uz/en/posts/president-shavkat-mirziyoyev-puts-forward-key-initiatives-at-ots-summit_930582",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "astanatimes-ots-summit",
+    "title": {
+      "ru": "Токаев поддержал укрепление сотрудничества тюркских государств на саммите в Анкаре",
+      "en": "Tokayev Highlights Trade Growth, Backs Stronger Cooperation Among Turkic States"
+    },
+    "domain": "astanatimes.com",
+    "url": "https://astanatimes.com/2026/10/tokayev-highlights-trade-growth-backs-stronger-cooperation-among-turkic-states/",
+    "publication_date": "2026-10-30",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "anewz-ots-foreign-ministers",
+    "title": {
+      "ru": "Министры иностранных дел тюркских государств встретились в Анкаре перед саммитом",
+      "en": "Turkic states' foreign ministers meet in Ankara ahead of key summit"
+    },
+    "domain": "anewz.tv",
+    "url": "https://anewz.tv/region/central-asia/26078/turkic-states-meet-in-ankara-ahead-of-leaders-summit/news",
+    "publication_date": "2026-10-29",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "astanatimes-kazakhstan-drone-industry",
+    "title": {
+      "ru": "Казахстан планирует развивать собственное производство дронов к 2029 году",
+      "en": "Kazakhstan Targets Domestic Drone Industry Development by 2029"
+    },
+    "domain": "astanatimes.com",
+    "url": "https://astanatimes.com/2026/10/kazakhstan-targets-domestic-drone-industry-development-by-2029/",
+    "publication_date": "2026-10-27",
+    "accessed_date": "2026-11-01",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
   }
 ];
 })();
