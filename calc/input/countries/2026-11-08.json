@@ -1,0 +1,150 @@
+{
+  "week": "2026-11-08",
+  "criteria": {
+    "D1.1": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Переброска украинских подразделений в Харьков и усиление военного присутствия Норвегии на границе с Россией — перемещения войск обеих сторон.",
+      "sources": [
+        "https://sputnikglobe.com/20261105/ukrainian-troops-redeployed-to-kharkov-to-guard-secret-prisons---source-1125016238.html",
+        "https://www.vedomosti.ru/politics/news/2026/11/04/1242652-norvegiya-prisutstvie"
+      ]
+    },
+    "D1.3": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Недельный удар российских сил по украинской логистике и передовым позициям — наращивание и разрушение военной логистики на театре.",
+      "sources": [
+        "https://sputnikglobe.com/20261106/russian-forces-devastate-ukrainian-logistics-and-frontline-troops-in-week-long-blitz-1125025222.html"
+      ]
+    },
+    "D1.4": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Удары по энергосистеме Украины (Киев, Житомирская область) — активные боевые действия с участием обеих сторон.",
+      "sources": [
+        "https://www.theguardian.com/world/2026/nov/07/blackout-water-shortage-kyiv-russia-strike-ukraine-energy-grid",
+        "https://tass.com/defense/2214397"
+      ]
+    },
+    "D1.5": {
+      "countries": [
+        "UA"
+      ],
+      "basis": "Германия останавливает дальнейшие поставки Patriot Украине — переброска стратегических систем ПВО в интересах Украины.",
+      "sources": [
+        "https://sputnikglobe.com/20261107/germany-draws-the-line-on-further-patriot-deliveries-to-ukraine-1125029017.html"
+      ]
+    },
+    "D3.3": {
+      "countries": [
+        "RU"
+      ],
+      "basis": "Швейцария ввела 21-й пакет санкций против России — новый санкционный пакет против стороны конфликта.",
+      "sources": [
+        "https://www.admin.ch/en/newnsb/KsmEWk4E-bHM"
+      ]
+    },
+    "D3.4": {
+      "countries": [
+        "UA"
+      ],
+      "basis": "Переговоры России, США и Украины в Абу-Даби 10–11 ноября и участие украинской делегации — переговоры с участием Украины.",
+      "sources": [
+        "https://tass.com/world/2212141",
+        "https://tass.com/world/2213991",
+        "https://www.latintimes.com/us-mediate-russia-ukraine-talks-abu-dhabi-600870"
+      ]
+    },
+    "D3.5": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Договорённость о ежемесячных гуманитарных миссиях в Алёшках между омбудсменами России и Украины — гуманитарные договорённости обеих сторон.",
+      "sources": [
+        "https://www.latintimes.com/russia-ukraine-monthly-humanitarian-missions-oleshky-600839",
+        "https://www.vedomosti.ru/politics/news/2026/11/02/1242032-gumanitarnaya-missiya",
+        "https://belta.by/politics/view/krupko-o-gumanitarnoj-missii-v-aleshkah-belarus-vnov-podtverdila-pozitsiju-miroljubija-i-dobrososedstva-808860-2026/"
+      ]
+    },
+    "D5.1": {
+      "countries": [
+        "RU"
+      ],
+      "basis": "Заявление российского законодателя о расчёте Европы на перемирие для ввода войск на Украину — эскалационная военная риторика стороны конфликта.",
+      "sources": [
+        "https://tass.com/politics/2214375"
+      ]
+    },
+    "D6.1": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Мобилизационные меры Украины (изменения с 1 ноября) и вербовка в российскую армию, в том числе за рубежом, — военное положение и мобилизация обеих сторон.",
+      "sources": [
+        "https://iz.ru/en/node/2195392",
+        "https://sud.ua/ru/news/suspilstvo/376524-shcho-zminylosia-dlia-ukraintsiv-z-1-lystopada-pensii-subsydii-taryfy-broniuvannia-ta-novi-platezhi",
+        "https://www.thehindu.com/news/cities/Visakhapatnam/andhra-pradesh-cautions-youth-against-lucrative-job-offers-in-russian-army/article71665678.ece"
+      ]
+    },
+    "D6.2": {
+      "countries": [
+        "UA"
+      ],
+      "basis": "Эвакуация жителей Алёшек и их нужды после завершения гуманитарной миссии — эвакуация населения из прифронтовой зоны.",
+      "sources": [
+        "https://www.vedomosti.ru/newspaper/articles/2026/11/03/1242209-sudba-i-nuzhdi-evakuirovannih-iz-aleshek",
+        "https://belta.by/politics/view/krupko-o-gumanitarnoj-missii-v-aleshkah-belarus-vnov-podtverdila-pozitsiju-miroljubija-i-dobrososedstva-808860-2026/"
+      ]
+    },
+    "D6.3": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Военное производство сторон: наращивание выпуска российских баллистических ракет и массовое производство украинских перехватчиков — военные госзаказы.",
+      "sources": [
+        "https://united24media.com/war-in-ukraine/russia-keeps-building-missiles-despite-sanctions-amassing-up-to-700-ballistic-missiles-by-october-2026-24069",
+        "https://www.yahoo.com/news/world/articles/ukraine-reach-mass-interceptor-production-082700118.html"
+      ]
+    },
+    "D8.1": {
+      "countries": [
+        "UA"
+      ],
+      "basis": "Перемирие в Алёшках, отмеченное в Белом доме с участием представителей России и Украины, — прекращение огня на участке фронта.",
+      "sources": [
+        "https://www.theglobeandmail.com/world/article-melania-trump-putin-envoy-oleshky-ceasefire/",
+        "https://tass.com/world/2213513"
+      ]
+    },
+    "D8.2": {
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "basis": "Объявленные переговоры России, США и Украины в Абу-Даби и встреча по перемирию в Алёшках — мирные договорённости с участием обеих сторон.",
+      "sources": [
+        "https://tass.com/world/2212141",
+        "https://www.theglobeandmail.com/world/article-melania-trump-putin-envoy-oleshky-ceasefire/"
+      ]
+    },
+    "D9.3": {
+      "countries": [
+        "RU"
+      ],
+      "basis": "Ограничения полётов в России из-за атак украинских дронов — сбои транспорта и страхования на стороне России.",
+      "sources": [
+        "https://www.aa.com.tr/en/eurasia/ukrainian-drone-attacks-affect-russian-aviation-as-flight-restrictions-rise/4109546"
+      ]
+    }
+  }
+}
