@@ -1,0 +1,755 @@
+{
+  "week": "2026-11-08",
+  "criteria": {
+    "D4.1": {
+      "events": [1, 0.5, 0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.state.gov/releases/office-of-the-spokesman/2026/11/further-sanctions-on-the-cuban-regimes-foreign-military-support-and-illicit-revenue-networks/",
+          "date": "2026-11-05",
+          "cluster": "C-registries",
+          "type": "primary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://gcaptain.com/u-s-targets-cubas-oil-tanker-fleet-in-new-sanctions-crackdown/",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/asia-pacific/beijing-urges-us-to-correct-its-wrongdoings-swiftly-after-washington-sanctions-chinese-companies-over-cuba/4115021",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aa.com.tr/en/americas/us-sanctions-individuals-entities-over-alleged-efforts-to-supply-iran-with-air-defense-systems/4112138",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D4.2": null,
+    "D4.3": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.fool.com/investing/2026/11/05/china-rare-earth-export-pause-usar-mp-materials/",
+          "date": "2026-11-05",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.japantimes.co.jp/business/2026/11/07/economy/us-china-rare-earths-agriculture/",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.4": {
+      "events": [1, 0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://gcaptain.com/new-wave-of-attacks-hits-tankers-and-lng-carrier-in-strait-of-hormuz-and-persian-gulf/",
+          "date": "2026-11-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/5/iran-says-tankers-struck-in-hormuz-amid-fears-of-new-us-attack",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D4.5": {
+      "events": [0.5],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://tass.com/world/2213007",
+          "date": "2026-11-04",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.finews.com/news/english-news/74349-alisher-usmanov-switzerland-lifts-sanctions-federal-court-of-justice-eu-council-lawsuit",
+          "date": "2026-11-05",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://fakti.bg/en/biznes/1098208-switzerland-lifts-sanctions-against-two-russian-billionaires",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Head-for-12-Weekly-Loss-Despite-Fresh-Tanker-Attacks.html",
+          "date": "2026-11-06",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/05/retail-traders-dump-the-most-stocks-in-single-day-since-covid-sell-off.html",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/06/wall-streets-fear-gauge-may-be-flashing-a-buy-sign.html",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D7.1": {
+      "events": [1, 0.5, 0.5],
+      "regions": ["baltic"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://defence24.com/defence-policy/us-troops-return-to-estonia-natos-eastern-flank-is-getting-stronger",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/europe/more-than-6-000-nato-troops-to-take-part-in-german-led-drills-in-lithuania/4114400",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.ctvnews.ca/canada/article/ctv-news-in-latvia-nato-soldiers-train-to-become-interchangeable-on-the-front-lines/",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D7.2": {
+      "events": [1, 0.5],
+      "regions": ["middle-east"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/world/saudi-led-coalition-says-it-intercepted-2-houthi-ballistic-missiles-over-riyadh/4115656",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://gcaptain.com/new-wave-of-attacks-hits-tankers-and-lng-carrier-in-strait-of-hormuz-and-persian-gulf/",
+          "date": "2026-11-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/5/iran-says-tankers-struck-in-hormuz-amid-fears-of-new-us-attack",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D7.3": null,
+    "D7.4": {
+      "value": 0.33,
+      "regions": ["africa", "middle-east"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://observer.ug/news/uganda-begins-to-withdraw-troops-from-somalia-after-20-years/",
+          "date": "2026-11-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://news.un.org/en/story/2026/11/1168741",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/world/un-warns-of-security-vacuum-in-southern-lebanon-if-peacekeepers-withdraw/4112012",
+          "date": "2026-11-04",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D8.1": {
+      "value": 0,
+      "regions": ["ukraine-moldova", "middle-east"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theglobeandmail.com/world/article-melania-trump-putin-envoy-oleshky-ceasefire/",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://tass.com/world/2213513",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/5/four-people-including-a-child-killed-in-israeli-attacks-on-gaza",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D8.2": {
+      "value": 0.33,
+      "regions": ["ukraine-moldova", "russia-belarus", "north-america"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://tass.com/world/2212141",
+          "date": "2026-11-03",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2213991",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.theglobeandmail.com/world/article-melania-trump-putin-envoy-oleshky-ceasefire/",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D8.3": {
+      "value": 0,
+      "regions": ["middle-east", "africa"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://news.un.org/en/story/2026/11/1168741",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/world/un-warns-of-security-vacuum-in-southern-lebanon-if-peacekeepers-withdraw/4112012",
+          "date": "2026-11-04",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D8.4": null
+  },
+  "driverConfidence": {
+    "D4": {
+      "level": "medium",
+      "reason": "санкционные и рыночные сигналы подтверждены тремя кластерами (C/A/B, F/A); D4.2 (военные расходы) в окне не подтверждён источниками"
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "развёртывания на восточном фланге и атаки вне театра подтверждены A+B; открытия новых фронтов в окне не зафиксировано"
+    },
+    "D8": {
+      "level": "medium",
+      "reason": "перемирие, переговоры и вывод мониторинговых миссий подтверждены A+B, но только вторичными источниками; устойчивого снижения интенсивности нет"
+    }
+  },
+  "blindReasons": {
+    "D4.2": "searched-none",
+    "D7.3": "searched-none",
+    "D8.4": "searched-none"
+  },
+  "sources": [
+    {
+      "id": "state-gov-cuba-sanctions",
+      "title": {
+        "ru": "Дополнительные санкции против иностранной военной поддержки кубинского режима и сетей незаконных доходов",
+        "en": "Further Sanctions on the Cuban Regime's Foreign Military Support and Illicit Revenue Networks"
+      },
+      "domain": "state.gov",
+      "url": "https://www.state.gov/releases/office-of-the-spokesman/2026/11/further-sanctions-on-the-cuban-regimes-foreign-military-support-and-illicit-revenue-networks/",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "gcaptain-cuba-tanker-sanctions",
+      "title": {
+        "ru": "США вводят санкции против кубинского нефтяного танкерного флота",
+        "en": "U.S. Targets Cuba's Oil Tanker Fleet in New Sanctions Crackdown"
+      },
+      "domain": "gcaptain.com",
+      "url": "https://gcaptain.com/u-s-targets-cubas-oil-tanker-fleet-in-new-sanctions-crackdown/",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-beijing-cuba-sanctions",
+      "title": {
+        "ru": "Пекин требует от США быстро исправить «неправомерные действия» после санкций против китайских компаний за связи с Кубой",
+        "en": "Beijing urges US to correct its 'wrongdoings' swiftly after Washington sanctions Chinese companies over Cuba"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/asia-pacific/beijing-urges-us-to-correct-its-wrongdoings-swiftly-after-washington-sanctions-chinese-companies-over-cuba/4115021",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-us-sanctions-iran-air-defense",
+      "title": {
+        "ru": "США ввели санкции против лиц и организаций за предполагаемые поставки Ирану систем ПВО",
+        "en": "US sanctions individuals, entities over alleged efforts to supply Iran with air defense systems"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/americas/us-sanctions-individuals-entities-over-alleged-efforts-to-supply-iran-with-air-defense-systems/4112138",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "fool-rare-earth-pause-expires",
+      "title": {
+        "ru": "Пауза в экспортных ограничениях Китая на редкоземельные металлы истекает 10 ноября",
+        "en": "China's Rare-Earth Export Pause Expires Nov. 10. Here's What It Means for USA Rare Earth and MP Materials."
+      },
+      "domain": "fool.com",
+      "url": "https://www.fool.com/investing/2026/11/05/china-rare-earth-export-pause-usar-mp-materials/",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "japantimes-us-china-rare-earths",
+      "title": {
+        "ru": "США требуют от Китая выполнения обязательств по редкоземельным металлам и сельхозпродукции перед встречами Трампа и Си",
+        "en": "U.S. urges China to meet rare earths and agriculture commitments ahead of Trump-Xi meetings"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/business/2026/11/07/economy/us-china-rare-earths-agriculture/",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "gcaptain-hormuz-new-wave-attacks",
+      "title": {
+        "ru": "Новая волна атак на танкеры и газовоз в Ормузском проливе и Персидском заливе",
+        "en": "New Wave of Attacks Hits Tankers and LNG Carrier in Strait of Hormuz and Persian Gulf"
+      },
+      "domain": "gcaptain.com",
+      "url": "https://gcaptain.com/new-wave-of-attacks-hits-tankers-and-lng-carrier-in-strait-of-hormuz-and-persian-gulf/",
+      "publication_date": "2026-11-02",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-hormuz-tankers-struck",
+      "title": {
+        "ru": "Иран сообщает о поражённых танкерах в Ормузском проливе на фоне опасений новой атаки США",
+        "en": "Iran says tankers struck in Hormuz amid fears of new US attack"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/5/iran-says-tankers-struck-in-hormuz-amid-fears-of-new-us-attack",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-switzerland-lifts-sanctions",
+      "title": {
+        "ru": "Швейцария вслед за ЕС сняла санкции с Усманова и Фридмана",
+        "en": "Switzerland follows EU in lifting sanctions on Usmanov, Fridman"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2213007",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "finews-usmanov-sanctions-lifted",
+      "title": {
+        "ru": "Швейцария исключила Алишера Усманова из санкционного списка",
+        "en": "Switzerland removes Alisher Usmanov from sanctions list"
+      },
+      "domain": "finews.com",
+      "url": "https://www.finews.com/news/english-news/74349-alisher-usmanov-switzerland-lifts-sanctions-federal-court-of-justice-eu-council-lawsuit",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "fakti-switzerland-lifts-sanctions",
+      "title": {
+        "ru": "Швейцария сняла санкции с двух российских миллиардеров",
+        "en": "Switzerland lifts sanctions against two Russian billionaires"
+      },
+      "domain": "fakti.bg",
+      "url": "https://fakti.bg/en/biznes/1098208-switzerland-lifts-sanctions-against-two-russian-billionaires",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-12pct-weekly-loss",
+      "title": {
+        "ru": "Нефть идёт к недельному падению на 12 % несмотря на новые атаки на танкеры",
+        "en": "Oil Prices Head for 12% Weekly Loss Despite Fresh Tanker Attacks"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Head-for-12-Weekly-Loss-Despite-Fresh-Tanker-Attacks.html",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-retail-dump-selloff",
+      "title": {
+        "ru": "Частные трейдеры распродали рекордный объём акций за день с обвала эпохи ковида",
+        "en": "Retail traders dump the most stocks in single day since Covid selloff"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/05/retail-traders-dump-the-most-stocks-in-single-day-since-covid-sell-off.html",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-fear-gauge",
+      "title": {
+        "ru": "Индикатор страха Уолл-стрит, возможно, подаёт сигнал к покупке",
+        "en": "Wall Street's fear gauge may be flashing a buy sign"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/06/wall-streets-fear-gauge-may-be-flashing-a-buy-sign.html",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "defence24-us-troops-estonia",
+      "title": {
+        "ru": "Американские войска возвращаются в Эстонию: восточный фланг НАТО усиливается",
+        "en": "US troops return to Estonia. NATO's eastern flank is getting stronger"
+      },
+      "domain": "defence24.com",
+      "url": "https://defence24.com/defence-policy/us-troops-return-to-estonia-natos-eastern-flank-is-getting-stronger",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-nato-drills-lithuania",
+      "title": {
+        "ru": "Более 6 000 военных НАТО примут участие в учениях под руководством Германии в Литве",
+        "en": "More than 6,000 NATO troops to take part in German-led drills in Lithuania"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/more-than-6-000-nato-troops-to-take-part-in-german-led-drills-in-lithuania/4114400",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "ctv-nato-latvia-training",
+      "title": {
+        "ru": "Военные НАТО в Латвии тренируются взаимозаменяемости на передовой",
+        "en": "CTV News in Latvia: NATO soldiers train to become interchangeable on the front lines"
+      },
+      "domain": "ctvnews.ca",
+      "url": "https://www.ctvnews.ca/canada/article/ctv-news-in-latvia-nato-soldiers-train-to-become-interchangeable-on-the-front-lines/",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-houthi-missiles-riyadh",
+      "title": {
+        "ru": "Коалиция во главе с Саудовской Аравией сообщила о перехвате двух баллистических ракет хуситов над Эр-Риядом",
+        "en": "Saudi-led coalition says it intercepted 2 Houthi ballistic missiles over Riyadh"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/world/saudi-led-coalition-says-it-intercepted-2-houthi-ballistic-missiles-over-riyadh/4115656",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "observer-uganda-somalia-withdrawal",
+      "title": {
+        "ru": "Уганда начала вывод войск из Сомали после 20 лет присутствия",
+        "en": "Uganda begins to withdraw troops from Somalia after 20 years"
+      },
+      "domain": "observer.ug",
+      "url": "https://observer.ug/news/uganda-begins-to-withdraw-troops-from-somalia-after-20-years/",
+      "publication_date": "2026-11-02",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "un-news-peacekeeping-vacuum",
+      "title": {
+        "ru": "Глава миротворчества ООН предупреждает о «вакууме безопасности» при выводе «голубых касок» из Ливана и Западной Сахары",
+        "en": "UN peacekeeping chief warns of 'security vacuum' as Blue Helmets leave Lebanon and Western Sahara"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/en/story/2026/11/1168741",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-un-lebanon-security-vacuum",
+      "title": {
+        "ru": "ООН предупреждает о вакууме безопасности на юге Ливана в случае вывода миротворцев",
+        "en": "UN warns of security vacuum in southern Lebanon if peacekeepers withdraw"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/world/un-warns-of-security-vacuum-in-southern-lebanon-if-peacekeepers-withdraw/4112012",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-abu-dhabi-talks-nov10",
+      "title": {
+        "ru": "Переговоры России, США и Украины пройдут в Абу-Даби 10–11 ноября, заявил Уиткофф",
+        "en": "Russia-US-Ukraine talks to be held in Abu Dhabi on November 10-11, Witkoff says"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2212141",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-zelensky-delegation-abu-dhabi",
+      "title": {
+        "ru": "Глава офиса Зеленского возглавит делегацию Киева на переговорах в Абу-Даби",
+        "en": "Zelensky's office head to lead Kiev's delegation to Abu Dhabi talks"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2213991",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "globe-melania-oleshky-ceasefire",
+      "title": {
+        "ru": "Мелания Трамп встретилась с представителями России и Украины в Белом доме в честь перемирия в Олешках",
+        "en": "Melania Trump joins Russia, Ukraine officials at White House event to mark Oleshky ceasefire"
+      },
+      "domain": "theglobeandmail.com",
+      "url": "https://www.theglobeandmail.com/world/article-melania-trump-putin-envoy-oleshky-ceasefire/",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-gaza-attacks-nov5",
+      "title": {
+        "ru": "Четверо погибших, включая ребёнка, в результате израильских ударов по Газе",
+        "en": "Four people, including a child, killed in Israeli attacks on Gaza"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/5/four-people-including-a-child-killed-in-israeli-attacks-on-gaza",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-alyoshki-mission-done",
+      "title": {
+        "ru": "Россия и Украина добросовестно выполнили миссию в Алёшках, заявила первая леди США",
+        "en": "Russia, Ukraine worked diligently to carry out Alyoshki mission — US First Lady"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2213513",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    }
+  ],
+  "rejected": [
+    {
+      "url": "https://www.defensenews.com/pentagon/2026/11/04/the-pentagon-needs-more-ammo-for-the-iran-war-small-communities-are-paying-the-price/",
+      "date": "2026-11-04",
+      "reason": "wrong-criterion"
+    },
+    {
+      "url": "https://www.aa.com.tr/en/europe/french-lawmakers-reject-2027-budget-revenue-section-with-no-votes-in-favor/4112402",
+      "date": "2026-11-05",
+      "reason": "weak"
+    },
+    {
+      "url": "https://eutoday.net/europes-russia-sanctions-enter-a-new-phase/",
+      "date": "2026-11-06",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.business-standard.com/external-affairs-defence-security/news/us-sanctions-indian-businessman-wife-for-helping-iran-evade-oil-curbs-126110500450_1.html",
+      "date": "2026-11-05",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.wionews.com/world/us-military-seizes-second-venezuela-linked-oil-tanker-in-caribbean-sea-1767797997464",
+      "date": "2026-11-06",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.seatrade-maritime.com/security/seafarer-fatality-reported-tanker-attack-in-the-gulf",
+      "date": "2026-11-06",
+      "reason": "duplicate"
+    },
+    {
+      "url": "https://www.reuters.com/world/middle-east/loud-booms-heard-saudi-capital-riyadh-after-early-warning-alert-issued-2026-11-08/",
+      "date": "2026-11-07",
+      "reason": "duplicate"
+    },
+    {
+      "url": "https://www.marketwatch.com/livecoverage/stock-market-today-dow-s-p-500-nasdaq-democrat-sweep-midterm-elections-rally/card/most-stocks-in-s-p-500-are-down-in-broad-market-selloff-79zlRlkSW5nl7bH6TwaB",
+      "date": "2026-11-05",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.indiatoday.in/world/story/melania-trump-to-host-russia-ukraine-delegates-at-white-house-after-oleshky-ceasefire-expires-3031649-2026-11-03",
+      "date": "2026-11-03",
+      "reason": "unavailable"
+    }
+  ]
+}
