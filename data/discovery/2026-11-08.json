@@ -1,0 +1,3056 @@
+{
+  "schema_version": 1,
+  "week": "2026-11-08",
+  "window": {
+    "from": "2026-11-01",
+    "to": "2026-11-08"
+  },
+  "blind": [
+    "D1.6",
+    "D2.4",
+    "D4.2",
+    "D5.3",
+    "D5.4",
+    "D6.4",
+    "D7.3",
+    "D8.4"
+  ],
+  "network": true,
+  "feed_scan": {
+    "window": {
+      "from": "2026-11-01",
+      "to": "2026-11-08"
+    },
+    "results": [
+      {
+        "id": "sd-balkaninsight",
+        "name": "Balkan Insight",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://balkaninsight.com/2026/11/06/arte-europe-weekly-how-europes-youth-are-rejecting-politics-as-usual/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/week-in-review-between-hope-and-apathy/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/with-change-of-power-serbia-can-reinvigorate-eu-accession-bid/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/turkey-arrests-former-minister-over-stock-market-fraud-scandal/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/serbias-anti-terrorism-unit-chief-detained-over-alleged-abuse-of-protesters/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/albanias-coordinator-the-rapid-rise-and-sudden-fall-of-ergys-agasi/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/serbian-presidents-controversial-last-minute-pardons-face-legal-challenges/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/transnistrias-separatist-leader-decorated-by-moscow-denounced-by-moldova/bi/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/06/democracy-digest-frenzied-searching-as-hungary-opens-communist-secret-service-files/rd/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/05/romania-restarts-nuclear-reactor-as-danube-river-levels-recover/bi/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/05/albania-fines-83-protesters-under-new-laws-targeting-anti-govt-rallies/bi/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/05/czech-foreign-policy-under-babis-a-shift-in-tone-but-in-what-direction/rd/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/05/french-election-could-stymie-eu-enlargement-into-balkans/bi/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/05/albanian-prosecution-urged-to-probe-pms-alleged-blackmail-of-jailed-mayor/bi/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/eu-hails-montenegros-progress-regrets-stagnation-in-much-of-balkans/bi/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/greek-american-becomes-first-openly-gay-us-senator/bi/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/kosovo-identifies-three-more-wartime-missing-persons/btj/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/crackdown-on-serbian-alta-bank-plunges-russians-into-financial-uncertainty/bi/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/scapegoats-accused-shooters-in-1992-sarajevo-execution-protest-innocence/btj/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/04/low-presidential-election-turnout-suggests-bulgarians-are-giving-up-on-politics/bi/",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/seven-arrested-in-international-investment-fraud-crackdown-in-balkans/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/serbia-detains-police-officials-over-abuse-of-position-torture-allegations/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/bosnian-serb-army-ex-members-jailed-for-83-years-for-sokolac-crimes/btj/btj-bosnia-and-herzegovina/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/jailed-albanian-mayor-accuses-pm-of-sending-threats-via-minister/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/albanian-journalists-complain-of-police-violence-abuse-during-anti-govt-protests/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/post-vucic-serbia-will-reengage-with-europe-but-it-will-not-be-a-honeymoon/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/03/waste-crisis-blights-kosovos-capital-and-its-mayors-political-ambitions/bi/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/serbia-bank-owner-arrested-following-licence-revocation/bi/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/romania-and-moldova-seal-first-joint-defence-procurement-deal/bi/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/polands-rule-of-law-crisis-deepens-as-rival-judges-claim-control-of-top-court/rd/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/bulgarias-presidential-election-winner-pledges-reset-with-russia/bi/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/monday-briefing-from-the-balkans-november-2-2026/bi/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/coal-plant-case-against-montenegro-still-open-despite-upgrade/bi/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/life-on-hold-polands-immigrants-face-years-waiting-for-residence-permits/rd/",
+            "date": "2026-11-02"
+          },
+          {
+            "url": "https://balkaninsight.com/2026/11/02/exhibition-in-kosovo-capital-asks-what-antifascism-means-today/btj/",
+            "date": "2026-11-02"
+          }
+        ]
+      },
+      {
+        "id": "sd-n1",
+        "name": "N1",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://n1info.rs/vesti/ana-brnabic-sednica-skupstine-17-novembra/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/region/autobus-iz-srbije-se-prevrnuo-u-hrvatskoj/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/kultura/humanitarna-knjizara-knjige-humanitarna-pomoc/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/biznis/minic-investitori-odlaze-jer-srbija-vise-nije-destinacija-obilne-jeftine-radne-snage/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/vjt-trazi-procesuiranje-osumnjicenih-zbog-pretnji-brankici-stankovic-na-utakmici/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/izgoreo-auto-pun-gajbica-sa-jabukama-na-pijaci-na-banjici/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/region/povredjeno-oko-20-putnika-srpskog-autobusa-koji-se-prevrnuo-u-hrvatskoj/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/studenti-o-ukidanju-presude-andreju-tanku-vazan-korak-ali-borba-se-nastavlja/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/fiktivno-i-partijsko-zaposljavanje-ko-treba-da-dobije-otkaz-a-ko-da-zadrzi-posao/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/petrovic-skero-ustavni-sud-moze-da-odlozi-pomilovanja-dok-ne-utvrdi-da-li-je-ispostovana-procedura/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/najave-emisija/novi-dan-sta-posle-dinstanja-gost-jovo-bakic/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/cuckovic-prva-masina-za-kopanje-na-trasi-metroa-vec-na-makisu-druga-stize-do-kraja-godine/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/britanski-ambasador-izbori-su-bili-zanimljivi-nismo-imali-kontakte-sa-studentskom-listom-sve-do-poslednjih-nedelja-kampanje/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/svet/video-jak-zemljotres-u-japanu-povredjene-22-osobe/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/automobil-udario-u-drvo-u-beogradu-zena-izletela-kroz-sofersajbnu/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/magazin/lifestyle/tiktok-trend-deca-groke-maskirane-osobe-plase-prolaznike-kako-utice-na-decu/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/izbori-za-savete-nacionalnih-manjina-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/magazin/lifestyle/kalabrija-italijanski-raj-koji-tek-ceka-srpske-turiste/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/magazin/lifestyle/mitrovdan-je-jedna-od-najcescih-slava-u-srbiji-najavljuje-kraj-jeseni-i-dolazak-zime/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/svet/brazilski-dominikanac-frei-beto-za-n1-levica-je-napustila-siromasne-a-desnica-naucila-da-osvaja-njihova-srca-i-umove/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/ovo-je-dobar-pocetak-istrage-ali-samo-pocetak-ko-je-sve-odgovoran-za-smrt-dalibora-dragijevica-u-policijskoj-stanici/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/magazin/cooking/jednostavan-recept-za-domace-vanilice-koje-se-tope-u-ustima/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/vremenska-prognoza-8-novembar-2026-godine/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/na-danasnji-dan-8-novembar-2026-godine/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://n1info.rs/vesti/u-nedelju-izmene-na-vise-trolejbuskih-linija-zbog-radova-u-zickoj-u-beogradu/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/pozarevacki-studenti-tvrde-da-su-uocili-nepropisno-bacanje-izbornog-materijala/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/francuski-predsednicki-kandidat-melanson-obecao-ekonomski-podsticaj-i-pozvao-na-izlazak-iz-nato/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/magazin/zdravlje/istrazivanja-pokazuju-da-osam-sati-sna-nije-idealno-za-svakoga/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/magazin/lifestyle/u-siriji-uhvacena-zora-zenka-beloglavog-supa-iz-srbije-otmicari-traze-novac-da-bi-pustili-pticu/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/posle-izbora-na-novom-zelandu-konzervativci-u-maloj-prednosti-opstanak-njihove-vlade-neizvestan/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/u-kuci-napadaca-iz-krakova-nadjena-tela-mrtvog-muskarca-i-dve-zene/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/sanu-preminuo-akademik-ljubomir-maksimovic/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/magazin/showbiz/snima-se-nova-naucnofantasticna-serija-o-vestackoj-inteligenciji-koja-se-okrece-protiv-ljudi/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/poljski-ministar-napadac-iz-krakova-imao-vrlo-radikalne-poglede-nema-osnova-da-mislimo-da-ih-je-bilo-vise/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/biznis/novi-klijenti-na-bankarskom-trzistu-kako-dobiti-kredit-bez-srpskog-pasosa/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/magazin/lifestyle/najmisteriozniji-horoskopski-znak-tesko-ga-je-procitati/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/program-studentske-liste-dupliracemo-vojni-budzet-bice-pet-odsto-bdp/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/visi-sud-u-beogradu-usvojio-zalbu-vjt-a-u-slucaju-marka-kricka-i-sekulovica/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/bivsi-zaposleni-euronews-srbija-minja-miletic-i-dragana-pejovic-odgovorne-za-sistematske-pritiske-na-novinare-urusavanje-profesionalnih-standarda-i-diskreditaciju-brenda-en/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/krusevacka-policija-uhapsila-dvojicu-osumnjicenih-za-trgovinu-kokainom/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/predsednik-izraela-poverio-ajzenkotu-mandat-za-formiranja-nove-vlade/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/video/crvena-linija/crvena-linija-o-funkcionisanju-institucija-u-postizbornom-periodu-u-zemljama-regije/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/od-prisluskivanja-do-sumnji-u-prikrivanje-tragova-hoce-li-tuzilastvo-ispitati-direktora-bia/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/javna-rasprava-o-nacrtu-kragujevackog-budzeta-postom-i-imejlom/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/u-krakovu-posle-pucnjave-dani-zalosti-do-11-novembra-za-sestoro-ubijenih/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/svet/u-pojasu-gaze-zbog-jake-kise-poplavljeno-nekoliko-hiljada-satora-raseljenih-lica/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/valjevo-vlada-jerinic-studenti-prebijanje-smena/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/video/dnevnik/dnevnik-u-19-6112026/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/vesti/u-sudaru-kod-zrenjanina-jedna-osoba-poginula-jedna-povredjena/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://n1info.rs/region/madjarska-policija-drzavljanin-srbije-pokusao-da-predje-granicu-sa-falsifikovanim-pasosem/",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-danas",
+        "name": "Danas",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/bakic-ozbiljno-sam-se-pripremao-za-mup-ali-to-je-samo-moja-zelja-odluke-jos-nema/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/bbc-news-serbian/dvoje-poginulo-u-prevrtanju-autobusa-sa-srpskim-registracijama-na-autoputu-ka-zagrebu/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/pijanista-treci-put-izlaze-u-veneciji-crna-traka-zalosti-republike/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/svet/ko-je-stiven-miler/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/politika/britanski-ambasador-cestitamo-studentskoj-listi-na-pobedi-nadamo-se-brzoj-i-mirnoj-primopredaji-vlasti/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/svet/prevrnuo-se-srpski-autobus-u-hrvatskoj/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/fond-za-humanitarno-pravo-oslobadjajuca-presuda-preniciju-za-raseljavanje-srpskog-stanovnistva-u-obilicu/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/da-li-ste-znali-da-je-poceo-oktobarac/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/politika/studenti-andrej-tanko-presuda/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/vjt-trazi-identifikaciju-osoba-koje-su-na-utakmici-pretile-brankici-stankovic/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/ekonomija/minic-o-odlasku-investitora-srbija-vise-nije-destinacija-sa-obilnom-i-jeftinom-radnom-snagom/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/nikola-radosavljevic-pobednik-konkursa-za-najbolji-crtez-fondacije-vladimir-velickovic-i-poslednje-ucesce-galerije-haos-u-ovom-projektu/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/svet/sta-je-muska-drzava-koja-se-navodno-dovodi-u-vezu-s-pretnjama-bombama-u-avionima/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/bbc-news-serbian/zasto-je-sestra-obolela-od-sizofrenije-a-ja-nisam-visegodisnja-potraga-za-odgovorima/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/petrovic-skero-ustavni-sud-moze-da-odlozi-pomilovanja-dok-ne-utvrdi-da-li-je-ispostovana-procedura/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/svet/poljska-trazi-odgovore-nakon-masovne-pucnjave-otkriveni-novi-detalji-stravicnog-napada/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/reflektor-teatar-uskoro-otvaranje-sarajevska-82-podrska-gradjana/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/epsko-razgrtanje-mrknila-vucijoj-seni-veselina-cajkanovica-aleksandar-stamenkovic-rusalka/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/ekonomija/cuckovic-prva-masina-za-kopanje-na-trasi-metroa-vec-na-makisu-druga-stize-do-kraja-godine/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/zivot/piletina-u-lovackom-sosu-recept-2/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/svet/netanjahuov-protivnik-dobio-mandat-za-formiranje-vlade-ajzenkot-blizu-premijerske-funkcije/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/amss-mraz-i-niske-temperature-uzrok-klizavih-kolovoza-saobracaj-ce-biti-pojacan-popodne/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/jutro-hladno-uvece-moguca-kisa-do-13-stepeni/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/politika/izbori-za-clanove-nacionalnih-saveta-nacionalnih-manjina/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/zivot/pica-pita-recept-3/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/70-godina-filma-deset-zapovesti/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/ekonomija/studentska-lista-najavljuje-ulaganje-od-dva-odsto-bdp-a-u-nauku-analiza-na-osnovu-iskustva-eu-ukazuje-zasto-to-ne-garantuje-veci-privredni-rast/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/kolumna/aleksej-kisjuhas/studentska-galaksija/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/zivot/mitrovdan-slava-praznik-obicaji/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/4078321/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/zivot/tehnologije/tik-tok-optuzen-da-pomaze-u-promovisanju-pornografije-medju-devojcicama/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/u-sad-vise-od-5-000-slucajeva-malih-boginja-najveci-broj-u-poslednjih-35-godina/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/u-krakovu-ljude-je-ubijao-mihal-o-mladi-poljak-i-desnicarski-ekstremista/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/predsednik-poljske-proglasio-dva-dana-zalosti-zbog-masakra-u-krakovu/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/od-politike-do-rijalitija-kada-gradjani-postanu-publika/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/sport/vladimir-micov-zeljko-obradovic-partizan/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/zalba-vjt-kricak-sekulovic-pritvor/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/sindikat-medijskih-radnika-rts-dacic-mali-hapsenja/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/francuski-predsednicki-kandidat-melanson-obecao-ekonomski-podsticaj-i-pozvao-na-izlazak-iz-nato-a/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/politika/program-studentske-liste-dupliracemo-vojni-budzet-bice-pet-odsto-bdp-a/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/dijalog/licni-stavovi/dnevnik-mirjana-nikolic-tri-poljupca-korac/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/sport/notingem-forest-mancester-siti-premijer-liga/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/u-krakovu-posle-pucnjave-dani-zalosti-do-11-novembra-za-sestoro-ubijenih/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/sport/bogoljub-markovic-milvoki-baks-razvojna-liga/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/vesti/drustvo/omladinski-kosarkacki-klub-konstantin-ciji-je-celnik-uhapsen-iz-niskog-budzeta-dobio-425-000-evra-sta-pokazuju-najnovija-dokumenta/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/kultura/10-filmova-hbo-max-odlicne-ocene/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/kolumna/marko-selic-marcelo/pravo-na-zlocin/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/zivot/u-ptuju-smo-upoznali-kurente/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/bbc-news-serbian/masovna-pucnjava-u-krakovu-sta-do-sada-znamo/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.danas.rs/svet/sirija-salje-hiljade-vojnika-u-jemen-afp-tvrdi-da-su-stotine-vec-na-terenu-damask-demantuje/",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-vijesti",
+        "name": "Vijesti",
+        "region": "balkans",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.vijesti.me/bbc/835349/zasto-je-sestra-obolela-od-sizofrenije-a-ja-nisam-visegodisnja-potraga-za-odgovorima",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835344/jovanovic-odao-pocast-srpskoj-oslobodilackoj-vojsci-gradimo-budvu-dostojnu-svoje-istorije-i-sigurne-buducnosti",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835348/mikijelj-na-mitrovdan-8-novembra-1918-godine-je-pobjednicka-srpska-vojska-na-donijela-dugo-sanjanu-slobodu",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/evropa/835347/kremlj-nije-uznemiren-da-bi-se-mogla-osjetiti-veca-podrska-ukrajini-kada-demokrate-preuzmu-kontrolu-nad-kongresom",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/globus/835333/ministarstvo-administrativna-zgrada-saudi-aramka-u-rijadu-ostecena-usljed-pada-krhotina-nakon-pokusaja-napada",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/evropa/835345/u-poljskoj-zalost-zbog-masakra-u-krakovu-gradovi-pojacavaju-mjere-bezbjednosti",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/zabava/gaming/835340/nova-kriminalisticka-igra-podijelila-steam-zajednicu",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/sport/kosarka/835346/rapsodija-stefa-karija-ugasila-orlando-vucevic-ponovo-bez-poena",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/sport/rukomet/835338/lavovi-pod-ogromnim-pritiskom-farska-ostrva-su-vaznija-od-madjarske",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835342/akcija-na-trajektu-ruka-pravde-prikupljene-42-jedinice-krvi",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/ekonomija/835341/kordic-i-santander-evropski-put-crne-gore-ce-dodatno-podici-standarde-i-kvalitet-usluge-u-turizmu",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/balkan/835339/hrt-autobus-sa-srpskim-tablicama-prevrnuo-se-kod-zagreba-dvije-osobe-poginule-vise-tesko-povrijedjenih",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/tv/emisije/835337/boje-jutra-ko-je-sve-meta-sajber-napada",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/globus/835335/jak-zemljotres-pogodio-centralni-japan-povrijedjene-najmanje-22-osobe",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/zabava/muzika/835336/hit-dzastina-timberlejka-ipak-nije-posvecen-britni-spirs",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/sport/fudbal/835324/barsa-u-madridu-mec-koji-treba-da-pokaze-koliko-je-atletiko-ozbiljan",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/tv/filmovi/835334/euforija-dirljiva-prica-o-bratskoj-ljubavi-zivotnim-izazovima-i-drugim-sansama",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/kultura/835332/pet-sf-serija-koje-vrijedi-pogledati-od-korporativne-distopije-do-putovanja-kroz-vrijeme",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835331/sindikalna-organizacija-zaposlenih-zhmp-tuzilastvo-da-reaguje-bez-odlaganja-povodom-napada-na-ljekara",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/evropa/835330/mjestani-turskih-sela-traze-od-lidera-na-cop31-da-se-licno-uvjere-u-razmjere-razaranja-izazvanih-eksploatacijom-uglja",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/zabava/film-tv/835329/dzenifer-koneli-nije-zeljela-da-bude-samo-lijepo-lice",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835328/cgo-posebno-brine-sto-premijer-milojko-spajic-nije-osudio-velicanje-ratka-mladica",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/lifestyle/horoskop/835327/dnevni-horoskop-za-nedjelju-8-novembar-2026",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/zabava/muzika/835326/lorin-hil-sumnjala-u-uspjeh-svog-kultnog-albuma",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/ekonomija/835320/po-100-eura-za-ljekove-za-237-penzionera-opstina-bar-uvodi-novu-mjeru-podrske-penzionerima-s-najnizim-primanjima",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/vijesti/drustvo/835319/ruinirana-kuca-junaka-spomen-kompleks-na-strazici-ceka-bolje-dane-i-sanaciju",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/zabava/showbizz/835325/ijan-gilan-se-uspjesno-oporavlja-nakon-zahvata",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/globus/835280/bliski-istok-ce-platiti-cijenu-trampovog-poraza",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/svijet/evropa/835226/marsej-izmedju-kriminala-i-makronovih-milijardi",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.vijesti.me/naslovne-strane/835318/naslovna-strana-vijesti-za-8-novembar-2026-godine",
+            "date": "2026-11-08"
+          }
+        ]
+      },
+      {
+        "id": "sd-belta",
+        "name": "БелТА",
+        "region": "russia-belarus",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://belta.by/culture/view/ja-schastlivyj-chelovek-narodnaja-artistka-ljudmila-lavrinovich-o-glavnyh-roljah-i-glavnyh-gerojah-809917-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/world/view/troe-voennyh-pogibli-iz-za-ataki-bpla-na-bazu-v-kolumbii-809921-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/pertsov-na-chempionate-po-kolke-drov-s-kazhdym-godom-masterstvo-rastet-809920-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/kaleidoscope/view/solntse-7-nojabrja-povtorilo-rekord-809919-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/economics/view/belaes-summarno-vyrabotala-70-mlrd-kvtch-elektroenergii-809918-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/president/view/lukashenko-vyrazil-soboleznovanija-narodu-polshi-v-svjazi-s-teraktom-v-krakove-809916-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/regions/view/stolichnye-pravoohraniteli-zaderzhali-zakladchika-internet-narkoshopa-809915-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/lajfhaki-dlja-predrikov-chemu-v-shklovskom-rajone-uchat-mestnuju-vertikal-so-vsej-strany-809914-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/dlja-mira-v-ukraine-minsk-gotov-sdelat-vse-igor-korol-809913-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/kaleidoscope/view/narodnyja-prykmety-listapada-jakimi-809912-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/v-belarusi-nochjju-i-utrom-9-nojabrja-mestami-ozhidaetsja-slabyj-gololed-809911-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/spasibo-chto-podderzhivaete-trend-zadannyj-prezidentom-ejsmont-poprivetstvovala-uchastnikov-809910-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/brestskie-tamozhenniki-obnaruzhili-nezakonno-vvezennuju-partiju-tovarov-na-500-tys-rublej-809909-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/nasha-shkola-zasluzhenno-javljaetsja-luchshej-v-mire-glava-nok-pozdravil-batutistov-s-shestjju-809908-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/gosudarstvo-dlja-naroda-kakie-prioritety-na-pjatiletku-opredelili-delegaty-iii-vns-809907-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/topor-brevna-i-komandnyj-duh-chempionat-po-kolke-drov-sredi-smi-prohodit-v-minskom-rajone-809906-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/v-chempionat-po-kolke-drov-sredi-smi-prohodit-na-beregu-vodohranilischa-vjacha-809905-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/kostjuk-zamenit-rybakinu-na-itogovom-turnire-wta-v-indian-uellse-809904-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/president/view/lukashenko-zaintrigoval-komu-dostanetsja-ego-rabochij-topor-s-avtografom-809903-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/world/view/eks-glavu-tsentrobanka-paragvaja-zakljuchili-pod-strazhu-809902-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/world/view/politsija-nashla-v-dome-streljavshego-v-krakove-esche-tri-trupa-809901-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/regions/view/ukrashenija-i-ugoschenija-katok-mini-kinoteatr-zimnie-jarmarki-v-breste-zarabotajut-v-nachale-dekabrja-809900-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/regions/view/hranitel-istorii-bessmertnogo-podviga-k-70-letiju-muzeja-oborony-brestskoj-kreposti-geroja-809899-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/borikov-s-peredachi-moroza-zabrosil-v-ahl-i-stal-vtoroj-zvezdoj-matcha-tusona-809898-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/litvinovich-vpervye-v-karjere-stal-chempionom-mira-v-lichnom-zachete-809897-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/hokkeisty-minskogo-dinamo-na-vyezde-sygrajut-s-sochi-809896-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/sport/view/bordilovskaja-zavoevala-serebro-chm-v-individualnyh-pryzhkah-na-batute-809895-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/incident/view/v-lide-na-mini-rynke-gorelo-14-torgovyh-paviljonov-809894-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/society/view/do-8s-ozhidaetsja-segodnja-v-belarusi-809893-2026/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://belta.by/president/view/lukashenko-pozdravil-narodnuju-artistku-belarusi-ljudmilu-lavrinovich-s-jubileem-809657-2026/",
+            "date": "2026-11-08"
+          }
+        ]
+      },
+      {
+        "id": "sd-moldova",
+        "name": "Moldova.org",
+        "region": "ukraine-moldova",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.moldova.org/black-friday-pe-nativ-md-reduceri-de-pana-la-50-si-iphone-18-pro-la-pret-special/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.moldova.org/its-a-girl-cinci-scurtmetraje-moldovenesti-cinci-istorii-feminine-la-cinema-odeon/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://www.moldova.org/festivalul-international-classfest-acting-lab-2026-editia-a-xv-a/",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://www.moldova.org/de-la-decizii-curajoase-la-afaceri-de-durata-antreprenorii-se-intalnesc-la-empower-locals-2026/",
+            "date": "2026-11-02"
+          }
+        ]
+      },
+      {
+        "id": "sd-baltictimes",
+        "name": "The Baltic Times",
+        "region": "baltic",
+        "kind": "rss",
+        "status": "blocked",
+        "links": []
+      },
+      {
+        "id": "sd-nrk",
+        "name": "NRK",
+        "region": "eu-north-europe",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.nrk.no/nyheter/polen-starter-terror-etterforskning-av-skyting-i-krakow-1.18076771",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/atomkraftverket-zaporizjzja-ma-bruke-nodstrom-1.18076754",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/21-omkomne-etter-at-bat-sank-utenfor-senegal-1.18076721",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/600.000-uten-strom-ost-i-ukraina_-ifolge-energiselskap-1.18076700",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/bolig-i-kristiansand-totalskadd-etter-brann-1.18076698",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/falsk-flyalarm-nord-i-israel-1.18076697",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/tenaringer-angrep-politiet-pa-finnsnes-1.18076695",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/melding-om-vapentrussel-pa-fest-i-stavanger-1.18076694",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/e6-apnet-igjen-etter-alvorlig-ulykke-1.18076693",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/paven-ber-unge-om-a-stifte-familie-1.18076692",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/flere-skadet-etter-kraftig-jordskjelv-sentralt-i-japan-1.18076688",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/brite-drept-og-flere-utlendinger-saret-i-krakow-1.18076686",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/store_-_-vi-star-sammen-i-solidaritet-med-polen-1.18076673",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/hendelse-mellom-lasteskip-og-militaere-i-omanbukta-1.18076664",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/dana-white-takker-nei-til-a-bli-trumps-pressesekretaer-1.18076663",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/eisenkot-far-i-oppdrag-a-danne-regjering-i-israel-1.18076617",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/trump-tilbyr-dana-white-jobben-som-pressetalsperson-1.18076605",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/nye-masseprotester-i-frankrike-1.18076589",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/nyheter/flere-titusen-telt-rammet-av-flom-pa-gaza-1.18076476",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.nrk.no/buskerud/trafikkuhell-pa-e18-_-store-materielle-skader--1.18076584",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-civilge",
+        "name": "Civil Georgia",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://civil.ge/archives/757368",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://civil.ge/archives/757531",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://civil.ge/archives/756748",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://civil.ge/archives/756786",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://civil.ge/archives/756741",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://civil.ge/archives/756685",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://civil.ge/archives/756679",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://civil.ge/archives/756597",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://civil.ge/archives/756569",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://civil.ge/archives/756544",
+            "date": "2026-11-03"
+          }
+        ]
+      },
+      {
+        "id": "sd-ocmedia",
+        "name": "OC Media",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://oc-media.org/tbilisi-mayor-kaladze-says-animal-rights-activists-should-be-put-to-sleep/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/azerbaijani-ngos-send-open-letter-to-iranian-embassy-prompting-backlash/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/former-armenian-ruling-party-mp-elected-president-of-constitutional-court/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/you-cant-fire-me-i-quit-infighting-among-georgian-opposition-continues/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/opinion-georgian-dream-committed-to-the-eu-but-not-to-anything-it-asks/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/friday-6-november-2026/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/galt-taggart-publishes-new-research-on-armenias-economy-expanding-its-regional-coverage/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://oc-media.org/a-community-in-crisis-how-queer-activism-in-georgia-is-clinging-on/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/georgian-opposition-party-droa-declared-undesirable-in-russia/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/opinion-can-serbia-and-hungary-offer-a-mirror-to-georgians/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/will-the-blue-tsunami-reach-the-caucasus/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/explainer-what-could-the-us-midterms-mean-for-the-caucasus/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/review-national-exams-finding-hope-for-the-future-among-georgias-youth/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/ngos-sound-alarm-as-georgias-government-makes-challenging-election-results-harder/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/armenian-opposition-forms-alliance-against-plan-to-amend-constitution-following-karapetyan-arrest/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://oc-media.org/finnish-court-sentences-azerbaijani-sailor-to-three-years-over-undersea-cable-damage/",
+            "date": "2026-11-05"
+          }
+        ]
+      },
+      {
+        "id": "sd-reportaz",
+        "name": "Report.az",
+        "region": "south-caucasus",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://report.az/en/foreign-politics/turkiye-s-interior-ministry-congratulates-azerbaijan-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/cavusoglu-congratulates-azerbaijan-on-sixth-anniversary-of-victory",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/erdogan-arrives-in-azerbaijan-on-official-visit",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/mukhtar-babayev-heads-to-cop31-to-advance-implementation-of-baku-decisions",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/media/inoltre-azerbaijan-s-victory-in-garabagh-opens-up-new-prospects-for-regional-cooperation",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/tokayev-azerbaijan-s-policy-aimed-at-strengthening-peace-in-south-caucasus-enjoys-support-of-international-community",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/president-of-kazakhstan-congratulates-ilham-aliyev-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/ilham-aliyev-thanks-pakistani-prime-minister-for-victory-day-congratulations",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/ecology/rain-and-stronger-winds-forecast-for-baku-and-absheron",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/military/commander-of-land-forces-hikmat-mirzayev-meets-with-children-of-martyrs",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/ilham-aliyev-azerbaijanism-is-the-ideology-that-moves-us-forward",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/turkiye-s-ministry-of-national-defense-congratulates-azerbaijan-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/foreign-politics/ukrainian-ambassador-azerbaijan-s-victory-day-symbolizes-justice",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/ilham-aliyev-reveals-location-of-victory-museum-in-khankendi",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/president-war-criminals-have-received-their-deserved-punishment",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/president-by-armenian-leadership-s-own-admission-there-were-nearly-12-000-deserters-in-armenian-army",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/president-azerbaijan-would-never-accept-the-occupation",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/president-armenia-did-nothing-but-plunder-azerbaijan-s-natural-resources-during-occupation",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/ilham-aliyev-the-enemy-was-crushed-on-the-battlefield",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/president-ilham-aliyev-songratulates-azerbaijani-people-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/ecology/snowfall-hits-dashkasan-kalbajar-and-shahdag-latest-weather-update",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/martyrs-commemorated-in-nakhchivan-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/kindergarten-shildren-selebrate-victory-day-in-khankandi",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/individual/azerbaijani-athletes-win-gold-at-hungarian-artistic-swimming-cup",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/kamran-aliyev-and-senior-prosecutors-visit-victory-arch-monument",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/tourism/japan-launches-azerbaijan-tours-inspired-by-hit-tv-series-vivant",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/allahshukur-pashazada-and-representatives-of-other-religious-denominations-visit-triumphal-arch-monument",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/karabakh/media-tour-to-shusha-organized-for-azerbaijani-and-turkish-media-representatives-on-victory-day",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/rashad-nabiyev-victory-day-symbolizes-the-unity-and-heroism-of-azerbaijani-people",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://report.az/en/domestic-politics/defence-ministry-leadership-pays-tribute-to-heydar-aliyev-and-martyrs-on-victory-day",
+            "date": "2026-11-08"
+          }
+        ]
+      },
+      {
+        "id": "sd-ferghana",
+        "name": "Ferghana.ru",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://ferghana.ru/news/34463",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34462",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34461",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34460",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/articles/10310",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34459",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34458",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34457",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34456",
+            "date": null
+          },
+          {
+            "url": "https://ferghana.ru/news/34453",
+            "date": null
+          }
+        ]
+      },
+      {
+        "id": "sd-astanatimes",
+        "name": "Astana Times",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://astanatimes.com/2026/11/three-kazakh-traditions-move-closer-to-unesco-recognition/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstans-snow-leopard-population-doubles-as-scientists-begin-tracking-altai/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstan-tajikistan-expand-trade-and-economic-cooperation/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/us-chevron-extend-initiative-bringing-steam-education-to-kazakh-youth/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstans-autumn-skies-come-alive-with-migrating-birds/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/news-digest-foreign-media-on-kazakhstans-ai-ambitions-football-global-trade-and-water-challenges/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstan-unodc-discuss-stronger-cooperation-against-transnational-crime/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstan-to-hold-biennial-symposia-on-al-farabi-and-yasawi-heritage-vice-president-says/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/november-weekend-highlights-from-giselle-to-hollywood-soundtracks/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://astanatimes.com/2026/11/kazakhstans-cities-are-growing-are-their-economies-keeping-pace/",
+            "date": "2026-11-06"
+          }
+        ]
+      },
+      {
+        "id": "sd-uza",
+        "name": "UZA",
+        "region": "central-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://uza.uz/oz/posts/yangi-ozbekistonda-inson-qadri-uning-sogligi-va-hayoti-har-narsadan-ustun_934293",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/legionerlarimiz-shomurodovning-jamoasi-safarda-galaba-qozondi-husanovning-sitisi-yana-maglub-boldi-traktorda-galaba-istiqlolda-durang_934287",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/yangi-rekordlar-va-unutilmas-lahzalarni-hadya-etgan-prezident-olimpiadasi-chinakam-dostlik-bayramiga-aylandi_934276",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/superliga-navbahor-galaba-qozonib-neftchiga-yaqinlashdi_934268",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/shanxayda-made-in-uzbekistan-mahsulotlari-namoyishi_934267",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/konstitutsiya-inson-qadri-uluglangan-erkin-hayot-va-yangi-kelajak-poydevori_934265",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/qutqaruvchilarni-tayyorlash-texnikumi-tashkil-etiladi_934263",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/bolajak-diplomatlar-uchun-diplomatik-izohli-lugat-taqdim-etildi_934261",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/madaniyat-sohasidagi-nufuzli-tanlov-goliblariga-pul-mukofoti-beriladi-video_934259",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/tibbiyot-fidoyisi-respublika-tanlovi-goliblari-taqdirlandi_934257",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/bir-asar-mutolaasi-ortidan-chet-davlatlarga-sayohat-yollanmasini-olgan-yoshlar_934245",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/pekinda-global-media-muloqoti-davom-etmoqda_934243",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/klassik-musiqa-tinglaydigan-aqlli-ferma-yoxud-xomashyodan-tayyor-mahsulotgacha-bolgan-zanjir_934241",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/samarkand-marathon-2026-bolalar-bahsi-bilan-boshlandi_934237",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/psj-va-dembele-yangi-shartnoma-boyicha-kelishuvga-yaqin_934239",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/ozbekiston-sogliqni-saqlash-sohasi-xodimlariga_934233",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/prezident-olimpiadasi-sport-musobaqalarining-goliblari-va-ishtirokchilariga_934226",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/yashil-makon-ning-kuzgi-mavsumi-boshlandi_934223",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/habib-nurmagomedov-ronalduning-terma-jamoadan-ketishiga-munosabat-bildirdi_934231",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://uza.uz/oz/posts/ozbek-alifbosidagi-ozgarishlar-muhokama-markazida_934221",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-almonitor",
+        "name": "Al-Monitor",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/riyadh-financial-district-targeted-aramco-tower-damaged-witnesses",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/turkish-villagers-demand-cop31-leaders-see-themselves-devastation-caused-coal",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/turkeys-cop31-message-electrify-recycle-dont-mention-coal",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/us-military-says-it-disabled-cargo-vessel-gulf-oman",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/saudi-civil-defence-gives-all-clear-after-alerts-eastern-province",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/houthi-run-health-ministry-says-airstrikes-kill-33-near-yemen-capital",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/israeli-president-picks-gadi-eisenkot-netanyahu-rival-try-form-government",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/israel-president-taps-eisenkot-form-new-government",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/thousands-syrian-troops-deploy-yemen-saudi-arabia-sources-afp",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/marc-marquez-has-shot-eighth-motogp-title-after-qatar-sprint-win-0",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/marc-marquez-has-shot-eighth-motogp-title-after-qatar-sprint-win",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/syria-denies-plans-send-troops-yemen-saudi-military-ties-deepen",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/heavy-rains-leave-tens-thousands-without-shelter-gaza-local-authorities",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/heavy-rain-floods-tents-housing-gaza-displaced-people-aid-shortages-hamper",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/expanding-naval-blockade-us-military-looks-restrict-iranian-land-commerce",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/son-irans-ousted-shah-takes-controversial-prize",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/cop31-comes-turkey-satellites-reveal-landfill-methane-problem",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/iran-says-forces-stronger-beginning-war",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/qatar-says-its-mediation-efforts-between-us-and-iran-continue-prevent-escalation",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.al-monitor.com/originals/2026/11/us-offers-20-mn-reward-info-irans-nuclear-program-centcom",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-guardian-me",
+        "name": "The Guardian (Ближний Восток)",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.theguardian.com/commentisfree/2026/nov/08/donald-trump-power-russia-israel-us-president",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/israel-president-gadi-eisenkot-form-government",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/law/2026/nov/07/court-of-appeal-rules-kidnap-for-ransom-libya-exploitation-trafficking-victims-asylum-seeker-home-office",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/israel-intelligence-cisco-gaza-palestine",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/strait-of-hormuz-qatar-plan-iran-nuclear-inspections",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/us-midterm-results-may-help-unite-israeli-coalition-to-unseat-netanyahu",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/us-carries-out-another-round-of-minor-strikes-on-iran-trump-says",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/06/israels-election-and-self-definition-invite-questions",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/06/uncertainty-iran-donald-trump-midterms-defeat-war-repression",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/commentisfree/2026/nov/06/us-midterms-democratic-party-israel-support",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/herzog-netanyahu-eisenkot-israel-election-decision",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/russia-agreed-to-supply-iran-90-helicopter-missile-launchers",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/yemen-president-sacks-ministers-and-officers-houthis",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/1956-suez-crisis-guardian-reports",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/south-korea-to-expand-anti-piracy-unit-strait-of-hormuz",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/australia-news/2026/nov/04/food-grown-in-settlements-west-bank-sold-in-australia-produce-of-israel-ntwnfb",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/2026/nov/04/israel-relationship-midterm-elections",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/news/2026/nov/04/win-or-lose-inside-the-6-november-guardian-weekly",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/2026/nov/04/joy-iran-trump-defeat-us-midterm-elections-war",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/04/israel-election-commission-rejects-netanyahu-claims-voting-fraud",
+            "date": "2026-11-04"
+          }
+        ]
+      },
+      {
+        "id": "sd-timesofisrael",
+        "name": "The Times of Israel",
+        "region": "middle-east",
+        "kind": "rss",
+        "status": "blocked",
+        "links": []
+      },
+      {
+        "id": "sd-africanews",
+        "name": "Africanews",
+        "region": "africa",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "http://www.africanews.com/2026/11/08/egypt-reopens-embassy-in-libya-as-it-seeks-to-rebuild-energy-ties-with-tripoli/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/08/gambias-opposition-leader-bensouda-files-for-presidential-election-despite-abuse-allegatio/",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/poland-footage-shows-people-taking-cover-as-a-gunman-opens-fire-in-krakow/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/ukraine-russian-strikes-hit-kyiv-region-damaging-infrastructure/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/heavy-rains-leave-tens-of-thousands-without-shelter-in-gaza/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/pope-leo-begins-south-america-tour-in-fairly-good-shape-after-cancer-treatment/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/coalition-battles-ahead-in-key-south-african-cities-as-vote-counting-wraps-up/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/paraguay-vp-alliana-sworn-is-as-president-after-predecessor-impeached/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/tanzanian-opposition-celebrates-victorious-day-after-leader-avoids-death-penalty/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/07/political-chaos-in-somalia-after-court-ruling-against-presidents-term-extension/",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/morocco-marks-anniversary-of-western-sahara-occupation-as-un-mission-ends/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/kenya-sentencing-of-cult-leader-mackenzie-draws-mixed-reactions/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/switzerland-giant-banner-targets-big-tech-outside-data-centre-site/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/un-says-struggling-to-help-millions-fleeing-sudan-war-find-shelter/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/dakar-2026-china-tops-medal-count-as-south-africa-egypt-win-gold/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/spain-vintage-cars-hit-the-streets-of-almeria-for-annual-rally/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/china-and-gabon-boost-ties-during-oligui-nguemas-state-visit-to-beijing/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/unicef-children-at-risk-of-disease-and-violence-from-rise-in-attacks-on-water-systems/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/museum-focused-on-jewish-moroccan-heritage-opens-in-fez/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/first-results-show-south-africas-anc-headed-to-all-time-election-low-with-32/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/kenyan-doomsday-cult-leader-sentenced-to-200-years-in-prison-for-murder-of-191/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/netherlands-protesters-storm-amsterdam-data-centre-construction-site/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/pix-of-the-day-6th-november-2026-across-the-world/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/tanzania-opposition-leader-jailed-for-four-years-after-treason-acquittal/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/uk-thousands-gather-as-london-switches-on-its-christmas-lights/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/garbage-piles-up-in-guineas-capital-after-dump-closure/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/guinea-bissau-cancels-controversial-us-funded-hepatitis-b-vaccine-trial/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/trump-denounces-crooked-us-midterms-after-republican-debacle/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/japan-commuters-flock-to-see-two-goats-grazing-at-tokyo-station/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/arab-parties-back-eisenkot-as-israel-faces-coalition-deadlock/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/russia-ukraine-escalate-mutual-strikes-in-black-sea-ahead-of-abu-dhabi-talks/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/tanzania-opposition-leader-tundu-lissu-awaits-verdict-in-treason-trial/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/transition-to-renewable-energy-key-issue-at-cop-31-talks/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/kenyan-cult-leader-faces-death-sentence-over-child-murders/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/paraguay-thousands-protest-banking-scandal-as-president-faces-impeachment/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/atikus-candidacy-in-doubt-after-nigerian-court-ruling/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/06/refugee-team-competes-at-senegals-first-youth-olympics/",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/west-bank-palestinians-harvest-olives-under-israeli-military-restrictions/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/egypt-army-says-hundreds-of-illegal-gold-miners-arrested/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/spain-zelensky-urges-latin-america-to-help-repair-ukraines-power-grid/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/fighting-wont-stop-ethiopia-clashes-drive-thousands-into-kenya/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/moonshot-2026-experts-call-for-urgent-reforms-to-unlock-intra-african-tradebusiness-africa/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/guinea-expels-burkinabe-gold-miners-draws-ougadougous-fury/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/greece-students-march-in-athens-demanding-more-education-funding/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/nigerian-court-nullifies-atiku-abubakars-presidential-candidacy/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/commonwealth-leaders-welcome-uk-dialogue-on-harms-of-transatlantic-slave-trade/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/cristiano-ronaldo-announces-international-retirement-from-portugal/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/experts-gather-in-namibia-for-nuclear-test-verification-exercise/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/extension-of-mohamuds-presidential-term-unlawful-somalias-supreme-court-rules/",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "http://www.africanews.com/2026/11/05/a-theatre-festival-in-moroccos-capital-celebrates-six-women-directors/",
+            "date": "2026-11-05"
+          }
+        ]
+      },
+      {
+        "id": "sd-premiumtimes",
+        "name": "Premium Times",
+        "region": "africa",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.premiumtimesng.com/business/business-news/923676-baze-university-acquires-two-aircraft-as-founder-expands-aviation-education.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923668-gift-orban-overtakes-victor-osimhen-in-turkish-super-lig-golden-boot-race.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923659-first-lady-celebrates-flamingos-after-historic-u-17-world-cup-title-win.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/news/more-news/923644-nersi-serap-urges-fg-to-disclose-details-of-beneficiaries-of-n50000-relief-payment.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923646-u-17-womens-world-cup-flamingos-coach-reveals-philosophy-behind-nigerias-historic-win.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923647-fifa-u17-womens-world-cup-triumph-dikko-olopade-ahmadu-reward-flamingos.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/investigationspecial-reports/923621-kogi-announces-%e2%82%a67-billion-upgrade-of-phcs-but-wont-provide-details-while-clinics-remain-incomplete-understaffed.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/news/top-news/923639-tinubu-condoles-with-niger-junta-leader-over-fathers-death.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/news/top-news/923618-2027-collect-politicians-money-but-vote-your-conscience-makinde-tells-nigerians.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/regional/south-south-regional/923611-2027-tinubu-campaigns-in-rivers-commends-wike-fubara-reconciliation-slams-atiku.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923609-tinubu-congratulates-flamingos-for-winning-fifa-u-17-womens-world-cup.html",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/business/business-news/923604-cop31-what-nigeria-other-african-countries-will-push-for-at-un-climate-summit.html",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/business/business-news/923601-nnpc-says-its-gas-supply-not-cause-of-low-power-generation.html",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/sports/football/923597-just-in-flamingos-make-history-beat-japan-to-win-nigerias-first-u-17-womens-world-cup-title.html",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.premiumtimesng.com/promoted/923583-harvest-of-projects-as-mbah-begins-tour-of-68-development-centres-commissions-smart-schools-phcs.html",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-scmp",
+        "name": "South China Morning Post",
+        "region": "east-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.scmp.com/opinion/china-opinion/article/3373516/taiwan-doth-complain-too-much-about-beijing",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/lifestyle/arts/article/3373501/5-spaces-making-waves-queer-art-southeast-asia-singapore-bangkok",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/sport/tennis/article/3373695/hong-kong-blow-alexandra-eala-american-claire-liu-ends-title-wait",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/people-culture/trending-china/article/3373688/chinese-dad-whose-daughter-died-crash-visits-junction-daily-catch-traffic-violators",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/magazines/style/people/celebrities/article/3373568/meet-nfl-star-jake-brownings-supportive-wife-stephanie-niles-browning",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/sport/football/article/3373689/hong-kong-football-left-embarrassed-after-local-fa-fails-set-fixtures-fifa-window",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/china/diplomacy/article/3373682/plugged-not-locked-middle-powers-navigate-us-china-ai-rivalry",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/tech/tech-trends/article/3373641/chinas-pudu-robotics-which-makes-80-its-sales-abroad-takes-tesla-humanoids",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/weather/hong-kong/article/3373687/winters-knocking-cold-front-slash-hong-kong-temperatures-16-degrees",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/education/article/3373686/52-hong-kongs-underprivileged-children-spend-over-2-hours-day-devices",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/society/article/3373685/3-hikers-injured-after-being-hit-landing-paraglider-hong-kong-country-park",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/lifestyle/entertainment/article/3373559/how-godzillas-appearance-has-evolved-over-70-years-puppet-costume-cgi",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/sport/hong-kong/article/3373684/horses-hats-and-high-fashion-ladies-purse-day-attracts-stylish-crowd-sha-tin",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/business/banking-finance/article/3373648/hsbc-bets-hk4-million-month-flagship-branch-keep-physical-outlets-relevant",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/week-asia/politics/article/3373584/india-questions-us-double-standards-pakistan-secures-f-16-upgrade-deal",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/article/3373683/demerit-system-contractors-not-ruled-out-hong-kong-development-chief-says",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/russia-central-asia/article/3373681/will-democrats-sway-unshackled-trumps-russia-ukraine-stance-after-midterm-rout",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/economy/china-economy/article/3373583/china-urged-target-sugar-rich-drinks-during-consumption-tax-overhaul",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/property/international/article/3373585/hong-kong-investors-look-swiss-alps-they-diversify-property-holdings",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/middle-east/article/3373679/who-eisenkot-former-israeli-general-expected-replace-netanyahu",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/asia/east-asia/article/3373678/why-raising-prices-japan-amid-insanely-high-inflation-backfires-firms",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/lifestyle/fashion-beauty/article/3373393/money-over-models-big-fashion-brand-contracts-seek-range-ai-rights",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/politics/article/3373677/hong-kong-must-build-reassuring-environment-amid-political-criticism-paul-lam",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/sport/formula-one-f1/article/3373675/hamilton-says-tension-ferrari-teammate-leclerc-squashed-after-clear-air-talks",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3373664/hong-kong-makes-further-roads-ai-aviation-mainland-chinese-expo",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/china/diplomacy/article/3373662/only-fraction-world-heritage-sites-are-africa-china-wants-fix",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/week-asia/health-environment/article/3373551/southeast-asias-green-push-brings-solar-power-who-pays-keep-it",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/asia/southeast-asia/article/3373676/indonesians-furious-batam-data-centres-drain-taps-we-cannot-cook-without-water",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/opinion/comment/article/3373535/real-test-begins-hong-kongs-new-drug-regulator",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/opinion/letters/article/3373252/what-flawed-western-assumptions-about-china-teach-us",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/economy/china-economy/article/3373576/robots-arrival-set-give-chinese-asparagus-farmers-boost",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/health-environment/article/3373379/hong-kongs-margaret-chan-voted-lead-world-health-organization-2006-scmp-archive",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/people-culture/trending-china/article/3373674/china-us300-dating-app-marriage-or-refund-guarantee-sparks-intense-online-buzz",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/opinion/hong-kong-opinion/article/3373289/hong-kong-must-show-real-remorse-tai-po-fire-tragedy",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/hong-kong/article/3373666/hong-kong-firefighters-get-hk84-million-tracking-upgrade-after-tai-po-fire",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/week-asia/health-environment/article/3373571/japan-rethinks-its-stalking-laws-after-pokemon-store-murder",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/china/politics/article/3373512/grief-china-rare-snow-leopard-cub-ling-xiaohan-loses-26-day-fight-life",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/business/china-business/article/3373497/beijings-latest-property-stimulus-falls-short-lower-tier-cities",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/sport/tennis/article/3373672/world-no-1-elena-rybakina-out-wta-finals-begin-marta-kostyuk-stepping",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/week-asia/lifestyle-culture/article/3373570/malaysia-shadow-trade-diy-weight-loss-jabs-takes-hold",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/magazines/style/fashion/trends/article/3373367/why-chanel-dior-and-celine-are-reviving-artisanal-mini-bag",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/united-states-canada/article/3373673/want-fly-moon-nasa-looking-new-astronauts-artemis-programme",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/lifestyle/health-wellness/article/3373401/what-ferritin-face-and-how-does-tcm-view-trending-ailment",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/news/china/politics/article/3373644/chinas-fierce-race-success-mental-health-struggles-are-starting-earlier",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/magazines/style/people/celebrities/article/3373547/meet-f1-world-champion-kimi-antonellis-parents-marco-antonelli-and-veronica-pomaro",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/postmag/article/3373536/week-postmag-unique-tableware-humble-plastic-stool-we-explore-power-good-design",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/opinion/asia-opinion/article/3373447/ill-never-know-war-horrors-my-singaporean-grandparents-survived",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/middle-east/article/3373671/israels-president-taps-eisenkot-form-government-setback-netanyahu",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/united-states-canada/article/3373670/trump-asks-ufc-chief-dana-white-be-his-new-press-secretary-please-take-job",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.scmp.com/news/world/europe/article/3373669/clashes-paris-after-new-french-protests",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-koreaherald",
+        "name": "The Korea Herald",
+        "region": "east-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": []
+      },
+      {
+        "id": "sd-thehindu",
+        "name": "The Hindu",
+        "region": "south-asia",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.thehindu.com/news/national/odisha/no-concrete-proof-yet-from-indonesia-for-claim-over-rescued-orangutans-odisha-minister/article71680837.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/telangana/telangana-celebrates-deepavali-with-traditional-fervour-guv-visits-bhagya-lakshmi-temple/article71680833.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/bangladesh-law-minister-calls-hasina-convicted-criminal-says-extradition-request-sent-to-india/article71680798.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/crew-member-missing-as-indonesian-water-bombing-helicopter-crashes/article71680784.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/taiwan-detains-communist-party-leader-over-alleged-chinese-sponsorship-in-election/article71680805.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/business/Industry/stock-markets-begin-samvat-2083-on-a-firm-note-in-special-muhurat-trading/article71680829.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/vijayan-demands-withdrawal-of-circular-allowing-colleges-to-increase-seats-without-keralam-govt-nod/article71680815.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/migrant-boat-sinks-off-senegal-death-toll/article71680824.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/riyadh-financial-district-targeted-in-missile-attack-aramco-tower-damaged-witnesses/article71680790.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/agitation-against-cec-will-go-on-till-he-is-removed-venugopal/article71680797.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/punjab/body-of-punjab-anti-drug-activist-jhota-brought-to-mansa-for-last-rites/article71680708.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/maharashtra/thane-court-sentences-man-to-20-years-rigorous-imprisonment-for-raping-minor-on-promise-of-marriage/article71680783.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/kremlin-hopes-us-election-shake-up-wont-shift-trumps-negotiations-on-ukraine/article71680679.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/congress-donations-fall-nearly-75-sharpest-decline-in-a-decade/article71680699.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/dangerous-harmonies-is-there-a-hidden-villain-in-indias-devastating-electrical-fires/article71679446.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/haryana/it-executive-shot-dead-in-faridabad-after-neighbour-fires-nine-rounds/article71679417.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/sanskrit-university-suspension-row-govindan-backs-stir-says-it-should-go-on-till-suspended-students-write-exams/article71680767.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/rajasthan/rajasthan-bjp-mla-jaswant-yadav-dies-at-73-after-prolonged-illness/article71680761.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/bjp-celebrates-advanis-birthday-with-puja-havan-leaders-laud-his-role-in-indian-politics/article71680681.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/why-are-the-us-midterm-elections-significant/article71679440.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/conservative-activists-storm-deepavali-celebrations-in-seattle/article71680745.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/pm-modi-deepavali-celebration-soldiers-bastar-november-8-2026/article71680574.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/sport/an-wins-korea-open-for-11th-badminton-title-of-year/article71680734.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/lawrence-bishnoi-gang-member-hari-boxer-detained-in-us-extradition-process-underway/article71680607.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/nithya-raman-the-urban-planner/article71679301.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/jon-ossoff-ambition-without-ambition/article71679278.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/iran-says-two-tankers-caught-fire-in-hormuz-after-hitting-mines/article71680557.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/new-zealanders-wont-know-for-weeks-who-won-election-as-neither-side-secures-clear-victory/article71680680.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/tamil-nadu/dindigul-youth-killed-in-israel-construction-site-accident-laid-to-rest-in-native-village/article71680678.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/delhi-faces-new-challenge-from-samosa-caucus/article71680519.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/rajnath-singh-pays-tributes-to-brave-soldiers-at-sherethang-in-sikkim/article71680677.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/punjab/deportation-of-wanted-punjab-gangster-afridi-secured-after-10-month-international-manhunt/article71680508.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/photos/news-in-frames-many-twists-in-the-monsoons-tale/article71680539.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/sport/football/man-city-suffers-third-straight-premier-league-loss-at-forest-and-arsenal-opens-6-point-lead/article71680621.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/punjab/village-anti-drug-committee-member-shot-in-punjabs-barnala-injured/article71680598.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/business/Industry/kishore-biyani-future-retail-cbi-defrauding-charges-reliance-amazon-deal/article71677462.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/sport/cricket/india-a-take-428-run-lead-to-dominate-day-2-against-nz-a/article71680608.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/gunman-kills-5-injures-12-in-polands-krakow-shooting-attack/article71679139.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/iran-executes-three-men-over-armed-unrest-during-january-protests/article71680580.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/trump-says-he-wants-ufc-chief-dana-white-for-white-house-press-secretary/article71679478.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/strong-earthquake-strikes-japan/article71680450.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/israeli-president-picks-gadi-eisenkot-netanyahu-rival-to-try-to-form-government/article71679477.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/maharashtra/bombay-high-court-allows-bns-section-75-charge-where-complainant-identifies-as-woman/article71678923.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/business/10-years-since-demonetisation-cash-usage-unchanged-fake-notes-on-the-rise/article71673986.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/sport/cricket/mohammed-shami-the-end-of-an-era-in-indian-test-cricket/article71677693.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/tamil-nadu/tn-may-be-heading-towards-a-water-crisis-unless-northeast-monsoon-comes-to-the-rescue/article71678260.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/delhi-wakes-up-to-toxic-haze-on-deepavali-close-to-severe-aqi-at-383/article71680540.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/people-found-dead-in-krakow-mass-shooting-suspects-home-says-prime-minister/article71680538.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/delhi-chawri-bazar-building-collapse-death-toll-rescue-underway-november-8/article71680507.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/uttar-pradesh/apologise-to-saints-devotees-before-visiting-ayodhya-adityanath-ahead-of-akhileshs-visit/article71680509.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Tiruchirapalli/tiruchi-corporation-warns-of-action-against-unauthorised-digital-banners/article71678168.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/kerala/kerala-water-authority-intensifies-action-against-encroachments-on-pipeline-road/article71679186.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Madurai/crowds-flood-commercial-hubs-in-madurai-ramanathapuram-on-deepavali-eve/article71678186.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/telangana/revanth-challenges-kcr-for-debate-on-kaleshwaram-el-nino-and-godavari-waters-in-the-special-assembly-session/article71678434.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/fssai-seizes-3280-tonne-food-items-cancels-52-licences-in-nationwide-inspection-drive/article71680460.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/cities/Delhi/singapore-based-senior-it-executive-shot-dead-over-parking-dispute-in-faridabad/article71678760.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/morning-digest-on-november-8-2026/article71680449.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/paraguays-ousted-president-charged-with-crimes-linked-to-collapse-of-major-bank/article71680452.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/international/explosions-heard-in-areas-in-southern-iran-iranian-media-report/article71679592.ece",
+            "date": null
+          },
+          {
+            "url": "https://www.thehindu.com/news/national/bihar/a-bridge-between-past-and-present/article71678324.ece",
+            "date": null
+          }
+        ]
+      },
+      {
+        "id": "sd-npr",
+        "name": "NPR News",
+        "region": "north-america",
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.npr.org/2026/11/08/nx-s1-6032829/gen-z-voters-midterm-elections",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/08/nx-s1-6033900/ufc-dana-white-trump-white-house-press-secretary",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6033491/homelessness-in-the-u-s-saw-its-largest-drop-in-more-than-a-decade-last-year",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6030759/the-surprising-and-often-forgotten-history-of-texas-tradition-of-economic-populism",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/g-s1-152536/netanyahu-israel-government-eisenkot-herzog",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/g-s1-152532/gunman-opens-fire-in-polish-city-of-krakow-killing-6-people-and-injuring-15",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6033373/paraguay-president-ousted-bank-collapse",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6026379/lpa-drug-lipoproteina-heart-attack",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6029659/democrats-investigate-fatal-ice-shootings",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.npr.org/2026/11/07/nx-s1-6023225/perspective-simon-winchester-was-here-to-tell-a-story",
+            "date": "2026-11-07"
+          }
+        ]
+      },
+      {
+        "id": "sd-bbc",
+        "name": "BBC World",
+        "region": null,
+        "kind": "rss",
+        "status": "error",
+        "links": []
+      },
+      {
+        "id": "sd-aljazeera",
+        "name": "Al Jazeera English",
+        "region": null,
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.aljazeera.com/sports/2026/11/8/tennis-world-number-one-rybakina-withdraws-from-wta-finals-due-to-virus?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/democrats-congressional-win-could-strengthen-ukraines-hand-against-russia?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/features/2026/11/8/former-palestinian-detainees-at-mercy-of-israel-amid-perpetual-detention?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/rent-a-grandchild-businesses-offering-companions-to-elderly-grow-in-india?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/sports/2026/11/8/khawaja-denies-throwing-anyone-under-the-bus-over-sandpapergate-scandal?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/dont-bring-your-camera-filmmakers-face-extortion-in-lagos?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/the-anti-netanyahu-can-gadi-eisenkot-give-the-world-a-different-israel?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/sports/2026/11/8/hossam-hassan-sacked-as-egypt-head-coach-over-ex-wife-scandal?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/us-military-attacks-cargo-ship-in-the-gulf-of-oman?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/mapping-how-frances-protest-wave-spread-across-europe?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/features/2026/11/8/as-ai-data-centres-guzzle-energy-can-we-harness-waste-heat?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/saudi-arabia-intercepts-houthi-missiles-targeting-riyadh-eastern-province?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/gallery/2026/11/8/photos-heavy-rains-leave-tens-of-thousands-without-shelter-in-gaza?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/opinions/2026/11/8/is-unconditional-support-for-israel-becoming-a-liability-for-republicans?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/opinions/2026/11/8/there-is-reason-to-hope-that-the-democrats-might-deliver-this-time?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/haitians-cheer-el-salvadors-bukele-amid-gang-war?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/aje-onl-nf_plane-clips-truck-during-emergency-landing-florida-071126?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/drone-attack-on-colombian-army-base-kills-three-soldiers-and-wounds-16?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/earthquake-hits-central-japan-injuring-more-than-20-people?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/trump-asks-ufc-chief-dana-white-to-be-white-house-press-secretary?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/aje-onl-nf_egypt-sacks-winning-football-coach-after-scandal-071126?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/news/2026/11/8/canary-islands-el-hierro-declares-emergency-amid-migrant-refugee-influx?traffic_source=rss",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/polish-pm-calls-deadly-krakow-shooting-an-act-of?traffic_source=rss",
+            "date": "2026-11-08"
+          }
+        ]
+      },
+      {
+        "id": "sd-guardian",
+        "name": "The Guardian (World)",
+        "region": null,
+        "kind": "rss",
+        "status": "ok",
+        "links": [
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/06/kenyan-doomsday-sect-leader-jailed-murders-paul-mackenzie",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/06/anc-faces-defeat-south-african-local-elections",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/04/british-healthcare-worker-ebola-evacuated-drc-to-uk-document-shows",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/04/anc-south-africa-local-elections-water-outages-power-cuts",
+            "date": "2026-11-04"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/08/popes-visit-to-argentina-sets-up-showdown-with-hyper-capitalist-milei",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/business/2026/nov/08/banana-producers-in-latin-america-want-better-pay-to-cope-with-effects-of-climate-crisis",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/ousted-paraguay-president-under-house-arrest-after-banking-crisis-leaves-60-of-country-unable-to-access-accounts",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/film/2026/nov/06/sebastian-lelio-chilean-director-dies",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/06/flavio-bolsonaro-upbeat-brazil-election-us",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/global-development/2026/nov/08/uyghurs-thailand-china-forced-deportation",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/new-zealand-election-too-close-to-call-vote-count",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/live/2026/nov/07/nz-general-election-2026-live-updates-results-new-zealand-polls",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/business/2026/nov/06/global-stocks-plunge-amid-ai-slowdown-fears-after-democrats-midterm-triumph",
+            "date": "2026-11-06"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/meghan-sussex-thomas-markle-jr-philippines-child-sexual-abuse-inquiry",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/australia-news/2026/nov/08/psychiatrists-paediatricians-extreme-specialist-fees-health-australia",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/australia-news/2026/nov/08/australia-weather-cold-blast-springtime-snow-thredbo-perisher-hotham-victoria-tasmania-el-nino",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/australia-news/2026/nov/08/victoria-barracks-sydney-and-melbourne-remain-in-public-hands-backtrack-defence-property-sale-albanese-marles",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/environment/2026/nov/08/chris-bowen-cop31-experts-condemn-australia-coal-gas-approvals",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/australia-news/2026/nov/08/big-build-royal-commission-victorian-election-ben-carroll-labor-ntwnfb",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/krakow-poland-shooting-market-square-deaths-gunman",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/environment/2026/nov/08/reintroduction-white-tailed-eagles-seabird-colonies-risk-england-wales",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/politics/2026/nov/08/turkish-nationals-uk-indefinite-leave-to-remain-home-office-windrush",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/news/ng-interactive/2026/nov/08/hot-fridges-a-fake-nuclear-alert-and-a-6bn-heist-are-we-in-the-foothills-of-a-hacking-epidemic",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/live/2026/nov/07/krakow-shooting-poland-latest-news-updates",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/israel-president-gadi-eisenkot-form-government",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/strait-of-hormuz-qatar-plan-iran-nuclear-inspections",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/us-midterm-results-may-help-unite-israeli-coalition-to-unseat-netanyahu",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/07/us-carries-out-another-round-of-minor-strikes-on-iran-trump-says",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/05/herzog-netanyahu-eisenkot-israel-election-decision",
+            "date": "2026-11-05"
+          },
+          {
+            "url": "https://www.theguardian.com/environment/2026/nov/08/earthshot-prize-venue-criticism-fossil-fuel-firm-reliance-industries-india-mumbai",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/03/rabindranath-tagore-yeats-nobel-prize-india",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://www.theguardian.com/environment/2026/nov/03/uk-ministers-anant-ambani-indian-zoo-vantara-freedom-information-endangered-animals-cites",
+            "date": "2026-11-03"
+          },
+          {
+            "url": "https://www.theguardian.com/world/2026/nov/01/india-opposition-protest-rally-delhi",
+            "date": "2026-11-01"
+          },
+          {
+            "url": "https://www.theguardian.com/technology/2026/nov/08/ai-clog-public-bodies-local-authorities-onslaught-chatbot-generated-correspondence",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/politics/2026/nov/08/andy-burnham-social-media-traditional-media-scrutiny-at-risk",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/society/2026/nov/07/nhs-birth-centre-maternity-unit-closures-england-womens-rights",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/uk-news/2026/nov/07/sword-attack-gloucester-school-men-arrested-boy-injured",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/uk-news/2026/nov/07/national-trust-agm-barclays-environment-policies",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/fashion/2026/nov/08/met-gala-2027-theme-poetics-everyday",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/ng-interactive/2026/nov/08/trump-midterms-voters-mirror-world",
+            "date": "2026-11-08"
+          },
+          {
+            "url": "https://www.theguardian.com/music/2026/nov/07/richard-lloyd-punk-band-television-dies-aged-75",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/2026/nov/07/faa-digital-air-traffic-control-tower-technology",
+            "date": "2026-11-07"
+          },
+          {
+            "url": "https://www.theguardian.com/us-news/2026/nov/07/stephen-miller-trump-loyalty",
+            "date": "2026-11-07"
+          }
+        ]
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "id": "D4.2-canada-budget-ch5",
+      "criterion": "D4.2",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D4.2-canada-budget-ch5)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D4.2-canada-budget-ch5",
+        "criterion": "D4.2",
+        "url": "https://www.budget.canada.ca/2026/report-rapport/chap5-en.html",
+        "title": {
+          "ru": "Бюджет Канады 2026, глава 5 «Безопасная и суверенная Канада»: крупнейший рост военных расходов со времён Второй мировой войны",
+          "en": "Budget 2026, Chapter 5 'A safe and sovereign Canada': biggest increase in defence spending since the Second World War"
+        },
+        "domain": "budget.canada.ca",
+        "publication_date": "2026-11-05",
+        "accessed_date": "2026-11-08",
+        "source_type": "primary",
+        "cluster_id": "C-registries",
+        "state_affiliated": true,
+        "quotes": [
+          {
+            "criterion": "D4.2",
+            "text": "Undertaking the biggest increase in defence spending since the Second World War, meeting the 2% of GDP spending target years ahead of schedule and remaining on track to reach 4% within this decade toward the NATO Defence Investment Pledge."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D4.2-canada-budget-cbc",
+      "criterion": "D4.2",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D4.2-canada-budget-cbc",
+        "criterion": "D4.2",
+        "url": "https://www.cbc.ca/news/politics/defence-budget-military-nato-trump-9.7411329",
+        "title": {
+          "ru": "Федеральный бюджет предусматривает резкий рост военных расходов, но вопросы к цели НАТО остаются",
+          "en": "Federal budget maps out defence spending surge, but questions remain over NATO target"
+        },
+        "domain": "cbc.ca",
+        "publication_date": "2026-11-06",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false
+      }
+    },
+    {
+      "id": "D5.3-bomb-hoaxes-independent",
+      "criterion": "D5.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.3-bomb-hoaxes-independent)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.3-bomb-hoaxes-independent",
+        "criterion": "D5.3",
+        "url": "https://www.independent.co.uk/news/world/europe/russia-bomb-threats-europe-flights-b3080924.html",
+        "title": {
+          "ru": "За волной ложных сообщений о бомбах в Европе, вероятно, стоит Россия, считает европейская разведка",
+          "en": "Russia likely behind bomb hoaxes that grounded flights, say European intelligence"
+        },
+        "domain": "independent.co.uk",
+        "publication_date": "2026-11-07",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D5.3",
+            "text": "European security officials are investigating whether the series of bomb threats against European airlines and news organisations originated in Russia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D5.3-bomb-hoaxes-hindu",
+      "criterion": "D5.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.3-bomb-hoaxes-hindu)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.3-bomb-hoaxes-hindu",
+        "criterion": "D5.3",
+        "url": "https://www.thehindu.com/news/international/europe-bomb-threats-likely-co-ordinated-campaign-irish-government/article71675060.ece",
+        "title": {
+          "ru": "Угрозы взрывов в Европе — «вероятно, скоординированная кампания»: правительство Ирландии",
+          "en": "Europe bomb threats 'likely co-ordinated campaign': Irish government"
+        },
+        "domain": "thehindu.com",
+        "publication_date": "2026-11-06",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D5.3",
+            "text": "The hoaxes in Dublin came as more European flights were also hit on November 6 by bomb threats, the latest this week forcing authorities to reroute some planes or escort civilian aircraft with fighter jets"
+          }
+        ]
+      }
+    },
+    {
+      "id": "D5.3-bomb-hoaxes-npr",
+      "criterion": "D5.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.3-bomb-hoaxes-npr)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.3-bomb-hoaxes-npr",
+        "criterion": "D5.3",
+        "url": "https://www.npr.org/2026/11/06/nx-s1-6032612/europe-flights-hoaxes",
+        "title": {
+          "ru": "Рейсы и телекомпании Европы снова стали целью волны угроз взрывов",
+          "en": "European flights and broadcasters are targeted with another wave of bomb threats"
+        },
+        "domain": "npr.org",
+        "publication_date": "2026-11-06",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D5.3",
+            "text": "Officials across Europe reported a slew of bomb threats against multiple flights, following a string of hoaxes that caused flight diversions this week. Three broadcasters also received threats."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D5.3-bomb-hoaxes-kyivpost",
+      "criterion": "D5.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.3-bomb-hoaxes-kyivpost)",
+        "URL заблокирован из среды проверки (blocked, статус null) — предупреждение, не отказ"
+      ],
+      "urlStatus": "blocked",
+      "source": {
+        "id": "D5.3-bomb-hoaxes-kyivpost",
+        "criterion": "D5.3",
+        "url": "https://www.kyivpost.com/post/89438",
+        "title": {
+          "ru": "Европа: волна ложных сообщений о бомбах против СМИ и рейсов",
+          "en": "Europe Hit by Wave of Hoax Bomb Threats Targeting Media, Flights"
+        },
+        "domain": "kyivpost.com",
+        "publication_date": "2026-11-07",
+        "accessed_date": "2026-11-08",
+        "source_type": "OSINT",
+        "cluster_id": "C-registries",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D5.3",
+            "text": "Coordinated bomb hoaxes have targeted European newsrooms and airliners on Friday, forcing building evacuations, flight diversions, and fighter jet escorts."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D5.4-qeshm-denial-tass",
+      "criterion": "D5.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.4-qeshm-denial-tass)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.4-qeshm-denial-tass",
+        "criterion": "D5.4",
+        "url": "https://tass.com/world/2214337",
+        "title": {
+          "ru": "Взрывы на острове Кешм не были результатом атаки — агентство",
+          "en": "Explosions on Iran's Qeshm island not caused by attack — agency"
+        },
+        "domain": "tass.com",
+        "publication_date": "2026-11-07",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true,
+        "quotes": [
+          {
+            "criterion": "D5.4",
+            "text": "The sounds were related to the Strait of Hormuz, and despite speculation to the contrary, Qeshm Island was not attacked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "D5.4-syria-yemen-denial-mee",
+      "criterion": "D5.4",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D5.4-syria-yemen-denial-mee)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D5.4-syria-yemen-denial-mee",
+        "criterion": "D5.4",
+        "url": "https://www.middleeasteye.net/live-blog/live-blog-update/syria-denies-plans-send-troops-yemen-says-military-cooperation-saudi",
+        "title": {
+          "ru": "Сирия отрицает планы направить войска в Йемен; военное сотрудничество с Саудовской Аравией может расшириться",
+          "en": "Syria denies plans to send troops to Yemen, says military cooperation with Saudi Arabia could expand"
+        },
+        "domain": "middleeasteye.net",
+        "publication_date": "2026-11-07",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D5.4",
+            "text": "Syria has no plans to send military forces to Yemen, a Syrian diplomatic source told state news agency SANA, dismissing reports of a possible deployment as baseless."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D7.3-riyadh-strike-france24",
+      "criterion": "D7.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D7.3-riyadh-strike-france24)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D7.3-riyadh-strike-france24",
+        "criterion": "D7.3",
+        "url": "https://www.france24.com/en/middle-east/20261108-middle-east-live-riyadh-financial-district-targeted-deadly-strikes-yemen-israel-eisenkot-netanyahu-coalition-government-elections",
+        "title": {
+          "ru": "Ближний Восток: удар по финансовому кварталу Эр-Рияда после смертоносных ударов Саудовской Аравии по Йемену",
+          "en": "Middle East live: Riyadh's financial district targeted following deadly Saudi strikes in Yemen"
+        },
+        "domain": "france24.com",
+        "publication_date": "2026-11-08",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D7.3",
+            "text": "Riyadh’s Aramco Tower was damaged by falling debris on Sunday after the Saudi-led coalition fighting Yemen’s Houthi rebels intercepted two ballistic missiles headed for the capital’s financial district."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D7.3-riyadh-strike-tass",
+      "criterion": "D7.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D7.3-riyadh-strike-tass)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D7.3-riyadh-strike-tass",
+        "criterion": "D7.3",
+        "url": "https://tass.com/world/2214411",
+        "title": {
+          "ru": "Саудовская Аравия сообщает об уничтожении двух ракет под Эр-Риядом",
+          "en": "Saudi Arabia reports destruction of two missiles near Riyadh — Reuters"
+        },
+        "domain": "tass.com",
+        "publication_date": "2026-11-08",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true,
+        "quotes": [
+          {
+            "criterion": "D7.3",
+            "text": "The Saudi-led coalition intercepted and destroyed two missiles launched by the Houthis from the Yemeni rebel movement Ansar Allah, the agency said."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D7.3-riyadh-strike-aljazeera",
+      "criterion": "D7.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D7.3-riyadh-strike-aljazeera)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D7.3-riyadh-strike-aljazeera",
+        "criterion": "D7.3",
+        "url": "https://www.aljazeera.com/news/2026/11/8/saudi-arabia-intercepts-houthi-missiles-targeting-riyadh-eastern-province",
+        "title": {
+          "ru": "Здание Saudi Aramco в Эр-Рияде повреждено при «предпринятой» атаке",
+          "en": "Saudi Aramco building in Riyadh damaged in 'attempted' attack"
+        },
+        "domain": "aljazeera.com",
+        "publication_date": "2026-11-08",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "B-state-media",
+        "state_affiliated": true,
+        "quotes": [
+          {
+            "criterion": "D7.3",
+            "text": "A building belonging to Saudi Aramco in Riyadh has been damaged after an attempted attack, Saudi Arabia’s energy ministry said."
+          }
+        ]
+      }
+    },
+    {
+      "id": "D7.3-riyadh-strike-hindu",
+      "criterion": "D7.3",
+      "verdict": "OK",
+      "blockers": [],
+      "warnings": [
+        "корпус не найден — дословность цитат не проверена (кандидат D7.3-riyadh-strike-hindu)"
+      ],
+      "urlStatus": "ok",
+      "source": {
+        "id": "D7.3-riyadh-strike-hindu",
+        "criterion": "D7.3",
+        "url": "https://www.thehindu.com/news/international/riyadh-financial-district-targeted-in-missile-attack-aramco-tower-damaged-witnesses/article71680790.ece",
+        "title": {
+          "ru": "Удар по финансовому кварталу Эр-Рияда: башня Aramco повреждена, сообщают очевидцы",
+          "en": "Riyadh financial district targeted in missile attack, Aramco tower damaged: witnesses"
+        },
+        "domain": "thehindu.com",
+        "publication_date": "2026-11-08",
+        "accessed_date": "2026-11-08",
+        "source_type": "secondary",
+        "cluster_id": "A-mainstream",
+        "state_affiliated": false,
+        "quotes": [
+          {
+            "criterion": "D7.3",
+            "text": "Multiple floors of the Aramco tower appeared to have sustained damage, said another witness, with glass shattered and damage to part of the tower's facade visible"
+          }
+        ]
+      }
+    }
+  ]
+}
