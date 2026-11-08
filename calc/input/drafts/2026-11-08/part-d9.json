@@ -1,0 +1,568 @@
+{
+  "week": "2026-11-08",
+  "criteria": {
+    "D9.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.dvidshub.net/news/578643/121st-field-hospital-moves-its-hospital-dark-during-pacific-medic-forge-26-2",
+          "date": "2026-11-04",
+          "cluster": "C-registries",
+          "type": "primary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://press.siemens.com/global/en/pressrelease/siemens-and-lufthansa-technik-defense-develop-medical-evacuation-train",
+          "date": "2026-11-03",
+          "cluster": "C-registries",
+          "type": "primary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.ssbcrack.com/2026/11/lt-gen-cg-muralidharan-reviews-medical-preparedness-at-bison-division-field-hospitals-and-military-hospital-golconda.html",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://interfax.com/newsroom/top-stories/119773/",
+          "date": "2026-11-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.enerdata.net/publications/daily-energy-news/russia-prolongs-diesel-export-restrictions-until-january-2027.html",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.indiatoday.in/world/story/us-sanctions-indian-businessman-wife-and-nine-india-linked-entities-over-iran-oil-exports-3032570-2026-11-05",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/7/why-are-oil-traders-refusing-to-buy-russian-diesel-after-trump-putin-deal",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 0.67,
+      "regions": [
+        "middle-east",
+        "russia-belarus",
+        "south-asia"
+      ],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.tbsnews.net/economy/aviation/saudi-airport-restrictions-23077-passengers-affected-174-flights-disrupted-so-far",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/eurasia/ukrainian-drone-attacks-affect-russian-aviation-as-flight-restrictions-rise/4109546",
+          "date": "2026-11-03",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.militarytimes.com/pentagon/2026/11/04/the-pentagon-needs-more-ammo-for-the-iran-war-small-communities-are-paying-the-price/",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://rg.ru/2026/11/06/putin-vvel-v-minoborony-dolzhnosti-nachalnikov-tyla-i-vooruzheniia-vs-rf.html",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://defence.nu/2026/11/07/rebuilding-the-ammunition-plants-behind-americas-combat-power/",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.5": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://moldovalive.md/moldovans-living-abroad-could-be-required-to-return-if-mobilised-during-wartime/",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.vesti.ru/ns/pri-mobilizacii-grazhdan-moldavii-budut-vozvrashchat-iz-za-granicy",
+          "date": "2026-11-04",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D9.6a": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://iranwire.com/en/news/159847-today-in-the-iranian-cybersphere-november-5-2026/",
+          "date": "2026-11-05",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.war-watch.com/article/cmw5gl3e9j21qscci4l8iyxts",
+          "date": "2026-11-06",
+          "cluster": "E-field-osint",
+          "type": "OSINT",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.ncr-iran.org/en/news/iran-news-in-brief-november-7-2026/",
+          "date": "2026-11-07",
+          "cluster": "E-field-osint",
+          "type": "OSINT",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.6b": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://sa.usembassy.gov/security-alert-u-s-mission-to-saudi-arabia-november-3-2026/",
+          "date": "2026-11-03",
+          "cluster": "C-registries",
+          "type": "primary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.dawn.com/news/2042022",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.7": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://iz.ru/en/2196351/2026-11-04/switzerland-lifted-sanctions-against-russian-businessmen-usmanov-and-fridman",
+          "date": "2026-11-04",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://fakti.bg/en/biznes/1098208-switzerland-lifts-sanctions-against-two-russian-billionaires",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/iran-exempts-ships-from-india-china-iraq-qatar-from-hormuz-transit-restrictions-lawmaker/4110513",
+          "date": "2026-11-03",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "dvidshub-field-hospital-night-move",
+      "title": {
+        "ru": "121-й полевой госпиталь перебрасывает госпиталь в темноте в ходе учений Pacific Medic Forge 26-2",
+        "en": "121st Field Hospital Moves Its Hospital in the Dark During Pacific Medic Forge 26-2"
+      },
+      "domain": "dvidshub.net",
+      "url": "https://www.dvidshub.net/news/578643/121st-field-hospital-moves-its-hospital-dark-during-pacific-medic-forge-26-2",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "siemens-medevac-train",
+      "title": {
+        "ru": "Siemens и Lufthansa Technik Defense разрабатывают медицинский эвакуационный поезд",
+        "en": "Siemens and Lufthansa Technik Defense develop medical evacuation train"
+      },
+      "domain": "press.siemens.com",
+      "url": "https://press.siemens.com/global/en/pressrelease/siemens-and-lufthansa-technik-defense-develop-medical-evacuation-train",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "ssbcrack-india-medical-readiness",
+      "title": {
+        "ru": "Генерал-лейтенант К. Г. Муралидхаран проверил медицинскую готовность полевых госпиталей дивизии «Бизон» и военного госпиталя Голконда",
+        "en": "Lt Gen CG Muralidharan Reviews Medical Preparedness at Bison Division Field Hospitals and Military Hospital Golconda"
+      },
+      "domain": "ssbcrack.com",
+      "url": "https://www.ssbcrack.com/2026/11/lt-gen-cg-muralidharan-reviews-medical-preparedness-at-bison-division-field-hospitals-and-military-hospital-golconda.html",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "interfax-petrochem-export-ban",
+      "title": {
+        "ru": "Правительство РФ ввело временный запрет на экспорт отдельных видов нефтехимической продукции",
+        "en": "Russian govt introduces temporary ban on exports of certain petrochemical products"
+      },
+      "domain": "interfax.com",
+      "url": "https://interfax.com/newsroom/top-stories/119773/",
+      "publication_date": "2026-11-02",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "enerdata-russia-diesel-ban-jan2027",
+      "title": {
+        "ru": "Россия продлила ограничения на экспорт дизельного топлива до января 2027 года",
+        "en": "Russia prolongs diesel export restrictions until January 2027"
+      },
+      "domain": "enerdata.net",
+      "url": "https://www.enerdata.net/publications/daily-energy-news/russia-prolongs-diesel-export-restrictions-until-january-2027.html",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "indiatoday-iran-oil-sanctions",
+      "title": {
+        "ru": "США ввели санкции против индийского бизнесмена, его жены и девяти связанных с Индией компаний из-за иранского нефтяного экспорта",
+        "en": "US sanctions Indian businessman, wife and nine India-linked entities over Iran oil exports"
+      },
+      "domain": "indiatoday.in",
+      "url": "https://www.indiatoday.in/world/story/us-sanctions-indian-businessman-wife-and-nine-india-linked-entities-over-iran-oil-exports-3032570-2026-11-05",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-russian-diesel-traders",
+      "title": {
+        "ru": "Почему нефтетрейдеры отказываются покупать российское дизельное топливо после сделки Трампа и Путина",
+        "en": "Why are oil traders refusing to buy Russian diesel after Trump-Putin deal?"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/7/why-are-oil-traders-refusing-to-buy-russian-diesel-after-trump-putin-deal",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tbsnews-saudi-airport-flights",
+      "title": {
+        "ru": "Ограничения в аэропортах Саудовской Аравии: затронуты 23 077 пассажиров, нарушены 174 рейса",
+        "en": "Saudi airport restrictions: 23,077 passengers affected as 174 flights disrupted so far"
+      },
+      "domain": "tbsnews.net",
+      "url": "https://www.tbsnews.net/economy/aviation/saudi-airport-restrictions-23077-passengers-affected-174-flights-disrupted-so-far",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-russia-aviation-restrictions",
+      "title": {
+        "ru": "Атаки украинских дронов влияют на российскую авиацию: ограничения полётов растут",
+        "en": "Ukrainian drone attacks affect Russian aviation as flight restrictions rise"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/eurasia/ukrainian-drone-attacks-affect-russian-aviation-as-flight-restrictions-rise/4109546",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "militarytimes-ammo-plants-iran-war",
+      "title": {
+        "ru": "Пентагону нужно больше боеприпасов для войны с Ираном; расплачиваются небольшие городки",
+        "en": "The Pentagon needs more ammo for the Iran war. Small communities are paying the price."
+      },
+      "domain": "militarytimes.com",
+      "url": "https://www.militarytimes.com/pentagon/2026/11/04/the-pentagon-needs-more-ammo-for-the-iran-war-small-communities-are-paying-the-price/",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "rg-modo-logistics-armament-posts",
+      "title": {
+        "ru": "Путин ввел в Минобороны должности начальников тыла и вооружения ВС РФ",
+        "en": "Putin introduces posts of chiefs of logistics and armaments in Russia's Defense Ministry"
+      },
+      "domain": "rg.ru",
+      "url": "https://rg.ru/2026/11/06/putin-vvel-v-minoborony-dolzhnosti-nachalnikov-tyla-i-vooruzheniia-vs-rf.html",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "defencenu-ammunition-plants-rebuild",
+      "title": {
+        "ru": "Восстановление заводов боеприпасов, обеспечивающих боевую мощь Америки",
+        "en": "Rebuilding The Ammunition Plants Behind America's Combat Power"
+      },
+      "domain": "defence.nu",
+      "url": "https://defence.nu/2026/11/07/rebuilding-the-ammunition-plants-behind-americas-combat-power/",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "moldovalive-diaspora-mobilisation-bill",
+      "title": {
+        "ru": "Молдаван за рубежом могут обязать вернуться в страну при мобилизации в военное время",
+        "en": "Moldovans Living Abroad Could Be Required to Return if Mobilised During Wartime"
+      },
+      "domain": "moldovalive.md",
+      "url": "https://moldovalive.md/moldovans-living-abroad-could-be-required-to-return-if-mobilised-during-wartime/",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "vesti-moldova-mobilisation-return",
+      "title": {
+        "ru": "При мобилизации граждан Молдавии будут возвращать из-за границы",
+        "en": "Moldova to recall its citizens from abroad in case of mobilisation"
+      },
+      "domain": "vesti.ru",
+      "url": "https://www.vesti.ru/ns/pri-mobilizacii-grazhdan-moldavii-budut-vozvrashchat-iz-za-granicy",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranwire-cybersphere-nov5",
+      "title": {
+        "ru": "Сегодня в иранской киберсфере: 5 ноября 2026 года",
+        "en": "Today in the Iranian Cybersphere: November 5, 2026"
+      },
+      "domain": "iranwire.com",
+      "url": "https://iranwire.com/en/news/159847-today-in-the-iranian-cybersphere-november-5-2026/",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "warwatch-gps-interference-iran-border",
+      "title": {
+        "ru": "Зафиксированы помехи GPS у западной границы Ирана; причина не подтверждена",
+        "en": "GPS interference reported near Iran's western border; cause unconfirmed"
+      },
+      "domain": "war-watch.com",
+      "url": "https://www.war-watch.com/article/cmw5gl3e9j21qscci4l8iyxts",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "OSINT",
+      "cluster_id": "E-field-osint",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "ncriran-iran-brief-nov7",
+      "title": {
+        "ru": "Иран: новости коротко — 7 ноября 2026 года",
+        "en": "Iran News in Brief – November 7, 2026"
+      },
+      "domain": "ncr-iran.org",
+      "url": "https://www.ncr-iran.org/en/news/iran-news-in-brief-november-7-2026/",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "OSINT",
+      "cluster_id": "E-field-osint",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "usembassy-riyadh-security-alert",
+      "title": {
+        "ru": "Предупреждение о безопасности: миссия США в Саудовской Аравии — 3 ноября 2026 года",
+        "en": "Security Alert: U.S. Mission to Saudi Arabia – November 3, 2026"
+      },
+      "domain": "sa.usembassy.gov",
+      "url": "https://sa.usembassy.gov/security-alert-u-s-mission-to-saudi-arabia-november-3-2026/",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "primary",
+      "cluster_id": "C-registries",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "dawn-riyadh-staff-departure",
+      "title": {
+        "ru": "Посольство США повторно объявило о выезде неэкстренного персонала из Саудовской Аравии",
+        "en": "US Embassy reissues Saudi Arabia alert ordering non-emergency staff to leave"
+      },
+      "domain": "dawn.com",
+      "url": "https://www.dawn.com/news/2042022",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iz-switzerland-sanctions-delisting",
+      "title": {
+        "ru": "Швейцария сняла санкции с российских бизнесменов Усманова и Фридмана",
+        "en": "Switzerland lifted sanctions against Russian businessmen Usmanov and Fridman"
+      },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/en/2196351/2026-11-04/switzerland-lifted-sanctions-against-russian-businessmen-usmanov-and-fridman",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "fakti-switzerland-sanctions-lift",
+      "title": {
+        "ru": "Швейцария снимает санкции с двух российских миллиардеров",
+        "en": "Switzerland lifts sanctions against two Russian billionaires"
+      },
+      "domain": "fakti.bg",
+      "url": "https://fakti.bg/en/biznes/1098208-switzerland-lifts-sanctions-against-two-russian-billionaires",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-hormuz-transit-exemptions",
+      "title": {
+        "ru": "Иран вывел суда Индии, Китая, Ирака и Катара из ограничений на транзит через Ормузский пролив — депутат",
+        "en": "Iran exempts ships from India, China, Iraq, Qatar from Hormuz transit restrictions: Lawmaker"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/iran-exempts-ships-from-india-china-iraq-qatar-from-hormuz-transit-restrictions-lawmaker/4110513",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    }
+  ],
+  "driverConfidence": {
+    "D9": {
+      "level": "medium",
+      "reason": "Покрыты все 8 подгрупп Д9. Медицинская подготовка (D9.1 = 0.33): переброска полевого госпиталя в темноте под угрозой дронов на учениях Pacific Medic Forge 26-2, программа медицинского эвакуационного поезда Siemens и Lufthansa Technik Defense для Бундесвера, проверка готовности полевых госпиталей в Индии. Финансовая изоляция (D9.2 = 0.67): временный запрет РФ на экспорт нефтехимии, продление запрета на экспорт дизеля до 31.01.2027, новые санкции США против сети иранского нефтяного экспорта. Транспорт и страхование (D9.3 = 0.67): ограничения в аэропортах Саудовской Аравии нарушили 174 рейса, в России растут ограничения полётов из-за дроновых атак. Стратегическое накопление (D9.4 = 0.67): наращивание выпуска боеприпасов в США, восстановление заводов боеприпасов, указ о должностях начальников тыла и вооружения в Минобороны РФ. Кадровые и мобилизационные меры (D9.5 = 0.33): законопроект Молдовы об обязанности подлежащих мобилизации граждан вернуться из-за границы. Информационный суверенитет (D9.6a = 0.67): усиление интернет-ограничений в Иране, помехи GPS у западной границы Ирана. Эвакуация элит и активов (D9.6b = 0.33): повторное распоряжение о выезде неэкстренного персонала и семей из Саудовской Аравии. Снятие «тихих» мер (D9.7 = 0.33): Швейцария сняла санкции с двух российских бизнесменов, Иран вывел суда ряда стран из ограничений на транзит через Ормуз. Уверенность не выше средней: Д9 опирается на косвенные признаки, прямых объявлений мобилизации или войны нет (§4.3.1)."
+    }
+  },
+  "blindReasons": {},
+  "rejected": [
+    {
+      "url": "https://ru.helm.news/2026-11-03/czech-arms-company-reopens-factories-replenish-nato-ammunition-stocks.html",
+      "date": "2026-11-03",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://dailycaller.com/2026/11/02/lockheed-missile-production-expansion-iran-war/",
+      "date": "2026-11-02",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.iranintl.com/en/202611039785",
+      "date": "2026-11-03",
+      "reason": "unavailable"
+    }
+  ]
+}
