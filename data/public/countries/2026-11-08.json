@@ -1,0 +1,36 @@
+{
+  "schema": "cassandra-index-countries",
+  "schema_version": 2,
+  "site": "https://cassindex.ru",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "attribution": "Cassandra Index — https://cassindex.ru, лицензия CC BY 4.0",
+    "note": "Атрибуция обязательна: при переиспользовании укажите «Cassandra Index, версия, дата недели, https://cassindex.ru» и лицензию CC BY 4.0.",
+    "placeholder": false
+  },
+  "week": "2026-11-08",
+  "methodology": "4.0",
+  "countries": {
+    "total": 152,
+    "published": 2,
+    "rows": {
+      "RU": {
+        "index": 69.1,
+        "delta": -3.3,
+        "background": false,
+        "region": "russia-belarus",
+        "signals": 10
+      },
+      "UA": {
+        "index": 67.5,
+        "delta": -4.9,
+        "background": false,
+        "region": "ukraine-moldova",
+        "signals": 11
+      }
+    }
+  },
+  "sensitivity": 0,
+  "note": "Страновой слой наследует sensitivity недели: чувствительность страновых индексов к исключению доменов/кластеров источников раскрывается числом недели, отдельной метрики по странам не считается."
+}

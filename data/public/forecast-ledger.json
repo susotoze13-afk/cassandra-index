@@ -165,18 +165,34 @@
         "cluster": "hit",
         "direction": "miss"
       }
+    },
+    {
+      "week": "2026-11-08",
+      "kind": "baseline",
+      "committedAt": "2026-11-01",
+      "verified": true,
+      "expectedCluster": "very",
+      "expectedDirection": "flat",
+      "actualIndex": 69,
+      "actualCluster": "very",
+      "actualDelta": -3,
+      "actualDirection": "down",
+      "outcome": {
+        "cluster": "hit",
+        "direction": "miss"
+      }
     }
   ],
   "summary": {
     "baseline": {
-      "entries": 9,
+      "entries": 10,
       "cluster": {
-        "hits": 8,
-        "total": 9
+        "hits": 9,
+        "total": 10
       },
       "direction": {
         "hits": 2,
-        "total": 9
+        "total": 10
       },
       "pending": {
         "cluster": 0,
@@ -255,6 +271,13 @@
       "field": "direction",
       "expected": "flat",
       "actual": "up"
+    },
+    {
+      "week": "2026-11-08",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "down"
     }
   ]
 }

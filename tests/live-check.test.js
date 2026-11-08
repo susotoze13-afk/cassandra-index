@@ -57,12 +57,12 @@ test('live-check: локальная раздача data/ проходит пр�
   const result = await checkSite({ base: 'http://localhost:8080', fetchImpl });
 
   assert.equal(result.ok, true, formatReport(result));
-  assert.equal(EXPECTED_WEEK_COUNT, 14);
-  assert.equal(result.weeks.length, 14);
+  assert.equal(EXPECTED_WEEK_COUNT, 15);
+  assert.equal(result.weeks.length, 15);
   assert.deepEqual(result.weeks.map((r) => r.week), [
     '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-23', '2026-08-30', '2026-09-06',
     '2026-09-13', '2026-09-20', '2026-09-27', '2026-10-04', '2026-10-11', '2026-10-18',
-    '2026-10-25', '2026-11-01',
+    '2026-10-25', '2026-11-01', '2026-11-08',
   ]);
   for (const row of result.weeks) {
     assert.equal(row.contractOk, true, `${row.week}: ${row.errors.join('; ')}`);
