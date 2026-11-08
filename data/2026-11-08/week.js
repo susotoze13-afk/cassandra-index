@@ -37,9 +37,9 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.recalc = {
-  "at": "2026-11-08T08:49:13.295Z",
+  "at": "2026-11-08T09:12:14.102Z",
   "reason": "Еженедельный пересчёт",
-  "previous": null,
+  "previous": 69,
   "methodologyBefore": "4.0",
   "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
@@ -3492,11 +3492,11 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 67.5,
-      "delta": -4.9,
+      "index": 67.8,
+      "delta": -4.6,
       "background": false,
       "region": "ukraine-moldova",
-      "signals": 11,
+      "signals": 10,
       "name": {
         "ru": "Украина",
         "en": "Ukraine"

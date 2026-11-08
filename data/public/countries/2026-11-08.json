@@ -23,11 +23,11 @@
         "signals": 10
       },
       "UA": {
-        "index": 67.5,
-        "delta": -4.9,
+        "index": 67.8,
+        "delta": -4.6,
         "background": false,
         "region": "ukraine-moldova",
-        "signals": 11
+        "signals": 10
       }
     }
   },
