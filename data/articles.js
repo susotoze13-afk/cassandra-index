@@ -2,9 +2,11 @@
 // document.write-загрузка week.js + article.js. Статический блог (ADR 0056) его не
 // использует; файл оставлен для совместимости. Генерируется article-build.js.
 window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
-window.CI_ARTICLES = ["2026-10-18"];
+window.CI_ARTICLES = ["2026-10-18","2026-11-08"];
 (function () {
-  window.CI_DATA.latest = "2026-10-18";
+  window.CI_DATA.latest = "2026-11-08";
   document.write('<script src="data/2026-10-18/week.js"><\/script>');
   document.write('<script src="data/2026-10-18/article.js"><\/script>');
+  document.write('<script src="data/2026-11-08/week.js"><\/script>');
+  document.write('<script src="data/2026-11-08/article.js"><\/script>');
 })();
