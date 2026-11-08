@@ -1,0 +1,608 @@
+{
+  "week": "2026-11-08",
+  "criteria": {
+    "D1.1": {
+      "events": [0.5, 0.5, 0.5],
+      "regions": ["ukraine-moldova", "eu-north-europe", "russia-belarus", "middle-east"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://sputnikglobe.com/20261105/ukrainian-troops-redeployed-to-kharkov-to-guard-secret-prisons---source-1125016238.html",
+          "date": "2026-11-05",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.vedomosti.ru/politics/news/2026/11/04/1242652-norvegiya-prisutstvie",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.israeldefense.co.il/en/node/72294",
+          "date": "2026-11-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D1.2": {
+      "value": 1,
+      "regions": ["baltic", "eu-north-europe"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/europe/more-than-6-000-nato-troops-to-take-part-in-german-led-drills-in-lithuania/4114400",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.defensenews.com/news/2026/11/07/european-troops-set-to-train-in-poland-for-postwar-ukraine-deployment/",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D1.3": {
+      "value": 0.33,
+      "regions": ["middle-east", "ukraine-moldova", "russia-belarus"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes",
+          "date": "2026-11-08",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.timesofisrael.com/how-irans-hidden-web-of-military-agencies-is-slipping-hardware-past-the-us-blockade/",
+          "date": "2026-11-02",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://sputnikglobe.com/20261106/russian-forces-devastate-ukrainian-logistics-and-frontline-troops-in-week-long-blitz-1125025222.html",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D1.4": {
+      "events": [1, 1, 0.5, 0.5, 0.5],
+      "regions": ["ukraine-moldova", "russia-belarus", "middle-east", "africa"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/07/blackout-water-shortage-kyiv-russia-strike-ukraine-energy-grid",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://tass.com/defense/2214397",
+          "date": "2026-11-08",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/houthi-run-health-ministry-says-airstrikes-kill-33-near-yemen-capital",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://news.un.org/en/story/2026/11/1168757",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://tass.com/world/2214367",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/liveblog/2026/11/8/iran-war-live-explosions-hit-qeshm-us-moves-to-block-land-supply-routes",
+          "date": "2026-11-08",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D1.5": {
+      "value": 0.33,
+      "regions": ["middle-east", "east-asia", "north-america", "ukraine-moldova", "eu-north-europe"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.twz.com/sea/uss-theodore-roosevelt-arrives-in-singapore-last-stop-before-third-strike-group-reaches-the-middle-east",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.israeldefense.co.il/en/node/72281",
+          "date": "2026-11-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://sputnikglobe.com/20261107/germany-draws-the-line-on-further-patriot-deliveries-to-ukraine-1125029017.html",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D1.6": null,
+    "D5.1": {
+      "value": 1,
+      "regions": ["middle-east", "eu-north-europe", "russia-belarus"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.khaleejtimes.com/world/mena/iran-supreme-leader-warns-of-wider-war-if-us-attacks-after-trump-election-rout",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.arabtimesonline.com/news/iranian-mp-threatens-saudi-oil-facilities-and-warns-britain-could-be-within-missile-range/",
+          "date": "2026-11-07",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://tass.com/politics/2214375",
+          "date": "2026-11-08",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D5.2": {
+      "events": [1, 1, 0.5],
+      "regions": ["eu-north-europe"],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.cbsnews.com/news/cyberattack-france-blood-bank/",
+          "date": "2026-11-04",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.latintimes.com/cyberattack-refrigeration-systems-european-supermarkets-600976",
+          "date": "2026-11-06",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/video/inside-story/2026/11/7/who-is-behind-europes-suspected-hybrid-attacks",
+          "date": "2026-11-07",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D5.3": null,
+    "D5.4": null
+  },
+  "sources": [
+    {
+      "id": "sputnikglobe-kharkov-redeploy",
+      "title": {
+        "ru": "Украинские войска переброшены в Харьков для охраны секретных тюрем — источник",
+        "en": "Ukrainian Troops Redeployed to Kharkov to Guard Secret Prisons - Source"
+      },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261105/ukrainian-troops-redeployed-to-kharkov-to-guard-secret-prisons---source-1125016238.html",
+      "publication_date": "2026-11-05",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "vedomosti-norway-border-presence",
+      "title": {
+        "ru": "Норвегия усилит военное присутствие на границе с Россией",
+        "en": "Norway to strengthen military presence on border with Russia"
+      },
+      "domain": "vedomosti.ru",
+      "url": "https://www.vedomosti.ru/politics/news/2026/11/04/1242652-norvegiya-prisutstvie",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "israeldefense-us-airlift-israel",
+      "title": {
+        "ru": "США начали воздушную переброску в Израиль в преддверии возможной военной операции против Ирана",
+        "en": "US Launches Airlift to Israel Ahead of Possible Military Action in Iran"
+      },
+      "domain": "israeldefense.co.il",
+      "url": "https://www.israeldefense.co.il/en/node/72294",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-nato-lithuania-drills",
+      "title": {
+        "ru": "Более 6 000 военных НАТО примут участие в учениях под руководством ФРГ в Литве",
+        "en": "More than 6,000 NATO troops to take part in German-led drills in Lithuania"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/europe/more-than-6-000-nato-troops-to-take-part-in-german-led-drills-in-lithuania/4114400",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "defensenews-coalition-262-poland",
+      "title": {
+        "ru": "Европейские военные проведут учения в Польше в рамках подготовки развёртывания на Украине после войны",
+        "en": "European troops set to train in Poland for postwar Ukraine deployment"
+      },
+      "domain": "defensenews.com",
+      "url": "https://www.defensenews.com/news/2026/11/07/european-troops-set-to-train-in-poland-for-postwar-ukraine-deployment/",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-iran-land-supply-task-force",
+      "title": {
+        "ru": "США создали оперативную группу для перекрытия наземных маршрутов снабжения Ирана",
+        "en": "US launches task force to disrupt Iran's land-based supply routes"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes",
+      "publication_date": "2026-11-08",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "timesofisrael-iran-military-agencies-network",
+      "title": {
+        "ru": "Как скрытая сеть военных ведомств Ирана обходит морскую блокаду США",
+        "en": "How Iran's hidden web of military agencies is slipping hardware past the US blockade"
+      },
+      "domain": "timesofisrael.com",
+      "url": "https://www.timesofisrael.com/how-irans-hidden-web-of-military-agencies-is-slipping-hardware-past-the-us-blockade/",
+      "publication_date": "2026-11-02",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week",
+      "notes": "Материал Reuters, перепечатка; страница отдаёт 403 на автоматические запросы (blocked)."
+    },
+    {
+      "id": "sputnikglobe-ukraine-logistics-blitz",
+      "title": {
+        "ru": "Российские силы разрушили украинскую логистику и позиции войск на передовой за неделю ударов",
+        "en": "Russian Forces Devastate Ukrainian Logistics and Frontline Troops in Week-Long Blitz"
+      },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261106/russian-forces-devastate-ukrainian-logistics-and-frontline-troops-in-week-long-blitz-1125025222.html",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "guardian-kyiv-energy-grid-strike",
+      "title": {
+        "ru": "Отключения света и дефицит воды в Киеве после ударов России по энергосистеме Украины",
+        "en": "Blackouts and water shortages in Kyiv after Russia strikes Ukraine's energy grid"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/nov/07/blackout-water-shortage-kyiv-russia-strike-ukraine-energy-grid",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-zhitomir-substation",
+      "title": {
+        "ru": "Российские войска поразили электроподстанцию в Житомирской области",
+        "en": "Russian forces hit electrical substation in Zhitomir region"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2214397",
+      "publication_date": "2026-11-08",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "al-monitor-yemen-airstrike-33",
+      "title": {
+        "ru": "Минздрав хуситов: авиаудары под столицей Йемена убили 33 человека",
+        "en": "Houthi-run health ministry says airstrikes kill 33 near Yemen capital"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/houthi-run-health-ministry-says-airstrikes-kill-33-near-yemen-capital",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "un-news-beni-civilians-killed",
+      "title": {
+        "ru": "Новости ООН: погибшие мирные жители в ДР Конго, возвращение украинцев, Гутерриш о «нормализации» силы",
+        "en": "World News in Brief: Civilians killed in DR Congo, Ukrainians wrestle with return, Guterres calls out 'normalisation' of force"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/en/story/2026/11/1168757",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-hormuz-tankers-mines",
+      "title": {
+        "ru": "Два танкера подорвались на минах в Ормузском проливе — КСИР",
+        "en": "Two tankers hit mines in Hormuz — IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2214367",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-iran-war-live-nov8",
+      "title": {
+        "ru": "Война с Ираном онлайн: США перекрывают наземные маршруты снабжения; ОАЭ спасли 22 моряка",
+        "en": "Iran war live: US moves to block land supply routes; UAE rescues 22 sailors"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/liveblog/2026/11/8/iran-war-live-explosions-hit-qeshm-us-moves-to-block-land-supply-routes",
+      "publication_date": "2026-11-08",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "twz-roosevelt-third-strike-group",
+      "title": {
+        "ru": "USS Theodore Roosevelt прибыл в Сингапур — последняя стоянка перед выходом третьей авианосной группы на Ближний Восток",
+        "en": "USS Theodore Roosevelt Arrives In Singapore; Last Stop Before Third Strike Group Reaches The Middle East"
+      },
+      "domain": "twz.com",
+      "url": "https://www.twz.com/sea/uss-theodore-roosevelt-arrives-in-singapore-last-stop-before-third-strike-group-reaches-the-middle-east",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "israeldefense-patriot-israel",
+      "title": {
+        "ru": "США развернули в Израиле систему ПВО Patriot",
+        "en": "US Deploys Patriot Missile Defense System to Israel"
+      },
+      "domain": "israeldefense.co.il",
+      "url": "https://www.israeldefense.co.il/en/node/72281",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "sputnikglobe-germany-patriot-ukraine",
+      "title": {
+        "ru": "Германия отказывается от дальнейших поставок Patriot Украине",
+        "en": "Germany Draws The Line on Further Patriot Deliveries to Ukraine"
+      },
+      "domain": "sputnikglobe.com",
+      "url": "https://sputnikglobe.com/20261107/germany-draws-the-line-on-further-patriot-deliveries-to-ukraine-1125029017.html",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "khaleejtimes-khamenei-wider-war",
+      "title": {
+        "ru": "Верховный лидер Ирана предупредил о расширении войны в случае новых ударов США",
+        "en": "Iran supreme leader warns of wider war if US attacks after Trump election rout"
+      },
+      "domain": "khaleejtimes.com",
+      "url": "https://www.khaleejtimes.com/world/mena/iran-supreme-leader-warns-of-wider-war-if-us-attacks-after-trump-election-rout",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "arabtimes-iranian-mp-threats",
+      "title": {
+        "ru": "Иранский депутат угрожает нефтяным объектам Саудовской Аравии и предупреждает, что Британия может оказаться в зоне досягаемости ракет",
+        "en": "Iranian MP Threatens Saudi Oil Facilities and Warns Britain Could Be Within Missile Range"
+      },
+      "domain": "arabtimesonline.com",
+      "url": "https://www.arabtimesonline.com/news/iranian-mp-threatens-saudi-oil-facilities-and-warns-britain-could-be-within-missile-range/",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-tolstoy-europe-truce-troops",
+      "title": {
+        "ru": "Европа рассчитывала на перемирие на Украине, чтобы ввести туда войска, — старший российский законодатель",
+        "en": "Europe hoped for Ukraine truce to deploy troops there — senior Russian lawmaker"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2214375",
+      "publication_date": "2026-11-08",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cbsnews-france-blood-banks-cyber",
+      "title": {
+        "ru": "Французские банки крови подверглись кибератаке через несколько дней после взлома холодильников в Европе",
+        "en": "Blood banks hit by cyberattack in France days after European freezer hacks"
+      },
+      "domain": "cbsnews.com",
+      "url": "https://www.cbsnews.com/news/cyberattack-france-blood-bank/",
+      "publication_date": "2026-11-04",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "latintimes-freezers-cyber-russia-blame",
+      "title": {
+        "ru": "Россия отвергает обвинения: взломанные холодильники супермаркетов испортили продукты по всей Европе",
+        "en": "Russia Rejects Blame as Hacked Supermarket Freezers Spoil Food Across Europe"
+      },
+      "domain": "latintimes.com",
+      "url": "https://www.latintimes.com/cyberattack-refrigeration-systems-european-supermarkets-600976",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-europe-hybrid-attacks",
+      "title": {
+        "ru": "Кто стоит за предполагаемыми гибридными атаками в Европе?",
+        "en": "Who is behind Europe's suspected hybrid attacks?"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/video/inside-story/2026/11/7/who-is-behind-europes-suspected-hybrid-attacks",
+      "publication_date": "2026-11-07",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    }
+  ],
+  "blindReasons": {
+    "D1.6": "searched-none",
+    "D5.3": "searched-none",
+    "D5.4": "searched-none"
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "high",
+      "reason": "Покрыто 5 из 6: активные боевые действия (D1.4) подтверждены кластерами A и B — удар по энергосистеме Украины (172 дрона, 36 баллистических ракет, отключения в Киеве), поражение подстанции в Житомирской области, подрыв двух танкеров на минах в Ормузском проливе, авиаудары под столицей Йемена, гибель мирных жителей в Бени (ДР Конго). Учения (D1.2 = 1) — свыше 6 000 военных НАТО на немецких учениях у границы Литвы и Беларуси и 2 800 военных из 11 стран на Koalicja 26.2 в Польше. Перемещения войск (D1.1) — переброска украинских подразделений в Харьков, усиление военного присутствия Норвегии на границе с Россией, воздушная переброска США в Израиль. Логистика (D1.3 = 0.33) — сеть военных ведомств Ирана в обход блокады, оперативная группа США против наземных маршрутов снабжения. Развёртывание стратегических систем (D1.5 = 0.33) — выход третьей авианосной группы на Ближний Восток, Patriot в Израиле. Разведение сил (D1.6) в окне не подтверждено."
+    },
+    "D5": {
+      "level": "medium",
+      "reason": "Покрыто 2 из 4: эскалация военной риторики (D5.1 = 1) — предупреждение верховного лидера Ирана о расширении войны, угроза иранского депутата нефтяным объектам Саудовской Аравии и Британии, заявление российского законодателя о расчёте Европы на перемирие для ввода войск. Кибероперации (D5.2 = 0.5) — атака на холодильные системы супермаркетов в европейских странах (порядка 100 магазинов), кибератака на французские банки крови, волна ложных сообщений о бомбах в аэропортах и редакциях; европейские разведки указывают на российский след. Дезинформационных кампаний в преддверии военных действий (D5.3) и снижения пропаганды (D5.4) в окне не зафиксировано."
+    }
+  },
+  "rejected": [
+    {
+      "url": "https://www.jpost.com/middle-east/iran-news/article-913481",
+      "date": "2026-11-01",
+      "reason": "out-of-window"
+    },
+    {
+      "url": "https://www.aa.com.tr/en/middle-east/israel-linked-entities-tied-to-global-anti-muslim-disinformation-campaign-report/4110376",
+      "date": "2026-11-03",
+      "reason": "wrong-criterion"
+    },
+    {
+      "url": "https://www.yahoo.com/news/world/articles/thousands-syrian-troops-deploy-yemen-173547548.html",
+      "date": "2026-11-07",
+      "reason": "weak"
+    },
+    {
+      "url": "https://english.nv.ua/nation/moscow-shifts-1-000-soldiers-to-east-bank-during-oleshky-truce-50656946.html",
+      "date": "2026-11-05",
+      "reason": "unavailable"
+    },
+    {
+      "url": "https://www.lrt.lt/en/news-in-english/19/3106178/more-than-6-000-nato-troops-to-take-part-in-german-led-exercises-in-lithuania",
+      "date": "2026-11-06",
+      "reason": "unavailable"
+    }
+  ]
+}
