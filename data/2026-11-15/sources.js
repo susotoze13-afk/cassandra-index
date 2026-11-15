@@ -1276,6 +1276,456 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "B-state-media",
     "state_affiliated": true,
     "origin": "editorial-backfill"
+  },
+  {
+    "id": "yahoo-koalicja26-exercises",
+    "title": {
+      "ru": "«Коалиция желающих» начала первые военные учения в Польше",
+      "en": "Coalition of the Willing kicks off first military exercises in Poland"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/world/articles/coalition-willing-kicks-off-first-090325324.html",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "newsam-eternity-2026",
+    "title": {
+      "ru": "Азербайджан проводит совместные учения с Турцией и Грузией",
+      "en": "Azerbaijan holding joint military exercises with Turkey, Georgia"
+    },
+    "domain": "news.am",
+    "url": "https://news.am/en/news/1074638",
+    "publication_date": "2026-11-13",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "scmp-algeria-yj12-drill",
+    "title": {
+      "ru": "Алжир испытал сверхзвуковую ракету YJ-12 на учениях в Средиземном море",
+      "en": "Algeria test-fires apparent Chinese YJ-12 supersonic missile in Mediterranean drill"
+    },
+    "domain": "scmp.com",
+    "url": "https://www.scmp.com/news/china/military/article/3374321/algeria-test-fires-apparent-chinese-yj-12-supersonic-missile-mediterranean-drill",
+    "publication_date": "2026-11-13",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "chinaview-koalicja26-exercises",
+    "title": {
+      "ru": "Учения «Коалиции желающих» в Польше и борьба Европы за роль в переговорах",
+      "en": "Military exercise highlights Europe's bid for role in Ukraine peace talks"
+    },
+    "domain": "chinaview.cn",
+    "url": "http://www.chinaview.cn/20261110/7f96f4cafcd841689ad0f3bffd92ca84/c.html",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "reportaz-eternity-2026",
+    "title": {
+      "ru": "В Баку стартовали учения Eternity-2026 с участием Азербайджана, Грузии и Турции",
+      "en": "Eternity-2026: Joint military exercise of Azerbaijan, Georgia, and Türkiye opens in Baku"
+    },
+    "domain": "report.az",
+    "url": "https://report.az/en/military/eternity-2026-joint-military-exercise-of-azerbaijan-georgia-and-turkiye-opens-in-baku",
+    "publication_date": "2026-11-13",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "horizons-mediterranean-falcon",
+    "title": {
+      "ru": "Шенегриха проконтролировал ход учений «Средиземноморский сокол — 2026»",
+      "en": "Chanegriha supervises 'Mediterranean Falcon 2026' naval exercise"
+    },
+    "domain": "horizons.dz",
+    "url": "https://www.horizons.dz/language/en/2026/11/chanegriha-supervises-mediterranean-falcon-2026-naval-exercise/",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "jpost-missile-city",
+    "title": {
+      "ru": "Иран показал подземный «город ракет», КСИР грозит ответом",
+      "en": "Iran unveils massive underground 'missile city,' IRGC warns of retaliation"
+    },
+    "domain": "jpost.com",
+    "url": "https://www.jpost.com/middle-east/iran-news/article-914507",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "almonitor-missile-city",
+    "title": {
+      "ru": "Иран представил новую подземную «город ракет»: что известно",
+      "en": "Iran unveils new underground 'missile city': What to know"
+    },
+    "domain": "al-monitor.com",
+    "url": "https://www.al-monitor.com/originals/2026/11/iran-unveils-new-underground-missile-city-what-know",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "hindustantimes-iran-missile-rate",
+    "title": {
+      "ru": "Иран выпускает до 50 баллистических ракет в месяц — вдвое меньше довоенного",
+      "en": "Iran can produce 50 ballistic missiles a month, half of its pre-war capacity: Report"
+    },
+    "domain": "hindustantimes.com",
+    "url": "https://www.hindustantimes.com/world-news/iran-can-produce-50-ballistic-missiles-per-month-as-new-underground-facility-missile-city-unveiled-irgc-us-iran-war-report-101794457316900.html",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "tasnim-missile-city",
+    "title": {
+      "ru": "КСИР представил новый «город ракет»",
+      "en": "IRGC Unveils New Missile City"
+    },
+    "domain": "tasnimnews.ir",
+    "url": "https://www.tasnimnews.ir/en/news/2026/11/10/3745272/irgc-unveils-new-missile-city",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "irna-missile-city",
+    "title": {
+      "ru": "КСИР представил новую стратегическую «город ракет»",
+      "en": "Iran's IRGC unveils new strategic missile city"
+    },
+    "domain": "irna.ir",
+    "url": "https://en.irna.ir/news/86318328/Iran-s-IRGC-unveils-new-strategic-missile-city",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "hurriyet-bashiqa-handover",
+    "title": {
+      "ru": "Турция начнёт передачу базы Башика Ираку",
+      "en": "Türkiye to begin handover of Bashiqa base to Iraq"
+    },
+    "domain": "hurriyetdailynews.com",
+    "url": "https://www.hurriyetdailynews.com/turkiye-to-begin-handover-of-bashiqa-base-to-iraq-229189",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "turkishminute-bashiqa-handover",
+    "title": {
+      "ru": "Анкара начинает передачу базы Башика Багдаду",
+      "en": "Ankara to begin handing over Bashiqa base to Baghdad"
+    },
+    "domain": "turkishminute.com",
+    "url": "https://www.turkishminute.com/2026/11/09/ankara-to-begin-handing-over-bashiqa-base-to-baghdad/",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "anf-zilkan-withdrawal",
+    "title": {
+      "ru": "Турция начала вывод войск с базы Зилкан в Мосуле",
+      "en": "Turkey begins withdrawal from Zilkan military base in Mosul"
+    },
+    "domain": "anf-news.com",
+    "url": "https://english.anf-news.com/news/turkey-begins-withdrawal-from-zilkan-military-base-in-mosul-88095",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "reportaz-zilkan-withdrawal",
+    "title": {
+      "ru": "Турция завершит вывод войск с базы Зилкан в Ираке до конца 2026 года",
+      "en": "Türkiye to complete troop withdrawal from Iraq's Zilkan base by end of 2026"
+    },
+    "domain": "report.az",
+    "url": "https://report.az/en/other-countries/turkiye-to-complete-troop-withdrawal-from-iraq-s-zilkan-base-by-end-of-2026",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "irna-iran-demands-ultimatum",
+    "title": {
+      "ru": "«Примите требования Ирана или капитулируйте на поле боя» — Минобороны Ирана",
+      "en": "Accept Iran's demands or surrender on battlefield: Defense Ministry spokesperson warns enemy"
+    },
+    "domain": "irna.ir",
+    "url": "https://en.irna.ir/news/86319236/Accept-Iran-s-demands-or-surrender-on-battlefield-Defense-Ministry",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "wion-hormuz-ultimatum-response",
+    "title": {
+      "ru": "«Это никогда не вернётся»: ответ Ирана на ультиматум Трампа по Ормузу",
+      "en": "'It will never return...': Iran issues direct response to Trump after expletive-filled Hormuz ultimatum"
+    },
+    "domain": "wionews.com",
+    "url": "https://www.wionews.com/world/-it-will-never-return-iran-s-direct-response-to-trump-after-expletive-filled-hormuz-ultimatum-1775425671185",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "toi-trump-blinks-iran-strike",
+    "title": {
+      "ru": "Трамп отступил после ответа Ирана: «новая бомбардировка маловероятна»",
+      "en": "Trump blinks after Iran's fiery response against Qeshm attacks; 'new bombing highly unlikely'"
+    },
+    "domain": "timesofindia.indiatimes.com",
+    "url": "https://timesofindia.indiatimes.com/videos/international/trump-blinks-after-irans-fiery-response-against-qeshm-attacks-new-bombing-highly-unlikely/videoshow/135671123.cms",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "chinaview-japan-defense-60tln",
+    "title": {
+      "ru": "Япония планирует нарастить оборонные расходы до 60 трлн иен за пять лет",
+      "en": "Japan plans to raise defense spending to 60 tln yen over next 5 years"
+    },
+    "domain": "chinaview.cn",
+    "url": "http://www.chinaview.cn/20261114/cba3c2c7516a480abec0ea2f6d0bb41d/c.html",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "bastillepost-japan-defense-60tln",
+    "title": {
+      "ru": "Япония планирует повысить оборонные расходы до 60 трлн иен на пять лет",
+      "en": "Japan plans to raise defense spending to 60 tln yen over next 5 years"
+    },
+    "domain": "bastillepost.com",
+    "url": "https://www.bastillepost.com/global/article/6361503-japan-plans-to-raise-defense-spending-to-60-tln-yen-over-next-5-years",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "thestar-japan-defence-60tln",
+    "title": {
+      "ru": "Япония планирует повысить оборонные расходы до 60 трлн иен на пять лет",
+      "en": "Japan plans to raise defence spending to 60tril yen over next five years"
+    },
+    "domain": "thestar.com.my",
+    "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/11/14/japan-plans-to-raise-defence-spending-to-60tril-yen-over-next-five-years",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "thehindu-iraq-iran-crossing",
+    "title": {
+      "ru": "Ирак вновь открыл пограничный переход с Ираном",
+      "en": "Iraq reopens border crossing with Iran"
+    },
+    "domain": "thehindu.com",
+    "url": "https://www.thehindu.com/news/international/iraq-reopens-border-crossing-with-iran/article71685697.ece",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-iraq-shib-crossing",
+    "title": {
+      "ru": "Ирак открыл КПП Шиб на границе с Ираном после трёхнедельного закрытия",
+      "en": "Iraq reopens Shib border crossing with Iran after 3-week closure"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/middle-east/-iraq-reopens-shib-border-crossing-with-iran-after-3-week-closure/4118234",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "irna-iraq-chazabeh-crossing",
+    "title": {
+      "ru": "Ирак вновь откроет переход Чазабе с Ираном",
+      "en": "Iraq to reopen Chazabeh crossing with Iran"
+    },
+    "domain": "irna.ir",
+    "url": "https://en.irna.ir/news/86317433/Iraq-to-reopen-Chazabeh-crossing-with-Iran",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-ethiopia-eritrea-tigray-offensive",
+    "title": {
+      "ru": "Эфиопия обвинила Эритрею в руководстве наступлением в Тыграе при поддержке Египта",
+      "en": "Ethiopia accuses Eritrea of leading Tigray rebel offensive with Egyptian support"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/africa/ethiopia-accuses-eritrea-of-leading-tigray-rebel-offensive-with-egyptian-support/4125272",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "memo-ethiopia-eritrea-offensive",
+    "title": {
+      "ru": "Эфиопия: Эритрея направляет наступление повстанцев Тыграя",
+      "en": "Ethiopia accuses Eritrea of leading Tigray rebel offensive with Egyptian support"
+    },
+    "domain": "middleeastmonitor.com",
+    "url": "https://www.middleeastmonitor.com/20261114-ethiopia-accuses-eritrea-of-leading-tigray-rebel-offensive-with-egyptian-support/",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "eastleigh-ethiopia-eritrea-offensive",
+    "title": {
+      "ru": "Эфиопия обвинила Эритрею в новом наступлении при поддержке Египта",
+      "en": "Ethiopia accuses Eritrea of leading fresh offensive with Egypt's support"
+    },
+    "domain": "eastleighvoice.co.ke",
+    "url": "https://eastleighvoice.co.ke/regional/423839/ethiopia-accuses-eritrea-of-leading-fresh-offensive-with-egypts-support",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "nationthailand-ceasefire-reaffirm",
+    "title": {
+      "ru": "Таиланд подтвердил приверженность соглашению о прекращении огня с Камбоджей",
+      "en": "Thai official reaffirms commitment to ceasefire accord with Cambodia"
+    },
+    "domain": "nationthailand.com",
+    "url": "https://www.nationthailand.com/news/asean/40073537",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "cambodianess-peaceful-resolution",
+    "title": {
+      "ru": "Камбоджа добивается мирного урегулирования спора с Таиландом",
+      "en": "Cambodia seeks peaceful border resolution with Thailand, Hun Manet tells Francophonie Summit"
+    },
+    "domain": "cambodianess.com",
+    "url": "https://cambodianess.com/article/cambodia-seeks-peaceful-border-resolution-with-thailand-hun-manet-tells-francophonie-summit",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-cambodia-thailand-demarcation",
+    "title": {
+      "ru": "Камбоджа предлагает возобновить демаркацию границы с Таиландом",
+      "en": "Cambodia calls for resumption of border demarcation with Thailand at Francophonie Summit"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/asia-pacific/cambodia-calls-for-resumption-of-border-demarcation-with-thailand-at-francophonie-summit/4125480",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
   }
 ];
 })();
