@@ -1,0 +1,59 @@
+window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
+(function () {
+  var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
+  s.global = {
+  "index": 74,
+  "delta": 5
+};
+  s.published = "2026-11-15";
+  s.through = "2026-11-15";
+  s.methodology = "4.0";
+  s.regions_taxonomy = "2.0";
+  s.dataState = "published";
+  s.q = 1;
+  s.nullWeight = 0;
+  s.coverage = {
+  "coveredDrivers": 9,
+  "totalDrivers": 9
+};
+  s.confidence = "full";
+  s.sensitivity = 0;
+  s.precursor = {
+  "value": 78,
+  "signalingSubgroups": 3
+};
+  s.coverageCriteria = {
+  "covered": 26,
+  "total": 46,
+  "uncovered": [
+    "D1.2",
+    "D1.5",
+    "D1.6",
+    "D2.4",
+    "D2.5",
+    "D3.1",
+    "D3.2",
+    "D4.2",
+    "D4.5",
+    "D5.4",
+    "D6.1",
+    "D6.4",
+    "D7.3",
+    "D8.1",
+    "D8.4",
+    "D9.1",
+    "D9.5",
+    "D9.6a",
+    "D9.6b",
+    "D9.7"
+  ]
+};
+  s.recalc = {
+  "at": "2026-11-15T07:38:23.799Z",
+  "reason": "Еженедельный пересчёт",
+  "previous": 74,
+  "methodologyBefore": "4.0",
+  "methodologyAfter": "4.0",
+  "approvedBy": "Editor-in-Chief"
+};
+})();

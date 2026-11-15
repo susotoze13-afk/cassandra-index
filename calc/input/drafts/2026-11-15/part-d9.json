@@ -1,0 +1,332 @@
+{
+  "week": "2026-11-15",
+  "criteria": {
+    "D9.1": null,
+    "D9.2": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://oilprice.com/Energy/Energy-General/Iran-Braces-for-a-Budget-Without-Oil-Revenue.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611146434",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611130278",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.3": {
+      "value": 1,
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "east-asia",
+        "south-asia",
+        "eu-north-europe",
+        "baltic"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2218247",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+          "date": "2026-11-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://bnn-news.com/social/you-cannot-bear-what-you-cannot-afford-latvia-considers-freezing-rail-baltica-project-vdx9k4n",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.4": {
+      "value": 0.67,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://report.az/en/other-countries/germany-eyes-reserve-coal-plants-to-save-gas-this-winter",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://oilprice.com/Metals/Gold/Singapore-Makes-a-65-Billion-Bet-on-the-Future-of-Gold.html",
+          "date": "2026-11-14",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D9.5": null,
+    "D9.6a": null,
+    "D9.6b": null,
+    "D9.7": null
+  },
+  "sources": [
+    {
+      "id": "aa-tankers-fire",
+      "title": {
+        "ru": "Два танкера загорелись после подрыва на морской мине в Ормузе",
+        "en": "2 tankers caught fire after hitting naval mine in Hormuz, Iranian navy says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-tankers-mines",
+      "title": {
+        "ru": "Два нефтяных танкера подорвались на минах при проходе Ормузского пролива",
+        "en": "Two oil tankers hit mines attempting to pass Strait of Hormuz — IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218247",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-tankers-mines",
+      "title": {
+        "ru": "ВМС Ирана: три танкера горят после подрыва на минах в Ормузе",
+        "en": "Iran's navy says three tankers on fire after hitting mines in Hormuz"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-un-maritime-attacks",
+      "title": {
+        "ru": "ООН предупреждает о росте морских атак и требует восстановить судоходство",
+        "en": "UN warns of rising maritime attacks, urges restoration of safe navigation in Strait of Hormuz, Red Sea"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-jones-act",
+      "title": {
+        "ru": "Трамп продлил исключение из закона Джонса ещё на 90 дней",
+        "en": "Trump Extends Jones Act Waiver For Another 90 Days"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-iran-budget",
+      "title": {
+        "ru": "Иран готовит бюджет без нефтяных доходов",
+        "en": "Iran Braces for a Budget Without Oil Revenue"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Energy/Energy-General/Iran-Braces-for-a-Budget-Without-Oil-Revenue.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-gasoline-rationing",
+      "title": {
+        "ru": "Иран вводит нормирование бензина, не решаясь поднять цены",
+        "en": "Seven years after ‘Bloody November,’ Iran rations gasoline it dares not reprice"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611146434",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "bnn-rail-baltica",
+      "title": {
+        "ru": "Латвия рассматривает заморозку проекта Rail Baltica",
+        "en": "\"You cannot bear what you cannot afford\" – Latvia considers freezing Rail Baltica project"
+      },
+      "domain": "bnn-news.com",
+      "url": "https://bnn-news.com/social/you-cannot-bear-what-you-cannot-afford-latvia-considers-freezing-rail-baltica-project-vdx9k4n",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-singapore-gold",
+      "title": {
+        "ru": "Сингапур ставит $65 млрд на будущее золота",
+        "en": "Singapore Makes a $65 Billion Bet on the Future of Gold"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Metals/Gold/Singapore-Makes-a-65-Billion-Bet-on-the-Future-of-Gold.html",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "reportaz-germany-coal",
+      "title": {
+        "ru": "Германия рассматривает резервные угольные станции ради экономии газа",
+        "en": "Germany eyes reserve coal plants to save gas this winter"
+      },
+      "domain": "report.az",
+      "url": "https://report.az/en/other-countries/germany-eyes-reserve-coal-plants-to-save-gas-this-winter",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-organs-sale",
+      "title": {
+        "ru": "Иранцы на фоне нужды выставляют на продажу органы",
+        "en": "Cash-strapped Iranians put multiple organs up for sale"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611130278",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    }
+  ],
+  "blindReasons": {
+    "D9.1": "searched-none",
+    "D9.5": "gate-failed",
+    "D9.6a": "gate-failed",
+    "D9.6b": "gate-failed",
+    "D9.7": "searched-none"
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "low",
+      "reason": "Покрыто 3 из 6: боевые действия (D1.4) подтверждены кластерами A и B — удар по больнице «Насер» в Газе, удар иранских БПЛА по радиолокатору США в Бахрейне, удары по больнице в Киеве, обмен ударами Эфиопия—Эритрея, атаки хуситов в Таизе, 44 погибших в ДР Конго. Перемещения (D1.1) — взятие Терсянки (B) и пересмотр сокращения войск США в Европе (A). Логистика (D1.3 = 0.33) — ремонт переданных Украине F-16 (B) и дроновые сделки Баку—Киев (A); сопоставление с критерием слабое, вклад мал. Учения (D1.2) и развёртывание стратегических систем (D1.5) в окне есть, но каждый опирается на один кластер (пробел покрытия лентами: Reuters/AP/ISW недоступны) — помечены gate-failed, не покрыты."
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: пересмотр ядерной доктрины высшим клерикальным органом Ирана (A) при заявлении Нетаньяху о возрождении программы (B) — D2.2 = 1; тревога МАГАТЭ по неинспектированному объекту обогащения (D2.3). D2.1 (0.33) перенесён из недели 2026-11-08 вместе с источниками — приём проекта, раскрытие обязательно: в окне публичных ядерных угроз уровня прошлой недели не появилось."
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: санкционное давление (D3.5 нет) — запрет транзита зерна Латвией (B), предупреждение G7 (A), торговый спор Франции и Алжира (A). Переговоры (D3.4 = 0.67) — анонс трёхстороннего саммита в Шэньчжэне, посредничество Кушнера, обсуждение уступки Донбасса; договорённостей нет. Гуманитарные договорённости (D3.5 = 0.33) — обмен пленными по 1 200–1 300 человек (обсуждается) и зимний доступ помощи в Газу."
+    },
+    "D4": {
+      "level": "medium",
+      "reason": "Покрыто 4 из 6: рынки (D4.6 = 0.67) — Brent выше $96, оптовые цены +6,5 % г/г, падение капитализации Nvidia на $1,7 трлн, заявление о потере $3 трлн рынком США, печное топливо +59 %. Цепочки (D4.3 = 0.67) и блокировка торговли (D4.4) — подрывы танкеров на минах в Ормузе, призыв ООН пропустить удобрения, контрабанда нефти в Ираке, продление исключения из закона Джонса. Новые санкции (D4.1) — Латвия, G7, спор ЕС и Алжира. Военные расходы (D4.2) и снятие ограничений (D4.5) в окне не подтверждены."
+    },
+    "D5": {
+      "level": "high",
+      "reason": "Покрыто 3 из 4: риторика (D5.1 = 1) — угрозы базам США в Европе, угрозы убить Трампа, «полная победа»; кибероперации (D5.2) — расследование взлома во Франции, сеть из семи человек в Европе, бюллетень CISA (primary); дезинформация (D5.3 = 0.33) — взаимно исключающие версии удара по радиолокатору в Бахрейне."
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "Покрыто 2 из 4: эвакуация (D6.2 = 0.67) — 64 тыс. беженцев из Нигерии, 340 тыс. перемещённых в Йемене, зимняя помощь Газе, эвакуации ООН; переориентация экономики (D6.3 = 1) — бюджет Ирана без нефтяных доходов и нормирование бензина. Военное положение/мобилизация (D6.1) и отмена мер (D6.4) в окне не подтверждены."
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 4: вовлечение новых государств (D7.1) — Эфиопия и Эритрея, делегация КНДР в Москве, оборонное соглашение Турции и Катара, прекращение поставок Болгарией; атаки вне театра (D7.2) — удар по базе США в Бахрейне, перехваты у Эр-Рияда, сеть в Европе. Выход третьих сторон (D7.4 = 0.67) — Болгария, пауза Трампа, отсутствие срочности у Израиля. Новый фронт (D7.3) — эфиопско-эритрейские удары есть, но подтверждение одним кластером (B) — gate-failed."
+    },
+    "D8": {
+      "level": "low",
+      "reason": "Покрыто 2 из 4: мирные договорённости (D8.2 = 0.33) — анонс саммита и посредничество без подписанного документа; наблюдение (D8.3 = 0.33) — Совет Безопасности и призывы ООН по судоходству. Снижение интенсивности (D8.4) и прекращение огня (D8.1) не подтверждены: призывы соблюдать перемирие в Газе есть, но боевые действия в окне продолжались."
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 8: финансовая изоляция (D9.2 = 0.67) — бюджет без нефти, нормирование бензина, продажа органов; транспорт и страхование (D9.3 = 1) — мины в Ормузе, горящие танкеры, предупреждение ООН, исключение из закона Джонса; стратегическое накопление (D9.4 = 0.67) — угольный резерв Германии, $65 млрд Сингапура в золото. Медицинская подготовка, кадровые меры, информационный суверенитет и эвакуация элит (D9.6b) в окне не подтверждены двумя кластерами."
+    }
+  },
+  "rejected": []
+}

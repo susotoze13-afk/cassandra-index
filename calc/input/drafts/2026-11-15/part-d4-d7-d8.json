@@ -1,0 +1,1075 @@
+{
+  "week": "2026-11-15",
+  "criteria": {
+    "D4.1": {
+      "events": [
+        1,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "russia-belarus",
+        "eu-north-europe",
+        "baltic",
+        "middle-east",
+        "africa",
+        "central-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/economy/2218129",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611111088",
+          "date": "2026-11-11",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "http://www.africanews.com/2026/11/13/france-escalates-algeria-trade-dispute-to-eu-level/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://bnn-news.com/world/initial-checks-of-transit-grain-shipments-in-latvia-find-no-grain-stolen-from-ukraine-2g73jb6",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.2": null,
+    "D4.3": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "east-asia",
+        "eu-north-europe",
+        "south-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+          "date": "2026-11-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://report.az/en/other-countries/at-least-25-sailors-killed-in-and-around-strait-of-hormuz-un-says",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/15/iraq-pm-sacks-nine-officials-over-oil-smuggling-in-pro-iran-stronghold?traffic_source=rss",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D4.4": {
+      "events": [
+        1,
+        1,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "east-asia",
+        "south-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2218247",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/un-official-urges-iran-us-let-fertilisers-through-hormuz-strait",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.5": null,
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "north-america",
+        "eu-north-europe",
+        "east-asia",
+        "middle-east"
+      ],
+      "sources": [
+        {
+          "url": "https://oilprice.com/Energy/Energy-General/Brent-Crude-Climbs-Back-Above-96-as-Iran-Tensions-Escalate.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/13/ppi-inflation-report-october-2026.html",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/13/nvidia-stock-jensen-affair-ai.html",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.hindustantimes.com/world-news/us-news/trump-blames-democrats-for-3-trillion-us-stock-market-loss-after-2026-midterms-101794713697395.html",
+          "date": "2026-11-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/14/heating-oil-price-spike-household-budgets.html",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D7.1": {
+      "events": [
+        1,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "africa",
+        "east-asia",
+        "middle-east",
+        "eu-north-europe",
+        "balkans"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/africa/ethiopia-eritrea-reportedly-exchange-drone-artillery-strikes-as-border-fighting-intensifies/4124999",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2218241",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/turkey-qatar-sign-mutual-defence-agreement",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://tass.com/world/2218193",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://balkaninsight.com/2026/11/09/eu-offers-black-sea-countries-support-to-counter-security-threats/bi/",
+          "date": "2026-11-09",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D7.2": {
+      "events": [
+        1,
+        1,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "eu-north-europe",
+        "north-america",
+        "baltic"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/world/2218255",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/iran-says-it-targeted-us-radar-site-in-bahrain-with-6-drones/4125490",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/13/iran-us-radar-bahrain-sirik-hormuz",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611126962",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/saudi-led-coalition-intercepts-missiles-towards-riyadh-drones-eastern-province",
+          "date": "2026-11-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/15/saudi-led-coalition-intercepts-two-missiles-two-drones-in-riyadh?traffic_source=rss",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/coalition-forces-intercept-another-drone-over-saudi-arabias-eastern",
+          "date": "2026-11-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://bnn-news.com/world/ukrainian-drone-strikes-russian-warship-in-the-gulf-of-finland-7pb9k3z",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D7.3": null,
+    "D7.4": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "north-america",
+        "eu-north-europe",
+        "ukraine-moldova"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/world/2218193",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/trump-tells-advisers-he-may-hold-iran-attacks-barring-new-provocations-sources",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.jpost.com/israel-news/defense-news/article-914897",
+          "date": "2026-11-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D8.1": null,
+    "D8.2": {
+      "value": 0.33,
+      "covered": true,
+      "regions": [
+        "ukraine-moldova",
+        "russia-belarus",
+        "eu-north-europe",
+        "east-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/politics/2218203",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2218233",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/us-floated-idea-ukraine-ceding-donbas-nato-membership-zelenskiy-says",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D8.3": {
+      "value": 0.33,
+      "covered": true,
+      "regions": [
+        "middle-east"
+      ],
+      "sources": [
+        {
+          "url": "https://news.un.org/feed/view/en/story/2026/11/1168804",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+          "date": "2026-11-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D8.4": null
+  },
+  "sources": [
+    {
+      "id": "japantimes-pentagon-troops",
+      "title": {
+        "ru": "Пентагон намерен сократить войска в Европе меньше запланированного",
+        "en": "In reversal, Pentagon eyes smaller troop cuts across Europe"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "guardian-iran-radar-bahrain",
+      "title": {
+        "ru": "Иран заявил об ударе по радиолокатору США в Бахрейне",
+        "en": "Iran says it targeted US military radar in Bahrain in retaliatory strike"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/nov/13/iran-us-radar-bahrain-sirik-hormuz",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-bahrain-radar",
+      "title": {
+        "ru": "Иран ударил БПЛА по радиолокационной инфраструктуре базы США в Бахрейне — КСИР",
+        "en": "Iran strikes by UAVs radar infrastructure at US military base in Bahrain - IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218255",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-bahrain-six-drones",
+      "title": {
+        "ru": "Иран заявил об ударе шестью дронами по радиолокатору США в Бахрейне",
+        "en": "Iran says it targeted US radar site in Bahrain with 6 drones"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/iran-says-it-targeted-us-radar-site-in-bahrain-with-6-drones/4125490",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-ethiopia-eritrea",
+      "title": {
+        "ru": "Эфиопия и Эритрея обменялись ударами дронов и артиллерии",
+        "en": "Ethiopia, Eritrea reportedly exchange drone, artillery strikes as border fighting intensifies"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/africa/ethiopia-eritrea-reportedly-exchange-drone-artillery-strikes-as-border-fighting-intensifies/4124999",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "reportaz-hormuz-sailors",
+      "title": {
+        "ru": "ООН: не менее 25 моряков погибли в Ормузском проливе и вокруг него",
+        "en": "At least 25 sailors killed in and around Strait of Hormuz, UN says"
+      },
+      "domain": "report.az",
+      "url": "https://report.az/en/other-countries/at-least-25-sailors-killed-in-and-around-strait-of-hormuz-un-says",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-latvia-grain-ban",
+      "title": {
+        "ru": "МИД Латвии готовит запрет транзита российского и белорусского зерна",
+        "en": "Latvian Foreign Ministry drafts ban on Russian, Belarusian grain transit"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2218129",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-g7-warns",
+      "title": {
+        "ru": "G7 предупреждает Иран о продолжении давления",
+        "en": "G7 warns Iran of continued pressure if diplomacy fails"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611111088",
+      "publication_date": "2026-11-11",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "africanews-france-algeria",
+      "title": {
+        "ru": "Франция выводит торговый спор с Алжиром на уровень ЕС",
+        "en": "France escalates Algeria trade dispute to EU-level"
+      },
+      "domain": "africanews.com",
+      "url": "http://www.africanews.com/2026/11/13/france-escalates-algeria-trade-dispute-to-eu-level/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-shenzhen-summit",
+      "title": {
+        "ru": "Трёхсторонний саммит Путина, Си и Трампа пройдёт в Шэньчжэне 19 ноября — Кремль",
+        "en": "Putin, Xi Jinping, Trump trilateral summit to be held in Shenzhen on November 19 — Kremlin"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2218203",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-kushner-broker",
+      "title": {
+        "ru": "Кушнер заявил, что намерен организовать переговоры Европы и России",
+        "en": "US envoy Kushner says he aims to broker Europe-Russia talks on Ukraine"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-ceding-donbas",
+      "title": {
+        "ru": "Зеленский: США предлагали уступить Донбасс в обмен на членство в НАТО",
+        "en": "US floated idea of Ukraine ceding Donbas for NATO membership, Zelenskiy says"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/us-floated-idea-ukraine-ceding-donbas-nato-membership-zelenskiy-says",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-tankers-fire",
+      "title": {
+        "ru": "Два танкера загорелись после подрыва на морской мине в Ормузе",
+        "en": "2 tankers caught fire after hitting naval mine in Hormuz, Iranian navy says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-tankers-mines",
+      "title": {
+        "ru": "Два нефтяных танкера подорвались на минах при проходе Ормузского пролива",
+        "en": "Two oil tankers hit mines attempting to pass Strait of Hormuz — IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218247",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-tankers-mines",
+      "title": {
+        "ru": "ВМС Ирана: три танкера горят после подрыва на минах в Ормузе",
+        "en": "Iran's navy says three tankers on fire after hitting mines in Hormuz"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-un-maritime-attacks",
+      "title": {
+        "ru": "ООН предупреждает о росте морских атак и требует восстановить судоходство",
+        "en": "UN warns of rising maritime attacks, urges restoration of safe navigation in Strait of Hormuz, Red Sea"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-fertilisers",
+      "title": {
+        "ru": "ООН призывает Иран и США пропустить удобрения через Ормуз",
+        "en": "UN official urges Iran, US to let fertilisers through Hormuz Strait"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/un-official-urges-iran-us-let-fertilisers-through-hormuz-strait",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-jones-act",
+      "title": {
+        "ru": "Трамп продлил исключение из закона Джонса ещё на 90 дней",
+        "en": "Trump Extends Jones Act Waiver For Another 90 Days"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-iraq-smuggling",
+      "title": {
+        "ru": "Премьер Ирака уволил девять чиновников из-за контрабанды нефти",
+        "en": "Iraq PM sacks nine officials over oil smuggling in pro-Iran stronghold"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/15/iraq-pm-sacks-nine-officials-over-oil-smuggling-in-pro-iran-stronghold?traffic_source=rss",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-brent-96",
+      "title": {
+        "ru": "Brent вернулся выше $96 на эскалации вокруг Ирана",
+        "en": "Brent Crude Climbs Back Above $96 as Iran Tensions Escalate"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Energy/Energy-General/Brent-Crude-Climbs-Back-Above-96-as-Iran-Tensions-Escalate.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-ppi",
+      "title": {
+        "ru": "Оптовые цены в США выросли на 0,3 %, годовой рост 6,5 % — максимум за четыре года",
+        "en": "Wholesale prices rose 0.3% in October, putting annual rate at 6.5%, the highest in nearly four years"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/13/ppi-inflation-report-october-2026.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-nvidia-17t",
+      "title": {
+        "ru": "Nvidia: худшая недельная серия с 2012 года, капитализация упала на $1,7 трлн",
+        "en": "Nvidia stock suffers longest weekly losing streak since 2012 as market value sinks by $1.7 trillion"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/13/nvidia-stock-jensen-affair-ai.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "hindustantimes-stocks-3t",
+      "title": {
+        "ru": "Трамп винит демократов в потере $3 трлн капитализации рынка США",
+        "en": "Trump blames Democrats for $3 trillion US stock market loss after 2026 midterms"
+      },
+      "domain": "hindustantimes.com",
+      "url": "https://www.hindustantimes.com/world-news/us-news/trump-blames-democrats-for-3-trillion-us-stock-market-loss-after-2026-midterms-101794713697395.html",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-heating-oil",
+      "title": {
+        "ru": "Цены на печное топливо выросли на 59 % к прошлой зиме",
+        "en": "Heating oil prices are up 59% from last winter. The spike is 'crushing folks,' Maine nonprofit says"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/14/heating-oil-price-spike-household-budgets.html",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-iran-network-europe",
+      "title": {
+        "ru": "Сеть из семи человек, связанная с Ираном, организовала волну атак в Европе",
+        "en": "Seven-man Iran-linked network helped orchestrate wave of attacks across Europe - ITV"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611126962",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-turkey-qatar",
+      "title": {
+        "ru": "Турция и Катар подписали соглашение о взаимной обороне",
+        "en": "Turkey, Qatar sign mutual defence agreement"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/turkey-qatar-sign-mutual-defence-agreement",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-north-korea-moscow",
+      "title": {
+        "ru": "Официальная делегация КНДР прибыла в Москву — ЦТАК",
+        "en": "North Korea’s official delegation arrives in Moscow — KCNA"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218241",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-bulgaria-weapons",
+      "title": {
+        "ru": "Болгария прекращает поставки оружия Украине — премьер",
+        "en": "Bulgaria to stop supplying weapons to Ukraine — PM"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218193",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "balkaninsight-black-sea",
+      "title": {
+        "ru": "ЕС предложил странам Чёрного моря поддержку против угроз безопасности",
+        "en": "EU Offers Black Sea Countries Support to Counter Security Threats"
+      },
+      "domain": "balkaninsight.com",
+      "url": "https://balkaninsight.com/2026/11/09/eu-offers-black-sea-countries-support-to-counter-security-threats/bi/",
+      "publication_date": "2026-11-09",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "bnn-gulf-warship",
+      "title": {
+        "ru": "Украинский дрон ударил по российскому военному кораблю в Финском заливе",
+        "en": "Ukrainian drone strikes Russian warship in the Gulf of Finland"
+      },
+      "domain": "bnn-news.com",
+      "url": "https://bnn-news.com/world/ukrainian-drone-strikes-russian-warship-in-the-gulf-of-finland-7pb9k3z",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "bnn-latvia-grain-checks",
+      "title": {
+        "ru": "Проверки транзитных партий зерна в Латвии не нашли украинского зерна",
+        "en": "Initial checks of transit grain shipments in Latvia find no grain stolen from Ukraine"
+      },
+      "domain": "bnn-news.com",
+      "url": "https://bnn-news.com/world/initial-checks-of-transit-grain-shipments-in-latvia-find-no-grain-stolen-from-ukraine-2g73jb6",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "kursiv-sibur-sanctions",
+      "title": {
+        "ru": "Британия ввела санкции против СИБУРа; Казахстан может почувствовать эффект",
+        "en": "UK imposes sanctions on Russia’s SIBUR; Kazakhstan could feel the impact"
+      },
+      "domain": "kz.kursiv.media",
+      "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-saudi-intercepts",
+      "title": {
+        "ru": "Коалиция Саудовской Аравии перехватила ракеты в сторону Эр-Рияда и дроны",
+        "en": "Saudi-led coalition intercepts missiles towards Riyadh, drones in Eastern Province"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/saudi-led-coalition-intercepts-missiles-towards-riyadh-drones-eastern-province",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-saudi-intercepts",
+      "title": {
+        "ru": "Коалиция перехватила ракеты и дроны хуситов у Эр-Рияда",
+        "en": "Saudi-led coalition intercepts suspected Houthi missiles and drones"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/15/saudi-led-coalition-intercepts-two-missiles-two-drones-in-riyadh?traffic_source=rss",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "mee-coalition-drone",
+      "title": {
+        "ru": "Силы коалиции перехватили очередной дрон над Восточной провинцией Саудовской Аравии",
+        "en": "Coalition forces intercept another drone over Saudi Arabia's Eastern Region"
+      },
+      "domain": "middleeasteye.net",
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/coalition-forces-intercept-another-drone-over-saudi-arabias-eastern",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-trump-hold-attacks",
+      "title": {
+        "ru": "Трамп сказал советникам, что может воздержаться от ударов по Ирану",
+        "en": "Trump tells advisers he may hold off on Iran attacks barring new provocations, sources say"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/trump-tells-advisers-he-may-hold-iran-attacks-barring-new-provocations-sources",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "jpost-no-urgent-strike",
+      "title": {
+        "ru": "Оборонное ведомство Израиля не видит срочной необходимости бить по Ирану",
+        "en": "Israel's defense establishment sees no urgent need to strike Iran until new gov't formed - report"
+      },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/israel-news/defense-news/article-914897",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "japantimes-pentagon-reversal",
+      "title": {
+        "ru": "Разворот: Пентагон сократит войска в Европе меньше",
+        "en": "In reversal, Pentagon eyes smaller troop cuts across Europe"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "un-sc-hormuz",
+      "title": {
+        "ru": "Совет Безопасности: хрупкое спокойствие в Заливе под давлением угроз судоходству",
+        "en": "Security Council LIVE: Fragile Gulf calm tested as threats to Hormuz shipping mount"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168804",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-kushner-contacts",
+      "title": {
+        "ru": "США намерены содействовать прямым контактам России и Европы по Украине",
+        "en": "US aims to facilitate direct contacts between Russia and Europe on Ukraine — Kushner"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218233",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    }
+  ],
+  "blindReasons": {
+    "D4.2": "searched-none",
+    "D4.5": "searched-none",
+    "D7.3": "searched-none",
+    "D8.1": "gate-failed",
+    "D8.4": "searched-none"
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "low",
+      "reason": "Покрыто 3 из 6: боевые действия (D1.4) подтверждены кластерами A и B — удар по больнице «Насер» в Газе, удар иранских БПЛА по радиолокатору США в Бахрейне, удары по больнице в Киеве, обмен ударами Эфиопия—Эритрея, атаки хуситов в Таизе, 44 погибших в ДР Конго. Перемещения (D1.1) — взятие Терсянки (B) и пересмотр сокращения войск США в Европе (A). Логистика (D1.3 = 0.33) — ремонт переданных Украине F-16 (B) и дроновые сделки Баку—Киев (A); сопоставление с критерием слабое, вклад мал. Учения (D1.2) и развёртывание стратегических систем (D1.5) в окне есть, но каждый опирается на один кластер (пробел покрытия лентами: Reuters/AP/ISW недоступны) — помечены gate-failed, не покрыты."
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: пересмотр ядерной доктрины высшим клерикальным органом Ирана (A) при заявлении Нетаньяху о возрождении программы (B) — D2.2 = 1; тревога МАГАТЭ по неинспектированному объекту обогащения (D2.3). D2.1 (0.33) перенесён из недели 2026-11-08 вместе с источниками — приём проекта, раскрытие обязательно: в окне публичных ядерных угроз уровня прошлой недели не появилось."
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: санкционное давление (D3.5 нет) — запрет транзита зерна Латвией (B), предупреждение G7 (A), торговый спор Франции и Алжира (A). Переговоры (D3.4 = 0.67) — анонс трёхстороннего саммита в Шэньчжэне, посредничество Кушнера, обсуждение уступки Донбасса; договорённостей нет. Гуманитарные договорённости (D3.5 = 0.33) — обмен пленными по 1 200–1 300 человек (обсуждается) и зимний доступ помощи в Газу."
+    },
+    "D4": {
+      "level": "medium",
+      "reason": "Покрыто 4 из 6: рынки (D4.6 = 0.67) — Brent выше $96, оптовые цены +6,5 % г/г, падение капитализации Nvidia на $1,7 трлн, заявление о потере $3 трлн рынком США, печное топливо +59 %. Цепочки (D4.3 = 0.67) и блокировка торговли (D4.4) — подрывы танкеров на минах в Ормузе, призыв ООН пропустить удобрения, контрабанда нефти в Ираке, продление исключения из закона Джонса. Новые санкции (D4.1) — Латвия, G7, спор ЕС и Алжира. Военные расходы (D4.2) и снятие ограничений (D4.5) в окне не подтверждены."
+    },
+    "D5": {
+      "level": "high",
+      "reason": "Покрыто 3 из 4: риторика (D5.1 = 1) — угрозы базам США в Европе, угрозы убить Трампа, «полная победа»; кибероперации (D5.2) — расследование взлома во Франции, сеть из семи человек в Европе, бюллетень CISA (primary); дезинформация (D5.3 = 0.33) — взаимно исключающие версии удара по радиолокатору в Бахрейне."
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "Покрыто 2 из 4: эвакуация (D6.2 = 0.67) — 64 тыс. беженцев из Нигерии, 340 тыс. перемещённых в Йемене, зимняя помощь Газе, эвакуации ООН; переориентация экономики (D6.3 = 1) — бюджет Ирана без нефтяных доходов и нормирование бензина. Военное положение/мобилизация (D6.1) и отмена мер (D6.4) в окне не подтверждены."
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 4: вовлечение новых государств (D7.1) — Эфиопия и Эритрея, делегация КНДР в Москве, оборонное соглашение Турции и Катара, прекращение поставок Болгарией; атаки вне театра (D7.2) — удар по базе США в Бахрейне, перехваты у Эр-Рияда, сеть в Европе. Выход третьих сторон (D7.4 = 0.67) — Болгария, пауза Трампа, отсутствие срочности у Израиля. Новый фронт (D7.3) — эфиопско-эритрейские удары есть, но подтверждение одним кластером (B) — gate-failed."
+    },
+    "D8": {
+      "level": "low",
+      "reason": "Покрыто 2 из 4: мирные договорённости (D8.2 = 0.33) — анонс саммита и посредничество без подписанного документа; наблюдение (D8.3 = 0.33) — Совет Безопасности и призывы ООН по судоходству. Снижение интенсивности (D8.4) и прекращение огня (D8.1) не подтверждены: призывы соблюдать перемирие в Газе есть, но боевые действия в окне продолжались."
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 8: финансовая изоляция (D9.2 = 0.67) — бюджет без нефти, нормирование бензина, продажа органов; транспорт и страхование (D9.3 = 1) — мины в Ормузе, горящие танкеры, предупреждение ООН, исключение из закона Джонса; стратегическое накопление (D9.4 = 0.67) — угольный резерв Германии, $65 млрд Сингапура в золото. Медицинская подготовка, кадровые меры, информационный суверенитет и эвакуация элит (D9.6b) в окне не подтверждены двумя кластерами."
+    }
+  },
+  "rejected": []
+}

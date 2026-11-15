@@ -1,0 +1,67 @@
+{
+  "week": "2026-11-15",
+  "criteria": {
+    "D1.1": {
+      "countries": ["RU", "UA"],
+      "basis": "Наземные действия на украинском театре: Генштаб РФ сообщил о взятии Терсянки в Запорожской области; США одновременно пересматривают сокращение войск в Европе.",
+      "sources": [
+        "https://tass.com/defense/2218169",
+        "https://www.straitstimes.com/world/europe/pentagon-eyes-smaller-troop-cuts-across-europe-in-reversal"
+      ]
+    },
+    "D1.3": {
+      "countries": ["UA"],
+      "basis": "Военно-техническое снабжение Украины: Зеленский сообщил, что переданные F-16 постоянно находятся в ремонте; отдельно — рост заказов по дроновым сделкам Баку и Киева.",
+      "sources": [
+        "https://tass.com/world/2218181",
+        "https://oc-media.org/we-are-working-to-scale-up-orders-zelenskyy-praises-new-drone-deals-between-baku-and-kyiv/"
+      ]
+    },
+    "D1.4": {
+      "countries": ["RU", "UA"],
+      "basis": "Активные боевые действия: удары дронов по больнице в Киеве и по Одессе, наземные бои на линии фронта в Запорожской области.",
+      "sources": [
+        "http://www.africanews.com/2026/11/13/ukraine-russian-drone-attacks-hit-kyiv-hospital-leave-one-dead-in-odesa/",
+        "https://tass.com/defense/2218169"
+      ]
+    },
+    "D3.3": {
+      "countries": ["RU"],
+      "basis": "Ограничения против России: МИД Латвии готовит запрет транзита российского и белорусского зерна через свою территорию.",
+      "sources": [
+        "https://tass.com/economy/2218129"
+      ]
+    },
+    "D3.4": {
+      "countries": ["RU", "UA"],
+      "basis": "Переговорный трек по Украине: США обсуждают с Киевом уступку Донбасса в обмен на членство в НАТО, Россия требует отвода сил НАТО к позициям до расширения, Кушнер готовит следующий раунд с участием европейцев.",
+      "sources": [
+        "https://www.al-monitor.com/originals/2026/11/us-floated-idea-ukraine-ceding-donbas-nato-membership-zelenskiy-says",
+        "https://www.washingtonpost.com/world/2026/11/14/russia-seeks-nato-pullback-zelensky-says-us-asked-about-ceding-territory/",
+        "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss"
+      ]
+    },
+    "D3.5": {
+      "countries": ["RU", "UA"],
+      "basis": "Гуманитарные договорённости: стороны обсуждают обмен пленными по 1 200–1 300 человек с каждой стороны.",
+      "sources": [
+        "https://www.aa.com.tr/en/russia-ukraine-war/zelenskyy-says-ukraine-russia-discuss-prisoner-swap-involving-1-200-1-300-people-from-each-side/4125097"
+      ]
+    },
+    "D4.1": {
+      "countries": ["RU"],
+      "basis": "Новые ограничения против России: подготовка запрета транзита зерна Латвией как продолжение санкционного давления на российский экспорт.",
+      "sources": [
+        "https://tass.com/economy/2218129"
+      ]
+    },
+    "D7.1": {
+      "countries": ["UA"],
+      "basis": "Поставки вооружений Украине: Болгария объявила о прекращении поставок оружия, меняется состав внешней поддержки Киева.",
+      "sources": [
+        "https://tass.com/world/2218193",
+        "https://oc-media.org/we-are-working-to-scale-up-orders-zelenskyy-praises-new-drone-deals-between-baku-and-kyiv/"
+      ]
+    }
+  }
+}

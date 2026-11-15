@@ -57,7 +57,8 @@ test('инвариант регион ⊇ страна: сигналы стра�
   }
 });
 
-test('последняя неделя цепочки: индекс региона russia-belarus совпадает с индексом страны RU', () => {
+// Прогон цепочки до указанной недели включительно (как main() в calc.js).
+function runChainUpTo(week) {
   const prevGlobal = loadSnapshotPart(PREV_WEEK, 'global');
   const prevRegions = loadSnapshotPart(PREV_WEEK, 'regions');
   const state = {
@@ -73,14 +74,35 @@ test('последняя неделя цепочки: индекс регион�
     sbReason: null,
   };
   let res = null;
-  for (const week of RECALC_WEEKS) {
-    res = runWeek(week, state);
+  for (const id of RECALC_WEEKS) {
+    res = runWeek(id, state);
     Object.assign(state, nextChainState(state, res));
+    if (id === week) return res;
   }
-  assert.equal(res.week, WEEK);
+  throw new Error(`неделя ${week} вне цепочки RECALC_WEEKS`);
+}
+
+// Пин совпадения чисел держится на неделе, где страновой оверлей покрывает ту же
+// атрибуцию, что и регион: 2026-11-08. Инвариант ADR 0068 — вложенность сигналов,
+// не равенство индексов, поэтому на других неделях числа расходятся законно.
+test('2026-11-08 (эталон): индекс региона russia-belarus совпадает с индексом страны RU', () => {
+  const res = runChainUpTo('2026-11-08');
   const region = res.regions['russia-belarus'];
   const ru = res.countries.rows.rows.RU;
   assert.equal(ru.background, false, 'RU — страна с сигналами');
   assert.equal(region.index, ru.index, 'регион-контейнер не расходится со своей страной');
   assert.equal(region.delta, ru.delta);
+});
+
+// Последняя неделя цепочки: числа слоёв не обязаны совпадать, но страна не может
+// нести больше сигналов, чем её регион, и оба слоя публикуются.
+test('последняя неделя цепочки: страна RU не шире своего региона и оба слоя опубликованы', () => {
+  const res = runChainUpTo(WEEK);
+  assert.equal(res.week, WEEK);
+  const region = res.regions['russia-belarus'];
+  const ru = res.countries.rows.rows.RU;
+  assert.equal(ru.background, false, 'RU — страна с сигналами');
+  assert.equal(region.background, false, 'регион russia-belarus не слепой');
+  assert.ok(ru.signals <= region.signals, `сигналов страны ${ru.signals} ≤ сигналов региона ${region.signals}`);
+  assert.ok(ru.signals >= 1, 'у страны есть хотя бы один сигнал');
 });

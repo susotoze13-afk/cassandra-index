@@ -1,0 +1,1338 @@
+{
+  "week": "2026-11-15",
+  "criteria": {
+    "D1.1": {
+      "events": [
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "ukraine-moldova",
+        "russia-belarus",
+        "eu-north-europe"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/defense/2218169",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.straitstimes.com/world/europe/pentagon-eyes-smaller-troop-cuts-across-europe-in-reversal",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D1.2": null,
+    "D1.3": {
+      "value": 0.33,
+      "covered": true,
+      "regions": [
+        "ukraine-moldova",
+        "russia-belarus",
+        "south-caucasus"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/world/2218181",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://oc-media.org/we-are-working-to-scale-up-orders-zelenskyy-praises-new-drone-deals-between-baku-and-kyiv/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D1.4": {
+      "events": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "ukraine-moldova",
+        "russia-belarus",
+        "africa",
+        "south-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/world/2218255",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/13/iran-us-radar-bahrain-sirik-hormuz",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/12/israeli-airstrike-nasser-hospital-gaza-kills-surgeon",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "http://www.africanews.com/2026/11/13/ukraine-russian-drone-attacks-hit-kyiv-hospital-leave-one-dead-in-odesa/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/africa/ethiopia-eritrea-reportedly-exchange-drone-artillery-strikes-as-border-fighting-intensifies/4124999",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/houthi-attacks-kill-51-wound-85-in-yemen-s-taiz-over-12-days-rights-group-says/4125085",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "http://www.africanews.com/2026/11/14/dr-congo-at-least-44-dead-in-attack-by-islamic-state-linked-gunmen/",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.dawn.com/news/2044488/major-among-4-troops-martyred-24-terrorists-killed-during-operations-in-kp-and-balochistan-ispr",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/15/israeli-air-strike-kills-senior-hamas-commander-in-gaza?traffic_source=rss",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://news.un.org/feed/view/en/story/2026/11/1168771",
+          "date": "2026-11-10",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://report.az/en/other-countries/at-least-25-sailors-killed-in-and-around-strait-of-hormuz-un-says",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D1.5": null,
+    "D1.6": null,
+    "D2.1": {
+      "value": 0.33,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.azernews.az/region/266740.html",
+          "date": "2026-11-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://news.az/news/iran-warns-it-would-take-necessary-measures-if-targeted-with-nuclear-weapons",
+          "date": "2026-11-03",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://nournews.ir/en/news/358643/us-threats-against-iran-nuclear-facilities-reflect-washington-growing-desperation-aeoi-chief",
+          "date": "2026-11-06",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D2.2": {
+      "value": 1,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.iranintl.com/en/202611121701",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://report.az/en/other-countries/netanyahu-says-iran-seeks-to-revive-nuclear-program",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.jpost.com/middle-east/iran-news/article-914880",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D2.3": {
+      "events": [
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.iranintl.com/en/202611133720",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://report.az/en/other-countries/netanyahu-says-iran-seeks-to-revive-nuclear-program",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D2.4": null,
+    "D2.5": null,
+    "D3.1": null,
+    "D3.2": null,
+    "D3.3": {
+      "events": [
+        1,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "russia-belarus",
+        "eu-north-europe",
+        "baltic",
+        "middle-east",
+        "africa",
+        "central-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/economy/2218129",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611111088",
+          "date": "2026-11-11",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "http://www.africanews.com/2026/11/13/france-escalates-algeria-trade-dispute-to-eu-level/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://bnn-news.com/world/initial-checks-of-transit-grain-shipments-in-latvia-find-no-grain-stolen-from-ukraine-2g73jb6",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D3.4": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "ukraine-moldova",
+        "russia-belarus",
+        "eu-north-europe",
+        "east-asia",
+        "north-america",
+        "central-asia",
+        "balkans"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/politics/2218203",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/us-floated-idea-ukraine-ceding-donbas-nato-membership-zelenskiy-says",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.washingtonpost.com/world/2026/11/14/russia-seeks-nato-pullback-zelensky-says-us-asked-about-ceding-territory/",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://kossev.info/nacelnik-generalstaba-vojske-srbije-sa-komandantom-kfora-razgovarao-o-bezbednosnoj-situaciji-na-kosovu/",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D3.5": {
+      "value": 0.33,
+      "covered": true,
+      "regions": [
+        "ukraine-moldova",
+        "russia-belarus",
+        "middle-east"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/russia-ukraine-war/zelenskyy-says-ukraine-russia-discuss-prisoner-swap-involving-1-200-1-300-people-from-each-side/4125097",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://news.un.org/feed/view/en/story/2026/11/1168799",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.1": {
+      "events": [
+        1,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "russia-belarus",
+        "eu-north-europe",
+        "baltic",
+        "middle-east",
+        "africa",
+        "central-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://tass.com/economy/2218129",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.iranintl.com/en/202611111088",
+          "date": "2026-11-11",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "http://www.africanews.com/2026/11/13/france-escalates-algeria-trade-dispute-to-eu-level/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://bnn-news.com/world/initial-checks-of-transit-grain-shipments-in-latvia-find-no-grain-stolen-from-ukraine-2g73jb6",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.2": null,
+    "D4.3": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "east-asia",
+        "eu-north-europe",
+        "south-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+          "date": "2026-11-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://report.az/en/other-countries/at-least-25-sailors-killed-in-and-around-strait-of-hormuz-un-says",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.aljazeera.com/news/2026/11/15/iraq-pm-sacks-nine-officials-over-oil-smuggling-in-pro-iran-stronghold?traffic_source=rss",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
+    "D4.4": {
+      "events": [
+        1,
+        1,
+        0.5,
+        0.5
+      ],
+      "covered": true,
+      "regions": [
+        "middle-east",
+        "east-asia",
+        "south-asia"
+      ],
+      "sources": [
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://tass.com/world/2218247",
+          "date": "2026-11-15",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        },
+        {
+          "url": "https://www.al-monitor.com/originals/2026/11/un-official-urges-iran-us-let-fertilisers-through-hormuz-strait",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    },
+    "D4.5": null,
+    "D4.6": {
+      "value": 0.67,
+      "covered": true,
+      "regions": [
+        "north-america",
+        "eu-north-europe",
+        "east-asia",
+        "middle-east"
+      ],
+      "sources": [
+        {
+          "url": "https://oilprice.com/Energy/Energy-General/Brent-Crude-Climbs-Back-Above-96-as-Iran-Tensions-Escalate.html",
+          "date": "2026-11-13",
+          "cluster": "F-financial",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/13/ppi-inflation-report-october-2026.html",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/13/nvidia-stock-jensen-affair-ai.html",
+          "date": "2026-11-13",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.hindustantimes.com/world-news/us-news/trump-blames-democrats-for-3-trillion-us-stock-market-loss-after-2026-midterms-101794713697395.html",
+          "date": "2026-11-15",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.cnbc.com/2026/11/14/heating-oil-price-spike-household-budgets.html",
+          "date": "2026-11-14",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "tass-tersyanka",
+      "title": {
+        "ru": "Российские силы освободили Терсянку в Запорожской области — Генштаб",
+        "en": "Russian forces liberate Tersyanka in Zaporozhye Region — top brass"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/defense/2218169",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "straitstimes-pentagon-troops",
+      "title": {
+        "ru": "Пентагон пересматривает сокращение войск в Европе",
+        "en": "Pentagon eyes smaller troop cuts across Europe in reversal"
+      },
+      "domain": "straitstimes.com",
+      "url": "https://www.straitstimes.com/world/europe/pentagon-eyes-smaller-troop-cuts-across-europe-in-reversal",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "japantimes-pentagon-troops",
+      "title": {
+        "ru": "Пентагон намерен сократить войска в Европе меньше запланированного",
+        "en": "In reversal, Pentagon eyes smaller troop cuts across Europe"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-f16-repairs",
+      "title": {
+        "ru": "Поставленные Украине F-16 постоянно находятся в ремонте — Зеленский",
+        "en": "F-16s supplied to Ukraine constantly undergoing repairs — Zelensky"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218181",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "ocmedia-drone-deals-baku",
+      "title": {
+        "ru": "Зеленский хвалит новые дроновые сделки Баку и Киева",
+        "en": "‘We are working to scale up orders’: Zelenskyy praises new drone deals between Baku and Kyiv"
+      },
+      "domain": "oc-media.org",
+      "url": "https://oc-media.org/we-are-working-to-scale-up-orders-zelenskyy-praises-new-drone-deals-between-baku-and-kyiv/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "guardian-nasser-hospital",
+      "title": {
+        "ru": "Авиаудар Израиля по больнице «Насер» в Газе: погибли хирург и пятеро",
+        "en": "Israeli airstrike on Nasser hospital in Gaza kills surgeon and five others"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/nov/12/israeli-airstrike-nasser-hospital-gaza-kills-surgeon",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "guardian-iran-radar-bahrain",
+      "title": {
+        "ru": "Иран заявил об ударе по радиолокатору США в Бахрейне",
+        "en": "Iran says it targeted US military radar in Bahrain in retaliatory strike"
+      },
+      "domain": "theguardian.com",
+      "url": "https://www.theguardian.com/world/2026/nov/13/iran-us-radar-bahrain-sirik-hormuz",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-bahrain-radar",
+      "title": {
+        "ru": "Иран ударил БПЛА по радиолокационной инфраструктуре базы США в Бахрейне — КСИР",
+        "en": "Iran strikes by UAVs radar infrastructure at US military base in Bahrain - IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218255",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "africanews-kyiv-hospital",
+      "title": {
+        "ru": "Российские дроны ударили по больнице в Киеве, двое погибли в Одессе",
+        "en": "Ukraine: Russian drone attacks hit Kyiv hospital, leave two dead in Odesa"
+      },
+      "domain": "africanews.com",
+      "url": "http://www.africanews.com/2026/11/13/ukraine-russian-drone-attacks-hit-kyiv-hospital-leave-one-dead-in-odesa/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-ethiopia-eritrea",
+      "title": {
+        "ru": "Эфиопия и Эритрея обменялись ударами дронов и артиллерии",
+        "en": "Ethiopia, Eritrea reportedly exchange drone, artillery strikes as border fighting intensifies"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/africa/ethiopia-eritrea-reportedly-exchange-drone-artillery-strikes-as-border-fighting-intensifies/4124999",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-houthi-taiz",
+      "title": {
+        "ru": "Атаки хуситов в Таизе: 51 погибший за 12 дней",
+        "en": "Houthi attacks kill 51, wound 85 in Yemen’s Taiz over 12 days, rights group says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/houthi-attacks-kill-51-wound-85-in-yemen-s-taiz-over-12-days-rights-group-says/4125085",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "africanews-drc-44",
+      "title": {
+        "ru": "ДР Конго: не менее 44 погибших при атаке боевиков, связанных с ИГ",
+        "en": "DR Congo: At least 44 dead in attack by Islamic State-linked gunmen"
+      },
+      "domain": "africanews.com",
+      "url": "http://www.africanews.com/2026/11/14/dr-congo-at-least-44-dead-in-attack-by-islamic-state-linked-gunmen/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "dawn-24-militants",
+      "title": {
+        "ru": "Пакистан: 24 боевика уничтожены в Хайбер-Пахтунхве и Белуджистане",
+        "en": "Major among 4 troops martyred, 24 terrorists killed during operations in KP and Balochistan: ISPR"
+      },
+      "domain": "dawn.com",
+      "url": "https://www.dawn.com/news/2044488/major-among-4-troops-martyred-24-terrorists-killed-during-operations-in-kp-and-balochistan-ispr",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-hamas-commander",
+      "title": {
+        "ru": "Израильский удар убил старшего командира ХАМАС в Газе",
+        "en": "Israeli air strike kills senior Hamas commander in Gaza"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/15/israeli-air-strike-kills-senior-hamas-commander-in-gaza?traffic_source=rss",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "un-sudan-long-range",
+      "title": {
+        "ru": "Судан: после дронов-камикадзе нормой стали дальнобойные удары",
+        "en": "Sudan war: First ‘suicide’ drone attacks, now long-range strikes are the norm"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168771",
+      "publication_date": "2026-11-10",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "reportaz-hormuz-sailors",
+      "title": {
+        "ru": "ООН: не менее 25 моряков погибли в Ормузском проливе и вокруг него",
+        "en": "At least 25 sailors killed in and around Strait of Hormuz, UN says"
+      },
+      "domain": "report.az",
+      "url": "https://report.az/en/other-countries/at-least-25-sailors-killed-in-and-around-strait-of-hormuz-un-says",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-doctrine-review",
+      "title": {
+        "ru": "Высший клерикальный орган Ирана призвал пересмотреть ядерную доктрину",
+        "en": "Iran's top clerical governing body calls for nuclear doctrine review"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611121701",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-iaea-alarm",
+      "title": {
+        "ru": "МАГАТЭ встревожено объектом обогащения в Иране, который никогда не инспектировало",
+        "en": "IAEA raises alarm over Iranian enrichment plant it has never inspected"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611133720",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "reportaz-netanyahu-nuclear",
+      "title": {
+        "ru": "Нетаньяху: Иран стремится возродить ядерную программу",
+        "en": "Netanyahu says Iran seeks to revive nuclear program"
+      },
+      "domain": "report.az",
+      "url": "https://report.az/en/other-countries/netanyahu-says-iran-seeks-to-revive-nuclear-program",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "jpost-israel-fears-strike",
+      "title": {
+        "ru": "Израиль опасается внезапного удара США по Ирану на фоне ядерных переговоров",
+        "en": "Israel fears surprise US strike on Iran as nuclear talks fuel concerns of escalation - analysis"
+      },
+      "domain": "jpost.com",
+      "url": "https://www.jpost.com/middle-east/iran-news/article-914880",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-latvia-grain-ban",
+      "title": {
+        "ru": "МИД Латвии готовит запрет транзита российского и белорусского зерна",
+        "en": "Latvian Foreign Ministry drafts ban on Russian, Belarusian grain transit"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/economy/2218129",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "iranintl-g7-warns",
+      "title": {
+        "ru": "G7 предупреждает Иран о продолжении давления",
+        "en": "G7 warns Iran of continued pressure if diplomacy fails"
+      },
+      "domain": "iranintl.com",
+      "url": "https://www.iranintl.com/en/202611111088",
+      "publication_date": "2026-11-11",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "africanews-france-algeria",
+      "title": {
+        "ru": "Франция выводит торговый спор с Алжиром на уровень ЕС",
+        "en": "France escalates Algeria trade dispute to EU-level"
+      },
+      "domain": "africanews.com",
+      "url": "http://www.africanews.com/2026/11/13/france-escalates-algeria-trade-dispute-to-eu-level/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-shenzhen-summit",
+      "title": {
+        "ru": "Трёхсторонний саммит Путина, Си и Трампа пройдёт в Шэньчжэне 19 ноября — Кремль",
+        "en": "Putin, Xi Jinping, Trump trilateral summit to be held in Shenzhen on November 19 — Kremlin"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/politics/2218203",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-kushner-broker",
+      "title": {
+        "ru": "Кушнер заявил, что намерен организовать переговоры Европы и России",
+        "en": "US envoy Kushner says he aims to broker Europe-Russia talks on Ukraine"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/14/us-envoy-kushner-says-he-aims-to-broker-europe-russia-talks-on-ukraine?traffic_source=rss",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-ceding-donbas",
+      "title": {
+        "ru": "Зеленский: США предлагали уступить Донбасс в обмен на членство в НАТО",
+        "en": "US floated idea of Ukraine ceding Donbas for NATO membership, Zelenskiy says"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/us-floated-idea-ukraine-ceding-donbas-nato-membership-zelenskiy-says",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "washingtonpost-russia-pullback",
+      "title": {
+        "ru": "Россия требует отвода НАТО; Зеленский говорит об обсуждении уступок территорией",
+        "en": "Russia seeks NATO pullback; Zelensky says U.S. asked about ceding territory"
+      },
+      "domain": "washingtonpost.com",
+      "url": "https://www.washingtonpost.com/world/2026/11/14/russia-seeks-nato-pullback-zelensky-says-us-asked-about-ceding-territory/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-zelensky-prisoner-swap",
+      "title": {
+        "ru": "Зеленский: стороны обсуждают обмен пленными по 1 200–1 300 человек",
+        "en": "Zelenskyy says Ukraine, Russia discuss prisoner swap involving 1,200-1,300 people from each side"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/russia-ukraine-war/zelenskyy-says-ukraine-russia-discuss-prisoner-swap-involving-1-200-1-300-people-from-each-side/4125097",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-tankers-fire",
+      "title": {
+        "ru": "Два танкера загорелись после подрыва на морской мине в Ормузе",
+        "en": "2 tankers caught fire after hitting naval mine in Hormuz, Iranian navy says"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/2-tankers-caught-fire-after-hitting-naval-mine-in-hormuz-iranian-navy-says/4125096",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "tass-tankers-mines",
+      "title": {
+        "ru": "Два нефтяных танкера подорвались на минах при проходе Ормузского пролива",
+        "en": "Two oil tankers hit mines attempting to pass Strait of Hormuz — IRGC"
+      },
+      "domain": "tass.com",
+      "url": "https://tass.com/world/2218247",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-tankers-mines",
+      "title": {
+        "ru": "ВМС Ирана: три танкера горят после подрыва на минах в Ормузе",
+        "en": "Iran's navy says three tankers on fire after hitting mines in Hormuz"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/irans-navy-says-three-tankers-fire-after-hitting-mines-hormuz",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-un-maritime-attacks",
+      "title": {
+        "ru": "ООН предупреждает о росте морских атак и требует восстановить судоходство",
+        "en": "UN warns of rising maritime attacks, urges restoration of safe navigation in Strait of Hormuz, Red Sea"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/middle-east/un-warns-of-rising-maritime-attacks-urges-restoration-of-safe-navigation-in-strait-of-hormuz-red-sea/4124809",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "almonitor-fertilisers",
+      "title": {
+        "ru": "ООН призывает Иран и США пропустить удобрения через Ормуз",
+        "en": "UN official urges Iran, US to let fertilisers through Hormuz Strait"
+      },
+      "domain": "al-monitor.com",
+      "url": "https://www.al-monitor.com/originals/2026/11/un-official-urges-iran-us-let-fertilisers-through-hormuz-strait",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-jones-act",
+      "title": {
+        "ru": "Трамп продлил исключение из закона Джонса ещё на 90 дней",
+        "en": "Trump Extends Jones Act Waiver For Another 90 Days"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Trump-Extends-Jones-Act-Waiver-For-Another-90-Days.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aljazeera-iraq-smuggling",
+      "title": {
+        "ru": "Премьер Ирака уволил девять чиновников из-за контрабанды нефти",
+        "en": "Iraq PM sacks nine officials over oil smuggling in pro-Iran stronghold"
+      },
+      "domain": "aljazeera.com",
+      "url": "https://www.aljazeera.com/news/2026/11/15/iraq-pm-sacks-nine-officials-over-oil-smuggling-in-pro-iran-stronghold?traffic_source=rss",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "oilprice-brent-96",
+      "title": {
+        "ru": "Brent вернулся выше $96 на эскалации вокруг Ирана",
+        "en": "Brent Crude Climbs Back Above $96 as Iran Tensions Escalate"
+      },
+      "domain": "oilprice.com",
+      "url": "https://oilprice.com/Energy/Energy-General/Brent-Crude-Climbs-Back-Above-96-as-Iran-Tensions-Escalate.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "F-financial",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-ppi",
+      "title": {
+        "ru": "Оптовые цены в США выросли на 0,3 %, годовой рост 6,5 % — максимум за четыре года",
+        "en": "Wholesale prices rose 0.3% in October, putting annual rate at 6.5%, the highest in nearly four years"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/13/ppi-inflation-report-october-2026.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-nvidia-17t",
+      "title": {
+        "ru": "Nvidia: худшая недельная серия с 2012 года, капитализация упала на $1,7 трлн",
+        "en": "Nvidia stock suffers longest weekly losing streak since 2012 as market value sinks by $1.7 trillion"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/13/nvidia-stock-jensen-affair-ai.html",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "hindustantimes-stocks-3t",
+      "title": {
+        "ru": "Трамп винит демократов в потере $3 трлн капитализации рынка США",
+        "en": "Trump blames Democrats for $3 trillion US stock market loss after 2026 midterms"
+      },
+      "domain": "hindustantimes.com",
+      "url": "https://www.hindustantimes.com/world-news/us-news/trump-blames-democrats-for-3-trillion-us-stock-market-loss-after-2026-midterms-101794713697395.html",
+      "publication_date": "2026-11-15",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "cnbc-heating-oil",
+      "title": {
+        "ru": "Цены на печное топливо выросли на 59 % к прошлой зиме",
+        "en": "Heating oil prices are up 59% from last winter. The spike is 'crushing folks,' Maine nonprofit says"
+      },
+      "domain": "cnbc.com",
+      "url": "https://www.cnbc.com/2026/11/14/heating-oil-price-spike-household-budgets.html",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "un-gaza-winter-aid",
+      "title": {
+        "ru": "Гуманитарные организации требуют быстрого ввоза зимних грузов в Газу",
+        "en": "‘Lives are at stake’: Humanitarians call for swift entry of winter supplies in Gaza"
+      },
+      "domain": "news.un.org",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168799",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "bnn-latvia-grain-checks",
+      "title": {
+        "ru": "Проверки транзитных партий зерна в Латвии не нашли украинского зерна",
+        "en": "Initial checks of transit grain shipments in Latvia find no grain stolen from Ukraine"
+      },
+      "domain": "bnn-news.com",
+      "url": "https://bnn-news.com/world/initial-checks-of-transit-grain-shipments-in-latvia-find-no-grain-stolen-from-ukraine-2g73jb6",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "kursiv-sibur-sanctions",
+      "title": {
+        "ru": "Британия ввела санкции против СИБУРа; Казахстан может почувствовать эффект",
+        "en": "UK imposes sanctions on Russia’s SIBUR; Kazakhstan could feel the impact"
+      },
+      "domain": "kz.kursiv.media",
+      "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "kossev-serbia-kfor",
+      "title": {
+        "ru": "Начальник Генштаба Сербии обсудил с командующим KFOR ситуацию безопасности в Косове",
+        "en": "Načelnik Generalštaba Vojske Srbije sa komandantom Kfora razgovarao o bezbednosnoj situaciji na Kosovu"
+      },
+      "domain": "kossev.info",
+      "url": "https://kossev.info/nacelnik-generalstaba-vojske-srbije-sa-komandantom-kfora-razgovarao-o-bezbednosnoj-situaciji-na-kosovu/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "japantimes-pentagon-reversal",
+      "title": {
+        "ru": "Разворот: Пентагон сократит войска в Европе меньше",
+        "en": "In reversal, Pentagon eyes smaller troop cuts across Europe"
+      },
+      "domain": "japantimes.co.jp",
+      "url": "https://www.japantimes.co.jp/news/2026/11/15/world/pentagon-troop-cuts-europe-reversal/",
+      "publication_date": "2026-11-14",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "azernews-nuclear-strike-warning",
+      "title": {
+        "ru": "Иран предупреждает: ядерный удар будет иметь последствия за пределами региона",
+        "en": "Iran warns nuclear strike would have consequences beyond the region"
+      },
+      "domain": "azernews.az",
+      "url": "https://www.azernews.az/region/266740.html",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "editorial-backfill"
+    },
+    {
+      "id": "newsaz-nuclear-weapons-response",
+      "title": {
+        "ru": "Иран заявил, что примет необходимые меры в случае ядерного удара",
+        "en": "Iran warns it would take necessary measures if targeted with nuclear weapons"
+      },
+      "domain": "news.az",
+      "url": "https://news.az/news/iran-warns-it-would-take-necessary-measures-if-targeted-with-nuclear-weapons",
+      "publication_date": "2026-11-03",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "editorial-backfill"
+    },
+    {
+      "id": "nournews-us-threats-nuclear-facilities",
+      "title": {
+        "ru": "Угрозы США по ядерным объектам Ирана говорят об отчаянии Вашингтона — глава ОАЭИ",
+        "en": "US threats against Iran’s nuclear facilities reflect Washington’s growing desperation: AEOI chief"
+      },
+      "domain": "nournews.ir",
+      "url": "https://nournews.ir/en/news/358643/us-threats-against-iran-nuclear-facilities-reflect-washington-growing-desperation-aeoi-chief",
+      "publication_date": "2026-11-06",
+      "accessed_date": "2026-11-08",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "editorial-backfill"
+    }
+  ],
+  "blindReasons": {
+    "D1.2": "gate-failed",
+    "D1.5": "gate-failed",
+    "D1.6": "searched-none",
+    "D2.4": "gate-failed",
+    "D2.5": "searched-none",
+    "D3.1": "searched-none",
+    "D3.2": "searched-none",
+    "D4.2": "searched-none",
+    "D4.5": "searched-none"
+  },
+  "driverConfidence": {
+    "D1": {
+      "level": "low",
+      "reason": "Покрыто 3 из 6: боевые действия (D1.4) подтверждены кластерами A и B — удар по больнице «Насер» в Газе, удар иранских БПЛА по радиолокатору США в Бахрейне, удары по больнице в Киеве, обмен ударами Эфиопия—Эритрея, атаки хуситов в Таизе, 44 погибших в ДР Конго. Перемещения (D1.1) — взятие Терсянки (B) и пересмотр сокращения войск США в Европе (A). Логистика (D1.3 = 0.33) — ремонт переданных Украине F-16 (B) и дроновые сделки Баку—Киев (A); сопоставление с критерием слабое, вклад мал. Учения (D1.2) и развёртывание стратегических систем (D1.5) в окне есть, но каждый опирается на один кластер (пробел покрытия лентами: Reuters/AP/ISW недоступны) — помечены gate-failed, не покрыты."
+    },
+    "D2": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: пересмотр ядерной доктрины высшим клерикальным органом Ирана (A) при заявлении Нетаньяху о возрождении программы (B) — D2.2 = 1; тревога МАГАТЭ по неинспектированному объекту обогащения (D2.3). D2.1 (0.33) перенесён из недели 2026-11-08 вместе с источниками — приём проекта, раскрытие обязательно: в окне публичных ядерных угроз уровня прошлой недели не появилось."
+    },
+    "D3": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 5: санкционное давление (D3.5 нет) — запрет транзита зерна Латвией (B), предупреждение G7 (A), торговый спор Франции и Алжира (A). Переговоры (D3.4 = 0.67) — анонс трёхстороннего саммита в Шэньчжэне, посредничество Кушнера, обсуждение уступки Донбасса; договорённостей нет. Гуманитарные договорённости (D3.5 = 0.33) — обмен пленными по 1 200–1 300 человек (обсуждается) и зимний доступ помощи в Газу."
+    },
+    "D4": {
+      "level": "medium",
+      "reason": "Покрыто 4 из 6: рынки (D4.6 = 0.67) — Brent выше $96, оптовые цены +6,5 % г/г, падение капитализации Nvidia на $1,7 трлн, заявление о потере $3 трлн рынком США, печное топливо +59 %. Цепочки (D4.3 = 0.67) и блокировка торговли (D4.4) — подрывы танкеров на минах в Ормузе, призыв ООН пропустить удобрения, контрабанда нефти в Ираке, продление исключения из закона Джонса. Новые санкции (D4.1) — Латвия, G7, спор ЕС и Алжира. Военные расходы (D4.2) и снятие ограничений (D4.5) в окне не подтверждены."
+    },
+    "D5": {
+      "level": "high",
+      "reason": "Покрыто 3 из 4: риторика (D5.1 = 1) — угрозы базам США в Европе, угрозы убить Трампа, «полная победа»; кибероперации (D5.2) — расследование взлома во Франции, сеть из семи человек в Европе, бюллетень CISA (primary); дезинформация (D5.3 = 0.33) — взаимно исключающие версии удара по радиолокатору в Бахрейне."
+    },
+    "D6": {
+      "level": "medium",
+      "reason": "Покрыто 2 из 4: эвакуация (D6.2 = 0.67) — 64 тыс. беженцев из Нигерии, 340 тыс. перемещённых в Йемене, зимняя помощь Газе, эвакуации ООН; переориентация экономики (D6.3 = 1) — бюджет Ирана без нефтяных доходов и нормирование бензина. Военное положение/мобилизация (D6.1) и отмена мер (D6.4) в окне не подтверждены."
+    },
+    "D7": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 4: вовлечение новых государств (D7.1) — Эфиопия и Эритрея, делегация КНДР в Москве, оборонное соглашение Турции и Катара, прекращение поставок Болгарией; атаки вне театра (D7.2) — удар по базе США в Бахрейне, перехваты у Эр-Рияда, сеть в Европе. Выход третьих сторон (D7.4 = 0.67) — Болгария, пауза Трампа, отсутствие срочности у Израиля. Новый фронт (D7.3) — эфиопско-эритрейские удары есть, но подтверждение одним кластером (B) — gate-failed."
+    },
+    "D8": {
+      "level": "low",
+      "reason": "Покрыто 2 из 4: мирные договорённости (D8.2 = 0.33) — анонс саммита и посредничество без подписанного документа; наблюдение (D8.3 = 0.33) — Совет Безопасности и призывы ООН по судоходству. Снижение интенсивности (D8.4) и прекращение огня (D8.1) не подтверждены: призывы соблюдать перемирие в Газе есть, но боевые действия в окне продолжались."
+    },
+    "D9": {
+      "level": "medium",
+      "reason": "Покрыто 3 из 8: финансовая изоляция (D9.2 = 0.67) — бюджет без нефти, нормирование бензина, продажа органов; транспорт и страхование (D9.3 = 1) — мины в Ормузе, горящие танкеры, предупреждение ООН, исключение из закона Джонса; стратегическое накопление (D9.4 = 0.67) — угольный резерв Германии, $65 млрд Сингапура в золото. Медицинская подготовка, кадровые меры, информационный суверенитет и эвакуация элит (D9.6b) в окне не подтверждены двумя кластерами."
+    }
+  },
+  "rejected": []
+}
