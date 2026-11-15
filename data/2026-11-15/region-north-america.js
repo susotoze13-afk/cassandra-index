@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions["north-america"] = {
-  "index": 70,
-  "delta": 1.1,
+  "index": 65.6,
+  "delta": -3.3,
   "status": "very",
   "background": false,
   "confidence": "medium",

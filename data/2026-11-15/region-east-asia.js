@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions["east-asia"] = {
-  "index": 70,
-  "delta": 1,
+  "index": 65.9,
+  "delta": -3.1,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -58,8 +58,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
         "en": "Analysts debate whether China’s HQ-17 air defence can shield amphibious forces from Taiwanese strikes."
       },
       "why": {
-        "ru": "Военно-технический фон Тайваньского пролива (Д1.5 не покрыт — один кластер).",
-        "en": "Military-technical backdrop of the Taiwan Strait (D1.5 uncovered — single cluster)."
+        "ru": "Военно-технический фон Тайваньского пролива (Д1.5); сигнал слабый.",
+        "en": "Military-technical backdrop of the Taiwan Strait (D1.5); a weak signal."
       },
       "contribution": "low",
       "confidence": "low",

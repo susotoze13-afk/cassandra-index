@@ -44,10 +44,10 @@ const drivers = [
   {
     label: { ru: 'Ядерная сфера: пересмотр доктрины Ирана и тревога МАГАТЭ', en: 'Nuclear: Iran doctrine review and an IAEA alarm' },
     observation: {
-      ru: 'Высший клерикальный орган Ирана призвал пересмотреть ядерную доктрину, МАГАТЭ подняло тревогу из-за объекта обогащения, который никогда не инспектировало, а Нетаньяху заявил, что Иран стремится возродить программу. В окне не было публичной ядерной угрозы уровня прошлой недели — этот сигнал перенесён из недели 2026-11-08 с раскрытием в driverConfidence.',
-      en: 'Iran’s top clerical body called for a nuclear doctrine review, the IAEA raised alarm over an enrichment plant it has never inspected, and Netanyahu said Iran seeks to revive its programme. No public nuclear threat of last week’s level appeared in the window — that signal is carried over from 2026-11-08 with disclosure in driverConfidence.',
+      ru: 'Высший клерикальный орган Ирана призвал пересмотреть ядерную доктрину, МАГАТЭ подняло тревогу из-за объекта обогащения, который никогда не инспектировало, а Нетаньяху заявил, что Иран стремится возродить программу. На 19 ноября анонсирована трёхсторонняя встреча Трампа, Путина и Си в Шэньчжэне с повесткой сокращения ядерных арсеналов. В окне не было публичной ядерной угрозы уровня прошлой недели — этот сигнал перенесён из недели 2026-11-08 с раскрытием в driverConfidence.',
+      en: 'Iran’s top clerical body called for a nuclear doctrine review, the IAEA raised alarm over an enrichment plant it has never inspected, and Netanyahu said Iran seeks to revive its programme. A Trump–Putin–Xi trilateral meeting in Shenzhen on 19 November was announced with nuclear-arms reductions on the agenda. No public nuclear threat of last week’s level appeared in the window — that signal is carried over from 2026-11-08 with disclosure in driverConfidence.',
     },
-    why: { ru: 'Смена доктрины (Д2.2) и технические сигналы (Д2.3) при отсутствии эскалационной риторики (Д2.1 перенесён).', en: 'Doctrine change (D2.2) and technical signals (D2.3) with escalation rhetoric absent (D2.1 carried over).' },
+    why: { ru: 'Смена доктрины (Д2.2), технические сигналы (Д2.3) и возвращение к переговорам об арсеналах (Д2.5); эскалационная риторика — перенос (Д2.1).', en: 'Doctrine change (D2.2), technical signals (D2.3) and a return to talks on arsenals (D2.5); escalation rhetoric is carried over (D2.1).' },
     contribution: 'high',
     confidence: 'medium',
     sources: ['iranintl-doctrine-review', 'iranintl-iaea-alarm', 'reportaz-netanyahu-nuclear', 'jpost-israel-fears-strike'].map(src),
@@ -116,7 +116,7 @@ const regions = {
       why: { ru: 'Дипломатическая активность и вовлечение новых государств (Д3.4, Д7.1).', en: 'Diplomatic activity and new state involvement (D3.4, D7.1).' },
       contribution: 'medium', confidence: 'medium', sources: ['scmp-shenzhen-summit', 'tass-north-korea-moscow'].map(src) },
     { observation: { ru: 'Обсуждается способность китайской ПВО HQ-17 прикрывать морские десантные силы от ударов с Тайваня.', en: 'Analysts debate whether China’s HQ-17 air defence can shield amphibious forces from Taiwanese strikes.' },
-      why: { ru: 'Военно-технический фон Тайваньского пролива (Д1.5 не покрыт — один кластер).', en: 'Military-technical backdrop of the Taiwan Strait (D1.5 uncovered — single cluster).' },
+      why: { ru: 'Военно-технический фон Тайваньского пролива (Д1.5); сигнал слабый.', en: 'Military-technical backdrop of the Taiwan Strait (D1.5); a weak signal.' },
       contribution: 'low', confidence: 'low', sources: ['scmp-hq17-taiwan'].map(src) },
   ],
   'middle-east': [

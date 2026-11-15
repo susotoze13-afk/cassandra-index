@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions["central-asia"] = {
-  "index": 69.9,
-  "delta": 0.6,
+  "index": 65.6,
+  "delta": -3.7,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -56,7 +56,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
             "en": "UK imposes sanctions on Russia’s SIBUR; Kazakhstan could feel the impact"
           },
           "domain": "kz.kursiv.media",
-          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact",
+          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
           "publication_date": "2026-11-13",
           "accessed_date": "2026-11-15",
           "source_type": "secondary",

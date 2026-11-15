@@ -2,7 +2,7 @@
   <title id="trend-title">Cassandra Index — индекс за 12 недель (методология 4.0)</title>
   <desc id="trend-desc">Точки — опубликованный индекс по неделям; шкала 0–100 порядковая, расстояния между числами — соглашение. Точки разных версий методологии соединены отдельными линиями и между собой не сравниваются.</desc>
   <line x1="36" y1="280" x2="624" y2="280" style="stroke:var(--border, #232B36)"/>
-  <polyline points="36.0,147.4 89.5,170.8 142.9,168.2 196.4,134.4 249.8,157.8 303.3,160.4 356.7,134.4 410.2,113.6 463.6,103.2 517.1,92.8 570.5,100.6 624.0,98.0" fill="none" style="stroke:var(--accent, #58A6FF);stroke-width:2"/>
+  <polyline points="36.0,147.4 89.5,170.8 142.9,168.2 196.4,134.4 249.8,157.8 303.3,160.4 356.7,134.4 410.2,113.6 463.6,103.2 517.1,92.8 570.5,100.6 624.0,111.0" fill="none" style="stroke:var(--accent, #58A6FF);stroke-width:2"/>
   <text class="trend-axis-label" x="36.0" y="298.0" text-anchor="middle" style="fill:var(--text-secondary, #8B949E)">30.08</text>
   <circle cx="36.0" cy="147.4" r="4" style="fill:var(--accent, #58A6FF)"/>
   <text x="36.0" y="139.4" text-anchor="middle" style="fill:var(--text, #E6EDF3)">51</text>
@@ -37,6 +37,6 @@
   <circle cx="570.5" cy="100.6" r="4" style="fill:var(--accent, #58A6FF)"/>
   <text x="570.5" y="92.6" text-anchor="middle" style="fill:var(--text, #E6EDF3)">69</text>
   <text class="trend-axis-label" x="624.0" y="298.0" text-anchor="middle" style="fill:var(--text-secondary, #8B949E)">15.11</text>
-  <circle cx="624.0" cy="98.0" r="4" style="fill:var(--accent, #58A6FF)"/>
-  <text x="624.0" y="90.0" text-anchor="middle" style="fill:var(--text, #E6EDF3)">70</text>
+  <circle cx="624.0" cy="111.0" r="4" style="fill:var(--accent, #58A6FF)"/>
+  <text x="624.0" y="103.0" text-anchor="middle" style="fill:var(--text, #E6EDF3)">65</text>
 </svg>

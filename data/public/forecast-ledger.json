@@ -189,13 +189,13 @@
       "verified": true,
       "expectedCluster": "very",
       "expectedDirection": "flat",
-      "actualIndex": 70,
+      "actualIndex": 65,
       "actualCluster": "very",
-      "actualDelta": 1,
-      "actualDirection": "flat",
+      "actualDelta": -4,
+      "actualDirection": "down",
       "outcome": {
         "cluster": "hit",
-        "direction": "hit"
+        "direction": "miss"
       }
     }
   ],
@@ -207,7 +207,7 @@
         "total": 11
       },
       "direction": {
-        "hits": 3,
+        "hits": 2,
         "total": 11
       },
       "pending": {
@@ -290,6 +290,13 @@
     },
     {
       "week": "2026-11-08",
+      "kind": "baseline",
+      "field": "direction",
+      "expected": "flat",
+      "actual": "down"
+    },
+    {
+      "week": "2026-11-15",
       "kind": "baseline",
       "field": "direction",
       "expected": "flat",

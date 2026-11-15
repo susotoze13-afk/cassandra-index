@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions["ukraine-moldova"] = {
-  "index": 68.7,
-  "delta": 1.2,
+  "index": 64.5,
+  "delta": -3,
   "status": "very",
   "background": false,
   "confidence": "high",

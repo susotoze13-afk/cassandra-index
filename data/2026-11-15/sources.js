@@ -1726,6 +1726,276 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "B-state-media",
     "state_affiliated": true,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "yahoo-trump-nuclear-cuts",
+    "title": {
+      "ru": "Трамп планирует обсудить с Си и Путиным войну с Ираном и ядерное оружие",
+      "en": "Trump plans talks with Xi Jinping and Putin on Iran war and nuclear weapons"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/politics/articles/prez-trump-plans-talks-xi-164306024.html",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "sana-trump-putin-xi-nuclear",
+    "title": {
+      "ru": "Война с Ираном и ядерные арсеналы станут главными темами переговоров Трампа, Путина и Си",
+      "en": "Iran war, nuclear arms to top Trump-Putin-Xi talks in China"
+    },
+    "domain": "sana.sy",
+    "url": "https://sana.sy/en/international/2358628/",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "telesur-trump-xi-putin-nuclear",
+    "title": {
+      "ru": "Саммит Путина, Си и Трампа в Шэньчжэне: ограничение ядерных арсеналов",
+      "en": "Putin Xi Trump APEC Summit: 3 Leaders to Discuss Nuclear Limits"
+    },
+    "domain": "telesurenglish.net",
+    "url": "https://www.telesurenglish.net/putin-xi-trump-apec-summit/",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "usnews-russia-moldovan-diplomat",
+    "title": {
+      "ru": "Россия объявила молдавского дипломата нежелательным лицом в ответ на высылку",
+      "en": "Russia Declares Moldovan Diplomat Undesirable in Retaliatory Move"
+    },
+    "domain": "usnews.com",
+    "url": "https://www.usnews.com/news/world/articles/2026-11-10/russia-declares-moldovan-diplomat-undesirable-in-retaliatory-move",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-russia-moldovan-diplomat",
+    "title": {
+      "ru": "Россия вызвала молдавского посла из-за высылки дипломата",
+      "en": "Russia summons Moldovan ambassador for expulsion of diplomat"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/eurasia/russia-summons-moldovan-ambassador-for-expulsion-of-diplomat/4119521",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "straits-guatemala-emergency",
+    "title": {
+      "ru": "Гватемала ввела режим ЧП в двух департаментах после убийства законодателя",
+      "en": "Guatemala decrees state of emergency in two departments after lawmaker killed in attack"
+    },
+    "domain": "straitstimes.com",
+    "url": "https://www.straitstimes.com/world/guatemala-decrees-state-of-emergency-in-two-departments-after-lawmaker-killed-in-attack",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "sbby-guatemala-emergency",
+    "title": {
+      "ru": "Гватемала ввела чрезвычайное положение в двух департаментах после гибели законодателя",
+      "en": "Guatemala declares state of emergency in two departments after lawmaker killing"
+    },
+    "domain": "sb.by",
+    "url": "https://www.sb.by/articles/gvatemala-vvela-chrezvychaynoe-polozhenie-v-dvukh-departamentakh-posle-gibeli-zakonodatelya.html",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "yahoo-pla-medical-drone",
+    "title": {
+      "ru": "ВВС Китая создали дрон, который вводит обезболивающее раненым",
+      "en": "China's Air Force builds drone that shoots painkiller darts at wounded soldiers"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/world/articles/china-air-force-builds-drone-123000765.html",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-pla-medical-drone",
+    "title": {
+      "ru": "Китай разработал дрон для дистанционного введения лекарств раненым",
+      "en": "China develops drone capable of injecting emergency medication into wounded personnel from a distance"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1374097.shtml?id=12",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "tehrantimes-janfada-battalions",
+    "title": {
+      "ru": "В учебном центре Джавад аль-Аэмме началась трёхмесячная подготовка батальонов «Джан-Фада-йе Иран»",
+      "en": "Three-month training program for 'Jan-Fada-ye Iran' battalions begins at Javad Al-Aemmeh army base"
+    },
+    "domain": "tehrantimes.com",
+    "url": "https://www.tehrantimes.com/news/532016/Three-Month-training-program-for-Jan-Fada-ye-Iran-battalions",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "firstpost-iran-women-camp",
+    "title": {
+      "ru": "Зиплайн, стрельба и многое другое: внутри военного учебного центра для женщин в Иране",
+      "en": "Ziplining, rifle training and more: Inside Iran's military training centre for women"
+    },
+    "domain": "firstpost.com",
+    "url": "https://www.firstpost.com/explainers/ziplining-rifle-training-and-more-inside-irans-military-training-centre-for-women-14059291.html",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "nltimes-schiphol-gps-jamming",
+    "title": {
+      "ru": "Семь рейсов в Схипхол нарушены помехами GPS",
+      "en": "At least seven Schiphol-bound flights disrupted by GPS interference"
+    },
+    "domain": "nltimes.nl",
+    "url": "https://nltimes.nl/2026/11/15/video-least-seven-schiphol-bound-flights-disrupted-gps-interference",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "bgnes-nato-gps-jamming",
+    "title": {
+      "ru": "НАТО усиливает наблюдение в Чёрном море на фоне массовых помех GPS",
+      "en": "NATO Steps Up Black Sea Surveillance Amid Widespread GPS Jamming"
+    },
+    "domain": "bgnes.com",
+    "url": "https://www.bgnes.com/society/nato-steps-up-black-sea-surveillance-amid-widespread-gps-jamming",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "taipeitimes-png-office-withdrawal",
+    "title": {
+      "ru": "Тайвань начал вывод сотрудников представительства в Папуа — Новой Гвинее",
+      "en": "MOFA begins withdrawal of staff from office in PNG"
+    },
+    "domain": "taipeitimes.com",
+    "url": "https://www.taipeitimes.com/News/taiwan/archives/2026/11/11/2003867559",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-png-taipei-office",
+    "title": {
+      "ru": "Китай приветствует решение Папуа — Новой Гвинеи закрыть «экономический офис Тайбэя»",
+      "en": "China appreciates Papua New Guinea's decision to close 'Taipei Economic Office'"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1373959.shtml?id=12",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "lorient-abboudieh-reopens",
+    "title": {
+      "ru": "До 10 000 человек и 200 грузовиков в день: КПП Аббудие вновь открыт",
+      "en": "Up to 10,000 people and 200 trucks per day: Abboudieh border crossing reopens"
+    },
+    "domain": "lorientlejour.com",
+    "url": "https://today.lorientlejour.com/article/1553847/up-to-10000-people-and-200-trucks-per-day-abboudieh-border-crossing-reopens.html",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "mtv-abboudieh-reopens",
+    "title": {
+      "ru": "КПП Дабусие—Аббудие между Ливаном и Сирией вновь открыт",
+      "en": "Lebanon-Syria Dabousieh–Abboudieh border crossing has reopened"
+    },
+    "domain": "mtv.com.lb",
+    "url": "https://www.mtv.com.lb/en/news/1756599",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-lebanon-syria-crossing",
+    "title": {
+      "ru": "Ливан и Сирия открыли пограничный переход для торговли и мобильности",
+      "en": "Lebanon, Syria reopen border crossing to boost trade, mobility"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1374063.shtml",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
   }
 ];
 })();

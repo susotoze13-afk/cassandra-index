@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.global = {
-  "index": 70,
-  "delta": 1
+  "index": 65,
+  "delta": -4
 };
   s.published = "2026-11-15";
   s.through = "2026-11-15";
@@ -19,124 +19,116 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.confidence = "full";
   s.sensitivity = 0;
   s.precursor = {
-  "value": 78,
-  "signalingSubgroups": 3
+  "value": 54,
+  "signalingSubgroups": 8
 };
   s.coverageCriteria = {
-  "covered": 34,
+  "covered": 42,
   "total": 46,
   "uncovered": [
     "D2.4",
-    "D2.5",
-    "D3.1",
     "D5.4",
-    "D6.1",
     "D6.4",
-    "D8.4",
-    "D9.1",
-    "D9.5",
-    "D9.6a",
-    "D9.6b",
-    "D9.7"
+    "D8.4"
   ]
 };
   s.recalc = {
-  "at": "2026-11-15T11:42:54.539Z",
+  "at": "2026-11-15T13:47:22.184Z",
   "reason": "Еженедельный пересчёт",
-  "previous": 74,
+  "previous": 65,
   "methodologyBefore": "4.0",
   "methodologyAfter": "4.0",
   "approvedBy": "Editor-in-Chief"
 };
   s.regions = {
   "russia-belarus": {
-    "index": 70.1,
-    "delta": 1,
-    "status": "very",
-    "background": false,
-    "signals": 7
-  },
-  "ukraine-moldova": {
-    "index": 68.7,
-    "delta": 1.2,
+    "index": 65.3,
+    "delta": -3.8,
     "status": "very",
     "background": false,
     "signals": 8
   },
+  "ukraine-moldova": {
+    "index": 64.5,
+    "delta": -3,
+    "status": "very",
+    "background": false,
+    "signals": 9
+  },
   "baltic": {
-    "index": 70.4,
-    "delta": 0.8,
+    "index": 66.2,
+    "delta": -3.4,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "balkans": {
-    "index": 69.9,
-    "delta": 0.2,
+    "index": 65.5,
+    "delta": -4.2,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "eu-north-europe": {
-    "index": 69.2,
-    "delta": 0.4,
+    "index": 65.3,
+    "delta": -3.5,
     "status": "very",
     "background": false,
     "signals": 11
   },
   "south-caucasus": {
-    "index": 70.7,
-    "delta": 2,
+    "index": 66.2,
+    "delta": -2.5,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "central-asia": {
-    "index": 69.9,
-    "delta": 0.6,
+    "index": 65.6,
+    "delta": -3.7,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "east-asia": {
-    "index": 70,
-    "delta": 1,
+    "index": 65.9,
+    "delta": -3.1,
     "status": "very",
     "background": false,
     "signals": 5
   },
   "middle-east": {
-    "index": 69.9,
-    "delta": 2.4,
+    "index": 66.8,
+    "delta": -0.7,
     "status": "very",
     "background": false,
     "signals": 16
   },
   "north-america": {
-    "index": 70,
-    "delta": 1.1,
+    "index": 65.6,
+    "delta": -3.3,
     "status": "very",
     "background": false,
     "signals": 5
   },
   "south-asia": {
-    "index": 70.1,
-    "delta": 1.7,
+    "index": 65.8,
+    "delta": -2.6,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "africa": {
-    "index": 71.2,
-    "delta": 2.1,
+    "index": 67.1,
+    "delta": -2,
     "status": "very",
     "background": false,
     "signals": 5
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 70.1,
-  "delta": 1,
+  "index": 65.3,
+  "delta": -3.8,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -217,8 +209,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 68.7,
-  "delta": 1.2,
+  "index": 64.5,
+  "delta": -3,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -314,8 +306,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 70.4,
-  "delta": 0.8,
+  "index": 66.2,
+  "delta": -3.4,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -441,8 +433,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 69.9,
-  "delta": 0.2,
+  "index": 65.5,
+  "delta": -4.2,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -523,8 +515,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 69.2,
-  "delta": 0.4,
+  "index": 65.3,
+  "delta": -3.5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -620,8 +612,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 70.7,
-  "delta": 2,
+  "index": 66.2,
+  "delta": -2.5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -687,8 +679,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 69.9,
-  "delta": 0.6,
+  "index": 65.6,
+  "delta": -3.7,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -741,7 +733,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
             "en": "UK imposes sanctions on Russia’s SIBUR; Kazakhstan could feel the impact"
           },
           "domain": "kz.kursiv.media",
-          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact",
+          "url": "https://kz.kursiv.media/en/2026-11-13/engk-tank-uk-imposes-sanctions-on-russias-sibur-kazakhstan-could-feel-the-impact/",
           "publication_date": "2026-11-13",
           "accessed_date": "2026-11-15",
           "source_type": "secondary",
@@ -769,8 +761,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 70,
-  "delta": 1,
+  "index": 65.9,
+  "delta": -3.1,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -825,8 +817,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
         "en": "Analysts debate whether China’s HQ-17 air defence can shield amphibious forces from Taiwanese strikes."
       },
       "why": {
-        "ru": "Военно-технический фон Тайваньского пролива (Д1.5 не покрыт — один кластер).",
-        "en": "Military-technical backdrop of the Taiwan Strait (D1.5 uncovered — single cluster)."
+        "ru": "Военно-технический фон Тайваньского пролива (Д1.5); сигнал слабый.",
+        "en": "Military-technical backdrop of the Taiwan Strait (D1.5); a weak signal."
       },
       "contribution": "low",
       "confidence": "low",
@@ -851,8 +843,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 69.9,
-  "delta": 2.4,
+  "index": 66.8,
+  "delta": -0.7,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -993,8 +985,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 70,
-  "delta": 1.1,
+  "index": 65.6,
+  "delta": -3.3,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1105,8 +1097,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 70.1,
-  "delta": 1.7,
+  "index": 65.8,
+  "delta": -2.6,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1187,8 +1179,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 71.2,
-  "delta": 2.1,
+  "index": 67.1,
+  "delta": -2,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1341,7 +1333,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-11-15",
-    "value": 70,
+    "value": 65,
     "methodology": "4.0"
   }
 ];
@@ -1523,12 +1515,12 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       "en": "Nuclear: Iran doctrine review and an IAEA alarm"
     },
     "observation": {
-      "ru": "Высший клерикальный орган Ирана призвал пересмотреть ядерную доктрину, МАГАТЭ подняло тревогу из-за объекта обогащения, который никогда не инспектировало, а Нетаньяху заявил, что Иран стремится возродить программу. В окне не было публичной ядерной угрозы уровня прошлой недели — этот сигнал перенесён из недели 2026-11-08 с раскрытием в driverConfidence.",
-      "en": "Iran’s top clerical body called for a nuclear doctrine review, the IAEA raised alarm over an enrichment plant it has never inspected, and Netanyahu said Iran seeks to revive its programme. No public nuclear threat of last week’s level appeared in the window — that signal is carried over from 2026-11-08 with disclosure in driverConfidence."
+      "ru": "Высший клерикальный орган Ирана призвал пересмотреть ядерную доктрину, МАГАТЭ подняло тревогу из-за объекта обогащения, который никогда не инспектировало, а Нетаньяху заявил, что Иран стремится возродить программу. На 19 ноября анонсирована трёхсторонняя встреча Трампа, Путина и Си в Шэньчжэне с повесткой сокращения ядерных арсеналов. В окне не было публичной ядерной угрозы уровня прошлой недели — этот сигнал перенесён из недели 2026-11-08 с раскрытием в driverConfidence.",
+      "en": "Iran’s top clerical body called for a nuclear doctrine review, the IAEA raised alarm over an enrichment plant it has never inspected, and Netanyahu said Iran seeks to revive its programme. A Trump–Putin–Xi trilateral meeting in Shenzhen on 19 November was announced with nuclear-arms reductions on the agenda. No public nuclear threat of last week’s level appeared in the window — that signal is carried over from 2026-11-08 with disclosure in driverConfidence."
     },
     "why": {
-      "ru": "Смена доктрины (Д2.2) и технические сигналы (Д2.3) при отсутствии эскалационной риторики (Д2.1 перенесён).",
-      "en": "Doctrine change (D2.2) and technical signals (D2.3) with escalation rhetoric absent (D2.1 carried over)."
+      "ru": "Смена доктрины (Д2.2), технические сигналы (Д2.3) и возвращение к переговорам об арсеналах (Д2.5); эскалационная риторика — перенос (Д2.1).",
+      "en": "Doctrine change (D2.2), technical signals (D2.3) and a return to talks on arsenals (D2.5); escalation rhetoric is carried over (D2.1)."
     },
     "contribution": "high",
     "confidence": "medium",
@@ -3321,6 +3313,276 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "B-state-media",
     "state_affiliated": true,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "yahoo-trump-nuclear-cuts",
+    "title": {
+      "ru": "Трамп планирует обсудить с Си и Путиным войну с Ираном и ядерное оружие",
+      "en": "Trump plans talks with Xi Jinping and Putin on Iran war and nuclear weapons"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/politics/articles/prez-trump-plans-talks-xi-164306024.html",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "sana-trump-putin-xi-nuclear",
+    "title": {
+      "ru": "Война с Ираном и ядерные арсеналы станут главными темами переговоров Трампа, Путина и Си",
+      "en": "Iran war, nuclear arms to top Trump-Putin-Xi talks in China"
+    },
+    "domain": "sana.sy",
+    "url": "https://sana.sy/en/international/2358628/",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "telesur-trump-xi-putin-nuclear",
+    "title": {
+      "ru": "Саммит Путина, Си и Трампа в Шэньчжэне: ограничение ядерных арсеналов",
+      "en": "Putin Xi Trump APEC Summit: 3 Leaders to Discuss Nuclear Limits"
+    },
+    "domain": "telesurenglish.net",
+    "url": "https://www.telesurenglish.net/putin-xi-trump-apec-summit/",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "usnews-russia-moldovan-diplomat",
+    "title": {
+      "ru": "Россия объявила молдавского дипломата нежелательным лицом в ответ на высылку",
+      "en": "Russia Declares Moldovan Diplomat Undesirable in Retaliatory Move"
+    },
+    "domain": "usnews.com",
+    "url": "https://www.usnews.com/news/world/articles/2026-11-10/russia-declares-moldovan-diplomat-undesirable-in-retaliatory-move",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-russia-moldovan-diplomat",
+    "title": {
+      "ru": "Россия вызвала молдавского посла из-за высылки дипломата",
+      "en": "Russia summons Moldovan ambassador for expulsion of diplomat"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/eurasia/russia-summons-moldovan-ambassador-for-expulsion-of-diplomat/4119521",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "straits-guatemala-emergency",
+    "title": {
+      "ru": "Гватемала ввела режим ЧП в двух департаментах после убийства законодателя",
+      "en": "Guatemala decrees state of emergency in two departments after lawmaker killed in attack"
+    },
+    "domain": "straitstimes.com",
+    "url": "https://www.straitstimes.com/world/guatemala-decrees-state-of-emergency-in-two-departments-after-lawmaker-killed-in-attack",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "sbby-guatemala-emergency",
+    "title": {
+      "ru": "Гватемала ввела чрезвычайное положение в двух департаментах после гибели законодателя",
+      "en": "Guatemala declares state of emergency in two departments after lawmaker killing"
+    },
+    "domain": "sb.by",
+    "url": "https://www.sb.by/articles/gvatemala-vvela-chrezvychaynoe-polozhenie-v-dvukh-departamentakh-posle-gibeli-zakonodatelya.html",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "yahoo-pla-medical-drone",
+    "title": {
+      "ru": "ВВС Китая создали дрон, который вводит обезболивающее раненым",
+      "en": "China's Air Force builds drone that shoots painkiller darts at wounded soldiers"
+    },
+    "domain": "yahoo.com",
+    "url": "https://www.yahoo.com/news/world/articles/china-air-force-builds-drone-123000765.html",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-pla-medical-drone",
+    "title": {
+      "ru": "Китай разработал дрон для дистанционного введения лекарств раненым",
+      "en": "China develops drone capable of injecting emergency medication into wounded personnel from a distance"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1374097.shtml?id=12",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "tehrantimes-janfada-battalions",
+    "title": {
+      "ru": "В учебном центре Джавад аль-Аэмме началась трёхмесячная подготовка батальонов «Джан-Фада-йе Иран»",
+      "en": "Three-month training program for 'Jan-Fada-ye Iran' battalions begins at Javad Al-Aemmeh army base"
+    },
+    "domain": "tehrantimes.com",
+    "url": "https://www.tehrantimes.com/news/532016/Three-Month-training-program-for-Jan-Fada-ye-Iran-battalions",
+    "publication_date": "2026-11-10",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "firstpost-iran-women-camp",
+    "title": {
+      "ru": "Зиплайн, стрельба и многое другое: внутри военного учебного центра для женщин в Иране",
+      "en": "Ziplining, rifle training and more: Inside Iran's military training centre for women"
+    },
+    "domain": "firstpost.com",
+    "url": "https://www.firstpost.com/explainers/ziplining-rifle-training-and-more-inside-irans-military-training-centre-for-women-14059291.html",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "nltimes-schiphol-gps-jamming",
+    "title": {
+      "ru": "Семь рейсов в Схипхол нарушены помехами GPS",
+      "en": "At least seven Schiphol-bound flights disrupted by GPS interference"
+    },
+    "domain": "nltimes.nl",
+    "url": "https://nltimes.nl/2026/11/15/video-least-seven-schiphol-bound-flights-disrupted-gps-interference",
+    "publication_date": "2026-11-15",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "bgnes-nato-gps-jamming",
+    "title": {
+      "ru": "НАТО усиливает наблюдение в Чёрном море на фоне массовых помех GPS",
+      "en": "NATO Steps Up Black Sea Surveillance Amid Widespread GPS Jamming"
+    },
+    "domain": "bgnes.com",
+    "url": "https://www.bgnes.com/society/nato-steps-up-black-sea-surveillance-amid-widespread-gps-jamming",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "taipeitimes-png-office-withdrawal",
+    "title": {
+      "ru": "Тайвань начал вывод сотрудников представительства в Папуа — Новой Гвинее",
+      "en": "MOFA begins withdrawal of staff from office in PNG"
+    },
+    "domain": "taipeitimes.com",
+    "url": "https://www.taipeitimes.com/News/taiwan/archives/2026/11/11/2003867559",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-png-taipei-office",
+    "title": {
+      "ru": "Китай приветствует решение Папуа — Новой Гвинеи закрыть «экономический офис Тайбэя»",
+      "en": "China appreciates Papua New Guinea's decision to close 'Taipei Economic Office'"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1373959.shtml?id=12",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "lorient-abboudieh-reopens",
+    "title": {
+      "ru": "До 10 000 человек и 200 грузовиков в день: КПП Аббудие вновь открыт",
+      "en": "Up to 10,000 people and 200 trucks per day: Abboudieh border crossing reopens"
+    },
+    "domain": "lorientlejour.com",
+    "url": "https://today.lorientlejour.com/article/1553847/up-to-10000-people-and-200-trucks-per-day-abboudieh-border-crossing-reopens.html",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "mtv-abboudieh-reopens",
+    "title": {
+      "ru": "КПП Дабусие—Аббудие между Ливаном и Сирией вновь открыт",
+      "en": "Lebanon-Syria Dabousieh–Abboudieh border crossing has reopened"
+    },
+    "domain": "mtv.com.lb",
+    "url": "https://www.mtv.com.lb/en/news/1756599",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "globaltimes-lebanon-syria-crossing",
+    "title": {
+      "ru": "Ливан и Сирия открыли пограничный переход для торговли и мобильности",
+      "en": "Lebanon, Syria reopen border crossing to boost trade, mobility"
+    },
+    "domain": "globaltimes.cn",
+    "url": "https://www.globaltimes.cn/page/202611/1374063.shtml",
+    "publication_date": "2026-11-11",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
   }
 ];
   s.countries = {
@@ -3328,8 +3590,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "published": 2,
   "rows": {
     "RU": {
-      "index": 70.5,
-      "delta": 1.4,
+      "index": 66.3,
+      "delta": -2.8,
       "background": false,
       "region": "russia-belarus",
       "signals": 5,
@@ -3339,8 +3601,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 69.9,
-      "delta": 2.1,
+      "index": 65.7,
+      "delta": -2.1,
       "background": false,
       "region": "ukraine-moldova",
       "signals": 6,
@@ -3351,8 +3613,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     }
   }
 };
-  s.regions["russia-belarus"].signals = 7;
-  s.regions["ukraine-moldova"].signals = 8;
+  s.regions["russia-belarus"].signals = 8;
+  s.regions["ukraine-moldova"].signals = 9;
   s.regions["baltic"].signals = 3;
   s.regions["balkans"].signals = 2;
   s.regions["eu-north-europe"].signals = 11;

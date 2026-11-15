@@ -1,0 +1,354 @@
+{
+ "window": {
+  "from": "2026-11-09",
+  "to": "2026-11-15"
+ },
+ "fetched_at": "2026-11-15T13:35:26.353Z",
+ "stats": [
+  "D2.4 nuclear forces high alert: ok 0/0",
+  "D2.4 nuclear readiness raised: ok 0/7",
+  "D2.4 strategic forces combat readiness: ok 2/11",
+  "D2.5 nuclear de-escalation: ok 1/7",
+  "D2.5 renounce nuclear rhetoric: ok 0/0",
+  "D2.5 nuclear arms control talks: ok 8/9",
+  "D3.1 break diplomatic relations: ok 0/5",
+  "D3.1 expel diplomats embassy: ok 2/11",
+  "D3.1 close embassy recall ambassador: ok 0/5",
+  "D5.4 ease censorship media: ok 0/3",
+  "D5.4 lift propaganda restrictions: ok 0/0",
+  "D5.4 media ban lifted: ok 0/4",
+  "D6.1 martial law declared: ok 0/0",
+  "D6.1 mobilization decree: ok 0/8",
+  "D6.1 state of emergency military: ok 0/3",
+  "D6.4 demobilization announced: ok 0/1",
+  "D6.4 martial law lifted: ok 0/3",
+  "D6.4 return evacuees: ok 0/2",
+  "D9.1 military medics training: ok 3/6",
+  "D9.1 blood plasma stockpile army: ok 0/0",
+  "D9.1 field hospital deployed: ok 0/2",
+  "D9.5 conscription law change: ok 0/3",
+  "D9.5 draft age changed: ok 0/2",
+  "D9.5 military service law: ok 0/6",
+  "D9.6a internet shutdown country: ok 0/1",
+  "D9.6a internet censorship law: ok 0/8",
+  "D9.6a GPS jamming flights: ok 2/11",
+  "D9.6b embassy evacuates families: ok 0/5",
+  "D9.6b diplomats evacuated: ok 2/9",
+  "D9.6b museum evacuation: ok 1/4",
+  "D9.7 capital controls lifted: ok 0/1",
+  "D9.7 airspace reopened: ok 10/10",
+  "D9.7 statistics publication resumed: ok 0/0"
+ ],
+ "items": [
+  {
+   "crit": "D2.4",
+   "query": "strategic forces combat readiness",
+   "title": "Egypt’s defence minister inspects air base upgrades, reviews combat readiness",
+   "link": "https://english.ahram.org.eg/NewsContent/1/1237/582254/Egypt/Defence/Egypt%E2%80%99s-defence-minister-inspects-air-base-upgrade.aspx",
+   "date": "2026-11-10",
+   "desc": "Commander-in-Chief of the Armed Forces and Minister of Defence and Military Production Lieutenant General Ashraf Salem Zaher inspected development work at an air base and reviewed the combat readiness ...",
+   "source": "Ahram Online",
+   "pub": "Tue, 10 Nov 2026 16:00:00 GMT"
+  },
+  {
+   "crit": "D2.4",
+   "query": "strategic forces combat readiness",
+   "title": "Portugal Launches €82M Leopard 2A6 Tank Modernization to Restore Armored Combat Readiness.",
+   "link": "https://www.armyrecognition.com/news/army-news/2026/portugal-launches-eur82m-leopard-2a6-tank-modernization-to-restore-armored-combat-readiness",
+   "date": "2026-11-09",
+   "desc": "Restored Heavy Armored Combat Readiness: Portugal's €82.35 million Leopard 2A6 modernization aims to increase the number of operational tanks, improving t ...",
+   "source": "Army Recognition",
+   "pub": "Mon, 09 Nov 2026 03:28:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear de-escalation",
+   "title": "Nuclear arc",
+   "link": "https://www.dawn.com/news/2043200",
+   "date": "2026-11-09",
+   "desc": "LAST week, Iranian state media broadcast instructions on how citizens could stay safe in the event of a nuclear strike. The broadcast covered what people should do if caught in an atomic flash, tips ...",
+   "source": "Dawn",
+   "pub": "Mon, 09 Nov 2026 08:45:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Trump to meet Putin, Xi in China for historic nuclear arms talks",
+   "link": "https://www.upi.com/Top_News/US/2026/11/14/trump-putin-xi-nuclear-disarmament-summit/4581794700102/",
+   "date": "2026-11-14",
+   "desc": "President Donald Trump will meet presidents Vladimir Putin of Russia and Xi Jinping of China for an unprecedented nuclear disarmament summit.",
+   "source": "UPI",
+   "pub": "Sat, 14 Nov 2026 10:56:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Trump Pushes Xi on Nuclear Arms Talks as Beijing Resists US Pressure",
+   "link": "https://www.ibtimes.sg/trump-pushes-xi-nuclear-arms-talks-beijing-resists-us-pressure-96228",
+   "date": "2026-11-14",
+   "desc": "US President Donald Trump will urge Xi Jinping and Vladimir Putin to discuss nuclear-arms reductions in Shenzhen on 19 November.",
+   "source": "International Business Times Singapore",
+   "pub": "Sat, 14 Nov 2026 08:06:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Trump-Putin-Xi trilateral talks: Iran war, nuclear arms control on agenda, Ukraine unlikely to feature",
+   "link": "https://www.indiatvnews.com/news/world/trump-putin-xi-trilateral-talks-iran-war-nuclear-arms-control-on-agenda-ukraine-unlikely-to-feature-2026-11-14-1059470",
+   "date": "2026-11-14",
+   "desc": "During the trilateral talks on the sidelines of the Asia-Pacific Economic Cooperation (APEC) summit in China's Shenzhen city, Donald Trump, Xi Jinping and Vladimir Putin would hold a discussion over ...",
+   "source": "India TV News",
+   "pub": "Sat, 14 Nov 2026 08:02:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Trump to skip Jensen Huang spy allegations during China visit; nuclear arms talks with Xi, Putin on agenda",
+   "link": "https://www.msn.com/en-in/news/other/trump-to-skip-jensen-huang-spy-allegations-during-china-visit-nuclear-arms-talks-with-xi-putin-on-agenda/ar-AA2hq6Vq",
+   "date": "2026-11-14",
+   "desc": "During his upcoming visit to China, President Trump will not address allegations against former Nvidia CEO Jensen Huang related to a suspected Chinese spy.",
+   "source": "Times Now on MSN",
+   "pub": "Sat, 14 Nov 2026 02:38:19 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Putin Xi Trump APEC Summit: 3 Leaders to Discuss Nuclear Limits",
+   "link": "https://www.telesurenglish.net/putin-xi-trump-apec-summit/",
+   "date": "2026-11-14",
+   "desc": "Putin Xi Trump APEC summit in Shenzhen will address nuclear arms control, U.S.-Iran tensions, and global strategic stability.",
+   "source": "teleSUR English",
+   "pub": "Sat, 14 Nov 2026 01:31:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Prez Trump plans talks with Xi Jinping and Putin on Iran war and nuclear weapons",
+   "link": "https://www.yahoo.com/news/politics/articles/prez-trump-plans-talks-xi-164306024.html",
+   "date": "2026-11-11",
+   "desc": "US President Donald Trump says he expects to meet Xi and Putin at the Shenzhen APEC summit. China gave no details.",
+   "source": "Yahoo",
+   "pub": "Wed, 11 Nov 2026 08:43:00 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Cold War lessons for the AI age: how a US-China hotline could help stop a nuclear attack",
+   "link": "https://www.msn.com/en-xl/news/other/cold-war-lessons-for-the-ai-age-how-a-us-china-hotline-could-help-stop-a-nuclear-attack/ar-AA2hj08r",
+   "date": "2026-11-12",
+   "desc": "Warning that red lines are urgently needed to control the technology comes at a time when Washington is pushing for fresh arms control talks The United States and China should set up a dedicated ...",
+   "source": "South China Morning Post on MSN",
+   "pub": "Thu, 12 Nov 2026 07:00:10 GMT"
+  },
+  {
+   "crit": "D2.5",
+   "query": "nuclear arms control talks",
+   "title": "Iran war, nuclear arms to top Trump-Putin-Xi talks in China",
+   "link": "https://sana.sy/en/international/2358628/",
+   "date": "2026-11-14",
+   "desc": "US President Donald Trump plans to discuss the war with Iran and efforts to limit global nuclear arsenals with Russian President ...",
+   "source": "Syrian Arab News Agency",
+   "pub": "Sat, 14 Nov 2026 05:05:00 GMT"
+  },
+  {
+   "crit": "D3.1",
+   "query": "expel diplomats embassy",
+   "title": "Russia expels Moldovan diplomat in tit-for-tat move",
+   "link": "https://www.msn.com/en-us/news/world/russia-expels-moldovan-diplomat-in-tit-for-tat-move/ar-AA2hal3K",
+   "date": "2026-11-10",
+   "desc": "Relations between Moscow and Chisinau have worsened since Russia’s full-scale invasion of Ukraine in 2022.",
+   "source": "Al Jazeera on MSN",
+   "pub": "Tue, 10 Nov 2026 14:41:07 GMT"
+  },
+  {
+   "crit": "D3.1",
+   "query": "expel diplomats embassy",
+   "title": "Russia summons Moldovan ambassador for expulsion of diplomat",
+   "link": "https://www.aa.com.tr/en/eurasia/russia-summons-moldovan-ambassador-for-expulsion-of-diplomat/4119521",
+   "date": "2026-11-10",
+   "desc": "Moscow calls Chisinau's move unfriendly act, declares Moldovan Embassy staff member persona non grata in retaliation | Anadolu ...",
+   "source": "Anadolu Agency",
+   "pub": "Tue, 10 Nov 2026 15:22:00 GMT"
+  },
+  {
+   "crit": "D9.1",
+   "query": "military medics training",
+   "title": "124 Medical and Dental Officers Including 28 Women Complete Military Training at AMC Centre and College",
+   "link": "https://www.ssbcrack.com/2026/11/124-medical-and-dental-officers-including-28-women-complete-military-training-at-amc-centre-and-college.html",
+   "date": "2026-11-15",
+   "desc": "A ceremonial parade marking the completion of Medical Officers Basic Course (MOBC)-260 was held on November 14, 2026, at the Officers Training College, Army ...",
+   "source": "ssbcrack",
+   "pub": "Sun, 15 Nov 2026 05:05:00 GMT"
+  },
+  {
+   "crit": "D9.1",
+   "query": "military medics training",
+   "title": "Army nurse residency strengthens medical currency, readiness at Fort Hood",
+   "link": "https://www.army.mil/article/296763/army_nurse_residency_strengthens_medical_currency_readiness_at_fort_hood",
+   "date": "2026-11-13",
+   "desc": "Three newly commissioned Army nurses at Carl R. Darnall Army Medical Center completed a training program Nov. 2 that strengthens their “medical ...",
+   "source": "United States Army",
+   "pub": "Fri, 13 Nov 2026 12:31:00 GMT"
+  },
+  {
+   "crit": "D9.1",
+   "query": "military medics training",
+   "title": "Gov. Healey looks to close Massachusetts health care shortage with veteran military medics",
+   "link": "https://www.msn.com/en-us/news/other/gov-healey-looks-to-close-massachusetts-health-care-shortage-with-veteran-military-medics/ar-AA2haUmA",
+   "date": "2026-11-10",
+   "desc": "Veteran military medics could soon administer medications to patients at certain Massachusetts hospitals under a proposal by Gov. Maura Healey. On the eve of Veterans Day, the governor revealed plans ...",
+   "source": "Boston Herald on MSN",
+   "pub": "Tue, 10 Nov 2026 15:32:00 GMT"
+  },
+  {
+   "crit": "D9.6a",
+   "query": "GPS jamming flights",
+   "title": "Video: At least seven Schiphol-bound flights disrupted by GPS interference",
+   "link": "https://nltimes.nl/2026/11/15/video-least-seven-schiphol-bound-flights-disrupted-gps-interference",
+   "date": "2026-11-15",
+   "desc": "The GPS signals of at least seven flights were disrupted Monday as the planes approached Amsterdam’s Schiphol Airport. A spokesman for Air Traffic Control Netherlands confirmed the incidents to RTL ...",
+   "source": "NL Times",
+   "pub": "Sun, 15 Nov 2026 05:05:00 GMT"
+  },
+  {
+   "crit": "D9.6a",
+   "query": "GPS jamming flights",
+   "title": "NATO Steps Up Black Sea Surveillance Amid Widespread GPS Jamming",
+   "link": "https://www.bgnes.com/society/nato-steps-up-black-sea-surveillance-amid-widespread-gps-jamming",
+   "date": "2026-11-12",
+   "desc": "A surge in NATO reconnaissance missions over the Black Sea, including repeated deployments of Italian airborne early warning aircraft, comes amid widespread electronic ...",
+   "source": "bgnes",
+   "pub": "Thu, 12 Nov 2026 11:34:00 GMT"
+  },
+  {
+   "crit": "D9.6b",
+   "query": "diplomats evacuated",
+   "title": "Swiss Diplomat’s Wife Recovers From Ebola After Nigeria Evacuation",
+   "link": "https://ijr.com/discover/swiss-ebola-patient-recovers-discharged-in-geneva-2eeed653",
+   "date": "2026-11-13",
+   "desc": "A Ugandan-born Swiss diplomat’s wife, Nigeria’s only confirmed Ebola case, recovered from the Bundibugyo strain and was discharged from a Geneva hospital after being evacuated for treatment. Nigerian ...",
+   "source": "Independent Journal Review",
+   "pub": "Fri, 13 Nov 2026 02:46:00 GMT"
+  },
+  {
+   "crit": "D9.6b",
+   "query": "diplomats evacuated",
+   "title": "Ebola - Swiss woman evacuated from Nigeria discharged after recovery",
+   "link": "https://www.msn.com/en-xl/health/diseases-and-conditions/ebola-swiss-woman-evacuated-from-nigeria-discharged-after-recovery/ar-AA2hmnkX",
+   "date": "2026-11-13",
+   "desc": "The Uganda-born woman, and her husband, a Swiss diplomat, were evacuated from Nigeria to Switzerland on 26 October.The woman who tested positive for Ebola in Nigeria and was evacuated to Switzerland ...",
+   "source": "AllAfrica on MSN",
+   "pub": "Fri, 13 Nov 2026 03:03:03 GMT"
+  },
+  {
+   "crit": "D9.6b",
+   "query": "museum evacuation",
+   "title": "Is Henry Ford Museum open? Campus back to normal after bomb threat",
+   "link": "https://www.msn.com/en-us/news/other/is-henry-ford-museum-open-campus-back-to-normal-after-bomb-threat/ar-AA2h4kSw",
+   "date": "2026-11-09",
+   "desc": "The Henry Ford Museum in Dearborn was evacuated Saturday after a bomb threat. Operations resumed on Sunday.",
+   "source": "Detroit Free Press on MSN",
+   "pub": "Mon, 09 Nov 2026 07:20:53 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "US airspace reopens after four-hour nationwide ground stop but passengers still face lengthy delays",
+   "link": "https://www.unilad.com/news/us-news/us-airspace-reopens-after-four-hour-nationwide-ground-stop-128663-20261114",
+   "date": "2026-11-13",
+   "desc": "U.S. airspace reopened at 8:15 p.m. ET after a four-hour FAA ground stop, but over 10,000 delays and 1,400 cancellations linger ...",
+   "source": "UNILAD",
+   "pub": "Fri, 13 Nov 2026 18:40:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "US Airspace Reopens After Nationwide Flight Grounding, Delays Expected",
+   "link": "https://www.outlookindia.com/international/us-flights-resume-us-airspace-reopens-after-faa-nationwide-grounding-communications-outage-delays",
+   "date": "2026-11-14",
+   "desc": "US airspace has reopened after an FAA communications outage forced a nationwide flight grounding on Friday. Sean Duffy said air traffic control systems are operational, but passengers should expect ...",
+   "source": "Outlook India",
+   "pub": "Sat, 14 Nov 2026 02:25:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "United States Reopens Airspace; Copa Reports 18 Flights Affected and Two Returned to Panama.",
+   "link": "https://newsroompanama.com/2026/11/14/united-states-reopens-airspace-copa-reports-18-flights-affected-and-two-returned-to-panama/",
+   "date": "2026-11-13",
+   "desc": "The suspension immediately affected 18 Copa Airlines flights to and from the United States that were in progress when the order was issued, the airline reported. Panama’s Civil Aviation Authority (AAC ...",
+   "source": "Newsroom Panama",
+   "pub": "Fri, 13 Nov 2026 22:29:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "US airspace reopens after historic FAA ground stop paralyzes flights",
+   "link": "https://www.msn.com/en-in/news/other/us-airspace-reopens-after-historic-faa-ground-stop-paralyzes-flights/ar-AA2hpHJR",
+   "date": "2026-11-14",
+   "desc": "Air travel across the United States experienced unprecedented chaos on Friday after the Federal Aviation Administration (FAA) issued a rare nationwide ground stop. The sweeping order, prompted by a ...",
+   "source": "Newspoint on MSN",
+   "pub": "Sat, 14 Nov 2026 02:10:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "The United States reopens its airspace after grounding all flights for nearly four hours",
+   "link": "https://www.marca.com/en/lifestyle/us-news/2026/11/14/the-united-states-reopens-its-airspace-after-grounding-all-flights-for-nearly-four-hours.html",
+   "date": "2026-11-14",
+   "desc": "The Federal Aviation Administration (FAA) has reopened the United States airspace this Saturday after keeping all flights suspended for nearly four hours due to a technical failure in ...",
+   "source": "MARCA",
+   "pub": "Sat, 14 Nov 2026 01:19:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "FAA Reopens U.S. Airspace After Aging Equipment Triggers Nationwide Ground Stop, Secretary Duffy Requests $50 Billion For Upgrades",
+   "link": "https://thebaynet.com/faa-reopens-u-s-airspace-after-aging-equipment-triggers-nationwide-ground-stop-secretary-duffy-requests-50-billion-for-upgrades/",
+   "date": "2026-11-14",
+   "desc": "FAA reopens U.S. airspace after aging communications equipment triggers a nationwide ground stop. Duffy seeks $50 billion for modernization.",
+   "source": "The BayNet",
+   "pub": "Sat, 14 Nov 2026 02:22:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "US Reopens Airspace After Unprecedented Shutdown",
+   "link": "https://fakti.bg/en/world/1100752-us-reopens-airspace-after-unprecedented-shutdown",
+   "date": "2026-11-14",
+   "desc": "The airspace was closed for several hours due to communication problems in air traffic control systems. Thousands of flights have been canceled or delayed ...",
+   "source": "Fakti.bg",
+   "pub": "Sat, 14 Nov 2026 00:10:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "FULL: FAA ground stop: Airspace reopened, Duffy, Mullin explain data outage",
+   "link": "https://www.yahoo.com/news/videos/full-faa-ground-stop-airspace-022446341.html",
+   "date": "2026-11-13",
+   "desc": "The Federal Aviation Administration lifted a nationwide ground stop after more than four hours Friday. Transportation Secretary Sean Duffy and Homeland Security Secretary Markwayne Mullin explain ...",
+   "source": "Yahoo",
+   "pub": "Fri, 13 Nov 2026 18:24:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "US reopens airspace after nationwide flight suspension caused by system failure",
+   "link": "https://sana.sy/en/international/2358579/",
+   "date": "2026-11-14",
+   "desc": "The United States reopened its airspace to air traffic on Saturday after flights at airports across the country were suspended for ...",
+   "source": "Syrian Arab News Agency",
+   "pub": "Sat, 14 Nov 2026 02:09:00 GMT"
+  },
+  {
+   "crit": "D9.7",
+   "query": "airspace reopened",
+   "title": "Transportation Secretary Sean Duffy announces US airspace has reopened",
+   "link": "https://www.foxnews.com/video/6408364092112",
+   "date": "2026-11-12",
+   "desc": "Transportation Secretary Sean Duffy announces U.S. airspace has reopened following a nationwide FAA ground stop during a White House briefing.",
+   "source": "Fox News",
+   "pub": "Thu, 12 Nov 2026 17:38:00 GMT"
+  }
+ ]
+}
