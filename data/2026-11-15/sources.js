@@ -1996,6 +1996,96 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "B-state-media",
     "state_affiliated": true,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "eadaily-yars-silo",
+    "title": {
+      "ru": "Очередную «Ярс» загрузили в шахтную пусковую установку",
+      "en": "The Yars ballistic missile was loaded into a silo launcher"
+    },
+    "domain": "eadaily.com",
+    "url": "https://eadaily.com/en/news/2026/11/12/the-yars-ballistic-missile-was-loaded-into-a-silo-launcher",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "izvestia-yars-silo",
+    "title": {
+      "ru": "Минобороны показало загрузку комплекса «Ярс» в пусковую установку",
+      "en": "The Ministry of Defense of the Russian Federation showed footage of loading the Yars complex into the launcher"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/node/2200263",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "ap-trump-war-effectively-over",
+    "title": {
+      "ru": "Трамп: война с Ираном «фактически завершена» в военном смысле",
+      "en": "Trump after meeting with Qatari PM says he believes war with Iran is militarily 'effectively over'"
+    },
+    "domain": "apnews.com",
+    "url": "https://apnews.com/article/iran-us-war-trump-qatar-c38770b168faf5e094e96c1e1e212cff",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-trump-no-resume-war",
+    "title": {
+      "ru": "Трамп не хочет возобновлять войну с Ираном «пока что»",
+      "en": "Trump does not want to resume war with Iran 'for now': Report"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/us-israel-iran-war/trump-does-not-want-to-resume-war-with-iran-for-now-report/4124824",
+    "publication_date": "2026-11-13",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "eutoday-moscow-conscription-raids",
+    "title": {
+      "ru": "Рейды по призыву в Москве обнажают кадровую проблему Кремля",
+      "en": "Moscow's Conscription Raids Expose the Kremlin's Growing Manpower Dilemma"
+    },
+    "domain": "eutoday.net",
+    "url": "https://eutoday.net/russia-conscription-raids-moscow-mobilisation-crisis/",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "izvestia-mobilization-torture",
+    "title": {
+      "ru": "Мирошник рассказал об отправке противников мобилизации в Украине в пыточные камеры",
+      "en": "Miroshnik told about sending opponents of mobilization in Ukraine to torture chambers"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/node/2201811",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
   }
 ];
 })();

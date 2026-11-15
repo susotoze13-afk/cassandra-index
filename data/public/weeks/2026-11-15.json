@@ -16,97 +16,97 @@
     "methodology": "4.0",
     "regions_taxonomy": "2.0",
     "data_state": "published",
-    "index": 65,
-    "delta": -4,
+    "index": 64,
+    "delta": -5,
     "state": "very",
     "q": 1,
     "confidence": "full",
     "coverage_criteria": {
-      "covered": 42,
+      "covered": 46,
       "total": 46
     },
     "regions": [
       {
         "id": "russia-belarus",
-        "index": 65.3,
-        "delta": -3.8,
+        "index": 63.8,
+        "delta": -5.3,
         "background": false,
         "signals": 8
       },
       {
         "id": "ukraine-moldova",
-        "index": 64.5,
-        "delta": -3,
+        "index": 63.1,
+        "delta": -4.4,
         "background": false,
         "signals": 9
       },
       {
         "id": "baltic",
-        "index": 66.2,
-        "delta": -3.4,
+        "index": 64.4,
+        "delta": -5.2,
         "background": false,
         "signals": 3
       },
       {
         "id": "balkans",
-        "index": 65.5,
-        "delta": -4.2,
+        "index": 63.8,
+        "delta": -5.9,
         "background": false,
         "signals": 2
       },
       {
         "id": "eu-north-europe",
-        "index": 65.3,
-        "delta": -3.5,
+        "index": 64.2,
+        "delta": -4.6,
         "background": false,
         "signals": 11
       },
       {
         "id": "south-caucasus",
-        "index": 66.2,
-        "delta": -2.5,
+        "index": 64.5,
+        "delta": -4.2,
         "background": false,
         "signals": 3
       },
       {
         "id": "central-asia",
-        "index": 65.6,
-        "delta": -3.7,
+        "index": 63.9,
+        "delta": -5.4,
         "background": false,
         "signals": 2
       },
       {
         "id": "east-asia",
-        "index": 65.9,
-        "delta": -3.1,
+        "index": 64.4,
+        "delta": -4.6,
         "background": false,
         "signals": 5
       },
       {
         "id": "middle-east",
-        "index": 66.8,
-        "delta": -0.7,
+        "index": 65.2,
+        "delta": -2.3,
         "background": false,
-        "signals": 16
+        "signals": 17
       },
       {
         "id": "north-america",
-        "index": 65.6,
-        "delta": -3.3,
+        "index": 63.9,
+        "delta": -5,
         "background": false,
-        "signals": 5
+        "signals": 6
       },
       {
         "id": "south-asia",
-        "index": 65.8,
-        "delta": -2.6,
+        "index": 64.1,
+        "delta": -4.3,
         "background": false,
         "signals": 2
       },
       {
         "id": "africa",
-        "index": 67.1,
-        "delta": -2,
+        "index": 65.3,
+        "delta": -3.8,
         "background": false,
         "signals": 5
       }
@@ -154,7 +154,7 @@
           "criteria": 6,
           "total": 6
         },
-        "contribution_pp": 9.7,
+        "contribution_pp": 10.4,
         "top_criteria": [
           {
             "id": "D1.4",
@@ -197,15 +197,15 @@
           "ru": "Д2. Ядерная сигнальная активность",
           "en": "D2. Nuclear signaling activity"
         },
-        "score": 0.345,
+        "score": 0.218,
         "confidence": "high",
         "weight": 0.1175,
         "weight_effective": 0.142,
         "covered": {
-          "criteria": 4,
+          "criteria": 5,
           "total": 5
         },
-        "contribution_pp": 8.2,
+        "contribution_pp": 5.5,
         "top_criteria": [
           {
             "id": "D2.2",
@@ -215,8 +215,8 @@
             },
             "dir": "esc",
             "value": 1,
-            "contribution": 0.333,
-            "share": 0.494
+            "contribution": 0.25,
+            "share": 0.457
           },
           {
             "id": "D2.5",
@@ -227,7 +227,7 @@
             "dir": "deesc",
             "value": 0.33,
             "contribution": -0.165,
-            "share": -0.244
+            "share": -0.301
           },
           {
             "id": "D2.1",
@@ -237,8 +237,8 @@
             },
             "dir": "esc",
             "value": 0.33,
-            "contribution": 0.11,
-            "share": 0.163
+            "contribution": 0.083,
+            "share": 0.151
           }
         ]
       },
@@ -256,7 +256,7 @@
           "criteria": 5,
           "total": 5
         },
-        "contribution_pp": 1.4,
+        "contribution_pp": 1.5,
         "top_criteria": [
           {
             "id": "D3.4",
@@ -307,7 +307,7 @@
           "criteria": 6,
           "total": 6
         },
-        "contribution_pp": 11.9,
+        "contribution_pp": 12.8,
         "top_criteria": [
           {
             "id": "D4.3",
@@ -350,15 +350,15 @@
           "ru": "Д5. Информационная и киберсфера",
           "en": "D5. Information and cyber sphere"
         },
-        "score": 0.577,
+        "score": 0.412,
         "confidence": "high",
         "weight": 0.1175,
         "weight_effective": 0.142,
         "covered": {
-          "criteria": 3,
+          "criteria": 4,
           "total": 4
         },
-        "contribution_pp": 13.6,
+        "contribution_pp": 10.5,
         "top_criteria": [
           {
             "id": "D5.1",
@@ -369,7 +369,18 @@
             "dir": "esc",
             "value": 1,
             "contribution": 0.333,
-            "share": 0.578
+            "share": 0.449
+          },
+          {
+            "id": "D5.4",
+            "name": {
+              "ru": "Снижение пропаганды",
+              "en": "Easing of propaganda"
+            },
+            "dir": "deesc",
+            "value": 0.33,
+            "contribution": -0.165,
+            "share": -0.222
           },
           {
             "id": "D5.2",
@@ -380,18 +391,7 @@
             "dir": "esc",
             "value": 0.4,
             "contribution": 0.133,
-            "share": 0.231
-          },
-          {
-            "id": "D5.3",
-            "name": {
-              "ru": "Дезинформационные кампании",
-              "en": "Disinformation campaigns"
-            },
-            "dir": "esc",
-            "value": 0.33,
-            "contribution": 0.11,
-            "share": 0.191
+            "share": 0.18
           }
         ]
       },
@@ -406,10 +406,10 @@
         "weight": 0.1175,
         "weight_effective": 0.099,
         "covered": {
-          "criteria": 3,
+          "criteria": 4,
           "total": 4
         },
-        "contribution_pp": 11.1,
+        "contribution_pp": 11.8,
         "top_criteria": [
           {
             "id": "D6.3",
@@ -460,7 +460,7 @@
           "criteria": 4,
           "total": 4
         },
-        "contribution_pp": 11,
+        "contribution_pp": 11.8,
         "top_criteria": [
           {
             "id": "D7.4",
@@ -503,15 +503,15 @@
           "ru": "Д8. Подтверждённые деэскалирующие исходы",
           "en": "D8. Confirmed de-escalating outcomes"
         },
-        "score": 0.553,
+        "score": 0.415,
         "confidence": "medium",
         "weight": 0.1175,
         "weight_effective": null,
         "covered": {
-          "criteria": 3,
+          "criteria": 4,
           "total": 4
         },
-        "contribution_pp": -6.5,
+        "contribution_pp": -5.2,
         "top_criteria": [
           {
             "id": "D8.1",
@@ -521,7 +521,7 @@
             },
             "dir": "deesc",
             "value": 1,
-            "contribution": 0.333,
+            "contribution": 0.25,
             "share": 0.602
           },
           {
@@ -532,7 +532,7 @@
             },
             "dir": "deesc",
             "value": 0.33,
-            "contribution": 0.11,
+            "contribution": 0.083,
             "share": 0.199
           },
           {
@@ -543,7 +543,7 @@
             },
             "dir": "deesc",
             "value": 0.33,
-            "contribution": 0.11,
+            "contribution": 0.083,
             "share": 0.199
           }
         ]
@@ -562,7 +562,7 @@
           "criteria": 8,
           "total": 8
         },
-        "contribution_pp": 4.6,
+        "contribution_pp": 4.9,
         "top_criteria": [
           {
             "id": "D9.3",
@@ -607,28 +607,28 @@
       },
       "to": {
         "week": "2026-11-15",
-        "index": 65
+        "index": 64
       },
       "steps": [
         {
           "driver": "D1",
-          "contribution_pp": -3.4
+          "contribution_pp": -3.5
         },
         {
           "driver": "D2",
-          "contribution_pp": 4.9
+          "contribution_pp": 3.1
         },
         {
           "driver": "D3",
-          "contribution_pp": -6.6
+          "contribution_pp": -6.8
         },
         {
           "driver": "D4",
-          "contribution_pp": 2.7
+          "contribution_pp": 2.8
         },
         {
           "driver": "D5",
-          "contribution_pp": -0.8
+          "contribution_pp": -3.3
         },
         {
           "driver": "D6",
@@ -636,18 +636,18 @@
         },
         {
           "driver": "D7",
-          "contribution_pp": 4.5
+          "contribution_pp": 4.7
         },
         {
           "driver": "D8",
-          "contribution_pp": -3.2
+          "contribution_pp": -2.3
         },
         {
           "driver": "D9",
           "contribution_pp": -0.3
         }
       ],
-      "residual_pp": -0.4,
+      "residual_pp": 2,
       "residual_reason": "saturation-inertia-coverage-rounding"
     },
     "what_would_change": {
@@ -656,29 +656,15 @@
         "down": {
           "state": "danger",
           "index": 61,
-          "gap_pp": -4
+          "gap_pp": -3
         },
         "up": {
           "state": "critical",
           "index": 81,
-          "gap_pp": 16
+          "gap_pp": 17
         }
       },
       "criteria": [
-        {
-          "id": "D2.2",
-          "name": {
-            "ru": "Смена доктрины и договоров",
-            "en": "Doctrine and treaty shifts"
-          },
-          "driver": "D2",
-          "dir": "esc",
-          "value": 1,
-          "impact_pp": -5.3,
-          "effect": "down",
-          "crosses_state": true,
-          "breaks_driver": false
-        },
         {
           "id": "D5.1",
           "name": {
@@ -688,7 +674,7 @@
           "driver": "D5",
           "dir": "esc",
           "value": 1,
-          "impact_pp": -5.3,
+          "impact_pp": -5.6,
           "effect": "down",
           "crosses_state": true,
           "breaks_driver": false
@@ -702,18 +688,32 @@
           "driver": "D7",
           "dir": "esc",
           "value": 1,
-          "impact_pp": -5.3,
+          "impact_pp": -5.6,
           "effect": "down",
           "crosses_state": true,
+          "breaks_driver": false
+        },
+        {
+          "id": "D7.4",
+          "name": {
+            "ru": "Выход третьих сторон",
+            "en": "Withdrawal of third parties"
+          },
+          "driver": "D7",
+          "dir": "deesc",
+          "value": 0.67,
+          "impact_pp": 5.1,
+          "effect": "up",
+          "crosses_state": false,
           "breaks_driver": false
         }
       ],
       "method": "criterion-zeroed"
     },
     "sources": {
-      "count": 133,
+      "count": 139,
       "clusters": 4,
-      "state_affiliated": 47
+      "state_affiliated": 50
     },
     "trend": [
       {
@@ -773,7 +773,7 @@
       },
       {
         "date": "2026-11-15",
-        "value": 65,
+        "value": 64,
         "methodology": "4.0"
       }
     ]

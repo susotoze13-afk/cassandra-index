@@ -373,7 +373,26 @@
         }
       ]
     },
-    "D2.4": null,
+    "D2.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://eadaily.com/en/news/2026/11/12/the-yars-ballistic-missile-was-loaded-into-a-silo-launcher",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://iz.ru/en/node/2200263",
+          "date": "2026-11-12",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
     "D2.5": {
       "value": 0.33,
       "covered": true,
@@ -932,7 +951,30 @@
         }
       ]
     },
-    "D5.4": null,
+    "D5.4": {
+      "value": 0.33,
+      "covered": true,
+      "regions": [
+        "north-america",
+        "middle-east"
+      ],
+      "sources": [
+        {
+          "url": "https://apnews.com/article/iran-us-war-trump-qatar-c38770b168faf5e094e96c1e1e212cff",
+          "date": "2026-11-09",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/us-israel-iran-war/trump-does-not-want-to-resume-war-with-iran-for-now-report/4124824",
+          "date": "2026-11-13",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
     "D6.1": {
       "value": 0.33,
       "covered": true,
@@ -1014,7 +1056,26 @@
         }
       ]
     },
-    "D6.4": null,
+    "D6.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://eutoday.net/russia-conscription-raids-moscow-mobilisation-crisis/",
+          "date": "2026-11-09",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://iz.ru/en/node/2201811",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
     "D7.1": {
       "events": [
         1,
@@ -1307,7 +1368,26 @@
         }
       ]
     },
-    "D8.4": null,
+    "D8.4": {
+      "value": 0,
+      "covered": true,
+      "sources": [
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/12/israeli-airstrike-nasser-hospital-gaza-kills-surgeon",
+          "date": "2026-11-12",
+          "cluster": "A-mainstream",
+          "type": "secondary",
+          "state_affiliated": false
+        },
+        {
+          "url": "https://www.aa.com.tr/en/middle-east/houthi-attacks-kill-51-wound-85-in-yemen-s-taiz-over-12-days-rights-group-says/4125085",
+          "date": "2026-11-14",
+          "cluster": "B-state-media",
+          "type": "secondary",
+          "state_affiliated": true
+        }
+      ]
+    },
     "D9.1": {
       "value": 0.33,
       "covered": true,
@@ -1532,7 +1612,7 @@
     },
     "D2": {
       "level": "high",
-      "reason": "Покрыто 4 из 5: смена доктрины (D2.2 = 1) — призыв высшего клерикального органа Ирана пересмотреть доктрину; технические сигналы (D2.3 = 0.2) — тревога МАГАТЭ по неинспектированному объекту; публичные угрозы (D2.1 = 0.33) перенесены из прошлой недели с раскрытием; отход от ядерной риторики (D2.5 = 0.33) — анонс трёхсторонней встречи Трампа, Путина и Си 19 ноября с повесткой сокращения ядерных арсеналов (A + B). Перевода ядерных сил в особый режим (D2.4) в окне не подтверждено."
+      "reason": "Покрыто 5 из 5: смена доктрины (D2.2 = 1) — призыв высшего клерикального органа Ирана пересмотреть доктрину; технические сигналы (D2.3 = 0.2) — тревога МАГАТЭ по неинспектированному объекту и загрузка «Ярса» в шахтную ПУ; публичные угрозы (D2.1 = 0.33) перенесены из прошлой недели; отход от риторики (D2.5 = 0.33) — анонс ядерных переговоров Трампа, Путина и Си. Публичного повышения готовности ядерных сил (D2.4) нет: в окне — перевооружение РВСН и заявления Минобороны о боевых возможностях, это технический сигнал D2.3, поэтому D2.4 измерен нулём."
     },
     "D3": {
       "level": "high",
@@ -1544,11 +1624,11 @@
     },
     "D5": {
       "level": "high",
-      "reason": "Покрыто 3 из 4: риторика (D5.1 = 1) — угрозы базам США в Европе, угрозы убить Трампа, «полная победа»; кибероперации (D5.2) — расследование взлома во Франции, сеть из семи человек в Европе, бюллетень CISA (primary); дезинформация (D5.3 = 0.33) — взаимно исключающие версии удара по радиолокатору в Бахрейне."
+      "reason": "Покрыто 4 из 4: риторика на верхней оценке (D5.1 = 1.0) — угрозы базам США в Европе, угрозы убить Трампа, угроза Армении; кибероперации (D5.2 = 0.4) — взлом во Франции, сеть из семи человек, бюллетень CISA; дезинформация (D5.3 = 0.33) — взаимно исключающие версии удара по радиолокатору в Бахрейне; снижение военной риторики (D5.4 = 0.33) — Трамп объявил войну «фактически завершённой» и не хочет возобновлять удары «пока что», Вашингтон переходит к экономическому давлению (A + B)."
     },
     "D6": {
       "level": "medium",
-      "reason": "Покрыто 3 из 4: военная переориентация экономики (D6.3 = 1) — бюджет Ирана без нефтяных доходов и нормирование бензина; эвакуация населения (D6.2 = 0.67) — 64 тыс. из Нигерии в Нигер, 340 тыс. перемещённых в Йемене, зимняя помощь Газе; режим чрезвычайного положения (D6.1 = 0.33) — Гватемала ввела 30-дневное ЧП в Сакапе и Исабале с расширением полномочий сил безопасности после убийства законодателя и трёх полицейских (A + B). Отмены мобилизационных мер (D6.4) в окне не документировано."
+      "reason": "Покрыто 4 из 4: военная переориентация экономики (D6.3 = 1) — бюджет Ирана без нефтяных доходов и нормирование бензина; эвакуация населения (D6.2 = 0.67) — 64 тыс. из Нигерии в Нигер, 340 тыс. перемещённых в Йемене, зимняя помощь Газе; режим ЧП (D6.1 = 0.33) — Гватемала ввела 30-дневное ЧП в Сакапе и Исабале. Отмены мобилизационных мер (D6.4 = 0) нет: в окне рейды с военными повестками в Москве и сообщения о принудительной мобилизации в Украине — меры продолжаются, а не отменяются."
     },
     "D7": {
       "level": "high",
@@ -1556,19 +1636,14 @@
     },
     "D8": {
       "level": "medium",
-      "reason": "Покрыто 3 из 4: мирные договорённости (D8.2 = 0.33) — анонс саммита и посредничество без подписанного документа; наблюдение (D8.3 = 0.33) — Совет Безопасности и призывы ООН по судоходству; прекращение огня (D8.1 = 1) — перемирие Таиланд—Камбоджа соблюдается: официальный Бангкок подтвердил приверженность соглашению, Пномпень предлагает демаркацию, нарушений в окне нет (A + B). Снижение интенсивности (D8.4) не покрыто: нужен тренд ≥3 окон без нарушений."
+      "reason": "Покрыто 4 из 4: прекращение огня (D8.1 = 1.0) — перемирие Таиланд—Камбоджа соблюдается; мирные договорённости (D8.2 = 0.33) — объявленный саммит и посредничество Кушнера без подписанного документа; наблюдение и верификация (D8.3 = 0.33) — Совет Безопасности и призывы ООН. Снижения интенсивности (D8.4 = 0) нет: независимый счётчик уникальных инцидентов Д1–Д5 даёт 25 → 25 → 25 → 30 за 10-25…11-15, а режимы нарушались — удар по больнице «Насер» в Газе и атаки хуситов в Таизе."
     },
     "D9": {
       "level": "medium",
       "reason": "Покрыто 8 из 8: финансовая изоляция (D9.2 = 0.67) — бюджет без нефти, нормирование бензина, продажа органов; транспорт и страхование (D9.3 = 1) — мины в Ормузе, горящие танкеры, предупреждение ООН, исключение из закона Джонса; стратегическое накопление (D9.4 = 0.67) — резервные угольные станции Германии и $65 млрд Сингапура в золото; медицинская подготовка (D9.1 = 0.33) — дрон ВВС Китая для дистанционного введения обезболивающего раненым (A + B); кадровые и мобилизационные меры (D9.5 = 0.33) — трёхмесячная подготовка добровольческих батальонов «Джан-Фада-йе Иран» и первый военный лагерь для женщин в Тегеране (A + B); информационный суверенитет (D9.6a = 0.67) — помехи GPS у Схипхола и массовый джамминг в Чёрном море (A + B); эвакуация элит и активов (D9.6b = 0.33) — вывод всей дипломатической миссии Тайваня из Папуа — Новой Гвинеи после требования Порт-Морсби (A + B); снятие «тихих» мер (D9.7 = 0.33) — открытие КПП Аббудие между Ливаном и Сирией после двух лет закрытия из-за ударов (A + B)."
     }
   },
-  "blindReasons": {
-    "D2.4": "gate-failed",
-    "D5.4": "searched-none",
-    "D6.4": "searched-none",
-    "D8.4": "searched-none"
-  },
+  "blindReasons": {},
   "sources": [
     {
       "id": "tass-tersyanka",
@@ -3559,6 +3634,96 @@
       "domain": "globaltimes.cn",
       "url": "https://www.globaltimes.cn/page/202611/1374063.shtml",
       "publication_date": "2026-11-11",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "eadaily-yars-silo",
+      "title": {
+        "ru": "Очередную «Ярс» загрузили в шахтную пусковую установку",
+        "en": "The Yars ballistic missile was loaded into a silo launcher"
+      },
+      "domain": "eadaily.com",
+      "url": "https://eadaily.com/en/news/2026/11/12/the-yars-ballistic-missile-was-loaded-into-a-silo-launcher",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "izvestia-yars-silo",
+      "title": {
+        "ru": "Минобороны показало загрузку комплекса «Ярс» в пусковую установку",
+        "en": "The Ministry of Defense of the Russian Federation showed footage of loading the Yars complex into the launcher"
+      },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/en/node/2200263",
+      "publication_date": "2026-11-12",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "ap-trump-war-effectively-over",
+      "title": {
+        "ru": "Трамп: война с Ираном «фактически завершена» в военном смысле",
+        "en": "Trump after meeting with Qatari PM says he believes war with Iran is militarily 'effectively over'"
+      },
+      "domain": "apnews.com",
+      "url": "https://apnews.com/article/iran-us-war-trump-qatar-c38770b168faf5e094e96c1e1e212cff",
+      "publication_date": "2026-11-09",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "aa-trump-no-resume-war",
+      "title": {
+        "ru": "Трамп не хочет возобновлять войну с Ираном «пока что»",
+        "en": "Trump does not want to resume war with Iran 'for now': Report"
+      },
+      "domain": "aa.com.tr",
+      "url": "https://www.aa.com.tr/en/us-israel-iran-war/trump-does-not-want-to-resume-war-with-iran-for-now-report/4124824",
+      "publication_date": "2026-11-13",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "B-state-media",
+      "state_affiliated": true,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "eutoday-moscow-conscription-raids",
+      "title": {
+        "ru": "Рейды по призыву в Москве обнажают кадровую проблему Кремля",
+        "en": "Moscow's Conscription Raids Expose the Kremlin's Growing Manpower Dilemma"
+      },
+      "domain": "eutoday.net",
+      "url": "https://eutoday.net/russia-conscription-raids-moscow-mobilisation-crisis/",
+      "publication_date": "2026-11-09",
+      "accessed_date": "2026-11-15",
+      "source_type": "secondary",
+      "cluster_id": "A-mainstream",
+      "state_affiliated": false,
+      "origin": "collected-in-week"
+    },
+    {
+      "id": "izvestia-mobilization-torture",
+      "title": {
+        "ru": "Мирошник рассказал об отправке противников мобилизации в Украине в пыточные камеры",
+        "en": "Miroshnik told about sending opponents of mobilization in Ukraine to torture chambers"
+      },
+      "domain": "iz.ru",
+      "url": "https://iz.ru/en/node/2201811",
+      "publication_date": "2026-11-14",
       "accessed_date": "2026-11-15",
       "source_type": "secondary",
       "cluster_id": "B-state-media",

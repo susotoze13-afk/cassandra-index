@@ -3,85 +3,85 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions = {
   "russia-belarus": {
-    "index": 65.3,
-    "delta": -3.8,
+    "index": 63.8,
+    "delta": -5.3,
     "status": "very",
     "background": false,
     "signals": 8
   },
   "ukraine-moldova": {
-    "index": 64.5,
-    "delta": -3,
+    "index": 63.1,
+    "delta": -4.4,
     "status": "very",
     "background": false,
     "signals": 9
   },
   "baltic": {
-    "index": 66.2,
-    "delta": -3.4,
+    "index": 64.4,
+    "delta": -5.2,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "balkans": {
-    "index": 65.5,
-    "delta": -4.2,
+    "index": 63.8,
+    "delta": -5.9,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "eu-north-europe": {
-    "index": 65.3,
-    "delta": -3.5,
+    "index": 64.2,
+    "delta": -4.6,
     "status": "very",
     "background": false,
     "signals": 11
   },
   "south-caucasus": {
-    "index": 66.2,
-    "delta": -2.5,
+    "index": 64.5,
+    "delta": -4.2,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "central-asia": {
-    "index": 65.6,
-    "delta": -3.7,
+    "index": 63.9,
+    "delta": -5.4,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "east-asia": {
-    "index": 65.9,
-    "delta": -3.1,
+    "index": 64.4,
+    "delta": -4.6,
     "status": "very",
     "background": false,
     "signals": 5
   },
   "middle-east": {
-    "index": 66.8,
-    "delta": -0.7,
+    "index": 65.2,
+    "delta": -2.3,
     "status": "very",
     "background": false,
-    "signals": 16
+    "signals": 17
   },
   "north-america": {
-    "index": 65.6,
-    "delta": -3.3,
+    "index": 63.9,
+    "delta": -5,
     "status": "very",
     "background": false,
-    "signals": 5
+    "signals": 6
   },
   "south-asia": {
-    "index": 65.8,
-    "delta": -2.6,
+    "index": 64.1,
+    "delta": -4.3,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "africa": {
-    "index": 67.1,
-    "delta": -2,
+    "index": 65.3,
+    "delta": -3.8,
     "status": "very",
     "background": false,
     "signals": 5

@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.regions["russia-belarus"] = {
-  "index": 65.3,
-  "delta": -3.8,
+  "index": 63.8,
+  "delta": -5.3,
   "status": "very",
   "background": false,
   "confidence": "high",

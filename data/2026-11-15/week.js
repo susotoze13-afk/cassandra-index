@@ -2,8 +2,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 (function () {
   var s = window.CI_DATA.snapshots["2026-11-15"] = window.CI_DATA.snapshots["2026-11-15"] || {};
   s.global = {
-  "index": 65,
-  "delta": -4
+  "index": 64,
+  "delta": -5
 };
   s.published = "2026-11-15";
   s.through = "2026-11-15";
@@ -23,17 +23,12 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "signalingSubgroups": 8
 };
   s.coverageCriteria = {
-  "covered": 42,
+  "covered": 46,
   "total": 46,
-  "uncovered": [
-    "D2.4",
-    "D5.4",
-    "D6.4",
-    "D8.4"
-  ]
+  "uncovered": []
 };
   s.recalc = {
-  "at": "2026-11-15T13:47:22.184Z",
+  "at": "2026-11-15T14:30:17.124Z",
   "reason": "Еженедельный пересчёт",
   "previous": 65,
   "methodologyBefore": "4.0",
@@ -42,93 +37,93 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
 };
   s.regions = {
   "russia-belarus": {
-    "index": 65.3,
-    "delta": -3.8,
+    "index": 63.8,
+    "delta": -5.3,
     "status": "very",
     "background": false,
     "signals": 8
   },
   "ukraine-moldova": {
-    "index": 64.5,
-    "delta": -3,
+    "index": 63.1,
+    "delta": -4.4,
     "status": "very",
     "background": false,
     "signals": 9
   },
   "baltic": {
-    "index": 66.2,
-    "delta": -3.4,
+    "index": 64.4,
+    "delta": -5.2,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "balkans": {
-    "index": 65.5,
-    "delta": -4.2,
+    "index": 63.8,
+    "delta": -5.9,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "eu-north-europe": {
-    "index": 65.3,
-    "delta": -3.5,
+    "index": 64.2,
+    "delta": -4.6,
     "status": "very",
     "background": false,
     "signals": 11
   },
   "south-caucasus": {
-    "index": 66.2,
-    "delta": -2.5,
+    "index": 64.5,
+    "delta": -4.2,
     "status": "very",
     "background": false,
     "signals": 3
   },
   "central-asia": {
-    "index": 65.6,
-    "delta": -3.7,
+    "index": 63.9,
+    "delta": -5.4,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "east-asia": {
-    "index": 65.9,
-    "delta": -3.1,
+    "index": 64.4,
+    "delta": -4.6,
     "status": "very",
     "background": false,
     "signals": 5
   },
   "middle-east": {
-    "index": 66.8,
-    "delta": -0.7,
+    "index": 65.2,
+    "delta": -2.3,
     "status": "very",
     "background": false,
-    "signals": 16
+    "signals": 17
   },
   "north-america": {
-    "index": 65.6,
-    "delta": -3.3,
+    "index": 63.9,
+    "delta": -5,
     "status": "very",
     "background": false,
-    "signals": 5
+    "signals": 6
   },
   "south-asia": {
-    "index": 65.8,
-    "delta": -2.6,
+    "index": 64.1,
+    "delta": -4.3,
     "status": "very",
     "background": false,
     "signals": 2
   },
   "africa": {
-    "index": 67.1,
-    "delta": -2,
+    "index": 65.3,
+    "delta": -3.8,
     "status": "very",
     "background": false,
     "signals": 5
   }
 };
   s.regions["russia-belarus"] = {
-  "index": 65.3,
-  "delta": -3.8,
+  "index": 63.8,
+  "delta": -5.3,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -209,8 +204,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["ukraine-moldova"] = {
-  "index": 64.5,
-  "delta": -3,
+  "index": 63.1,
+  "delta": -4.4,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -306,8 +301,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["baltic"] = {
-  "index": 66.2,
-  "delta": -3.4,
+  "index": 64.4,
+  "delta": -5.2,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -433,8 +428,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["balkans"] = {
-  "index": 65.5,
-  "delta": -4.2,
+  "index": 63.8,
+  "delta": -5.9,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -515,8 +510,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["eu-north-europe"] = {
-  "index": 65.3,
-  "delta": -3.5,
+  "index": 64.2,
+  "delta": -4.6,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -612,8 +607,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-caucasus"] = {
-  "index": 66.2,
-  "delta": -2.5,
+  "index": 64.5,
+  "delta": -4.2,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -679,8 +674,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["central-asia"] = {
-  "index": 65.6,
-  "delta": -3.7,
+  "index": 63.9,
+  "delta": -5.4,
   "status": "very",
   "background": false,
   "confidence": "low",
@@ -761,8 +756,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["east-asia"] = {
-  "index": 65.9,
-  "delta": -3.1,
+  "index": 64.4,
+  "delta": -4.6,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -843,8 +838,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["middle-east"] = {
-  "index": 66.8,
-  "delta": -0.7,
+  "index": 65.2,
+  "delta": -2.3,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -985,8 +980,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["north-america"] = {
-  "index": 65.6,
-  "delta": -3.3,
+  "index": 63.9,
+  "delta": -5,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1097,8 +1092,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["south-asia"] = {
-  "index": 65.8,
-  "delta": -2.6,
+  "index": 64.1,
+  "delta": -4.3,
   "status": "very",
   "background": false,
   "confidence": "medium",
@@ -1179,8 +1174,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   ]
 };
   s.regions["africa"] = {
-  "index": 67.1,
-  "delta": -2,
+  "index": 65.3,
+  "delta": -3.8,
   "status": "very",
   "background": false,
   "confidence": "high",
@@ -1333,7 +1328,7 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   },
   {
     "date": "2026-11-15",
-    "value": 65,
+    "value": 64,
     "methodology": "4.0"
   }
 ];
@@ -3583,6 +3578,96 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
     "cluster_id": "B-state-media",
     "state_affiliated": true,
     "origin": "collected-in-week"
+  },
+  {
+    "id": "eadaily-yars-silo",
+    "title": {
+      "ru": "Очередную «Ярс» загрузили в шахтную пусковую установку",
+      "en": "The Yars ballistic missile was loaded into a silo launcher"
+    },
+    "domain": "eadaily.com",
+    "url": "https://eadaily.com/en/news/2026/11/12/the-yars-ballistic-missile-was-loaded-into-a-silo-launcher",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "izvestia-yars-silo",
+    "title": {
+      "ru": "Минобороны показало загрузку комплекса «Ярс» в пусковую установку",
+      "en": "The Ministry of Defense of the Russian Federation showed footage of loading the Yars complex into the launcher"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/node/2200263",
+    "publication_date": "2026-11-12",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "ap-trump-war-effectively-over",
+    "title": {
+      "ru": "Трамп: война с Ираном «фактически завершена» в военном смысле",
+      "en": "Trump after meeting with Qatari PM says he believes war with Iran is militarily 'effectively over'"
+    },
+    "domain": "apnews.com",
+    "url": "https://apnews.com/article/iran-us-war-trump-qatar-c38770b168faf5e094e96c1e1e212cff",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "aa-trump-no-resume-war",
+    "title": {
+      "ru": "Трамп не хочет возобновлять войну с Ираном «пока что»",
+      "en": "Trump does not want to resume war with Iran 'for now': Report"
+    },
+    "domain": "aa.com.tr",
+    "url": "https://www.aa.com.tr/en/us-israel-iran-war/trump-does-not-want-to-resume-war-with-iran-for-now-report/4124824",
+    "publication_date": "2026-11-13",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "eutoday-moscow-conscription-raids",
+    "title": {
+      "ru": "Рейды по призыву в Москве обнажают кадровую проблему Кремля",
+      "en": "Moscow's Conscription Raids Expose the Kremlin's Growing Manpower Dilemma"
+    },
+    "domain": "eutoday.net",
+    "url": "https://eutoday.net/russia-conscription-raids-moscow-mobilisation-crisis/",
+    "publication_date": "2026-11-09",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "A-mainstream",
+    "state_affiliated": false,
+    "origin": "collected-in-week"
+  },
+  {
+    "id": "izvestia-mobilization-torture",
+    "title": {
+      "ru": "Мирошник рассказал об отправке противников мобилизации в Украине в пыточные камеры",
+      "en": "Miroshnik told about sending opponents of mobilization in Ukraine to torture chambers"
+    },
+    "domain": "iz.ru",
+    "url": "https://iz.ru/en/node/2201811",
+    "publication_date": "2026-11-14",
+    "accessed_date": "2026-11-15",
+    "source_type": "secondary",
+    "cluster_id": "B-state-media",
+    "state_affiliated": true,
+    "origin": "collected-in-week"
   }
 ];
   s.countries = {
@@ -3590,8 +3675,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   "published": 2,
   "rows": {
     "RU": {
-      "index": 66.3,
-      "delta": -2.8,
+      "index": 64.5,
+      "delta": -4.6,
       "background": false,
       "region": "russia-belarus",
       "signals": 5,
@@ -3601,8 +3686,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
       }
     },
     "UA": {
-      "index": 65.7,
-      "delta": -2.1,
+      "index": 64,
+      "delta": -3.8,
       "background": false,
       "region": "ukraine-moldova",
       "signals": 6,
@@ -3621,8 +3706,8 @@ window.CI_DATA = window.CI_DATA || { snapshots: {}, latest: null };
   s.regions["south-caucasus"].signals = 3;
   s.regions["central-asia"].signals = 2;
   s.regions["east-asia"].signals = 5;
-  s.regions["middle-east"].signals = 16;
-  s.regions["north-america"].signals = 5;
+  s.regions["middle-east"].signals = 17;
+  s.regions["north-america"].signals = 6;
   s.regions["south-asia"].signals = 2;
   s.regions["africa"].signals = 5;
 })();
